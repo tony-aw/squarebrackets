@@ -155,8 +155,8 @@
 #' as that would defeat the purpose of locking an object. \cr \cr
 #' 
 #' 
-#' @examplesIf loadNamespace("tinytest")
-#' loadNamespace("tinytest")
+#' @examplesIf requireNamespace("tinytest")
+#' requireNamespace("tinytest")
 #' 
 #' 
 #' # the following code demonstrates how locked bindings,
