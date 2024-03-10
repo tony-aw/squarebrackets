@@ -45,7 +45,9 @@
 #' To unlock the bindings, remove the objects (see \link[base]{rm}). \cr \cr
 #'
 #'
-#' @examples
+#' @examplesIf requireNamespace("tinytest")
+#' requireNamespace("tinytest")
+#' 
 #' 
 #' x <- as.mutable_atomic(1:10)
 #' y <- x
