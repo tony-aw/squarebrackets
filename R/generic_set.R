@@ -1,0 +1,326 @@
+#' Method to Modify Subsets of a Mutable Object By Reference
+#'
+#' @description
+#' This is an S3 Method to replace or transform a subset of a
+#' \link[=squarebrackets_mutable_classes]{supported mutable object}
+#' using
+#' \link[=squarebrackets_PassByReference]{pass-by-reference}
+#' semantics. \cr \cr
+#' 
+#'
+#' @param x a \bold{variable} belonging to one of the
+#' \link[=squarebrackets_mutable_classes]{supported mutable classes}. \cr
+#' \bold{NOTE}: \cr
+#' The `sb_set()` performs in-place modification by reference; \cr
+#' therefore, similar to functions in the style of `some_function(x, ...) <- value`,
+#' the variable \bold{must actually exist as an actual variable}. \cr
+#' Thus something like `sb_set(1:10, ...)` or `sb_set(x$a, ...)` WILL NOT WORK. \cr
+#' @param i,row,col,idx,dims,rcl,filter,vars See \link{squarebrackets_indx_args}. \cr
+#' An empty index selection returns the original object unchanged. \cr
+#' @param ... further arguments passed to or from other methods.
+#' @param tf the transformation function.
+#' @param rp an object of somewhat the same type as the selected subset of \code{x},
+#' and the same same length as the selected subset of \code{x} or a length of 1.
+#' @param chkdup see \link{squarebrackets_duplicates}.
+#' @param .lapply `sb_set()` by default uses \link[base]{lapply}
+#' for lists and \link[collapse]{dapply} data.frame-like objects
+#' to compute `tf()` on every list element or data.frame column. \cr
+#' The user may supply a custom `lapply()/dapply()`-like function
+#' in this argument to use instead. \cr
+#' For example, the perform parallel transformation,
+#' the user may supply `future.apply::`\link[future.apply]{future_lapply}. \cr
+#' The supplied function must use the exact same argument convention as
+#' \link[base]{lapply},
+#' otherwise errors or unexpected behaviour may occur.
+#' 
+#' @details
+#' \bold{Transform or Replace} \cr
+#' Specifying argument `tf` will transform the subset.
+#' Specifying `rp` will replace the subset.
+#' One cannot specify both `tf` and `rp`. It's either one set or the other. \cr
+#' Note that there is no `sb_set()` method for factors: this is intentional. \cr
+#' \cr
+#' 
+#' 
+#' @returns
+#' Returns: VOID. This method modifies the object by reference. \cr
+#' Do NOT use assignment like `x <- sb_set(x, ...)`. \cr
+#' Since this function returns void, you'll just get `NULL`. \cr \cr
+#'
+#'
+#' @examples
+#' 
+#' 
+#' # mutable_atomic objects ====
+#' 
+#' gen_mat <- function() {
+#'   obj <- as.mutable_atomic(matrix(1:16, ncol = 4))
+#'   colnames(obj) <- c("a", "b", "c", "a")
+#'   return(obj)
+#' }
+#' 
+#' obj <- obj2 <- gen_mat()
+#' obj
+#' sb_set(obj, 1:3, 1:3, rp = -1:-9)
+#' obj2
+#' obj <- obj2 <- gen_mat()
+#' obj
+#' sb_set(obj, i = \(x)x<=5, rp = -1:-5)
+#' obj2
+#' obj <- obj2 <- gen_mat()
+#' obj
+#' sb_set(obj, col = "a", rp = cbind(-1:-4, -5:-8))
+#' obj2
+#' 
+#' obj <- obj2 <- gen_mat()
+#' obj
+#' sb_set(obj, 1:3, 1:3, tf = \(x) -x)
+#' obj2
+#' obj <- obj2 <- gen_mat()
+#' obj
+#' sb_set(obj, i = \(x)x<=5, tf = \(x) -x)
+#' obj2
+#' obj <- obj2 <- gen_mat()
+#' obj
+#' sb_set(obj, col = "a", tf = \(x) -x)
+#' obj2
+#' 
+#' 
+#' gen_array <- function() {
+#'   as.mutable_atomic(array(1:64, c(4,4,3)))
+#' }
+#' obj <- gen_array()
+#' obj
+#' sb_set(obj, list(1:3, 1:2, c(1, 3)), 1:3, rp = -1:-12)
+#' obj
+#' obj <- gen_array()
+#' obj
+#' sb_set(obj, i = \(x)x<=5, rp = -1:-5)
+#' obj
+#' 
+#' 
+#' #############################################################################
+#' 
+#' # data.table ====
+#' 
+#' obj <- data.table::data.table(a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10]))
+#' str(obj) # notice that columns "a" and "c" are INTEGER (`int`)
+#' sb_set(
+#'   obj, filter = ~ (a >= 2) & (c <= 17), vars = is.numeric,
+#'   tf = sqrt # WARNING: sqrt() results in `dbl`, but columns are `int`, so decimals lost
+#' )
+#' print(obj)
+#' 
+#' obj <- data.table::data.table(a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10]))
+#' obj <- sb_coe(obj, vars = is.numeric, v = as.numeric)
+#' str(obj)
+#' sb_set(obj,
+#'   filter = ~ (a >= 2) & (c <= 17), vars = is.numeric,
+#'   tf = sqrt # SAFE: coercion performed by sb_coe(); so no warnings
+#' ) 
+#' print(obj)
+#' 
+#' obj <- data.table::data.table(a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10]))
+#' str(obj) # notice that columns "a" and "c" are INTEGER (`int`)
+#' sb_set(
+#'   obj, vars = is.numeric,
+#'   tf = sqrt # SAFE: row=NULL & filter = NULL, so coercion performed
+#' )
+#' str(obj)
+#' 
+
+#' @rdname sb_set
+#' @export
+sb_set <- function(x, ...) {
+  
+  UseMethod("sb_set", x)
+}
+
+#' @rdname sb_set
+#' @export
+sb_set.default <- function(x, i, ..., rp, tf, chkdup = TRUE) {
+  
+  # error checks:
+  if(!is.mutable_atomic(x)){
+    stop("not mutable_atomic")
+  }
+  if(!missing(rp) && !missing(tf)) stop("cannot specify both `rp` and `tf`")
+  .check_bindingIsLocked(substitute(x), parent.frame(n = 1))
+  
+  # function:
+  elements <- .indx_make_element(
+    i, x, is_list = FALSE, chkdup = chkdup, inv = FALSE, abortcall = sys.call()
+  )
+  .sb_set_atomic(x, elements, rp = rp, tf = tf, abortcall = sys.call())
+  return(invisible(NULL))
+}
+
+
+
+#' @rdname sb_set
+#' @export
+sb_set.matrix <- function(x, row = NULL, col = NULL, i = NULL, ..., rp, tf, chkdup = TRUE) {
+  
+  # error checks:
+  if(!is.mutable_atomic(x)){
+    stop("not mutable_atomic")
+  }
+  if(!missing(rp) && !missing(tf)) stop("cannot specify both `rp` and `tf`")
+  .check_bindingIsLocked(substitute(x), parent.frame(n = 1))
+  
+  
+  # function:
+  if(!is.null(i)) {
+    elements <- .indx_make_element(
+      i, x, is_list = FALSE, chkdup = chkdup, inv = FALSE, abortcall = sys.call()
+    )
+    return(.sb_set_atomic(x, elements, rp = rp, tf = tf, abortcall = sys.call()))
+    
+  }
+
+
+  if(!is.null(row)) {
+    row <- .indx_make_dim(row, x,  1, chkdup = chkdup, inv = FALSE, abortcall = sys.call())
+  }
+  if(!is.null(col)) {
+    col <- .indx_make_dim(col, x,  2, chkdup = chkdup, inv = FALSE, abortcall = sys.call())
+  }
+  
+  if(.any_empty_indices(row, col)) {
+    return(invisible(NULL))
+  }
+  
+  if(is.null(row) && is.null(col)) {
+    .sb_set_atomic(x, seq_along(x), rp, tf, abortcall = sys.call())
+    return(invisible(NULL))
+  }
+  
+  .set_mat(x, row, col, rp, tf, abortcall = sys.call())
+  return(invisible(NULL))
+
+}
+
+
+#' @rdname sb_set
+#' @export
+sb_set.array <- function(
+    x, idx = NULL, dims = NULL, rcl = NULL, i = NULL, ..., rp, tf, chkdup = TRUE
+) {
+  
+  # error checks:
+  if(!is.mutable_atomic(x)){
+    stop("not mutable_atomic")
+  }
+  if(!missing(rp) && !missing(tf)) stop("cannot specify both `rp` and `tf`")
+  .check_bindingIsLocked(substitute(x), parent.frame(n = 1))
+  
+  # function:
+  if(!is.null(i)) {
+    elements <- .indx_make_element(
+      i, x, is_list = FALSE, chkdup = chkdup, inv = FALSE, abortcall = sys.call()
+    )
+    .sb_set_atomic(x, elements, rp = rp, tf = tf, abortcall = sys.call())
+    return(invisible(NULL))
+  }
+  
+  if(!is.null(rcl)) {
+    elements <- .sb3d_get_elements(
+      x, row = rcl[[1]], col = rcl[[2]], lyr = rcl[[3]], chkdup = chkdup, abortcall = sys.call()
+    )
+    .sb_set_atomic(x, elements, rp = rp, tf = tf, abortcall = sys.call())
+    return(invisible(NULL))
+  }
+
+  if(is.null(idx) && is.null(dims)) {
+    .sb_set_atomic(x, seq_along(x), rp, tf, abortcall = sys.call())
+    return(invisible(NULL))
+  }
+  
+  x.dim <- dim(x)
+  ndims <- length(x.dim)
+  .arr_check(x, idx, dims, ndims, abortcall = sys.call())
+  lst <- .arr_lst_grid(
+    x, ndims, idx, dims, chkdup = chkdup, inv = FALSE, abortcall = sys.call()
+  )
+  elements <- sub2ind(lst, x.dim, checks = FALSE)
+  
+  .sb_set_atomic(x, elements, rp = rp, tf = tf, abortcall = sys.call())
+  return(invisible(NULL))
+}
+
+
+
+#' @rdname sb_set
+#' @export
+sb_set.data.table <- function(
+    x, row = NULL, col = NULL, filter = NULL, vars = NULL,
+    ..., rp, tf, chkdup = TRUE, .lapply = lapply
+) {
+  
+  .check_args_df(x, row, col, filter, vars, abortcall = sys.call())
+  .check_bindingIsLocked(substitute(x), parent.frame(n = 1))
+  
+  if(!is.null(row)) { row <- .indx_make_tableind(
+    row, x,  1, chkdup = chkdup, inv = FALSE, abortcall = sys.call()
+  )}
+  if(!is.null(col)) { col <- .indx_make_tableind(
+    col, x,  2, chkdup = chkdup, inv = FALSE, abortcall = sys.call()
+  )}
+  
+  if(!is.null(filter)) {
+    row <- .indx_make_filter(x, filter, inv = FALSE, abortcall = sys.call())
+  }
+  if(!is.null(vars)) {
+    col <- .indx_make_vars(x, vars, inv = FALSE, abortcall = sys.call())
+  }
+  
+  if(.any_empty_indices(row, col)) {
+    return(invisible(NULL))
+  }
+  
+  if(is.null(col)) col <- collapse::seq_col(x)
+  col <- as.integer(col)
+  
+  
+  if(is.null(row)) {
+    if(!missing(tf)) {
+      if(!is.function(tf)) stop("`tf` must be a function")
+      rp <- .lapply(collapse::ss(x, j = col, check = FALSE), tf)
+    }
+    .check_rp_df(rp, abortcall = sys.call())
+    data.table::set(x, j = col, value = rp)
+  }
+  
+  if(!is.null(row)) {
+    row <- as.integer(row)
+    if(!missing(tf)) {
+      if(!is.function(tf)) stop("`tf` must be a function")
+      rp <- .lapply(collapse::ss(x, i = row, j = col, check = FALSE), tf)
+    }
+    .check_rp_df(rp, abortcall = sys.call())
+    data.table::set(x, i = row, j = col, value = rp)
+  }
+  
+  return(invisible(NULL))
+}
+
+
+#' @keywords internal
+#' @noRd
+.sb_set_atomic <- function(x, elements, rp, tf, abortcall) {
+  
+  n.i <- length(elements)
+  
+  if(n.i == 0) return(invisible(NULL))
+  
+  if(!missing(tf)) {
+    if(!is.function(tf)) stop(simpleError("`tf` must be a function", call = abortcall))
+    rp = tf(x[elements])
+  }
+  
+  .check_rp_atomic(rp, n.i, abortcall)
+  collapse::setv(x, v = as.integer(elements), R = rp, vind1 = TRUE)
+  return(invisible(NULL))
+}
+
+

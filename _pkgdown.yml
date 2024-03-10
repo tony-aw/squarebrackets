@@ -1,0 +1,57 @@
+template:
+  bootstrap: 5
+  bslib:
+    base_font: {google: "Roboto Serif"}
+    bg: "#FCF5E5"
+    fg: "#000000"
+    font_scale: 1.25
+navbar:
+  structure:
+    left:  [intro, reference, articles, tutorials, news]
+    right: [github]
+home:
+  sidebar:
+    structure: [links, license, community, citation, authors, dev, toc]
+search:
+  exclude: ['vignettes/*']
+url: https://tony-aw.github.io/subsets
+reference:
+- title: Overview Help Pages
+  contents:
+  - '`aaa0_squarebrackets`'
+  - '`aaa1_squarebrackets_immutable_classes`'
+  - '`aaa2_squarebrackets_mutable_classes`'
+  - '`aaa3_squarebrackets_indx_args`'
+  - '`aaa4_squarebrackets_duplicates`'
+  - '`aaa5_squarebrackets_PassByReference`'
+  - '`aaa6_squarebrackets_technical`'
+  - '`class_mutable_atomic`'
+- title: Generic Methods
+  contents:
+  - '`sb_x`'
+  - '`sb_rm`'
+  - '`sb_mod`'
+  - '`sb_set`'
+  - '`sb_coe`'
+  - '`sb_before`'
+  - '`sb_after`'
+  - '`sb_rec`'
+  - '`sb_currentBindings`'
+- title: Specialized Functions
+  contents:
+  - '`setapply`'
+  - '`dt`'
+  - '`sb_special`'
+- title: Helper Functions
+  contents:
+  - '`n`'
+  - '`idx_by`'
+  - '`idx_ord_v`'
+  - '`match_all`'
+  - '`seq_mlen`'
+  - '`seq_names`'
+  - '`seq_rec`'
+  - '`sub2ind`'
+- title: Misc
+  contents:
+  - '`indx_x`'

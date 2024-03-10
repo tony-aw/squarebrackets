@@ -1,0 +1,50 @@
+Package: squarebrackets
+Type: Package
+Title: Methods as an Alternative to the Square Brackets Operators
+Version: 0.0.0.9
+Date: 2024-02-21
+Authors@R: 
+    person("Tony", "Wilkes",
+           email = "tony_a_wilkes@outlook.com",
+           role = c("aut", "cre", "cph"),
+           comment = c(ORCID = "0000-0001-9498-8379"))
+Description: Methods as an alternative to the Square Brackets Operators.
+    These methods have the following properties.
+    1) Programmatically friendly.
+    2) Beginner friendly.
+    3) Class consistent.
+    4) Careful handling of names and other attributes.
+    5) Performance aware.
+    6) Supported immutable classes include
+    atomic, factor, list, (sf-) data.frame/tibble.
+    7) Supported mutable classes include
+    mutable_atomic, views of lists, and (sf-) data.table/tidytable.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LinkingTo: Rcpp
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+Suggests:
+    rlang,
+    knitr,
+    rmarkdown,
+    tinytest,
+    tinycodet,
+    abind,
+    tidytable,
+    tibble,
+    ggplot2,
+    sf,
+    future.apply,
+    stringi,
+    collections,
+    fastmap
+Depends: 
+    R (>= 4.2.0)
+Imports:
+    methods,
+    Rcpp (>= 1.0.11),
+    collapse (>= 2.0.2),
+    data.table (>= 1.14.8)
+Language: en-GB
+

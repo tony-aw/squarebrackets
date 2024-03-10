@@ -1,0 +1,11 @@
+pandoc: 3.1.1
+pkgdown: 2.0.7
+pkgdown_sha: ~
+articles:
+  a_benchmarks_x: a_benchmarks_x.html
+  Extra_Examples: Extra_Examples.html
+last_built: 2024-03-10T10:50Z
+urls:
+  reference: https://tony-aw.github.io/subsets/reference
+  article: https://tony-aw.github.io/subsets/articles
+

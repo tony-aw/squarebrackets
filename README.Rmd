@@ -1,0 +1,103 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+library(badger)
+library(knitr)
+library(squarebrackets)
+set.seed(1)
+```
+
+# squarebrackets
+
+<!-- badges: start -->
+`r badge_repostatus("WIP")`
+`r badge_lifecycle("experimental")`
+`r badge_custom("ORCID", "0000-0001-9498-8379", "green",   "https://orcid.org/0000-0001-9498-8379")`
+<!-- badges: end -->
+
+
+
+squarebrackets: Methods as an Alternative to the Square Brackets Operators
+
+
+&nbsp;
+
+## Introduction
+
+The 'squarebrackets' package provides methods to be used in situation where regular square brackets (`[`) are inconvenient.
+A few examples will be given of situations where `[` is inconvenient, and how 'squarebrackets' helps in such situations.
+
+&nbsp;
+
+Suppose you have an array `x`.
+In order to perform subset operations on `x` with `[`, you need to know how many dimensions it has.
+I.e. if `x` has 3 dimensions, one would use `x[i, j, k, drop = FALSE]` or `x[i, j, k] <- value`.
+But what if you don't know a-priori the number of dimensions `x` has. How would you do this? It's not impossible with `[`, but still rather convoluted.
+
+The 'squarebrackets' package solves this by providing methods that use name-based arguments, instead of position based arguments.
+
+&nbsp;
+
+
+The `data.frame`, `tibble`, `data.table`, and `tidytable` objects, which all inherit from class "data.frame", use slightly different rules regarding the usage of `[`.
+Especially `data.table` has **very** different rules.
+Constantly switching between these rules is annoying, and makes your code look inconsistent.
+
+The 'squarebrackets' package solves this, by using methods that are consistent across the classes `data.frame`, `tibble`, `data.table`, and `tidytable`, and their direct extensions (such as the `sf-data.table` class).
+
+&nbsp;
+
+
+'R' adheres to copy-on-modification semantics when replacing values using `[<-`. Usually this is fine. But sometimes one would like explicit control when to create a copy, and when to modify using pass-by-reference semantics.
+
+The 'squarebrackets' package provides 2 methods with explicit semantics: `sb_mod()` for modification through deep copies, and `sb_set()` for modification through pass-by-reference semantics.
+
+&nbsp;
+
+Now, to get started see `?squarebrackets_help`
+
+
+&nbsp;
+
+
+## Installing & Loading
+
+One can install 'squarebrackets' from GitHub like so:
+
+```{r eval = FALSE, echo = TRUE}
+remotes::install_github("https://github.com/tony-aw/squarebrackets")
+```
+
+Special care has been taken to make sure the function names are clear, and that the function names are unlikely to conflict with core R, the recommended R packages, the rstudioapi package, or major packages from the fastverse. So one can attach the package - thus exposing its functions to the namespace - using:
+
+```{r eval = FALSE, echo = TRUE}
+library(squarebrackets)
+```
+
+
+Should the user wish to expose specific functions from 'squarebrackets' ONLY within a specific environment, like only within a specific function, one can use the following:
+
+
+```{r eval = FALSE, echo = TRUE}
+tinycodet::import_LL("squarebrackets", selection = ... )
+```
+
+&nbsp;
+
+
+## Changelog (EXPERIMENTAL VERSIONS)
+
+First GitHub upload - Package is very much experimental.
+ 
+
+&nbsp;

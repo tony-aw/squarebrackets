@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Additional Examples</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Additional Examples</h1>
+
+
+
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(squarebrackets)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="co">#&gt; Run `?squarebrackets::subsets` to open the introduction help page of &#39;squarebrackets&#39;.</span></span></code></pre></div>
+<p> </p>
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>The function documentation of the ‘squarebrackets’ package is rich
+with examples. This article adds additional examples focussed on
+combining ‘squarebrackets’ with other packages.</p>
+<p> </p>
+</div>
+<div id="aggregate-sf-data.table" class="section level1">
+<h1>Aggregate sf-data.table</h1>
+<p>The ‘sf’ package adds data.frames/data.tables with spatial features.
+In this example, the functionality from ‘squarebrackets’ is used with an
+‘sf’ class data.table. Here a plot is created (using ‘ggplot2’, ‘ggh4x’,
+and ‘tinycodet’) from an aggregation by region of the spatial
+data.table:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">library</span>(ggh4x)</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="fu">library</span>(tinycodet)</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="co">#&gt; Warning: package &#39;tinycodet&#39; was built under R version 4.3.3</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="co">#&gt; Run `?tinycodet::tinycodet` to open the introduction help page of &#39;tinycodet&#39;.</span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="fu">import_as</span>(<span class="sc">~</span>dt., <span class="st">&quot;data.table&quot;</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="co">#&gt; Importing packages and registering methods...</span></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="co">#&gt; Done</span></span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="co">#&gt; You can now access the functions using `dt.$`</span></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="co">#&gt; For conflicts report, packages order, and other attributes, run `attr.import(dt.)`</span></span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a>x <span class="ot">&lt;-</span> sf<span class="sc">::</span><span class="fu">st_read</span>(<span class="fu">system.file</span>(<span class="st">&quot;shape/nc.shp&quot;</span>, <span class="at">package =</span> <span class="st">&quot;sf&quot;</span>))</span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="co">#&gt; Reading layer `nc&#39; from data source `D:\Programs\R-4.3.2\library\sf\shape\nc.shp&#39; using driver `ESRI Shapefile&#39;</span></span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="co">#&gt; Simple feature collection with 100 features and 14 fields</span></span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a><span class="co">#&gt; Geometry type: MULTIPOLYGON</span></span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a><span class="co">#&gt; Dimension:     XY</span></span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a><span class="co">#&gt; Bounding box:  xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965</span></span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a><span class="co">#&gt; Geodetic CRS:  NAD27</span></span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a>x <span class="ot">&lt;-</span> dt.<span class="sc">$</span><span class="fu">as.data.table</span>(x)</span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a>x<span class="sc">$</span>region <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(x<span class="sc">$</span>CNTY_ID <span class="sc">&lt;=</span> <span class="dv">2000</span>, <span class="st">&#39;high&#39;</span>, <span class="st">&#39;low&#39;</span>)</span>
+<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a>plotdat <span class="ot">&lt;-</span> <span class="fu">dt_aggregate</span>(</span>
+<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a>  x, <span class="at">SDcols =</span> <span class="st">&quot;geometry&quot;</span>, <span class="at">f =</span> sf<span class="sc">::</span>st_union, <span class="at">by =</span> <span class="st">&quot;region&quot;</span></span>
+<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a>)</span>
+<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a>geometry <span class="ot">&lt;-</span> <span class="fu">form</span>(<span class="sc">~</span>geometry)</span>
+<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a>fill <span class="ot">&lt;-</span> <span class="fu">form</span>(<span class="sc">~</span>region)</span>
+<span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a>fct <span class="ot">&lt;-</span> <span class="fu">form</span>(<span class="sc">~</span>region)</span>
+<span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a><span class="fu">ggplot</span>(plotdat, <span class="fu">aes_pro</span>(<span class="at">geometry =</span> geometry, <span class="at">fill =</span> fill)) <span class="sc">+</span> </span>
+<span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a>  <span class="fu">facet_wrap2</span>(fct, <span class="at">nrow =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb2-29"><a href="#cb2-29" tabindex="-1"></a>  <span class="fu">geom_sf</span>()</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<p> </p>
+</div>
+<div id="re-order-an-array-like-a-rubiks-cube" class="section level1">
+<h1>Re-order an array like a Rubik’s cube</h1>
+<p>The the <code>%row~%</code> and <code>%col~%</code> operators from
+‘tinycodet’ can quickly re-order elements of each row or column
+independently of other rows or columns.</p>
+<p>One can combine these operators with the <code>sb_</code> methods
+from ‘squarebrackets’ to re-order matrix slices of an array, like
+re-ordering the panels on a Rubik’s cube. By using <code>sb_set()</code>
+one can even do so by reference for better memory efficiency - which is
+exactly what will be done here.</p>
+<p>Let’s first create a mutable array:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">mutable_atomic</span>(<span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">27</span>), <span class="at">dim =</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>))</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="fu">print</span>(x)</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="co">#&gt; , , 1</span></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="co">#&gt; [1,]    9    7   25</span></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="co">#&gt; [2,]    4   19   18</span></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="co">#&gt; [3,]   13   21    1</span></span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a><span class="co">#&gt; , , 2</span></span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a><span class="co">#&gt; [1,]   12   24   23</span></span>
+<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a><span class="co">#&gt; [2,]   22    6   20</span></span>
+<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a><span class="co">#&gt; [3,]   27    8    2</span></span>
+<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a><span class="co">#&gt; , , 3</span></span>
+<span id="cb3-18"><a href="#cb3-18" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-19"><a href="#cb3-19" tabindex="-1"></a><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
+<span id="cb3-20"><a href="#cb3-20" tabindex="-1"></a><span class="co">#&gt; [1,]   14   17    3</span></span>
+<span id="cb3-21"><a href="#cb3-21" tabindex="-1"></a><span class="co">#&gt; [2,]   16   11   10</span></span>
+<span id="cb3-22"><a href="#cb3-22" tabindex="-1"></a><span class="co">#&gt; [3,]   26    5   15</span></span>
+<span id="cb3-23"><a href="#cb3-23" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-24"><a href="#cb3-24" tabindex="-1"></a><span class="co">#&gt; mutable_atomic </span></span>
+<span id="cb3-25"><a href="#cb3-25" tabindex="-1"></a><span class="co">#&gt; typeof:  integer</span></span></code></pre></div>
+<p>Now let’s numerically sort every column in all slices in this array
+by reference:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">library</span>(tinycodet)</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>) {</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="fu">sb_x</span>(x, <span class="fu">n</span>(i), <span class="dv">3</span>) <span class="sc">|&gt;</span> <span class="fu">drop</span>()</span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>  rp <span class="ot">&lt;-</span> y <span class="sc">%col~%</span> y</span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>  <span class="fu">sb_set</span>(x, <span class="fu">n</span>(i), <span class="dv">3</span>, <span class="at">rp =</span> rp)</span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>}</span></code></pre></div>
+<p>Now, let’s see if this was successful:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">print</span>(x)</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="co">#&gt; , , 1</span></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="co">#&gt; [1,]    4    7    1</span></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="co">#&gt; [2,]    9   19   18</span></span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="co">#&gt; [3,]   13   21   25</span></span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a><span class="co">#&gt; , , 2</span></span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a><span class="co">#&gt; [1,]   12    6    2</span></span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a><span class="co">#&gt; [2,]   22    8   20</span></span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a><span class="co">#&gt; [3,]   27   24   23</span></span>
+<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a><span class="co">#&gt; , , 3</span></span>
+<span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
+<span id="cb5-19"><a href="#cb5-19" tabindex="-1"></a><span class="co">#&gt; [1,]   14    5    3</span></span>
+<span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a><span class="co">#&gt; [2,]   16   11   10</span></span>
+<span id="cb5-21"><a href="#cb5-21" tabindex="-1"></a><span class="co">#&gt; [3,]   26   17   15</span></span>
+<span id="cb5-22"><a href="#cb5-22" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-23"><a href="#cb5-23" tabindex="-1"></a><span class="co">#&gt; mutable_atomic </span></span>
+<span id="cb5-24"><a href="#cb5-24" tabindex="-1"></a><span class="co">#&gt; typeof:  integer</span></span></code></pre></div>
+<p>Yes, each column in each layer has independently been sorted
+numerically.</p>
+<p>One can do the same thing with a character array; note that this time
+we use <code>stringi::stri_rank()</code> for determining the proper
+order:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">mutable_atomic</span>(<span class="fu">sample</span>(<span class="fu">c</span>(letters, <span class="fl">1e3</span>)), <span class="at">dim =</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>))</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="fu">print</span>(x)</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="co">#&gt; , , 1</span></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="co">#&gt; [1,] &quot;j&quot;  &quot;m&quot;  &quot;x&quot; </span></span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="co">#&gt; [2,] &quot;r&quot;  &quot;u&quot;  &quot;d&quot; </span></span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="co">#&gt; [3,] &quot;a&quot;  &quot;w&quot;  &quot;h&quot; </span></span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a><span class="co">#&gt; , , 2</span></span>
+<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
+<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a><span class="co">#&gt; [1,] &quot;b&quot;  &quot;v&quot;  &quot;z&quot; </span></span>
+<span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a><span class="co">#&gt; [2,] &quot;o&quot;  &quot;e&quot;  &quot;k&quot; </span></span>
+<span id="cb6-15"><a href="#cb6-15" tabindex="-1"></a><span class="co">#&gt; [3,] &quot;p&quot;  &quot;g&quot;  &quot;i&quot; </span></span>
+<span id="cb6-16"><a href="#cb6-16" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb6-17"><a href="#cb6-17" tabindex="-1"></a><span class="co">#&gt; , , 3</span></span>
+<span id="cb6-18"><a href="#cb6-18" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb6-19"><a href="#cb6-19" tabindex="-1"></a><span class="co">#&gt;      [,1]   [,2] [,3]</span></span>
+<span id="cb6-20"><a href="#cb6-20" tabindex="-1"></a><span class="co">#&gt; [1,] &quot;1000&quot; &quot;f&quot;  &quot;q&quot; </span></span>
+<span id="cb6-21"><a href="#cb6-21" tabindex="-1"></a><span class="co">#&gt; [2,] &quot;c&quot;    &quot;t&quot;  &quot;l&quot; </span></span>
+<span id="cb6-22"><a href="#cb6-22" tabindex="-1"></a><span class="co">#&gt; [3,] &quot;n&quot;    &quot;s&quot;  &quot;y&quot; </span></span>
+<span id="cb6-23"><a href="#cb6-23" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb6-24"><a href="#cb6-24" tabindex="-1"></a><span class="co">#&gt; mutable_atomic </span></span>
+<span id="cb6-25"><a href="#cb6-25" tabindex="-1"></a><span class="co">#&gt; typeof:  character</span></span>
+<span id="cb6-26"><a href="#cb6-26" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>) {</span>
+<span id="cb6-27"><a href="#cb6-27" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="fu">sb_x</span>(x, <span class="fu">n</span>(i), <span class="dv">3</span>) <span class="sc">|&gt;</span> <span class="fu">drop</span>()</span>
+<span id="cb6-28"><a href="#cb6-28" tabindex="-1"></a>  rp <span class="ot">&lt;-</span> y <span class="sc">%col~%</span> stringi<span class="sc">::</span><span class="fu">stri_rank</span>(y)</span>
+<span id="cb6-29"><a href="#cb6-29" tabindex="-1"></a>  <span class="fu">sb_set</span>(x, <span class="fu">n</span>(i), <span class="dv">3</span>, <span class="at">rp =</span> rp)</span>
+<span id="cb6-30"><a href="#cb6-30" tabindex="-1"></a>}</span>
+<span id="cb6-31"><a href="#cb6-31" tabindex="-1"></a><span class="fu">print</span>(x)</span>
+<span id="cb6-32"><a href="#cb6-32" tabindex="-1"></a><span class="co">#&gt; , , 1</span></span>
+<span id="cb6-33"><a href="#cb6-33" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb6-34"><a href="#cb6-34" tabindex="-1"></a><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
+<span id="cb6-35"><a href="#cb6-35" tabindex="-1"></a><span class="co">#&gt; [1,] &quot;a&quot;  &quot;m&quot;  &quot;d&quot; </span></span>
+<span id="cb6-36"><a href="#cb6-36" tabindex="-1"></a><span class="co">#&gt; [2,] &quot;j&quot;  &quot;u&quot;  &quot;h&quot; </span></span>
+<span id="cb6-37"><a href="#cb6-37" tabindex="-1"></a><span class="co">#&gt; [3,] &quot;r&quot;  &quot;w&quot;  &quot;x&quot; </span></span>
+<span id="cb6-38"><a href="#cb6-38" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb6-39"><a href="#cb6-39" tabindex="-1"></a><span class="co">#&gt; , , 2</span></span>
+<span id="cb6-40"><a href="#cb6-40" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb6-41"><a href="#cb6-41" tabindex="-1"></a><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
+<span id="cb6-42"><a href="#cb6-42" tabindex="-1"></a><span class="co">#&gt; [1,] &quot;b&quot;  &quot;e&quot;  &quot;i&quot; </span></span>
+<span id="cb6-43"><a href="#cb6-43" tabindex="-1"></a><span class="co">#&gt; [2,] &quot;o&quot;  &quot;g&quot;  &quot;k&quot; </span></span>
+<span id="cb6-44"><a href="#cb6-44" tabindex="-1"></a><span class="co">#&gt; [3,] &quot;p&quot;  &quot;v&quot;  &quot;z&quot; </span></span>
+<span id="cb6-45"><a href="#cb6-45" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb6-46"><a href="#cb6-46" tabindex="-1"></a><span class="co">#&gt; , , 3</span></span>
+<span id="cb6-47"><a href="#cb6-47" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb6-48"><a href="#cb6-48" tabindex="-1"></a><span class="co">#&gt;      [,1]   [,2] [,3]</span></span>
+<span id="cb6-49"><a href="#cb6-49" tabindex="-1"></a><span class="co">#&gt; [1,] &quot;1000&quot; &quot;f&quot;  &quot;l&quot; </span></span>
+<span id="cb6-50"><a href="#cb6-50" tabindex="-1"></a><span class="co">#&gt; [2,] &quot;c&quot;    &quot;s&quot;  &quot;q&quot; </span></span>
+<span id="cb6-51"><a href="#cb6-51" tabindex="-1"></a><span class="co">#&gt; [3,] &quot;n&quot;    &quot;t&quot;  &quot;y&quot; </span></span>
+<span id="cb6-52"><a href="#cb6-52" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb6-53"><a href="#cb6-53" tabindex="-1"></a><span class="co">#&gt; mutable_atomic </span></span>
+<span id="cb6-54"><a href="#cb6-54" tabindex="-1"></a><span class="co">#&gt; typeof:  character</span></span></code></pre></div>
+<p>Again: successful.</p>
+<p> </p>
+<p> </p>
+</div>
+<div id="mutate-column-of-data.table" class="section level1">
+<h1>Mutate column of data.table</h1>
+<p>We can mutate a column of a data.table by reference, by combining
+‘squarebrackets’ with <code>tinycodet::with_pro()</code>, as
+follows:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> sf<span class="sc">::</span><span class="fu">st_read</span>(<span class="fu">system.file</span>(<span class="st">&quot;shape/nc.shp&quot;</span>, <span class="at">package =</span> <span class="st">&quot;sf&quot;</span>))</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="co">#&gt; Reading layer `nc&#39; from data source `D:\Programs\R-4.3.2\library\sf\shape\nc.shp&#39; using driver `ESRI Shapefile&#39;</span></span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="co">#&gt; Simple feature collection with 100 features and 14 fields</span></span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="co">#&gt; Geometry type: MULTIPOLYGON</span></span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a><span class="co">#&gt; Dimension:     XY</span></span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a><span class="co">#&gt; Bounding box:  xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965</span></span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a><span class="co">#&gt; Geodetic CRS:  NAD27</span></span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a>x <span class="ot">&lt;-</span> dt.<span class="sc">$</span><span class="fu">as.data.table</span>(x)</span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a>myform <span class="ot">&lt;-</span> <span class="fu">form</span>(<span class="sc">~</span> PERIMETER <span class="sc">/</span> AREA)</span>
+<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a>x<span class="sc">$</span>newcolumn <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(x)</span>
+<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a>mutated <span class="ot">&lt;-</span> dt.<span class="sc">$</span><span class="fu">as.data.table</span>(<span class="fu">with_pro</span>(x, myform))</span>
+<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a><span class="fu">sb_set</span>(x, <span class="at">col =</span> <span class="st">&quot;newcolumn&quot;</span>, <span class="at">rp =</span> mutated)</span>
+<span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a><span class="fu">summary</span>(x)</span>
+<span id="cb7-16"><a href="#cb7-16" tabindex="-1"></a><span class="co">#&gt;       AREA          PERIMETER         CNTY_         CNTY_ID    </span></span>
+<span id="cb7-17"><a href="#cb7-17" tabindex="-1"></a><span class="co">#&gt;  Min.   :0.0420   Min.   :0.999   Min.   :1825   Min.   :1825  </span></span>
+<span id="cb7-18"><a href="#cb7-18" tabindex="-1"></a><span class="co">#&gt;  1st Qu.:0.0910   1st Qu.:1.324   1st Qu.:1902   1st Qu.:1902  </span></span>
+<span id="cb7-19"><a href="#cb7-19" tabindex="-1"></a><span class="co">#&gt;  Median :0.1205   Median :1.609   Median :1982   Median :1982  </span></span>
+<span id="cb7-20"><a href="#cb7-20" tabindex="-1"></a><span class="co">#&gt;  Mean   :0.1263   Mean   :1.673   Mean   :1986   Mean   :1986  </span></span>
+<span id="cb7-21"><a href="#cb7-21" tabindex="-1"></a><span class="co">#&gt;  3rd Qu.:0.1542   3rd Qu.:1.859   3rd Qu.:2067   3rd Qu.:2067  </span></span>
+<span id="cb7-22"><a href="#cb7-22" tabindex="-1"></a><span class="co">#&gt;  Max.   :0.2410   Max.   :3.640   Max.   :2241   Max.   :2241  </span></span>
+<span id="cb7-23"><a href="#cb7-23" tabindex="-1"></a><span class="co">#&gt;      NAME               FIPS               FIPSNO         CRESS_ID     </span></span>
+<span id="cb7-24"><a href="#cb7-24" tabindex="-1"></a><span class="co">#&gt;  Length:100         Length:100         Min.   :37001   Min.   :  1.00  </span></span>
+<span id="cb7-25"><a href="#cb7-25" tabindex="-1"></a><span class="co">#&gt;  Class :character   Class :character   1st Qu.:37051   1st Qu.: 25.75  </span></span>
+<span id="cb7-26"><a href="#cb7-26" tabindex="-1"></a><span class="co">#&gt;  Mode  :character   Mode  :character   Median :37100   Median : 50.50  </span></span>
+<span id="cb7-27"><a href="#cb7-27" tabindex="-1"></a><span class="co">#&gt;                                        Mean   :37100   Mean   : 50.50  </span></span>
+<span id="cb7-28"><a href="#cb7-28" tabindex="-1"></a><span class="co">#&gt;                                        3rd Qu.:37150   3rd Qu.: 75.25  </span></span>
+<span id="cb7-29"><a href="#cb7-29" tabindex="-1"></a><span class="co">#&gt;                                        Max.   :37199   Max.   :100.00  </span></span>
+<span id="cb7-30"><a href="#cb7-30" tabindex="-1"></a><span class="co">#&gt;      BIR74           SID74          NWBIR74           BIR79      </span></span>
+<span id="cb7-31"><a href="#cb7-31" tabindex="-1"></a><span class="co">#&gt;  Min.   :  248   Min.   : 0.00   Min.   :   1.0   Min.   :  319  </span></span>
+<span id="cb7-32"><a href="#cb7-32" tabindex="-1"></a><span class="co">#&gt;  1st Qu.: 1077   1st Qu.: 2.00   1st Qu.: 190.0   1st Qu.: 1336  </span></span>
+<span id="cb7-33"><a href="#cb7-33" tabindex="-1"></a><span class="co">#&gt;  Median : 2180   Median : 4.00   Median : 697.5   Median : 2636  </span></span>
+<span id="cb7-34"><a href="#cb7-34" tabindex="-1"></a><span class="co">#&gt;  Mean   : 3300   Mean   : 6.67   Mean   :1050.8   Mean   : 4224  </span></span>
+<span id="cb7-35"><a href="#cb7-35" tabindex="-1"></a><span class="co">#&gt;  3rd Qu.: 3936   3rd Qu.: 8.25   3rd Qu.:1168.5   3rd Qu.: 4889  </span></span>
+<span id="cb7-36"><a href="#cb7-36" tabindex="-1"></a><span class="co">#&gt;  Max.   :21588   Max.   :44.00   Max.   :8027.0   Max.   :30757  </span></span>
+<span id="cb7-37"><a href="#cb7-37" tabindex="-1"></a><span class="co">#&gt;      SID79          NWBIR79                 geometry     newcolumn    </span></span>
+<span id="cb7-38"><a href="#cb7-38" tabindex="-1"></a><span class="co">#&gt;  Min.   : 0.00   Min.   :    3.0   MULTIPOLYGON :100   Min.   : 8.35  </span></span>
+<span id="cb7-39"><a href="#cb7-39" tabindex="-1"></a><span class="co">#&gt;  1st Qu.: 2.00   1st Qu.:  250.5   epsg:4267    :  0   1st Qu.:11.62  </span></span>
+<span id="cb7-40"><a href="#cb7-40" tabindex="-1"></a><span class="co">#&gt;  Median : 5.00   Median :  874.5   +proj=long...:  0   Median :13.32  </span></span>
+<span id="cb7-41"><a href="#cb7-41" tabindex="-1"></a><span class="co">#&gt;  Mean   : 8.36   Mean   : 1352.8                       Mean   :14.49  </span></span>
+<span id="cb7-42"><a href="#cb7-42" tabindex="-1"></a><span class="co">#&gt;  3rd Qu.:10.25   3rd Qu.: 1406.8                       3rd Qu.:16.11  </span></span>
+<span id="cb7-43"><a href="#cb7-43" tabindex="-1"></a><span class="co">#&gt;  Max.   :57.00   Max.   :11631.0                       Max.   :42.40</span></span></code></pre></div>
+<p> </p>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
