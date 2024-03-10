@@ -53,6 +53,9 @@ See also \link{squarebrackets_PassByReference} for information regarding
 the relation between locked bindings and pass-by-reference modifications. \cr \cr
 }
 \examples{
+\dontshow{if (requireNamespace("tinytest")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+requireNamespace("tinytest")
+
 
 x <- as.mutable_atomic(1:10)
 y <- x
@@ -92,5 +95,5 @@ tinytest::expect_error( # now z is also protected
 rm(list= c("x", "y", "z")) # clean up
 
 
-
+\dontshow{\}) # examplesIf}
 }
