@@ -46,5 +46,7 @@ Imports:
     Rcpp (>= 1.0.11),
     collapse (>= 2.0.2),
     data.table (>= 1.14.8)
-Language: en-GB
+URL: https://github.com/tony-aw/squarebrackets/, https://tony-aw.github.io/squarebrackets/
+BugReports: https://github.com/tony-aw/squarebrackets/issues/
+Language: en-gb
 

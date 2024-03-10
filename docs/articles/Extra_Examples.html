@@ -51,7 +51,14 @@
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
 </form>
 
-      <ul class="navbar-nav"></ul>
+      <ul class="navbar-nav">
+<li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/tony-aw/squarebrackets/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
 
     
@@ -66,14 +73,14 @@
       <img src="" class="logo" alt=""><h1>Additional Examples</h1>
             
       
-      
+      <small class="dont-index">Source: <a href="https://github.com/tony-aw/squarebrackets/blob/HEAD/../vignettes/articles/Extra_Examples.Rmd" class="external-link"><code>../vignettes/articles/Extra_Examples.Rmd</code></a></small>
       <div class="d-none name"><code>Extra_Examples.Rmd</code></div>
     </div>
 
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">squarebrackets</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tony-aw/squarebrackets/" class="external-link">squarebrackets</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; Run `?squarebrackets::subsets` to open the introduction help page of 'squarebrackets'.</span></span></code></pre></div>
 <p> </p>
 <div class="section level2">
@@ -143,23 +150,23 @@ exactly what will be done here.</p>
 <span><span class="co">#&gt; , , 1</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
-<span><span class="co">#&gt; [1,]    8    3   21</span></span>
-<span><span class="co">#&gt; [2,]   14   18   27</span></span>
-<span><span class="co">#&gt; [3,]   22    7   17</span></span>
+<span><span class="co">#&gt; [1,]    8    2   24</span></span>
+<span><span class="co">#&gt; [2,]   23   15    6</span></span>
+<span><span class="co">#&gt; [3,]   20    3   16</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; , , 2</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
-<span><span class="co">#&gt; [1,]   20   23   12</span></span>
-<span><span class="co">#&gt; [2,]    2   15   11</span></span>
-<span><span class="co">#&gt; [3,]   10    4    5</span></span>
+<span><span class="co">#&gt; [1,]   26   19   13</span></span>
+<span><span class="co">#&gt; [2,]    9   14   27</span></span>
+<span><span class="co">#&gt; [3,]   12   17   10</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; , , 3</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
-<span><span class="co">#&gt; [1,]    6   19   24</span></span>
-<span><span class="co">#&gt; [2,]   13   26    9</span></span>
-<span><span class="co">#&gt; [3,]   25    1   16</span></span>
+<span><span class="co">#&gt; [1,]   22   21   18</span></span>
+<span><span class="co">#&gt; [2,]   25    7    4</span></span>
+<span><span class="co">#&gt; [3,]   11    5    1</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; mutable_atomic </span></span>
 <span><span class="co">#&gt; typeof:  integer</span></span></code></pre></div>
@@ -179,23 +186,23 @@ by reference:</p>
 <span><span class="co">#&gt; , , 1</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
-<span><span class="co">#&gt; [1,]    8    3   17</span></span>
-<span><span class="co">#&gt; [2,]   14    7   21</span></span>
-<span><span class="co">#&gt; [3,]   22   18   27</span></span>
+<span><span class="co">#&gt; [1,]    8    2    6</span></span>
+<span><span class="co">#&gt; [2,]   20    3   16</span></span>
+<span><span class="co">#&gt; [3,]   23   15   24</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; , , 2</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
-<span><span class="co">#&gt; [1,]    2    4    5</span></span>
-<span><span class="co">#&gt; [2,]   10   15   11</span></span>
-<span><span class="co">#&gt; [3,]   20   23   12</span></span>
+<span><span class="co">#&gt; [1,]    9   14   10</span></span>
+<span><span class="co">#&gt; [2,]   12   17   13</span></span>
+<span><span class="co">#&gt; [3,]   26   19   27</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; , , 3</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
-<span><span class="co">#&gt; [1,]    6    1    9</span></span>
-<span><span class="co">#&gt; [2,]   13   19   16</span></span>
-<span><span class="co">#&gt; [3,]   25   26   24</span></span>
+<span><span class="co">#&gt; [1,]   11    5    1</span></span>
+<span><span class="co">#&gt; [2,]   22    7    4</span></span>
+<span><span class="co">#&gt; [3,]   25   21   18</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; mutable_atomic </span></span>
 <span><span class="co">#&gt; typeof:  integer</span></span></code></pre></div>
@@ -210,23 +217,23 @@ order:</p>
 <span><span class="co">#&gt; , , 1</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
-<span><span class="co">#&gt; [1,] "x"  "l"  "d" </span></span>
-<span><span class="co">#&gt; [2,] "g"  "k"  "j" </span></span>
-<span><span class="co">#&gt; [3,] "e"  "v"  "c" </span></span>
+<span><span class="co">#&gt; [1,] "a"  "h"  "p" </span></span>
+<span><span class="co">#&gt; [2,] "z"  "f"  "u" </span></span>
+<span><span class="co">#&gt; [3,] "x"  "m"  "o" </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; , , 2</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;      [,1]   [,2] [,3]</span></span>
-<span><span class="co">#&gt; [1,] "s"    "n"  "z" </span></span>
-<span><span class="co">#&gt; [2,] "u"    "w"  "p" </span></span>
-<span><span class="co">#&gt; [3,] "1000" "o"  "b" </span></span>
+<span><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
+<span><span class="co">#&gt; [1,] "e"  "d"  "k" </span></span>
+<span><span class="co">#&gt; [2,] "t"  "n"  "c" </span></span>
+<span><span class="co">#&gt; [3,] "j"  "r"  "w" </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; , , 3</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
-<span><span class="co">#&gt; [1,] "i"  "m"  "t" </span></span>
-<span><span class="co">#&gt; [2,] "f"  "r"  "a" </span></span>
-<span><span class="co">#&gt; [3,] "y"  "h"  "q" </span></span>
+<span><span class="co">#&gt;      [,1] [,2]   [,3]</span></span>
+<span><span class="co">#&gt; [1,] "y"  "b"    "s" </span></span>
+<span><span class="co">#&gt; [2,] "v"  "1000" "l" </span></span>
+<span><span class="co">#&gt; [3,] "g"  "i"    "q" </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; mutable_atomic </span></span>
 <span><span class="co">#&gt; typeof:  character</span></span>
@@ -239,23 +246,23 @@ order:</p>
 <span><span class="co">#&gt; , , 1</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
-<span><span class="co">#&gt; [1,] "e"  "k"  "c" </span></span>
-<span><span class="co">#&gt; [2,] "g"  "l"  "d" </span></span>
-<span><span class="co">#&gt; [3,] "x"  "v"  "j" </span></span>
+<span><span class="co">#&gt; [1,] "a"  "f"  "o" </span></span>
+<span><span class="co">#&gt; [2,] "x"  "h"  "p" </span></span>
+<span><span class="co">#&gt; [3,] "z"  "m"  "u" </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; , , 2</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;      [,1]   [,2] [,3]</span></span>
-<span><span class="co">#&gt; [1,] "1000" "n"  "b" </span></span>
-<span><span class="co">#&gt; [2,] "s"    "o"  "p" </span></span>
-<span><span class="co">#&gt; [3,] "u"    "w"  "z" </span></span>
+<span><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
+<span><span class="co">#&gt; [1,] "e"  "d"  "c" </span></span>
+<span><span class="co">#&gt; [2,] "j"  "n"  "k" </span></span>
+<span><span class="co">#&gt; [3,] "t"  "r"  "w" </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; , , 3</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
-<span><span class="co">#&gt; [1,] "f"  "h"  "a" </span></span>
-<span><span class="co">#&gt; [2,] "i"  "m"  "q" </span></span>
-<span><span class="co">#&gt; [3,] "y"  "r"  "t" </span></span>
+<span><span class="co">#&gt;      [,1] [,2]   [,3]</span></span>
+<span><span class="co">#&gt; [1,] "g"  "1000" "l" </span></span>
+<span><span class="co">#&gt; [2,] "v"  "b"    "q" </span></span>
+<span><span class="co">#&gt; [3,] "y"  "i"    "s" </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; mutable_atomic </span></span>
 <span><span class="co">#&gt; typeof:  character</span></span></code></pre></div>

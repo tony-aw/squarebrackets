@@ -14,7 +14,7 @@ home:
     structure: [links, license, community, citation, authors, dev, toc]
 search:
   exclude: ['vignettes/*']
-url: https://tony-aw.github.io/subsets
+url: https://tony-aw.github.io/squarebrackets
 reference:
 - title: Overview Help Pages
   contents:

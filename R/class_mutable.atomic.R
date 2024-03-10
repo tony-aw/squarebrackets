@@ -175,7 +175,13 @@ print.mutable_atomic <- function(x, ...) {
       return(.rcpp_address(x))
     }
   }
-  lst <- eapply(baseenv(), tempfun, all.names = FALSE)
+  lst <- eapply(baseenv(), tempfun, all.names = TRUE, USE.NAMES = TRUE)
   lst <- lst[sapply(lst, \(x)!is.null(x))]
+  protected_bnds <- sapply(
+    names(lst), \(x) bindingIsLocked(x, env = baseenv()) || bindingIsActive(x, env = baseenv())
+  )
+  lst <- lst[protected_bnds]
+  lst <- lst[!names(lst) %in% c(".Last.value", "Last.value")]
+  
   return(unlist(lst))
 }

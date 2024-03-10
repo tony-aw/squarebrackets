@@ -61,7 +61,13 @@ the relation between locked bindings and pass-by-reference modifications.  '><!-
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
-      <ul class="navbar-nav"></ul></div>
+      <ul class="navbar-nav"><li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/tony-aw/squarebrackets/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul></div>
 
     
   </div>
@@ -69,7 +75,7 @@ the relation between locked bindings and pass-by-reference modifications.  '><!-
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>List or Lock All Currently Existing Bindings Pointing To Same Address</h1>
-      
+      <small class="dont-index">Source: <a href="https://github.com/tony-aw/squarebrackets/blob/HEAD/R/generic_currentBindings.R" class="external-link"><code>R/generic_currentBindings.R</code></a></small>
       <div class="d-none name"><code>sb_currentBindings.Rd</code></div>
     </div>
 
@@ -155,15 +161,17 @@ locked (<code>TRUE</code>) or not locked (<code>FALSE</code>). <br></p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"tinytest"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="class_mutable_atomic.html">as.mutable_atomic</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">x</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/bindenv.html" class="external-link">lockBinding</a></span><span class="op">(</span><span class="st">"y"</span>, <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">sb_currentBindings</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> searching environment: &lt;000002990b87e9b8&gt;</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> searching environment: &lt;000001d262951568&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "x" "y"</span>
 <span class="r-in"><span><span class="fu">sb_currentBindings</span><span class="op">(</span><span class="va">x</span>, <span class="st">"checklock"</span><span class="op">)</span> <span class="co"># only y is locked</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> searching environment: &lt;000002990b87e9b8&gt;</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> searching environment: &lt;000001d262951568&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     x     y </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> FALSE  TRUE </span>
 <span class="r-in"><span></span></span>
@@ -180,9 +188,9 @@ locked (<code>TRUE</code>) or not locked (<code>FALSE</code>). <br></p>
 <span class="r-in"><span><span class="co"># one can fix this by locking ALL bindings:</span></span></span>
 <span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">x</span></span></span>
 <span class="r-in"><span><span class="fu">sb_currentBindings</span><span class="op">(</span><span class="va">x</span>, <span class="st">"lockbindings"</span><span class="op">)</span> <span class="co"># lock all</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> searching environment: &lt;000002990b87e9b8&gt;</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> searching environment: &lt;000001d262951568&gt;</span>
 <span class="r-in"><span><span class="fu">sb_currentBindings</span><span class="op">(</span><span class="va">x</span>, <span class="st">"checklock"</span><span class="op">)</span> <span class="co"># all bindings are locked, including y</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> searching environment: &lt;000002990b87e9b8&gt;</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> searching environment: &lt;000001d262951568&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    x    y </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> TRUE TRUE </span>
 <span class="r-in"><span><span class="co"># the 'squarebrackets' package respects the lock of a binding,</span></span></span>
@@ -198,13 +206,13 @@ locked (<code>TRUE</code>) or not locked (<code>FALSE</code>). <br></p>
 <span class="r-in"><span><span class="co"># creating a new variable will NOT automatically be locked:</span></span></span>
 <span class="r-in"><span><span class="va">z</span> <span class="op">&lt;-</span> <span class="va">y</span> <span class="co"># new variable; will not be locked!</span></span></span>
 <span class="r-in"><span><span class="fu">sb_currentBindings</span><span class="op">(</span><span class="va">x</span>, <span class="st">"checklock"</span><span class="op">)</span> <span class="co"># z is not locked</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> searching environment: &lt;000002990b87e9b8&gt;</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> searching environment: &lt;000001d262951568&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     x     y     z </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  TRUE  TRUE FALSE </span>
 <span class="r-in"><span><span class="fu">sb_currentBindings</span><span class="op">(</span><span class="va">x</span>, <span class="st">"lockbindings"</span><span class="op">)</span> <span class="co"># we must re-run this</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> searching environment: &lt;000002990b87e9b8&gt;</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> searching environment: &lt;000001d262951568&gt;</span>
 <span class="r-in"><span><span class="fu">sb_currentBindings</span><span class="op">(</span><span class="va">x</span>, <span class="st">"checklock"</span><span class="op">)</span> <span class="co"># now z is also locked</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> searching environment: &lt;000002990b87e9b8&gt;</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> searching environment: &lt;000001d262951568&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    x    y    z </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> TRUE TRUE TRUE </span>
 <span class="r-in"><span><span class="fu">tinytest</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tinytest/man/expect_equal.html" class="external-link">expect_error</a></span><span class="op">(</span> <span class="co"># now z is also protected</span></span></span>
@@ -215,7 +223,6 @@ locked (<code>TRUE</code>) or not locked (<code>FALSE</code>). <br></p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  call| eval(expr, envir, enclos) </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span>list<span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"z"</span><span class="op">)</span><span class="op">)</span> <span class="co"># clean up</span></span></span>
-<span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

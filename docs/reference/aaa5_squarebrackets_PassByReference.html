@@ -79,7 +79,13 @@ even though y is a locked constant.  "><!-- mathjax --><script src="https://cdnj
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
-      <ul class="navbar-nav"></ul></div>
+      <ul class="navbar-nav"><li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/tony-aw/squarebrackets/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul></div>
 
     
   </div>
@@ -87,7 +93,7 @@ even though y is a locked constant.  "><!-- mathjax --><script src="https://cdnj
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Regarding Modification By Reference</h1>
-      
+      <small class="dont-index">Source: <a href="https://github.com/tony-aw/squarebrackets/blob/HEAD/R/aaa5_squarebrackets_PassByReference.R" class="external-link"><code>R/aaa5_squarebrackets_PassByReference.R</code></a></small>
       <div class="d-none name"><code>aaa5_squarebrackets_PassByReference.Rd</code></div>
     </div>
 
@@ -240,7 +246,9 @@ as that would defeat the purpose of locking an object. <br><br></p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"tinytest"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># the following code demonstrates how locked bindings,</span></span></span>
 <span class="r-in"><span><span class="co"># such as `base::letters`,</span></span></span>
 <span class="r-in"><span><span class="co"># are being safe-guarded</span></span></span>
@@ -286,7 +294,6 @@ as that would defeat the purpose of locking an object. <br><br></p>
 <span class="r-in"><span><span class="co"># Word of warning:</span></span></span>
 <span class="r-in"><span><span class="co"># the safe-guard in 'squarebrackets' is good, but defintely not perfect.</span></span></span>
 <span class="r-in"><span><span class="co"># Do not actively try to break things; you might actually succeed.</span></span></span>
-<span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
