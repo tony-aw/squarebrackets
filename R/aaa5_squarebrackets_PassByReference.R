@@ -155,7 +155,9 @@
 #' as that would defeat the purpose of locking an object. \cr \cr
 #' 
 #' 
-#' @examples
+#' @examplesIf loadNamespace("tinytest")
+#' loadNamespace("tinytest")
+#' 
 #' 
 #' # the following code demonstrates how locked bindings,
 #' # such as `base::letters`,

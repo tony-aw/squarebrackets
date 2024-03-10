@@ -163,6 +163,9 @@ as that would defeat the purpose of locking an object. \cr \cr
 }
 
 \examples{
+\dontshow{if (loadNamespace("tinytest")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+loadNamespace("tinytest")
+
 
 # the following code demonstrates how locked bindings,
 # such as `base::letters`,
@@ -197,5 +200,5 @@ base::letters # but this still the same
 
 
 
-
+\dontshow{\}) # examplesIf}
 }
