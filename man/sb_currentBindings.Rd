@@ -88,10 +88,14 @@ z <- y # new variable; will not be locked!
 sb_currentBindings(x, "checklock") # z is not locked
 sb_currentBindings(x, "lockbindings") # we must re-run this
 sb_currentBindings(x, "checklock") # now z is also locked
-tinytest::expect_error( # now z is also protected
-  sb_set(z, i = 1, rp = -1),
-  pattern = "object is locked"
-)
+
+if(requireNamespace("tinytest")) {
+  tinytest::expect_error( # now z is also protected
+    sb_set(z, i = 1, rp = -1),
+    pattern = "object is locked"
+  )
+}
+
 
 rm(list= c("x", "y", "z")) # clean up
 

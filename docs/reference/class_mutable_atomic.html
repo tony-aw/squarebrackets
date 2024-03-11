@@ -63,7 +63,7 @@ The is.mutable_atomic() function checks if an object is atomic."><!-- mathjax --
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Mutable Atomic Classes</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tony-aw/squarebrackets/blob/HEAD/R/class_mutable.atomic.R" class="external-link"><code>R/class_mutable.atomic.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tony-aw/squarebrackets/blob/HEAD/R/class_mutable_atomic.R" class="external-link"><code>R/class_mutable_atomic.R</code></a></small>
       <div class="d-none name"><code>class_mutable_atomic.Rd</code></div>
     </div>
 
@@ -153,7 +153,9 @@ Circumventing these checks may break things. <br><br></p>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">mutable_atomic</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">20</span>, dim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>,<span class="fl">4</span><span class="op">)</span>, dimnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>, <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">mutable_atomic</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fl">1</span><span class="op">:</span><span class="fl">20</span>, dim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">4</span><span class="op">)</span>, dimnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>, <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">x</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   a  b  c  d</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a 1  6 11 16</span>
@@ -177,7 +179,7 @@ Circumventing these checks may break things. <br><br></p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [5,]    5   10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> mutable_atomic </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  integer </span>
-<span class="r-in"><span><span class="va">x</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">x</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1 2 3 4 5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> mutable_atomic </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  integer </span>
@@ -192,9 +194,6 @@ Circumventing these checks may break things. <br><br></p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [5,]    5   10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> mutable_atomic </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  double </span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
