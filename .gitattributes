@@ -3,3 +3,10 @@ vignettes/** linguist-documentation
 man/** linguist-documentation
 fake_packages/** linguist-vendored
 inst/** linguist-vendored
+R/aaa0_squarebrackets_help.R -linguist-documentation
+R/aaa1_squarebrackets_immutable_classes.R -linguist-documentation
+R/aaa2_squarebrackets_mutable_classes.R -linguist-documentation
+R/aaa3_squarebrackets_indx_args.R -linguist-documentation
+R/aaa4_squarebrackets_duplicates.R -linguist-documentation
+R/aaa5_squarebrackets_PassByReference.R -linguist-documentation
+R/aaa6_squarebrackets_technical.R -linguist-documentation

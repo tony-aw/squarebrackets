@@ -35,6 +35,7 @@ by specifying the \code{rp} argument.
 }
 \examples{
 
+
 lst <- list(
   A = list(
     A = list(A = "AAA", B = "AAB"),

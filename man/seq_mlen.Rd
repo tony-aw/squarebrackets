@@ -17,6 +17,6 @@ Create multiple sequences of certain lengths at once. \cr
 It is a vectorized version of \code{lapply(x, seq_len)}. \cr \cr
 }
 \examples{
-seq_mlen(c(10, 10, 3))
 
+seq_mlen(c(10, 10, 3))
 }

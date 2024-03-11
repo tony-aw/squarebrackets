@@ -246,7 +246,8 @@ as that would defeat the purpose of locking an object. <br><br></p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"tinytest"</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># the following code demonstrates how locked bindings,</span></span></span>
@@ -261,11 +262,16 @@ as that would defeat the purpose of locking an object. <br><br></p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/bindenv.html" class="external-link">bindingIsLocked</a></span><span class="op">(</span><span class="st">"mypointer"</span>, <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="co"># ... but this pointer is not!</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
-<span class="r-in"><span><span class="fu">tinytest</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tinytest/man/expect_equal.html" class="external-link">expect_error</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="sb_set.html">sb_set</a></span><span class="op">(</span><span class="va">mypointer</span>, i <span class="op">=</span> <span class="fl">1</span>, rp <span class="op">=</span> <span class="st">"XXX"</span><span class="op">)</span> <span class="co"># this still gives an error though ...</span></span></span>
-<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"tinytest"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="fu">tinytest</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tinytest/man/expect_equal.html" class="external-link">expect_error</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="sb_set.html">sb_set</a></span><span class="op">(</span><span class="va">mypointer</span>, i <span class="op">=</span> <span class="fl">1</span>, rp <span class="op">=</span> <span class="st">"XXX"</span><span class="op">)</span> <span class="co"># this still gives an error though ...</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required namespace: tinytest</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----- PASSED      : &lt;--&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  call| eval(expr, envir, enclos) </span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="class_mutable_atomic.html">is.mutable_atomic</a></span><span class="op">(</span><span class="va">mypointer</span><span class="op">)</span> <span class="co"># ... because it's not of class `mutable_atomic`</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
 <span class="r-in"><span></span></span>
@@ -292,10 +298,8 @@ as that would defeat the purpose of locking an object. <br><br></p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [20] "t" "u" "v" "w" "x" "y" "z"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Word of warning:</span></span></span>
-<span class="r-in"><span><span class="co"># the safe-guard in 'squarebrackets' is good, but defintely not perfect.</span></span></span>
+<span class="r-in"><span><span class="co"># the safe-guard in 'squarebrackets' is good, but definitely not perfect.</span></span></span>
 <span class="r-in"><span><span class="co"># Do not actively try to break things; you might actually succeed.</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

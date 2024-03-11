@@ -163,8 +163,8 @@ as that would defeat the purpose of locking an object. \cr \cr
 }
 
 \examples{
-\dontshow{if (requireNamespace("tinytest")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
-requireNamespace("tinytest")
+
+
 
 
 # the following code demonstrates how locked bindings,
@@ -176,9 +176,13 @@ mypointer <- x$a # view of a list
 address(mypointer) == address(base::letters) # TRUE: point to the same memory
 bindingIsLocked("letters", baseenv()) # base::letters is locked ...
 bindingIsLocked("mypointer", environment()) # ... but this pointer is not!
-tinytest::expect_error(
-  sb_set(mypointer, i = 1, rp = "XXX") # this still gives an error though ...
-)
+
+if(requireNamespace("tinytest")) {
+  tinytest::expect_error(
+    sb_set(mypointer, i = 1, rp = "XXX") # this still gives an error though ...
+  )
+}
+
 is.mutable_atomic(mypointer) # ... because it's not of class `mutable_atomic`
 
 
@@ -194,11 +198,8 @@ print(x) # x is modified
 base::letters # but this still the same
 
 # Word of warning:
-# the safe-guard in 'squarebrackets' is good, but defintely not perfect.
+# the safe-guard in 'squarebrackets' is good, but definitely not perfect.
 # Do not actively try to break things; you might actually succeed.
 
 
-
-
-\dontshow{\}) # examplesIf}
 }

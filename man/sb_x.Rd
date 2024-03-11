@@ -69,6 +69,7 @@ as the attributes necessarily have to be dropped:
 }
 \examples{
 
+
 # atomic objects ====
 
 obj <- matrix(1:16, ncol = 4)

@@ -12,8 +12,7 @@
 #' A list with `length(x)` elements, where each element is the result of `seq_len`.
 #'
 #'
-#' @examples
-#' seq_mlen(c(10, 10, 3))
+#' @example inst/examples/seq_mlen.R
 #'
 
 #' @rdname seq_mlen

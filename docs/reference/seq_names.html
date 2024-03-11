@@ -88,7 +88,9 @@ the indices of all names EXCEPT the names of the specified sequence will be give
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, b <span class="op">=</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>, c <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span><span class="op">)</span>, d <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">:</span><span class="op">-</span><span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  a <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, b <span class="op">=</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>, c <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span><span class="op">)</span>, d <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">:</span><span class="op">-</span><span class="fl">10</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">ind</span> <span class="op">&lt;-</span> <span class="fu">seq_names</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="st">"b"</span>, <span class="st">"d"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="sb_x.html">sb_x</a></span><span class="op">(</span><span class="va">x</span>, col <span class="op">=</span> <span class="va">ind</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    b c   d</span>
@@ -102,7 +104,6 @@ the indices of all names EXCEPT the names of the specified sequence will be give
 <span class="r-out co"><span class="r-pr">#&gt;</span> 8  h h  -8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 9  i i  -9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10 j j -10</span>
-<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

@@ -51,5 +51,4 @@ x <- mutable_atomic(20:1, dim = c(5,4))
 print(x)
 setapply(x, 2, FUN = sort)
 print(x)
-
 }

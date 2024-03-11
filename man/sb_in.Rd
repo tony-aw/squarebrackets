@@ -106,6 +106,7 @@ new <- factor("foo")
 sb_before(x, new)
 sb_after(x, new)
 
+
 #############################################################################
 
 
@@ -116,6 +117,7 @@ new <- lapply(x, \(x)x*-1)
 print(x)
 sb_before(x, new)
 sb_after(x, new)
+
 
 #############################################################################
 
@@ -129,8 +131,6 @@ sb_after(x, new, 2)
 new <- x[1,]
 sb_before(x, new, 1)
 sb_after(x, new, 1)
-
-
 
 }
 \references{

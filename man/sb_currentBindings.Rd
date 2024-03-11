@@ -53,8 +53,6 @@ See also \link{squarebrackets_PassByReference} for information regarding
 the relation between locked bindings and pass-by-reference modifications. \cr \cr
 }
 \examples{
-\dontshow{if (requireNamespace("tinytest")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
-requireNamespace("tinytest")
 
 
 x <- as.mutable_atomic(1:10)
@@ -77,10 +75,13 @@ sb_currentBindings(x, "checklock") # all bindings are locked, including y
 # the 'squarebrackets' package respects the lock of a binding,
 # provided all bindings of an address are locked;
 # so this will give an error, as it should:
-tinytest::expect_error(
-  sb_set(x, i = 1, rp = -1),
-  pattern = "object is locked"
-)
+
+if(requireNamespace("tinytest")) {
+  tinytest::expect_error(
+    sb_set(x, i = 1, rp = -1),
+    pattern = "object is locked"
+  )
+}
 
 # creating a new variable will NOT automatically be locked:
 z <- y # new variable; will not be locked!
@@ -95,5 +96,4 @@ tinytest::expect_error( # now z is also protected
 rm(list= c("x", "y", "z")) # clean up
 
 
-\dontshow{\}) # examplesIf}
 }
