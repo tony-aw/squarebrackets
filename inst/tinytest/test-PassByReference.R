@@ -1,4 +1,8 @@
 
+enumerate <- 0
+
+# sb_set() ====
+
 x <- as.mutable_atomic(1:10)
 x2 <- x
 sb_set(x, i = 1, rp = -1)
@@ -55,6 +59,10 @@ expect_equal(
   x2
 )
 
+enumerate <- enumerate + 5
+
+
+# setapply() ====
 
 x <- mutable_atomic(sample(1:90), dim = c(9,10))
 x2 <- x
@@ -72,4 +80,5 @@ expect_equal(
   x2
 )
 
-enumerate <- 7
+enumerate <- enumerate + 2
+

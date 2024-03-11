@@ -10,11 +10,6 @@
 #'
 #' @param x a \bold{variable} belonging to one of the
 #' \link[=squarebrackets_mutable_classes]{supported mutable classes}. \cr
-#' \bold{NOTE}: \cr
-#' The `sb_set()` performs in-place modification by reference; \cr
-#' therefore, similar to functions in the style of `some_function(x, ...) <- value`,
-#' the variable \bold{must actually exist as an actual variable}. \cr
-#' Thus something like `sb_set(1:10, ...)` or `sb_set(x$a, ...)` WILL NOT WORK. \cr
 #' @param i,row,col,idx,dims,rcl,filter,vars See \link{squarebrackets_indx_args}. \cr
 #' An empty index selection returns the original object unchanged. \cr
 #' @param ... further arguments passed to or from other methods.

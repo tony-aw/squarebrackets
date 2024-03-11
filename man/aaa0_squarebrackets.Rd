@@ -63,15 +63,10 @@ it's not required to know the number of dimensions of an array a-priori,
 to perform subset-operations on the object.
 \item Missing arguments can be filled with \code{NULL},
 instead of using dark magic like \code{base::quote(expr =    )}.
-\item Non-standard evaluation is quite controversial,
-and therefore completely absent in this R package.
+\item No Non-standard evaluation.
 \item Functions are pipe-friendly.
-}
-\item \bold{Beginner friendly}:
-\itemize{
 \item No (silent) vector recycling.
 \item Extracting and removing subsets uses the same syntax.
-\item All functions return a copy of the object, unless stated otherwise.
 }
 \item \bold{Class consistent}:
 \itemize{

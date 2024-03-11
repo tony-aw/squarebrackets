@@ -143,15 +143,33 @@
 #' Notice in the above code that `mypointer` is not a copy of `x$a`,
 #' since they have the same address. \cr
 #' Thus changing `mypointer` also changes `x$a`. \cr
-#' In other words: `mypointer` is what could be called a "view" of `x$a`. \cr
-#' Notice also that `sb_set(x$a, ...)` will not work,
-#' since `sb_set()` requires \bold{actual variables},
-#' similar to in-place functions in the style of \code{`myfun()<-`}. \cr \cr
+#' In other words: `mypointer` is what could be called a "view" of `x$a`. \cr \cr
 #' 
 #' 
-#' @section Warning:
+#' @section Protection:
+#' 
+#' Due to the properties given in this help page so far,
+#' something like the following will not work:
+#' 
+#' ```{r eval = FALSE}
+#' 
+#' # letters = base::letters
+#' sb_set(letters, i = 1, rp = "XXX")
+#' 
+#' ```
+#' 
+#' The above won't work because: 
+#' 
+#'  1) base objects are disallowed;
+#'  2) immutable objects are disallowed
+#'  (you'll have to create a mutable object,
+#'  which will create a copy of the original,
+#'  thus keeping the original object safe from modification by reference);
+#'  3) locked bindings are disallowed.
+#'  
 #' Despite the checks made by this package,
-#' the user should never actively try to modify a \bold{locked} object by reference,
+#' the user should never actively try to modify
+#' a \bold{locked} or \bold{protected} object by reference,
 #' as that would defeat the purpose of locking an object. \cr \cr
 #' 
 #' 

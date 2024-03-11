@@ -35,7 +35,7 @@ A copy of the coercively transformed object.
 This is an S3 Method to completely transform
 (a recursive subsets of)
 an object with explicit coercion. \cr
-
+\cr
 Given some coercing function \code{v()},
 the following can be stated about this method. \cr
 
@@ -65,15 +65,9 @@ this method is equivalent to:
 }\if{html}{\out{</div>}}
 
 Note that when \code{x} is a \code{data.table},
-one can coercively transform columns BY REFERENCE
+one can coercively transform columns by reference
 (which is more memory efficient),
-using the following code
-(again with columns specified by \code{col}, and some coercive transformation function \code{v}):
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{col <- ... # some integer/character vector of column indices/names
-x[, (col) := lapply(.SD, v), .SDcols = col]
-
-}\if{html}{\out{</div>}}
+using \link{dt_setcoe}. \cr \cr
 }
 \details{
 When replacing values by reference,
@@ -83,13 +77,13 @@ instead, the replacement value is coerced. \cr
 For example: \cr
 Using \code{sb_set()} to replacing/transform one or more values of an integer type
 (\code{int})
-object / list element / data.frame column,
-to become \code{1.5}, will NOT coerce the object / list element / data.frame column
+\link{mutable_atomic} object / \link[data.table]{data.table} column,
+to become \code{1.5}, will NOT coerce the object or column
 to a decimal type (\code{dbl});
 instead, the replacement \code{1.5} is coerced to the integer \code{1}. \cr
 \cr
 For this reason, the \code{sb_coe()} method can be used to coercively transform an object
-BEFORE replacing or transforming values by reference. \cr
+before replacing or transforming values by reference. \cr
 See also the Examples section below.
 }
 \examples{

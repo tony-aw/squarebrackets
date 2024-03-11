@@ -4,7 +4,7 @@
 #' This is an S3 Method to completely transform
 #' (a recursive subsets of)
 #' an object with explicit coercion. \cr
-#' 
+#' \cr
 #' Given some coercing function `v()`,
 #' the following can be stated about this method. \cr
 #' 
@@ -38,16 +38,9 @@
 #' ```
 #' 
 #' Note that when `x` is a `data.table`,
-#' one can coercively transform columns BY REFERENCE
+#' one can coercively transform columns by reference
 #' (which is more memory efficient),
-#' using the following code
-#' (again with columns specified by `col`, and some coercive transformation function `v`):
-#' 
-#' ```{r eval = FALSE}
-#' col <- ... # some integer/character vector of column indices/names
-#' x[, (col) := lapply(.SD, v), .SDcols = col]
-#' 
-#' ```
+#' using \link{dt_setcoe}. \cr \cr
 #'
 #' @param x see \link{squarebrackets_immutable_classes} and \link{squarebrackets_mutable_classes}.
 #' @param i,col,vars See \link{squarebrackets_indx_args}. \cr
@@ -63,13 +56,13 @@
 #' For example: \cr
 #' Using `sb_set()` to replacing/transform one or more values of an integer type
 #' (`int`)
-#' object / list element / data.frame column,
-#' to become `1.5`, will NOT coerce the object / list element / data.frame column
+#' \link{mutable_atomic} object / \link[data.table]{data.table} column,
+#' to become `1.5`, will NOT coerce the object or column
 #' to a decimal type (`dbl`);
 #' instead, the replacement `1.5` is coerced to the integer `1`. \cr
 #' \cr
 #' For this reason, the `sb_coe()` method can be used to coercively transform an object
-#' BEFORE replacing or transforming values by reference. \cr
+#' before replacing or transforming values by reference. \cr
 #' See also the Examples section below.
 #' 
 #' 

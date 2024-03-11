@@ -230,17 +230,28 @@ Therefore, the following will work: <br></p>
 <p>Notice in the above code that <code>mypointer</code> is not a copy of <code>x$a</code>,
 since they have the same address. <br>
 Thus changing <code>mypointer</code> also changes <code>x$a</code>. <br>
-In other words: <code>mypointer</code> is what could be called a "view" of <code>x$a</code>. <br>
-Notice also that <code>sb_set(x$a, ...)</code> will not work,
-since <code><a href="sb_set.html">sb_set()</a></code> requires <b>actual variables</b>,
-similar to in-place functions in the style of <code>`myfun()&lt;-`</code>. <br><br></p>
+In other words: <code>mypointer</code> is what could be called a "view" of <code>x$a</code>. <br><br></p>
     </div>
     <div class="section level2">
-    <h2 id="warning">Warning<a class="anchor" aria-label="anchor" href="#warning"></a></h2>
+    <h2 id="protection">Protection<a class="anchor" aria-label="anchor" href="#protection"></a></h2>
     
 
-<p>Despite the checks made by this package,
-the user should never actively try to modify a <b>locked</b> object by reference,
+
+<p>Due to the properties given in this help page so far,
+something like the following will not work:</p>
+<p></p><div class="sourceCode r"><pre><code><span></span>
+<span><span class="co"># letters = base::letters</span></span>
+<span><span class="fu"><a href="../reference/sb_set.html">sb_set</a></span><span class="op">(</span><span class="va">letters</span>, i <span class="op">=</span> <span class="fl">1</span>, rp <span class="op">=</span> <span class="st">"XXX"</span><span class="op">)</span></span>
+<span></span></code></pre><p></p></div>
+<p>The above won't work because:</p><ol><li><p>base objects are disallowed;</p></li>
+<li><p>immutable objects are disallowed
+(you'll have to create a mutable object,
+which will create a copy of the original,
+thus keeping the original object safe from modification by reference);</p></li>
+<li><p>locked bindings are disallowed.</p></li>
+</ol><p>Despite the checks made by this package,
+the user should never actively try to modify
+a <b>locked</b> or <b>protected</b> object by reference,
 as that would defeat the purpose of locking an object. <br><br></p>
     </div>
 

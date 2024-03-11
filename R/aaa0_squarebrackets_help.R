@@ -55,13 +55,10 @@
 #'    to perform subset-operations on the object.
 #'    * Missing arguments can be filled with `NULL`,
 #'    instead of using dark magic like `base::quote(expr =    )`.
-#'    * Non-standard evaluation is quite controversial,
-#'    and therefore completely absent in this R package.
+#'    * No Non-standard evaluation.
 #'    * Functions are pipe-friendly.
-#'  * \bold{Beginner friendly}:
 #'    * No (silent) vector recycling.
 #'    * Extracting and removing subsets uses the same syntax.
-#'    * All functions return a copy of the object, unless stated otherwise.
 #'  * \bold{Class consistent}: 
 #'    * sub-setting of multi-dimensional objects by specifying dimensions
 #'    (i.e. rows, columns, ...)

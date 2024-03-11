@@ -43,6 +43,8 @@ setapply <- function(x, MARGIN, FUN) {
     stop("`x` must be a mutable_atomic matrix")
   }
   
+  .check_bindingIsLocked(substitute(x), parent.frame(n = 1))
+  
   if(!is.function(FUN)) {
     stop("`FUN` must be a function")
   }

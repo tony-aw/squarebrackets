@@ -41,12 +41,7 @@ sb_set(x, ...)
 }
 \arguments{
 \item{x}{a \bold{variable} belonging to one of the
-\link[=squarebrackets_mutable_classes]{supported mutable classes}. \cr
-\bold{NOTE}: \cr
-The \code{sb_set()} performs in-place modification by reference; \cr
-therefore, similar to functions in the style of \code{some_function(x, ...) <- value},
-the variable \bold{must actually exist as an actual variable}. \cr
-Thus something like \code{sb_set(1:10, ...)} or \code{sb_set(x$a, ...)} WILL NOT WORK. \cr}
+\link[=squarebrackets_mutable_classes]{supported mutable classes}. \cr}
 
 \item{...}{further arguments passed to or from other methods.}
 

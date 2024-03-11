@@ -149,16 +149,34 @@ sb_set(mypointer, col = "cola", tf = \\(x)x^2)
 Notice in the above code that \code{mypointer} is not a copy of \code{x$a},
 since they have the same address. \cr
 Thus changing \code{mypointer} also changes \code{x$a}. \cr
-In other words: \code{mypointer} is what could be called a "view" of \code{x$a}. \cr
-Notice also that \code{sb_set(x$a, ...)} will not work,
-since \code{sb_set()} requires \bold{actual variables},
-similar to in-place functions in the style of \code{`myfun()<-`}. \cr \cr
+In other words: \code{mypointer} is what could be called a "view" of \code{x$a}. \cr \cr
 }
 
-\section{Warning}{
+\section{Protection}{
+
+
+Due to the properties given in this help page so far,
+something like the following will not work:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{
+# letters = base::letters
+sb_set(letters, i = 1, rp = "XXX")
+
+}\if{html}{\out{</div>}}
+
+The above won't work because:
+\enumerate{
+\item base objects are disallowed;
+\item immutable objects are disallowed
+(you'll have to create a mutable object,
+which will create a copy of the original,
+thus keeping the original object safe from modification by reference);
+\item locked bindings are disallowed.
+}
 
 Despite the checks made by this package,
-the user should never actively try to modify a \bold{locked} object by reference,
+the user should never actively try to modify
+a \bold{locked} or \bold{protected} object by reference,
 as that would defeat the purpose of locking an object. \cr \cr
 }
 

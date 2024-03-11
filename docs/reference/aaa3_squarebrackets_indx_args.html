@@ -214,7 +214,10 @@ to perform an operation on the rows for which column <code>height &gt; 2</code> 
 specify the following formula:</p>
 <p></p><div class="sourceCode r"><pre><code><span><span class="op">~</span> <span class="op">(</span><span class="va">height</span> <span class="op">&gt;</span> <span class="fl">2</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">(</span><span class="va">sex</span> <span class="op">!=</span> <span class="st">"female"</span><span class="op">)</span></span></code></pre><p></p></div>
 <p>If the formula is linked to an environment,
-any variables not found in the data set will be searched from the environment. <br><br><code>vars</code> must be a function that returns a logical vector,
+any variables not found in the data set will be searched from the environment. <br>
+See also <code>tinycodet::</code><a href="https://tony-aw.github.io/tinycodet/reference/form.html" class="external-link">form</a>
+for conveniently creating formulas without environments,
+thus reducing the possibility of memory leaks. <br><br><code>vars</code> must be a function that returns a logical vector,
 giving the column indices to select for the operation. <br>
 For example, to select all numeric columns, specify <code>vars = is.numeric</code>. <br><br></p>
     </div>
