@@ -55,5 +55,5 @@ enumerate <- enumerate + 7
 
 
 # clean-up ====
-obj2rem <- setdiff(ls(envir = environment()), "enumerate") # rm all except enumerate
-rm(list = obj2rem, envir = environment())
+rm(list = c(refs, mynms, "1234567890!@#$%^&*()", "i", "a", "refs", "mynms"),
+   envir = environment())

@@ -5,6 +5,7 @@
 \alias{dt_aggregate}
 \alias{dt_setcoe}
 \alias{dt_setrm}
+\alias{dt_setadd}
 \title{Functional forms of data.table Operations (also work on tidytables)}
 \usage{
 dt_aggregate(x, SDcols = NULL, f, by, order_by = FALSE)
@@ -12,6 +13,8 @@ dt_aggregate(x, SDcols = NULL, f, by, order_by = FALSE)
 dt_setcoe(x, col = NULL, vars = NULL, f, chkdup = TRUE)
 
 dt_setrm(x, col = NULL, vars = NULL, chkdup = TRUE)
+
+dt_setadd(x, new)
 }
 \arguments{
 \item{x}{a \code{data.table} or \code{tidytable}.}
@@ -31,6 +34,9 @@ indicating if the aggregated result should be ordered by the columns specified i
 Duplicates are not allowed.}
 
 \item{chkdup}{see \link{squarebrackets_duplicates}.}
+
+\item{new}{a \code{data.table} or \code{tidytable}. \cr
+It must have column names that already exist in \code{x}.}
 }
 \value{
 For \code{dt_aggregate()}: \cr
@@ -45,9 +51,18 @@ Since these functions return void, you'll just get \code{NULL}. \cr \cr
 Functional forms of special data.table operations - ALL programmatically friendly
 (no Non-Standard Evaluation). \cr
 \cr
-\code{dt_aggregate()} aggregates a data.table or tidytable, and returns the aggregated copy. \cr
-\code{dt_setcoe()} coercively transforms columns of a data.table or tidytable
+\code{dt_aggregate()}
+aggregates a data.table or tidytable, and returns the aggregated copy. \cr
+\code{dt_setcoe()}
+coercively transforms columns of a data.table or tidytable
 using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr
+\code{dt_setrm()}
+removes columns of a data.table or tidytable
+using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr
+\code{dt_setadd(x, new)}
+adds the columns from data.table \code{new} to data.table \code{x},
+thereby modifying \code{x}
+using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr \cr
 }
 \examples{
 \dontshow{if (requireNamespace("sf")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
@@ -108,5 +123,21 @@ obj <- data.table::data.table(
 str(obj)
 dt_setrm(obj, vars = is.numeric)
 str(obj)
+
+#############################################################################
+
+
+# dt_setadd ====
+
+obj <- data.table::data.table(
+  a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10])
+)
+new <- data.table::data.table(
+  e = sample(c(TRUE, FALSE), 10, TRUE),
+  f = sample(c(TRUE, FALSE), 10, TRUE)
+)
+dt_setadd(obj, new)
+print(obj)
+
 \dontshow{\}) # examplesIf}
 }

@@ -4,13 +4,24 @@
 #' Functional forms of special data.table operations - ALL programmatically friendly 
 #' (no Non-Standard Evaluation). \cr
 #' \cr
-#' `dt_aggregate()` aggregates a data.table or tidytable, and returns the aggregated copy. \cr
-#' `dt_setcoe()` coercively transforms columns of a data.table or tidytable
+#' `dt_aggregate()`
+#' aggregates a data.table or tidytable, and returns the aggregated copy. \cr
+#' `dt_setcoe()`
+#' coercively transforms columns of a data.table or tidytable
 #' using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr
+#' `dt_setrm()`
+#' removes columns of a data.table or tidytable
+#' using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr
+#' `dt_setadd(x, new)`
+#' adds the columns from data.table `new` to data.table `x`,
+#' thereby modifying `x`
+#' using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr \cr
 #' 
 #' 
 #' 
 #' @param x a `data.table` or `tidytable`.
+#' @param new a `data.table` or `tidytable`. \cr
+#' It must have column names that already exist in `x`.
 #' @param f the aggregation function
 #' @param col,vars columns to select for coercion; see \link{squarebrackets_indx_args}. \cr
 #' Duplicates are not allowed.
@@ -92,6 +103,22 @@
 #' dt_setrm(obj, vars = is.numeric)
 #' str(obj)
 #' 
+#' #############################################################################
+#' 
+#' 
+#' # dt_setadd ====
+#' 
+#' obj <- data.table::data.table(
+#'   a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10])
+#' )
+#' new <- data.table::data.table(
+#'   e = sample(c(TRUE, FALSE), 10, TRUE),
+#'   f = sample(c(TRUE, FALSE), 10, TRUE)
+#' )
+#' dt_setadd(obj, new)
+#' print(obj)
+#' 
+#' 
 
 #' @name dt
 NULL
@@ -104,10 +131,8 @@ dt_aggregate <- function(
     x, SDcols = NULL, f, by, order_by = FALSE
 ) {
   
-  
-  
   if(!data.table::is.data.table(x)) stop("`x` must be a data.table")
-  if(anyDuplicated(names(x))) stop("`x` does not have unique variable names for all columns")
+  if(anyDuplicated(names(x))) stop("`x` does not have unique variable names for all columns; \n fix this before subsetting")
   
   if(!is.atomic(SDcols) || !is.atomic(by)) stop("`SDcols` and `by` must be atomic vectors")
   
@@ -148,14 +173,15 @@ dt_setcoe <- function(
   for(j in col) { # using loop instead of lapply to reduce memory to only one column at a time
     data.table::set(x, j = j, value = f(x[[j]]))
   }
+  
+  return(invisible(NULL))
+  
 }
 
 
 #' @rdname dt
 #' @export
 dt_setrm <- function(x, col = NULL, vars = NULL, chkdup = TRUE) {
-  
-  
   
   if(!data.table::is.data.table(x)) { stop("`x` must be a data.table") }
   
@@ -173,9 +199,41 @@ dt_setrm <- function(x, col = NULL, vars = NULL, chkdup = TRUE) {
     col <- names(x)[col]
   }
   
-  if(is.null(col) || length(col) == 0) stop("must specify at least one column")
-  
-  for(j in col) { # using loop instead of lapply to reduce memory to only one column at a time
-    data.table::set(x, j = j, value = NULL)
+  if(is.null(col) || length(col) == 0) {
+    stop("must specify at least one column")
   }
+  
+  data.table::set(x, j = col, value = NULL)
+  
+  return(invisible(NULL))
+}
+
+
+#' @rdname dt
+#' @export
+dt_setadd <- function(x, new) {
+  
+  # error handling:
+  if(!data.table::is.data.table(x)) { stop("`x` must be a data.table") }
+  if(anyDuplicated(names(x))) {
+    stop("`x` does not have unique variable names for all columns; \n fix this before subsetting")
+  }
+  
+  if(!data.table::is.data.table(new)) {
+    stop("`new` must be a data.table")
+  }
+  if(ncol(new) == 0) {
+    stop("must give at least one new column")
+  }
+  if(anyDuplicated(names(new))) {
+    stop("`new` does not have unique variable names for all columns; \n fix this before subsetting")
+  }
+  
+  if(any(data.table::`%chin%`(names(new), names(x)))) {
+    stop("columns already exist")
+  }
+  
+  data.table::set(x, j = names(new), value = new)
+  
+  return(invisible(NULL))
 }

@@ -8,41 +8,65 @@
 \alias{squarebrackets_help}
 \title{squarebrackets: Methods as an Alternative to the Square Brackets Operators}
 \description{
-squarebrackets: Methods as an Alternative to the Square Brackets Operators \cr
+squarebrackets: Methods as an Alternative to the Square Brackets Operators \cr \cr
 }
 \section{Motivation}{
 
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{    
 Among programming languages, 'R' has perhaps one of the most
-flexible and comprehensive sub-setting functionality.
-But with flexibility often comes confusion,
-and (apparent) inconsistencies.
-And 'R' is no exception.
+flexible and comprehensive sub-setting functionality,
+provided by the square brackets operators (\code{[}, \verb{[<-}). \cr
+But that does not mean these operators are completely perfect in all situations. \cr
+Consider a few scenarios where the square brackets operators (\code{[}, \verb{[<-})
+are somewhat inconvenient: \cr
+\cr
+\bold{Scenario 1} \cr
+Suppose you have an array \code{x}.
+In order to perform subset operations on \code{x}
+with the square brackets operator (\code{[}),
+one needs to know how many dimensions it has. \cr
+I.e. if \code{x} has 3 dimensions, one would use:
 
-This becomes quite apparent when one reads (online) documents,
-such as "The R Inferno" by Patrick Burns,
-and "Frustration: One Year With R" by Reece Goding.
-These documents point out many inconsistencies,
-and sub-setting related inconsistencies make up a
-good portion of these documents.
-
-Subset-related R packages to "fix" such issues do exist.
-But they usually focus almost exclusively on one class
-(usually data.frame-like objects),
-and packages focussing on different classes use different APIs.
-Moreover, these packages are not always programmatically friendly,
-(for example, they often employ quite a bit of non-standard evaluation).
-
-Thus, this R package was born.
-
-Although this package was somewhat made for people who are new to
-'R' (especially when coming from another programming language),
-and found themselves confused,
-I trust this package will be useful,
-even for those who are quite experienced in 'R'.
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{
+x[i, j, k, drop = FALSE]
+# or
+x[i, j, k] <- value
 
 }\if{html}{\out{</div>}}
+
+But what if you don’t know a-priori the number of dimensions \code{x} has;
+how would one use the square brackets operators? \cr
+It’s not impossible, but still rather convoluted. \cr
+\cr
+\bold{Scenario 2} \cr
+The \link{data.frame}, \link[tibble]{tibble}, \link[data.table]{data.table},
+and \link[tidytable]{tidytable} classes,
+which all inherit from class “data.frame”,
+use slightly different rules regarding the usage of \code{[}. \cr
+Especially \link[data.table]{data.table} (and thus also \link[tidytable]{tidytable})
+has very different rules. \cr
+Constantly switching between these rules is annoying,
+and makes one's code inconsistent. \cr
+\cr
+\bold{Scenario 3} \cr
+When selecting names for sub-setting,
+only the first occurrences of the names are selected for the sub-set; \cr
+and when un-selecting/removing names for sub-setting,
+the syntax is very different from selecting names. \cr
+\cr
+\bold{Scenario 4} \cr
+‘R’ adheres to copy-on-modification semantics when replacing values using \code{[<-}. \cr
+But sometimes one would like explicit control when to create a copy,
+and when to modify using pass-by-reference semantics. \cr
+\cr
+\bold{Motivation} \cr
+The above scenarios signal cases where the square brackets operators (\code{[})
+are less than optimally convenient. \cr
+There are some packages that solve some of these issues,
+but these different packages use different syntaxes and argument conventions. \cr
+I have not found an R-package that provides a holistic approach to providing
+alternative methods to the \code{[} operators. \cr
+Thus, this R package was born. \cr \cr
 }
 
 \section{Goal & Properties}{
@@ -52,7 +76,7 @@ The Goal of the 'squarebrackets' package is not to replace the square-brackets o
 (see \link[base]{Extract}),
 but to provide \bold{alternative} sub-setting methods and functions,
 to be used in situations where the square-brackets operators are inconvenient. \cr
-These are (hopefully) easier sub-setting methods and functions
+These are (hopefully) easier sub-setting methods and functions,
 with the following properties:
 \itemize{
 \item \bold{Programmatically friendly}:
@@ -134,7 +158,7 @@ as their sub-setting method is not primarily based on square-brackets. \cr \cr
 
 
 \ifelse{html}{\figure{generic_methods-darkgreen.svg}{options: alt='[GENERIC METHODS]'}}{\link[=squarebrackets_help]{GENERIC METHODS}} \cr
-The main focus is on the following generic S3 methods:
+The main focus is on the following generic methods:
 \itemize{
 \item \link{sb_x}: extract, exchange, or duplicate subsets.
 \item \link{sb_rm}: un-select/remove subsets.

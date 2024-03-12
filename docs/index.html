@@ -92,23 +92,8 @@
 
 <p>squarebrackets: Methods as an Alternative to the Square Brackets Operators</p>
 <p> </p>
-<div class="section level2">
-<h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
-</h2>
-<p>The ‘squarebrackets’ package provides methods to be used in situation where regular square brackets (<code>[</code>) are inconvenient. A few examples will be given of situations where <code>[</code> is inconvenient, and how ‘squarebrackets’ helps in such situations.</p>
+<p>To get started see <code><a href="reference/aaa0_squarebrackets.html">?squarebrackets_help</a></code></p>
 <p> </p>
-<p>Suppose you have an array <code>x</code>. In order to perform subset operations on <code>x</code> with <code>[</code>, you need to know how many dimensions it has. I.e. if <code>x</code> has 3 dimensions, one would use <code>x[i, j, k, drop = FALSE]</code> or <code>x[i, j, k] &lt;- value</code>. But what if you don’t know a-priori the number of dimensions <code>x</code> has. How would you do this? It’s not impossible with <code>[</code>, but still rather convoluted.</p>
-<p>The ‘squarebrackets’ package solves this by providing methods that use name-based arguments, instead of position based arguments.</p>
-<p> </p>
-<p>The <code>data.frame</code>, <code>tibble</code>, <code>data.table</code>, and <code>tidytable</code> objects, which all inherit from class “data.frame”, use slightly different rules regarding the usage of <code>[</code>. Especially <code>data.table</code> has <strong>very</strong> different rules. Constantly switching between these rules is annoying, and makes your code look inconsistent.</p>
-<p>The ‘squarebrackets’ package solves this, by using methods that are consistent across the classes <code>data.frame</code>, <code>tibble</code>, <code>data.table</code>, and <code>tidytable</code>, and their direct extensions (such as the <code>sf-data.table</code> class).</p>
-<p> </p>
-<p>‘R’ adheres to copy-on-modification semantics when replacing values using <code>[&lt;-</code>. Usually this is fine. But sometimes one would like explicit control when to create a copy, and when to modify using pass-by-reference semantics.</p>
-<p>The ‘squarebrackets’ package provides 2 methods with explicit semantics: <code><a href="reference/sb_mod.html">sb_mod()</a></code> for modification through deep copies, and <code><a href="reference/sb_set.html">sb_set()</a></code> for modification through pass-by-reference semantics.</p>
-<p> </p>
-<p>Now, to get started see <code><a href="reference/aaa0_squarebrackets.html">?squarebrackets_help</a></code></p>
-<p> </p>
-</div>
 <div class="section level2">
 <h2 id="installing--loading">Installing &amp; Loading<a class="anchor" aria-label="anchor" href="#installing--loading"></a>
 </h2>
@@ -126,7 +111,10 @@
 <div class="section level2">
 <h2 id="changelog-experimental-versions">Changelog (EXPERIMENTAL VERSIONS)<a class="anchor" aria-label="anchor" href="#changelog-experimental-versions"></a>
 </h2>
-<p>First GitHub upload - Package is very much experimental.</p>
+<ul>
+<li>10 march 2024: First GitHub upload - Package is very much experimental.</li>
+<li>12 march 2024: Changed the introduction help page a bit, added <code><a href="reference/dt.html">dt_setadd()</a></code>, and added tests for all <code>dt_</code> - functions. There are slightly over 50,000 tests now.</li>
+</ul>
 <p> </p>
 </div>
 </div>
