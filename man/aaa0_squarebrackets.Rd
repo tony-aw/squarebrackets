@@ -13,59 +13,44 @@ squarebrackets: Methods as an Alternative to the Square Brackets Operators \cr \
 \section{Motivation}{
 
 
-Among programming languages, 'R' has perhaps one of the most
-flexible and comprehensive sub-setting functionality,
-provided by the square brackets operators (\code{[}, \verb{[<-}). \cr
-But that does not mean these operators are completely perfect in all situations. \cr
-Consider a few scenarios where the square brackets operators (\code{[}, \verb{[<-})
-are somewhat inconvenient: \cr
-\cr
-\bold{Scenario 1} \cr
-Suppose you have an array \code{x}.
-In order to perform subset operations on \code{x}
-with the square brackets operator (\code{[}),
+In order to perform subset operations on some array \code{x}
+with the square brackets operator (\code{[}, \verb{[<-}),
 one needs to know how many dimensions it has. \cr
-I.e. if \code{x} has 3 dimensions, one would use:
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{
-x[i, j, k, drop = FALSE]
-# or
-x[i, j, k] <- value
-
-}\if{html}{\out{</div>}}
-
-But what if you don’t know a-priori the number of dimensions \code{x} has;
-how would one use the square brackets operators? \cr
+I.e. if \code{x} has 3 dimensions, one would use \cr
+\code{x[i, j, k, drop = FALSE]}  or \code{x[i, j, k] <- value} \cr
+But how would one the use the square brackets operators,
+when number of dimensions of \code{x} is not known a-priori? \cr
 It’s not impossible, but still rather convoluted. \cr
 \cr
-\bold{Scenario 2} \cr
 The \link{data.frame}, \link[tibble]{tibble}, \link[data.table]{data.table},
-and \link[tidytable]{tidytable} classes,
-which all inherit from class “data.frame”,
-use slightly different rules regarding the usage of \code{[}. \cr
-Especially \link[data.table]{data.table} (and thus also \link[tidytable]{tidytable})
-has very different rules. \cr
+and \link[tidytable]{tidytable} classes
+all inherit from class “data.frame”. \cr
+Yet they use different rules regarding the usage of the square bracket operators. \cr
 Constantly switching between these rules is annoying,
 and makes one's code inconsistent. \cr
 \cr
-\bold{Scenario 3} \cr
 When selecting names for sub-setting,
 only the first occurrences of the names are selected for the sub-set; \cr
 and when un-selecting/removing names for sub-setting,
 the syntax is very different from selecting names. \cr
 \cr
-\bold{Scenario 4} \cr
 ‘R’ adheres to copy-on-modification semantics when replacing values using \code{[<-}. \cr
 But sometimes one would like explicit control when to create a copy,
 and when to modify using pass-by-reference semantics. \cr
 \cr
-\bold{Motivation} \cr
-The above scenarios signal cases where the square brackets operators (\code{[})
-are less than optimally convenient. \cr
+\cr
+Among programming languages,
+'R' has perhaps one of the most
+flexible and comprehensive sub-setting functionality,
+provided by the square brackets operators (\code{[}, \verb{[<-}). \cr
+But as shown in the above cases,
+the square brackets operators
+are occasionally less than optimally convenient. \cr
+\cr
 There are some packages that solve some of these issues,
-but these different packages use different syntaxes and argument conventions. \cr
-I have not found an R-package that provides a holistic approach to providing
-alternative methods to the \code{[} operators. \cr
+but I have not found an R-package that provides a holistic approach
+to providing alternative methods to the square brackets operators. \cr
+\cr
 Thus, this R package was born. \cr \cr
 }
 

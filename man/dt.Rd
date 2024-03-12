@@ -36,7 +36,7 @@ Duplicates are not allowed.}
 \item{chkdup}{see \link{squarebrackets_duplicates}.}
 
 \item{new}{a \code{data.table} or \code{tidytable}. \cr
-It must have column names that already exist in \code{x}.}
+It must have column names that do not already exist in \code{x}.}
 }
 \value{
 For \code{dt_aggregate()}: \cr

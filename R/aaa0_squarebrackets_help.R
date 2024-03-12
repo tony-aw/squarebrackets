@@ -6,59 +6,44 @@
 #' 
 #' @section Motivation:
 #' 
-#' Among programming languages, 'R' has perhaps one of the most
-#' flexible and comprehensive sub-setting functionality,
-#' provided by the square brackets operators (`[`, `[<-`). \cr
-#' But that does not mean these operators are completely perfect in all situations. \cr
-#' Consider a few scenarios where the square brackets operators (`[`, `[<-`)
-#' are somewhat inconvenient: \cr
-#' \cr
-#' \bold{Scenario 1} \cr
-#' Suppose you have an array `x`.
-#' In order to perform subset operations on `x`
-#' with the square brackets operator (`[`),
+#' In order to perform subset operations on some array `x`
+#' with the square brackets operator (`[`, `[<-`),
 #' one needs to know how many dimensions it has. \cr
-#' I.e. if `x` has 3 dimensions, one would use: 
-#' 
-#' ```{r, eval = FALSE, echo = TRUE}
-#' 
-#' x[i, j, k, drop = FALSE]
-#' # or
-#' x[i, j, k] <- value
-#' 
-#' ```
-#' But what if you don’t know a-priori the number of dimensions `x` has;
-#' how would one use the square brackets operators? \cr
+#' I.e. if `x` has 3 dimensions, one would use \cr
+#' `x[i, j, k, drop = FALSE]`  or `x[i, j, k] <- value` \cr
+#' But how would one the use the square brackets operators,
+#' when number of dimensions of `x` is not known a-priori? \cr
 #' It’s not impossible, but still rather convoluted. \cr
 #' \cr
-#' \bold{Scenario 2} \cr
 #' The \link{data.frame}, \link[tibble]{tibble}, \link[data.table]{data.table},
-#' and \link[tidytable]{tidytable} classes,
-#' which all inherit from class “data.frame”,
-#' use slightly different rules regarding the usage of `[`. \cr
-#' Especially \link[data.table]{data.table} (and thus also \link[tidytable]{tidytable})
-#' has very different rules. \cr
+#' and \link[tidytable]{tidytable} classes
+#' all inherit from class “data.frame”. \cr
+#' Yet they use different rules regarding the usage of the square bracket operators. \cr
 #' Constantly switching between these rules is annoying,
 #' and makes one's code inconsistent. \cr
 #' \cr
-#' \bold{Scenario 3} \cr
 #' When selecting names for sub-setting,
 #' only the first occurrences of the names are selected for the sub-set; \cr
 #' and when un-selecting/removing names for sub-setting,
 #' the syntax is very different from selecting names. \cr
 #' \cr
-#' \bold{Scenario 4} \cr
 #' ‘R’ adheres to copy-on-modification semantics when replacing values using \code{[<-}. \cr
 #' But sometimes one would like explicit control when to create a copy,
 #' and when to modify using pass-by-reference semantics. \cr
 #' \cr
-#' \bold{Motivation} \cr
-#' The above scenarios signal cases where the square brackets operators (`[`)
-#' are less than optimally convenient. \cr
+#' \cr
+#' Among programming languages,
+#' 'R' has perhaps one of the most
+#' flexible and comprehensive sub-setting functionality,
+#' provided by the square brackets operators (`[`, `[<-`). \cr
+#' But as shown in the above cases,
+#' the square brackets operators
+#' are occasionally less than optimally convenient. \cr
+#' \cr
 #' There are some packages that solve some of these issues,
-#' but these different packages use different syntaxes and argument conventions. \cr
-#' I have not found an R-package that provides a holistic approach to providing
-#' alternative methods to the `[` operators. \cr 
+#' but I have not found an R-package that provides a holistic approach
+#' to providing alternative methods to the square brackets operators. \cr
+#' \cr
 #' Thus, this R package was born. \cr \cr
 #' 
 #' 

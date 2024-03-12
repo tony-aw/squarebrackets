@@ -21,7 +21,7 @@
 #' 
 #' @param x a `data.table` or `tidytable`.
 #' @param new a `data.table` or `tidytable`. \cr
-#' It must have column names that already exist in `x`.
+#' It must have column names that do not already exist in `x`.
 #' @param f the aggregation function
 #' @param col,vars columns to select for coercion; see \link{squarebrackets_indx_args}. \cr
 #' Duplicates are not allowed.
@@ -148,7 +148,6 @@ dt_aggregate <- function(
 dt_setcoe <- function(
     x, col = NULL, vars = NULL, f, chkdup = TRUE
 ) {
-  
   
   
   if(!is.function(f)) stop("`f` must be a function")
