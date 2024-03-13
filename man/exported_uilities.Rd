@@ -22,7 +22,8 @@ indx_rm(i, x, xnames, xsize)
 The subsetted object.
 }
 \description{
-Exported utilities
+Exported utilities. \cr
+Usually the user won't need these functions. \cr \cr
 }
 \examples{
 x <- 1:10

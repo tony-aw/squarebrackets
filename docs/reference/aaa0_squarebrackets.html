@@ -55,56 +55,25 @@
 
 
     <div class="section level2">
-    <h2 id="motivation">Motivation<a class="anchor" aria-label="anchor" href="#motivation"></a></h2>
-    
-
-
-<p>In order to perform subset operations on some array <code>x</code>
-with the square brackets operator (<code>[</code>, <code>[&lt;-</code>),
-one needs to know how many dimensions it has. <br>
-I.e. if <code>x</code> has 3 dimensions, one would use <br><code>x[i, j, k, drop = FALSE]</code>  or <code>x[i, j, k] &lt;- value</code> <br>
-But how would one the use the square brackets operators,
-when number of dimensions of <code>x</code> is not known a-priori? <br>
-It’s not impossible, but still rather convoluted. <br><br>
-The <a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a>, <a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a>, <a href="https://rdatatable.gitlab.io/data.table/reference/data.table.html" class="external-link">data.table</a>,
-and <a href="https://markfairbanks.github.io/tidytable/reference/tidytable.html" class="external-link">tidytable</a> classes
-all inherit from class “data.frame”. <br>
-Yet they use different rules regarding the usage of the square bracket operators. <br>
-Constantly switching between these rules is annoying,
-and makes one's code inconsistent. <br><br>
-When selecting names for sub-setting,
-only the first occurrences of the names are selected for the sub-set; <br>
-and when un-selecting/removing names for sub-setting,
-the syntax is very different from selecting names. <br><br>
-‘R’ adheres to copy-on-modification semantics when replacing values using <code>[&lt;-</code>. <br>
-But sometimes one would like explicit control when to create a copy,
-and when to modify using pass-by-reference semantics. <br><br><br>
-Among programming languages,
-'R' has perhaps one of the most
-flexible and comprehensive sub-setting functionality,
-provided by the square brackets operators (<code>[</code>, <code>[&lt;-</code>). <br>
-But as shown in the above cases,
-the square brackets operators
-are occasionally less than optimally convenient. <br><br>
-There are some packages that solve some of these issues,
-but I have not found an R-package that provides a holistic approach
-to providing alternative methods to the square brackets operators. <br><br>
-Thus, this R package was born. <br><br></p>
-    </div>
-    <div class="section level2">
     <h2 id="goal-amp-properties">Goal &amp; Properties<a class="anchor" aria-label="anchor" href="#goal-amp-properties"></a></h2>
     
 
 
-<p>The Goal of the 'squarebrackets' package is not to replace the square-brackets operators per-sé
-(see <a href="https://rdrr.io/r/base/Extract.html" class="external-link">Extract</a>),
+<p>Among programming languages,
+'R' has perhaps one of the most
+flexible and comprehensive sub-setting functionality,
+provided by the square brackets operators (<code>[</code>, <code>[&lt;-</code>). <br><br>
+But in some situations the square brackets operators
+are occasionally less than optimally convenient
+(see <a href="aaa7_squarebrackets_inconveniences.html">squarebrackets_inconveniences</a>). <br><br>
+The Goal of the 'squarebrackets' package is not to replace the square-brackets operators per-sé,
 but to provide <b>alternative</b> sub-setting methods and functions,
 to be used in situations where the square-brackets operators are inconvenient. <br>
 These are (hopefully) easier sub-setting methods and functions,
 with the following properties:</p><ul><li><p><b>Programmatically friendly</b>:</p><ul><li><p>Name-based arguments instead of position-based arguments.</p></li>
 <li><p>Unlike base <code>[</code>,
 it's not required to know the number of dimensions of an array a-priori,
-to perform subset-operations on the object.</p></li>
+to perform subset-operations on an array.</p></li>
 <li><p>Missing arguments can be filled with <code>NULL</code>,
 instead of using dark magic like <code>base::quote(expr =    )</code>.</p></li>
 <li><p>No Non-standard evaluation.</p></li>

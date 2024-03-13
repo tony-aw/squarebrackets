@@ -1,7 +1,8 @@
 #' Exported Utilities
 #'
 #' @description
-#' Exported utilities
+#' Exported utilities. \cr
+#' Usually the user won't need these functions. \cr \cr
 #'
 #' @param x a vector, vector-like object, factor, data.frame, data.frame-like object, or a list.
 #' @param i See \link{squarebrackets_indx_args}.

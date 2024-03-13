@@ -2,7 +2,7 @@
 #'
 #' @description
 #' This is an S3 Method to extract, exchange,
-#' or duplicate (i.e. replicate indices x times) indices of an object.
+#' or duplicate (i.e. repeat x times) subsets of an object.
 #'
 #' @param x see \link{squarebrackets_immutable_classes} and \link{squarebrackets_mutable_classes}.
 #' @param i,lvl,row,col,idx,dims,rcl,filter,vars See \link{squarebrackets_indx_args}. \cr

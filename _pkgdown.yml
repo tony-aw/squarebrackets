@@ -25,6 +25,7 @@ reference:
   - '`aaa4_squarebrackets_duplicates`'
   - '`aaa5_squarebrackets_PassByReference`'
   - '`aaa6_squarebrackets_technical`'
+  - '`aaa7_squarebrackets_inconveniences`'
   - '`class_mutable_atomic`'
 - title: Generic Methods
   contents:

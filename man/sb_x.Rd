@@ -48,7 +48,7 @@ Returns a copy of the sub-setted object.
 }
 \description{
 This is an S3 Method to extract, exchange,
-or duplicate (i.e. replicate indices x times) indices of an object.
+or duplicate (i.e. repeat x times) subsets of an object.
 }
 \details{
 \bold{One the \code{rat} argument} \cr

@@ -10,55 +10,19 @@
 \description{
 squarebrackets: Methods as an Alternative to the Square Brackets Operators \cr \cr
 }
-\section{Motivation}{
+\section{Goal & Properties}{
 
 
-In order to perform subset operations on some array \code{x}
-with the square brackets operator (\code{[}, \verb{[<-}),
-one needs to know how many dimensions it has. \cr
-I.e. if \code{x} has 3 dimensions, one would use \cr
-\code{x[i, j, k, drop = FALSE]}  or \code{x[i, j, k] <- value} \cr
-But how would one the use the square brackets operators,
-when number of dimensions of \code{x} is not known a-priori? \cr
-It’s not impossible, but still rather convoluted. \cr
-\cr
-The \link{data.frame}, \link[tibble]{tibble}, \link[data.table]{data.table},
-and \link[tidytable]{tidytable} classes
-all inherit from class “data.frame”. \cr
-Yet they use different rules regarding the usage of the square bracket operators. \cr
-Constantly switching between these rules is annoying,
-and makes one's code inconsistent. \cr
-\cr
-When selecting names for sub-setting,
-only the first occurrences of the names are selected for the sub-set; \cr
-and when un-selecting/removing names for sub-setting,
-the syntax is very different from selecting names. \cr
-\cr
-‘R’ adheres to copy-on-modification semantics when replacing values using \code{[<-}. \cr
-But sometimes one would like explicit control when to create a copy,
-and when to modify using pass-by-reference semantics. \cr
-\cr
-\cr
 Among programming languages,
 'R' has perhaps one of the most
 flexible and comprehensive sub-setting functionality,
 provided by the square brackets operators (\code{[}, \verb{[<-}). \cr
-But as shown in the above cases,
-the square brackets operators
-are occasionally less than optimally convenient. \cr
 \cr
-There are some packages that solve some of these issues,
-but I have not found an R-package that provides a holistic approach
-to providing alternative methods to the square brackets operators. \cr
+But in some situations the square brackets operators
+are occasionally less than optimally convenient
+(see \link{squarebrackets_inconveniences}). \cr
 \cr
-Thus, this R package was born. \cr \cr
-}
-
-\section{Goal & Properties}{
-
-
-The Goal of the 'squarebrackets' package is not to replace the square-brackets operators per-sé
-(see \link[base]{Extract}),
+The Goal of the 'squarebrackets' package is not to replace the square-brackets operators per-sé,
 but to provide \bold{alternative} sub-setting methods and functions,
 to be used in situations where the square-brackets operators are inconvenient. \cr
 These are (hopefully) easier sub-setting methods and functions,
@@ -69,7 +33,7 @@ with the following properties:
 \item Name-based arguments instead of position-based arguments.
 \item Unlike base \code{[},
 it's not required to know the number of dimensions of an array a-priori,
-to perform subset-operations on the object.
+to perform subset-operations on an array.
 \item Missing arguments can be filled with \code{NULL},
 instead of using dark magic like \code{base::quote(expr =    )}.
 \item No Non-standard evaluation.
