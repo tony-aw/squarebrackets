@@ -4,27 +4,92 @@
 enumerate <- 0 # to count number of tests in loops
 sys.source(file.path(getwd(), "source", "functions4testing.R"), envir = environment())
 
-# as.mutable_atomic vs mutable_atomic ====
+
+# is.mutable_atomic ====
+x <- 0:10
+expect_false(
+  is.mutable_atomic(as.logical(x))
+)
+expect_false(
+  is.mutable_atomic(as.integer(x))
+)
+expect_false(
+  is.mutable_atomic(as.double(x))
+)
+expect_false(
+  is.mutable_atomic(as.character(x))
+)
+
+x <- as.mutable_atomic(x)
+expect_true(
+  is.mutable_atomic(x)
+)
+
+x <- factor(letters)
+class(x) <- "mutable_atomic"
+attr(x, 'typeof') <- typeof(x)
+expect_false(
+  is.mutable_atomic(as.character(x))
+)
+
+enumerate <- enumerate + 6
+
+
+# as.mutable_atomic vs mutable_atomic - vector ====
 x <- 1:10
+expect_equal(
+  as.mutable_atomic(x),
+  mutable_atomic(1:10)
+)
 names(x) <- letters[1:10]
 expect_equal(
   as.mutable_atomic(x),
   mutable_atomic(1:10, names = letters[1:10])
 )
+enumerate <- enumerate + 2
 
+
+# as.mutable_atomic vs mutable_atomic - matrix ====
 x <- matrix(1:20, ncol = 4)
-colnames(x) <- letters[1:4]
 expect_equal(
   as.mutable_atomic(x),
-  mutable_atomic(1:20, dim = c(5, 4), dimnames = n(NULL, letters[1:4]))
+  mutable_atomic(1:20, dim = c(5, 4))
+)
+dimnames(x) <- n(NULL, letters[1:4])
+expect_equal(
+  as.mutable_atomic(x),
+  mutable_atomic(x, dim = c(5, 4), dimnames = n(NULL, letters[1:4]))
 )
 
+x <- matrix(1:20, ncol = 4)
+names(x) <- letters[1:20]
+expect_equal(
+  as.mutable_atomic(x),
+  mutable_atomic(x, dim = c(5, 4), names = letters[1:20])
+)
+dimnames(x) <- n(NULL, letters[1:4])
+expect_equal(
+  as.mutable_atomic(x),
+  mutable_atomic(x, dim = c(5, 4), names = letters[1:20], dimnames = n(NULL, letters[1:4]))
+)
+
+enumerate <- enumerate + 4
+
+
+# as.mutable_atomic vs mutable_atomic - array ====
 x <- array(1:27, dim = c(3,3,3))
 dimnames(x) <- n(NULL, NULL, letters[1:3])
 expect_equal(
   as.mutable_atomic(x),
   mutable_atomic(1:27, dim = c(3,3,3), dimnames = n(NULL, NULL, letters[1:3]))
 )
+names(x) <- c(letters, NA)
+expect_equal(
+  as.mutable_atomic(x),
+  mutable_atomic(1:27, dim = c(3,3,3), dimnames = n(NULL, NULL, letters[1:3]), names = c(letters, NA))
+)
+
+enumerate <- enumerate + 3
 
 
 # partial matrix sub-setting ====
@@ -118,4 +183,25 @@ expect_equal(
 
 enumerate <- enumerate + 8
 
+
+# errors ====
+
+expect_error(
+  mutable_atomic(list(1:10)),
+  pattern = "non-atomic data given"
+)
+expect_error(
+  as.mutable_atomic(list(1:10)),
+  "not atomic"
+)
+expect_error(
+  mutable_atomic(factor(letters)),
+  "factors cannot be mutable"
+)
+expect_error(
+  as.mutable_atomic(factor(letters)),
+  "factors cannot be mutable"
+)
+
+enumerate <- enumerate + 4
 

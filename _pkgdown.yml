@@ -37,6 +37,7 @@ reference:
   - '`sb_before`'
   - '`sb_after`'
   - '`sb_rec`'
+  - '`sb_setRename`'
   - '`sb_currentBindings`'
 - title: Specialized Functions
   contents:

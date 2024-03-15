@@ -95,7 +95,7 @@
 #'  * \link{sb_rm}: un-select/remove subsets.
 #'  * \link{sb_set}: modify (transform or replace)
 #'  subsets of a \link[=squarebrackets_mutable_classes]{mutable object}
-#'  using \link[=squarebrackets_PassByReference]{Pass By Reference} semantics.
+#'  using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
 #'  * \link{sb_mod}: return a \bold{copy}
 #'  of an object with modified
 #'  (transformed or replaced) subsets.
@@ -104,6 +104,8 @@
 #'  * \link{sb_before}, \link{sb_after}: insert new values before or after an index
 #'  along a dimension of an object.
 #'  * \link{sb_rec}: accesses recursive subsets of lists.
+#'  * \link{sb_setRename}: rename a \link[=squarebrackets_mutable_classes]{mutable object}
+#'  using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
 #'  * \link{sb_currentBindings}: list all currently existing bindings
 #'  that share the share the same address as the input variable. \cr \cr
 #' 
@@ -111,7 +113,7 @@
 #' Additional specialized sub-setting functions are provided:
 #'  
 #'  * \link{setapply}: apply functions over mutable matrix margins
-#'  using \link[=squarebrackets_PassByReference]{Pass By Reference} semantics.
+#'  using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
 #'  * \link{sb_str}: extract or replace a subset of characters of a single string
 #'  (each single character is treated as a single element).
 #'  * \link{sb_a}: extract multiple attributes from an object.
@@ -125,20 +127,20 @@
 #' 
 #'  * \link{n}: Nested version of \link[base]{c},
 #'  and short-hand for \link[base]{list}.
+#'  * \link{sub2coord}, \link{coord2ind}: Convert subscripts
+#'  (array indices) to coordinates,
+#'  coordinates to flat indices,
+#'  and vice-versa.
+#'  * \link{match_all}: Find all matches, of one vector in another,
+#'  taking into account the order and any duplicate values of both vectors.
 #'  * Computing indices: \cr
 #'  \link{idx_by} to compute grouped indices. \cr
 #'  \link[=idx_ord_v]{idx_ord_}-functions to compute ordered indices.
-#'  * \link{match_all}: Find all matches, of one vector in another,
-#'  taking into account the order and any duplicate values of both vectors.
 #'  * Computing sequences: \cr
 #'  \link{seq_rec} for the recursive sequence generator
 #'  (for example to generate a Fibonacci sequence). \cr
 #'  \link{seq_names} to create a range of indices from a specified starting and ending name. \cr
-#'  \link{seq_mlen} to create multiple sequences of the given lengths at once.
-#'  * \link{sub2coord}, \link{coord2ind}: Convert subscripts
-#'  (array indices) to coordinates,
-#'  coordinates to flat indices,
-#'  and vice-versa. \cr \cr
+#'  \link{seq_mlen} to create multiple sequences of the given lengths at once. \cr \cr
 #' 
 #' 
 #' @author \strong{Maintainer}: Tony Wilkes \email{tony_a_wilkes@outlook.com} (\href{https://orcid.org/0000-0001-9498-8379}{ORCID})
@@ -183,6 +185,8 @@
 #' @exportPattern "sb_before"
 #' @exportPattern "sb_after"
 #' @exportPattern "sb_rec"
+#' @exportPattern "sb_setRename"
+#' @exportPattern "sb_currentBindings"
 #' @method `[` mutable_atomic
 #' @method `[<-` mutable_atomic
 #' 

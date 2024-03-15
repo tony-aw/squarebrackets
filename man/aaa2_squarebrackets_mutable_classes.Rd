@@ -97,7 +97,6 @@ applied before replacement (\code{rp}) or transformation (\code{tf()}). \cr
 \cr
 \cr
 \bold{Views of Lists} \cr
-\ifelse{html}{\figure{coercion_through_copy-depends-lightblue.svg}{options: alt='[coercion_through_copy: depends]'}}{\link[=squarebrackets_mutable_classes]{coercion_through_copy: depends}} \cr
 \ifelse{html}{\figure{coercion_by_reference-depends-lightblue.svg}{options: alt='[coercion_by_reference: depends]'}}{\link[=squarebrackets_mutable_classes]{coercion_by_reference: depends}} \cr
 Regular lists themselves are not treated as mutable objects by 'squarebrackets'. \cr
 However, lists are not actually really objects,

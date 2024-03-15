@@ -141,7 +141,7 @@ The main focus is on the following generic methods:</p><ul><li><p><a href="sb_x.
 <li><p><a href="sb_rm.html">sb_rm</a>: un-select/remove subsets.</p></li>
 <li><p><a href="sb_set.html">sb_set</a>: modify (transform or replace)
 subsets of a <a href="aaa2_squarebrackets_mutable_classes.html">mutable object</a>
-using <a href="aaa5_squarebrackets_PassByReference.html">Pass By Reference</a> semantics.</p></li>
+using <a href="aaa5_squarebrackets_PassByReference.html">pass-by-reference semantics</a>.</p></li>
 <li><p><a href="sb_mod.html">sb_mod</a>: return a <b>copy</b>
 of an object with modified
 (transformed or replaced) subsets.</p></li>
@@ -150,11 +150,13 @@ or a recursive subset of an object.</p></li>
 <li><p><a href="sb_in.html">sb_before</a>, <a href="sb_in.html">sb_after</a>: insert new values before or after an index
 along a dimension of an object.</p></li>
 <li><p><a href="sb_rec.html">sb_rec</a>: accesses recursive subsets of lists.</p></li>
+<li><p><a href="sb_setRename.html">sb_setRename</a>: rename a <a href="aaa2_squarebrackets_mutable_classes.html">mutable object</a>
+using <a href="aaa5_squarebrackets_PassByReference.html">pass-by-reference semantics</a>.</p></li>
 <li><p><a href="sb_currentBindings.html">sb_currentBindings</a>: list all currently existing bindings
 that share the share the same address as the input variable. <br><br></p></li>
 </ul><p><img src="figures/specialized_functions-darkred.svg" alt="[SPECIALIZED FUNCTIONS]"><br>
 Additional specialized sub-setting functions are provided:</p><ul><li><p><a href="setapply.html">setapply</a>: apply functions over mutable matrix margins
-using <a href="aaa5_squarebrackets_PassByReference.html">Pass By Reference</a> semantics.</p></li>
+using <a href="aaa5_squarebrackets_PassByReference.html">pass-by-reference semantics</a>.</p></li>
 <li><p><a href="sb_special.html">sb_str</a>: extract or replace a subset of characters of a single string
 (each single character is treated as a single element).</p></li>
 <li><p><a href="sb_special.html">sb_a</a>: extract multiple attributes from an object.</p></li>
@@ -165,15 +167,15 @@ a couple of helper functions for creating ranges, sequences, and indices
 (often needed in sub-setting)
 are provided:</p><ul><li><p><a href="nest.html">n</a>: Nested version of <a href="https://rdrr.io/r/base/c.html" class="external-link">c</a>,
 and short-hand for <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a>.</p></li>
-<li><p>Computing indices: <br><a href="idx_by.html">idx_by</a> to compute grouped indices. <br><a href="idx_ord.html">idx_ord_</a>-functions to compute ordered indices.</p></li>
-<li><p><a href="match_all.html">match_all</a>: Find all matches, of one vector in another,
-taking into account the order and any duplicate values of both vectors.</p></li>
-<li><p>Computing sequences: <br><a href="seq_rec.html">seq_rec</a> for the recursive sequence generator
-(for example to generate a Fibonacci sequence). <br><a href="seq_names.html">seq_names</a> to create a range of indices from a specified starting and ending name. <br><a href="seq_mlen.html">seq_mlen</a> to create multiple sequences of the given lengths at once.</p></li>
 <li><p><a href="sub2ind.html">sub2coord</a>, <a href="sub2ind.html">coord2ind</a>: Convert subscripts
 (array indices) to coordinates,
 coordinates to flat indices,
-and vice-versa. <br><br></p></li>
+and vice-versa.</p></li>
+<li><p><a href="match_all.html">match_all</a>: Find all matches, of one vector in another,
+taking into account the order and any duplicate values of both vectors.</p></li>
+<li><p>Computing indices: <br><a href="idx_by.html">idx_by</a> to compute grouped indices. <br><a href="idx_ord.html">idx_ord_</a>-functions to compute ordered indices.</p></li>
+<li><p>Computing sequences: <br><a href="seq_rec.html">seq_rec</a> for the recursive sequence generator
+(for example to generate a Fibonacci sequence). <br><a href="seq_names.html">seq_names</a> to create a range of indices from a specified starting and ending name. <br><a href="seq_mlen.html">seq_mlen</a> to create multiple sequences of the given lengths at once. <br><br></p></li>
 </ul></div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>

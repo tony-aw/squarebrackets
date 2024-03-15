@@ -82,3 +82,6 @@ expect_equal(
 
 enumerate <- enumerate + 2
 
+# sb_setRename() ====
+# see the script test-generic_setRename
+

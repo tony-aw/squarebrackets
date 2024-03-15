@@ -55,6 +55,16 @@ mutable_atomic <- function(data, names = NULL, dim = NULL, dimnames = NULL) {
   if(!is.atomic(data)) {
     stop("non-atomic data given")
   }
+  if(is.factor(data)) {
+    stop("factors cannot be mutable")
+  }
+  
+  if(!is.null(names)) {
+    names <- data.table::copy(names) # protection against pass-by-reference
+  }
+  if(!is.null(dimnames)) {
+    dimnames <- data.table::copy(dimnames) # protection against pass-by-reference
+  }
   
   if(isTRUE(length(dim) == 2)) {
     x <- structure(
@@ -87,6 +97,9 @@ as.mutable_atomic <- function(x, ...) {
   if(!is.atomic(x)) {
     stop("not atomic")
   }
+  if(is.factor(x)) {
+    stop("factors cannot be mutable")
+  }
   if(is.mutable_atomic(x)) {
     return(x)
   }
@@ -94,6 +107,18 @@ as.mutable_atomic <- function(x, ...) {
   y <- x
   attr(y, "typeof") <- typeof(x)
   class(y) <- c("mutable_atomic", class(y))
+  
+  if(!is.null(names(y))) {
+    nms <- data.table::copy(names(y)) # protection against pass-by-reference
+    names(y) <- NULL
+    names(y) <- nms
+  }
+  if(!is.null(dimnames(y))) {
+    nms <- data.table::copy(dimnames(y)) # protection against pass-by-reference
+    dimnames(y) <- NULL
+    dimnames(y) <- nms
+  }
+  
   return(y)
 }
 
@@ -103,6 +128,7 @@ as.mutable_atomic <- function(x, ...) {
 is.mutable_atomic <- function(x) {
   
   if(!is.atomic(x)) return(FALSE)
+  if(is.factor(x)) return(FALSE)
   check1 <- !data.table::`%chin%`(.rcpp_address(x), getOption("squarebrackets.protected"))
   check2 <- inherits(x, "mutable_atomic") && isTRUE(attr(x, "typeof") == typeof(x))
   return(check1 && check2)

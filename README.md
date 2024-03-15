@@ -51,10 +51,12 @@ tinycodet::import_LL("squarebrackets", selection = ... )
 
 ## Changelog (EXPERIMENTAL VERSIONS)
 
-- 10 march 2024: First GitHub upload - Package is very much
+- 10 March 2024: First GitHub upload - Package is very much
   experimental.
-- 12 march 2024: Changed the introduction help page a bit, added
+- 12 March 2024: Changed the introduction help page a bit, added
   `dt_setadd()`, and added tests for all `dt_` - functions. There are
   slightly over 50,000 tests now.
+- 15 March 2024: Added the `sb_setRename()` method, and added tests for
+  this method also.
 
  
