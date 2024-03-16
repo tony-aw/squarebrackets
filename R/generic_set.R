@@ -39,7 +39,7 @@
 #' 
 #' @returns
 #' Returns: VOID. This method modifies the object by reference. \cr
-#' Do NOT use assignment like `x <- sb_set(x, ...)`. \cr
+#' Do not use assignments like `x <- sb_set(x, ...)`. \cr
 #' Since this function returns void, you'll just get `NULL`. \cr \cr
 #'
 #'
@@ -59,7 +59,7 @@ sb_set.default <- function(x, i, ..., rp, tf, chkdup = TRUE) {
   
   # error checks:
   if(!is.mutable_atomic(x)){
-    stop("not mutable_atomic")
+    stop("`x` is not a (supported) mutable object")
   }
   if(!missing(rp) && !missing(tf)) stop("cannot specify both `rp` and `tf`")
   .check_bindingIsLocked(substitute(x), parent.frame(n = 1))
@@ -80,7 +80,7 @@ sb_set.matrix <- function(x, row = NULL, col = NULL, i = NULL, ..., rp, tf, chkd
   
   # error checks:
   if(!is.mutable_atomic(x)){
-    stop("not mutable_atomic")
+    stop("`x` is not a (supported) mutable object")
   }
   if(!missing(rp) && !missing(tf)) stop("cannot specify both `rp` and `tf`")
   .check_bindingIsLocked(substitute(x), parent.frame(n = 1))
@@ -126,7 +126,7 @@ sb_set.array <- function(
   
   # error checks:
   if(!is.mutable_atomic(x)){
-    stop("not mutable_atomic")
+    stop("`x` is not a (supported) mutable object")
   }
   if(!missing(rp) && !missing(tf)) stop("cannot specify both `rp` and `tf`")
   .check_bindingIsLocked(substitute(x), parent.frame(n = 1))
@@ -173,6 +173,10 @@ sb_set.data.table <- function(
     x, row = NULL, col = NULL, filter = NULL, vars = NULL,
     ..., rp, tf, chkdup = TRUE, .lapply = lapply
 ) {
+  
+  if(!data.table::is.data.table(x)) {
+    stop("`x` is not a (supported) mutable object")
+  }
   
   .check_args_df(x, row, col, filter, vars, abortcall = sys.call())
   .check_bindingIsLocked(substitute(x), parent.frame(n = 1))

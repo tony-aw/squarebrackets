@@ -1,4 +1,4 @@
-#' Method to Rename a Mutable Object By Reference
+#' Method to Change the Names a Mutable Object By Reference
 #'
 #' @description
 #' This is an S3 Method to rename a
@@ -65,7 +65,7 @@ sb_setRename.default <- function(x, newnames, ...) {
   
   # error checks:
   if(!is.mutable_atomic(x)){
-    stop("not mutable_atomic")
+    stop("`x` is not a (supported) mutable object")
   }
   .check_bindingIsLocked(substitute(x), parent.frame(n = 1))
   
@@ -95,7 +95,7 @@ sb_setRename.array <- function(x, newnames, newdimnames, ...) {
   
   # error checks:
   if(!is.mutable_atomic(x)){
-    stop("not mutable_atomic")
+    stop("`x` is not a (supported) mutable object")
   }
   .check_bindingIsLocked(substitute(x), parent.frame(n = 1))
   
@@ -150,7 +150,7 @@ sb_setRename.array <- function(x, newnames, newdimnames, ...) {
 #' @export
 sb_setRename.data.table <- function(x, old, new, skip_absent = FALSE, ...) {
   if(!data.table::is.data.table(x)) {
-    stop("`x` not a data.table")
+    stop("`x` is not a (supported) mutable object")
   }
   .check_bindingIsLocked(substitute(x), parent.frame(n = 1))
   

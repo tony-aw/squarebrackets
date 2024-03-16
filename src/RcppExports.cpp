@@ -24,14 +24,14 @@ BEGIN_RCPP
 END_RCPP
 }
 // rcpp_set_rowcol_bool1
-void rcpp_set_rowcol_bool1(LogicalMatrix x, IntegerVector rowind, IntegerVector colind, bool rp);
+void rcpp_set_rowcol_bool1(LogicalMatrix x, IntegerVector rowind, IntegerVector colind, LogicalVector rp);
 RcppExport SEXP _squarebrackets_rcpp_set_rowcol_bool1(SEXP xSEXP, SEXP rowindSEXP, SEXP colindSEXP, SEXP rpSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< LogicalMatrix >::type x(xSEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type rowind(rowindSEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type colind(colindSEXP);
-    Rcpp::traits::input_parameter< bool >::type rp(rpSEXP);
+    Rcpp::traits::input_parameter< LogicalVector >::type rp(rpSEXP);
     rcpp_set_rowcol_bool1(x, rowind, colind, rp);
     return R_NilValue;
 END_RCPP
@@ -49,13 +49,13 @@ BEGIN_RCPP
 END_RCPP
 }
 // rcpp_set_row_bool1
-void rcpp_set_row_bool1(LogicalMatrix x, IntegerVector rowind, bool rp);
+void rcpp_set_row_bool1(LogicalMatrix x, IntegerVector rowind, LogicalVector rp);
 RcppExport SEXP _squarebrackets_rcpp_set_row_bool1(SEXP xSEXP, SEXP rowindSEXP, SEXP rpSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< LogicalMatrix >::type x(xSEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type rowind(rowindSEXP);
-    Rcpp::traits::input_parameter< bool >::type rp(rpSEXP);
+    Rcpp::traits::input_parameter< LogicalVector >::type rp(rpSEXP);
     rcpp_set_row_bool1(x, rowind, rp);
     return R_NilValue;
 END_RCPP
@@ -73,13 +73,13 @@ BEGIN_RCPP
 END_RCPP
 }
 // rcpp_set_col_bool1
-void rcpp_set_col_bool1(LogicalMatrix x, IntegerVector colind, bool rp);
+void rcpp_set_col_bool1(LogicalMatrix x, IntegerVector colind, LogicalVector rp);
 RcppExport SEXP _squarebrackets_rcpp_set_col_bool1(SEXP xSEXP, SEXP colindSEXP, SEXP rpSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< LogicalMatrix >::type x(xSEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type colind(colindSEXP);
-    Rcpp::traits::input_parameter< bool >::type rp(rpSEXP);
+    Rcpp::traits::input_parameter< LogicalVector >::type rp(rpSEXP);
     rcpp_set_col_bool1(x, colind, rp);
     return R_NilValue;
 END_RCPP
@@ -98,14 +98,14 @@ BEGIN_RCPP
 END_RCPP
 }
 // rcpp_set_rowcol_int1
-void rcpp_set_rowcol_int1(IntegerMatrix x, IntegerVector rowind, IntegerVector colind, int rp);
+void rcpp_set_rowcol_int1(IntegerMatrix x, IntegerVector rowind, IntegerVector colind, IntegerVector rp);
 RcppExport SEXP _squarebrackets_rcpp_set_rowcol_int1(SEXP xSEXP, SEXP rowindSEXP, SEXP colindSEXP, SEXP rpSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< IntegerMatrix >::type x(xSEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type rowind(rowindSEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type colind(colindSEXP);
-    Rcpp::traits::input_parameter< int >::type rp(rpSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type rp(rpSEXP);
     rcpp_set_rowcol_int1(x, rowind, colind, rp);
     return R_NilValue;
 END_RCPP
@@ -123,13 +123,13 @@ BEGIN_RCPP
 END_RCPP
 }
 // rcpp_set_row_int1
-void rcpp_set_row_int1(IntegerMatrix x, IntegerVector rowind, int rp);
+void rcpp_set_row_int1(IntegerMatrix x, IntegerVector rowind, IntegerVector rp);
 RcppExport SEXP _squarebrackets_rcpp_set_row_int1(SEXP xSEXP, SEXP rowindSEXP, SEXP rpSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< IntegerMatrix >::type x(xSEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type rowind(rowindSEXP);
-    Rcpp::traits::input_parameter< int >::type rp(rpSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type rp(rpSEXP);
     rcpp_set_row_int1(x, rowind, rp);
     return R_NilValue;
 END_RCPP
@@ -147,13 +147,13 @@ BEGIN_RCPP
 END_RCPP
 }
 // rcpp_set_col_int1
-void rcpp_set_col_int1(IntegerMatrix x, IntegerVector colind, int rp);
+void rcpp_set_col_int1(IntegerMatrix x, IntegerVector colind, IntegerVector rp);
 RcppExport SEXP _squarebrackets_rcpp_set_col_int1(SEXP xSEXP, SEXP colindSEXP, SEXP rpSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< IntegerMatrix >::type x(xSEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type colind(colindSEXP);
-    Rcpp::traits::input_parameter< int >::type rp(rpSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type rp(rpSEXP);
     rcpp_set_col_int1(x, colind, rp);
     return R_NilValue;
 END_RCPP
@@ -172,14 +172,14 @@ BEGIN_RCPP
 END_RCPP
 }
 // rcpp_set_rowcol_double1
-void rcpp_set_rowcol_double1(NumericMatrix x, IntegerVector rowind, IntegerVector colind, double rp);
+void rcpp_set_rowcol_double1(NumericMatrix x, IntegerVector rowind, IntegerVector colind, NumericVector rp);
 RcppExport SEXP _squarebrackets_rcpp_set_rowcol_double1(SEXP xSEXP, SEXP rowindSEXP, SEXP colindSEXP, SEXP rpSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< NumericMatrix >::type x(xSEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type rowind(rowindSEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type colind(colindSEXP);
-    Rcpp::traits::input_parameter< double >::type rp(rpSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type rp(rpSEXP);
     rcpp_set_rowcol_double1(x, rowind, colind, rp);
     return R_NilValue;
 END_RCPP
@@ -197,13 +197,13 @@ BEGIN_RCPP
 END_RCPP
 }
 // rcpp_set_row_double1
-void rcpp_set_row_double1(NumericMatrix x, IntegerVector rowind, double rp);
+void rcpp_set_row_double1(NumericMatrix x, IntegerVector rowind, NumericVector rp);
 RcppExport SEXP _squarebrackets_rcpp_set_row_double1(SEXP xSEXP, SEXP rowindSEXP, SEXP rpSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< NumericMatrix >::type x(xSEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type rowind(rowindSEXP);
-    Rcpp::traits::input_parameter< double >::type rp(rpSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type rp(rpSEXP);
     rcpp_set_row_double1(x, rowind, rp);
     return R_NilValue;
 END_RCPP
@@ -221,13 +221,13 @@ BEGIN_RCPP
 END_RCPP
 }
 // rcpp_set_col_double1
-void rcpp_set_col_double1(NumericMatrix x, IntegerVector colind, double rp);
+void rcpp_set_col_double1(NumericMatrix x, IntegerVector colind, NumericVector rp);
 RcppExport SEXP _squarebrackets_rcpp_set_col_double1(SEXP xSEXP, SEXP colindSEXP, SEXP rpSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< NumericMatrix >::type x(xSEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type colind(colindSEXP);
-    Rcpp::traits::input_parameter< double >::type rp(rpSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type rp(rpSEXP);
     rcpp_set_col_double1(x, colind, rp);
     return R_NilValue;
 END_RCPP
@@ -246,14 +246,14 @@ BEGIN_RCPP
 END_RCPP
 }
 // rcpp_set_rowcol_String1
-void rcpp_set_rowcol_String1(CharacterMatrix x, IntegerVector rowind, IntegerVector colind, String rp);
+void rcpp_set_rowcol_String1(CharacterMatrix x, IntegerVector rowind, IntegerVector colind, CharacterVector rp);
 RcppExport SEXP _squarebrackets_rcpp_set_rowcol_String1(SEXP xSEXP, SEXP rowindSEXP, SEXP colindSEXP, SEXP rpSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< CharacterMatrix >::type x(xSEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type rowind(rowindSEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type colind(colindSEXP);
-    Rcpp::traits::input_parameter< String >::type rp(rpSEXP);
+    Rcpp::traits::input_parameter< CharacterVector >::type rp(rpSEXP);
     rcpp_set_rowcol_String1(x, rowind, colind, rp);
     return R_NilValue;
 END_RCPP
@@ -271,13 +271,13 @@ BEGIN_RCPP
 END_RCPP
 }
 // rcpp_set_row_String1
-void rcpp_set_row_String1(CharacterMatrix x, IntegerVector rowind, String rp);
+void rcpp_set_row_String1(CharacterMatrix x, IntegerVector rowind, CharacterVector rp);
 RcppExport SEXP _squarebrackets_rcpp_set_row_String1(SEXP xSEXP, SEXP rowindSEXP, SEXP rpSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< CharacterMatrix >::type x(xSEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type rowind(rowindSEXP);
-    Rcpp::traits::input_parameter< String >::type rp(rpSEXP);
+    Rcpp::traits::input_parameter< CharacterVector >::type rp(rpSEXP);
     rcpp_set_row_String1(x, rowind, rp);
     return R_NilValue;
 END_RCPP
@@ -295,13 +295,13 @@ BEGIN_RCPP
 END_RCPP
 }
 // rcpp_set_col_String1
-void rcpp_set_col_String1(CharacterMatrix x, IntegerVector colind, String rp);
+void rcpp_set_col_String1(CharacterMatrix x, IntegerVector colind, CharacterVector rp);
 RcppExport SEXP _squarebrackets_rcpp_set_col_String1(SEXP xSEXP, SEXP colindSEXP, SEXP rpSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< CharacterMatrix >::type x(xSEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type colind(colindSEXP);
-    Rcpp::traits::input_parameter< String >::type rp(rpSEXP);
+    Rcpp::traits::input_parameter< CharacterVector >::type rp(rpSEXP);
     rcpp_set_col_String1(x, colind, rp);
     return R_NilValue;
 END_RCPP
@@ -320,14 +320,14 @@ BEGIN_RCPP
 END_RCPP
 }
 // rcpp_set_rowcol_Rcomplex1
-void rcpp_set_rowcol_Rcomplex1(ComplexMatrix x, IntegerVector rowind, IntegerVector colind, Rcomplex rp);
+void rcpp_set_rowcol_Rcomplex1(ComplexMatrix x, IntegerVector rowind, IntegerVector colind, ComplexVector rp);
 RcppExport SEXP _squarebrackets_rcpp_set_rowcol_Rcomplex1(SEXP xSEXP, SEXP rowindSEXP, SEXP colindSEXP, SEXP rpSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< ComplexMatrix >::type x(xSEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type rowind(rowindSEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type colind(colindSEXP);
-    Rcpp::traits::input_parameter< Rcomplex >::type rp(rpSEXP);
+    Rcpp::traits::input_parameter< ComplexVector >::type rp(rpSEXP);
     rcpp_set_rowcol_Rcomplex1(x, rowind, colind, rp);
     return R_NilValue;
 END_RCPP
@@ -345,13 +345,13 @@ BEGIN_RCPP
 END_RCPP
 }
 // rcpp_set_row_Rcomplex1
-void rcpp_set_row_Rcomplex1(ComplexMatrix x, IntegerVector rowind, Rcomplex rp);
+void rcpp_set_row_Rcomplex1(ComplexMatrix x, IntegerVector rowind, ComplexVector rp);
 RcppExport SEXP _squarebrackets_rcpp_set_row_Rcomplex1(SEXP xSEXP, SEXP rowindSEXP, SEXP rpSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< ComplexMatrix >::type x(xSEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type rowind(rowindSEXP);
-    Rcpp::traits::input_parameter< Rcomplex >::type rp(rpSEXP);
+    Rcpp::traits::input_parameter< ComplexVector >::type rp(rpSEXP);
     rcpp_set_row_Rcomplex1(x, rowind, rp);
     return R_NilValue;
 END_RCPP
@@ -369,13 +369,13 @@ BEGIN_RCPP
 END_RCPP
 }
 // rcpp_set_col_Rcomplex1
-void rcpp_set_col_Rcomplex1(ComplexMatrix x, IntegerVector colind, Rcomplex rp);
+void rcpp_set_col_Rcomplex1(ComplexMatrix x, IntegerVector colind, ComplexVector rp);
 RcppExport SEXP _squarebrackets_rcpp_set_col_Rcomplex1(SEXP xSEXP, SEXP colindSEXP, SEXP rpSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< ComplexMatrix >::type x(xSEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type colind(colindSEXP);
-    Rcpp::traits::input_parameter< Rcomplex >::type rp(rpSEXP);
+    Rcpp::traits::input_parameter< ComplexVector >::type rp(rpSEXP);
     rcpp_set_col_Rcomplex1(x, colind, rp);
     return R_NilValue;
 END_RCPP

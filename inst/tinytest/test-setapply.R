@@ -1,4 +1,11 @@
 
+x <- matrix(1:20, ncol = 4)
+expect_error(
+  setapply(x, 1, rev),
+  pattern = '`x` must be a mutable_atomic matrix'
+)
+
+
 x <- mutable_atomic(sample(1:90), dim = c(9,10))
 x2 <- x
 for(i in 1:nrow(x)) x2[i,] <- sort(x2[i,]) 
@@ -16,3 +23,6 @@ expect_equal(
   x,
   as.mutable_atomic(x2)
 )
+
+enumerate <- 3
+

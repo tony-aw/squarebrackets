@@ -58,5 +58,8 @@ tinycodet::import_LL("squarebrackets", selection = ... )
   slightly over 50,000 tests now.
 - 15 March 2024: Added the `sb_setRename()` method, and added tests for
   this method also.
+- 16 March 2024: Fixed a bug in the “rcpp_set_rowcol” source code.
+  Tweaked the documentation here and there a bit. Improved the tests a
+  bit.
 
  

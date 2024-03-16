@@ -122,9 +122,10 @@ or a recursive subset of an object.
 \item \link{sb_before}, \link{sb_after}: insert new values before or after an index
 along a dimension of an object.
 \item \link{sb_rec}: accesses recursive subsets of lists.
-\item \link{sb_setRename}: rename a \link[=squarebrackets_mutable_classes]{mutable object}
+\item \link{sb_setRename}: change the names of
+a \link[=squarebrackets_mutable_classes]{mutable object}
 using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
-\item \link{sb_currentBindings}: list all currently existing bindings
+\item \link{sb_currentBindings}: list or lock all currently existing bindings
 that share the share the same address as the input variable. \cr \cr
 }
 

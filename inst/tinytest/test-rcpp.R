@@ -6,10 +6,12 @@ source(file.path(getwd(), "source", "functions4testing.R"))
 
 # sb_set.matrix() ====
 x.data <- list(
-  sample(c(TRUE, FALSE), 100, TRUE),
-  sample(1:100),
-  rnorm(100),
-  sample(c(letters, LETTERS), 100, TRUE)
+  sample(c(TRUE, FALSE, NA), 100, TRUE),
+  sample(c(1:98, NA, NA)),
+  c(rnorm(96), NA, NaN, NA, NaN),
+  sample(c(letters, LETTERS, NA, NA), 100, TRUE),
+  rep(NA, 100),
+  rep(c(NA, NaN), 50)
 )
 x.nrow <- 10
 x.ncol <- 10
@@ -30,14 +32,27 @@ for(iD in 1:4) {
       
       x <- mutable_atomic(x.data[[iD]], dim = c(10,10))
       x2 <- x
-      x2[ temp.row, temp.col ] <- sort(x2[ temp.row, temp.col ])
-      rp <- sort(x[ temp.row, temp.col ])
-      sb_set(x, row = rows[[iRow]], col = cols[[iCol]], rp = rp)
+      x2[ temp.row, temp.col ] <- rev(x2[ temp.row, temp.col ])
+      rp <- rev(x[ temp.row, temp.col ])
+      sb_set(x, temp.row, temp.col, rp = rp)
+      invisible(x) # waking up R
       expect_equal(
-        x,
-        x2
+        x, x2
       ) |> errorfun()
-      enumerate <- enumerate + 1
+      
+      
+      x <- mutable_atomic(x.data[[iD]], dim = c(10,10))
+      x.len <- length(x[ temp.row, temp.col ])
+      x2 <- x
+      rp <- rep(NA, x.len)
+      x2[ temp.row, temp.col ] <- rp
+      sb_set(x, temp.row, temp.col, rp = rp)
+      invisible(x) # waking up R
+      expect_equal(
+        x, x2
+      ) |> errorfun()
+      
+      enumerate <- enumerate + 2
     }
   }
 }
@@ -45,20 +60,22 @@ for(iD in 1:4) {
 
 # setapply ====
 x.data <- list(
-  sample(c(TRUE, FALSE), 90, TRUE),
-  sample(1:90),
-  rnorm(90),
-  sample(c(letters, LETTERS), 90, TRUE)
+  sample(c(TRUE, FALSE, NA), 90, TRUE),
+  sample(c(1:88, NA, NA)),
+  c(rnorm(86), NA, NaN, NA, NaN),
+  sample(c(letters, LETTERS, NA, NA), 90, TRUE),
+  rep(NA, 90),
+  rep(c(NA, NaN), 45)
 )
 
 for(iD in 1:4) {
   x <- mutable_atomic(x.data[[iD]], dim = c(9,10))
   x2 <- x
-  for(i in 1:nrow(x)) x2[i,] <- sort(x2[i,]) 
-  setapply(x, 1, sort)
+  for(i in 1:nrow(x)) x2[i,] <- rev(x2[i,]) 
+  setapply(x, 1, rev)
+  invisible(x) # waking up R
   expect_equal(
-    x,
-    as.mutable_atomic(x2)
+    x, as.mutable_atomic(x2)
   ) |> errorfun()
   enumerate <- enumerate + 1
 }
@@ -66,11 +83,11 @@ for(iD in 1:4) {
 for(iD in 1:4) {
   x <- mutable_atomic(x.data[[iD]], dim = c(9,10))
   x2 <- x
-  for(i in 1:ncol(x)) x2[,i] <- sort(x2[,i]) 
-  setapply(x, 2, sort)
+  for(i in 1:ncol(x)) x2[,i] <- rev(x2[,i]) 
+  setapply(x, 2, rev)
   expect_equal(
-    x,
-    as.mutable_atomic(x2)
+    x, as.mutable_atomic(x2)
   ) |> errorfun()
   enumerate <- enumerate + 1
 }
+

@@ -5,7 +5,7 @@
 \alias{sb_setRename.default}
 \alias{sb_setRename.array}
 \alias{sb_setRename.data.table}
-\title{Method to Rename a Mutable Object By Reference}
+\title{Method to Change the Names a Mutable Object By Reference}
 \usage{
 sb_setRename(x, ...)
 

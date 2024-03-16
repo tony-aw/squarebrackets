@@ -1,4 +1,4 @@
-#' Functional forms of data.table Operations (also work on tidytables)
+#' Functional Forms of data.table Operations
 #'
 #' @description
 #' Functional forms of special data.table operations - ALL programmatically friendly 
@@ -13,7 +13,7 @@
 #' removes columns of a data.table or tidytable
 #' using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr
 #' `dt_setadd(x, new)`
-#' adds the columns from data.table `new` to data.table `x`,
+#' adds the columns from data.table/tidytable `new` to data.table/tidytable `x`,
 #' thereby modifying `x`
 #' using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr \cr
 #' 
@@ -39,7 +39,7 @@
 #' \cr
 #' For the rest of the functions: \cr
 #' Returns: VOID. These functions modify the object by reference. \cr
-#' Do NOT use assignment like `x <- dt_setcoe(x, ...)`. \cr
+#' Do not use assignments like `x <- dt_setcoe(x, ...)`. \cr
 #' Since these functions return void, you'll just get `NULL`. \cr \cr
 #'
 #'

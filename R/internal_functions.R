@@ -161,7 +161,7 @@
       indx <- vapply(x, indx, FUN.VALUE = logical(1), USE.NAMES = FALSE) |> unlist()
     } else {indx <- indx(x)}
     
-    if(!is.logical(indx)) {
+    if(!is.logical(indx) || length(indx) != length(x)) {
       stop(simpleError(
         "if elements are given through a function, the function must return a logical vector",
         call = abortcall

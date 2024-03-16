@@ -2,6 +2,26 @@
 
 library(stringi)
 
+Rcpp::cppFunction(
+  "
+  void rcpp_set_rowcol_Numeric1(NumericMatrix x, IntegerVector rowind, IntegerVector colind, NumericVector rp) {
+  int ni = rowind.length();
+  int nj = colind.length();
+  int counter = 0;
+  for(int j = 0; j < nj; ++j){
+    NumericMatrix::Column col = x(_, colind[j]);
+    for(int i = 0; i < ni; ++i) {
+      col[rowind[i]] = rp[0];
+      counter += 1;
+    }
+  }
+}
+  "
+)
+
+x <- matrix(c(1:18, NA, NaN), ncol = 4)
+rcpp_set_rowcol_Numeric1(x, 2L, 2L, as.numeric(NaN))
+x
 
 # set matrix scripts ====
 
@@ -36,14 +56,14 @@ templatecode[["set_rowcol1"]] <- "
 //' @keywords internal
 //' @noRd
 // [[Rcpp::export(.rcpp_set_rowcol_SCALARTYPE1)]]
-void rcpp_set_rowcol_SCALARTYPE1(VECTORTYPEMatrix x, IntegerVector rowind, IntegerVector colind, SCALARTYPE rp) {
+void rcpp_set_rowcol_SCALARTYPE1(VECTORTYPEMatrix x, IntegerVector rowind, IntegerVector colind, VECTORTYPEVector rp) {
   int ni = rowind.length();
   int nj = colind.length();
   int counter = 0;
   for(int j = 0; j < nj; ++j){
     VECTORTYPEMatrix::Column col = x(_, colind[j]);
     for(int i = 0; i < ni; ++i) {
-      col[rowind[i]] = rp;
+      col[rowind[i]] = rp[0];
       counter += 1;
     }
   }
@@ -76,14 +96,14 @@ templatecode[["set_row1"]] <- "
 //' @keywords internal
 //' @noRd
 // [[Rcpp::export(.rcpp_set_row_SCALARTYPE1)]]
-void rcpp_set_row_SCALARTYPE1(VECTORTYPEMatrix x, IntegerVector rowind, SCALARTYPE rp) {
+void rcpp_set_row_SCALARTYPE1(VECTORTYPEMatrix x, IntegerVector rowind, VECTORTYPEVector rp) {
   int ni = rowind.length();
   int nj = x.ncol();
   int counter = 0;
   for(int j = 0; j < nj; ++j){
     VECTORTYPEMatrix::Column col = x(_, j);
     for(int i = 0; i < ni; ++i) {
-      col[rowind[i]] = rp;
+      col[rowind[i]] = rp[0];
       counter += 1;
     }
   }
@@ -116,14 +136,14 @@ templatecode[["set_col1"]] <- "
 //' @keywords internal
 //' @noRd
 // [[Rcpp::export(.rcpp_set_col_SCALARTYPE1)]]
-void rcpp_set_col_SCALARTYPE1(VECTORTYPEMatrix x, IntegerVector colind, SCALARTYPE rp) {
+void rcpp_set_col_SCALARTYPE1(VECTORTYPEMatrix x, IntegerVector colind, VECTORTYPEVector rp) {
   int ni = x.nrow();
   int nj = colind.length();
   int counter = 0;
   for(int j = 0; j < nj; ++j){
     VECTORTYPEMatrix::Column col = x(_, colind[j]);
     for(int i = 0; i < ni; ++i) {
-      col[i] = rp;
+      col[i] = rp[0];
       counter += 1;
     }
   }
@@ -157,15 +177,16 @@ using namespace Rcpp;
 rcpp_code <- paste(c(headers, rcpp_scripts), collapse = "\n\n\n")
 cat(rcpp_code)
 
+Rcpp::sourceCpp(
+  code = rcpp_code # no errors, good
+)
+
 fileConn <- file("src/dynamic_rcpp_set_rowcol.cpp")
 writeLines(rcpp_code, fileConn)
 close(fileConn)
 
 
 
-Rcpp::sourceCpp(
-  code = rcpp_code # no errors, good
-)
 
 ################################################################################
 

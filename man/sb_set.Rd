@@ -68,7 +68,7 @@ otherwise errors or unexpected behaviour may occur.}
 }
 \value{
 Returns: VOID. This method modifies the object by reference. \cr
-Do NOT use assignment like \code{x <- sb_set(x, ...)}. \cr
+Do not use assignments like \code{x <- sb_set(x, ...)}. \cr
 Since this function returns void, you'll just get \code{NULL}. \cr \cr
 }
 \description{

@@ -6,7 +6,7 @@
 \alias{dt_setcoe}
 \alias{dt_setrm}
 \alias{dt_setadd}
-\title{Functional forms of data.table Operations (also work on tidytables)}
+\title{Functional Forms of data.table Operations}
 \usage{
 dt_aggregate(x, SDcols = NULL, f, by, order_by = FALSE)
 
@@ -44,7 +44,7 @@ The aggregated \code{data.table} object. \cr
 \cr
 For the rest of the functions: \cr
 Returns: VOID. These functions modify the object by reference. \cr
-Do NOT use assignment like \code{x <- dt_setcoe(x, ...)}. \cr
+Do not use assignments like \code{x <- dt_setcoe(x, ...)}. \cr
 Since these functions return void, you'll just get \code{NULL}. \cr \cr
 }
 \description{
@@ -60,7 +60,7 @@ using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr
 removes columns of a data.table or tidytable
 using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr
 \code{dt_setadd(x, new)}
-adds the columns from data.table \code{new} to data.table \code{x},
+adds the columns from data.table/tidytable \code{new} to data.table/tidytable \code{x},
 thereby modifying \code{x}
 using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr \cr
 }

@@ -3,23 +3,6 @@ source(file.path(getwd(), "source", "functions4testing.R"))
 enumerate <- 0
 
 
-# general errors ====
-x <- 1:26
-names(x) <- letters
-expect_error(
-  sb_setRename(x, rev(names(x))),
-  pattern = "not mutable_atomic"
-)
-x <- as.mutable_atomic(x)
-lockBinding("x", environment())
-expect_error(
-  sb_setRename(x, rev(names(x))),
-  pattern = "object is locked"
-)
-rm(x)
-enumerate <- enumerate + 2
-
-
 # vector ====
 nms <- letters
 x <- mutable_atomic(1:26, names = nms)
