@@ -4,8 +4,7 @@
 #' This is an S3 Method to replace or transform a subset of a
 #' \link[=squarebrackets_mutable_classes]{supported mutable object}
 #' using
-#' \link[=squarebrackets_PassByReference]{pass-by-reference}
-#' semantics. \cr \cr
+#' \link[=squarebrackets_PassByReference]{pass-by-reference semantics} \cr \cr
 #' 
 #'
 #' @param x a \bold{variable} belonging to one of the

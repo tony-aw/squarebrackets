@@ -23,6 +23,7 @@ x <- matrix(c(1:18, NA, NaN), ncol = 4)
 rcpp_set_rowcol_Numeric1(x, 2L, 2L, as.numeric(NaN))
 x
 
+
 # set matrix scripts ====
 
 vectortypenames <- c("Logical", "Integer", "Numeric", "Character", "Complex")

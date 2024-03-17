@@ -3,9 +3,12 @@
 #' @description
 #' The `sb_` generic methods support the following Mutable S3 classes: \cr
 #' 
-#'  * \link{mutable_atomic} (this vector class supports any dimension, thus also matrices and arrays);
-#'  * \link[data.table]{data.table} (and classes that inherit from `data.table`, like `tidytable` and `sf-data.table`);
-#'  * \bold{Views of Lists}: Though lists themselves are treated as immutable,
+#'  * \link{mutable_atomic}
+#'  (this vector class supports any dimension, thus also matrices and arrays);
+#'  * \link[data.table]{data.table}
+#'  (including the classes `tidytable` and `sf-data.table`);
+#'  * \bold{Views of Lists}:
+#'  Though lists themselves are treated as immutable,
 #'  lists can contain mutable objects,
 #'  and so modification by reference of mutable views of lists \bold{is} support by the 'squarebrackets'. \cr \cr
 #'  

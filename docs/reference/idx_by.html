@@ -151,45 +151,45 @@ otherwise it makes no sense.</p></dd>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     a b group</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   7 a     a</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  12 b     a</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3   4 c     a</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4   9 d     a</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5   8 e     b</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6   1 f     b</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  10 g     b</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  16 h     b</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  11 i     c</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10  3 j     c</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11 18 k     c</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12 17 l     c</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13 14 m     d</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14 20 n     d</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15 13 o     d</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16  2 p     d</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17  6 q     e</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18 19 r     e</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19  5 s     e</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20 15 t     e</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  17 a     a</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   5 b     a</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   9 c     a</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   3 d     a</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   1 e     b</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  12 f     b</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7   6 g     b</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  15 h     b</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  20 i     c</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 18 j     c</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 14 k     c</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12  4 l     c</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 19 m     d</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14  2 n     d</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 16 o     d</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16  8 p     d</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17 13 q     e</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18  7 r     e</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19 11 s     e</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20 10 t     e</span>
 <span class="r-in"><span><span class="co"># get the first row for each group in data.frame `x`:</span></span></span>
 <span class="r-in"><span><span class="va">row</span> <span class="op">&lt;-</span> <span class="fu">idx_by</span><span class="op">(</span><span class="va">first</span>, <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="va">x</span><span class="op">$</span><span class="va">group</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="sb_x.html">sb_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">row</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    a b group</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  7 a     a</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  8 e     b</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 11 i     c</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 14 m     d</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  6 q     e</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 17 a     a</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  1 e     b</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 20 i     c</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 19 m     d</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 13 q     e</span>
 <span class="r-in"><span><span class="co"># get the first row for each group for which a &gt; 10:</span></span></span>
 <span class="r-in"><span><span class="va">x2</span> <span class="op">&lt;-</span> <span class="fu"><a href="sb_x.html">sb_x</a></span><span class="op">(</span><span class="va">x</span>, filter <span class="op">=</span> <span class="op">~</span> <span class="va">a</span> <span class="op">&gt;</span> <span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">row</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html" class="external-link">na.omit</a></span><span class="op">(</span><span class="fu">idx_by</span><span class="op">(</span><span class="va">first</span>, <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">x2</span><span class="op">)</span>, <span class="va">x2</span><span class="op">$</span><span class="va">group</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="sb_x.html">sb_x</a></span><span class="op">(</span><span class="va">x2</span>, <span class="va">row</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    a b group</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 12 b     a</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 16 h     b</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 11 i     c</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 14 m     d</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 19 r     e</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 17 a     a</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 12 f     b</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 20 i     c</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 19 m     d</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 13 q     e</span>
 <span class="r-in"><span> </span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

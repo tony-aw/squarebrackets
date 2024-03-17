@@ -4,18 +4,18 @@
 #' Functional forms of special data.table operations - ALL programmatically friendly 
 #' (no Non-Standard Evaluation). \cr
 #' \cr
-#' `dt_aggregate()`
-#' aggregates a data.table or tidytable, and returns the aggregated copy. \cr
-#' `dt_setcoe()`
-#' coercively transforms columns of a data.table or tidytable
-#' using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr
-#' `dt_setrm()`
-#' removes columns of a data.table or tidytable
-#' using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr
-#' `dt_setadd(x, new)`
-#' adds the columns from data.table/tidytable `new` to data.table/tidytable `x`,
-#' thereby modifying `x`
-#' using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr \cr
+#'  * `dt_aggregate()`
+#'  aggregates a data.table or tidytable, and returns the aggregated copy.
+#'  * `dt_setcoe()`
+#'  coercively transforms columns of a data.table or tidytable
+#'  using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
+#'  * `dt_setrm()`
+#'  removes columns of a data.table or tidytable
+#'  using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
+#'  * `dt_setadd(x, new)`
+#'  adds the columns from data.table/tidytable `new` to data.table/tidytable `x`,
+#'  thereby modifying `x`
+#'  using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr \cr
 #' 
 #' 
 #' 

@@ -61,22 +61,28 @@ These functions convert a list of integer subscripts to an integer matrix of coo
 an integer matrix of coordinates to an integer vector of flat indices,
 and vice-versa. \cr
 Inspired by the \code{sub2ind} function from 'MatLab'. \cr
+\itemize{
+\item \code{sub2coord()}
+converts a list of integer subscripts to an integer matrix of coordinates.
+\item \code{coord2ind()}
+converts an integer matrix of coordinates to an integer vector of flat indices.
+\item \code{ind2coord()}
+converts an integer vector of flat indices to an integer matrix of coordinates.
+\item \code{coord2sub()}
+converts an integer matrix of coordinates to a list of integer subscripts; \cr
+it performs a very simple (one might even say naive) conversion. \cr
+\item \code{sub2ind()}
+is a faster and more memory efficient version of \cr
+\code{coord2ind(sub2coord(sub, x.dims), x.dims)} \cr
+(especially for up to 5 dimensions). \cr
+}
 
-\code{sub2coord()} converts a list of integer subscripts to an integer matrix of coordinates. \cr
-\code{coord2ind()} converts an integer matrix of coordinates to an integer vector of flat indices. \cr
-\code{ind2coord()} converts an integer vector of flat indices to an integer matrix of coordinates. \cr
-\code{coord2sub()} converts an integer matrix of coordinates to a list of integer subscripts. \cr
-\code{sub2ind()} is a faster and more memory efficient version of
-\code{coord2ind(sub2coord(sub, x.dims), x.dims)} (especially for up to 5 dimensions). \cr
-\cr
-Note that the \code{coord2sub()} function performs a very simple (one might even say naive) conversion. \cr
-\cr
 All of these functions are written to be memory-efficient. \cr
 The \code{coord2ind()} is thus the opposite of \link{arrayInd},
 and \code{ind2coord} is merely a convenient wrapper around \link{arrayInd}. \cr
 \cr
 Note that the equivalent to the \code{sub2ind} function from 'MatLab'
-is actually the \code{coord2ind()} function here. \cr
+is actually the \code{coord2ind()} function here. \cr \cr
 }
 \details{
 The S3 classes in 'R' use the standard Linear Algebraic convention,

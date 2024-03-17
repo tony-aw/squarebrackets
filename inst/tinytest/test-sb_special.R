@@ -48,3 +48,19 @@ expect_error(
 )
 
 enumerate <- enumerate + 11
+
+
+# sb_a ====
+x <- 1:10
+attributes(x) <- list(test1 = 1:10,  test2 = 11:20)
+expect_equal(
+  sb_a(x, "test1"),
+  attributes(x)["test1"]
+)
+expect_equal(
+  sb_a(x),
+  attributes(x)
+)
+enumerate <- enumerate + 2
+
+

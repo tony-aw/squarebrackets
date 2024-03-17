@@ -552,7 +552,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // rcpp_sb_str
-std::string rcpp_sb_str(std::string x, IntegerVector ind);
+String rcpp_sb_str(std::string x, IntegerVector ind);
 RcppExport SEXP _squarebrackets_rcpp_sb_str(SEXP xSEXP, SEXP indSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -564,7 +564,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // rcpp_sb_str_rp
-std::string rcpp_sb_str_rp(std::string x, IntegerVector ind, std::string rp_x, IntegerVector rp_ind);
+String rcpp_sb_str_rp(std::string x, IntegerVector ind, std::string rp_x, IntegerVector rp_ind);
 RcppExport SEXP _squarebrackets_rcpp_sb_str_rp(SEXP xSEXP, SEXP indSEXP, SEXP rp_xSEXP, SEXP rp_indSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;

@@ -51,18 +51,20 @@ Since these functions return void, you'll just get \code{NULL}. \cr \cr
 Functional forms of special data.table operations - ALL programmatically friendly
 (no Non-Standard Evaluation). \cr
 \cr
-\code{dt_aggregate()}
-aggregates a data.table or tidytable, and returns the aggregated copy. \cr
-\code{dt_setcoe()}
+\itemize{
+\item \code{dt_aggregate()}
+aggregates a data.table or tidytable, and returns the aggregated copy.
+\item \code{dt_setcoe()}
 coercively transforms columns of a data.table or tidytable
-using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr
-\code{dt_setrm()}
+using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
+\item \code{dt_setrm()}
 removes columns of a data.table or tidytable
-using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr
-\code{dt_setadd(x, new)}
+using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
+\item \code{dt_setadd(x, new)}
 adds the columns from data.table/tidytable \code{new} to data.table/tidytable \code{x},
 thereby modifying \code{x}
 using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr \cr
+}
 }
 \examples{
 \dontshow{if (requireNamespace("sf")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}

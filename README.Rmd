@@ -31,6 +31,18 @@ squarebrackets: Methods as an Alternative to the Square Brackets Operators
 
 &nbsp;
 
+Among programming languages, 'R' has perhaps one of the most flexible and comprehensive sub-setting functionality, provided by the square brackets operators (`[`, `[ <-`).
+
+But in some occasions, the square brackets operators are less than optimally convenient; examples:
+
+ - Performing subset operations on an array, when the number of dimensions of the array are not known a-priori, is quite convoluted.
+ - The `data.frame`, `tibble`, `data.table` and `tidytable` classes use different rule sets for the square brackets operators. So one needs to learn new rules for different data.frame classes, making your one's code inconsistent.
+ -  Selecting names for sub-setting, only the first occurrences of the names are selected for the sub-set. And when un-selecting/removing names for sub-setting, the syntax is very different from selecting names
+ - 'R' implicitly uses copy-on-modify semantics. The `[<-` operator does not support explicitly choosing between deep copy or pass-by-reference semantics.
+
+The 'squarebrackets' package provides methods as an alternative to the square brackets operators, that are more convenient in such occasions.
+
+
 To get started see `?squarebrackets_help`
 
 
@@ -68,6 +80,7 @@ tinycodet::import_LL("squarebrackets", selection = ... )
  - 12 March 2024: Changed the introduction help page a bit, added `dt_setadd()`, and added tests for all `dt_` - functions. There are slightly over 50,000 tests now.
  - 15 March 2024: Added the `sb_setRename()` method, and added tests for this method also.
  - 16 March 2024: Fixed a bug in the "rcpp_set_rowcol" source code. Tweaked the documentation here and there a bit. Improved the tests a bit.
+ - 17 March 2024: Added more tests, and tweaked the documentation a bit.
 
 
  

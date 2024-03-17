@@ -1,14 +1,13 @@
 #' Supported Immutable S3 Classes, With Auto-Coercion Rules
 #'
 #' @description
-#' The `sb_` generic methods support the following categories of S3 classes: \cr
+#' The `sb_` generic methods support the following immutable S3 classes: \cr
 #' 
-#'  * `atomic` classes (\link[base]{vector}, \link[base]{matrix}, \link[base]{array});
+#'  * `atomic` classes (atomic vectors, matrices, and arrays);
 #'  * \link[base]{factor};
 #'  * \link[base]{list};
 #'  * \link[base]{data.frame}
-#'  (classes that inherit from `data.frame`,
-#'  like `tibble`, `sf-data.frame` and `sf-tibble`) \cr \cr
+#'  (including the classes `tibble`, `sf-data.frame` and `sf-tibble`) \cr \cr
 #'  
 #'  
 #' @section Auto-Coercion Rules:

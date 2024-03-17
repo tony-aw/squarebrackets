@@ -6,21 +6,27 @@
 #' and vice-versa. \cr
 #' Inspired by the `sub2ind` function from 'MatLab'. \cr
 #' 
-#' `sub2coord()` converts a list of integer subscripts to an integer matrix of coordinates. \cr
-#' `coord2ind()` converts an integer matrix of coordinates to an integer vector of flat indices. \cr
-#' `ind2coord()` converts an integer vector of flat indices to an integer matrix of coordinates. \cr
-#' `coord2sub()` converts an integer matrix of coordinates to a list of integer subscripts. \cr
-#' `sub2ind()` is a faster and more memory efficient version of
-#' `coord2ind(sub2coord(sub, x.dims), x.dims)` (especially for up to 5 dimensions). \cr
-#' \cr
-#' Note that the `coord2sub()` function performs a very simple (one might even say naive) conversion. \cr
-#' \cr
+#'  * `sub2coord()`
+#'  converts a list of integer subscripts to an integer matrix of coordinates.
+#'  * `coord2ind()`
+#'  converts an integer matrix of coordinates to an integer vector of flat indices.
+#'  * `ind2coord()`
+#'  converts an integer vector of flat indices to an integer matrix of coordinates.
+#'  * `coord2sub()`
+#'  converts an integer matrix of coordinates to a list of integer subscripts; \cr
+#'  it performs a very simple (one might even say naive) conversion. \cr
+#'  * `sub2ind()`
+#'  is a faster and more memory efficient version of \cr
+#'  `coord2ind(sub2coord(sub, x.dims), x.dims)` \cr
+#'  (especially for up to 5 dimensions). \cr
+#' 
+#' 
 #' All of these functions are written to be memory-efficient. \cr
 #' The `coord2ind()` is thus the opposite of \link{arrayInd},
 #' and `ind2coord` is merely a convenient wrapper around \link{arrayInd}. \cr
 #' \cr
 #' Note that the equivalent to the `sub2ind` function from 'MatLab'
-#' is actually the `coord2ind()` function here. \cr
+#' is actually the `coord2ind()` function here. \cr \cr
 #' 
 #'
 #'

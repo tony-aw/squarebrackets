@@ -614,6 +614,30 @@ padding-top: 0px;
 <p>squarebrackets: Methods as an Alternative to the Square Brackets
 Operators</p>
 <p> </p>
+<p>Among programming languages, ‘R’ has perhaps one of the most flexible
+and comprehensive sub-setting functionality, provided by the square
+brackets operators (<code>[</code>, <code>[ &lt;-</code>).</p>
+<p>But in some occasions, the square brackets operators are less than
+optimally convenient; examples:</p>
+<ul>
+<li>Performing subset operations on an array, when the number of
+dimensions of the array are not known a-priori, is quite
+convoluted.</li>
+<li>The <code>data.frame</code>, <code>tibble</code>,
+<code>data.table</code> and <code>tidytable</code> classes use different
+rule sets for the square brackets operators. So one needs to learn new
+rules for different data.frame classes, making your one’s code
+inconsistent.</li>
+<li>Selecting names for sub-setting, only the first occurrences of the
+names are selected for the sub-set. And when un-selecting/removing names
+for sub-setting, the syntax is very different from selecting names</li>
+<li>‘R’ implicitly uses copy-on-modify semantics. The
+<code>[&lt;-</code> operator does not support explicitly choosing
+between deep copy or pass-by-reference semantics.</li>
+</ul>
+<p>The ‘squarebrackets’ package provides methods as an alternative to
+the square brackets operators, that are more convenient in such
+occasions.</p>
 <p>To get started see <code>?squarebrackets_help</code></p>
 <p> </p>
 <h2 id="installing--loading">Installing &amp; Loading</h2>
@@ -642,6 +666,8 @@ functions. There are slightly over 50,000 tests now.</li>
 added tests for this method also.</li>
 <li>16 March 2024: Fixed a bug in the “rcpp_set_rowcol” source code.
 Tweaked the documentation here and there a bit. Improved the tests a
+bit.</li>
+<li>17 March 2024: Added more tests, and tweaked the documentation a
 bit.</li>
 </ul>
 <p> </p>

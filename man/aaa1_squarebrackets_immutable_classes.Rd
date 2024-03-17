@@ -5,14 +5,13 @@
 \alias{squarebrackets_immutable_classes}
 \title{Supported Immutable S3 Classes, With Auto-Coercion Rules}
 \description{
-The \code{sb_} generic methods support the following categories of S3 classes: \cr
+The \code{sb_} generic methods support the following immutable S3 classes: \cr
 \itemize{
-\item \code{atomic} classes (\link[base]{vector}, \link[base]{matrix}, \link[base]{array});
+\item \code{atomic} classes (atomic vectors, matrices, and arrays);
 \item \link[base]{factor};
 \item \link[base]{list};
 \item \link[base]{data.frame}
-(classes that inherit from \code{data.frame},
-like \code{tibble}, \code{sf-data.frame} and \code{sf-tibble}) \cr \cr
+(including the classes \code{tibble}, \code{sf-data.frame} and \code{sf-tibble}) \cr \cr
 }
 }
 \section{Auto-Coercion Rules}{

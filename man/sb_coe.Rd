@@ -6,7 +6,7 @@
 \alias{sb_coe.factor}
 \alias{sb_coe.list}
 \alias{sb_coe.data.frame}
-\title{Method to Coerce and Transform (Recursive Subsets of) an Object}
+\title{Method to Coercively Transform (Recursive Subsets of) an Object}
 \usage{
 sb_coe(x, ...)
 
