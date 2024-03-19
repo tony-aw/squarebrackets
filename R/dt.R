@@ -29,7 +29,7 @@
 #' giving the columns to which the aggregation function `f()` is to be applied on.
 #' @param by atomic vector,
 #' giving the grouping columns.
-#' @param order_by logical (`TRUE` or `FALSE`),
+#' @param order_by Boolean),
 #' indicating if the aggregated result should be ordered by the columns specified in `by`.
 #' @param chkdup see \link{squarebrackets_duplicates}.
 #'

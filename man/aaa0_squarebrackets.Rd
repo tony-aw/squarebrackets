@@ -134,10 +134,12 @@ Additional specialized sub-setting functions are provided:
 \itemize{
 \item \link{setapply}: apply functions over mutable matrix margins
 using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
+\item \link{ma_setv}: Find & Replace values in \link{mutable_atomic} objects. \cr
+This is considerably faster and more memory efficient than using \link{sb_set} for this.
+\item The \link[=dt_setcoe]{dt_}-functions for \code{data.table}-specific \code{[}-operations.
 \item \link{sb_str}: extract or replace a subset of characters of a single string
 (each single character is treated as a single element).
-\item \link{sb_a}: extract multiple attributes from an object.
-\item The \link[=dt_setcoe]{dt_}-functions for \code{data.table}-specific \code{[}-operations. \cr \cr
+\item \link{sb_a}: extract multiple attributes from an object. \cr \cr
 }
 
 \ifelse{html}{\figure{helper_functions-lightblue.svg}{options: alt='[HELPER FUNCTIONS]'}}{\link[=squarebrackets_help]{HELPER FUNCTIONS}} \cr

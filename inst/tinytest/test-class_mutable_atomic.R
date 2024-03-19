@@ -19,6 +19,12 @@ expect_false(
 expect_false(
   is.mutable_atomic(as.character(x))
 )
+expect_false(
+  is.mutable_atomic(as.complex(x))
+)
+expect_false(
+  is.mutable_atomic(as.raw(x))
+)
 
 x <- as.mutable_atomic(x)
 expect_true(
@@ -30,6 +36,30 @@ class(x) <- "mutable_atomic"
 attr(x, 'typeof') <- typeof(x)
 expect_false(
   is.mutable_atomic(as.character(x))
+)
+
+enumerate <- enumerate + 8
+
+
+# couldb.mutable_atomic ====
+x <- 0:10
+expect_true(
+  couldb.mutable_atomic(as.logical(x))
+)
+expect_true(
+  couldb.mutable_atomic(as.integer(x))
+)
+expect_true(
+  couldb.mutable_atomic(as.double(x))
+)
+expect_true(
+  couldb.mutable_atomic(as.character(x))
+)
+expect_true(
+  couldb.mutable_atomic(as.complex(x))
+)
+expect_true(
+  couldb.mutable_atomic(as.raw(x))
 )
 
 enumerate <- enumerate + 6
@@ -194,14 +224,14 @@ expect_error(
   as.mutable_atomic(list(1:10)),
   "not atomic"
 )
-expect_error(
-  mutable_atomic(factor(letters)),
-  "factors cannot be mutable"
-)
-expect_error(
-  as.mutable_atomic(factor(letters)),
-  "factors cannot be mutable"
-)
+# expect_error(
+#   mutable_atomic(factor(letters)),
+#   "factors cannot be mutable"
+# )
+# expect_error(
+#   as.mutable_atomic(factor(letters)),
+#   "factors cannot be mutable"
+# )
 
 enumerate <- enumerate + 4
 

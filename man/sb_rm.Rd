@@ -50,13 +50,13 @@ sb_rm(x, ...)
 An empty index selection results in nothing being removed,
 and the entire object is returned. \cr}
 
-\item{rat}{\code{TRUE} or \code{FALSE},
+\item{rat}{Boolean,
 indicating if attributes should be returned with the sub-setted object. \cr
 See Details section for more info.}
 
 \item{chkdup}{see \link{squarebrackets_duplicates}.}
 
-\item{drop}{logical.
+\item{drop}{Boolean.
 \itemize{
 \item For factors: If \code{drop = TRUE}, unused levels are dropped, if \code{drop = FALSE} they are not dropped.
 \item For lists: if \code{drop = TRUE}, selecting a single element will give the simplified result,

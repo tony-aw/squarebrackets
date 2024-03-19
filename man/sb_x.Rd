@@ -33,10 +33,10 @@ sb_x(x, ...)
 Duplicates are allowed, resulting in duplicated indices. \cr
 An empty index selection results in an empty object of length 0. \cr}
 
-\item{rat}{logical, indicating if attributes should be returned with the sub-setted object.
+\item{rat}{Boolean, indicating if attributes should be returned with the sub-setted object.
 See Details section for more info.}
 
-\item{drop}{logical.
+\item{drop}{Boolean.
 \itemize{
 \item For factors: If \code{drop = TRUE}, unused levels are dropped, if \code{drop = FALSE} they are not dropped.
 \item For lists: if \code{drop = TRUE}, selecting a single element will give the simplified result,

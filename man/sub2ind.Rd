@@ -37,7 +37,7 @@ the second column to the second dimensions,
 etc. \cr
 The number of columns of \code{coord} must be equal to the length of \code{x.dim}. \cr}
 
-\item{checks}{logical, indicating if arguments checks should be performed. \cr
+\item{checks}{Boolean, indicating if arguments checks should be performed. \cr
 Defaults to \code{TRUE}. Can be set to \code{FALSE} for minor speed improvements, but not recommended.}
 
 \item{ind}{an integer vector, giving the flat position indices to convert.}

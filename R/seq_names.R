@@ -7,8 +7,8 @@
 #' Duplicate names, empty names, or a character vector of length zero are not allowed.
 #' @param start the name giving the starting index of the sequence
 #' @param end the name giving the ending index of the sequence
-#' @param inv logical, if TRUE,
-#' the indices of all names EXCEPT the names of the specified sequence will be given.
+#' @param inv Boolean. If `TRUE`,
+#' the indices of all names \bold{except} the names of the specified sequence will be given.
 #'
 #' @returns
 #' An integer vector.

@@ -5,6 +5,7 @@
 \alias{mutable_atomic}
 \alias{as.mutable_atomic}
 \alias{is.mutable_atomic}
+\alias{couldb.mutable_atomic}
 \alias{[.mutable_atomic}
 \alias{[<-.mutable_atomic}
 \alias{format.mutable_atomic}
@@ -16,6 +17,8 @@ mutable_atomic(data, names = NULL, dim = NULL, dimnames = NULL)
 as.mutable_atomic(x, ...)
 
 is.mutable_atomic(x)
+
+couldb.mutable_atomic(x)
 
 \method{[}{mutable_atomic}(x, ...)
 
@@ -37,13 +40,24 @@ is.mutable_atomic(x)
 \item{value}{see \link[base]{Extract}.}
 }
 \value{
-\code{as.mutable_atomic} converts an atomic object (vector, matrix, array)
+For \code{as.mutable_atomic}: \cr
+Converts an atomic object (vector, matrix, array)
 to the same object, but with additional class \code{"mutable_atomic"},
 and the additional attribute \code{"typeof"}. \cr
 \cr
-\code{is.mutable_atomic} returns \code{TRUE} if the object is atomic, has
-the class \code{"mutable_atomic"}, \bold{and} has the correctly set attribute \code{"typeof"}; \cr
-\code{is.mutable_atomic} returns \code{FALSE} otherwise.
+For \code{is.mutable_atomic}: \cr
+Returns \code{TRUE} if the object is atomic, has
+the class \code{"mutable_atomic"},
+has the correctly set attribute \code{"typeof"},
+\bold{and} has an address that does not overlap with the addresses of base objecrs. \cr
+\code{is.mutable_atomic} returns \code{FALSE} otherwise. \cr
+\cr
+For \code{couldb.mutable_atomic}: \cr
+Returns \code{TRUE} if the object is one of the following types: \cr
+\link{logical}, \link{integer}, \link{double}, \link{character}, \link{complex}, \link{raw}. \cr
+\code{bit64::}\link[bit64]{integer64} type is also supported,
+since it is internally defined as \link{double}. \cr
+Returns \code{FALSE} otherwise. \cr \cr
 }
 \description{
 The \code{mutable_atomic} class is a mutable version of atomic classes. \cr
@@ -55,16 +69,22 @@ See \link{squarebrackets_PassByReference} for details. \cr
 Like \code{data.table}, \verb{[<-} performs R's default copy-on-modification semantics. \cr
 For modification  by reference, use \link{sb_set}. \cr
 \cr
-The \code{is.mutable_atomic()} function checks if an object is atomic.
+Exposed functions (besides the S3 methods):
+\itemize{
+\item \code{is.mutable_atomic()}: checks if an object is atomic.
+\item \code{as.mutable_atomic()}: converts a regular atomic object to \code{mutable_atomic}.
+\item \code{couldb.mutable_atomic()}: checks if an object could be \code{mutable_atomic}. \cr
+An objects can become \code{mutable_atomic} if it is one of the following types: \cr
+\link{logical}, \link{integer}, \link{double}, \link{character}, \link{complex}, \link{raw}. \cr
+\code{bit64::}\link[bit64]{integer64} type is also supported,
+since it is internally defined as \link{double}. \cr \cr
+}
 }
 \section{Warning}{
 
 
-Always use \code{mutable_atomic()} or \code{as.mutable_atomic} to create a mutable object. \cr
-Do NOT attempt to manually create a mutable atomic object by tweaking attributes: \cr
-\code{mutable_atomic()} and \code{as.mutable_atomic} make some necessary checks so that other functions,
-such as \link{sb_set},
-don't have to spend computation time to perform these checks also. \cr
+Always use \code{mutable_atomic()} or \code{as.mutable_atomic} to create a mutable object,
+as they make necessary checks. \cr
 Circumventing these checks may break things. \cr \cr
 }
 

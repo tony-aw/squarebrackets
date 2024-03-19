@@ -67,6 +67,23 @@ expect_error(
 enumerate <- enumerate + 10
 
 
+# not a variable errors ====
+
+expect_error(
+  sb_set(1:10, i = 1, rp = -1)
+)
+expect_error(
+  sb_setRename(1:10, dimnames = lapply(dimnames(x), rev))
+)
+expect_error(
+  setapply(1:10, 1, sum)
+)
+expect_error(
+  ma_setv(1:10, 1, 1)
+)
+enumerate <- enumerate + 4
+
+
 # object is locked errors ====
 x <- mutable_atomic(1:20, dim = c(5,4), dimnames = n(letters[1:5], letters[1:4]))
 lockBinding("x", environment())
@@ -82,9 +99,13 @@ expect_error(
   setapply(x, 1, sum),
   pattern = "object is locked"
 )
+expect_error(
+  ma_setv(x, 1, 1),
+  pattern = "object is locked"
+)
 
 rm(list="x")
-enumerate <- enumerate + 4
+enumerate <- enumerate + 5
 
 
 # must be a data.table errors ====
@@ -108,54 +129,7 @@ enumerate <- enumerate + 3
 
 
 # sb_set() ====
-
-x <- as.mutable_atomic(1:10)
-x2 <- x
-sb_set(x, i = 1, rp = -1)
-expect_equal(
-  x,
-  x2
-)
-
-x <- as.mutable_atomic(matrix(1:20, ncol = 4))
-x2 <- x
-sb_set(x, row = 2:3, col = 2:3, rp = -1)
-expect_equal(
-  x,
-  x2
-)
-
-x <- as.mutable_atomic(matrix(sample(1:100), ncol = 10))
-x2 <- x
-setapply(x, 1, sort)
-expect_equal(
-  x,
-  x2
-)
-
-x <- as.mutable_atomic(matrix(sample(1:100), ncol = 10))
-x2 <- x
-setapply(x, 2, sort)
-expect_equal(
-  x,
-  x2
-)
-
-x <- as.mutable_atomic(array(1:27, dim = c(3,3,3)))
-x2 <- x
-sb_set(x, rcl = n(2:3, NULL, 2:3), rp = -1)
-expect_equal(
-  x,
-  x2
-)
-
-x <- as.mutable_atomic(array(1:81, dim = c(3,3,3,3)))
-x2 <- x
-sb_set(x, idx = n(2:3, 2:3), dims = c(1,4), rp = -1)
-expect_equal(
-  x,
-  x2
-)
+# for atomic type checks: see test-generic_set_atomictypes.R
 
 x <- data.table::data.table(a = 1:10, b = letters[1:10])
 x2 <- x
@@ -165,29 +139,16 @@ expect_equal(
   x2
 )
 
-enumerate <- enumerate + 5
+enumerate <- enumerate + 1
 
 
 # setapply() ====
+# see the script test-setapply.R
 
-x <- mutable_atomic(sample(1:90), dim = c(9,10))
-x2 <- x
-setapply(x, 1, sort)
-expect_equal(
-  x,
-  x2
-)
 
-x <- mutable_atomic(sample(1:90), dim = c(9,10))
-x2 <- x
-setapply(x, 2, sort)
-expect_equal(
-  x,
-  x2
-)
-
-enumerate <- enumerate + 2
+# ma_setv ====
+# see the script test-ma_setv.R
 
 # sb_setRename() ====
-# see the script test-generic_setRename
+# see the script test-generic_setRename.R
 

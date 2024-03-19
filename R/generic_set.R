@@ -61,7 +61,7 @@ sb_set.default <- function(x, i, ..., rp, tf, chkdup = TRUE) {
     stop("`x` is not a (supported) mutable object")
   }
   if(!missing(rp) && !missing(tf)) stop("cannot specify both `rp` and `tf`")
-  .check_bindingIsLocked(substitute(x), parent.frame(n = 1))
+  .check_bindingIsLocked(substitute(x), parent.frame(n = 1), abortcall = sys.call())
   
   # function:
   elements <- .indx_make_element(
@@ -82,7 +82,7 @@ sb_set.matrix <- function(x, row = NULL, col = NULL, i = NULL, ..., rp, tf, chkd
     stop("`x` is not a (supported) mutable object")
   }
   if(!missing(rp) && !missing(tf)) stop("cannot specify both `rp` and `tf`")
-  .check_bindingIsLocked(substitute(x), parent.frame(n = 1))
+  .check_bindingIsLocked(substitute(x), parent.frame(n = 1), abortcall = sys.call())
   
   
   # function:
@@ -128,7 +128,7 @@ sb_set.array <- function(
     stop("`x` is not a (supported) mutable object")
   }
   if(!missing(rp) && !missing(tf)) stop("cannot specify both `rp` and `tf`")
-  .check_bindingIsLocked(substitute(x), parent.frame(n = 1))
+  .check_bindingIsLocked(substitute(x), parent.frame(n = 1), abortcall = sys.call())
   
   # function:
   if(!is.null(i)) {
@@ -178,7 +178,7 @@ sb_set.data.table <- function(
   }
   
   .check_args_df(x, row, col, filter, vars, abortcall = sys.call())
-  .check_bindingIsLocked(substitute(x), parent.frame(n = 1))
+  .check_bindingIsLocked(substitute(x), parent.frame(n = 1), abortcall = sys.call())
   
   if(!is.null(row)) { row <- .indx_make_tableind(
     row, x,  1, chkdup = chkdup, inv = FALSE, abortcall = sys.call()
@@ -239,8 +239,15 @@ sb_set.data.table <- function(
   }
   
   .check_rp_atomic(rp, n.i, abortcall)
-  collapse::setv(x, v = as.integer(elements), R = rp, vind1 = TRUE)
-  return(invisible(NULL))
+  if(!is.complex(x)) {
+    collapse::setv(x, v = as.integer(elements), R = rp, vind1 = TRUE)
+    return(invisible(NULL))
+  }
+  if(is.complex(x)) {
+    .rcpp_setvind_Complex(x, as.integer(elements - 1L), as.complex(rp))
+    return(invisible(NULL))
+  }
+  
 }
 
 

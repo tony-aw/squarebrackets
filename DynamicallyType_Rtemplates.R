@@ -17,23 +17,27 @@ Rtemplate <- "
 .rcpp_set_DIMNAME <- function(x, ARGS, rp, abortcall) {
   ASINT
   if(is.logical(x)) {
-    .rcpp_set_DIMNAME_bool(x, ARGS, as.logical(rp))
+    .rcpp_set_DIMNAME_Logical(x, ARGS, as.logical(rp))
     return(invisible(NULL))
   }
   else if(is.integer(x)) {
-    .rcpp_set_DIMNAME_int(x, ARGS, as.integer(rp))
+    .rcpp_set_DIMNAME_Integer(x, ARGS, as.integer(rp))
     return(invisible(NULL))
   }
   else if(is.double(x)) {
-    .rcpp_set_DIMNAME_double(x, ARGS, as.double(rp))
+    .rcpp_set_DIMNAME_Numeric(x, ARGS, as.double(rp))
     return(invisible(NULL))
   }
   else if(is.character(x)) {
-    .rcpp_set_DIMNAME_String(x, ARGS, as.character(rp))
+    .rcpp_set_DIMNAME_Character(x, ARGS, as.character(rp))
     return(invisible(NULL))
   }
   else if(is.complex(x)) {
-    .rcpp_set_DIMNAME_Rcomplex(x, ARGS, as.complex(rp))
+    .rcpp_set_DIMNAME_Complex(x, ARGS, as.complex(rp))
+    return(invisible(NULL))
+  }
+  else if(is.raw(x)) {
+    .rcpp_set_DIMNAME_Raw(x, ARGS, as.raw(rp))
     return(invisible(NULL))
   }
   else {
@@ -68,23 +72,27 @@ Rtemplate1 <- "
 .rcpp_set_DIMNAME1 <- function(x, ARGS, rp, abortcall) {
   ASINT
   if(is.logical(x)) {
-    .rcpp_set_DIMNAME_bool1(x, ARGS, as.logical(rp))
+    .rcpp_set_DIMNAME_Logical1(x, ARGS, as.logical(rp))
     return(invisible(NULL))
   }
   else if(is.integer(x)) {
-    .rcpp_set_DIMNAME_int1(x, ARGS, as.integer(rp))
+    .rcpp_set_DIMNAME_Integer1(x, ARGS, as.integer(rp))
     return(invisible(NULL))
   }
   else if(is.double(x)) {
-    .rcpp_set_DIMNAME_double1(x, ARGS, as.double(rp))
+    .rcpp_set_DIMNAME_Numeric1(x, ARGS, as.double(rp))
     return(invisible(NULL))
   }
   else if(is.character(x)) {
-    .rcpp_set_DIMNAME_String1(x, ARGS, as.character(rp))
+    .rcpp_set_DIMNAME_Character1(x, ARGS, as.character(rp))
     return(invisible(NULL))
   }
   else if(is.complex(x)) {
-    .rcpp_set_DIMNAME_Rcomplex1(x, ARGS, as.complex(rp))
+    .rcpp_set_DIMNAME_Complex1(x, ARGS, as.complex(rp))
+    return(invisible(NULL))
+  }
+  else if(is.raw(x)) {
+    .rcpp_set_DIMNAME_Raw1(x, ARGS, as.raw(rp))
     return(invisible(NULL))
   }
   else {
@@ -133,7 +141,7 @@ header <- "
       .rcpp_set_row1(x, row, rp, abortcall)
       return(invisible(NULL))
     }
-    .check_rp_atomic(rp, length(row) * ncol(x))
+    .check_rp_atomic(rp, length(row) * ncol(x), abortcall)
     .rcpp_set_row(x, row, rp, abortcall)
     return(invisible(NULL))
   }
@@ -150,7 +158,7 @@ header <- "
       .rcpp_set_col1(x, col, rp, abortcall)
       return(invisible(NULL))
     }
-    .check_rp_atomic(rp, length(col) * nrow(x))
+    .check_rp_atomic(rp, length(col) * nrow(x), abortcall)
     .rcpp_set_col(x, col, rp, abortcall)
     return(invisible(NULL))
   }
@@ -166,7 +174,7 @@ header <- "
     .rcpp_set_rowcol1(x, row, col, rp, abortcall)
     return(invisible(NULL))
   }
-  .check_rp_atomic(rp, length(row) * length(col))
+  .check_rp_atomic(rp, length(row) * length(col), abortcall)
   .rcpp_set_rowcol(x, row, col, rp, abortcall)
   return(invisible(NULL))
   

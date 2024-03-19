@@ -14,8 +14,8 @@ Duplicate names, empty names, or a character vector of length zero are not allow
 
 \item{end}{the name giving the ending index of the sequence}
 
-\item{inv}{logical, if TRUE,
-the indices of all names EXCEPT the names of the specified sequence will be given.}
+\item{inv}{Boolean. If \code{TRUE},
+the indices of all names \bold{except} the names of the specified sequence will be given.}
 }
 \value{
 An integer vector.

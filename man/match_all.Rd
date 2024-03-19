@@ -9,7 +9,7 @@ match_all(needles, haystack, unlist = TRUE)
 \arguments{
 \item{needles, haystack}{vectors}
 
-\item{unlist}{logical,
+\item{unlist}{Boolean,
 indicating if the result should be a vector (\code{TRUE}, default),
 or a list (\code{FALSE}).}
 }

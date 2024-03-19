@@ -167,10 +167,10 @@ locked (<code>TRUE</code>) or not locked (<code>FALSE</code>). <br></p>
 <span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">x</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/bindenv.html" class="external-link">lockBinding</a></span><span class="op">(</span><span class="st">"y"</span>, <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">sb_currentBindings</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> searching environment: &lt;000001bc4fbc0b08&gt;</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> searching environment: &lt;000002c165a91ec0&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "x" "y"</span>
 <span class="r-in"><span><span class="fu">sb_currentBindings</span><span class="op">(</span><span class="va">x</span>, <span class="st">"checklock"</span><span class="op">)</span> <span class="co"># only y is locked</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> searching environment: &lt;000001bc4fbc0b08&gt;</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> searching environment: &lt;000002c165a91ec0&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     x     y </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> FALSE  TRUE </span>
 <span class="r-in"><span></span></span>
@@ -187,9 +187,9 @@ locked (<code>TRUE</code>) or not locked (<code>FALSE</code>). <br></p>
 <span class="r-in"><span><span class="co"># one can fix this by locking ALL bindings:</span></span></span>
 <span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">x</span></span></span>
 <span class="r-in"><span><span class="fu">sb_currentBindings</span><span class="op">(</span><span class="va">x</span>, <span class="st">"lockbindings"</span><span class="op">)</span> <span class="co"># lock all</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> searching environment: &lt;000001bc4fbc0b08&gt;</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> searching environment: &lt;000002c165a91ec0&gt;</span>
 <span class="r-in"><span><span class="fu">sb_currentBindings</span><span class="op">(</span><span class="va">x</span>, <span class="st">"checklock"</span><span class="op">)</span> <span class="co"># all bindings are locked, including y</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> searching environment: &lt;000001bc4fbc0b08&gt;</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> searching environment: &lt;000002c165a91ec0&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    x    y </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> TRUE TRUE </span>
 <span class="r-in"><span><span class="co"># the 'squarebrackets' package respects the lock of a binding,</span></span></span>
@@ -208,13 +208,13 @@ locked (<code>TRUE</code>) or not locked (<code>FALSE</code>). <br></p>
 <span class="r-in"><span><span class="co"># creating a new variable will NOT automatically be locked:</span></span></span>
 <span class="r-in"><span><span class="va">z</span> <span class="op">&lt;-</span> <span class="va">y</span> <span class="co"># new variable; will not be locked!</span></span></span>
 <span class="r-in"><span><span class="fu">sb_currentBindings</span><span class="op">(</span><span class="va">x</span>, <span class="st">"checklock"</span><span class="op">)</span> <span class="co"># z is not locked</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> searching environment: &lt;000001bc4fbc0b08&gt;</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> searching environment: &lt;000002c165a91ec0&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     x     y     z </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  TRUE  TRUE FALSE </span>
 <span class="r-in"><span><span class="fu">sb_currentBindings</span><span class="op">(</span><span class="va">x</span>, <span class="st">"lockbindings"</span><span class="op">)</span> <span class="co"># we must re-run this</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> searching environment: &lt;000001bc4fbc0b08&gt;</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> searching environment: &lt;000002c165a91ec0&gt;</span>
 <span class="r-in"><span><span class="fu">sb_currentBindings</span><span class="op">(</span><span class="va">x</span>, <span class="st">"checklock"</span><span class="op">)</span> <span class="co"># now z is also locked</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> searching environment: &lt;000001bc4fbc0b08&gt;</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> searching environment: &lt;000002c165a91ec0&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    x    y    z </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> TRUE TRUE TRUE </span>
 <span class="r-in"><span></span></span>

@@ -21,7 +21,7 @@
 #' 
 #' 
 #' @param needles,haystack vectors
-#' @param unlist logical,
+#' @param unlist Boolean,
 #' indicating if the result should be a vector (`TRUE`, default),
 #' or a list (`FALSE`).
 #' 

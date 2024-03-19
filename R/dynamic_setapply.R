@@ -43,7 +43,7 @@ setapply <- function(x, MARGIN, FUN) {
     stop("`x` must be a mutable_atomic matrix")
   }
   
-  .check_bindingIsLocked(substitute(x), parent.frame(n = 1))
+  .check_bindingIsLocked(substitute(x), parent.frame(n = 1), abortcall = sys.call())
   
   if(!is.function(FUN)) {
     stop("`FUN` must be a function")
@@ -97,6 +97,9 @@ setapply <- function(x, MARGIN, FUN) {
     .rcpp_setapply_row_Complex(x, f)
     return(invisible(NULL))
   }
+  else if(is.raw(x)) {
+    .rcpp_setapply_row_Raw(x, f)
+  }
   else {
     stop(simpleError(
       "unsupported matrix type", call = abortcall
@@ -128,6 +131,9 @@ setapply <- function(x, MARGIN, FUN) {
   else if(is.complex(x)) {
     .rcpp_setapply_col_Complex(x, f)
     return(invisible(NULL))
+  }
+  else if(is.raw(x)) {
+    .rcpp_setapply_col_Raw(x, f)
   }
   else {
     stop(simpleError(

@@ -171,3 +171,36 @@ void rcpp_setapply_row_Complex(ComplexMatrix x, Function f) {
   }
 }
 
+
+
+
+
+//' @keywords internal
+//' @noRd
+// [[Rcpp::export(.rcpp_setapply_row_Raw)]]
+void rcpp_setapply_col_Raw(RawMatrix x, Function f) {
+  int nvec = x.nrow();
+  int lenvec = x.ncol();
+  RawVector subset1(lenvec);
+  for(int j = 0; j < nvec; ++j) {
+    RawMatrix::Row row = x(j, _);
+    subset1 = f(x(j, _));
+    row = subset1;
+  }
+}
+
+
+//' @keywords internal
+//' @noRd
+// [[Rcpp::export(.rcpp_setapply_col_Raw)]]
+void rcpp_setapply_row_Raw(RawMatrix x, Function f) {
+  int nvec = x.ncol();
+  int lenvec = x.nrow();
+  RawVector subset1(lenvec);
+  for(int j = 0; j < nvec; ++j) {
+    RawMatrix::Column col = x(_, j);
+    subset1 = f(x(_, j));
+    col = subset1;
+  }
+}
+

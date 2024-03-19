@@ -8,11 +8,11 @@
 #' @param i,lvl,row,col,idx,dims,rcl,filter,vars See \link{squarebrackets_indx_args}. \cr
 #' Duplicates are allowed, resulting in duplicated indices. \cr
 #' An empty index selection results in an empty object of length 0. \cr
-#' @param drop logical.
+#' @param drop Boolean.
 #'  * For factors: If `drop = TRUE`, unused levels are dropped, if `drop = FALSE` they are not dropped.
 #'  * For lists: if `drop = TRUE`, selecting a single element will give the simplified result,
 #'  like using `[[]]`. If `drop = FALSE`, a list is always returned regardless of the number of elements.
-#' @param rat logical, indicating if attributes should be returned with the sub-setted object.
+#' @param rat Boolean, indicating if attributes should be returned with the sub-setted object.
 #' See Details section for more info.
 #' @param ... further arguments passed to or from other methods.
 #'

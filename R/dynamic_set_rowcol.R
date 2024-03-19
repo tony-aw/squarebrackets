@@ -65,23 +65,27 @@
 .rcpp_set_row <- function(x, row, rp, abortcall) {
   row <- as.integer(row - 1L)
   if(is.logical(x)) {
-    .rcpp_set_row_bool(x, row, as.logical(rp))
+    .rcpp_set_row_Logical(x, row, as.logical(rp))
     return(invisible(NULL))
   }
   else if(is.integer(x)) {
-    .rcpp_set_row_int(x, row, as.integer(rp))
+    .rcpp_set_row_Integer(x, row, as.integer(rp))
     return(invisible(NULL))
   }
   else if(is.double(x)) {
-    .rcpp_set_row_double(x, row, as.double(rp))
+    .rcpp_set_row_Numeric(x, row, as.double(rp))
     return(invisible(NULL))
   }
   else if(is.character(x)) {
-    .rcpp_set_row_String(x, row, as.character(rp))
+    .rcpp_set_row_Character(x, row, as.character(rp))
     return(invisible(NULL))
   }
   else if(is.complex(x)) {
-    .rcpp_set_row_Rcomplex(x, row, as.complex(rp))
+    .rcpp_set_row_Complex(x, row, as.complex(rp))
+    return(invisible(NULL))
+  }
+  else if(is.raw(x)) {
+    .rcpp_set_row_Raw(x, row, as.raw(rp))
     return(invisible(NULL))
   }
   else {
@@ -99,23 +103,27 @@
 .rcpp_set_col <- function(x, col, rp, abortcall) {
   col <- as.integer(col - 1L)
   if(is.logical(x)) {
-    .rcpp_set_col_bool(x, col, as.logical(rp))
+    .rcpp_set_col_Logical(x, col, as.logical(rp))
     return(invisible(NULL))
   }
   else if(is.integer(x)) {
-    .rcpp_set_col_int(x, col, as.integer(rp))
+    .rcpp_set_col_Integer(x, col, as.integer(rp))
     return(invisible(NULL))
   }
   else if(is.double(x)) {
-    .rcpp_set_col_double(x, col, as.double(rp))
+    .rcpp_set_col_Numeric(x, col, as.double(rp))
     return(invisible(NULL))
   }
   else if(is.character(x)) {
-    .rcpp_set_col_String(x, col, as.character(rp))
+    .rcpp_set_col_Character(x, col, as.character(rp))
     return(invisible(NULL))
   }
   else if(is.complex(x)) {
-    .rcpp_set_col_Rcomplex(x, col, as.complex(rp))
+    .rcpp_set_col_Complex(x, col, as.complex(rp))
+    return(invisible(NULL))
+  }
+  else if(is.raw(x)) {
+    .rcpp_set_col_Raw(x, col, as.raw(rp))
     return(invisible(NULL))
   }
   else {
@@ -134,23 +142,27 @@
   row <- as.integer(row - 1L) 
  col <- as.integer(col - 1L)
   if(is.logical(x)) {
-    .rcpp_set_rowcol_bool(x, row, col, as.logical(rp))
+    .rcpp_set_rowcol_Logical(x, row, col, as.logical(rp))
     return(invisible(NULL))
   }
   else if(is.integer(x)) {
-    .rcpp_set_rowcol_int(x, row, col, as.integer(rp))
+    .rcpp_set_rowcol_Integer(x, row, col, as.integer(rp))
     return(invisible(NULL))
   }
   else if(is.double(x)) {
-    .rcpp_set_rowcol_double(x, row, col, as.double(rp))
+    .rcpp_set_rowcol_Numeric(x, row, col, as.double(rp))
     return(invisible(NULL))
   }
   else if(is.character(x)) {
-    .rcpp_set_rowcol_String(x, row, col, as.character(rp))
+    .rcpp_set_rowcol_Character(x, row, col, as.character(rp))
     return(invisible(NULL))
   }
   else if(is.complex(x)) {
-    .rcpp_set_rowcol_Rcomplex(x, row, col, as.complex(rp))
+    .rcpp_set_rowcol_Complex(x, row, col, as.complex(rp))
+    return(invisible(NULL))
+  }
+  else if(is.raw(x)) {
+    .rcpp_set_rowcol_Raw(x, row, col, as.raw(rp))
     return(invisible(NULL))
   }
   else {
@@ -171,23 +183,27 @@
 .rcpp_set_row1 <- function(x, row, rp, abortcall) {
   row <- as.integer(row - 1L)
   if(is.logical(x)) {
-    .rcpp_set_row_bool1(x, row, as.logical(rp))
+    .rcpp_set_row_Logical1(x, row, as.logical(rp))
     return(invisible(NULL))
   }
   else if(is.integer(x)) {
-    .rcpp_set_row_int1(x, row, as.integer(rp))
+    .rcpp_set_row_Integer1(x, row, as.integer(rp))
     return(invisible(NULL))
   }
   else if(is.double(x)) {
-    .rcpp_set_row_double1(x, row, as.double(rp))
+    .rcpp_set_row_Numeric1(x, row, as.double(rp))
     return(invisible(NULL))
   }
   else if(is.character(x)) {
-    .rcpp_set_row_String1(x, row, as.character(rp))
+    .rcpp_set_row_Character1(x, row, as.character(rp))
     return(invisible(NULL))
   }
   else if(is.complex(x)) {
-    .rcpp_set_row_Rcomplex1(x, row, as.complex(rp))
+    .rcpp_set_row_Complex1(x, row, as.complex(rp))
+    return(invisible(NULL))
+  }
+  else if(is.raw(x)) {
+    .rcpp_set_row_Raw1(x, row, as.raw(rp))
     return(invisible(NULL))
   }
   else {
@@ -206,23 +222,27 @@
 .rcpp_set_col1 <- function(x, col, rp, abortcall) {
   col <- as.integer(col - 1L)
   if(is.logical(x)) {
-    .rcpp_set_col_bool1(x, col, as.logical(rp))
+    .rcpp_set_col_Logical1(x, col, as.logical(rp))
     return(invisible(NULL))
   }
   else if(is.integer(x)) {
-    .rcpp_set_col_int1(x, col, as.integer(rp))
+    .rcpp_set_col_Integer1(x, col, as.integer(rp))
     return(invisible(NULL))
   }
   else if(is.double(x)) {
-    .rcpp_set_col_double1(x, col, as.double(rp))
+    .rcpp_set_col_Numeric1(x, col, as.double(rp))
     return(invisible(NULL))
   }
   else if(is.character(x)) {
-    .rcpp_set_col_String1(x, col, as.character(rp))
+    .rcpp_set_col_Character1(x, col, as.character(rp))
     return(invisible(NULL))
   }
   else if(is.complex(x)) {
-    .rcpp_set_col_Rcomplex1(x, col, as.complex(rp))
+    .rcpp_set_col_Complex1(x, col, as.complex(rp))
+    return(invisible(NULL))
+  }
+  else if(is.raw(x)) {
+    .rcpp_set_col_Raw1(x, col, as.raw(rp))
     return(invisible(NULL))
   }
   else {
@@ -242,23 +262,27 @@
   row <- as.integer(row - 1L) 
  col <- as.integer(col - 1L)
   if(is.logical(x)) {
-    .rcpp_set_rowcol_bool1(x, row, col, as.logical(rp))
+    .rcpp_set_rowcol_Logical1(x, row, col, as.logical(rp))
     return(invisible(NULL))
   }
   else if(is.integer(x)) {
-    .rcpp_set_rowcol_int1(x, row, col, as.integer(rp))
+    .rcpp_set_rowcol_Integer1(x, row, col, as.integer(rp))
     return(invisible(NULL))
   }
   else if(is.double(x)) {
-    .rcpp_set_rowcol_double1(x, row, col, as.double(rp))
+    .rcpp_set_rowcol_Numeric1(x, row, col, as.double(rp))
     return(invisible(NULL))
   }
   else if(is.character(x)) {
-    .rcpp_set_rowcol_String1(x, row, col, as.character(rp))
+    .rcpp_set_rowcol_Character1(x, row, col, as.character(rp))
     return(invisible(NULL))
   }
   else if(is.complex(x)) {
-    .rcpp_set_rowcol_Rcomplex1(x, row, col, as.complex(rp))
+    .rcpp_set_rowcol_Complex1(x, row, col, as.complex(rp))
+    return(invisible(NULL))
+  }
+  else if(is.raw(x)) {
+    .rcpp_set_rowcol_Raw1(x, row, col, as.raw(rp))
     return(invisible(NULL))
   }
   else {

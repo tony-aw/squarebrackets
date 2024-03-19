@@ -67,7 +67,7 @@ sb_setRename.default <- function(x, newnames, ...) {
   if(!is.mutable_atomic(x)){
     stop("`x` is not a (supported) mutable object")
   }
-  .check_bindingIsLocked(substitute(x), parent.frame(n = 1))
+  .check_bindingIsLocked(substitute(x), parent.frame(n = 1), abortcall = sys.call())
   
   
   if(!missing(newnames)) {
@@ -97,7 +97,7 @@ sb_setRename.array <- function(x, newnames, newdimnames, ...) {
   if(!is.mutable_atomic(x)){
     stop("`x` is not a (supported) mutable object")
   }
-  .check_bindingIsLocked(substitute(x), parent.frame(n = 1))
+  .check_bindingIsLocked(substitute(x), parent.frame(n = 1), abortcall = sys.call())
   
   
   if(!missing(newnames)) {
@@ -152,7 +152,7 @@ sb_setRename.data.table <- function(x, old, new, skip_absent = FALSE, ...) {
   if(!data.table::is.data.table(x)) {
     stop("`x` is not a (supported) mutable object")
   }
-  .check_bindingIsLocked(substitute(x), parent.frame(n = 1))
+  .check_bindingIsLocked(substitute(x), parent.frame(n = 1), abortcall = sys.call())
   
   new <- data.table::copy(new)
   

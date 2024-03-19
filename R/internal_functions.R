@@ -2,9 +2,12 @@
 
 #' @keywords internal
 #' @noRd
-.check_bindingIsLocked <- function(subx, env) {
+.check_bindingIsLocked <- function(subx, env, abortcall) {
+  if(!is.symbol(subx)) {
+    stop(simpleError("only existing variables can be modified by reference"))
+  }
   if(bindingIsLocked(subx, env = env)){
-    stop("object is locked")
+    stop(simpleError("object is locked", call = abortcall))
   }
 }
 

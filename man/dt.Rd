@@ -27,7 +27,7 @@ giving the columns to which the aggregation function \code{f()} is to be applied
 \item{by}{atomic vector,
 giving the grouping columns.}
 
-\item{order_by}{logical (\code{TRUE} or \code{FALSE}),
+\item{order_by}{Boolean),
 indicating if the aggregated result should be ordered by the columns specified in \code{by}.}
 
 \item{col, vars}{columns to select for coercion; see \link{squarebrackets_indx_args}. \cr

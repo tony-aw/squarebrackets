@@ -158,10 +158,12 @@ that share the share the same address as the input variable. <br><br></p></li>
 </ul><p><img src="figures/specialized_functions-darkred.svg" alt="[SPECIALIZED FUNCTIONS]"><br>
 Additional specialized sub-setting functions are provided:</p><ul><li><p><a href="setapply.html">setapply</a>: apply functions over mutable matrix margins
 using <a href="aaa5_squarebrackets_PassByReference.html">pass-by-reference semantics</a>.</p></li>
+<li><p><a href="ma_setv.html">ma_setv</a>: Find &amp; Replace values in <a href="class_mutable_atomic.html">mutable_atomic</a> objects. <br>
+This is considerably faster and more memory efficient than using <a href="sb_set.html">sb_set</a> for this.</p></li>
+<li><p>The <a href="dt.html">dt_</a>-functions for <code>data.table</code>-specific <code>[</code>-operations.</p></li>
 <li><p><a href="sb_special.html">sb_str</a>: extract or replace a subset of characters of a single string
 (each single character is treated as a single element).</p></li>
-<li><p><a href="sb_special.html">sb_a</a>: extract multiple attributes from an object.</p></li>
-<li><p>The <a href="dt.html">dt_</a>-functions for <code>data.table</code>-specific <code>[</code>-operations. <br><br></p></li>
+<li><p><a href="sb_special.html">sb_a</a>: extract multiple attributes from an object. <br><br></p></li>
 </ul><p><img src="figures/helper_functions-lightblue.svg" alt="[HELPER FUNCTIONS]"><br>
 And finally,
 a couple of helper functions for creating ranges, sequences, and indices

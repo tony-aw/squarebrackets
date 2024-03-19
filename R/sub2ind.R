@@ -46,7 +46,7 @@
 #' The number of columns of `coord` must be equal to the length of `x.dim`. \cr
 #' @param x.dim an integer vector giving the dimensions of the array in question. I.e. `dim(x)`.
 #' @param ind an integer vector, giving the flat position indices to convert.
-#' @param checks logical, indicating if arguments checks should be performed. \cr
+#' @param checks Boolean, indicating if arguments checks should be performed. \cr
 #' Defaults to `TRUE`. Can be set to `FALSE` for minor speed improvements, but not recommended.
 #' 
 #' 

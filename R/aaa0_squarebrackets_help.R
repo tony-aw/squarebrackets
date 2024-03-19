@@ -115,10 +115,12 @@
 #'  
 #'  * \link{setapply}: apply functions over mutable matrix margins
 #'  using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
+#'  * \link{ma_setv}: Find & Replace values in \link{mutable_atomic} objects. \cr
+#'  This is considerably faster and more memory efficient than using \link{sb_set} for this.
+#'  * The \link[=dt_setcoe]{dt_}-functions for `data.table`-specific `[`-operations.
 #'  * \link{sb_str}: extract or replace a subset of characters of a single string
 #'  (each single character is treated as a single element).
-#'  * \link{sb_a}: extract multiple attributes from an object.
-#'  * The \link[=dt_setcoe]{dt_}-functions for `data.table`-specific `[`-operations. \cr \cr
+#'  * \link{sb_a}: extract multiple attributes from an object. \cr \cr
 #' 
 #' `r .mybadge_intro_section("HELPER FUNCTIONS", "lightblue")` \cr
 #' And finally,
