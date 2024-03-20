@@ -20,7 +20,8 @@
 #' This coercion function is, of course, applied before replacement (`rp`) or transformation (`tf()`). \cr
 #' By default, `coe = NULL` which means no columns are coercively transformed. \cr
 #' See also \link{sb_coe}. \cr
-#' @param chkdup see \link{squarebrackets_duplicates}.
+#' @param chkdup see \link{squarebrackets_duplicates}. \cr
+#' `r .mybadge_performance_set2("FALSE")` \cr
 #' @param .lapply `sb_mod()` by default uses \link[base]{lapply}
 #' for lists and \link[collapse]{dapply} data.frame-like objects
 #' to compute `tf()` on every list element or data.frame column. \cr
@@ -60,7 +61,10 @@ sb_mod <- function(x, ...) {
 
 #' @rdname sb_mod
 #' @export
-sb_mod.default <- function(x, i, ..., rp, tf, chkdup = TRUE) {
+sb_mod.default <- function(
+    x, i, ...,
+    rp, tf, chkdup = getOption("sb.chkdup", FALSE)
+) {
   
   if(!missing(rp) && !missing(tf)) stop("cannot specify both `rp` and `tf`")
   
@@ -84,7 +88,10 @@ sb_mod.default <- function(x, i, ..., rp, tf, chkdup = TRUE) {
 
 #' @rdname sb_mod
 #' @export
-sb_mod.matrix <- function(x, row = NULL, col = NULL, i = NULL, ..., rp, tf, chkdup = TRUE) {
+sb_mod.matrix <- function(
+    x, row = NULL, col = NULL, i = NULL, ...,
+    rp, tf, chkdup = getOption("sb.chkdup", FALSE)
+) {
   
   if(!missing(rp) && !missing(tf)) stop("cannot specify both `rp` and `tf`")
   
@@ -131,7 +138,8 @@ sb_mod.matrix <- function(x, row = NULL, col = NULL, i = NULL, ..., rp, tf, chkd
 #' @rdname sb_mod
 #' @export
 sb_mod.array <- function(
-    x, idx = NULL, dims = NULL, rcl = NULL, i = NULL, ..., rp, tf, chkdup = TRUE
+    x, idx = NULL, dims = NULL, rcl = NULL, i = NULL, ...,
+    rp, tf, chkdup = getOption("sb.chkdup", FALSE)
 ) {
   
   if(!is.null(i)) {
@@ -170,7 +178,9 @@ sb_mod.array <- function(
 
 #' @rdname sb_mod
 #' @export
-sb_mod.factor <- function(x, i = NULL, lvl = NULL, ..., rp, chkdup = TRUE) {
+sb_mod.factor <- function(
+    x, i = NULL, lvl = NULL, ..., rp, chkdup = getOption("sb.chkdup", FALSE)
+) {
   
   .check_args_factor(i, lvl, drop = FALSE, abortcall = sys.call())
   
@@ -197,7 +207,10 @@ sb_mod.factor <- function(x, i = NULL, lvl = NULL, ..., rp, chkdup = TRUE) {
 
 #' @rdname sb_mod
 #' @export
-sb_mod.list <- function(x, i, ..., rp, tf, chkdup = TRUE, .lapply = lapply) {
+sb_mod.list <- function(
+    x, i, ...,
+    rp, tf, chkdup = getOption("sb.chkdup", FALSE), .lapply = lapply
+) {
   
   if(!missing(rp) && !missing(tf)) stop("cannot specify both `rp` and `tf`")
   
@@ -226,8 +239,8 @@ sb_mod.list <- function(x, i, ..., rp, tf, chkdup = TRUE, .lapply = lapply) {
 #' @rdname sb_mod
 #' @export
 sb_mod.data.frame <- function(
-    x, row = NULL, col = NULL, filter = NULL, vars = NULL, coe = NULL,
-    ..., rp, tf, chkdup = TRUE, .lapply = lapply
+    x, row = NULL, col = NULL, filter = NULL, vars = NULL, coe = NULL, ...,
+    rp, tf, chkdup = getOption("sb.chkdup", FALSE), .lapply = lapply
 ) {
   
   .check_args_df(x, row, col, filter, vars, abortcall = sys.call())

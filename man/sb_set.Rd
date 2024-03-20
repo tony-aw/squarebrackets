@@ -10,9 +10,18 @@
 \usage{
 sb_set(x, ...)
 
-\method{sb_set}{default}(x, i, ..., rp, tf, chkdup = TRUE)
+\method{sb_set}{default}(x, i, ..., rp, tf, chkdup = getOption("sb.chkdup", FALSE))
 
-\method{sb_set}{matrix}(x, row = NULL, col = NULL, i = NULL, ..., rp, tf, chkdup = TRUE)
+\method{sb_set}{matrix}(
+  x,
+  row = NULL,
+  col = NULL,
+  i = NULL,
+  ...,
+  rp,
+  tf,
+  chkdup = getOption("sb.chkdup", FALSE)
+)
 
 \method{sb_set}{array}(
   x,
@@ -23,7 +32,7 @@ sb_set(x, ...)
   ...,
   rp,
   tf,
-  chkdup = TRUE
+  chkdup = getOption("sb.chkdup", FALSE)
 )
 
 \method{sb_set}{data.table}(
@@ -35,7 +44,7 @@ sb_set(x, ...)
   ...,
   rp,
   tf,
-  chkdup = TRUE,
+  chkdup = getOption("sb.chkdup", FALSE),
   .lapply = lapply
 )
 }
@@ -53,7 +62,8 @@ and the same same length as the selected subset of \code{x} or a length of 1.}
 
 \item{tf}{the transformation function.}
 
-\item{chkdup}{see \link{squarebrackets_duplicates}.}
+\item{chkdup}{see \link{squarebrackets_duplicates}. \cr
+\ifelse{html}{\figure{for_performance-set_to_FALSE-red.svg}{options: alt='[for performance: set to FALSE]'}}{\link[=squarebrackets_help]{for performance: set to FALSE}} \cr}
 
 \item{.lapply}{\code{sb_set()} by default uses \link[base]{lapply}
 for lists and \link[collapse]{dapply} data.frame-like objects

@@ -452,22 +452,22 @@ if(!test_allow_duplicates) {
   x <- as.mutable_atomic(1:10)
   names(x) <- letters[1:10]
   expect_error(
-    sb_test(x, i = c(1,1,1)),
+    sb_test(x, i = c(1,1,1), chkdup = TRUE),
     pattern = "duplicate integers or names not allowed"
   ) |> errorfun()
   expect_error(
-    sb_test(x, i = c("a", "a", "a")),
+    sb_test(x, i = c("a", "a", "a"), chkdup = TRUE),
     pattern = "duplicate integers or names not allowed"
   ) |> errorfun()
   
   x <- as.mutable_atomic(matrix(1:10, ncol=2))
   names(x) <- letters[1:10]
   expect_error(
-    sb_test(x, i = c(1,1,1)),
+    sb_test(x, i = c(1,1,1), chkdup = TRUE),
     pattern = "duplicate integers or names not allowed"
   ) |> errorfun()
   expect_error(
-    sb_test(x, i = c("a", "a", "a")),
+    sb_test(x, i = c("a", "a", "a"), chkdup = TRUE),
     pattern = "duplicate integers or names not allowed"
   ) |> errorfun()
   
@@ -479,7 +479,7 @@ if(!test_allow_duplicates) {
     for(j in 1:length(col)) {
       if(!is.null(row[[i]]) || !is.null(col[[j]])) {
         expect_error(
-          sb_test(x, row = row[[i]], col = col[[j]]),
+          sb_test(x, row = row[[i]], col = col[[j]], chkdup = TRUE),
           pattern = "duplicate integers or names not allowed"
         ) |> errorfun()
         enumerate <- enumerate + 1
@@ -488,22 +488,22 @@ if(!test_allow_duplicates) {
   }
   
   expect_error(
-    sb_test(x, col = c(1,1,1)),
+    sb_test(x, col = c(1,1,1), chkdup = TRUE),
     pattern = "duplicate integers or names not allowed"
   ) |> errorfun()
   expect_error(
-    sb_test(x, row = c(1,1,1), col = c(1,1,1)),
+    sb_test(x, row = c(1,1,1), col = c(1,1,1), chkdup = TRUE),
     pattern = "duplicate integers or names not allowed"
   ) |> errorfun()
   
   x <- as.mutable_atomic(array(1:27, c(3,3,3)))
   rownames(x) <- c("a", "a", "b")
   expect_error(
-    sb_test(x, list(c(1,1,1)), dim = 1),
+    sb_test(x, list(c(1,1,1)), dim = 1, chkdup = TRUE),
     pattern = "duplicate integers or names not allowed"
   )
   expect_error(
-    sb_test(x, list(c("a", "a")), dim = 1),
+    sb_test(x, list(c("a", "a")), dim = 1, chkdup = TRUE),
     pattern = "duplicate integers or names not allowed"
   )
   

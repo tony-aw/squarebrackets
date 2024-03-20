@@ -101,9 +101,15 @@ using <a href="aaa5_squarebrackets_PassByReference.html">pass-by-reference seman
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">dt_aggregate</span><span class="op">(</span><span class="va">x</span>, SDcols <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">f</span>, <span class="va">by</span>, order_by <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">dt_setcoe</span><span class="op">(</span><span class="va">x</span>, col <span class="op">=</span> <span class="cn">NULL</span>, vars <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">f</span>, chkdup <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu">dt_setcoe</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  col <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  vars <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">f</span>,</span>
+<span>  chkdup <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"sb.chkdup"</span>, <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">dt_setrm</span><span class="op">(</span><span class="va">x</span>, col <span class="op">=</span> <span class="cn">NULL</span>, vars <span class="op">=</span> <span class="cn">NULL</span>, chkdup <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu">dt_setrm</span><span class="op">(</span><span class="va">x</span>, col <span class="op">=</span> <span class="cn">NULL</span>, vars <span class="op">=</span> <span class="cn">NULL</span>, chkdup <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"sb.chkdup"</span>, <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">dt_setadd</span><span class="op">(</span><span class="va">x</span>, <span class="va">new</span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -139,7 +145,7 @@ Duplicates are not allowed.</p></dd>
 
 
 <dt>chkdup</dt>
-<dd><p>see <a href="aaa4_squarebrackets_duplicates.html">squarebrackets_duplicates</a>.</p></dd>
+<dd><p>see <a href="aaa4_squarebrackets_duplicates.html">squarebrackets_duplicates</a>. <br><img src="figures/for_performance-set_to_FALSE-red.svg" alt="[for performance: set to FALSE]"><br></p></dd>
 
 
 <dt>new</dt>
@@ -309,16 +315,16 @@ It must have column names that do not already exist in <code>x</code>.</p></dd>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         a      b     c      d      e      f</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;int&gt; &lt;char&gt; &lt;int&gt; &lt;fctr&gt; &lt;lgcl&gt; &lt;lgcl&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1:     1      a    11      a  FALSE   TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2:     2      b    12      b   TRUE  FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1:     1      a    11      a   TRUE   TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  2:     2      b    12      b  FALSE   TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  3:     3      c    13      c   TRUE   TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  4:     4      d    14      d   TRUE   TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  5:     5      e    15      e   TRUE  FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  6:     6      f    16      f  FALSE   TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  7:     7      g    17      g  FALSE  FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  8:     8      h    18      h   TRUE   TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  9:     9      i    19      i  FALSE   TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10:    10      j    20      j  FALSE   TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  4:     4      d    14      d   TRUE  FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  5:     5      e    15      e   TRUE   TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  6:     6      f    16      f  FALSE  FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  7:     7      g    17      g   TRUE   TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  8:     8      h    18      h  FALSE   TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  9:     9      i    19      i   TRUE   TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10:    10      j    20      j   TRUE   TRUE</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

@@ -15,13 +15,11 @@ Therefore, for the methods where giving duplicate indices does not make sense,
 the \code{chkdup} argument is present. \cr
 This argument controls whether the method in question checks for duplicates (\code{TRUE}) or not (\code{FALSE}). \cr
 \cr
-By default, \code{chkdup = TRUE}, which means the method in question will check for duplicate indices,
+Setting \code{chkdup = TRUE} means the method in question will check for duplicate indices,
 and give an error when it finds them. \cr
 \cr
 Setting \code{chkdup = FALSE} will disable these checks,
 which saves time and computation power, and is thus more efficient. \cr
 \cr
-Checking for duplicates, is not too expensive,
-so for the sake of user-friendliness, the default is \code{chkdup = TRUE}. \cr
-For optimal performance, please set \code{chkdup = FALSE}.
+Since checking for duplicates can be expensive, it is set to \code{FALSE} by default. \cr \cr
 }

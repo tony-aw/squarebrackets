@@ -10,9 +10,15 @@
 \usage{
 dt_aggregate(x, SDcols = NULL, f, by, order_by = FALSE)
 
-dt_setcoe(x, col = NULL, vars = NULL, f, chkdup = TRUE)
+dt_setcoe(
+  x,
+  col = NULL,
+  vars = NULL,
+  f,
+  chkdup = getOption("sb.chkdup", FALSE)
+)
 
-dt_setrm(x, col = NULL, vars = NULL, chkdup = TRUE)
+dt_setrm(x, col = NULL, vars = NULL, chkdup = getOption("sb.chkdup", FALSE))
 
 dt_setadd(x, new)
 }
@@ -33,7 +39,8 @@ indicating if the aggregated result should be ordered by the columns specified i
 \item{col, vars}{columns to select for coercion; see \link{squarebrackets_indx_args}. \cr
 Duplicates are not allowed.}
 
-\item{chkdup}{see \link{squarebrackets_duplicates}.}
+\item{chkdup}{see \link{squarebrackets_duplicates}. \cr
+\ifelse{html}{\figure{for_performance-set_to_FALSE-red.svg}{options: alt='[for performance: set to FALSE]'}}{\link[=squarebrackets_help]{for performance: set to FALSE}} \cr}
 
 \item{new}{a \code{data.table} or \code{tidytable}. \cr
 It must have column names that do not already exist in \code{x}.}

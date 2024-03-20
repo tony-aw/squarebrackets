@@ -12,9 +12,23 @@
 \usage{
 sb_rm(x, ...)
 
-\method{sb_rm}{default}(x, i, ..., rat = FALSE, chkdup = TRUE)
+\method{sb_rm}{default}(
+  x,
+  i,
+  ...,
+  rat = getOption("sb.rat", FALSE),
+  chkdup = getOption("sb.chkdup", FALSE)
+)
 
-\method{sb_rm}{matrix}(x, row = NULL, col = NULL, i = NULL, ..., rat = FALSE, chkdup = TRUE)
+\method{sb_rm}{matrix}(
+  x,
+  row = NULL,
+  col = NULL,
+  i = NULL,
+  ...,
+  rat = getOption("sb.rat", FALSE),
+  chkdup = getOption("sb.chkdup", FALSE)
+)
 
 \method{sb_rm}{array}(
   x,
@@ -23,13 +37,28 @@ sb_rm(x, ...)
   rcl = NULL,
   i = NULL,
   ...,
-  rat = FALSE,
-  chkdup = TRUE
+  rat = getOption("sb.rat", FALSE),
+  chkdup = getOption("sb.chkdup", FALSE)
 )
 
-\method{sb_rm}{factor}(x, i = NULL, lvl = NULL, drop = FALSE, ..., rat = FALSE, chkdup = TRUE)
+\method{sb_rm}{factor}(
+  x,
+  i = NULL,
+  lvl = NULL,
+  drop = FALSE,
+  ...,
+  rat = getOption("sb.rat", FALSE),
+  chkdup = getOption("sb.chkdup", FALSE)
+)
 
-\method{sb_rm}{list}(x, i, drop = FALSE, ..., rat = FALSE, chkdup = TRUE)
+\method{sb_rm}{list}(
+  x,
+  i,
+  drop = FALSE,
+  ...,
+  rat = getOption("sb.rat", FALSE),
+  chkdup = getOption("sb.chkdup", FALSE)
+)
 
 \method{sb_rm}{data.frame}(
   x,
@@ -38,7 +67,7 @@ sb_rm(x, ...)
   filter = NULL,
   vars = NULL,
   ...,
-  chkdup = TRUE
+  chkdup = getOption("sb.chkdup", FALSE)
 )
 }
 \arguments{
@@ -52,9 +81,11 @@ and the entire object is returned. \cr}
 
 \item{rat}{Boolean,
 indicating if attributes should be returned with the sub-setted object. \cr
-See Details section for more info.}
+See Details section for more info. \cr
+\ifelse{html}{\figure{for_performance-set_to_FALSE-red.svg}{options: alt='[for performance: set to FALSE]'}}{\link[=squarebrackets_help]{for performance: set to FALSE}} \cr}
 
-\item{chkdup}{see \link{squarebrackets_duplicates}.}
+\item{chkdup}{see \link{squarebrackets_duplicates}. \cr
+\ifelse{html}{\figure{for_performance-set_to_FALSE-red.svg}{options: alt='[for performance: set to FALSE]'}}{\link[=squarebrackets_help]{for performance: set to FALSE}} \cr}
 
 \item{drop}{Boolean.
 \itemize{
@@ -72,7 +103,7 @@ This is an S3 Method to un-select/remove subsets from an object.
 \details{
 \bold{One the \code{rat} argument} \cr
 Most \code{[} - methods strip most (but not all) attributes. \cr
-If \verb{rat = FALSE, chkdup = TRUE}, this default behaviour is preserved,
+If \code{rat = FALSE}, this default behaviour is preserved,
 for compatibility with special classes. This is the fastest option. \cr
 If \code{rat = TRUE},
 attributes from \code{x} missing after sub-setting are re-assigned to \code{x}.

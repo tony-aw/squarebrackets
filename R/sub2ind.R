@@ -47,7 +47,9 @@
 #' @param x.dim an integer vector giving the dimensions of the array in question. I.e. `dim(x)`.
 #' @param ind an integer vector, giving the flat position indices to convert.
 #' @param checks Boolean, indicating if arguments checks should be performed. \cr
-#' Defaults to `TRUE`. Can be set to `FALSE` for minor speed improvements, but not recommended.
+#' Defaults to `TRUE`. \cr
+#' Can be set to `FALSE` for minor speed improvements. \cr
+#' `r .mybadge_performance_set2("FALSE")` \cr
 #' 
 #' 
 #' @details

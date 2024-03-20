@@ -13,7 +13,8 @@
 #'  * For lists: if `drop = TRUE`, selecting a single element will give the simplified result,
 #'  like using `[[]]`. If `drop = FALSE`, a list is always returned regardless of the number of elements.
 #' @param rat Boolean, indicating if attributes should be returned with the sub-setted object.
-#' See Details section for more info.
+#' See Details section for more info. \cr
+#' `r .mybadge_performance_set2("FALSE")` \cr
 #' @param ... further arguments passed to or from other methods.
 #'
 #'
@@ -49,7 +50,7 @@ sb_x <- function(x, ...) {
 
 #' @rdname sb_x
 #' @export
-sb_x.default <- function(x, i, ..., rat = FALSE) {
+sb_x.default <- function(x, i, ..., rat = getOption("sb.rat", FALSE)) {
   elements <- .indx_make_element.sb_x(i, x, is_list = FALSE, abortcall = sys.call())
   if(rat) {
     x <- .fix_attr(x[elements], attributes(x))
@@ -60,7 +61,7 @@ sb_x.default <- function(x, i, ..., rat = FALSE) {
 
 #' @rdname sb_x
 #' @export
-sb_x.matrix <- function(x, row = NULL, col = NULL, i = NULL, ..., rat = FALSE) {
+sb_x.matrix <- function(x, row = NULL, col = NULL, i = NULL, ..., rat = getOption("sb.rat", FALSE)) {
   
   if(!is.null(i)) {
     elements <- .indx_make_element.sb_x(i, x, is_list = FALSE, abortcall = sys.call())
@@ -102,7 +103,7 @@ sb_x.matrix <- function(x, row = NULL, col = NULL, i = NULL, ..., rat = FALSE) {
 
 #' @rdname sb_x
 #' @export
-sb_x.array <- function(x, idx = NULL, dims = NULL, rcl = NULL, i = NULL, ..., rat = FALSE) {
+sb_x.array <- function(x, idx = NULL, dims = NULL, rcl = NULL, i = NULL, ..., rat = getOption("sb.rat", FALSE)) {
   if(!is.null(i)) {
     elements <- .indx_make_element.sb_x(i, x, is_list = FALSE, abortcall = sys.call())
     return(x[elements])
@@ -126,7 +127,7 @@ sb_x.array <- function(x, idx = NULL, dims = NULL, rcl = NULL, i = NULL, ..., ra
 
 #' @rdname sb_x
 #' @export
-sb_x.factor <- function(x, i = NULL, lvl = NULL, drop = FALSE, ..., rat = FALSE) {
+sb_x.factor <- function(x, i = NULL, lvl = NULL, drop = FALSE, ..., rat = getOption("sb.rat", FALSE)) {
   
   .check_args_factor(i, lvl, drop, abortcall = sys.call())
   
@@ -149,7 +150,7 @@ sb_x.factor <- function(x, i = NULL, lvl = NULL, drop = FALSE, ..., rat = FALSE)
 
 #' @rdname sb_x
 #' @export
-sb_x.list <- function(x, i, drop = FALSE, ..., rat = FALSE) {
+sb_x.list <- function(x, i, drop = FALSE, ..., rat = getOption("sb.rat", FALSE)) {
   
   if(!isTRUE(drop) && !isFALSE(drop)) {
     stop("`drop` must be either `TRUE` or `FALSE`")

@@ -23,7 +23,8 @@
 #' However, if it is known that `x` contains no `NA`s or `NaN`s,
 #' setting `NA.safety` to `FALSE` will increase performance a bit. \cr
 #' NOTE: Setting `NA.safety = FALSE` when `x` does contain `NA`s or `NaN`s,
-#' may result in unexpected behaviour.
+#' may result in unexpected behaviour. \cr
+#' `r .mybadge_performance_set2("FALSE")` \cr
 #' 
 #'
 #'

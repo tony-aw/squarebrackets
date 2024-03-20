@@ -8,5 +8,9 @@
 }
 
 .onLoad <- function(libname, pkgname) {
-  options(squarebrackets.protected = .protected_addresses())
+  options(
+    squarebrackets.protected = .protected_addresses(),
+    sb.rat = FALSE,
+    sb.chkdup = FALSE
+  )
 }

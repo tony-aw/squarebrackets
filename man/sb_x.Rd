@@ -12,15 +12,37 @@
 \usage{
 sb_x(x, ...)
 
-\method{sb_x}{default}(x, i, ..., rat = FALSE)
+\method{sb_x}{default}(x, i, ..., rat = getOption("sb.rat", FALSE))
 
-\method{sb_x}{matrix}(x, row = NULL, col = NULL, i = NULL, ..., rat = FALSE)
+\method{sb_x}{matrix}(
+  x,
+  row = NULL,
+  col = NULL,
+  i = NULL,
+  ...,
+  rat = getOption("sb.rat", FALSE)
+)
 
-\method{sb_x}{array}(x, idx = NULL, dims = NULL, rcl = NULL, i = NULL, ..., rat = FALSE)
+\method{sb_x}{array}(
+  x,
+  idx = NULL,
+  dims = NULL,
+  rcl = NULL,
+  i = NULL,
+  ...,
+  rat = getOption("sb.rat", FALSE)
+)
 
-\method{sb_x}{factor}(x, i = NULL, lvl = NULL, drop = FALSE, ..., rat = FALSE)
+\method{sb_x}{factor}(
+  x,
+  i = NULL,
+  lvl = NULL,
+  drop = FALSE,
+  ...,
+  rat = getOption("sb.rat", FALSE)
+)
 
-\method{sb_x}{list}(x, i, drop = FALSE, ..., rat = FALSE)
+\method{sb_x}{list}(x, i, drop = FALSE, ..., rat = getOption("sb.rat", FALSE))
 
 \method{sb_x}{data.frame}(x, row = NULL, col = NULL, filter = NULL, vars = NULL, ...)
 }
@@ -34,7 +56,8 @@ Duplicates are allowed, resulting in duplicated indices. \cr
 An empty index selection results in an empty object of length 0. \cr}
 
 \item{rat}{Boolean, indicating if attributes should be returned with the sub-setted object.
-See Details section for more info.}
+See Details section for more info. \cr
+\ifelse{html}{\figure{for_performance-set_to_FALSE-red.svg}{options: alt='[for performance: set to FALSE]'}}{\link[=squarebrackets_help]{for performance: set to FALSE}} \cr}
 
 \item{drop}{Boolean.
 \itemize{

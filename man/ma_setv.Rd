@@ -24,7 +24,8 @@ thus \code{NA.safety} is \code{TRUE} by default. \cr
 However, if it is known that \code{x} contains no \code{NA}s or \code{NaN}s,
 setting \code{NA.safety} to \code{FALSE} will increase performance a bit. \cr
 NOTE: Setting \code{NA.safety = FALSE} when \code{x} does contain \code{NA}s or \code{NaN}s,
-may result in unexpected behaviour.}
+may result in unexpected behaviour. \cr
+\ifelse{html}{\figure{for_performance-set_to_FALSE-red.svg}{options: alt='[for performance: set to FALSE]'}}{\link[=squarebrackets_help]{for performance: set to FALSE}} \cr}
 }
 \value{
 Returns: VOID. This function modifies the object by reference. \cr

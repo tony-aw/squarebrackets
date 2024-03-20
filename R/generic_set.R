@@ -15,7 +15,8 @@
 #' @param tf the transformation function.
 #' @param rp an object of somewhat the same type as the selected subset of \code{x},
 #' and the same same length as the selected subset of \code{x} or a length of 1.
-#' @param chkdup see \link{squarebrackets_duplicates}.
+#' @param chkdup see \link{squarebrackets_duplicates}. \cr
+#' `r .mybadge_performance_set2("FALSE")` \cr
 #' @param .lapply `sb_set()` by default uses \link[base]{lapply}
 #' for lists and \link[collapse]{dapply} data.frame-like objects
 #' to compute `tf()` on every list element or data.frame column. \cr
@@ -54,7 +55,9 @@ sb_set <- function(x, ...) {
 
 #' @rdname sb_set
 #' @export
-sb_set.default <- function(x, i, ..., rp, tf, chkdup = TRUE) {
+sb_set.default <- function(
+    x, i, ..., rp, tf, chkdup = getOption("sb.chkdup", FALSE)
+) {
   
   # error checks:
   if(!is.mutable_atomic(x)){
@@ -75,7 +78,7 @@ sb_set.default <- function(x, i, ..., rp, tf, chkdup = TRUE) {
 
 #' @rdname sb_set
 #' @export
-sb_set.matrix <- function(x, row = NULL, col = NULL, i = NULL, ..., rp, tf, chkdup = TRUE) {
+sb_set.matrix <- function(x, row = NULL, col = NULL, i = NULL, ..., rp, tf, chkdup = getOption("sb.chkdup", FALSE)) {
   
   # error checks:
   if(!is.mutable_atomic(x)){
@@ -120,7 +123,7 @@ sb_set.matrix <- function(x, row = NULL, col = NULL, i = NULL, ..., rp, tf, chkd
 #' @rdname sb_set
 #' @export
 sb_set.array <- function(
-    x, idx = NULL, dims = NULL, rcl = NULL, i = NULL, ..., rp, tf, chkdup = TRUE
+    x, idx = NULL, dims = NULL, rcl = NULL, i = NULL, ..., rp, tf, chkdup = getOption("sb.chkdup", FALSE)
 ) {
   
   # error checks:
@@ -170,7 +173,7 @@ sb_set.array <- function(
 #' @export
 sb_set.data.table <- function(
     x, row = NULL, col = NULL, filter = NULL, vars = NULL,
-    ..., rp, tf, chkdup = TRUE, .lapply = lapply
+    ..., rp, tf, chkdup = getOption("sb.chkdup", FALSE), .lapply = lapply
 ) {
   
   if(!data.table::is.data.table(x)) {

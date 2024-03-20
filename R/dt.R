@@ -31,7 +31,8 @@
 #' giving the grouping columns.
 #' @param order_by Boolean),
 #' indicating if the aggregated result should be ordered by the columns specified in `by`.
-#' @param chkdup see \link{squarebrackets_duplicates}.
+#' @param chkdup see \link{squarebrackets_duplicates}. \cr
+#' `r .mybadge_performance_set2("FALSE")` \cr
 #'
 #' @returns
 #' For `dt_aggregate()`: \cr
@@ -146,7 +147,7 @@ dt_aggregate <- function(
 #' @rdname dt
 #' @export
 dt_setcoe <- function(
-    x, col = NULL, vars = NULL, f, chkdup = TRUE
+    x, col = NULL, vars = NULL, f, chkdup = getOption("sb.chkdup", FALSE)
 ) {
   
   
@@ -180,7 +181,7 @@ dt_setcoe <- function(
 
 #' @rdname dt
 #' @export
-dt_setrm <- function(x, col = NULL, vars = NULL, chkdup = TRUE) {
+dt_setrm <- function(x, col = NULL, vars = NULL, chkdup = getOption("sb.chkdup", FALSE)) {
   
   if(!data.table::is.data.table(x)) { stop("`x` must be a data.table") }
   

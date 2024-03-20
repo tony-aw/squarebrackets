@@ -88,8 +88,9 @@ tinycodet::import_LL("squarebrackets", selection = ... )
 - 17 March 2024: Added more tests, and tweaked the documentation a bit.
 - 19 March 2024: Some methods/functions did not support mutable_atomic
   type “complex”; this is now fixed. Added support for mutable_atomic
-  type “raw”. Added tests for atomic type handling. Tweaked the
-  documentation a bit. Added the functions `ma_setv()`, and
-  `couldb.mutable_atomic()`.
+  type “raw”. Added tests for atomic type handling. Added the functions
+  `ma_setv()`, and `couldb.mutable_atomic()`. Added the options “sb.rat”
+  and “sb.chkdup”; argument `chkdup` is now also set to `FALSE` by
+  default. Added more badges to the documentation.
 
  

@@ -43,7 +43,7 @@
 #' Returns `TRUE` if the object is atomic, has
 #' the class `"mutable_atomic"`,
 #' has the correctly set attribute `"typeof"`,
-#' \bold{and} has an address that does not overlap with the addresses of base objecrs. \cr
+#' \bold{and} has an address that does not overlap with the addresses of base objects. \cr
 #' `is.mutable_atomic` returns `FALSE` otherwise. \cr
 #' \cr
 #' For `couldb.mutable_atomic`: \cr

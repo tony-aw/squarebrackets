@@ -12,9 +12,18 @@
 \usage{
 sb_mod(x, ...)
 
-\method{sb_mod}{default}(x, i, ..., rp, tf, chkdup = TRUE)
+\method{sb_mod}{default}(x, i, ..., rp, tf, chkdup = getOption("sb.chkdup", FALSE))
 
-\method{sb_mod}{matrix}(x, row = NULL, col = NULL, i = NULL, ..., rp, tf, chkdup = TRUE)
+\method{sb_mod}{matrix}(
+  x,
+  row = NULL,
+  col = NULL,
+  i = NULL,
+  ...,
+  rp,
+  tf,
+  chkdup = getOption("sb.chkdup", FALSE)
+)
 
 \method{sb_mod}{array}(
   x,
@@ -25,12 +34,27 @@ sb_mod(x, ...)
   ...,
   rp,
   tf,
-  chkdup = TRUE
+  chkdup = getOption("sb.chkdup", FALSE)
 )
 
-\method{sb_mod}{factor}(x, i = NULL, lvl = NULL, ..., rp, chkdup = TRUE)
+\method{sb_mod}{factor}(
+  x,
+  i = NULL,
+  lvl = NULL,
+  ...,
+  rp,
+  chkdup = getOption("sb.chkdup", FALSE)
+)
 
-\method{sb_mod}{list}(x, i, ..., rp, tf, chkdup = TRUE, .lapply = lapply)
+\method{sb_mod}{list}(
+  x,
+  i,
+  ...,
+  rp,
+  tf,
+  chkdup = getOption("sb.chkdup", FALSE),
+  .lapply = lapply
+)
 
 \method{sb_mod}{data.frame}(
   x,
@@ -42,7 +66,7 @@ sb_mod(x, ...)
   ...,
   rp,
   tf,
-  chkdup = TRUE,
+  chkdup = getOption("sb.chkdup", FALSE),
   .lapply = lapply
 )
 }
@@ -59,7 +83,8 @@ and the same same length as the selected subset of \code{x} or a length of 1.}
 
 \item{tf}{the transformation function.}
 
-\item{chkdup}{see \link{squarebrackets_duplicates}.}
+\item{chkdup}{see \link{squarebrackets_duplicates}. \cr
+\ifelse{html}{\figure{for_performance-set_to_FALSE-red.svg}{options: alt='[for performance: set to FALSE]'}}{\link[=squarebrackets_help]{for performance: set to FALSE}} \cr}
 
 \item{.lapply}{\code{sb_mod()} by default uses \link[base]{lapply}
 for lists and \link[collapse]{dapply} data.frame-like objects

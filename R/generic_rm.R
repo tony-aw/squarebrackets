@@ -13,15 +13,17 @@
 #'  like using `[[]]`. If `drop = FALSE`, a list is always returned regardless of the number of elements.
 #' @param rat Boolean,
 #' indicating if attributes should be returned with the sub-setted object. \cr
-#' See Details section for more info.
-#' @param chkdup see \link{squarebrackets_duplicates}.
+#' See Details section for more info. \cr
+#' `r .mybadge_performance_set2("FALSE")` \cr
+#' @param chkdup see \link{squarebrackets_duplicates}. \cr
+#' `r .mybadge_performance_set2("FALSE")` \cr
 #' @param ... further arguments passed to or from other methods.
 #'
 #'
 #' @details
 #' \bold{One the \code{rat} argument} \cr
 #' Most `[` - methods strip most (but not all) attributes. \cr
-#' If `rat = FALSE, chkdup = TRUE`, this default behaviour is preserved,
+#' If `rat = FALSE`, this default behaviour is preserved,
 #' for compatibility with special classes. This is the fastest option. \cr
 #' If `rat = TRUE`,
 #' attributes from `x` missing after sub-setting are re-assigned to `x`.
@@ -51,7 +53,11 @@ sb_rm <- function(x, ...) {
 
 #' @rdname sb_rm
 #' @export
-sb_rm.default <- function(x, i, ..., rat = FALSE, chkdup = TRUE) {
+sb_rm.default <- function(
+    x, i, ...,
+    rat = getOption("sb.rat", FALSE),
+    chkdup = getOption("sb.chkdup", FALSE)
+) {
   elements <- .indx_make_element(i, x, is_list = FALSE, chkdup = chkdup, inv = TRUE, abortcall = sys.call())
   if(rat) {
     x <- .fix_attr(x[elements], attributes(x))
@@ -63,7 +69,8 @@ sb_rm.default <- function(x, i, ..., rat = FALSE, chkdup = TRUE) {
 #' @rdname sb_rm
 #' @export
 sb_rm.matrix <- function(
-    x, row = NULL, col = NULL, i = NULL, ..., rat = FALSE, chkdup = TRUE
+    x, row = NULL, col = NULL, i = NULL, ...,
+    rat = getOption("sb.rat", FALSE), chkdup = getOption("sb.chkdup", FALSE)
 ) {
   
   if(!is.null(i)) {
@@ -107,7 +114,8 @@ sb_rm.matrix <- function(
 #' @rdname sb_rm
 #' @export
 sb_rm.array <- function(
-    x, idx = NULL, dims = NULL, rcl = NULL, i = NULL, ..., rat = FALSE, chkdup = TRUE
+    x, idx = NULL, dims = NULL, rcl = NULL, i = NULL, ...,
+    rat = getOption("sb.rat", FALSE), chkdup = getOption("sb.chkdup", FALSE)
 ) {
   
   if(!is.null(i)) {
@@ -138,7 +146,10 @@ sb_rm.array <- function(
 
 #' @rdname sb_rm
 #' @export
-sb_rm.factor <- function(x, i = NULL, lvl = NULL, drop = FALSE, ..., rat = FALSE, chkdup = TRUE) {
+sb_rm.factor <- function(
+    x, i = NULL, lvl = NULL, drop = FALSE, ...,
+    rat = getOption("sb.rat", FALSE), chkdup = getOption("sb.chkdup", FALSE)
+) {
   .check_args_factor(i, lvl, drop, abortcall = sys.call())
   
   if(!is.null(i)) {
@@ -159,7 +170,10 @@ sb_rm.factor <- function(x, i = NULL, lvl = NULL, drop = FALSE, ..., rat = FALSE
 
 #' @rdname sb_rm
 #' @export
-sb_rm.list <- function(x, i, drop = FALSE, ..., rat = FALSE, chkdup = TRUE) {
+sb_rm.list <- function(
+    x, i, drop = FALSE, ...,
+    rat = getOption("sb.rat", FALSE), chkdup = getOption("sb.chkdup", FALSE)
+) {
   
   if(!isTRUE(drop) && !isFALSE(drop)) {
     stop("`drop` must be either `TRUE` or `FALSE`")
@@ -181,7 +195,7 @@ sb_rm.list <- function(x, i, drop = FALSE, ..., rat = FALSE, chkdup = TRUE) {
 #' @export
 sb_rm.data.frame <- function(
     x, row = NULL, col = NULL, filter = NULL, vars = NULL, ...,
-    chkdup = TRUE
+    chkdup = getOption("sb.chkdup", FALSE)
 ) {
   
   .check_args_df(x, row, col, filter, vars, abortcall = sys.call())
