@@ -20,8 +20,9 @@
 #' @param MARGIN a single integer scalar, giving the subscript to apply the function over. \cr
 #' `1` indicates rows, `2` indicates columns. \cr
 #' @param FUN the function to be applied. \cr
-#' In the case of (infix) operators,
-#' the function name must be backquoted or quoted.
+#' The function must return a vector of the same type of `x`,
+#' and the appropriate length
+#' (i.e. length `ncol(x)` when `MARGIN == 1` or length `nrow(x)` when `MARGIN == 2`). \cr \cr
 #' 
 #' 
 #' 

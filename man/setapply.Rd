@@ -13,8 +13,9 @@ setapply(x, MARGIN, FUN)
 \code{1} indicates rows, \code{2} indicates columns. \cr}
 
 \item{FUN}{the function to be applied. \cr
-In the case of (infix) operators,
-the function name must be backquoted or quoted.}
+The function must return a vector of the same type of \code{x},
+and the appropriate length
+(i.e. length \code{ncol(x)} when \code{MARGIN == 1} or length \code{nrow(x)} when \code{MARGIN == 2}). \cr \cr}
 }
 \value{
 Returns: VOID. This function modifies the object by reference. \cr

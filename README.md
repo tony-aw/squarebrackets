@@ -92,5 +92,7 @@ tinycodet::import_LL("squarebrackets", selection = ... )
   `ma_setv()`, and `couldb.mutable_atomic()`. Added the options “sb.rat”
   and “sb.chkdup”; argument `chkdup` is now also set to `FALSE` by
   default. Added more badges to the documentation.
+- 20 March 2024: The user can now also specify `coe = TRUE` in
+  `sb_mod.data.frame()`.
 
  

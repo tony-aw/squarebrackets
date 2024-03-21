@@ -48,7 +48,19 @@ sb_mod(obj, is.numeric, rp = list(-1:-10, -11:-20))
 #############################################################################
 
 
-# data.frame-like objects ====
+# data.frame-like objects  - whole columns ====
+
+obj <- data.frame(a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10]))
+str(obj) # notice that columns "a" and "c" are INTEGER (`int`)
+sb_mod(
+  obj, vars = is.numeric,
+  tf = sqrt # SAFE: row=NULL & filter = NULL, so coercion performed
+)
+
+#############################################################################
+
+# data.frame-like objects  - partial columns ====
+
 obj <- data.frame(a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10]))
 str(obj) # notice that columns "a" and "c" are INTEGER (`int`)
 
@@ -60,13 +72,11 @@ sb_mod(
   obj, filter = ~ (a >= 2) & (c <= 17), vars = is.numeric,
   coe = as.double, tf = sqrt # SAFE: coercion performed
 ) 
-
-obj <- data.frame(a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10]))
-str(obj) # notice that columns "a" and "c" are INTEGER (`int`)
 sb_mod(
-  obj, vars = is.numeric,
-  tf = sqrt # SAFE: row=NULL & filter = NULL, so coercion performed
-)
+  obj, filter = ~ (a >= 2) & (c <= 17), vars = is.numeric,
+  coe = TRUE, tf = sqrt # SAFE: coercion performed
+) 
+
 
 
 

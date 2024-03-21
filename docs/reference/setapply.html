@@ -104,8 +104,9 @@ The <code>setapply()</code> is a bit faster and uses less memory than <a href="h
 
 <dt>FUN</dt>
 <dd><p>the function to be applied. <br>
-In the case of (infix) operators,
-the function name must be backquoted or quoted.</p></dd>
+The function must return a vector of the same type of <code>x</code>,
+and the appropriate length
+(i.e. length <code>ncol(x)</code> when <code>MARGIN == 1</code> or length <code>nrow(x)</code> when <code>MARGIN == 2</code>). <br><br></p></dd>
 
 </dl></div>
     <div class="section level2">

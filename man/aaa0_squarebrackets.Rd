@@ -17,16 +17,16 @@ Among programming languages,
 'R' has perhaps one of the most
 flexible and comprehensive sub-setting functionality,
 provided by the square brackets operators (\code{[}, \verb{[<-}). \cr
-\cr
 But in some situations the square brackets operators
-are occasionally less than optimally convenient
+are occasionally less than optimally convenient \cr
 (see \link{squarebrackets_inconveniences}). \cr
 \cr
-The Goal of the 'squarebrackets' package is not to replace the square-brackets operators per-sé,
+The Goal of the 'squarebrackets' package
+is not to replace the square-brackets operators,
 but to provide \bold{alternative} sub-setting methods and functions,
-to be used in situations where the square-brackets operators are inconvenient. \cr
-These are (hopefully) easier sub-setting methods and functions,
-with the following properties:
+to be used in situations where the square bracket operators are inconvenient. \cr
+\cr
+These alternative sub-setting methods and functions have the following properties:
 \itemize{
 \item \bold{Programmatically friendly}:
 \itemize{

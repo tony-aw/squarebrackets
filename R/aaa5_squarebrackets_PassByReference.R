@@ -4,7 +4,14 @@
 #' @description
 #' This help page describes how modification using "pass-by-reference" semantics
 #' is handled by the 'squarebrackets' package. \cr
-#' \cr
+#' This help page does not explain all the basics of pass-by-reference semantics,
+#' as this is treated as prior knowledge. \cr
+#' All functions/methods in the 'squarebrackets' package
+#' with the word "set" in the name
+#' use pass-by-reference semantics. \cr \cr
+#' 
+#' 
+#' @section Advantages and Disadvantages: 
 #' The main advantage of pass-by-reference is that much less memory is required to modify objects. \cr
 #' But at least 2 things should be taken into consideration
 #' when modifying an object by reference. \cr

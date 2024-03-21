@@ -23,13 +23,13 @@
 #' @param new a `data.table` or `tidytable`. \cr
 #' It must have column names that do not already exist in `x`.
 #' @param f the aggregation function
-#' @param col,vars columns to select for coercion; see \link{squarebrackets_indx_args}. \cr
+#' @param col,vars see \link{squarebrackets_indx_args}. \cr
 #' Duplicates are not allowed.
 #' @param SDcols atomic vector,
 #' giving the columns to which the aggregation function `f()` is to be applied on.
 #' @param by atomic vector,
 #' giving the grouping columns.
-#' @param order_by Boolean),
+#' @param order_by Boolean,
 #' indicating if the aggregated result should be ordered by the columns specified in `by`.
 #' @param chkdup see \link{squarebrackets_duplicates}. \cr
 #' `r .mybadge_performance_set2("FALSE")` \cr
@@ -155,6 +155,7 @@ dt_setcoe <- function(
   if(!data.table::is.data.table(x)) { stop("`x` must be a data.table") }
   
   .check_args_df(x, row = NULL, col = col, filter = NULL, vars = vars, abortcall = sys.call())
+  .check_bindingIsLocked(substitute(x), parent.frame(n = 1), abortcall = sys.call())
   
   if(!is.null(col)) {
     col <- .indx_make_tableind(
@@ -186,6 +187,7 @@ dt_setrm <- function(x, col = NULL, vars = NULL, chkdup = getOption("sb.chkdup",
   if(!data.table::is.data.table(x)) { stop("`x` must be a data.table") }
   
   .check_args_df(x, row = NULL, col = col, filter = NULL, vars = vars, abortcall = sys.call())
+  .check_bindingIsLocked(substitute(x), parent.frame(n = 1), abortcall = sys.call())
   
   if(!is.null(col)) {
     col <- .indx_make_tableind(
@@ -215,6 +217,8 @@ dt_setadd <- function(x, new) {
   
   # error handling:
   if(!data.table::is.data.table(x)) { stop("`x` must be a data.table") }
+  .check_bindingIsLocked(substitute(x), parent.frame(n = 1), abortcall = sys.call())
+  
   if(anyDuplicated(names(x))) {
     stop("`x` does not have unique variable names for all columns; \n fix this before subsetting")
   }

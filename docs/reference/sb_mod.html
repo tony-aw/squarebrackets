@@ -113,7 +113,7 @@
 <span>  col <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  filter <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  vars <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  coe <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  coe <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  <span class="va">...</span>,</span>
 <span>  <span class="va">rp</span>,</span>
 <span>  <span class="va">tf</span>,</span>
@@ -164,16 +164,10 @@ otherwise errors or unexpected behaviour may occur.</p></dd>
 
 
 <dt>coe</dt>
-<dd><p>For data.frame-like objects,
-<code>sb_mod()</code> can only coerce whole columns, not subsets of columns. <br>
-So it does not automatically coerce column types
-when <code>row</code> or <code>filter</code> is also specified. <br>
-Therefore, the user can specify a coercion function,
-to be applied on the entirety of every column specified in <code>col</code> or <code>vars</code>;
-columns outside this subset are not affected. <br>
-This coercion function is, of course, applied before replacement (<code>rp</code>) or transformation (<code>tf()</code>). <br>
-By default, <code>coe = NULL</code> which means no columns are coercively transformed. <br>
-See also <a href="sb_coe.html">sb_coe</a>. <br></p></dd>
+<dd><p>Either <code>FALSE</code> (default), <code>TRUE</code>, or a function. <br>
+The argument <code>coe</code> is ignored
+if both the <code>row</code> and <code>filter</code> arguments are set to <code>NULL</code>. <br>
+See Details section for more info. <br><img src="figures/for_performance-set_to_FALSE-red.svg" alt="[for performance: set to FALSE]"><br></p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -192,7 +186,28 @@ See also <a href="sb_coe.html">sb_coe</a>. <br></p></dd>
 Specifying argument <code>tf</code> will transform the subset. <br>
 Specifying <code>rp</code> will replace the subset. <br>
 One cannot specify both <code>tf</code> and <code>rp</code>. It's either one set or the other. <br>
-Note that the <code>tf</code> argument is not available for factors: this is intentional. <br><br></p>
+Note that the <code>tf</code> argument is not available for factors: this is intentional. <br><br><b>Argument <code>coe</code></b> <br>
+For data.frame-like objects,
+<code>sb_mod()</code> can only auto-coerce whole columns, not subsets of columns. <br>
+So it does not automatically coerce column types
+when <code>row</code> or <code>filter</code> is also specified. <br>
+The <code>coe</code> arguments provides 2 ways to circumvent this:</p><ol><li><p>The user can supply a coercion function to argument <code>coe</code>. <br>
+The function is applied on the entirety of every column specified in <code>col</code> or <code>vars</code>;
+columns outside this subset are not affected. <br>
+This coercion function is, of course,
+applied before replacement (<code>rp</code>) or transformation (<code>tf()</code>).</p></li>
+<li><p>The user can set <code>coe = TRUE</code>. <br>
+In this case,
+the whole columns specified in <code>col</code> or <code>vars</code> are extracted and copied to a list. <br>
+Subsets of each list element,
+corresponding to the selected rows,
+are modified with <code>rp</code> or <code>tf()</code>,
+using R's regular auto-coercion rules. <br>
+The modified list is then returned to the data.frame-like object,
+replacing the original columns.</p></li>
+</ol><p>Note that coercion required additional memory. <br>
+The larger the data.frame-like object, the larger the memory. <br>
+The default, <code>coe = FALSE</code>, uses the least amount of memory. <br><br></p>
     </div>
 
     <div class="section level2">
@@ -396,7 +411,35 @@ Note that the <code>tf</code> argument is not available for factors: this is int
 <span class="r-in"><span><span class="co">#############################################################################</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># data.frame-like objects ====</span></span></span>
+<span class="r-in"><span><span class="co"># data.frame-like objects  - whole columns ====</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, b <span class="op">=</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>, c <span class="op">=</span> <span class="fl">11</span><span class="op">:</span><span class="fl">20</span>, d <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span> <span class="co"># notice that columns "a" and "c" are INTEGER (`int`)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 'data.frame':	10 obs. of  4 variables:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ a: int  1 2 3 4 5 6 7 8 9 10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ b: chr  "a" "b" "c" "d" ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ c: int  11 12 13 14 15 16 17 18 19 20</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ d: Factor w/ 10 levels "a","b","c","d",..: 1 2 3 4 5 6 7 8 9 10</span>
+<span class="r-in"><span><span class="fu">sb_mod</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">obj</span>, vars <span class="op">=</span> <span class="va">is.numeric</span>,</span></span>
+<span class="r-in"><span>  tf <span class="op">=</span> <span class="va">sqrt</span> <span class="co"># SAFE: row=NULL &amp; filter = NULL, so coercion performed</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           a b        c d</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  1.000000 a 3.316625 a</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  1.414214 b 3.464102 b</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  1.732051 c 3.605551 c</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  2.000000 d 3.741657 d</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  2.236068 e 3.872983 e</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  2.449490 f 4.000000 f</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  2.645751 g 4.123106 g</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  2.828427 h 4.242641 h</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  3.000000 i 4.358899 i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 3.162278 j 4.472136 j</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#############################################################################</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># data.frame-like objects  - partial columns ====</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, b <span class="op">=</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>, c <span class="op">=</span> <span class="fl">11</span><span class="op">:</span><span class="fl">20</span>, d <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span> <span class="co"># notice that columns "a" and "c" are INTEGER (`int`)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 'data.frame':	10 obs. of  4 variables:</span>
@@ -437,29 +480,22 @@ Note that the <code>tf</code> argument is not available for factors: this is int
 <span class="r-out co"><span class="r-pr">#&gt;</span> 8   8.000000 h 18.000000 h</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 9   9.000000 i 19.000000 i</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10 10.000000 j 20.000000 j</span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, b <span class="op">=</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>, c <span class="op">=</span> <span class="fl">11</span><span class="op">:</span><span class="fl">20</span>, d <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span> <span class="co"># notice that columns "a" and "c" are INTEGER (`int`)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 'data.frame':	10 obs. of  4 variables:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ a: int  1 2 3 4 5 6 7 8 9 10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ b: chr  "a" "b" "c" "d" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ c: int  11 12 13 14 15 16 17 18 19 20</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ d: Factor w/ 10 levels "a","b","c","d",..: 1 2 3 4 5 6 7 8 9 10</span>
 <span class="r-in"><span><span class="fu">sb_mod</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="va">obj</span>, vars <span class="op">=</span> <span class="va">is.numeric</span>,</span></span>
-<span class="r-in"><span>  tf <span class="op">=</span> <span class="va">sqrt</span> <span class="co"># SAFE: row=NULL &amp; filter = NULL, so coercion performed</span></span></span>
-<span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           a b        c d</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  1.000000 a 3.316625 a</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  1.414214 b 3.464102 b</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  1.732051 c 3.605551 c</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  2.000000 d 3.741657 d</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  2.236068 e 3.872983 e</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  2.449490 f 4.000000 f</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  2.645751 g 4.123106 g</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  2.828427 h 4.242641 h</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  3.000000 i 4.358899 i</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 3.162278 j 4.472136 j</span>
+<span class="r-in"><span>  <span class="va">obj</span>, filter <span class="op">=</span> <span class="op">~</span> <span class="op">(</span><span class="va">a</span> <span class="op">&gt;=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">(</span><span class="va">c</span> <span class="op">&lt;=</span> <span class="fl">17</span><span class="op">)</span>, vars <span class="op">=</span> <span class="va">is.numeric</span>,</span></span>
+<span class="r-in"><span>  coe <span class="op">=</span> <span class="cn">TRUE</span>, tf <span class="op">=</span> <span class="va">sqrt</span> <span class="co"># SAFE: coercion performed</span></span></span>
+<span class="r-in"><span><span class="op">)</span> </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            a b         c d</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   1.000000 a 11.000000 a</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   1.414214 b  3.464102 b</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   1.732051 c  3.605551 c</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   2.000000 d  3.741657 d</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   2.236068 e  3.872983 e</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   2.449490 f  4.000000 f</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7   2.645751 g  4.123106 g</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8   8.000000 h 18.000000 h</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9   9.000000 i 19.000000 i</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 10.000000 j 20.000000 j</span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
