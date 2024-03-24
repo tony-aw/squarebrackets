@@ -428,7 +428,7 @@ factors.</p>
 <span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a>sel.cols <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">sample</span>(<span class="fu">names</span>(x), <span class="dv">10</span>), <span class="dv">4</span>)</span>
 <span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a>sel.rows <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span></span>
 <span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a>bm.sb_x.df <span class="ot">&lt;-</span> bench<span class="sc">::</span><span class="fu">mark</span>(</span>
-<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a>  <span class="st">&quot;squarebrackets&quot;</span> <span class="ot">=</span> <span class="fu">sb_x.data.frame</span>(x, sel.rows, sel.cols),</span>
+<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a>  <span class="st">&quot;squarebrackets&quot;</span> <span class="ot">=</span> <span class="fu">sb2_x.data.frame</span>(x, sel.rows, sel.cols),</span>
 <span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a>  <span class="st">&quot;collapse::ss&quot;</span> <span class="ot">=</span> collapse<span class="sc">::</span><span class="fu">ss</span>(x, sel.rows, <span class="fu">match</span>(sel.cols, <span class="fu">names</span>(x))),</span>
 <span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a>  <span class="st">&quot;base R&quot;</span> <span class="ot">=</span> x[sel.rows, <span class="fu">match</span>(sel.cols, <span class="fu">names</span>(x)), <span class="at">drop =</span> <span class="cn">FALSE</span>],</span>
 <span id="cb8-17"><a href="#cb8-17" tabindex="-1"></a>  <span class="at">min_iterations =</span> <span class="fl">1e4</span></span>
@@ -450,7 +450,7 @@ factors.</p>
 <span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a>  <span class="fu">return</span>(x)</span>
 <span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a>}</span>
 <span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a>bm.sb_x.dt <span class="ot">&lt;-</span> bench<span class="sc">::</span><span class="fu">mark</span>(</span>
-<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a>  <span class="st">&quot;squarebrackets&quot;</span> <span class="ot">=</span> <span class="fu">sb_x.data.frame</span>(x, sel.rows, sel.cols),</span>
+<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a>  <span class="st">&quot;squarebrackets&quot;</span> <span class="ot">=</span> <span class="fu">sb2_x.data.frame</span>(x, sel.rows, sel.cols),</span>
 <span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a>  <span class="st">&quot;data.table + collapse&quot;</span> <span class="ot">=</span> <span class="fu">tempfun</span>(x, sel.rows, <span class="fu">match</span>(sel.cols, <span class="fu">names</span>(x))),</span>
 <span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a>  <span class="at">min_iterations =</span> <span class="fl">1e4</span></span>
 <span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a>)</span>

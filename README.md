@@ -94,5 +94,7 @@ tinycodet::import_LL("squarebrackets", selection = ... )
   default. Added more badges to the documentation.
 - 20 March 2024: The user can now also specify `coe = TRUE` in
   `sb_mod.data.frame()`.
+- 24 March 2024: Methods are now split between methods for non-recursive
+  objects (`sb_`), and methods for recursive objects (`sb2_`).
 
  

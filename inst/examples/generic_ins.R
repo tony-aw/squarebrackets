@@ -28,8 +28,8 @@ sb_after(x, new)
 x <- as.list(1:5)
 new <- lapply(x, \(x)x*-1)
 print(x)
-sb_before(x, new)
-sb_after(x, new)
+sb2_before(x, new)
+sb2_after(x, new)
 
 
 #############################################################################
@@ -39,9 +39,9 @@ sb_after(x, new)
 
 x <- data.frame(a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10]))
 new <- data.frame(e = 101:110)
-sb_before(x, new, 2)
-sb_after(x, new, 2)
+sb2_before(x, new, 2)
+sb2_after(x, new, 2)
 new <- x[1,]
-sb_before(x, new, 1)
-sb_after(x, new, 1)
+sb2_before(x, new, 1)
+sb2_after(x, new, 1)
 

@@ -18,10 +18,10 @@ x <- data.frame(
 print(x)
 # get the first row for each group in data.frame `x`:
 row <- idx_by(first, 1:nrow(x), x$group)
-sb_x(x, row)
+sb2_x(x, row)
 # get the first row for each group for which a > 10:
-x2 <- sb_x(x, filter = ~ a > 10)
+x2 <- sb2_x(x, filter = ~ a > 10)
 row <- na.omit(idx_by(first, 1:nrow(x2), x2$group))
-sb_x(x2, row)
+sb2_x(x2, row)
  
 

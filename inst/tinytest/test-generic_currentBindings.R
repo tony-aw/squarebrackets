@@ -47,7 +47,7 @@ expect_error(
 mydt <- data.table::data.table(a = 1:10, b = letters[1:10])
 lockBinding("mydt", env = environment())
 expect_error(
-  sb_set.data.table(mydt, col = "a", tf = \(x)x^2),
+  sb2_set.data.table(mydt, col = "a", tf = \(x)x^2),
   pattern = "object is locked"
 )
 rm(list = c("mymat", "myarr", "mydt"), envir = environment())
@@ -57,3 +57,4 @@ enumerate <- enumerate + 7
 # clean-up ====
 rm(list = c(refs, mynms, "1234567890!@#$%^&*()", "i", "a", "refs", "mynms"),
    envir = environment())
+

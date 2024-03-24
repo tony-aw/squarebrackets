@@ -42,26 +42,18 @@ expect_error(
 
 x <- data.frame(a = letters[1:10], b = 1:10)
 expect_error(
-  sb_set(x, col = "a", rp = letters[11:20]),
-  pattern = pattern,
-  fixed = TRUE
+  sb2_set(x, col = "a", rp = letters[11:20])
 )
 expect_error(
-  sb_setRename(x, old = names(x), new = rev(names(x))),
-  pattern = pattern,
-  fixed = TRUE
+  sb2_setRename(x, old = names(x), new = rev(names(x)))
 )
 
 x <- list( a = letters, b = 1:20)
 expect_error(
-  sb_set(x, i = "a", rp = letters[11:20]),
-  pattern = pattern,
-  fixed = TRUE
+  sb2_set(x, i = "a", rp = letters[11:20])
 )
 expect_error(
-  sb_setRename(x, rev(names(x))),
-  pattern = pattern,
-  fixed = TRUE
+  sb2_setRename(x, rev(names(x)))
 )
 
 enumerate <- enumerate + 10
@@ -112,7 +104,7 @@ enumerate <- enumerate + 5
 
 x <- data.frame(a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10]))
 expect_error(
-  dt_setcoe(x, vars = is.numeric, f = as.numeric),
+  dt_setcoe(x, vars = is.numeric, v = as.numeric),
   pattern = "`x` must be a data.table"
 )
 expect_error(
@@ -133,7 +125,7 @@ enumerate <- enumerate + 3
 
 x <- data.table::data.table(a = 1:10, b = letters[1:10])
 x2 <- x
-sb_set(x, col = "b", rp = list(letters[11:20]))
+sb2_set(x, col = "b", rp = list(letters[11:20]))
 expect_equal(
   x,
   x2

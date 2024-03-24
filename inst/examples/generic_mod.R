@@ -40,9 +40,9 @@ sb_mod(obj, i = \(x)x<=5, rp = -1:-5)
 
 obj <- list(a = 1:10, b = letters[1:11], c = 11:20)
 print(obj)
-sb_mod(obj, "a", rp = list(1L))
+sb2_mod(obj, "a", rp = list(1L))
 # above is equivalent to  obj[["a"]] <- 1L; obj
-sb_mod(obj, is.numeric, rp = list(-1:-10, -11:-20))
+sb2_mod(obj, is.numeric, rp = list(-1:-10, -11:-20))
 # above is equivalent to  obj[which(sapply(obj, is.numeric))] <- list(-1:-10, -11:-20); obj
 
 #############################################################################
@@ -52,7 +52,7 @@ sb_mod(obj, is.numeric, rp = list(-1:-10, -11:-20))
 
 obj <- data.frame(a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10]))
 str(obj) # notice that columns "a" and "c" are INTEGER (`int`)
-sb_mod(
+sb2_mod(
   obj, vars = is.numeric,
   tf = sqrt # SAFE: row=NULL & filter = NULL, so coercion performed
 )
@@ -64,15 +64,15 @@ sb_mod(
 obj <- data.frame(a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10]))
 str(obj) # notice that columns "a" and "c" are INTEGER (`int`)
 
-sb_mod(
+sb2_mod(
   obj, filter = ~ (a >= 2) & (c <= 17), vars = is.numeric,
   tf = sqrt # WARNING: sqrt() results in `dbl`, but columns are `int`, so decimals lost
 ) 
-sb_mod(
+sb2_mod(
   obj, filter = ~ (a >= 2) & (c <= 17), vars = is.numeric,
   coe = as.double, tf = sqrt # SAFE: coercion performed
 ) 
-sb_mod(
+sb2_mod(
   obj, filter = ~ (a >= 2) & (c <= 17), vars = is.numeric,
   coe = TRUE, tf = sqrt # SAFE: coercion performed
 ) 

@@ -16,7 +16,10 @@
 #' and locks them using \link[base]{lockBinding}. \cr
 #' \cr
 #' See also \link{squarebrackets_PassByReference} for information regarding
-#' the relation between locked bindings and pass-by-reference modifications. \cr \cr
+#' the relation between locked bindings and pass-by-reference modifications. \cr
+#' \cr
+#' `sb2_currentBindings()` is an alias for `sb_currentBindings()`,
+#' and exists just for consistency with the other `sb_`/ `sb2_` methods. \cr \cr
 #' 
 #' 
 #' @param x the existing variable whose address to use when searching for bindings.
@@ -88,6 +91,9 @@ sb_currentBindings <- function(x, action = "list", env = NULL) {
   
 }
 
+#' @rdname sb_currentBindings
+#' @export
+sb2_currentBindings <- sb_currentBindings
 
 #' @keywords internal
 #' @noRd

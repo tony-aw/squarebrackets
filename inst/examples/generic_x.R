@@ -27,10 +27,10 @@ sb_x(obj, i = \(x)x>5)
 
 obj <- list(a = 1:10, b = letters[1:11], c = 11:20)
 print(obj)
-sb_x(obj, 1) # obj[1]
-sb_x(obj, 1, drop = TRUE) # obj[[1]]
-sb_x(obj, 1:2) # obj[1:2]
-sb_x(obj, is.numeric) # obj[sapply(obj, is.numeric)]
+sb2_x(obj, 1) # obj[1]
+sb2_x(obj, 1, drop = TRUE) # obj[[1]]
+sb2_x(obj, 1:2) # obj[1:2]
+sb2_x(obj, is.numeric) # obj[sapply(obj, is.numeric)]
 # for recursive indexing, see sb_rec()
 
 #############################################################################
@@ -49,7 +49,7 @@ sb_x(obj, lvl = c("a", "a"))
 
 obj <- data.frame(a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10]))
 print(obj)
-sb_x(obj, 1:3, 1:3) # obj[1:3, 1:3, drop = FALSE]
-sb_x(obj, filter = ~ (a > 5) & (c < 19), vars = is.numeric)
+sb2_x(obj, 1:3, 1:3) # obj[1:3, 1:3, drop = FALSE]
+sb2_x(obj, filter = ~ (a > 5) & (c < 19), vars = is.numeric)
 
 

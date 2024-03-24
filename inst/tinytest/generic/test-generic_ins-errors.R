@@ -8,8 +8,7 @@ sys.source(file.path(getwd(), "source", "functions4testing.R"), envir = environm
 # general errors ====
 as_funs_lst <- list(
   as.vector,
-  as.factor,
-  as.list
+  as.factor
 )
 x. <- 1:10
 for(i in 1:length(as_funs_lst)) {
@@ -41,37 +40,6 @@ expect_error(
   pattern = "`new` must be a (possibly named) factor",
   fixed = TRUE
 )
-x <- list(a = 1, b = 2)
-expect_error(
-  sb_after(x, "c"),
-  pattern = "`new` must be a (possibly named) list",
-  fixed = TRUE
-)
-expect_error(
-  sb_before(x, "c"),
-  pattern = "`new` must be a (possibly named) list",
-  fixed = TRUE
-)
-x <- data.frame(a = 1:10, b = letters[1:10])
-expect_error(
-  sb_before(x, 1:10, 1),
-  pattern = "`new` must be a data.frame-like object",
-  fixed = TRUE
-)
-expect_error(
-  sb_before(x, 1:10, 2),
-  pattern = "`new` must be a data.frame-like object",
-  fixed = TRUE
-)
-expect_error(
-  sb_after(x, 1:10, 1),
-  pattern = "`new` must be a data.frame-like object",
-  fixed = TRUE
-)
-expect_error(
-  sb_after(x, 1:10, 2),
-  pattern = "`new` must be a data.frame-like object",
-  fixed = TRUE
-)
-enumerate <- enumerate + 8
+
+enumerate <- enumerate + 2
 

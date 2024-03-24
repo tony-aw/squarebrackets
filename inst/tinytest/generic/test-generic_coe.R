@@ -29,30 +29,4 @@ expect_equal(
 )
 
 
-# lists ====
-x <- list(a = seq(1.5, 10.5, by = 1), b = letters)
-expect_equal(
-  sb_coe(x, 1, as.integer),
-  {x[[1]] <- as.integer(x[[1]]); x}
-)
-
-
-# data.frame-like ====
-obj <- data.table::data.table(
-  a = seq(1.5, 10.5, by = 1),
-  b = letters[1:10],
-  c = factor(letters[1:10])
-)
-obj1 <- data.table::data.table(
-  a = as.integer(1:10),
-  b = letters[1:10],
-  c = factor(letters[1:10])
-)
-obj2 <- sb_coe(obj, vars = is.numeric, v = as.integer)
-expect_equal(
-  obj1,
-  obj2
-)
-
-
-enumerate <- enumerate + 5
+enumerate <- enumerate + 3

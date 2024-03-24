@@ -30,11 +30,11 @@ if(!test_PassByReference) {
   
   if(isTRUE(test_allow_duplicates)) {
     expect_equal(
-      anyDuplicated(colnames(sb_x(x, col = c(1,1,1)))),
+      anyDuplicated(colnames(sb2_x(x, col = c(1,1,1)))),
       0
     )
     expect_equal(
-      anyDuplicated(colnames(sb_x(x, col = c("a","a","a")))),
+      anyDuplicated(colnames(sb2_x(x, col = c("a","a","a")))),
       0
     )
     enumerate <- enumerate <- enumerate + 1
@@ -50,11 +50,11 @@ if(!test_PassByReference) {
     
     if(isTRUE(test_allow_duplicates)) {
       expect_equal(
-        anyDuplicated(colnames(sb_x(x, col = c(1,1,1)))),
+        anyDuplicated(colnames(sb2_x(x, col = c(1,1,1)))),
         0
       )
       expect_equal(
-        anyDuplicated(colnames(sb_x(x, col = c("a","a","a")))),
+        anyDuplicated(colnames(sb2_x(x, col = c("a","a","a")))),
         0
       )
       enumerate <- enumerate <- enumerate + 1
@@ -74,11 +74,11 @@ if(requireNamespace("data.table")) {
   
   if(isTRUE(test_allow_duplicates)) {
     expect_equal(
-      anyDuplicated(colnames(sb_x(x, col = c(1,1,1)))),
+      anyDuplicated(colnames(sb2_x(x, col = c(1,1,1)))),
       0
     )
     expect_equal(
-      anyDuplicated(colnames(sb_x(x, col = c("a","a","a")))),
+      anyDuplicated(colnames(sb2_x(x, col = c("a","a","a")))),
       0
     )
     enumerate <- enumerate <- enumerate + 1
@@ -99,11 +99,11 @@ if(requireNamespace("tidytable")) {
   
   if(isTRUE(test_allow_duplicates)) {
     expect_equal(
-      anyDuplicated(colnames(sb_x(x, col = c(1,1,1)))),
+      anyDuplicated(colnames(sb2_x(x, col = c(1,1,1)))),
       0
     )
     expect_equal(
-      anyDuplicated(colnames(sb_x(x, col = c("a","a","a")))),
+      anyDuplicated(colnames(sb2_x(x, col = c("a","a","a")))),
       0
     )
     enumerate <- enumerate <- enumerate + 1

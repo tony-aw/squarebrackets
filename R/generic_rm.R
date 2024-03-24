@@ -55,9 +55,14 @@ sb_rm <- function(x, ...) {
 #' @export
 sb_rm.default <- function(
     x, i, ...,
-    rat = getOption("sb.rat", FALSE),
-    chkdup = getOption("sb.chkdup", FALSE)
+    rat = getOption("squarebrackets.rat", FALSE),
+    chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
+  
+  if(is.recursive(x)) {
+    stop("Use the `sb2_` methods for recursive objects")
+  }
+  
   elements <- .indx_make_element(i, x, is_list = FALSE, chkdup = chkdup, inv = TRUE, abortcall = sys.call())
   if(rat) {
     x <- .fix_attr(x[elements], attributes(x))
@@ -70,8 +75,12 @@ sb_rm.default <- function(
 #' @export
 sb_rm.matrix <- function(
     x, row = NULL, col = NULL, i = NULL, ...,
-    rat = getOption("sb.rat", FALSE), chkdup = getOption("sb.chkdup", FALSE)
+    rat = getOption("squarebrackets.rat", FALSE), chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
+  
+  if(is.recursive(x)) {
+    stop("Use the `sb2_` methods for recursive objects")
+  }
   
   if(!is.null(i)) {
     elements <- .indx_make_element(i, x, is_list = FALSE, chkdup = chkdup, inv = TRUE, abortcall = sys.call())
@@ -115,8 +124,12 @@ sb_rm.matrix <- function(
 #' @export
 sb_rm.array <- function(
     x, idx = NULL, dims = NULL, rcl = NULL, i = NULL, ...,
-    rat = getOption("sb.rat", FALSE), chkdup = getOption("sb.chkdup", FALSE)
+    rat = getOption("squarebrackets.rat", FALSE), chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
+  
+  if(is.recursive(x)) {
+    stop("Use the `sb2_` methods for recursive objects")
+  }
   
   if(!is.null(i)) {
     elements <- .indx_make_element(
@@ -148,8 +161,13 @@ sb_rm.array <- function(
 #' @export
 sb_rm.factor <- function(
     x, i = NULL, lvl = NULL, drop = FALSE, ...,
-    rat = getOption("sb.rat", FALSE), chkdup = getOption("sb.chkdup", FALSE)
+    rat = getOption("squarebrackets.rat", FALSE), chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
+  
+  if(is.recursive(x)) {
+    stop("Use the `sb2_` methods for recursive objects")
+  }
+  
   .check_args_factor(i, lvl, drop, abortcall = sys.call())
   
   if(!is.null(i)) {
@@ -168,12 +186,24 @@ sb_rm.factor <- function(
   }
 }
 
+
 #' @rdname sb_rm
 #' @export
-sb_rm.list <- function(
+sb2_rm <- function(x, ...) {
+  UseMethod("sb2_rm", x)
+}
+
+
+#' @rdname sb_rm
+#' @export
+sb2_rm.default <- function(
     x, i, drop = FALSE, ...,
-    rat = getOption("sb.rat", FALSE), chkdup = getOption("sb.chkdup", FALSE)
+    rat = getOption("squarebrackets.rat", FALSE), chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
+  
+  if(!is.recursive(x)) {
+    stop("Use the `sb_` methods for non-recursive objects")
+  }
   
   if(!isTRUE(drop) && !isFALSE(drop)) {
     stop("`drop` must be either `TRUE` or `FALSE`")
@@ -193,10 +223,37 @@ sb_rm.list <- function(
 
 #' @rdname sb_rm
 #' @export
-sb_rm.data.frame <- function(
-    x, row = NULL, col = NULL, filter = NULL, vars = NULL, ...,
-    chkdup = getOption("sb.chkdup", FALSE)
+sb2_rm.array <- function(
+    x, idx = NULL, dims = NULL, rcl = NULL, i = NULL, drop = FALSE, ...,
+    rat = getOption("squarebrackets.rat", FALSE), chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
+  
+  if(!is.recursive(x)) {
+    stop("Use the `sb_` methods for non-recursive objects")
+  }
+  
+  if(!is.null(i)) {
+    return(sb2_rm.default(x, i, drop = drop, ..., rat = rat, chkdup = chkdup))
+  }
+  
+  if(rat) {
+    x <- .fix_attr(.arr_rm(x, idx, dims, chkdup = chkdup, abortcall = sys.call()), attributes(x))
+  } else{ x <- .arr_rm(x, idx, dims, chkdup = chkdup, abortcall = sys.call()) }
+  
+  return(x)
+}
+
+
+#' @rdname sb_rm
+#' @export
+sb2_rm.data.frame <- function(
+    x, row = NULL, col = NULL, filter = NULL, vars = NULL, ...,
+    chkdup = getOption("squarebrackets.chkdup", FALSE)
+) {
+  
+  if(!is.recursive(x)) {
+    stop("Use the `sb_` methods for non-recursive objects")
+  }
   
   .check_args_df(x, row, col, filter, vars, abortcall = sys.call())
   

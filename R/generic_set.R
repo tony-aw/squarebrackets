@@ -50,8 +50,9 @@
 #' @export
 sb_set <- function(x, ...) {
   
-  UseMethod("sb_set", x)
+  UseMethod("sb_set", x) ## commentary
 }
+
 
 #' @rdname sb_set
 #' @export
@@ -167,11 +168,22 @@ sb_set.array <- function(
   return(invisible(NULL))
 }
 
-
+#' @rdname sb_set
+#' @export
+sb2_set <- function(x, ...) {
+  
+  UseMethod("sb2_set", x)
+}
 
 #' @rdname sb_set
 #' @export
-sb_set.data.table <- function(
+sb2_set.default <- function(x, ...) {
+  stop("`x` is not a (supported) mutable object")
+}
+
+#' @rdname sb_set
+#' @export
+sb2_set.data.table <- function(
     x, row = NULL, col = NULL, filter = NULL, vars = NULL,
     ..., rp, tf, chkdup = getOption("sb.chkdup", FALSE), .lapply = lapply
 ) {

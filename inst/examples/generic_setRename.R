@@ -41,6 +41,6 @@ x <- data.table::data.table(
   b = letters[1:20]
 )
 print(x)
-sb_setRename(x, old = names(x), new = rev(names(x)))
+sb2_setRename(x, old = names(x), new = rev(names(x)))
 print(x)
 

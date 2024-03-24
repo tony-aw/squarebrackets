@@ -1,13 +1,15 @@
 #' Methods to Insert New Values Before or After an Index Along a Dimension
 #'
 #' @description
-#' The `sb_before()` method
+#' The `sb_before()`/`sb2_before()` method
 #' inserts new values before some position along a dimension. \cr
-#' The `sb_after()` method
+#' The `sb_after()`/`sb_after()` method
 #' inserts new values after some position along a dimension. \cr
 #' \cr
 #' These functions use a modified version of \code{abind::}\link[abind]{abind}
-#' (see reference below).
+#' (see reference below). \cr
+#' Note that `sb2_before()` and `sb2_after()`
+#' offer no support for dimensional lists. \cr \cr
 #'
 #' @param x see \link{squarebrackets_immutable_classes} and \link{squarebrackets_mutable_classes}.
 #' @param new the new value(s). The type of object depends on `x`:
@@ -61,6 +63,11 @@ sb_after <- function(x, ...) {
 #' @rdname sb_in
 #' @export
 sb_before.default <- function(x, new, pos = 1, .attr = NULL, ...) {
+  
+  if(is.recursive(x)) {
+    stop("Use the `sb2_` methods for recursive objects")
+  }
+  
   n <- length(x)
   .check_in(pos, n, abortcall = sys.call())
   
@@ -78,6 +85,11 @@ sb_before.default <- function(x, new, pos = 1, .attr = NULL, ...) {
 #' @rdname sb_in
 #' @export
 sb_after.default <- function(x, new, pos = length(x), .attr = NULL, ...) {
+  
+  if(is.recursive(x)) {
+    stop("Use the `sb2_` methods for recursive objects")
+  }
+  
   n <- length(x)
   .check_in(pos, n, abortcall = sys.call())
   
@@ -96,6 +108,10 @@ sb_after.default <- function(x, new, pos = length(x), .attr = NULL, ...) {
 #' @export
 sb_before.array <- function(x, new, margin, pos = 1, .attr = NULL, ...) {
   
+  if(is.recursive(x)) {
+    stop("Use the `sb2_` methods for recursive objects")
+  }
+  
   if(length(margin)>1 || !is.numeric(margin)) {
     stop("`margin` must be a single integer scalar")
   }
@@ -107,6 +123,10 @@ sb_before.array <- function(x, new, margin, pos = 1, .attr = NULL, ...) {
 #' @rdname sb_in
 #' @export
 sb_after.array <- function(x, new, margin, pos = dim(x)[margin], .attr = NULL, ...) {
+  
+  if(is.recursive(x)) {
+    stop("Use the `sb2_` methods for recursive objects")
+  }
   
   if(length(margin)>1 || !is.numeric(margin)) {
     stop("`margin` must be a single integer scalar")
@@ -121,6 +141,10 @@ sb_after.array <- function(x, new, margin, pos = dim(x)[margin], .attr = NULL, .
 #' @rdname sb_in
 #' @export
 sb_before.factor <- function(x, new, pos = 1, .attr = NULL, ...) {
+  
+  if(is.recursive(x)) {
+    stop("Use the `sb2_` methods for recursive objects")
+  }
   
   if(!is.factor(new)) {
     stop("`new` must be a (possibly named) factor")
@@ -143,6 +167,10 @@ sb_before.factor <- function(x, new, pos = 1, .attr = NULL, ...) {
 #' @export
 sb_after.factor <- function(x, new, pos = length(x), .attr = NULL, ...) {
   
+  if(is.recursive(x)) {
+    stop("Use the `sb2_` methods for recursive objects")
+  }
+  
   if(!is.factor(new)) {
     stop("`new` must be a (possibly named) factor")
   }
@@ -162,9 +190,27 @@ sb_after.factor <- function(x, new, pos = length(x), .attr = NULL, ...) {
 }
 
 
+
+
 #' @rdname sb_in
 #' @export
-sb_before.list <- function(x, new, pos = 1, .attr = NULL, ...) {
+sb2_before <- function(x, ...) {
+  UseMethod("sb2_before", x)
+}
+
+#' @rdname sb_in
+#' @export
+sb2_after <- function(x, ...) {
+  UseMethod("sb2_after", x)
+}
+
+#' @rdname sb_in
+#' @export
+sb2_before.default <- function(x, new, pos = 1, .attr = NULL, ...) {
+  
+  if(!is.recursive(x)) {
+    stop("Use the `sb_` methods for non-recursive objects")
+  }
   
   if(!is.list(new)) {
     stop("`new` must be a (possibly named) list")
@@ -188,7 +234,11 @@ sb_before.list <- function(x, new, pos = 1, .attr = NULL, ...) {
 
 #' @rdname sb_in
 #' @export
-sb_after.list <- function(x, new, pos = length(x), .attr = NULL, ...) {
+sb2_after.default <- function(x, new, pos = length(x), .attr = NULL, ...) {
+  
+  if(!is.recursive(x)) {
+    stop("Use the `sb_` methods for non-recursive objects")
+  }
   
   if(!is.list(new)) {
     stop("`new` must be a (possibly named) list")
@@ -211,7 +261,11 @@ sb_after.list <- function(x, new, pos = length(x), .attr = NULL, ...) {
 
 #' @rdname sb_in
 #' @export
-sb_before.data.frame <- function(x, new, margin, pos = 1, .attr = NULL, ...) {
+sb2_before.data.frame <- function(x, new, margin, pos = 1, .attr = NULL, ...) {
+  
+  if(!is.recursive(x)) {
+    stop("Use the `sb_` methods for non-recursive objects")
+  }
   
   if(length(margin)>1 || !is.numeric(margin)) {
     stop("`margin` must be a single integer scalar")
@@ -220,7 +274,7 @@ sb_before.data.frame <- function(x, new, margin, pos = 1, .attr = NULL, ...) {
   if(!is.data.frame(new)) {
     stop("`new` must be a data.frame-like object")
   }
-
+  
   if(margin == 1) {
     abind <- rbind
     ss <- function(x, ind) collapse::ss(x, i = ind)
@@ -250,7 +304,11 @@ sb_before.data.frame <- function(x, new, margin, pos = 1, .attr = NULL, ...) {
 
 #' @rdname sb_in
 #' @export
-sb_after.data.frame <- function(x, new, margin, pos = collapse::fdim(x)[margin], .attr = NULL, ...) {
+sb2_after.data.frame <- function(x, new, margin, pos = collapse::fdim(x)[margin], .attr = NULL, ...) {
+  
+  if(!is.recursive(x)) {
+    stop("Use the `sb_` methods for non-recursive objects")
+  }
   
   if(length(margin)>1 || !is.numeric(margin)) {
     stop("`margin` must be a single integer scalar")
@@ -286,6 +344,8 @@ sb_after.data.frame <- function(x, new, margin, pos = collapse::fdim(x)[margin],
   colnames(out) <- make.names(colnames(out), unique = TRUE)
   return(out)
 }
+
+
 
 #' @keywords internal
 #' @noRd

@@ -20,7 +20,7 @@ test_sb <- function(x, i) {
 temp.fun <- function(x, elements) {
   for (i in 1:length(elements)) {
     expect_equal(
-      sb_rm(x, i = elements[[i]]),
+      sb2_rm(x, i = elements[[i]]),
       test_sb(x, i = elements[[i]])
     ) |> errorfun()
     assign("enumerate", enumerate + 1, envir = parent.frame(n = 1))
@@ -43,140 +43,14 @@ sys.source(file.path(getwd(), "source", "sourcetest-elements.R"), envir = enviro
 
 x <- as.list(1:10)
 expect_equal(
-  sb_rm(x, 1:9, drop = TRUE),
+  sb2_rm(x, 1:9, drop = TRUE),
   x[[10]]
 )
 expect_equal(
-  sb_rm(x, c(FALSE, rep(TRUE, 9)), drop = TRUE),
+  sb2_rm(x, c(FALSE, rep(TRUE, 9)), drop = TRUE),
   x[[1]]
 )
 enumerate <- enumerate + 2
-
-
-# test factors ====
-
-test_sb <- function(x, i = NULL, lvl = NULL, drop = FALSE) {
-  if(!is.null(i)) {
-    i <- indx_rm(i, x, names(x), length(x))
-  }
-  if(!is.null(lvl)) {
-    i <- lapply(
-      lvl, \(i) which(x == i)
-    ) |> unlist()
-  }
-  return(x[i, drop = drop])
-}
-
-indx_general <- list(
-  logical(0),
-  1, 1:2, 2:1,
-  function(x) x != "Jan"
-)
-
-indx_named <- c(indx_general, list("a", c("a", "b")))
-
-
-temp.fun <- function(x, elements) {
-  for (i in 1:length(elements)) {
-    expect_equal(
-      sb_rm(x, i = elements[[i]]),
-      test_sb(x, i = elements[[i]])
-    ) |> errorfun()
-    expect_equal(
-      sb_rm(x, i = elements[[i]], drop = TRUE),
-      test_sb(x, i = elements[[i]], drop = TRUE)
-    ) |> errorfun()
-    assign("enumerate", enumerate + 2, envir = parent.frame(n = 1))
-  }
-}
-
-sys.source(file.path(getwd(), "source", "sourcetest-factors.R"), envir = environment())
-
-expect_equal(sb_rm(x, lvl = "Jan"), x[x != "Jan"])
-expect_equal(sb_rm(x, lvl = "Jan", drop = TRUE), x[x != "Jan", drop = TRUE])
-expect_equal(sb_rm(x, lvl = "Jan"), x[x != "Jan"])
-expect_equal(sb_rm(x, lvl = "Jan", drop = TRUE), x[x != "Jan", drop = TRUE])
-expect_equal(sb_rm(x, lvl = "Jan"), x[x != "Jan"])
-expect_equal(sb_rm(x, lvl = "Jan", drop = TRUE), x[x != "Jan", drop = TRUE])
-enumerate <- enumerate + 6
-
-
-# test matrix & 3d array ====
-
-rep3.bind <- function(x, dim) {
-  return(abind::abind(x, x, x, along = dim))
-}
-
-subset_mat <- function(x, row = NULL, col = NULL) {
-  if(!is.null(row)) row <- indx_rm(row, x, rownames(x), nrow(x))
-  if(!is.null(col)) col <- indx_rm(col, x, colnames(x), ncol(x))
-  
-  if(is.null(row)) row <- base::quote(expr = )
-  if(is.null(col)) col <- base::quote(expr = )
-  x[row, col, drop = FALSE]
-}
-
-subset_3darray <- function(x, row = NULL, col = NULL, lyr = NULL) {
-  if(!is.null(row)) row <- indx_rm(row, x, rownames(x), nrow(x))
-  if(!is.null(col)) col <- indx_rm(col, x, colnames(x), ncol(x))
-  if(!is.null(lyr)) lyr <- indx_rm(lyr, x, dimnames(x)[[3]], dim(x)[3])
-  
-  if(is.null(row)) row <- base::quote(expr = )
-  if(is.null(col)) col <- base::quote(expr = )
-  if(is.null(lyr)) lyr <- base::quote(expr = )
-  x[row, col, lyr, drop = FALSE]
-}
-
-temp.fun.matrix <- function(x, row, col) {
-  for(i in 1:length(row)) {
-    for(j in 1:length(col)) {
-      expect_equal(
-        sb_rm(x, row = row[[i]], col = col[[j]]),
-        subset_mat(x, row[[i]], col[[j]])
-      ) |> errorfun()
-      expect_true(sb_rm(x, row = row[[i]], col = col[[j]]) |>
-                    is.matrix()) |> errorfun()
-      assign("enumerate", enumerate + 2, envir = parent.frame(n = 1))
-    }
-  }
-}
-
-temp.fun.3darray <- function(x, row, col, lyr) {
-  for(i in 1:length(row)) {
-    for(j in 1:length(col)) {
-      for(k in 1:length(lyr)) {
-        expect_equal(
-          sb_rm(x, rcl = list(row[[i]], col[[j]], lyr[[k]])),
-          subset_3darray(x, row[[i]], col[[j]], lyr[[k]])
-        ) |> errorfun()
-        expect_true(sb_rm(x, rcl = list(row[[i]], col[[j]], lyr[[k]])) |>
-                      is.array()) |> errorfun()
-        assign("enumerate", enumerate + 2, envir = parent.frame(n = 1))
-      }
-    }
-  }
-}
-
-
-
-indx_general <- function(x, dim.i) {
-  dim.n <- dim(x)[[dim.i]]
-  dim.n1 <- dim.n - round(dim.n/2)
-  dim.n2 <- dim.n - dim.n1
-  list(
-    NULL,
-    logical(0),
-    rep(TRUE, dim.n), rep(FALSE, dim.n),
-    c(rep(TRUE, dim.n1), rep(FALSE, dim.n2)),
-    1, seq(1, 2, by = 1), seq(2, 1, by = -1)
-  )
-}
-
-indx_named <- function(x, dim.i) {
-  c(indx_general(x, dim.i), list("a", c("a", "b")))
-}
-sys.source(file.path(getwd(), "source", "sourcetest-dims.R"), envir = environment())
-
 
 
 # test arbitrary dimensions ====
@@ -194,21 +68,21 @@ rownames(x) <- c(letters[1:8], "a", NA)
 idx <- list(c("a"), c(1:3), c(rep(TRUE, 5), rep(FALSE, 5)))
 dims <- c(1,2,4)
 expect_equal(
-  sb_rm(x, idx, dims),
+  sb2_rm(x, idx, dims),
   subset_arr(x, idx[[1]], idx[[2]], idx[[3]])
 )
 
 idx <- list(c("a"), logical(0), c(rep(TRUE, 5), rep(FALSE, 5)))
 dims <- c(1,2,4)
 expect_equal(
-  sb_rm(x, idx, dims),
+  sb2_rm(x, idx, dims),
   subset_arr(x, idx[[1]], idx[[2]], idx[[3]])
 )
 
 idx <- list(c("a"), c(1:4), rep(FALSE, 10))
 dims <- c(1,2,4)
 expect_equal(
-  sb_rm(x, idx, dims),
+  sb2_rm(x, idx, dims),
   subset_arr(x, idx[[1]], idx[[2]], idx[[3]])
 )
 
@@ -258,11 +132,11 @@ temp.fun.main <- function(x, row, col, filter, get_vars) {
             cat(i, j, k, l)
             if(dt.$is.data.table(x)) {mysubset <- subset_dt} else{mysubset <- subset_df}
             expect_equivalent(
-              sb_rm(x, row[[i]], col[[j]], filter[[k]], get_vars[[l]]),
+              sb2_rm(x, row[[i]], col[[j]], filter[[k]], get_vars[[l]]),
               mysubset(x, row[[i]], col[[j]], filter[[k]], get_vars[[l]])
             ) |> errorfun()
             expect_true(
-              sb_rm(x, row[[i]], col[[j]], filter[[k]], get_vars[[l]]) |> is.data.frame()
+              sb2_rm(x, row[[i]], col[[j]], filter[[k]], get_vars[[l]]) |> is.data.frame()
             )
             assign("enumerate", enumerate + 2, envir = parent.frame(n = 1))
           }
@@ -300,7 +174,7 @@ sys.source(file.path(getwd(), "source", "sourcetest-datasets.R"), envir = enviro
 
 
 # test errors ====
-sb_test <- sb_rm
+sb_test <- sb2_rm
 sys.source(file.path(getwd(), "source", "sourcetest-errors.R"), envir = environment())
 
 

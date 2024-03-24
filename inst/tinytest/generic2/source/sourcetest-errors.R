@@ -1,21 +1,11 @@
 
 # i ====
-if(!test_PassByReference){
-  xlist <- list(
-    1:10,
-    as.list(1:10),
-    matrix(1:10, ncol=2),
-    array(1:27, dim = c(3,3,3))
-  )
-}
-if(test_PassByReference) {
-  xlist <- list(
-    1:10,
-    matrix(1:10, ncol=2),
-    array(1:27, dim = c(3,3,3))
-  )
-  xlist <- lapply(xlist, \(x) if(is.atomic(x)){as.mutable_atomic(x)} else{x})
-}
+
+xlist <- list(
+  as.list(1:10),
+  array(as.list(1:27), dim = c(3,3,3))
+)
+
 
 
 
@@ -75,22 +65,10 @@ for(i in 1:length(xlist)) {
 
 
 
-if(!test_PassByReference){
-  xlist <- list(
-    1:10,
-    as.list(1:10),
-    matrix(1:10, ncol=2),
-    array(1:27, dim = c(3,3,3))
-  )
-}
-if(test_PassByReference) {
-  xlist <- list(
-    1:10,
-    matrix(1:10, ncol=2),
-    array(1:27, dim = c(3,3,3))
-  )
-  xlist <- lapply(xlist, \(x) if(is.atomic(x)){as.mutable_atomic(x)} else{x})
-}
+xlist <- list(
+  as.list(1:10),
+  array(as.list(1:27), dim = c(3,3,3))
+)
 
 
 for(i in 1:length(xlist)) {
@@ -102,29 +80,9 @@ for(i in 1:length(xlist)) {
   enumerate <- enumerate + 1
 }
 
-if(!test_PassByReference) {
-  # lvl ====
-  if(test_use_factors) {
-    x <- factor(month.abb[1:10])
-    names(x) <- letters[1:10]
-    # expect_error(
-    #   sb_test(x, lvl = "1"),
-    #   pattern = "unknown level given"
-    # ) |> errorfun()
-    expect_error(
-      sb_test(x, lvl = "1", i = 1),
-      pattern = "cannot specify both elements and levels"
-    ) |> errorfun()
-    enumerate <- enumerate + 2
-  }
-  
-  
-}
-
 
 # row ====
 xlist <- list(
-  as.mutable_atomic(matrix(1:10, ncol=2)),
   data.table::data.table(a = 1:10, b = 1:10)
 )
 
@@ -182,22 +140,8 @@ for(i in 1:length(xlist)) {
   enumerate <- enumerate + 1
 }
 
-xlist <- list(
-  as.mutable_atomic(matrix(1:10, ncol=2))
-)
-
-for(i in 1:length(xlist)) {
-  expect_error(
-    sb_test(xlist[[i]], row = "a"),
-    pattern = "`x` has no names; fix this before subsetting",
-    fixed = TRUE
-  )|> errorfun()
-  enumerate <- enumerate + 1
-}
-
 # col ====
 xlist <- list(
-  as.mutable_atomic(matrix(1:10, ncol=5)),
   data.table::data.table(a = 1:10, b = 1:10, c=1:10, d=1:10, e=1:10)
 )
 
@@ -255,21 +199,10 @@ for(i in 1:length(xlist)) {
   enumerate <- enumerate + 1
 }
 
-xlist <- list(
-  as.mutable_atomic(matrix(1:10, ncol=2))
-)
 
-for(i in 1:length(xlist)) {
-  expect_error(
-    sb_test(xlist[[i]], col = "a"),
-    pattern =  "`x` has no names; fix this before subsetting",
-    fixed = TRUE
-  )|> errorfun()
-  enumerate <- enumerate + 1
-}
 
 # dimensions ==== 
-x <- as.mutable_atomic(array(1:27, c(3,3,3)))
+x <- array(as.list(1:27), c(3,3,3))
 expect_error(
   sb_test(x, idx = 1:10, dims = c(1,3)),
   pattern = "`idx` must be a list, and `dims` must be a integer vector",
@@ -438,18 +371,9 @@ for(i in 1:length(xlist)) {
   enumerate <- enumerate + 1
 }
 
-# x <- as.mutable_atomic(matrix(1:10, ncol=2))
-# expect_error(
-#   sb_test(x, row = 1 , col = 1, i = 1),
-#   pattern = "cannot specify both row/col and elements",
-#   fixed = TRUE
-# ) |> errorfun()
-# enumerate <- enumerate + 1
-
-
 # duplicates ====
 if(!test_allow_duplicates) {
-  x <- as.mutable_atomic(1:10)
+  x <- as.list(1:10)
   names(x) <- letters[1:10]
   expect_error(
     sb_test(x, i = c(1,1,1), chkdup = TRUE),
@@ -460,7 +384,7 @@ if(!test_allow_duplicates) {
     pattern = "duplicate integers or names not allowed"
   ) |> errorfun()
   
-  x <- as.mutable_atomic(matrix(1:10, ncol=2))
+  x <- matrix(as.list(1:10), ncol=2)
   names(x) <- letters[1:10]
   expect_error(
     sb_test(x, i = c(1,1,1), chkdup = TRUE),
@@ -471,32 +395,7 @@ if(!test_allow_duplicates) {
     pattern = "duplicate integers or names not allowed"
   ) |> errorfun()
   
-  rownames(x) <- letters[1:5]
-  colnames(x) <- letters[1:2]
-  row <- list(NULL, c(1,1,1), c("a", "a", "a"))
-  col <- list(NULL, c(1,1), c("a", "a"))
-  for(i in 1:length(row)) {
-    for(j in 1:length(col)) {
-      if(!is.null(row[[i]]) || !is.null(col[[j]])) {
-        expect_error(
-          sb_test(x, row = row[[i]], col = col[[j]], chkdup = TRUE),
-          pattern = "duplicate integers or names not allowed"
-        ) |> errorfun()
-        enumerate <- enumerate + 1
-      }
-    }
-  }
-  
-  expect_error(
-    sb_test(x, col = c(1,1,1), chkdup = TRUE),
-    pattern = "duplicate integers or names not allowed"
-  ) |> errorfun()
-  expect_error(
-    sb_test(x, row = c(1,1,1), col = c(1,1,1), chkdup = TRUE),
-    pattern = "duplicate integers or names not allowed"
-  ) |> errorfun()
-  
-  x <- as.mutable_atomic(array(1:27, c(3,3,3)))
+  x <- array(as.list(1:27), c(3,3,3))
   rownames(x) <- c("a", "a", "b")
   expect_error(
     sb_test(x, list(c(1,1,1)), dim = 1, chkdup = TRUE),

@@ -78,7 +78,7 @@ colnames(x) <- make.names(colnames(x), unique = TRUE)
 sel.cols <- rep(sample(names(x), 10), 4)
 sel.rows <- 1:1000
 bm.sb_x.df <- bench::mark(
-  "squarebrackets" = sb_x.data.frame(x, sel.rows, sel.cols),
+  "squarebrackets" = sb2_x.data.frame(x, sel.rows, sel.cols),
   "base R" = x[sel.rows, match(sel.cols, names(x)), drop = FALSE],
   min_iterations = 500
 )
@@ -93,7 +93,7 @@ tempfun <- function(x, i, j) {
   return(x)
 }
 bm.sb_x.dt <- bench::mark(
-  "squarebrackets" = sb_x.data.frame(x, sel.rows, sel.cols),
+  "squarebrackets" = sb2_x.data.frame(x, sel.rows, sel.cols),
   "data.table + collapse" = tempfun(x, sel.rows, match(sel.cols, names(x))),
   min_iterations = 500
 )

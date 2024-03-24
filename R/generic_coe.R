@@ -8,7 +8,8 @@
 #' Given some coercing function `v()`,
 #' the following can be stated about this method. \cr
 #' 
-#' (1) For atomic objects (vectors, matrices, arrays), this method is equivalent to:
+#' (1) For atomic objects (vectors, matrices, arrays),
+#' this method is \bold{almost} equivalent to:
 #' 
 #' ```{r eval = FALSE}
 #' x[] <- v(x)
@@ -43,27 +44,20 @@
 #' using \link{dt_setcoe}. \cr \cr
 #'
 #' @param x see \link{squarebrackets_immutable_classes} and \link{squarebrackets_mutable_classes}.
-#' @param i,col,vars See \link{squarebrackets_indx_args}. \cr
+#' @param i,col,vars,idx,dims See \link{squarebrackets_indx_args}. \cr
 #' An empty index selection returns the original object unchanged. \cr
 #' @param v the coercive transformation function to use.
+#' @param .lapply `sb2_coe()` by default uses \link[base]{lapply}
+#' for lists and \link[collapse]{dapply} data.frame-like objects
+#' to compute `tf()` on every list element or data.frame column. \cr
+#' The user may supply a custom `lapply()/dapply()`-like function
+#' in this argument to use instead. \cr
+#' For example, the perform parallel transformation,
+#' the user may supply `future.apply::`\link[future.apply]{future_lapply}. \cr
+#' The supplied function must use the exact same argument convention as
+#' \link[base]{lapply},
+#' otherwise errors or unexpected behaviour may occur.
 #' @param ... further arguments passed to or from other methods.
-#' 
-#' @details
-#' When replacing values by reference,
-#' the (recursive subset of the) object is never coerced, as that requires making a deep copy;
-#' instead, the replacement value is coerced. \cr
-#' \cr
-#' For example: \cr
-#' Using `sb_set()` to replacing/transform one or more values of an integer type
-#' (`int`)
-#' \link{mutable_atomic} object / \link[data.table]{data.table} column,
-#' to become `1.5`, will NOT coerce the object or column
-#' to a decimal type (`dbl`);
-#' instead, the replacement `1.5` is coerced to the integer `1`. \cr
-#' \cr
-#' For this reason, the `sb_coe()` method can be used to coercively transform an object
-#' before replacing or transforming values by reference. \cr
-#' See also the Examples section below.
 #' 
 #' 
 #' @returns
@@ -82,28 +76,50 @@ sb_coe <- function(x, ...) {
 #' @rdname sb_coe
 #' @export
 sb_coe.default <- function(x, v, ...) {
-  x[] <- v(x)
-  return(x)
+  
+  if(is.recursive(x)) {
+    stop("Use the `sb2_` methods for recursive objects")
+  }
+  
+  temp.attr <- attributes(x)
+  out <- v(x)
+  return(.fix_attr(out, temp.attr))
 }
 
 
 #' @rdname sb_coe
 #' @export
 sb_coe.factor <- function(x, v, ...) {
+  
+  if(is.recursive(x)) {
+    stop("Use the `sb2_` methods for recursive objects")
+  }
+  
   return(v(x))
 }
 
 
 #' @rdname sb_coe
 #' @export
-sb_coe.list <- function(x, i, v, ...) {
+sb2_coe <- function(x, ...) {
+  UseMethod("sb2_coe", x)
+}
+
+
+#' @rdname sb_coe
+#' @export
+sb2_coe.default <- function(x, i, v, ..., .lapply = lapply) {
   elements <- .indx_make_element(
     i, x, is_list = TRUE, chkdup = FALSE, inv = FALSE, abortcall = sys.call()
   )
   
+  if(!is.recursive(x)) {
+    stop("Use the `sb_` methods for non-recursive objects")
+  }
+  
   if(length(elements) == 0) return(x)
   
-  x[elements] <- lapply(x[elements], v)
+  x[elements] <- .lapply(x[elements], v)
   
   return(x)
 }
@@ -111,7 +127,28 @@ sb_coe.list <- function(x, i, v, ...) {
 
 #' @rdname sb_coe
 #' @export
-sb_coe.data.frame <- function(x, col = NULL, vars = NULL, v, ...) {
+sb2_coe.array <- function(
+    x, idx = NULL, dims = NULL, i = NULL, v, ..., .lapply = lapply
+) {
+  
+  if(!is.recursive(x)) {
+    stop("Use the `sb_` methods for non-recursive objects")
+  }
+  
+  if(!is.null(i)) {
+    return(sb2_coe.default(x, i, v, ..., .lapply = lapply))
+  }
+  
+  return(.arr_tf_list(x, idx, dims, v, chkdup = FALSE, .lapply, abortcall = sys.call()))
+}
+
+#' @rdname sb_coe
+#' @export
+sb2_coe.data.frame <- function(x, col = NULL, vars = NULL, v, ...) {
+  
+  if(!is.recursive(x)) {
+    stop("Use the `sb_` methods for non-recursive objects")
+  }
   
   .check_args_df(x, row = NULL, col, filter = NULL, vars, abortcall = sys.call())
   

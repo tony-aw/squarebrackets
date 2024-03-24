@@ -94,38 +94,56 @@ Supported  \link[=squarebrackets_mutable_classes]{mutable classes}: \cr
 \link{mutable_atomic}, \code{data.table}
 (including \code{tidytable} and \code{sf-data.table}). \cr
 \cr
-No support for mutable list-like classes,
-such as
-the various \link[collections]{collections} classes
-from the 'collections' package,
-and the \link[fastmap]{fastmap} class
-from the 'fastmap' package,
-as their sub-setting method is not primarily based on square-brackets. \cr \cr
+There are, of course, a lot of classes which are not supported by 'squarebrackets'. \cr
+Most notably, certain types of list(-like) classes are not supported
+(note that regular immutable lists are fully supported):
+\itemize{
+\item Environments are not supported.
+\item Mutable list-like classes,
+such as the various 'collections' classes from the 'collections' package,
+are not supported
+(their sub-setting method is not based on square-brackets).
+\item Locked list-like classes,
+such as the deferred list from the 'deflist' package, are not supported. \cr \cr
+}
 }
 
 \section{Methods and Functions}{
 
 
 \ifelse{html}{\figure{generic_methods-darkgreen.svg}{options: alt='[GENERIC METHODS]'}}{\link[=squarebrackets_help]{GENERIC METHODS}} \cr
-The main focus is on the following generic methods:
+The main focus is on the generic methods. \cr
+There are 2 types of generic methods:
 \itemize{
-\item \link{sb_x}: extract, exchange, or duplicate subsets.
-\item \link{sb_rm}: un-select/remove subsets.
-\item \link{sb_set}: modify (transform or replace)
+\item generic methods for non-recursive objects (atomic, factor, etc.);
+these all start with \code{sb_}.
+\item generic methods for recursive objects (list, data.frame, etc.);
+these all start with \code{sb2_}. \cr
+}
+
+So for example,
+use \code{sb_rm()} to remove subsets from atomic arrays,
+and use \code{sb2_rm()} to remove subsets from recursive arrays. \cr
+
+The available generic methods are the following:
+\itemize{
+\item \link{sb_x}, \link{sb2_x}: extract, exchange, or duplicate subsets.
+\item \link{sb_rm},  \link{sb2_rm}: un-select/remove subsets.
+\item \link{sb_set}, \link{sb2_set}: modify (transform or replace)
 subsets of a \link[=squarebrackets_mutable_classes]{mutable object}
 using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
-\item \link{sb_mod}: return a \bold{copy}
+\item \link{sb_mod}, \link{sb2_mod}: return a \bold{copy}
 of an object with modified
 (transformed or replaced) subsets.
-\item \link{sb_coe}: Coercively transform a whole object,
+\item \link{sb_coe}, \link{sb2_coe}: Coercively transform a whole object,
 or a recursive subset of an object.
-\item \link{sb_before}, \link{sb_after}: insert new values before or after an index
+\item \link{sb_before}, \link{sb_after}, \link{sb2_before}, \link{sb2_after}: insert new values before or after an index
 along a dimension of an object.
-\item \link{sb_rec}: accesses recursive subsets of lists.
-\item \link{sb_setRename}: change the names of
+\item \link{sb2_rec}: accesses recursive subsets of lists.
+\item \link{sb_setRename}, \link{sb2_setRename}: change the names of
 a \link[=squarebrackets_mutable_classes]{mutable object}
 using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
-\item \link{sb_currentBindings}: list or lock all currently existing bindings
+\item \link{sb_currentBindings}, \link{sb2_currentBindings}: list or lock all currently existing bindings
 that share the share the same address as the input variable. \cr \cr
 }
 
@@ -134,7 +152,8 @@ Additional specialized sub-setting functions are provided:
 \itemize{
 \item \link{setapply}: apply functions over mutable matrix margins
 using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
-\item \link{ma_setv}: Find & Replace values in \link{mutable_atomic} objects. \cr
+\item \link{ma_setv}: Find & Replace values in \link{mutable_atomic} objects
+using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr
 This is considerably faster and more memory efficient than using \link{sb_set} for this.
 \item The \link[=dt_setcoe]{dt_}-functions for \code{data.table}-specific \code{[}-operations.
 \item \link{sb_str}: extract or replace a subset of characters of a single string

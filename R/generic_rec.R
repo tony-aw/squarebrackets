@@ -1,9 +1,9 @@
 #' Access Recursive Subsets
 #'
 #' @description
-#' The `sb_rec()` method allows the user to access recursive subsets of lists. \cr
+#' The `sb2_rec()` method allows the user to access recursive subsets of lists. \cr
 #' \cr
-#' The `sb_rec()` method also allows replacing or transforming a recursive subset of a list,
+#' The `sb2_rec()` method also allows replacing or transforming a recursive subset of a list,
 #' using R's default in-place semantics,
 #' by specifying the `rp` argument.
 #' 
@@ -38,7 +38,7 @@ NULL
 
 #' @rdname sb_rec
 #' @export
-sb_rec <- function(lst, rec, rp) {
+sb2_rec <- function(lst, rec, rp) {
   
   if(!is.list(lst)) {
     stop("`lst` must be a list")

@@ -2,9 +2,10 @@
 % Please edit documentation in R/generic_rec.R
 \name{sb_rec}
 \alias{sb_rec}
+\alias{sb2_rec}
 \title{Access Recursive Subsets}
 \usage{
-sb_rec(lst, rec, rp)
+sb2_rec(lst, rec, rp)
 }
 \arguments{
 \item{lst}{a list, or list-like object.}
@@ -27,9 +28,9 @@ but replaces the recursive subset with \code{rp},
 using R's default in-place semantics. \cr \cr
 }
 \description{
-The \code{sb_rec()} method allows the user to access recursive subsets of lists. \cr
+The \code{sb2_rec()} method allows the user to access recursive subsets of lists. \cr
 \cr
-The \code{sb_rec()} method also allows replacing or transforming a recursive subset of a list,
+The \code{sb2_rec()} method also allows replacing or transforming a recursive subset of a list,
 using R's default in-place semantics,
 by specifying the \code{rp} argument.
 }
@@ -52,10 +53,10 @@ lst <- list(
 
 # access recursive subsets ====
 
-sb_rec(lst, c(1,2,2)) # this gives "AA2B"
-sb_rec(lst, c("A", "B", "B")) # this gives "ABB"
-sb_rec(lst, c(2,2,1)) # this gives "BBA"
-sb_rec(lst, c("B", "B", "A")) # this gives "BBA"
+sb2_rec(lst, c(1,2,2)) # this gives "AA2B"
+sb2_rec(lst, c("A", "B", "B")) # this gives "ABB"
+sb2_rec(lst, c(2,2,1)) # this gives "BBA"
+sb2_rec(lst, c("B", "B", "A")) # this gives "BBA"
 
 
 #############################################################################
@@ -63,7 +64,7 @@ sb_rec(lst, c("B", "B", "A")) # this gives "BBA"
 # replace with R's default in-place semantics ====
 
 # replace "AAB" using R's default in-place semantics:
-sb_rec(
+sb2_rec(
   lst, c("A", "A", "B"),
   rp = "THIS IS REPLACED WITH IN-PLACE SEMANTICS"
 )
@@ -79,9 +80,9 @@ x <- list(
  b = data.table::data.table(cola = 11:20, colb = letters[11:20])
 )
 print(x)
-mypointer <- sb_rec(x, "a")
+mypointer <- sb2_rec(x, "a")
 address(mypointer) == address(x$a) # they are the same
-sb_set(mypointer, col = "cola", tf = \(x)x^2)
+sb2_set(mypointer, col = "cola", tf = \(x)x^2)
 print(x) # notice x has been changed
 
 

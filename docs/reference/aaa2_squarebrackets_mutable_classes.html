@@ -218,7 +218,7 @@ etc. <br><br></p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ c: int  11 12 13 14 15 16 17 18 19 20</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ d: Factor w/ 10 levels "a","b","c","d",..: 1 2 3 4 5 6 7 8 9 10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, ".internal.selfref")=&lt;externalptr&gt; </span>
-<span class="r-in"><span><span class="fu"><a href="sb_mod.html">sb_mod</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="sb_mod.html">sb2_mod</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">obj</span>, vars <span class="op">=</span> <span class="va">is.numeric</span>,</span></span>
 <span class="r-in"><span>  tf <span class="op">=</span> <span class="va">sqrt</span> <span class="co"># SAFE: row=NULL &amp; filter = NULL, so coercion performed</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
@@ -236,7 +236,7 @@ etc. <br><br></p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10: 3.162278      j 4.472136      j</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># sb_set():</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="sb_set.html">sb_set</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="sb_set.html">sb2_set</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">obj</span>, vars <span class="op">=</span> <span class="va">is.numeric</span>,</span></span>
 <span class="r-in"><span>  tf <span class="op">=</span> <span class="va">sqrt</span> <span class="co"># SAFE: row=NULL &amp; filter = NULL, so coercion performed</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
@@ -265,7 +265,7 @@ etc. <br><br></p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ d: Factor w/ 10 levels "a","b","c","d",..: 1 2 3 4 5 6 7 8 9 10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, ".internal.selfref")=&lt;externalptr&gt; </span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu"><a href="sb_mod.html">sb_mod</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="sb_mod.html">sb2_mod</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">obj</span>, filter <span class="op">=</span> <span class="op">~</span> <span class="op">(</span><span class="va">a</span> <span class="op">&gt;=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">(</span><span class="va">c</span> <span class="op">&lt;=</span> <span class="fl">17</span><span class="op">)</span>, vars <span class="op">=</span> <span class="va">is.numeric</span>,</span></span>
 <span class="r-in"><span>  tf <span class="op">=</span> <span class="va">sqrt</span></span></span>
 <span class="r-in"><span>  <span class="co"># WARNING: sqrt() results in `dbl`, but columns are `int`, so decimals lost</span></span></span>
@@ -284,7 +284,7 @@ etc. <br><br></p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  8:     8      h    18      h</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  9:     9      i    19      i</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10:    10      j    20      j</span>
-<span class="r-in"><span><span class="fu"><a href="sb_mod.html">sb_mod</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="sb_mod.html">sb2_mod</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">obj</span>, filter <span class="op">=</span> <span class="op">~</span> <span class="op">(</span><span class="va">a</span> <span class="op">&gt;=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">(</span><span class="va">c</span> <span class="op">&lt;=</span> <span class="fl">17</span><span class="op">)</span>, vars <span class="op">=</span> <span class="va">is.numeric</span>,</span></span>
 <span class="r-in"><span>  coe <span class="op">=</span> <span class="va">as.double</span>, tf <span class="op">=</span> <span class="va">sqrt</span> <span class="co"># SAFE: coercion performed</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
@@ -312,7 +312,7 @@ etc. <br><br></p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ c: int  11 12 13 14 15 16 17 18 19 20</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ d: Factor w/ 10 levels "a","b","c","d",..: 1 2 3 4 5 6 7 8 9 10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, ".internal.selfref")=&lt;externalptr&gt; </span>
-<span class="r-in"><span><span class="fu"><a href="sb_set.html">sb_set</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="sb_set.html">sb2_set</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">obj</span>, filter <span class="op">=</span> <span class="op">~</span> <span class="op">(</span><span class="va">a</span> <span class="op">&gt;=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">(</span><span class="va">c</span> <span class="op">&lt;=</span> <span class="fl">17</span><span class="op">)</span>, vars <span class="op">=</span> <span class="va">is.numeric</span>,</span></span>
 <span class="r-in"><span>  tf <span class="op">=</span> <span class="va">sqrt</span></span></span>
 <span class="r-in"><span>  <span class="co"># WARNING: sqrt() results in `dbl`, but columns are `int`, so decimals lost</span></span></span>
@@ -343,7 +343,7 @@ etc. <br><br></p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ c: int  11 12 13 14 15 16 17 18 19 20</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ d: Factor w/ 10 levels "a","b","c","d",..: 1 2 3 4 5 6 7 8 9 10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, ".internal.selfref")=&lt;externalptr&gt; </span>
-<span class="r-in"><span><span class="va">obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="sb_coe.html">sb_coe</a></span><span class="op">(</span><span class="va">obj</span>, vars <span class="op">=</span> <span class="va">is.numeric</span>, v <span class="op">=</span> <span class="va">as.numeric</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="sb_coe.html">sb2_coe</a></span><span class="op">(</span><span class="va">obj</span>, vars <span class="op">=</span> <span class="va">is.numeric</span>, v <span class="op">=</span> <span class="va">as.numeric</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Classes 'data.table' and 'data.frame':	10 obs. of  4 variables:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ a: num  1 2 3 4 5 6 7 8 9 10</span>
@@ -351,7 +351,7 @@ etc. <br><br></p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ c: num  11 12 13 14 15 16 17 18 19 20</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ d: Factor w/ 10 levels "a","b","c","d",..: 1 2 3 4 5 6 7 8 9 10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, ".internal.selfref")=&lt;externalptr&gt; </span>
-<span class="r-in"><span><span class="fu"><a href="sb_set.html">sb_set</a></span><span class="op">(</span><span class="va">obj</span>,</span></span>
+<span class="r-in"><span><span class="fu"><a href="sb_set.html">sb2_set</a></span><span class="op">(</span><span class="va">obj</span>,</span></span>
 <span class="r-in"><span>  filter <span class="op">=</span> <span class="op">~</span> <span class="op">(</span><span class="va">a</span> <span class="op">&gt;=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">(</span><span class="va">c</span> <span class="op">&lt;=</span> <span class="fl">17</span><span class="op">)</span>, vars <span class="op">=</span> <span class="va">is.numeric</span>,</span></span>
 <span class="r-in"><span>  tf <span class="op">=</span> <span class="va">sqrt</span> <span class="co"># SAFE: coercion performed by sb_coe(); so no warnings</span></span></span>
 <span class="r-in"><span><span class="op">)</span> </span></span>
@@ -409,7 +409,7 @@ etc. <br><br></p>
 <span class="r-in"><span><span class="va">mypointer</span> <span class="op">&lt;-</span> <span class="va">x</span><span class="op">$</span><span class="va">a</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdatatable.gitlab.io/data.table/reference/address.html" class="external-link">address</a></span><span class="op">(</span><span class="va">mypointer</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="https://rdatatable.gitlab.io/data.table/reference/address.html" class="external-link">address</a></span><span class="op">(</span><span class="va">x</span><span class="op">$</span><span class="va">a</span><span class="op">)</span> <span class="co"># they are the same</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
-<span class="r-in"><span><span class="fu"><a href="sb_set.html">sb_set</a></span><span class="op">(</span><span class="va">mypointer</span>, col <span class="op">=</span> <span class="st">"cola"</span>, tf <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="sb_set.html">sb2_set</a></span><span class="op">(</span><span class="va">mypointer</span>, col <span class="op">=</span> <span class="st">"cola"</span>, tf <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="co"># notice x has been changed</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $a</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      cola   colb</span>

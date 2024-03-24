@@ -123,42 +123,53 @@ Supported <a href="aaa1_squarebrackets_immutable_classes.html">immutable classes
 (including <code>tibble</code> and <code>sf-data.frame</code>). <br><br>
 Supported  <a href="aaa2_squarebrackets_mutable_classes.html">mutable classes</a>: <br><a href="class_mutable_atomic.html">mutable_atomic</a>, <code>data.table</code>
 (including <code>tidytable</code> and <code>sf-data.table</code>). <br><br>
-No support for mutable list-like classes,
-such as
-the various <a href="https://rdrr.io/pkg/collections/man/collections-package.html" class="external-link">collections</a> classes
-from the 'collections' package,
-and the <a href="https://r-lib.github.io/fastmap/reference/fastmap.html" class="external-link">fastmap</a> class
-from the 'fastmap' package,
-as their sub-setting method is not primarily based on square-brackets. <br><br></p>
-    </div>
+There are, of course, a lot of classes which are not supported by 'squarebrackets'. <br>
+Most notably, certain types of list(-like) classes are not supported
+(note that regular immutable lists are fully supported):</p><ul><li><p>Environments are not supported.</p></li>
+<li><p>Mutable list-like classes,
+such as the various 'collections' classes from the 'collections' package,
+are not supported
+(their sub-setting method is not based on square-brackets).</p></li>
+<li><p>Locked list-like classes,
+such as the deferred list from the 'deflist' package, are not supported. <br><br></p></li>
+</ul></div>
     <div class="section level2">
     <h2 id="methods-and-functions">Methods and Functions<a class="anchor" aria-label="anchor" href="#methods-and-functions"></a></h2>
     
 
 
 <p><img src="figures/generic_methods-darkgreen.svg" alt="[GENERIC METHODS]"><br>
-The main focus is on the following generic methods:</p><ul><li><p><a href="sb_x.html">sb_x</a>: extract, exchange, or duplicate subsets.</p></li>
-<li><p><a href="sb_rm.html">sb_rm</a>: un-select/remove subsets.</p></li>
-<li><p><a href="sb_set.html">sb_set</a>: modify (transform or replace)
+The main focus is on the generic methods. <br>
+There are 2 types of generic methods:</p><ul><li><p>generic methods for non-recursive objects (atomic, factor, etc.);
+these all start with <code>sb_</code>.</p></li>
+<li><p>generic methods for recursive objects (list, data.frame, etc.);
+these all start with <code>sb2_</code>. <br></p></li>
+</ul><p>So for example,
+use <code><a href="sb_rm.html">sb_rm()</a></code> to remove subsets from atomic arrays,
+and use <code><a href="sb_rm.html">sb2_rm()</a></code> to remove subsets from recursive arrays. <br></p>
+<p>The available generic methods are the following:</p><ul><li><p><a href="sb_x.html">sb_x</a>, <a href="sb_x.html">sb2_x</a>: extract, exchange, or duplicate subsets.</p></li>
+<li><p><a href="sb_rm.html">sb_rm</a>,  <a href="sb_rm.html">sb2_rm</a>: un-select/remove subsets.</p></li>
+<li><p><a href="sb_set.html">sb_set</a>, <a href="sb_set.html">sb2_set</a>: modify (transform or replace)
 subsets of a <a href="aaa2_squarebrackets_mutable_classes.html">mutable object</a>
 using <a href="aaa5_squarebrackets_PassByReference.html">pass-by-reference semantics</a>.</p></li>
-<li><p><a href="sb_mod.html">sb_mod</a>: return a <b>copy</b>
+<li><p><a href="sb_mod.html">sb_mod</a>, <a href="sb_mod.html">sb2_mod</a>: return a <b>copy</b>
 of an object with modified
 (transformed or replaced) subsets.</p></li>
-<li><p><a href="sb_coe.html">sb_coe</a>: Coercively transform a whole object,
+<li><p><a href="sb_coe.html">sb_coe</a>, <a href="sb_coe.html">sb2_coe</a>: Coercively transform a whole object,
 or a recursive subset of an object.</p></li>
-<li><p><a href="sb_in.html">sb_before</a>, <a href="sb_in.html">sb_after</a>: insert new values before or after an index
+<li><p><a href="sb_in.html">sb_before</a>, <a href="sb_in.html">sb_after</a>, <a href="sb_in.html">sb2_before</a>, <a href="sb_in.html">sb2_after</a>: insert new values before or after an index
 along a dimension of an object.</p></li>
-<li><p><a href="sb_rec.html">sb_rec</a>: accesses recursive subsets of lists.</p></li>
-<li><p><a href="sb_setRename.html">sb_setRename</a>: change the names of
+<li><p><a href="sb_rec.html">sb2_rec</a>: accesses recursive subsets of lists.</p></li>
+<li><p><a href="sb_setRename.html">sb_setRename</a>, <a href="sb_setRename.html">sb2_setRename</a>: change the names of
 a <a href="aaa2_squarebrackets_mutable_classes.html">mutable object</a>
 using <a href="aaa5_squarebrackets_PassByReference.html">pass-by-reference semantics</a>.</p></li>
-<li><p><a href="sb_currentBindings.html">sb_currentBindings</a>: list or lock all currently existing bindings
+<li><p><a href="sb_currentBindings.html">sb_currentBindings</a>, <a href="sb_currentBindings.html">sb2_currentBindings</a>: list or lock all currently existing bindings
 that share the share the same address as the input variable. <br><br></p></li>
 </ul><p><img src="figures/specialized_functions-darkred.svg" alt="[SPECIALIZED FUNCTIONS]"><br>
 Additional specialized sub-setting functions are provided:</p><ul><li><p><a href="setapply.html">setapply</a>: apply functions over mutable matrix margins
 using <a href="aaa5_squarebrackets_PassByReference.html">pass-by-reference semantics</a>.</p></li>
-<li><p><a href="ma_setv.html">ma_setv</a>: Find &amp; Replace values in <a href="class_mutable_atomic.html">mutable_atomic</a> objects. <br>
+<li><p><a href="ma_setv.html">ma_setv</a>: Find &amp; Replace values in <a href="class_mutable_atomic.html">mutable_atomic</a> objects
+using <a href="aaa5_squarebrackets_PassByReference.html">pass-by-reference semantics</a>. <br>
 This is considerably faster and more memory efficient than using <a href="sb_set.html">sb_set</a> for this.</p></li>
 <li><p>The <a href="dt.html">dt_</a>-functions for <code>data.table</code>-specific <code>[</code>-operations.</p></li>
 <li><p><a href="sb_special.html">sb_str</a>: extract or replace a subset of characters of a single string

@@ -105,7 +105,7 @@ using <a href="aaa5_squarebrackets_PassByReference.html">pass-by-reference seman
 <span>  <span class="va">x</span>,</span>
 <span>  col <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  vars <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  <span class="va">f</span>,</span>
+<span>  <span class="va">v</span>,</span>
 <span>  chkdup <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"sb.chkdup"</span>, <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -142,6 +142,10 @@ indicating if the aggregated result should be ordered by the columns specified i
 <dt>col, vars</dt>
 <dd><p>see <a href="aaa3_squarebrackets_indx_args.html">squarebrackets_indx_args</a>. <br>
 Duplicates are not allowed.</p></dd>
+
+
+<dt>v</dt>
+<dd><p>the coerciove transformation function</p></dd>
 
 
 <dt>chkdup</dt>
@@ -223,7 +227,7 @@ It must have column names that do not already exist in <code>x</code>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ c: int  11 12 13 14 15 16 17 18 19 20</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ d: Factor w/ 10 levels "a","b","c","d",..: 1 2 3 4 5 6 7 8 9 10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, ".internal.selfref")=&lt;externalptr&gt; </span>
-<span class="r-in"><span><span class="fu"><a href="sb_set.html">sb_set</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="sb_set.html">sb2_set</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">obj</span>, filter <span class="op">=</span> <span class="op">~</span> <span class="op">(</span><span class="va">a</span> <span class="op">&gt;=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">(</span><span class="va">c</span> <span class="op">&lt;=</span> <span class="fl">17</span><span class="op">)</span>, vars <span class="op">=</span> <span class="va">is.numeric</span>,</span></span>
 <span class="r-in"><span>  tf <span class="op">=</span> <span class="va">sqrt</span> <span class="co"># WARNING: sqrt() results in `dbl`, but columns are `int`, so decimals lost</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
@@ -237,7 +241,7 @@ It must have column names that do not already exist in <code>x</code>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ d: Factor w/ 10 levels "a","b","c","d",..: 1 2 3 4 5 6 7 8 9 10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, ".internal.selfref")=&lt;externalptr&gt; </span>
 <span class="r-in"><span><span class="va">obj</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://rdatatable.gitlab.io/data.table/reference/data.table.html" class="external-link">data.table</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, b <span class="op">=</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>, c <span class="op">=</span> <span class="fl">11</span><span class="op">:</span><span class="fl">20</span>, d <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">dt_setcoe</span><span class="op">(</span><span class="va">obj</span>, vars <span class="op">=</span> <span class="va">is.numeric</span>, f <span class="op">=</span> <span class="va">as.numeric</span><span class="op">)</span> <span class="co"># integers are now numeric</span></span></span>
+<span class="r-in"><span><span class="fu">dt_setcoe</span><span class="op">(</span><span class="va">obj</span>, vars <span class="op">=</span> <span class="va">is.numeric</span>, v <span class="op">=</span> <span class="va">as.numeric</span><span class="op">)</span> <span class="co"># integers are now numeric</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Classes 'data.table' and 'data.frame':	10 obs. of  4 variables:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ a: num  1 2 3 4 5 6 7 8 9 10</span>
@@ -245,7 +249,7 @@ It must have column names that do not already exist in <code>x</code>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ c: num  11 12 13 14 15 16 17 18 19 20</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ d: Factor w/ 10 levels "a","b","c","d",..: 1 2 3 4 5 6 7 8 9 10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, ".internal.selfref")=&lt;externalptr&gt; </span>
-<span class="r-in"><span><span class="fu"><a href="sb_set.html">sb_set</a></span><span class="op">(</span><span class="va">obj</span>,</span></span>
+<span class="r-in"><span><span class="fu"><a href="sb_set.html">sb2_set</a></span><span class="op">(</span><span class="va">obj</span>,</span></span>
 <span class="r-in"><span>  filter <span class="op">=</span> <span class="op">~</span> <span class="op">(</span><span class="va">a</span> <span class="op">&gt;=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">(</span><span class="va">c</span> <span class="op">&lt;=</span> <span class="fl">17</span><span class="op">)</span>, vars <span class="op">=</span> <span class="va">is.numeric</span>,</span></span>
 <span class="r-in"><span>  tf <span class="op">=</span> <span class="va">sqrt</span> <span class="co"># SAFE: coercion performed; so no warnings</span></span></span>
 <span class="r-in"><span><span class="op">)</span> </span></span>
@@ -316,15 +320,15 @@ It must have column names that do not already exist in <code>x</code>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         a      b     c      d      e      f</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;int&gt; &lt;char&gt; &lt;int&gt; &lt;fctr&gt; &lt;lgcl&gt; &lt;lgcl&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  1:     1      a    11      a  FALSE  FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2:     2      b    12      b  FALSE  FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3:     3      c    13      c  FALSE  FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  4:     4      d    14      d   TRUE  FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  5:     5      e    15      e  FALSE   TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  6:     6      f    16      f   TRUE   TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  7:     7      g    17      g   TRUE  FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  8:     8      h    18      h  FALSE   TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  9:     9      i    19      i  FALSE  FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10:    10      j    20      j  FALSE  FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  2:     2      b    12      b   TRUE  FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3:     3      c    13      c   TRUE  FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  4:     4      d    14      d  FALSE  FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  5:     5      e    15      e   TRUE  FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  6:     6      f    16      f  FALSE   TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  7:     7      g    17      g  FALSE  FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  8:     8      h    18      h   TRUE   TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  9:     9      i    19      i  FALSE   TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10:    10      j    20      j   TRUE   TRUE</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

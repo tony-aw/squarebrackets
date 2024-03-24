@@ -54,11 +54,11 @@ x2 <- x[1:5]
 attr(x2, "test") <- "test"
 
 expect_equal(
-  sb_x(x, 1:5, rat = TRUE),
+  sb2_x(x, 1:5, rat = TRUE),
   x2
 )
 expect_equal(
-  sb_rm(x, 6:10, rat = TRUE),
+  sb2_rm(x, 6:10, rat = TRUE),
   x2
 )
 

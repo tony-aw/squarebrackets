@@ -69,28 +69,3 @@ if(isTRUE(test_allow_duplicates)) {
   ) |> errorfun()
 }
 
-if(!test_PassByReference) {
-  # uniquely named list ====
-  x <- -sample.int(48) |> as.list()
-  names(x) <- general_names[1:48]
-  temp.fun(x, indx_named)
-  
-  
-  # unnamed list ====
-  x <- -sample.int(48) |> as.list()
-  temp.fun(x, indx_general)
-  
-  
-  # non-uniquely named list ====
-  x <- -sample.int(48) |> as.list()
-  names(x) <- c(general_names[1:45], "ab", "ab", NA)
-  temp.fun(x, indx_named)
-  if(isTRUE(test_allow_duplicates)) {
-    expect_equal(
-      sb_x(x, i = c("ab", "ab", "ab")),
-      rep(x[which(names(x) %in% "ab")], 3)
-    ) |> errorfun()
-  }
-  
-}
-

@@ -4,8 +4,9 @@
 \alias{sb_setRename}
 \alias{sb_setRename.default}
 \alias{sb_setRename.array}
-\alias{sb_setRename.data.table}
-\title{Method to Change the Names a Mutable Object By Reference}
+\alias{sb2_setRename}
+\alias{sb2_setRename.data.table}
+\title{Method to Change the Names of a Mutable Object By Reference}
 \usage{
 sb_setRename(x, ...)
 
@@ -13,7 +14,9 @@ sb_setRename(x, ...)
 
 \method{sb_setRename}{array}(x, newnames, newdimnames, ...)
 
-\method{sb_setRename}{data.table}(x, old, new, skip_absent = FALSE, ...)
+sb2_setRename(x, ...)
+
+\method{sb2_setRename}{data.table}(x, old, new, skip_absent = FALSE, ...)
 }
 \arguments{
 \item{x}{a \bold{variable} belonging to one of the
@@ -43,7 +46,7 @@ Default \code{FALSE} halts with error if any are missing.}
 }
 \value{
 Returns: VOID. This method modifies the object by reference. \cr
-Do NOT use assignment like \code{names(x) <- sb_setRename(x, ...)}. \cr
+Do not use assignment like \code{names(x) <- sb_setRename(x, ...)}. \cr
 Since this function returns void, you'll just get \code{NULL}. \cr \cr
 }
 \description{
@@ -112,7 +115,7 @@ x <- data.table::data.table(
   b = letters[1:20]
 )
 print(x)
-sb_setRename(x, old = names(x), new = rev(names(x)))
+sb2_setRename(x, old = names(x), new = rev(names(x)))
 print(x)
 
 }

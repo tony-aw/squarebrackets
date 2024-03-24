@@ -11,8 +11,7 @@ y <- 1:10
 new <- 11:20
 as_funs_lst <- list(
   as.vector,
-  as.factor,
-  as.list
+  as.factor
 )
 
 for(i in seq_len(length(as_funs_lst))) {
@@ -97,85 +96,3 @@ for(margin in 1:3) {
   ) |> errorfun()
   enumerate <- enumerate + 4
 }
-
-# data.frames - rows ====
-x. <- data.frame(a = 1:5, b = letters[1:5])
-new. <- data.frame(a = 10:11, b = letters[10:11])
-as_funs_lst <- list(
-  as.data.frame,
-  data.table::as.data.table,
-  tibble::as_tibble,
-  tidytable::as_tidytable
-)
-margin <- 1
-for(i in 1:length(as_funs_lst)) {
-  y <- as_funs_lst[[i]](x.)
-  new <- as_funs_lst[[i]](new.)
-  expect_equivalent(
-    sb_before(y, new, margin),
-    rbind(new, y)
-  ) |> errorfun()
-  expect_equivalent(
-    sb_after(y, new, margin),
-    rbind(y, new)
-  ) |> errorfun()
-  expect_equivalent(
-    sb_before(y, new, margin, 4),
-    rbind(
-      y[1:3, ],
-      new,
-      y[4:5, ]
-    )
-  ) |> errorfun()
-  expect_equivalent(
-    sb_after(y, new, margin, 2),
-    rbind(
-      y[1:2, ],
-      new,
-      y[3:5, ]
-    )
-  ) |> errorfun()
-  enumerate <- enumerate + 4
-}
-
-# data.frames - cols ====
-x. <- data.frame(a = 1:5, b = letters[1:5], c = 6:10, d = letters[6:10], e = 101:105)
-new. <- data.frame(f = 106:110)
-as_funs_lst <- list(
-  as.data.frame,
-  data.table::as.data.table,
-  tibble::as_tibble,
-  tidytable::as_tidytable
-)
-
-margin <- 2
-for(i in 1:length(as_funs_lst)) {
-  y <- as_funs_lst[[i]](x.)
-  new <- as_funs_lst[[i]](new.)
-  expect_equivalent(
-    sb_before(y, new, margin),
-    cbind(new, y)
-  ) |> errorfun()
-  expect_equivalent(
-    sb_after(y, new, margin),
-    cbind(y, new)
-  ) |> errorfun()
-  expect_equivalent(
-    sb_before(y, new, margin, 4),
-    cbind(
-      y[, 1:3],
-      new,
-      y[, 4:5]
-    )
-  ) |> errorfun()
-  expect_equivalent(
-    sb_after(y, new, margin, 2),
-    cbind(
-      y[, 1:2],
-      new,
-      y[, 3:5]
-    )
-  ) |> errorfun()
-  enumerate <- enumerate + 4
-}
-

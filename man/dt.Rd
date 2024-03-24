@@ -14,7 +14,7 @@ dt_setcoe(
   x,
   col = NULL,
   vars = NULL,
-  f,
+  v,
   chkdup = getOption("sb.chkdup", FALSE)
 )
 
@@ -38,6 +38,8 @@ indicating if the aggregated result should be ordered by the columns specified i
 
 \item{col, vars}{see \link{squarebrackets_indx_args}. \cr
 Duplicates are not allowed.}
+
+\item{v}{the coerciove transformation function}
 
 \item{chkdup}{see \link{squarebrackets_duplicates}. \cr
 \ifelse{html}{\figure{for_performance-set_to_FALSE-red.svg}{options: alt='[for performance: set to FALSE]'}}{\link[=squarebrackets_help]{for performance: set to FALSE}} \cr}
@@ -98,15 +100,15 @@ head(d.aggr)
 
 obj <- data.table::data.table(a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10]))
 str(obj) # notice that columns "a" and "c" are INTEGER (`int`)
-sb_set(
+sb2_set(
   obj, filter = ~ (a >= 2) & (c <= 17), vars = is.numeric,
   tf = sqrt # WARNING: sqrt() results in `dbl`, but columns are `int`, so decimals lost
 )
 str(obj)
 obj <- data.table::data.table(a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10]))
-dt_setcoe(obj, vars = is.numeric, f = as.numeric) # integers are now numeric
+dt_setcoe(obj, vars = is.numeric, v = as.numeric) # integers are now numeric
 str(obj)
-sb_set(obj,
+sb2_set(obj,
   filter = ~ (a >= 2) & (c <= 17), vars = is.numeric,
   tf = sqrt # SAFE: coercion performed; so no warnings
 ) 

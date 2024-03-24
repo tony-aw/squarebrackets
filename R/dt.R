@@ -23,6 +23,7 @@
 #' @param new a `data.table` or `tidytable`. \cr
 #' It must have column names that do not already exist in `x`.
 #' @param f the aggregation function
+#' @param v the coerciove transformation function
 #' @param col,vars see \link{squarebrackets_indx_args}. \cr
 #' Duplicates are not allowed.
 #' @param SDcols atomic vector,
@@ -69,15 +70,15 @@
 #' 
 #' obj <- data.table::data.table(a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10]))
 #' str(obj) # notice that columns "a" and "c" are INTEGER (`int`)
-#' sb_set(
+#' sb2_set(
 #'   obj, filter = ~ (a >= 2) & (c <= 17), vars = is.numeric,
 #'   tf = sqrt # WARNING: sqrt() results in `dbl`, but columns are `int`, so decimals lost
 #' )
 #' str(obj)
 #' obj <- data.table::data.table(a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10]))
-#' dt_setcoe(obj, vars = is.numeric, f = as.numeric) # integers are now numeric
+#' dt_setcoe(obj, vars = is.numeric, v = as.numeric) # integers are now numeric
 #' str(obj)
-#' sb_set(obj,
+#' sb2_set(obj,
 #'   filter = ~ (a >= 2) & (c <= 17), vars = is.numeric,
 #'   tf = sqrt # SAFE: coercion performed; so no warnings
 #' ) 
@@ -147,11 +148,9 @@ dt_aggregate <- function(
 #' @rdname dt
 #' @export
 dt_setcoe <- function(
-    x, col = NULL, vars = NULL, f, chkdup = getOption("sb.chkdup", FALSE)
+    x, col = NULL, vars = NULL, v, chkdup = getOption("sb.chkdup", FALSE)
 ) {
   
-  
-  if(!is.function(f)) stop("`f` must be a function")
   if(!data.table::is.data.table(x)) { stop("`x` must be a data.table") }
   
   .check_args_df(x, row = NULL, col = col, filter = NULL, vars = vars, abortcall = sys.call())
@@ -172,7 +171,7 @@ dt_setcoe <- function(
   if(is.null(col)) col <- names(x)
   
   for(j in col) { # using loop instead of lapply to reduce memory to only one column at a time
-    data.table::set(x, j = j, value = f(x[[j]]))
+    data.table::set(x, j = j, value = v(x[[j]]))
   }
   
   return(invisible(NULL))

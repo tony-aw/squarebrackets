@@ -35,7 +35,7 @@ This is a recursive sequence generator.
 The function is essentially a highly generalized version of a Fibonacci sequence generator.
 One can change the initial values, the window size,
 and even the window function used. \cr
-This function assumes only the following about the sequence being generated:
+This function assumes the following about the sequence being generated:
 \itemize{
 \item The sequence consists of real numbers (i.e. class \code{integer} or class \code{double}).
 \item The window size is the same for all iterations.

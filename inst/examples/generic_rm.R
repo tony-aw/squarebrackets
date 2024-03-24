@@ -26,15 +26,15 @@ sb_rm(obj, i = \(x)x>5)
 
 obj <- list(a = 1:10, b = letters[1:11], c = 11:20)
 print(obj)
-sb_rm(obj, "a")
+sb2_rm(obj, "a")
 # above is equivalent to obj[which(!names(obj) %in% "a")]
-sb_rm(obj, 1) # obj[-1]
-sb_rm(obj, 1:2)
+sb2_rm(obj, 1) # obj[-1]
+sb2_rm(obj, 1:2)
 # above is equivalent to obj[seq_len(length(obj))[-1:-2]]
-sb_rm(obj, is.numeric, drop = TRUE)
+sb2_rm(obj, is.numeric, drop = TRUE)
 # above is equivalent to obj[[!sapply(obj, is.numeric)]] IF this returns a single element
 obj <- list(a = 1:10, b = letters[1:11], c = letters)
-sb_rm(obj, is.numeric)
+sb2_rm(obj, is.numeric)
 # above is equivalent to obj[!sapply(obj, is.numeric)] # this time singular brackets?
 # for recusive indexing, see sb_rec()
 
@@ -54,9 +54,9 @@ sb_rm(obj, lvl = "a")
 
 obj <- data.frame(a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10]))
 print(obj)
-sb_rm(obj, 1:3, 1:3)
+sb2_rm(obj, 1:3, 1:3)
 # above is equivalent to obj[-1:-3, -1:-3, drop = FALSE]
-sb_rm(obj, filter = ~ (a > 5) & (c < 19), vars = is.numeric)
+sb2_rm(obj, filter = ~ (a > 5) & (c < 19), vars = is.numeric)
 
 
 

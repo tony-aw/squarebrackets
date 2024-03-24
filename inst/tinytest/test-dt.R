@@ -4,11 +4,11 @@ enumerate <- 0
 # general errors ====
 x <- list(a = 1:10, b = letters[1:10])
 expect_error(
-  dt_aggregate(x, SDcols = "a", by = "b", f= sum),
+  dt_aggregate(x, SDcols = "a", by = "b", f = sum),
   pattern = "`x` must be a data.table"
 )
 expect_error(
-  dt_setcoe(x, col = "a", f = as.numeric),
+  dt_setcoe(x, col = "a", v = as.numeric),
   pattern = "`x` must be a data.table"
 )
 expect_error(
@@ -26,7 +26,7 @@ expect_error(
   pattern = "`x` does not have unique variable names for all columns; \n fix this before subsetting"
 )
 expect_error(
-  dt_setcoe(x, col = "a", f = as.numeric),
+  dt_setcoe(x, col = "a", v = as.numeric),
   pattern = "`x` does not have unique variable names for all columns; \n fix this before subsetting"
 )
 expect_error(
@@ -100,7 +100,7 @@ enumerate <- enumerate + 6
 x <- data.table::data.table(a = 1:10, b = letters[1:10], c = 11:20, d = letters[11:20])
 y <- data.table::copy(x)
 cols <- c("a", "c")
-dt_setcoe(x, col = cols, f = \(x)x^2)
+dt_setcoe(x, col = cols, v = \(x)x^2)
 y[ , (cols):= lapply(.SD, \(x)x^2), .SD = cols]
 expect_equal(
   x,
@@ -109,7 +109,7 @@ expect_equal(
 
 x <- data.table::data.table(a = 1:10, b = letters[1:10], c = 11:20, d = letters[11:20])
 y <- data.table::copy(x)
-dt_setcoe(x, vars = is.numeric, f = \(x)x^2)
+dt_setcoe(x, vars = is.numeric, v = \(x)x^2)
 cols <- c("a", "c")
 y[ , (cols):= lapply(.SD, \(x)x^2), .SD = cols]
 expect_equal(
@@ -118,8 +118,7 @@ expect_equal(
 )
 
 expect_error(
-  dt_setcoe(x, vars = is.numeric, f = ~x^2),
-  pattern = "`f` must be a function"
+  dt_setcoe(x, vars = is.numeric, v = ~x^2)
 )
 
 enumerate <- enumerate + 3

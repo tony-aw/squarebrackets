@@ -9,10 +9,12 @@
 \alias{sb_after.array}
 \alias{sb_before.factor}
 \alias{sb_after.factor}
-\alias{sb_before.list}
-\alias{sb_after.list}
-\alias{sb_before.data.frame}
-\alias{sb_after.data.frame}
+\alias{sb2_before}
+\alias{sb2_after}
+\alias{sb2_before.default}
+\alias{sb2_after.default}
+\alias{sb2_before.data.frame}
+\alias{sb2_after.data.frame}
 \title{Methods to Insert New Values Before or After an Index Along a Dimension}
 \usage{
 sb_before(x, ...)
@@ -31,13 +33,17 @@ sb_after(x, ...)
 
 \method{sb_after}{factor}(x, new, pos = length(x), .attr = NULL, ...)
 
-\method{sb_before}{list}(x, new, pos = 1, .attr = NULL, ...)
+sb2_before(x, ...)
 
-\method{sb_after}{list}(x, new, pos = length(x), .attr = NULL, ...)
+sb2_after(x, ...)
 
-\method{sb_before}{data.frame}(x, new, margin, pos = 1, .attr = NULL, ...)
+\method{sb2_before}{default}(x, new, pos = 1, .attr = NULL, ...)
 
-\method{sb_after}{data.frame}(x, new, margin, pos = collapse::fdim(x)[margin], .attr = NULL, ...)
+\method{sb2_after}{default}(x, new, pos = length(x), .attr = NULL, ...)
+
+\method{sb2_before}{data.frame}(x, new, margin, pos = 1, .attr = NULL, ...)
+
+\method{sb2_after}{data.frame}(x, new, margin, pos = collapse::fdim(x)[margin], .attr = NULL, ...)
 }
 \arguments{
 \item{x}{see \link{squarebrackets_immutable_classes} and \link{squarebrackets_mutable_classes}.}
@@ -76,13 +82,15 @@ If speed is important, \code{NULL} is the best option (but then attributes won't
 Returns a copy of the appended object.
 }
 \description{
-The \code{sb_before()} method
+The \code{sb_before()}/\code{sb2_before()} method
 inserts new values before some position along a dimension. \cr
-The \code{sb_after()} method
+The \code{sb_after()}/\code{sb_after()} method
 inserts new values after some position along a dimension. \cr
 \cr
 These functions use a modified version of \code{abind::}\link[abind]{abind}
-(see reference below).
+(see reference below). \cr
+Note that \code{sb2_before()} and \code{sb2_after()}
+offer no support for dimensional lists. \cr \cr
 }
 \examples{
 
@@ -115,8 +123,8 @@ sb_after(x, new)
 x <- as.list(1:5)
 new <- lapply(x, \(x)x*-1)
 print(x)
-sb_before(x, new)
-sb_after(x, new)
+sb2_before(x, new)
+sb2_after(x, new)
 
 
 #############################################################################
@@ -126,11 +134,11 @@ sb_after(x, new)
 
 x <- data.frame(a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10]))
 new <- data.frame(e = 101:110)
-sb_before(x, new, 2)
-sb_after(x, new, 2)
+sb2_before(x, new, 2)
+sb2_after(x, new, 2)
 new <- x[1,]
-sb_before(x, new, 1)
-sb_after(x, new, 1)
+sb2_before(x, new, 1)
+sb2_after(x, new, 1)
 
 }
 \references{

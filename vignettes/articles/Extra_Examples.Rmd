@@ -123,7 +123,7 @@ x <- dt.$as.data.table(x)
 myform <- form(~ PERIMETER / AREA)
 x$newcolumn <- 1:nrow(x)
 mutated <- dt.$as.data.table(with_pro(x, myform))
-sb_set(x, col = "newcolumn", rp = mutated)
+sb2_set(x, col = "newcolumn", rp = mutated)
 summary(x)
 
 ```

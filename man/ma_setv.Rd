@@ -2,7 +2,7 @@
 % Please edit documentation in R/ma_setv.R
 \name{ma_setv}
 \alias{ma_setv}
-\title{Find and Replace Present Values in mutable_atomic Objects}
+\title{Find and Replace Present Values in mutable_atomic Objects By Reference}
 \usage{
 ma_setv(x, v, rp, invert = FALSE, NA.safety = TRUE)
 }
@@ -40,7 +40,7 @@ but using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \
 This is faster than using \code{sb_set(x, i = which(x == v), rp = rp)}. \cr
 \cr
 Inspired by \code{collapse::}\link[collapse]{setv},
-but written in 'C++' through 'Rcpp'. \cr \cr
+but written in 'C++' through 'Rcpp', with additional safety checks. \cr \cr
 }
 \examples{
 

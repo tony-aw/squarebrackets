@@ -1,4 +1,4 @@
-#' Method to Change the Names a Mutable Object By Reference
+#' Method to Change the Names of a Mutable Object By Reference
 #'
 #' @description
 #' This is an S3 Method to rename a
@@ -45,7 +45,7 @@
 #' 
 #' @returns
 #' Returns: VOID. This method modifies the object by reference. \cr
-#' Do NOT use assignment like `names(x) <- sb_setRename(x, ...)`. \cr
+#' Do not use assignment like `names(x) <- sb_setRename(x, ...)`. \cr
 #' Since this function returns void, you'll just get `NULL`. \cr \cr
 #'
 #'
@@ -145,10 +145,17 @@ sb_setRename.array <- function(x, newnames, newdimnames, ...) {
   
 }
 
+#' @rdname sb_setRename
+#' @export
+sb2_setRename <- function(x, ...) {
+  
+  UseMethod("sb2_setRename", x)
+}
+
 
 #' @rdname sb_setRename
 #' @export
-sb_setRename.data.table <- function(x, old, new, skip_absent = FALSE, ...) {
+sb2_setRename.data.table <- function(x, old, new, skip_absent = FALSE, ...) {
   if(!data.table::is.data.table(x)) {
     stop("`x` is not a (supported) mutable object")
   }

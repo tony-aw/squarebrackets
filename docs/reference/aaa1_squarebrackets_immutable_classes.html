@@ -141,7 +141,7 @@ applied before replacement (<code>rp</code>) or transformation (<code>tf()</code
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] a b c d e f g h i j k l m n o p q r s t u v w x y z</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Levels: a b c d e f g h i j k l m n o p q r s t u v w x y z</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span><span class="fu"><a href="sb_mod.html">sb_mod</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span>, rp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="co"># first element fully changed.</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="sb_mod.html">sb2_mod</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span>, rp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="co"># first element fully changed.</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -158,7 +158,7 @@ applied before replacement (<code>rp</code>) or transformation (<code>tf()</code
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[2]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  1  2  3  4  5  6  7  8  9 10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span><span class="fu"><a href="sb_rec.html">sb_rec</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span>, rp <span class="op">=</span> <span class="st">"a"</span><span class="op">)</span> <span class="co"># coerces first element to character</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="sb_rec.html">sb2_rec</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span>, rp <span class="op">=</span> <span class="st">"a"</span><span class="op">)</span> <span class="co"># coerces first element to character</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "a"</span>
@@ -182,7 +182,7 @@ applied before replacement (<code>rp</code>) or transformation (<code>tf()</code
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ b: chr  "a" "b" "c" "d" ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ c: int  11 12 13 14 15 16 17 18 19 20</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ d: Factor w/ 10 levels "a","b","c","d",..: 1 2 3 4 5 6 7 8 9 10</span>
-<span class="r-in"><span><span class="fu"><a href="sb_mod.html">sb_mod</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="sb_mod.html">sb2_mod</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">obj</span>, vars <span class="op">=</span> <span class="va">is.numeric</span>,</span></span>
 <span class="r-in"><span>  tf <span class="op">=</span> <span class="va">sqrt</span> <span class="co"># SAFE: row=NULL &amp; filter = NULL, so coercion performed</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
@@ -214,7 +214,7 @@ applied before replacement (<code>rp</code>) or transformation (<code>tf()</code
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ c: int  11 12 13 14 15 16 17 18 19 20</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ d: Factor w/ 10 levels "a","b","c","d",..: 1 2 3 4 5 6 7 8 9 10</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu"><a href="sb_mod.html">sb_mod</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="sb_mod.html">sb2_mod</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">obj</span>, filter <span class="op">=</span> <span class="op">~</span> <span class="op">(</span><span class="va">a</span> <span class="op">&gt;=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">(</span><span class="va">c</span> <span class="op">&lt;=</span> <span class="fl">17</span><span class="op">)</span>, vars <span class="op">=</span> <span class="va">is.numeric</span>,</span></span>
 <span class="r-in"><span>  tf <span class="op">=</span> <span class="va">sqrt</span> <span class="co"># WARNING: sqrt() results in `dbl`, but columns are `int`, so decimals lost</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
@@ -231,7 +231,7 @@ applied before replacement (<code>rp</code>) or transformation (<code>tf()</code
 <span class="r-out co"><span class="r-pr">#&gt;</span> 8   8 h 18 h</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 9   9 i 19 i</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10 10 j 20 j</span>
-<span class="r-in"><span><span class="fu"><a href="sb_mod.html">sb_mod</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="sb_mod.html">sb2_mod</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">obj</span>, filter <span class="op">=</span> <span class="op">~</span> <span class="op">(</span><span class="va">a</span> <span class="op">&gt;=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">(</span><span class="va">c</span> <span class="op">&lt;=</span> <span class="fl">17</span><span class="op">)</span>, vars <span class="op">=</span> <span class="va">is.numeric</span>,</span></span>
 <span class="r-in"><span>  coe <span class="op">=</span> <span class="va">as.double</span>, tf <span class="op">=</span> <span class="va">sqrt</span> <span class="co"># SAFE: coercion performed</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>

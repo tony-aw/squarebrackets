@@ -48,13 +48,14 @@ reference:
 - title: Helper Functions
   contents:
   - '`n`'
+  - '`sub2ind`'
+  - '`match_all`'
   - '`idx_by`'
   - '`idx_ord_v`'
-  - '`match_all`'
   - '`seq_mlen`'
   - '`seq_names`'
   - '`seq_rec`'
-  - '`sub2ind`'
+  
 - title: Misc
   contents:
   - '`indx_x`'

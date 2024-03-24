@@ -2,9 +2,12 @@
 % Please edit documentation in R/generic_currentBindings.R
 \name{sb_currentBindings}
 \alias{sb_currentBindings}
+\alias{sb2_currentBindings}
 \title{List or Lock All Currently Existing Bindings Pointing To Same Address}
 \usage{
 sb_currentBindings(x, action = "list", env = NULL)
+
+sb2_currentBindings(x, action = "list", env = NULL)
 }
 \arguments{
 \item{x}{the existing variable whose address to use when searching for bindings.}
@@ -50,7 +53,10 @@ sharing the same \bold{address} as \code{x}, in a given environment,
 and locks them using \link[base]{lockBinding}. \cr
 \cr
 See also \link{squarebrackets_PassByReference} for information regarding
-the relation between locked bindings and pass-by-reference modifications. \cr \cr
+the relation between locked bindings and pass-by-reference modifications. \cr
+\cr
+\code{sb2_currentBindings()} is an alias for \code{sb_currentBindings()},
+and exists just for consistency with the other \code{sb_}/ \code{sb2_} methods. \cr \cr
 }
 \examples{
 

@@ -4,8 +4,10 @@
 \alias{sb_coe}
 \alias{sb_coe.default}
 \alias{sb_coe.factor}
-\alias{sb_coe.list}
-\alias{sb_coe.data.frame}
+\alias{sb2_coe}
+\alias{sb2_coe.default}
+\alias{sb2_coe.array}
+\alias{sb2_coe.data.frame}
 \title{Method to Coercively Transform (Recursive Subsets of) an Object}
 \usage{
 sb_coe(x, ...)
@@ -14,9 +16,13 @@ sb_coe(x, ...)
 
 \method{sb_coe}{factor}(x, v, ...)
 
-\method{sb_coe}{list}(x, i, v, ...)
+sb2_coe(x, ...)
 
-\method{sb_coe}{data.frame}(x, col = NULL, vars = NULL, v, ...)
+\method{sb2_coe}{default}(x, i, v, ..., .lapply = lapply)
+
+\method{sb2_coe}{array}(x, idx = NULL, dims = NULL, i = NULL, v, ..., .lapply = lapply)
+
+\method{sb2_coe}{data.frame}(x, col = NULL, vars = NULL, v, ...)
 }
 \arguments{
 \item{x}{see \link{squarebrackets_immutable_classes} and \link{squarebrackets_mutable_classes}.}
@@ -25,8 +31,19 @@ sb_coe(x, ...)
 
 \item{v}{the coercive transformation function to use.}
 
-\item{i, col, vars}{See \link{squarebrackets_indx_args}. \cr
+\item{i, col, vars, idx, dims}{See \link{squarebrackets_indx_args}. \cr
 An empty index selection returns the original object unchanged. \cr}
+
+\item{.lapply}{\code{sb2_coe()} by default uses \link[base]{lapply}
+for lists and \link[collapse]{dapply} data.frame-like objects
+to compute \code{tf()} on every list element or data.frame column. \cr
+The user may supply a custom \code{lapply()/dapply()}-like function
+in this argument to use instead. \cr
+For example, the perform parallel transformation,
+the user may supply \verb{future.apply::}\link[future.apply]{future_lapply}. \cr
+The supplied function must use the exact same argument convention as
+\link[base]{lapply},
+otherwise errors or unexpected behaviour may occur.}
 }
 \value{
 A copy of the coercively transformed object.
@@ -39,7 +56,8 @@ an object with explicit coercion. \cr
 Given some coercing function \code{v()},
 the following can be stated about this method. \cr
 
-(1) For atomic objects (vectors, matrices, arrays), this method is equivalent to:
+(1) For atomic objects (vectors, matrices, arrays),
+this method is \bold{almost} equivalent to:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{x[] <- v(x)
 }\if{html}{\out{</div>}}
@@ -69,36 +87,19 @@ one can coercively transform columns by reference
 (which is more memory efficient),
 using \link{dt_setcoe}. \cr \cr
 }
-\details{
-When replacing values by reference,
-the (recursive subset of the) object is never coerced, as that requires making a deep copy;
-instead, the replacement value is coerced. \cr
-\cr
-For example: \cr
-Using \code{sb_set()} to replacing/transform one or more values of an integer type
-(\code{int})
-\link{mutable_atomic} object / \link[data.table]{data.table} column,
-to become \code{1.5}, will NOT coerce the object or column
-to a decimal type (\code{dbl});
-instead, the replacement \code{1.5} is coerced to the integer \code{1}. \cr
-\cr
-For this reason, the \code{sb_coe()} method can be used to coercively transform an object
-before replacing or transforming values by reference. \cr
-See also the Examples section below.
-}
 \examples{
 
 obj <- data.table::data.table(a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10]))
 str(obj) # notice that columns "a" and "c" are INTEGER (`int`)
-sb_set(
+sb2_set(
   obj, filter = ~ (a >= 2) & (c <= 17), vars = is.numeric,
   tf = sqrt # WARNING: sqrt() results in `dbl`, but columns are `int`, so decimals lost
 )
 print(obj)
 obj <- data.table::data.table(a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10]))
-obj <- sb_coe(obj, vars = is.numeric, v = as.numeric)
+obj <- sb2_coe(obj, vars = is.numeric, v = as.numeric)
 str(obj)
-sb_set(obj,
+sb2_set(obj,
   filter = ~ (a >= 2) & (c <= 17), vars = is.numeric,
   tf = sqrt # SAFE: coercion performed; so no warnings
 ) 

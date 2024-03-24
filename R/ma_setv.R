@@ -1,4 +1,4 @@
-#' Find and Replace Present Values in mutable_atomic Objects
+#' Find and Replace Present Values in mutable_atomic Objects By Reference
 #'
 #' @description
 #' The `ma_setv(x, v rp)` function performs the equivalent of \cr
@@ -8,7 +8,7 @@
 #' This is faster than using `sb_set(x, i = which(x == v), rp = rp)`. \cr
 #' \cr
 #' Inspired by \code{collapse::}\link[collapse]{setv},
-#' but written in 'C++' through 'Rcpp'. \cr \cr
+#' but written in 'C++' through 'Rcpp', with additional safety checks. \cr \cr
 #' 
 #' @param x a \link{mutable_atomic} \bold{variable}.
 #' @param v non-missing (so no `NA` or `NaN`) atomic scalar to find.

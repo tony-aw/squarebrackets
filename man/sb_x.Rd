@@ -6,13 +6,15 @@
 \alias{sb_x.matrix}
 \alias{sb_x.array}
 \alias{sb_x.factor}
-\alias{sb_x.list}
-\alias{sb_x.data.frame}
+\alias{sb2_x}
+\alias{sb2_x.default}
+\alias{sb2_x.array}
+\alias{sb2_x.data.frame}
 \title{Method to Extract, Exchange, or Duplicate Subsets of an Object}
 \usage{
 sb_x(x, ...)
 
-\method{sb_x}{default}(x, i, ..., rat = getOption("sb.rat", FALSE))
+\method{sb_x}{default}(x, i, ..., rat = getOption("squarebrackets.rat", FALSE))
 
 \method{sb_x}{matrix}(
   x,
@@ -20,7 +22,7 @@ sb_x(x, ...)
   col = NULL,
   i = NULL,
   ...,
-  rat = getOption("sb.rat", FALSE)
+  rat = getOption("squarebrackets.rat", FALSE)
 )
 
 \method{sb_x}{array}(
@@ -30,7 +32,7 @@ sb_x(x, ...)
   rcl = NULL,
   i = NULL,
   ...,
-  rat = getOption("sb.rat", FALSE)
+  rat = getOption("squarebrackets.rat", FALSE)
 )
 
 \method{sb_x}{factor}(
@@ -39,12 +41,24 @@ sb_x(x, ...)
   lvl = NULL,
   drop = FALSE,
   ...,
-  rat = getOption("sb.rat", FALSE)
+  rat = getOption("squarebrackets.rat", FALSE)
 )
 
-\method{sb_x}{list}(x, i, drop = FALSE, ..., rat = getOption("sb.rat", FALSE))
+sb2_x(x, ...)
 
-\method{sb_x}{data.frame}(x, row = NULL, col = NULL, filter = NULL, vars = NULL, ...)
+\method{sb2_x}{default}(x, i, drop = FALSE, ..., rat = getOption("squarebrackets.rat", FALSE))
+
+\method{sb2_x}{array}(
+  x,
+  idx = NULL,
+  dims = NULL,
+  i = NULL,
+  drop = FALSE,
+  ...,
+  rat = getOption("squarebrackets.rat", FALSE)
+)
+
+\method{sb2_x}{data.frame}(x, row = NULL, col = NULL, filter = NULL, vars = NULL, ...)
 }
 \arguments{
 \item{x}{see \link{squarebrackets_immutable_classes} and \link{squarebrackets_mutable_classes}.}
@@ -120,10 +134,10 @@ sb_x(obj, i = \(x)x>5)
 
 obj <- list(a = 1:10, b = letters[1:11], c = 11:20)
 print(obj)
-sb_x(obj, 1) # obj[1]
-sb_x(obj, 1, drop = TRUE) # obj[[1]]
-sb_x(obj, 1:2) # obj[1:2]
-sb_x(obj, is.numeric) # obj[sapply(obj, is.numeric)]
+sb2_x(obj, 1) # obj[1]
+sb2_x(obj, 1, drop = TRUE) # obj[[1]]
+sb2_x(obj, 1:2) # obj[1:2]
+sb2_x(obj, is.numeric) # obj[sapply(obj, is.numeric)]
 # for recursive indexing, see sb_rec()
 
 #############################################################################
@@ -142,8 +156,8 @@ sb_x(obj, lvl = c("a", "a"))
 
 obj <- data.frame(a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10]))
 print(obj)
-sb_x(obj, 1:3, 1:3) # obj[1:3, 1:3, drop = FALSE]
-sb_x(obj, filter = ~ (a > 5) & (c < 19), vars = is.numeric)
+sb2_x(obj, 1:3, 1:3) # obj[1:3, 1:3, drop = FALSE]
+sb2_x(obj, filter = ~ (a > 5) & (c < 19), vars = is.numeric)
 
 
 }

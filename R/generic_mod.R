@@ -85,6 +85,10 @@ sb_mod.default <- function(
     rp, tf, chkdup = getOption("sb.chkdup", FALSE)
 ) {
   
+  if(is.recursive(x)) {
+    stop("Use the `sb2_` methods for recursive objects")
+  }
+  
   if(!missing(rp) && !missing(tf)) stop("cannot specify both `rp` and `tf`")
   
   elements <- .indx_make_element(
@@ -111,6 +115,10 @@ sb_mod.matrix <- function(
     x, row = NULL, col = NULL, i = NULL, ...,
     rp, tf, chkdup = getOption("sb.chkdup", FALSE)
 ) {
+  
+  if(is.recursive(x)) {
+    stop("Use the `sb2_` methods for recursive objects")
+  }
   
   if(!missing(rp) && !missing(tf)) stop("cannot specify both `rp` and `tf`")
   
@@ -161,6 +169,10 @@ sb_mod.array <- function(
     rp, tf, chkdup = getOption("sb.chkdup", FALSE)
 ) {
   
+  if(is.recursive(x)) {
+    stop("Use the `sb2_` methods for recursive objects")
+  }
+  
   if(!is.null(i)) {
     elements <- .indx_make_element(
       i, x, is_list = FALSE, chkdup = chkdup, inv = FALSE, abortcall = sys.call()
@@ -201,6 +213,10 @@ sb_mod.factor <- function(
     x, i = NULL, lvl = NULL, ..., rp, chkdup = getOption("sb.chkdup", FALSE)
 ) {
   
+  if(is.recursive(x)) {
+    stop("Use the `sb2_` methods for recursive objects")
+  }
+  
   .check_args_factor(i, lvl, drop = FALSE, abortcall = sys.call())
   
   if(!is.null(i)) {
@@ -223,13 +239,23 @@ sb_mod.factor <- function(
   }
 }
 
+#' @rdname sb_mod
+#' @export
+sb2_mod <- function(x, ...) {
+  UseMethod("sb2_mod", x)
+}
+
 
 #' @rdname sb_mod
 #' @export
-sb_mod.list <- function(
+sb2_mod.default <- function(
     x, i, ...,
     rp, tf, chkdup = getOption("sb.chkdup", FALSE), .lapply = lapply
 ) {
+  
+  if(!is.recursive(x)) {
+    stop("Use the `sb_` methods for non-recursive objects")
+  }
   
   if(!missing(rp) && !missing(tf)) stop("cannot specify both `rp` and `tf`")
   
@@ -255,12 +281,43 @@ sb_mod.list <- function(
 }
 
 
+
 #' @rdname sb_mod
 #' @export
-sb_mod.data.frame <- function(
+sb2_mod.array <- function(
+    x, idx = NULL, dims = NULL, rcl = NULL, i = NULL, ...,
+    rp, tf, chkdup = getOption("sb.chkdup", FALSE), .lapply = lapply
+) {
+  
+  if(!is.recursive(x)) {
+    stop("Use the `sb_` methods for non-recursive objects")
+  }
+  
+  if(!is.null(i)) {
+    return(sb2_mod.default(x, i, ..., rp = rp, tf = tf, chkdup = chkdup))
+  }
+  
+  if(!missing(rp)) {
+    if(!is.list(rp)) stop("`rp` must be a list")
+    return(.arr_repl_list(x, idx, dims, rp, chkdup = chkdup, abortcall = sys.call()))
+  }
+  if(!missing(tf)) {
+    if(!is.function(tf)) stop("`tf` must be a function")
+    return(.arr_tf_list(x, idx, dims, tf, chkdup = chkdup, .lapply, abortcall = sys.call()))
+  }
+}
+
+
+#' @rdname sb_mod
+#' @export
+sb2_mod.data.frame <- function(
     x, row = NULL, col = NULL, filter = NULL, vars = NULL, coe = FALSE, ...,
     rp, tf, chkdup = getOption("sb.chkdup", FALSE), .lapply = lapply
 ) {
+  
+  if(!is.recursive(x)) {
+    stop("Use the `sb_` methods for non-recursive objects")
+  }
   
   # checks, errors, and transformations:
   .check_args_df(x, row, col, filter, vars, abortcall = sys.call())
