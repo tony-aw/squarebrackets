@@ -1,7 +1,6 @@
 docs/** linguist-documentation
 vignettes/** linguist-documentation
 man/** linguist-documentation
-fake_packages/** linguist-vendored
 inst/** linguist-vendored
 R/aaa0_squarebrackets_help.R -linguist-documentation
 R/aaa1_squarebrackets_immutable_classes.R -linguist-documentation
