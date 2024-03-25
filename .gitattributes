@@ -10,5 +10,6 @@ R/aaa4_squarebrackets_duplicates.R -linguist-documentation
 R/aaa5_squarebrackets_PassByReference.R -linguist-documentation
 R/aaa6_squarebrackets_technical.R -linguist-documentation
 R/aaa7_squarebrackets_inconveniences.R -linguist-documentation
+R/meta_functions.R -linguist-documentation
 DynamicallyType_RcppScripts.R -linguist-vendored
 DynamicallyType_Rtemplates.R -linguist-vendored

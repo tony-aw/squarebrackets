@@ -108,3 +108,37 @@
     file, txt)
   sprintf("\\ifelse{html}{%s}{%s}", html, text)
 }
+
+
+
+
+#' @keywords internal
+#' @noRd
+.old_approx_empty_df <- function(x, row, col, class) {
+  if(class == "data.frame") {
+    x.class <- class(x)
+    x2 <- collapse::qDF(x, keep.attr = TRUE)
+    x2 <- x2[row, col, drop = FALSE]
+    x3 <- collapse::qDF(x, keep.attr = TRUE)
+    class(x3) <- x.class
+    return(x3)
+  }
+  if(class == "data.table") {
+    x.class <- class(x)
+    x2 <- collapse::qDF(x, keep.attr = TRUE)
+    x2 <- x2[row, col, drop = FALSE]
+    x3 <- collapse::qDT(x, keep.attr = TRUE)
+    class(x3) <- x.class
+    return(x3)
+  }
+  if(class == "tibble") {
+    x.class <- class(x)
+    x2 <- collapse::qDF(x, keep.attr = TRUE)
+    x2 <- x2[row, col, drop = FALSE]
+    x3 <- collapse::qTBL(x, keep.attr = TRUE)
+    class(x3) <- x.class
+    return(x3)
+  }
+}
+
+

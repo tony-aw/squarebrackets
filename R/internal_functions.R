@@ -14,13 +14,6 @@
 
 #' @keywords internal
 #' @noRd
-.is.missing <- function(x) {
-  return(missing(x) || identical(x, quote(expr = )))
-}
-
-
-#' @keywords internal
-#' @noRd
 .indx_check_general <- function(indx, abortcall) {
   if(anyNA(indx)) {
     stop(simpleError("NA indices not allowed", call = abortcall))
@@ -397,46 +390,6 @@
   }
 }
 
-
-
-#' @keywords internal
-#' @noRd
-.old_approx_empty_df <- function(x, row, col, class) {
-  if(class == "data.frame") {
-    x.class <- class(x)
-    x2 <- collapse::qDF(x, keep.attr = TRUE)
-    x2 <- x2[row, col, drop = FALSE]
-    x3 <- collapse::qDF(x, keep.attr = TRUE)
-    class(x3) <- x.class
-    return(x3)
-  }
-  if(class == "data.table") {
-    x.class <- class(x)
-    x2 <- collapse::qDF(x, keep.attr = TRUE)
-    x2 <- x2[row, col, drop = FALSE]
-    x3 <- collapse::qDT(x, keep.attr = TRUE)
-    class(x3) <- x.class
-    return(x3)
-  }
-  if(class == "tibble") {
-    x.class <- class(x)
-    x2 <- collapse::qDF(x, keep.attr = TRUE)
-    x2 <- x2[row, col, drop = FALSE]
-    x3 <- collapse::qTBL(x, keep.attr = TRUE)
-    class(x3) <- x.class
-    return(x3)
-  }
-}
-
-
-# .fix_attr <- function(out, .attr) {
-#   if(is.null(.attr)) {
-#     return(out)
-#   }
-#   missing.attrnms <- setdiff(names(.attr), names(attributes(out)))
-#   mostattributes(out) <- c(attributes(out), .attr[missing.attrnms])
-#   return(out)
-# }
 
 
 #' @keywords internal
