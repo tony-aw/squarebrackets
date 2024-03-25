@@ -106,7 +106,7 @@
   lst <- .arr_lst_brackets(x, ndims, idx, dims, chkdup = chkdup, inv = FALSE, abortcall = abortcall)
   
   temp.fun <- function(...) {
-    rp <- .lapply(x[...], tf)
+    rp <- .lapply(x[..., drop = FALSE], tf)
     .check_rp_list(rp, prod(collapse::vlengths(lst)), abortcall)
     x[...] <- rp
     return(x)

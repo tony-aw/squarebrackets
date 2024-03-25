@@ -31,12 +31,12 @@
 #' @example inst/examples/generic_rec.R
 #'
 
-#' @name sb_rec
+#' @name sb2_rec
 NULL
 
 
 
-#' @rdname sb_rec
+#' @rdname sb2_rec
 #' @export
 sb2_rec <- function(lst, rec, rp) {
   

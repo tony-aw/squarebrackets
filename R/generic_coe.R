@@ -41,7 +41,10 @@
 #' Note that when `x` is a `data.table`,
 #' one can coercively transform columns by reference
 #' (which is more memory efficient),
-#' using \link{dt_setcoe}. \cr \cr
+#' using \link{dt_setcoe}. \cr
+#' \cr
+#' Use `sb_coe(x, ...)` if `x` is a non-recursive object (i.e. atomic or factor). \cr
+#' Use `sb2_coe(x, ...)` if `x` is a recursive object (i.e. list or data.frame-like). \cr \cr
 #'
 #' @param x see \link{squarebrackets_immutable_classes} and \link{squarebrackets_mutable_classes}.
 #' @param i,col,vars,idx,dims See \link{squarebrackets_indx_args}. \cr
@@ -69,6 +72,11 @@
 #' @rdname sb_coe
 #' @export
 sb_coe <- function(x, ...) {
+  
+  if(is.recursive(x)) {
+    stop("Use the `sb2_` methods for recursive objects")
+  }
+  
   UseMethod("sb_coe", x)
 }
 
@@ -76,10 +84,6 @@ sb_coe <- function(x, ...) {
 #' @rdname sb_coe
 #' @export
 sb_coe.default <- function(x, v, ...) {
-  
-  if(is.recursive(x)) {
-    stop("Use the `sb2_` methods for recursive objects")
-  }
   
   temp.attr <- attributes(x)
   out <- v(x)
@@ -91,10 +95,6 @@ sb_coe.default <- function(x, v, ...) {
 #' @export
 sb_coe.factor <- function(x, v, ...) {
   
-  if(is.recursive(x)) {
-    stop("Use the `sb2_` methods for recursive objects")
-  }
-  
   return(v(x))
 }
 
@@ -102,6 +102,11 @@ sb_coe.factor <- function(x, v, ...) {
 #' @rdname sb_coe
 #' @export
 sb2_coe <- function(x, ...) {
+  
+  if(!is.recursive(x)) {
+    stop("Use the `sb_` methods for non-recursive objects")
+  }
+  
   UseMethod("sb2_coe", x)
 }
 
@@ -113,9 +118,6 @@ sb2_coe.default <- function(x, i, v, ..., .lapply = lapply) {
     i, x, is_list = TRUE, chkdup = FALSE, inv = FALSE, abortcall = sys.call()
   )
   
-  if(!is.recursive(x)) {
-    stop("Use the `sb_` methods for non-recursive objects")
-  }
   
   if(length(elements) == 0) return(x)
   
@@ -131,9 +133,6 @@ sb2_coe.array <- function(
     x, idx = NULL, dims = NULL, i = NULL, v, ..., .lapply = lapply
 ) {
   
-  if(!is.recursive(x)) {
-    stop("Use the `sb_` methods for non-recursive objects")
-  }
   
   if(!is.null(i)) {
     return(sb2_coe.default(x, i, v, ..., .lapply = lapply))
@@ -145,10 +144,6 @@ sb2_coe.array <- function(
 #' @rdname sb_coe
 #' @export
 sb2_coe.data.frame <- function(x, col = NULL, vars = NULL, v, ...) {
-  
-  if(!is.recursive(x)) {
-    stop("Use the `sb_` methods for non-recursive objects")
-  }
   
   .check_args_df(x, row = NULL, col, filter = NULL, vars, abortcall = sys.call())
   

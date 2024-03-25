@@ -2,7 +2,9 @@
 #'
 #' @description
 #' This is an S3 Method to extract, exchange,
-#' or duplicate (i.e. repeat x times) subsets of an object.
+#' or duplicate (i.e. repeat x times) subsets of an object. \cr
+#' Use `sb_x(x, ...)` if `x` is a non-recursive object (i.e. atomic or factor). \cr
+#' Use `sb2_x(x, ...)` if `x` is a recursive object (i.e. list or data.frame-like). \cr \cr
 #'
 #' @param x see \link{squarebrackets_immutable_classes} and \link{squarebrackets_mutable_classes}.
 #' @param i,lvl,row,col,idx,dims,rcl,filter,vars See \link{squarebrackets_indx_args}. \cr
@@ -10,8 +12,11 @@
 #' An empty index selection results in an empty object of length 0. \cr
 #' @param drop Boolean.
 #'  * For factors: If `drop = TRUE`, unused levels are dropped, if `drop = FALSE` they are not dropped.
-#'  * For lists: if `drop = TRUE`, selecting a single element will give the simplified result,
-#'  like using `[[]]`. If `drop = FALSE`, a list is always returned regardless of the number of elements.
+#'  * For lists: if `drop = TRUE`,
+#'  and sub-setting is done using argument `i`,
+#'  selecting a single element will give the simplified result,
+#'  like using `[[]]`.
+#'  If `drop = FALSE`, a list is always returned regardless of the number of elements.
 #' @param rat Boolean, indicating if attributes should be returned with the sub-setted object.
 #' See Details section for more info. \cr
 #' `r .mybadge_performance_set2("FALSE")` \cr
@@ -30,8 +35,11 @@
 #' their attributes will always be preserved. \cr
 #' NOTE: In the following situations, the `rat` argument will be ignored,
 #' as the attributes necessarily have to be dropped:
-#'  * when `x` is a list, AND `drop = TRUE`, AND a single element is selected.
-#'  * when `x` is a matrix or array, and sub-setting is done through the `i` argument.
+#'  * when `x` is a list, AND `drop = TRUE`,
+#'  AND a single element is selected,
+#'  AND sub-setting is done through the `i` argument.
+#'  * when `x` is an atomic matrix or array,
+#'  and sub-setting is done through the `i` argument. \cr \cr
 #'
 #' @returns
 #' Returns a copy of the sub-setted object.
@@ -44,6 +52,11 @@
 #' @rdname sb_x
 #' @export
 sb_x <- function(x, ...) {
+  
+  if(is.recursive(x)) {
+    stop("Use the `sb2_` methods for recursive objects")
+  }
+  
   UseMethod("sb_x", x)
 }
 
@@ -51,10 +64,6 @@ sb_x <- function(x, ...) {
 #' @rdname sb_x
 #' @export
 sb_x.default <- function(x, i, ..., rat = getOption("squarebrackets.rat", FALSE)) {
-  
-  if(is.recursive(x)) {
-    stop("Use the `sb2_` methods for recursive objects")
-  }
   
   elements <- .indx_make_element.sb_x(i, x, is_list = FALSE, abortcall = sys.call())
   if(rat) {
@@ -67,10 +76,6 @@ sb_x.default <- function(x, i, ..., rat = getOption("squarebrackets.rat", FALSE)
 #' @rdname sb_x
 #' @export
 sb_x.matrix <- function(x, row = NULL, col = NULL, i = NULL, ..., rat = getOption("squarebrackets.rat", FALSE)) {
-  
-  if(is.recursive(x)) {
-    stop("Use the `sb2_` methods for recursive objects")
-  }
   
   if(!is.null(i)) {
     elements <- .indx_make_element.sb_x(i, x, is_list = FALSE, abortcall = sys.call())
@@ -114,10 +119,6 @@ sb_x.matrix <- function(x, row = NULL, col = NULL, i = NULL, ..., rat = getOptio
 #' @export
 sb_x.array <- function(x, idx = NULL, dims = NULL, rcl = NULL, i = NULL, ..., rat = getOption("squarebrackets.rat", FALSE)) {
   
-  if(is.recursive(x)) {
-    stop("Use the `sb2_` methods for recursive objects")
-  }
-  
   if(!is.null(i)) {
     elements <- .indx_make_element.sb_x(i, x, is_list = FALSE, abortcall = sys.call())
     return(x[elements])
@@ -143,10 +144,6 @@ sb_x.array <- function(x, idx = NULL, dims = NULL, rcl = NULL, i = NULL, ..., ra
 #' @export
 sb_x.factor <- function(x, i = NULL, lvl = NULL, drop = FALSE, ..., rat = getOption("squarebrackets.rat", FALSE)) {
   
-  if(is.recursive(x)) {
-    stop("Use the `sb2_` methods for recursive objects")
-  }
-  
   .check_args_factor(i, lvl, drop, abortcall = sys.call())
   
   if(!is.null(i)) {
@@ -170,6 +167,11 @@ sb_x.factor <- function(x, i = NULL, lvl = NULL, drop = FALSE, ..., rat = getOpt
 #' @rdname sb_x
 #' @export
 sb2_x <- function(x, ...) {
+  
+  if(!is.recursive(x)) {
+    stop("Use the `sb_` methods for non-recursive objects")
+  }
+  
   UseMethod("sb2_x", x)
 }
 
@@ -178,22 +180,24 @@ sb2_x <- function(x, ...) {
 #' @export
 sb2_x.default <- function(x, i, drop = FALSE, ..., rat = getOption("squarebrackets.rat", FALSE)) {
   
-  if(!is.recursive(x)) {
-    stop("Use the `sb_` methods for non-recursive objects")
-  }
-  
   if(!isTRUE(drop) && !isFALSE(drop)) {
     stop("`drop` must be either `TRUE` or `FALSE`")
   }
   
   elements <- .indx_make_element.sb_x(i, x, is_list = TRUE, abortcall = sys.call())
+  
   n.i <- length(elements)
+  
   if(n.i == 1 && drop) {
-    x <- x[[elements]]
-  } else {
-    if(rat) x <- .fix_attr(x[elements], attributes(x))
-    if(!rat) x <- x[elements]
+    return(x[[elements]])
   }
+  
+  if(rat) {
+    return(.fix_attr(x[elements], attributes(x)) )
+  } else {
+    return(x[elements])
+  }
+    
   return(x)
 }
 
@@ -202,19 +206,14 @@ sb2_x.default <- function(x, i, drop = FALSE, ..., rat = getOption("squarebracke
 #' @export
 sb2_x.array <- function(x, idx = NULL, dims = NULL, i = NULL, drop = FALSE, ..., rat = getOption("squarebrackets.rat", FALSE)) {
   
-  if(!is.recursive(x)) {
-    stop("Use the `sb_` methods for non-recursive objects")
-  }
-  
   if(!is.null(i)) {
     return(sb2_x.default(x, i, drop = drop, ..., rat = rat))
   }
   
   if(rat) {
     x <- .fix_attr(.arr_x(x, idx, dims, abortcall = sys.call()), attributes(x))
-  } else {
-    x <- .arr_x(x, idx, dims, abortcall = sys.call())
-  }
+  } else{ x <- .arr_x(x, idx, dims, abortcall = sys.call()) }
+  
   return(x)
   
 }
@@ -224,10 +223,6 @@ sb2_x.array <- function(x, idx = NULL, dims = NULL, i = NULL, drop = FALSE, ...,
 sb2_x.data.frame <- function(
     x, row = NULL, col = NULL, filter = NULL, vars = NULL, ...
 ) {
-  
-  if(!is.recursive(x)) {
-    stop("Use the `sb_` methods for non-recursive objects")
-  }
   
   .check_args_df(x, row, col, filter, vars, abortcall = sys.call())
   

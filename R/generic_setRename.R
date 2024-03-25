@@ -20,7 +20,12 @@
 #' 
 #' ```
 #' will not modify `base::letters`, even though `names(x)` shared the same address. \cr
-#' Thus, `sb_setRename()` can be used safely without fearing such accidents. \cr \cr
+#' Thus, `sb_setRename()` can be used safely without fearing such accidents. \cr
+#' \cr
+#' Use `sb_setRename(x, ...)` if `x` is a non-recursive object
+#' (i.e. \link{mutable_atomic}). \cr
+#' Use `sb2_setRename(x, ...)` if `x` is a recursive object
+#' (i.e. \link{data.table}). \cr \cr
 #' 
 #'
 #' @param x a \bold{variable} belonging to one of the

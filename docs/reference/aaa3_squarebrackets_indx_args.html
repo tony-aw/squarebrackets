@@ -126,7 +126,7 @@ see the <code>Details</code> section in <a href="sub2ind.html">sub2ind</a>. <br>
     <h2 id="arguments-row-col">Arguments row, col<a class="anchor" aria-label="anchor" href="#arguments-row-col"></a></h2>
     
 
-<p><img src="figures/class-matrix-red.svg" alt="[class: matrix]"><br><img src="figures/class-data.frame-like-red.svg" alt="[class: data.frame-like]"><br></p>
+<p><img src="figures/class-atomic_matrix-red.svg" alt="[class: atomic matrix]"><br><img src="figures/class-data.frame-like-red.svg" alt="[class: data.frame-like]"><br></p>
 <p>Any of the following can be specified for the arguments <code>row</code> / <code>col</code>:</p><ul><li><p><code>NULL</code> (default), corresponds to a missing argument,
 which results in ALL of the indices in this dimension being selected for the operation.</p></li>
 <li><p>a vector of length 0,
@@ -146,7 +146,7 @@ ALL the corresponding indices will be selected for the operation.</p></li>
     <h2 id="arguments-idx-dims">Arguments idx, dims<a class="anchor" aria-label="anchor" href="#arguments-idx-dims"></a></h2>
     
 
-<p><img src="figures/class-array-red.svg" alt="[class: array]"><br></p>
+<p><img src="figures/class-atomic_array-red.svg" alt="[class: atomic array]"><br><img src="figures/class-recursive_array-red.svg" alt="[class: recursive array]"><br></p>
 <p><code>idx</code> must be a list of indices. <br><code>dims</code> must be an integer vector of the same length as <code>idx</code>,
 giving the dimensions to which the indices given in <code>idx</code> correspond to. <br>
 The elements of <code>idx</code> follow the same rules as the rules for <code>row</code> and <code>col</code>,
@@ -164,8 +164,8 @@ here using an example of a 4-dimensional array:</p>
     <h2 id="arguments-rcl">Arguments rcl<a class="anchor" aria-label="anchor" href="#arguments-rcl"></a></h2>
     
 
-<p><img src="figures/class-array-red.svg" alt="[class: array]"><br></p>
-<p>The <code>rcl</code> argument is only applicable for arrays with exactly 3 dimensions. <br>
+<p><img src="figures/class-atomic_array-red.svg" alt="[class: atomic array]"><br></p>
+<p>The <code>rcl</code> argument is only applicable for atomic arrays with exactly 3 dimensions. <br>
 If the user knows a-priori that an array has 3 dimensions,
 using <code>rcl</code> is more efficient than using the <code>idx, dims</code> arguments. <br><br>
 The <code>rcl</code> argument must be a list of exactly 3 elements,
@@ -225,7 +225,7 @@ For example, to select all numeric columns, specify <code>vars = is.numeric</cod
     <h2 id="duplicates-for-names-integers-and-levels-">Duplicates (for Names, Integers, and Levels)<a class="anchor" aria-label="anchor" href="#duplicates-for-names-integers-and-levels-"></a></h2>
     
 
-<p>Generally speaking, duplicate names, integers, or levels are NOT allowed in index selection. <br>
+<p>Generally speaking, duplicate names, integers, or levels are not allowed in index selection. <br>
 The exception is the <a href="sb_x.html">sb_x</a> method,
 as that method can be used for duplicating indices. <br><br></p>
     </div>

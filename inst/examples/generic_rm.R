@@ -22,6 +22,16 @@ sb_rm(obj, i = \(x)x>5)
 #############################################################################
 
 
+# factors ====
+
+obj <- factor(rep(letters[1:5], 2))
+sb_rm(obj, lvl = "a")
+# above is equivalent to obj[which(!obj %in% "a")]
+
+
+#############################################################################
+
+
 # lists ====
 
 obj <- list(a = 1:10, b = letters[1:11], c = 11:20)
@@ -36,19 +46,20 @@ sb2_rm(obj, is.numeric, drop = TRUE)
 obj <- list(a = 1:10, b = letters[1:11], c = letters)
 sb2_rm(obj, is.numeric)
 # above is equivalent to obj[!sapply(obj, is.numeric)] # this time singular brackets?
-# for recusive indexing, see sb_rec()
+# for recusive indexing, see sb2_rec()
+
 
 #############################################################################
 
 
-# factors ====
+# recursive arrays / dimensional lists ====
+obj <- c(as.list(1:10), as.list(letters[1:10])) |> array(dim = c(5, 4)) |> t()
+print(obj)
+sb2_rm(obj, list(1:3), 1)
+# above is equivalent to obj[-1:-3, ]
 
-obj <- factor(rep(letters[1:5], 2))
-sb_rm(obj, lvl = "a")
-# above is equivalent to obj[which(!obj %in% "a")]
 
 #############################################################################
-
 
 # data.frame-like objects ====
 

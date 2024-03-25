@@ -85,7 +85,10 @@ this method is equivalent to:
 Note that when \code{x} is a \code{data.table},
 one can coercively transform columns by reference
 (which is more memory efficient),
-using \link{dt_setcoe}. \cr \cr
+using \link{dt_setcoe}. \cr
+\cr
+Use \code{sb_coe(x, ...)} if \code{x} is a non-recursive object (i.e. atomic or factor). \cr
+Use \code{sb2_coe(x, ...)} if \code{x} is a recursive object (i.e. list or data.frame-like). \cr \cr
 }
 \examples{
 

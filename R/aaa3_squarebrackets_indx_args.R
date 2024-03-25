@@ -58,7 +58,7 @@
 #' 
 #' 
 #' @section Arguments row, col:
-#' `r .mybadge_class("matrix")` \cr
+#' `r .mybadge_class("atomic matrix")` \cr
 #' `r .mybadge_class("data.frame-like")` \cr
 #' 
 #' Any of the following can be specified for the arguments `row` / `col`:
@@ -84,7 +84,8 @@
 #' ```
 #' 
 #' @section Arguments idx, dims:
-#' `r .mybadge_class("array")` \cr
+#' `r .mybadge_class("atomic array")` \cr
+#' `r .mybadge_class("recursive array")` \cr
 #'  
 #' `idx` must be a list of indices. \cr
 #' `dims` must be an integer vector of the same length as `idx`,
@@ -106,9 +107,9 @@
 #' ```
 #' 
 #' @section Arguments rcl:
-#' `r .mybadge_class("array")` \cr
+#' `r .mybadge_class("atomic array")` \cr
 #' 
-#' The `rcl` argument is only applicable for arrays with exactly 3 dimensions. \cr
+#' The `rcl` argument is only applicable for atomic arrays with exactly 3 dimensions. \cr
 #' If the user knows a-priori that an array has 3 dimensions,
 #' using `rcl` is more efficient than using the `idx, dims` arguments. \cr
 #' \cr
@@ -179,7 +180,7 @@
 #' \cr
 #' 
 #' @section Duplicates (for Names, Integers, and Levels):
-#' Generally speaking, duplicate names, integers, or levels are NOT allowed in index selection. \cr
+#' Generally speaking, duplicate names, integers, or levels are not allowed in index selection. \cr
 #' The exception is the \link{sb_x} method,
 #' as that method can be used for duplicating indices. \cr
 #' \cr

@@ -84,13 +84,18 @@ Returns a copy of the appended object.
 \description{
 The \code{sb_before()}/\code{sb2_before()} method
 inserts new values before some position along a dimension. \cr
-The \code{sb_after()}/\code{sb_after()} method
+The \code{sb_after()}/\code{sb2_after()} method
 inserts new values after some position along a dimension. \cr
 \cr
 These functions use a modified version of \code{abind::}\link[abind]{abind}
 (see reference below). \cr
+\cr
+Use \code{sb_before(x, ...)}/\code{sb_afterr(x, ...)}
+if \code{x} is a non-recursive object (i.e. atomic or factor). \cr
+Use \code{sb2_before(x, ...)}/\code{sb2_afterr(x, ...)}
+if \code{x} is a recursive object (i.e. list or data.frame-like). \cr
 Note that \code{sb2_before()} and \code{sb2_after()}
-offer no support for dimensional lists. \cr \cr
+offer no support for dimensional lists (i.e. recursive arrays). \cr \cr
 }
 \examples{
 

@@ -127,7 +127,7 @@ with a decimal number
 (type <code>dbl</code>)
 will coerce the entire vector to type <code>dbl</code>. <br><br>
 Replacing or transforming subsets of mutable atomic objects <b>by reference</b>
-does NOT support coercion.
+does not support coercion.
 Thus, for example, the following code,</p>
 <p></p><div class="sourceCode r"><pre><code><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">16</span></span>
 <span><span class="fu"><a href="../reference/sb_set.html">sb_set</a></span><span class="op">(</span><span class="va">x</span>, i <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">6</span>, rp <span class="op">=</span> <span class="fl">8.5</span><span class="op">)</span></span>
@@ -142,13 +142,13 @@ allows completely changing the type of the column. <br>
 Note that coercion of columns needs arguments
 <code>row = NULL</code> and <code>filter = NULL</code>
 in the <a href="sb_mod.html">sb_mod</a> and <a href="sb_set.html">sb_set</a> methods;
-NO auto-coercion will take place when specifying something like <code>row = 1:nrow(x)</code>
+no auto-coercion will take place when specifying something like <code>row = 1:nrow(x)</code>
 (see next section). <br><br><br><b>data.table, when partially replacing/transforming columns</b> <br><img src="figures/coercion_through_copy-NO-red.svg" alt="[coercion_through_copy: NO]"><br><img src="figures/coercion_by_reference-NO-red.svg" alt="[coercion_by_reference: NO]"><br>
 If rows are specified in the <a href="sb_mod.html">sb_mod</a> and <a href="sb_set.html">sb_set</a> methods,
 and thus not whole columns but parts of columns are replaced or transformed,
-NO auto-coercion takes place. <br>
+no auto-coercion takes place. <br>
 I.e.: replacing/transforming a value in an integer (<code>int</code>) column to become <code>1.5</code>,
-will NOT coerce the column to the decimal type (<code>dbl</code>);
+will not coerce the column to the decimal type (<code>dbl</code>);
 instead, the replacement value <code>1.5</code> is coerced to integer <code>1</code>. <br>
 The <code>coe</code> argument in the <a href="sb_mod.html">sb_mod</a> method
 allows the user to enforce coercion,

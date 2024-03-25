@@ -101,10 +101,6 @@
 #'  - generic methods for recursive objects (list, data.frame, etc.);
 #'  these all start with `sb2_`. \cr
 #' 
-#' So for example,
-#' use `sb_rm()` to remove subsets from atomic arrays,
-#' and use `sb2_rm()` to remove subsets from recursive arrays. \cr
-#' 
 #' The available generic methods are the following:
 #' 
 #'  * \link{sb_x}, \link{sb2_x}: extract, exchange, or duplicate subsets.
@@ -124,7 +120,11 @@
 #'  a \link[=squarebrackets_mutable_classes]{mutable object}
 #'  using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
 #'  * \link{sb_currentBindings}, \link{sb2_currentBindings}: list or lock all currently existing bindings
-#'  that share the share the same address as the input variable. \cr \cr
+#'  that share the share the same address as the input variable. \cr
+#'  
+#' So for example,
+#' use `sb_rm()` to remove subsets from atomic arrays,
+#' and use `sb2_rm()` to remove subsets from recursive arrays. \cr \cr
 #' 
 #' `r .mybadge_intro_section("SPECIALIZED FUNCTIONS", "darkred")` \cr
 #' Additional specialized sub-setting functions are provided:

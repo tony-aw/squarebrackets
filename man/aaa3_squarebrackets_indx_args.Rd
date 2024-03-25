@@ -63,7 +63,7 @@ see the \code{Details} section in \link{sub2ind}. \cr
 
 \section{Arguments row, col}{
 
-\ifelse{html}{\figure{class-matrix-red.svg}{options: alt='[class: matrix]'}}{\link[=squarebrackets_indx_args]{class: matrix}} \cr
+\ifelse{html}{\figure{class-atomic_matrix-red.svg}{options: alt='[class: atomic matrix]'}}{\link[=squarebrackets_indx_args]{class: atomic matrix}} \cr
 \ifelse{html}{\figure{class-data.frame-like-red.svg}{options: alt='[class: data.frame-like]'}}{\link[=squarebrackets_indx_args]{class: data.frame-like}} \cr
 
 Any of the following can be specified for the arguments \code{row} / \code{col}:
@@ -91,7 +91,8 @@ Using the \verb{row, col} arguments corresponds to doing something like the foll
 
 \section{Arguments idx, dims}{
 
-\ifelse{html}{\figure{class-array-red.svg}{options: alt='[class: array]'}}{\link[=squarebrackets_indx_args]{class: array}} \cr
+\ifelse{html}{\figure{class-atomic_array-red.svg}{options: alt='[class: atomic array]'}}{\link[=squarebrackets_indx_args]{class: atomic array}} \cr
+\ifelse{html}{\figure{class-recursive_array-red.svg}{options: alt='[class: recursive array]'}}{\link[=squarebrackets_indx_args]{class: recursive array}} \cr
 
 \code{idx} must be a list of indices. \cr
 \code{dims} must be an integer vector of the same length as \code{idx},
@@ -114,9 +115,9 @@ here using an example of a 4-dimensional array:
 
 \section{Arguments rcl}{
 
-\ifelse{html}{\figure{class-array-red.svg}{options: alt='[class: array]'}}{\link[=squarebrackets_indx_args]{class: array}} \cr
+\ifelse{html}{\figure{class-atomic_array-red.svg}{options: alt='[class: atomic array]'}}{\link[=squarebrackets_indx_args]{class: atomic array}} \cr
 
-The \code{rcl} argument is only applicable for arrays with exactly 3 dimensions. \cr
+The \code{rcl} argument is only applicable for atomic arrays with exactly 3 dimensions. \cr
 If the user knows a-priori that an array has 3 dimensions,
 using \code{rcl} is more efficient than using the \verb{idx, dims} arguments. \cr
 \cr
@@ -191,7 +192,7 @@ For example, to select all numeric columns, specify \code{vars = is.numeric}. \c
 
 \section{Duplicates (for Names, Integers, and Levels)}{
 
-Generally speaking, duplicate names, integers, or levels are NOT allowed in index selection. \cr
+Generally speaking, duplicate names, integers, or levels are not allowed in index selection. \cr
 The exception is the \link{sb_x} method,
 as that method can be used for duplicating indices. \cr
 \cr

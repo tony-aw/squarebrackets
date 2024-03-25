@@ -121,10 +121,6 @@ these all start with \code{sb_}.
 these all start with \code{sb2_}. \cr
 }
 
-So for example,
-use \code{sb_rm()} to remove subsets from atomic arrays,
-and use \code{sb2_rm()} to remove subsets from recursive arrays. \cr
-
 The available generic methods are the following:
 \itemize{
 \item \link{sb_x}, \link{sb2_x}: extract, exchange, or duplicate subsets.
@@ -144,8 +140,12 @@ along a dimension of an object.
 a \link[=squarebrackets_mutable_classes]{mutable object}
 using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
 \item \link{sb_currentBindings}, \link{sb2_currentBindings}: list or lock all currently existing bindings
-that share the share the same address as the input variable. \cr \cr
+that share the share the same address as the input variable. \cr
 }
+
+So for example,
+use \code{sb_rm()} to remove subsets from atomic arrays,
+and use \code{sb2_rm()} to remove subsets from recursive arrays. \cr \cr
 
 \ifelse{html}{\figure{specialized_functions-darkred.svg}{options: alt='[SPECIALIZED FUNCTIONS]'}}{\link[=squarebrackets_help]{SPECIALIZED FUNCTIONS}} \cr
 Additional specialized sub-setting functions are provided:

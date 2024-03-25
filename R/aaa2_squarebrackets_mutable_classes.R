@@ -47,7 +47,7 @@
 #' will coerce the entire vector to type `dbl`. \cr
 #' \cr
 #' Replacing or transforming subsets of mutable atomic objects \bold{by reference}
-#' does NOT support coercion.
+#' does not support coercion.
 #' Thus, for example, the following code,
 #' ```{r eval = FALSE}
 #' x <- 1:16
@@ -69,7 +69,7 @@
 #' Note that coercion of columns needs arguments
 #' `row = NULL` and `filter = NULL`
 #' in the \link{sb_mod} and \link{sb_set} methods;
-#' NO auto-coercion will take place when specifying something like `row = 1:nrow(x)`
+#' no auto-coercion will take place when specifying something like `row = 1:nrow(x)`
 #' (see next section). \cr
 #' \cr
 #' \cr
@@ -78,9 +78,9 @@
 #' `r .mybadge_coercion_by_ref("NO")` \cr
 #' If rows are specified in the \link{sb_mod} and \link{sb_set} methods,
 #' and thus not whole columns but parts of columns are replaced or transformed,
-#' NO auto-coercion takes place. \cr
+#' no auto-coercion takes place. \cr
 #' I.e.: replacing/transforming a value in an integer (`int`) column to become `1.5`,
-#' will NOT coerce the column to the decimal type (`dbl`);
+#' will not coerce the column to the decimal type (`dbl`);
 #' instead, the replacement value `1.5` is coerced to integer `1`. \cr
 #' The `coe` argument in the \link{sb_mod} method
 #' allows the user to enforce coercion,

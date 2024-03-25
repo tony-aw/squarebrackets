@@ -64,7 +64,7 @@ subset_arr <- function(x, i, j, l, tf) {
   return(x)
 }
 
-x <- array(seq_len(10^4), dim = c(10, 10, 10, 10))
+x <- array(as.list(seq_len(10^4)), dim = c(10, 10, 10, 10))
 rownames(x) <- c(letters[1:8], "a", NA)
 tf <- function(x) -x
 
@@ -209,7 +209,7 @@ sb_test <- function(...)sb2_mod(..., tf = \(x)x[1])
 sys.source(file.path(getwd(), "source", "sourcetest-errors.R"), envir = environment())
 
 expect_error(
-  sb2_mod(1:10, i = 1, tf = "foo"),
+  sb2_mod(as.list(1:10), i = 1, tf = "foo"),
   pattern = "`tf` must be a function"
 )
 

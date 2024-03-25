@@ -64,7 +64,6 @@ sb2_mod(x, ...)
   x,
   idx = NULL,
   dims = NULL,
-  rcl = NULL,
   i = NULL,
   ...,
   rp,
@@ -124,7 +123,9 @@ See Details section for more info. \cr
 A copy of the object with replaced/transformed values. \cr \cr
 }
 \description{
-This is an S3 Method to return a copy of an object with modified subsets.
+This is an S3 Method to return a copy of an object with modified subsets. \cr
+Use \code{sb_mod(x, ...)} if \code{x} is a non-recursive object (i.e. atomic or factor). \cr
+Use \code{sb2_mod(x, ...)} if \code{x} is a recursive object (i.e. list or data.frame-like). \cr \cr
 }
 \details{
 \bold{Transform or Replace} \cr
@@ -210,6 +211,15 @@ sb2_mod(obj, is.numeric, rp = list(-1:-10, -11:-20))
 
 #############################################################################
 
+
+# recursive arrays / dimensional lists ====
+obj <- c(as.list(1:10), as.list(letters[1:10])) |> array(dim = c(5, 4)) |> t()
+print(obj)
+sb2_mod(obj, list(1:3), 1, rp = list(FALSE))
+# above is equivalent to obj[1:3, ] <- list(FALSE)
+
+
+#############################################################################
 
 # data.frame-like objects  - whole columns ====
 

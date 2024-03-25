@@ -111,7 +111,7 @@ sys.source(file.path(getwd(), "source", "sourcetest-datasets.R"), envir = enviro
 
 # test errors ====
 
-sb2_set2 <- function(x, ...) {
+sb_test <- function(x, ...) {
   x <- data.table::copy(x)
   if(is.atomic(x)) x <- as.mutable_atomic(x)
   sb2_set(x, ...)

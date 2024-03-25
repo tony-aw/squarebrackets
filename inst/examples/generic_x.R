@@ -23,18 +23,6 @@ sb_x(obj, i = \(x)x>5)
 #############################################################################
 
 
-# lists ====
-
-obj <- list(a = 1:10, b = letters[1:11], c = 11:20)
-print(obj)
-sb2_x(obj, 1) # obj[1]
-sb2_x(obj, 1, drop = TRUE) # obj[[1]]
-sb2_x(obj, 1:2) # obj[1:2]
-sb2_x(obj, is.numeric) # obj[sapply(obj, is.numeric)]
-# for recursive indexing, see sb_rec()
-
-#############################################################################
-
 
 # factors ====
 
@@ -44,6 +32,28 @@ sb_x(obj, lvl = c("a", "a"))
 
 #############################################################################
 
+
+# lists ====
+
+obj <- list(a = 1:10, b = letters[1:11], c = 11:20)
+print(obj)
+sb2_x(obj, 1) # obj[1]
+sb2_x(obj, 1, drop = TRUE) # obj[[1]]
+sb2_x(obj, 1:2) # obj[1:2]
+sb2_x(obj, is.numeric) # obj[sapply(obj, is.numeric)]
+# for recursive indexing, see sb2_rec()
+
+################################################################################
+
+
+# recursive arrays / dimensional lists ====
+obj <- c(as.list(1:10), as.list(letters[1:10])) |> array(dim = c(5, 4)) |> t()
+print(obj)
+sb2_x(obj, list(1:3), 1)
+# above is equivalent to obj[1:3, ]
+
+
+#############################################################################
 
 # data.frame-like objects ====
 

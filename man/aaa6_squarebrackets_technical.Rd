@@ -13,23 +13,22 @@ All elements in an atomic vector class
 must have the same atomic type
 ("logical", "integer", "numeric", "complex", "character" and "raw"). \cr
 Therefore, the \link{sb_coe} method will coerce the entirety of an atomic vector,
-NOT just a subset of it. \cr
+not just a subset of it. \cr
 \cr
 \bold{Factor} \cr
 \ifelse{html}{\figure{require_unique_names-NO-red.svg}{options: alt='[require unique names: NO]'}}{\link[=squarebrackets_technical]{require unique names: NO}} \cr
 Factors have the property that they can only store values that are defined in
 their "levels" attribute; other values are not allowed, and thus result in \code{NA}s. \cr
-Thus And \link{sb_mod} does NOT coerce replacement values for factors!
+Thus \link{sb_mod} does not coerce replacement values for factors.
 This is quite different from the atomic vector classes,
-which can store an infinite variety of values
+which can store any value
 (provided they are of the same atomic type). \cr
-Due to these properties, there is NO \code{sb_set()} method for factors. \cr
 \cr
 \bold{List} \cr
 \ifelse{html}{\figure{require_unique_names-NO-red.svg}{options: alt='[require unique names: NO]'}}{\link[=squarebrackets_technical]{require unique names: NO}} \cr
 Lists are recursive objects (i.e. they can be nested),
 and they do not actually store values but rather store reference to other objects. \cr
-Therefore \link{sb_rec} method can be used to access recursive subsets of a list,
+Therefore \link{sb2_rec} method can be used to access recursive subsets of a list,
 no matter how deep/low in hierarchy it is in the list. \cr
 \cr
 \bold{Data.frame-like} \cr
@@ -40,13 +39,12 @@ especially in terms of sub-setting. \cr
 The 'squarebrackets' R-package attempts to keep the data.frame methods as class agnostic as possible,
 through the class agnostic functionality of the 'collapse' and 'data.table' R-packages. \cr
 These 3 things cause some
-\bold{important}
 oddities in how data.frame-like classes are treated differently from the other classes:
 \itemize{
-\item Whole-columns will be auto-coerced when replaced/transformed by \code{sb_mod()},
-but partial columns will NOT be auto-coerced.
+\item Whole-columns will be auto-coerced when replaced/transformed by \link{sb_mod},
+but partial columns will not be auto-coerced by default.
 \item The \link{sb_x} and \link{sb_rm} methods always automatically conserve all attributes
-(though names are adjusted accordingly, of course),
+(though names and dimensions are adjusted accordingly, of course),
 they are never stripped, unlike the other classes.
 \item Giving a data.frame-like object with non-unique column names to the \code{sb_}-methods
 returns an error.

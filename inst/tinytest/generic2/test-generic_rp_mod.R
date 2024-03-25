@@ -67,7 +67,7 @@ subset_arr <- function(x, i, j, l) {
   return(x)
 }
 
-x <- array(seq_len(5^4), dim = c(5, 5, 5, 5))
+x <- array(as.list(seq_len(5^4)), dim = c(5, 5, 5, 5))
 rownames(x) <- c(letters[1:3], "a", NA)
 
 idx <- list(c("a"), c(1:3), c(rep(TRUE, 2), rep(FALSE, 3)))

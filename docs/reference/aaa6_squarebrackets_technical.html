@@ -7,23 +7,22 @@ All elements in an atomic vector class
 must have the same atomic type
 (&quot;logical&quot;, &quot;integer&quot;, &quot;numeric&quot;, &quot;complex&quot;, &quot;character&quot; and &quot;raw&quot;). 
 Therefore, the sb_coe method will coerce the entirety of an atomic vector,
-NOT just a subset of it. 
+not just a subset of it. 
 
 Factor 
  
 Factors have the property that they can only store values that are defined in
 their &quot;levels&quot; attribute; other values are not allowed, and thus result in NAs. 
-Thus And sb_mod does NOT coerce replacement values for factors!
+Thus sb_mod does not coerce replacement values for factors.
 This is quite different from the atomic vector classes,
-which can store an infinite variety of values
+which can store any value
 (provided they are of the same atomic type). 
-Due to these properties, there is NO sb_set() method for factors. 
 
 List 
  
 Lists are recursive objects (i.e. they can be nested),
 and they do not actually store values but rather store reference to other objects. 
-Therefore sb_rec method can be used to access recursive subsets of a list,
+Therefore sb2_rec method can be used to access recursive subsets of a list,
 no matter how deep/low in hierarchy it is in the list. 
 
 Data.frame-like 
@@ -34,12 +33,11 @@ especially in terms of sub-setting.
 The 'squarebrackets' R-package attempts to keep the data.frame methods as class agnostic as possible,
 through the class agnostic functionality of the 'collapse' and 'data.table' R-packages. 
 These 3 things cause some
-important
 oddities in how data.frame-like classes are treated differently from the other classes:
-Whole-columns will be auto-coerced when replaced/transformed by sb_mod(),
-but partial columns will NOT be auto-coerced.
+Whole-columns will be auto-coerced when replaced/transformed by sb_mod,
+but partial columns will not be auto-coerced by default.
 The sb_x and sb_rm methods always automatically conserve all attributes
-(though names are adjusted accordingly, of course),
+(though names and dimensions are adjusted accordingly, of course),
 they are never stripped, unlike the other classes.
 Giving a data.frame-like object with non-unique column names to the sb_-methods
 returns an error.
@@ -54,23 +52,22 @@ All elements in an atomic vector class
 must have the same atomic type
 (&quot;logical&quot;, &quot;integer&quot;, &quot;numeric&quot;, &quot;complex&quot;, &quot;character&quot; and &quot;raw&quot;). 
 Therefore, the sb_coe method will coerce the entirety of an atomic vector,
-NOT just a subset of it. 
+not just a subset of it. 
 
 Factor 
  
 Factors have the property that they can only store values that are defined in
 their &quot;levels&quot; attribute; other values are not allowed, and thus result in NAs. 
-Thus And sb_mod does NOT coerce replacement values for factors!
+Thus sb_mod does not coerce replacement values for factors.
 This is quite different from the atomic vector classes,
-which can store an infinite variety of values
+which can store any value
 (provided they are of the same atomic type). 
-Due to these properties, there is NO sb_set() method for factors. 
 
 List 
  
 Lists are recursive objects (i.e. they can be nested),
 and they do not actually store values but rather store reference to other objects. 
-Therefore sb_rec method can be used to access recursive subsets of a list,
+Therefore sb2_rec method can be used to access recursive subsets of a list,
 no matter how deep/low in hierarchy it is in the list. 
 
 Data.frame-like 
@@ -81,12 +78,11 @@ especially in terms of sub-setting.
 The 'squarebrackets' R-package attempts to keep the data.frame methods as class agnostic as possible,
 through the class agnostic functionality of the 'collapse' and 'data.table' R-packages. 
 These 3 things cause some
-important
 oddities in how data.frame-like classes are treated differently from the other classes:
-Whole-columns will be auto-coerced when replaced/transformed by sb_mod(),
-but partial columns will NOT be auto-coerced.
+Whole-columns will be auto-coerced when replaced/transformed by sb_mod,
+but partial columns will not be auto-coerced by default.
 The sb_x and sb_rm methods always automatically conserve all attributes
-(though names are adjusted accordingly, of course),
+(though names and dimensions are adjusted accordingly, of course),
 they are never stripped, unlike the other classes.
 Giving a data.frame-like object with non-unique column names to the sb_-methods
 returns an error.
@@ -151,17 +147,16 @@ All elements in an atomic vector class
 must have the same atomic type
 ("logical", "integer", "numeric", "complex", "character" and "raw"). <br>
 Therefore, the <a href="sb_coe.html">sb_coe</a> method will coerce the entirety of an atomic vector,
-NOT just a subset of it. <br><br><b>Factor</b> <br><img src="figures/require_unique_names-NO-red.svg" alt="[require unique names: NO]"><br>
+not just a subset of it. <br><br><b>Factor</b> <br><img src="figures/require_unique_names-NO-red.svg" alt="[require unique names: NO]"><br>
 Factors have the property that they can only store values that are defined in
 their "levels" attribute; other values are not allowed, and thus result in <code>NA</code>s. <br>
-Thus And <a href="sb_mod.html">sb_mod</a> does NOT coerce replacement values for factors!
+Thus <a href="sb_mod.html">sb_mod</a> does not coerce replacement values for factors.
 This is quite different from the atomic vector classes,
-which can store an infinite variety of values
-(provided they are of the same atomic type). <br>
-Due to these properties, there is NO <code><a href="sb_set.html">sb_set()</a></code> method for factors. <br><br><b>List</b> <br><img src="figures/require_unique_names-NO-red.svg" alt="[require unique names: NO]"><br>
+which can store any value
+(provided they are of the same atomic type). <br><br><b>List</b> <br><img src="figures/require_unique_names-NO-red.svg" alt="[require unique names: NO]"><br>
 Lists are recursive objects (i.e. they can be nested),
 and they do not actually store values but rather store reference to other objects. <br>
-Therefore <a href="sb_rec.html">sb_rec</a> method can be used to access recursive subsets of a list,
+Therefore <a href="sb2_rec.html">sb2_rec</a> method can be used to access recursive subsets of a list,
 no matter how deep/low in hierarchy it is in the list. <br><br><b>Data.frame-like</b> <br><img src="figures/require_unique_names-YES-darkgreen.svg" alt="[require unique names: YES]"><br>
 The data.frame-like objects quite different from the previously named classes. <br>
 And the different data.frame-like classes also differ from each other quite a bit -
@@ -169,11 +164,10 @@ especially in terms of sub-setting. <br>
 The 'squarebrackets' R-package attempts to keep the data.frame methods as class agnostic as possible,
 through the class agnostic functionality of the 'collapse' and 'data.table' R-packages. <br>
 These 3 things cause some
-<b>important</b>
-oddities in how data.frame-like classes are treated differently from the other classes:</p><ul><li><p>Whole-columns will be auto-coerced when replaced/transformed by <code><a href="sb_mod.html">sb_mod()</a></code>,
-but partial columns will NOT be auto-coerced.</p></li>
+oddities in how data.frame-like classes are treated differently from the other classes:</p><ul><li><p>Whole-columns will be auto-coerced when replaced/transformed by <a href="sb_mod.html">sb_mod</a>,
+but partial columns will not be auto-coerced by default.</p></li>
 <li><p>The <a href="sb_x.html">sb_x</a> and <a href="sb_rm.html">sb_rm</a> methods always automatically conserve all attributes
-(though names are adjusted accordingly, of course),
+(though names and dimensions are adjusted accordingly, of course),
 they are never stripped, unlike the other classes.</p></li>
 <li><p>Giving a data.frame-like object with non-unique column names to the <code>sb_</code>-methods
 returns an error.

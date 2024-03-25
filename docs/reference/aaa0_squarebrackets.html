@@ -144,10 +144,7 @@ There are 2 types of generic methods:</p><ul><li><p>generic methods for non-recu
 these all start with <code>sb_</code>.</p></li>
 <li><p>generic methods for recursive objects (list, data.frame, etc.);
 these all start with <code>sb2_</code>. <br></p></li>
-</ul><p>So for example,
-use <code><a href="sb_rm.html">sb_rm()</a></code> to remove subsets from atomic arrays,
-and use <code><a href="sb_rm.html">sb2_rm()</a></code> to remove subsets from recursive arrays. <br></p>
-<p>The available generic methods are the following:</p><ul><li><p><a href="sb_x.html">sb_x</a>, <a href="sb_x.html">sb2_x</a>: extract, exchange, or duplicate subsets.</p></li>
+</ul><p>The available generic methods are the following:</p><ul><li><p><a href="sb_x.html">sb_x</a>, <a href="sb_x.html">sb2_x</a>: extract, exchange, or duplicate subsets.</p></li>
 <li><p><a href="sb_rm.html">sb_rm</a>,  <a href="sb_rm.html">sb2_rm</a>: un-select/remove subsets.</p></li>
 <li><p><a href="sb_set.html">sb_set</a>, <a href="sb_set.html">sb2_set</a>: modify (transform or replace)
 subsets of a <a href="aaa2_squarebrackets_mutable_classes.html">mutable object</a>
@@ -159,13 +156,16 @@ of an object with modified
 or a recursive subset of an object.</p></li>
 <li><p><a href="sb_in.html">sb_before</a>, <a href="sb_in.html">sb_after</a>, <a href="sb_in.html">sb2_before</a>, <a href="sb_in.html">sb2_after</a>: insert new values before or after an index
 along a dimension of an object.</p></li>
-<li><p><a href="sb_rec.html">sb2_rec</a>: accesses recursive subsets of lists.</p></li>
+<li><p><a href="sb2_rec.html">sb2_rec</a>: accesses recursive subsets of lists.</p></li>
 <li><p><a href="sb_setRename.html">sb_setRename</a>, <a href="sb_setRename.html">sb2_setRename</a>: change the names of
 a <a href="aaa2_squarebrackets_mutable_classes.html">mutable object</a>
 using <a href="aaa5_squarebrackets_PassByReference.html">pass-by-reference semantics</a>.</p></li>
 <li><p><a href="sb_currentBindings.html">sb_currentBindings</a>, <a href="sb_currentBindings.html">sb2_currentBindings</a>: list or lock all currently existing bindings
-that share the share the same address as the input variable. <br><br></p></li>
-</ul><p><img src="figures/specialized_functions-darkred.svg" alt="[SPECIALIZED FUNCTIONS]"><br>
+that share the share the same address as the input variable. <br></p></li>
+</ul><p>So for example,
+use <code><a href="sb_rm.html">sb_rm()</a></code> to remove subsets from atomic arrays,
+and use <code><a href="sb_rm.html">sb2_rm()</a></code> to remove subsets from recursive arrays. <br><br></p>
+<p><img src="figures/specialized_functions-darkred.svg" alt="[SPECIALIZED FUNCTIONS]"><br>
 Additional specialized sub-setting functions are provided:</p><ul><li><p><a href="setapply.html">setapply</a>: apply functions over mutable matrix margins
 using <a href="aaa5_squarebrackets_PassByReference.html">pass-by-reference semantics</a>.</p></li>
 <li><p><a href="ma_setv.html">ma_setv</a>: Find &amp; Replace values in <a href="class_mutable_atomic.html">mutable_atomic</a> objects

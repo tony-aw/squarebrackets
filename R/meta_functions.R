@@ -10,7 +10,7 @@
 #' @noRd
 .mybadge_class <- function(x) {
   txt <- paste0("class: ", x)
-  file <- paste0("class-", x, "-red.svg")
+  file <- paste0("class-", gsub(" ", "_", x), "-red.svg")
   text <- sprintf("\\link[=squarebrackets_indx_args]{%s}", txt)
   html <- sprintf(
     "\\figure{%s}{options: alt='[%s]'}",

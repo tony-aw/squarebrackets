@@ -36,7 +36,7 @@ reference:
   - '`sb_coe`'
   - '`sb_before`'
   - '`sb_after`'
-  - '`sb_rec`'
+  - '`sb2_rec`'
   - '`sb_setRename`'
   - '`sb_currentBindings`'
 - title: Specialized Functions

@@ -48,6 +48,15 @@ sb2_mod(obj, is.numeric, rp = list(-1:-10, -11:-20))
 #############################################################################
 
 
+# recursive arrays / dimensional lists ====
+obj <- c(as.list(1:10), as.list(letters[1:10])) |> array(dim = c(5, 4)) |> t()
+print(obj)
+sb2_mod(obj, list(1:3), 1, rp = list(FALSE))
+# above is equivalent to obj[1:3, ] <- list(FALSE)
+
+
+#############################################################################
+
 # data.frame-like objects  - whole columns ====
 
 obj <- data.frame(a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10]))

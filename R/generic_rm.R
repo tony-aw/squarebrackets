@@ -1,7 +1,9 @@
 #' Method to Un-Select/Remove Subsets of an Object
 #'
 #' @description
-#' This is an S3 Method to un-select/remove subsets from an object.
+#' This is an S3 Method to un-select/remove subsets from an object. \cr
+#' Use `sb_rm(x, ...)` if `x` is a non-recursive object (i.e. atomic or factor). \cr
+#' Use `sb2_rm(x, ...)` if `x` is a recursive object (i.e. list or data.frame-like). \cr \cr
 #'
 #' @param x see \link{squarebrackets_immutable_classes} and \link{squarebrackets_mutable_classes}.
 #' @param i,lvl,row,col,idx,dims,rcl,filter,vars See \link{squarebrackets_indx_args}. \cr
@@ -9,8 +11,11 @@
 #' and the entire object is returned. \cr
 #' @param drop Boolean.
 #'  * For factors: If `drop = TRUE`, unused levels are dropped, if `drop = FALSE` they are not dropped.
-#'  * For lists: if `drop = TRUE`, selecting a single element will give the simplified result,
-#'  like using `[[]]`. If `drop = FALSE`, a list is always returned regardless of the number of elements.
+#'  * For lists: if `drop = TRUE`,
+#'  and sub-setting is done using argument `i`,
+#'  selecting a single element will give the simplified result,
+#'  like using `[[]]`.
+#'  If `drop = FALSE`, a list is always returned regardless of the number of elements.
 #' @param rat Boolean,
 #' indicating if attributes should be returned with the sub-setted object. \cr
 #' See Details section for more info. \cr
@@ -32,8 +37,11 @@
 #' their attributes will always be preserved. \cr
 #' NOTE: In the following situations, the `rat` argument will be ignored,
 #' as the attributes necessarily have to be dropped:
-#'  * when `x` is a list, AND `drop = TRUE`, AND a single element is selected.
-#'  * when `x` is a matrix or array, and sub-setting is done through the `i` argument.
+#'  * when `x` is a list, AND `drop = TRUE`,
+#'  AND a single element is selected,
+#'  AND sub-setting is done through the `i` argument.
+#'  * when `x` is an atomic matrix or array,
+#'  and sub-setting is done through the `i` argument. \cr \cr
 #'
 #'
 #' @returns
@@ -47,6 +55,11 @@
 #' @rdname sb_rm
 #' @export
 sb_rm <- function(x, ...) {
+  
+  if(is.recursive(x)) {
+    stop("Use the `sb2_` methods for recursive objects")
+  }
+  
   UseMethod("sb_rm", x)
 }
 
@@ -59,9 +72,6 @@ sb_rm.default <- function(
     chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
-  if(is.recursive(x)) {
-    stop("Use the `sb2_` methods for recursive objects")
-  }
   
   elements <- .indx_make_element(i, x, is_list = FALSE, chkdup = chkdup, inv = TRUE, abortcall = sys.call())
   if(rat) {
@@ -78,9 +88,6 @@ sb_rm.matrix <- function(
     rat = getOption("squarebrackets.rat", FALSE), chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
-  if(is.recursive(x)) {
-    stop("Use the `sb2_` methods for recursive objects")
-  }
   
   if(!is.null(i)) {
     elements <- .indx_make_element(i, x, is_list = FALSE, chkdup = chkdup, inv = TRUE, abortcall = sys.call())
@@ -127,9 +134,6 @@ sb_rm.array <- function(
     rat = getOption("squarebrackets.rat", FALSE), chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
-  if(is.recursive(x)) {
-    stop("Use the `sb2_` methods for recursive objects")
-  }
   
   if(!is.null(i)) {
     elements <- .indx_make_element(
@@ -164,10 +168,7 @@ sb_rm.factor <- function(
     rat = getOption("squarebrackets.rat", FALSE), chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
-  if(is.recursive(x)) {
-    stop("Use the `sb2_` methods for recursive objects")
-  }
-  
+ 
   .check_args_factor(i, lvl, drop, abortcall = sys.call())
   
   if(!is.null(i)) {
@@ -190,6 +191,11 @@ sb_rm.factor <- function(
 #' @rdname sb_rm
 #' @export
 sb2_rm <- function(x, ...) {
+  
+  if(!is.recursive(x)) {
+    stop("Use the `sb_` methods for non-recursive objects")
+  }
+  
   UseMethod("sb2_rm", x)
 }
 
@@ -201,13 +207,6 @@ sb2_rm.default <- function(
     rat = getOption("squarebrackets.rat", FALSE), chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
-  if(!is.recursive(x)) {
-    stop("Use the `sb_` methods for non-recursive objects")
-  }
-  
-  if(!isTRUE(drop) && !isFALSE(drop)) {
-    stop("`drop` must be either `TRUE` or `FALSE`")
-  }
   
   elements <- .indx_make_element(i, x, is_list = TRUE, chkdup = chkdup, inv = TRUE, abortcall = sys.call())
   n.i <- length(elements)
@@ -224,13 +223,10 @@ sb2_rm.default <- function(
 #' @rdname sb_rm
 #' @export
 sb2_rm.array <- function(
-    x, idx = NULL, dims = NULL, rcl = NULL, i = NULL, drop = FALSE, ...,
+    x, idx = NULL, dims = NULL, i = NULL, drop = FALSE, ...,
     rat = getOption("squarebrackets.rat", FALSE), chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
-  if(!is.recursive(x)) {
-    stop("Use the `sb_` methods for non-recursive objects")
-  }
   
   if(!is.null(i)) {
     return(sb2_rm.default(x, i, drop = drop, ..., rat = rat, chkdup = chkdup))
@@ -250,10 +246,6 @@ sb2_rm.data.frame <- function(
     x, row = NULL, col = NULL, filter = NULL, vars = NULL, ...,
     chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
-  
-  if(!is.recursive(x)) {
-    stop("Use the `sb_` methods for non-recursive objects")
-  }
   
   .check_args_df(x, row, col, filter, vars, abortcall = sys.call())
   

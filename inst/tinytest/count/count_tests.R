@@ -20,13 +20,13 @@ SourceFileLocation <- function() {
   }
 }
 
+enumerate_total <- 0
+
 
 wd <- SourceFileLocation()
 setwd(wd)
 setwd("..")
 getwd()
-
-enumerate_total <- 0
 files <- list.files(normalizePath(getwd()), pattern = ".R", full.names = TRUE)
 max.width <- max(stringi::stri_width(basename(files))) + 8
 for(iFile in files) {
@@ -35,6 +35,52 @@ for(iFile in files) {
   cat(stringi::stri_pad_right(basename(iFile), max.width), " -> ", enumerate,  "\n")
   enumerate_total <- enumerate_total + enumerate
 }
+
+
+wd <- SourceFileLocation()
+setwd(wd)
+setwd("..")
+setwd("./generic")
+getwd()
+files <- list.files(normalizePath(getwd()), pattern = ".R", full.names = TRUE)
+max.width <- max(stringi::stri_width(basename(files))) + 8
+for(iFile in files) {
+  print(iFile)
+  capture.output(source(normalizePath(iFile)), file = nullfile())
+  cat(stringi::stri_pad_right(basename(iFile), max.width), " -> ", enumerate,  "\n")
+  enumerate_total <- enumerate_total + enumerate
+}
+
+
+wd <- SourceFileLocation()
+setwd(wd)
+setwd("..")
+setwd("./generic2")
+getwd()
+files <- list.files(normalizePath(getwd()), pattern = ".R", full.names = TRUE)
+max.width <- max(stringi::stri_width(basename(files))) + 8
+for(iFile in files) {
+  print(iFile)
+  capture.output(source(normalizePath(iFile)), file = nullfile())
+  cat(stringi::stri_pad_right(basename(iFile), max.width), " -> ", enumerate,  "\n")
+  enumerate_total <- enumerate_total + enumerate
+}
+
+
+wd <- SourceFileLocation()
+setwd(wd)
+setwd("..")
+setwd("./special")
+getwd()
+files <- list.files(normalizePath(getwd()), pattern = ".R", full.names = TRUE)
+max.width <- max(stringi::stri_width(basename(files))) + 8
+for(iFile in files) {
+  print(iFile)
+  capture.output(source(normalizePath(iFile)), file = nullfile())
+  cat(stringi::stri_pad_right(basename(iFile), max.width), " -> ", enumerate,  "\n")
+  enumerate_total <- enumerate_total + enumerate
+}
+
 
 print(enumerate_total)
 

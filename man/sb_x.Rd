@@ -76,8 +76,11 @@ See Details section for more info. \cr
 \item{drop}{Boolean.
 \itemize{
 \item For factors: If \code{drop = TRUE}, unused levels are dropped, if \code{drop = FALSE} they are not dropped.
-\item For lists: if \code{drop = TRUE}, selecting a single element will give the simplified result,
-like using \verb{[[]]}. If \code{drop = FALSE}, a list is always returned regardless of the number of elements.
+\item For lists: if \code{drop = TRUE},
+and sub-setting is done using argument \code{i},
+selecting a single element will give the simplified result,
+like using \verb{[[]]}.
+If \code{drop = FALSE}, a list is always returned regardless of the number of elements.
 }}
 }
 \value{
@@ -85,7 +88,9 @@ Returns a copy of the sub-setted object.
 }
 \description{
 This is an S3 Method to extract, exchange,
-or duplicate (i.e. repeat x times) subsets of an object.
+or duplicate (i.e. repeat x times) subsets of an object. \cr
+Use \code{sb_x(x, ...)} if \code{x} is a non-recursive object (i.e. atomic or factor). \cr
+Use \code{sb2_x(x, ...)} if \code{x} is a recursive object (i.e. list or data.frame-like). \cr \cr
 }
 \details{
 \bold{One the \code{rat} argument} \cr
@@ -100,8 +105,11 @@ their attributes will always be preserved. \cr
 NOTE: In the following situations, the \code{rat} argument will be ignored,
 as the attributes necessarily have to be dropped:
 \itemize{
-\item when \code{x} is a list, AND \code{drop = TRUE}, AND a single element is selected.
-\item when \code{x} is a matrix or array, and sub-setting is done through the \code{i} argument.
+\item when \code{x} is a list, AND \code{drop = TRUE},
+AND a single element is selected,
+AND sub-setting is done through the \code{i} argument.
+\item when \code{x} is an atomic matrix or array,
+and sub-setting is done through the \code{i} argument. \cr \cr
 }
 }
 \examples{
@@ -130,18 +138,6 @@ sb_x(obj, i = \(x)x>5)
 #############################################################################
 
 
-# lists ====
-
-obj <- list(a = 1:10, b = letters[1:11], c = 11:20)
-print(obj)
-sb2_x(obj, 1) # obj[1]
-sb2_x(obj, 1, drop = TRUE) # obj[[1]]
-sb2_x(obj, 1:2) # obj[1:2]
-sb2_x(obj, is.numeric) # obj[sapply(obj, is.numeric)]
-# for recursive indexing, see sb_rec()
-
-#############################################################################
-
 
 # factors ====
 
@@ -151,6 +147,28 @@ sb_x(obj, lvl = c("a", "a"))
 
 #############################################################################
 
+
+# lists ====
+
+obj <- list(a = 1:10, b = letters[1:11], c = 11:20)
+print(obj)
+sb2_x(obj, 1) # obj[1]
+sb2_x(obj, 1, drop = TRUE) # obj[[1]]
+sb2_x(obj, 1:2) # obj[1:2]
+sb2_x(obj, is.numeric) # obj[sapply(obj, is.numeric)]
+# for recursive indexing, see sb2_rec()
+
+################################################################################
+
+
+# recursive arrays / dimensional lists ====
+obj <- c(as.list(1:10), as.list(letters[1:10])) |> array(dim = c(5, 4)) |> t()
+print(obj)
+sb2_x(obj, list(1:3), 1)
+# above is equivalent to obj[1:3, ]
+
+
+#############################################################################
 
 # data.frame-like objects ====
 

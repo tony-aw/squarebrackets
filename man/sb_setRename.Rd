@@ -69,7 +69,12 @@ sb_setRename(x, newnames = rev(names(x)))
 }\if{html}{\out{</div>}}
 
 will not modify \code{base::letters}, even though \code{names(x)} shared the same address. \cr
-Thus, \code{sb_setRename()} can be used safely without fearing such accidents. \cr \cr
+Thus, \code{sb_setRename()} can be used safely without fearing such accidents. \cr
+\cr
+Use \code{sb_setRename(x, ...)} if \code{x} is a non-recursive object
+(i.e. \link{mutable_atomic}). \cr
+Use \code{sb2_setRename(x, ...)} if \code{x} is a recursive object
+(i.e. \link{data.table}). \cr \cr
 }
 \examples{
  

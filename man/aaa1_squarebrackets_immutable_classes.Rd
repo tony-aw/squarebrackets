@@ -68,7 +68,7 @@ allows completely changing the type of the column. \cr
 Note that coercion of columns needs arguments
 \code{row = NULL} and \code{filter = NULL}
 in the \link{sb_mod} and \link{sb_set} methods;
-NO auto-coercion will take place when specifying something like \code{row = 1:nrow(x)}
+no auto-coercion will take place when specifying something like \code{row = 1:nrow(x)}
 (see next section). \cr
 \cr
 \cr
@@ -76,9 +76,9 @@ NO auto-coercion will take place when specifying something like \code{row = 1:nr
 \ifelse{html}{\figure{coercion_through_copy-NO-red.svg}{options: alt='[coercion_through_copy: NO]'}}{\link[=squarebrackets_immutable_classes]{coercion_through_copy: NO}} \cr
 If rows are specified in the \link{sb_mod} and \link{sb_set} methods,
 and thus not whole columns but parts of columns are replaced or transformed,
-NO auto-coercion takes place. \cr
+no auto-coercion takes place. \cr
 I.e.: replacing/transforming a value in an integer (\code{int}) column to become \code{1.5},
-will NOT coerce the column to the decimal type (\code{dbl});
+will not coerce the column to the decimal type (\code{dbl});
 instead, the replacement value \code{1.5} is coerced to integer \code{1}. \cr
 The \code{coe} argument in the \link{sb_mod} method
 allows the user to enforce coercion,
