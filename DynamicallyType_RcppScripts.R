@@ -411,3 +411,91 @@ writeLines(rcpp_code, fileConn)
 close(fileConn)
 
 
+
+################################################################################
+
+# seq_rec ====
+
+
+inops_nms <- c("plus", "min", "x", "div")
+inops_sym <- c("+", "-", "*", "/")
+
+templatecode <- "
+
+//' @keywords internal
+//' @noRd
+// [[Rcpp::export(.rcpp_seq_rec2_<INOP>)]]
+NumericVector rcpp_seq_rec2_<INOP>(
+  NumericVector inits, int n, NumericVector s, NumericVector m, int form, bool rev
+) {
+
+  if(inits.length() != 2 || s.length() != 2 || m.length() != 2) {
+    stop(\"`inits`, `s`, `m` must each be of length 2\");
+  }
+  
+  NumericVector x(n);
+  Range idx(0, 1);
+  x[idx] = inits;
+  
+  int prev1;
+  int prev2;
+  
+  if(!rev) {
+    prev1 = 1;
+    prev2 = 2;
+  }
+  if(rev) {
+    prev1 = 2;
+    prev2 = 1;
+  }
+  
+  if(form == 1) {
+    for (int i = 2; i < n; i++){
+      x[i] = (s[0] + m[0] * x[i-prev1]) %INOP% (s[1] + m[1] * x[i-prev2]);
+    }
+  }
+  if(form == 2) {
+    for (int i = 2; i < n; i++){
+       x[i] =(m[0] * (x[i-prev1] + s[0])) %INOP% (m[1] * (x[i-prev2] + s[1]));
+    }
+  }
+  
+  return x;
+}
+
+"
+
+rcpp_scripts <- character(length(inops_sym))
+
+for(i in seq_along(inops_sym)) {
+  rcpp_scripts[i] <- stri_replace_all(
+    templatecode,
+    fixed = c("%INOP%", "<INOP>"),
+    replacement = c(inops_sym[i], inops_nms[i]),
+    case_insensitive = FALSE,
+    vectorize_all = FALSE
+  )
+}
+
+
+headers <- "
+
+#include <Rcpp.h>
+
+using namespace Rcpp;
+
+"
+
+
+rcpp_code <- paste(c(headers, rcpp_scripts), collapse = "\n\n\n")
+cat(rcpp_code)
+
+Rcpp::sourceCpp(
+  code = rcpp_code # no errors, good
+)
+
+
+
+fileConn <- file("src/dynamic_rcpp_seq_rec2.cpp")
+writeLines(rcpp_code, fileConn)
+close(fileConn)

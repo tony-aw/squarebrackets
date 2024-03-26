@@ -96,5 +96,6 @@ tinycodet::import_LL("squarebrackets", selection = ... )
   `sb_mod.data.frame()`.
 - 24 March 2024: Methods are now split between methods for non-recursive
   objects (`sb_`), and methods for recursive objects (`sb2_`).
+- 26 March 2024: Replaced `seq_rec()` with `seq_rec2()`.
 
  

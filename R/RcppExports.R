@@ -3,6 +3,30 @@
 
 #' @keywords internal
 #' @noRd
+.rcpp_seq_rec2_plus <- function(inits, n, s, m, form, rev) {
+    .Call(`_squarebrackets_rcpp_seq_rec2_plus`, inits, n, s, m, form, rev)
+}
+
+#' @keywords internal
+#' @noRd
+.rcpp_seq_rec2_min <- function(inits, n, s, m, form, rev) {
+    .Call(`_squarebrackets_rcpp_seq_rec2_min`, inits, n, s, m, form, rev)
+}
+
+#' @keywords internal
+#' @noRd
+.rcpp_seq_rec2_x <- function(inits, n, s, m, form, rev) {
+    .Call(`_squarebrackets_rcpp_seq_rec2_x`, inits, n, s, m, form, rev)
+}
+
+#' @keywords internal
+#' @noRd
+.rcpp_seq_rec2_div <- function(inits, n, s, m, form, rev) {
+    .Call(`_squarebrackets_rcpp_seq_rec2_div`, inits, n, s, m, form, rev)
+}
+
+#' @keywords internal
+#' @noRd
 .rcpp_set_rowcol_Logical <- function(x, rowind, colind, rp) {
     invisible(.Call(`_squarebrackets_rcpp_set_rowcol_Logical`, x, rowind, colind, rp))
 }
@@ -407,12 +431,6 @@
 #' @noRd
 .rcpp_seq_mlen <- function(x) {
     .Call(`_squarebrackets_rcpp_mlen`, x)
-}
-
-#' @keywords internal
-#' @noRd
-.rcpp_seq_rec <- function(inits, w, n, f) {
-    .Call(`_squarebrackets_rcpp_seq_rec`, inits, w, n, f)
 }
 
 #' @keywords internal

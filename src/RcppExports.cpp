@@ -10,6 +10,70 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
+// rcpp_seq_rec2_plus
+NumericVector rcpp_seq_rec2_plus(NumericVector inits, int n, NumericVector s, NumericVector m, int form, bool rev);
+RcppExport SEXP _squarebrackets_rcpp_seq_rec2_plus(SEXP initsSEXP, SEXP nSEXP, SEXP sSEXP, SEXP mSEXP, SEXP formSEXP, SEXP revSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type inits(initsSEXP);
+    Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type s(sSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type m(mSEXP);
+    Rcpp::traits::input_parameter< int >::type form(formSEXP);
+    Rcpp::traits::input_parameter< bool >::type rev(revSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_seq_rec2_plus(inits, n, s, m, form, rev));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_seq_rec2_min
+NumericVector rcpp_seq_rec2_min(NumericVector inits, int n, NumericVector s, NumericVector m, int form, bool rev);
+RcppExport SEXP _squarebrackets_rcpp_seq_rec2_min(SEXP initsSEXP, SEXP nSEXP, SEXP sSEXP, SEXP mSEXP, SEXP formSEXP, SEXP revSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type inits(initsSEXP);
+    Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type s(sSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type m(mSEXP);
+    Rcpp::traits::input_parameter< int >::type form(formSEXP);
+    Rcpp::traits::input_parameter< bool >::type rev(revSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_seq_rec2_min(inits, n, s, m, form, rev));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_seq_rec2_x
+NumericVector rcpp_seq_rec2_x(NumericVector inits, int n, NumericVector s, NumericVector m, int form, bool rev);
+RcppExport SEXP _squarebrackets_rcpp_seq_rec2_x(SEXP initsSEXP, SEXP nSEXP, SEXP sSEXP, SEXP mSEXP, SEXP formSEXP, SEXP revSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type inits(initsSEXP);
+    Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type s(sSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type m(mSEXP);
+    Rcpp::traits::input_parameter< int >::type form(formSEXP);
+    Rcpp::traits::input_parameter< bool >::type rev(revSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_seq_rec2_x(inits, n, s, m, form, rev));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_seq_rec2_div
+NumericVector rcpp_seq_rec2_div(NumericVector inits, int n, NumericVector s, NumericVector m, int form, bool rev);
+RcppExport SEXP _squarebrackets_rcpp_seq_rec2_div(SEXP initsSEXP, SEXP nSEXP, SEXP sSEXP, SEXP mSEXP, SEXP formSEXP, SEXP revSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type inits(initsSEXP);
+    Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type s(sSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type m(mSEXP);
+    Rcpp::traits::input_parameter< int >::type form(formSEXP);
+    Rcpp::traits::input_parameter< bool >::type rev(revSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_seq_rec2_div(inits, n, s, m, form, rev));
+    return rcpp_result_gen;
+END_RCPP
+}
 // rcpp_set_rowcol_Logical
 void rcpp_set_rowcol_Logical(LogicalMatrix x, IntegerVector rowind, IntegerVector colind, LogicalVector rp);
 RcppExport SEXP _squarebrackets_rcpp_set_rowcol_Logical(SEXP xSEXP, SEXP rowindSEXP, SEXP colindSEXP, SEXP rpSEXP) {
@@ -840,20 +904,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// rcpp_seq_rec
-NumericVector rcpp_seq_rec(NumericVector inits, int w, int n, Function f);
-RcppExport SEXP _squarebrackets_rcpp_seq_rec(SEXP initsSEXP, SEXP wSEXP, SEXP nSEXP, SEXP fSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type inits(initsSEXP);
-    Rcpp::traits::input_parameter< int >::type w(wSEXP);
-    Rcpp::traits::input_parameter< int >::type n(nSEXP);
-    Rcpp::traits::input_parameter< Function >::type f(fSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_seq_rec(inits, w, n, f));
-    return rcpp_result_gen;
-END_RCPP
-}
 // rcpp_setvind_Complex
 void rcpp_setvind_Complex(ComplexVector x, IntegerVector ind, ComplexVector rp);
 RcppExport SEXP _squarebrackets_rcpp_setvind_Complex(SEXP xSEXP, SEXP indSEXP, SEXP rpSEXP) {
@@ -945,6 +995,10 @@ RcppExport SEXP C_any_badindx(void *, void *);
 RcppExport SEXP C_any_nonpos(void *, void *);
 
 static const R_CallMethodDef CallEntries[] = {
+    {"_squarebrackets_rcpp_seq_rec2_plus", (DL_FUNC) &_squarebrackets_rcpp_seq_rec2_plus, 6},
+    {"_squarebrackets_rcpp_seq_rec2_min", (DL_FUNC) &_squarebrackets_rcpp_seq_rec2_min, 6},
+    {"_squarebrackets_rcpp_seq_rec2_x", (DL_FUNC) &_squarebrackets_rcpp_seq_rec2_x, 6},
+    {"_squarebrackets_rcpp_seq_rec2_div", (DL_FUNC) &_squarebrackets_rcpp_seq_rec2_div, 6},
     {"_squarebrackets_rcpp_set_rowcol_Logical", (DL_FUNC) &_squarebrackets_rcpp_set_rowcol_Logical, 4},
     {"_squarebrackets_rcpp_set_rowcol_Logical1", (DL_FUNC) &_squarebrackets_rcpp_set_rowcol_Logical1, 4},
     {"_squarebrackets_rcpp_set_row_Logical", (DL_FUNC) &_squarebrackets_rcpp_set_row_Logical, 3},
@@ -1013,7 +1067,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_squarebrackets_rcpp_sb_str", (DL_FUNC) &_squarebrackets_rcpp_sb_str, 2},
     {"_squarebrackets_rcpp_sb_str_rp", (DL_FUNC) &_squarebrackets_rcpp_sb_str_rp, 4},
     {"_squarebrackets_rcpp_mlen", (DL_FUNC) &_squarebrackets_rcpp_mlen, 1},
-    {"_squarebrackets_rcpp_seq_rec", (DL_FUNC) &_squarebrackets_rcpp_seq_rec, 4},
     {"_squarebrackets_rcpp_setvind_Complex", (DL_FUNC) &_squarebrackets_rcpp_setvind_Complex, 3},
     {"_squarebrackets_rcpp_sub2ind_2d", (DL_FUNC) &_squarebrackets_rcpp_sub2ind_2d, 3},
     {"_squarebrackets_rcpp_sub2ind_3d", (DL_FUNC) &_squarebrackets_rcpp_sub2ind_3d, 4},

@@ -179,7 +179,7 @@ taking into account the order and any duplicate values of both vectors.
 \link{idx_by} to compute grouped indices. \cr
 \link[=idx_ord_v]{idx_ord_}-functions to compute ordered indices.
 \item Computing sequences: \cr
-\link{seq_rec} for the recursive sequence generator
+\link{seq_rec2} for the recursive sequence generator
 (for example to generate a Fibonacci sequence). \cr
 \link{seq_names} to create a range of indices from a specified starting and ending name. \cr
 \link{seq_mlen} to create multiple sequences of the given lengths at once. \cr \cr

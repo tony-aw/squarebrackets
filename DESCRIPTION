@@ -2,7 +2,7 @@ Package: squarebrackets
 Type: Package
 Title: Methods as an Alternative to the Square Brackets Operators
 Version: 0.0.0.9
-Date: 2024-02-21
+Date: 2024-03-26
 Authors@R: 
     person("Tony", "Wilkes",
            email = "tony_a_wilkes@outlook.com",
