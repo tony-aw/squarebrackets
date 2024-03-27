@@ -431,7 +431,8 @@
   # if(any(collapse::vtypes(rp) != sstypes)) stop("type coercion not allowed")
 }
 
-
+#' @keywords internal
+#' @noRd
 .with_internal <- function(data, form, abortcall) {
   vars <- all.vars(form)
   env <- environment(form)

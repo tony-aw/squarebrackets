@@ -6,6 +6,7 @@
 \alias{dt_setcoe}
 \alias{dt_setrm}
 \alias{dt_setadd}
+\alias{dt_setreorder}
 \title{Functional Forms of data.table Operations}
 \usage{
 dt_aggregate(x, SDcols = NULL, f, by, order_by = FALSE)
@@ -21,6 +22,8 @@ dt_setcoe(
 dt_setrm(x, col = NULL, vars = NULL, chkdup = getOption("sb.chkdup", FALSE))
 
 dt_setadd(x, new)
+
+dt_setreorder(x, roworder = NULL, varorder = NULL)
 }
 \arguments{
 \item{x}{a \code{data.table} or \code{tidytable}.}
@@ -46,6 +49,16 @@ Duplicates are not allowed.}
 
 \item{new}{a \code{data.table} or \code{tidytable}. \cr
 It must have column names that do not already exist in \code{x}.}
+
+\item{roworder}{a integer vector of the same length as \code{nrow(x)},
+giving the order in which the rows are to be re-order.
+Internally,
+this numeric vector will be turned into an order using \link[base]{order},
+thus ensuring it is a strict permutation of \code{1:nrow(x)}.}
+
+\item{varorder}{integer or character vector of the same length as \code{ncol(x)},
+giving the new column order. \cr
+See \code{data.table::}\link[data.table]{setcolorder}.}
 }
 \value{
 For \code{dt_aggregate()}: \cr
@@ -72,25 +85,34 @@ using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
 \item \code{dt_setadd(x, new)}
 adds the columns from data.table/tidytable \code{new} to data.table/tidytable \code{x},
 thereby modifying \code{x}
+using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
+\item \code{dt_setreorder()}
+reorder the rows and/or variables of a \code{data.table}
 using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr \cr
 }
 }
+\details{
+\code{dt_setreorder(x, roworder = roworder)}
+internally creates a new column to reorder the data.table by,
+and then removes the new column. \cr
+The column name is randomized,
+and extra care is given to ensure it does not overwrite any existing columns. \cr \cr
+}
 \examples{
-\dontshow{if (requireNamespace("sf")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
-requireNamespace("sf")
-
-
 # dt_aggregate on sf-data.table ====
 
-x <- sf::st_read(system.file("shape/nc.shp", package = "sf"))
-x <- data.table::as.data.table(x)
+if(requireNamespace("sf")) {
+  x <- sf::st_read(system.file("shape/nc.shp", package = "sf"))
+  x <- data.table::as.data.table(x)
+  
+  x$region <- ifelse(x$CNTY_ID <= 2000, 'high', 'low')
+  d.aggr <- dt_aggregate(
+    x, SDcols = "geometry", f= sf::st_union, by = "region"
+  )
+  
+  head(d.aggr)
+}
 
-x$region <- ifelse(x$CNTY_ID <= 2000, 'high', 'low')
-d.aggr <- dt_aggregate(
-  x, SDcols = "geometry", f= sf::st_union, by = "region"
-)
-
-head(d.aggr)
 
 
 #############################################################################
@@ -115,7 +137,6 @@ sb2_set(obj,
 str(obj)
 
 
-
 #############################################################################
 
 
@@ -135,6 +156,7 @@ str(obj)
 dt_setrm(obj, vars = is.numeric)
 str(obj)
 
+
 #############################################################################
 
 
@@ -150,5 +172,20 @@ new <- data.table::data.table(
 dt_setadd(obj, new)
 print(obj)
 
-\dontshow{\}) # examplesIf}
+
+
+#############################################################################
+
+
+# dt_setreorder====
+
+n <- 1e4
+obj <- data.table::data.table(
+  a = 1L:n, b = n:1L, c = as.double(1:n), d = as.double(n:1)
+)
+dt_setreorder(obj, roworder = n:1)
+head(obj)
+dt_setreorder(obj, varorder = ncol(obj):1)
+head(obj)
+
 }

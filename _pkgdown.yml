@@ -52,10 +52,9 @@ reference:
   - '`match_all`'
   - '`idx_by`'
   - '`idx_ord_v`'
+  - '`seq_rec2`'
   - '`seq_mlen`'
   - '`seq_names`'
-  - '`seq_rec2`'
-  
 - title: Misc
   contents:
   - '`indx_x`'

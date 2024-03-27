@@ -3,8 +3,8 @@
 
 enumerate <- 0 # to count number of tests in loops
 sys.source(file.path(getwd(), "source", "functions4testing.R"), envir = environment())
-.abind <- squarebrackets:::.abind
-.asub <- squarebrackets:::.asub
+.abind <- abind::abind
+.asub <- abind::asub
 
 # list ====
 y <- as.list(1:10)

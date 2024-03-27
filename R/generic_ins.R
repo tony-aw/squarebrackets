@@ -6,9 +6,6 @@
 #' The `sb_after()`/`sb2_after()` method
 #' inserts new values after some position along a dimension. \cr
 #' \cr
-#' These functions use a modified version of \code{abind::}\link[abind]{abind}
-#' (see reference below). \cr
-#' \cr
 #' Use `sb_before(x, ...)`/`sb_afterr(x, ...)`
 #' if `x` is a non-recursive object (i.e. atomic or factor). \cr
 #' Use `sb2_before(x, ...)`/`sb2_afterr(x, ...)`
@@ -251,7 +248,6 @@ sb2_after.default <- function(x, new, pos = length(x), .attr = NULL, ...) {
   return(out)
 }
 
-
 #' @rdname sb_in
 #' @export
 sb2_before.data.frame <- function(x, new, margin, pos = 1, .attr = NULL, ...) {
@@ -330,89 +326,3 @@ sb2_after.data.frame <- function(x, new, margin, pos = collapse::fdim(x)[margin]
   return(out)
 }
 
-
-
-#' @keywords internal
-#' @noRd
-.check_in <- function(pos, n, abortcall) {
-  error.txt2 <- simpleError("`pos` must be a strictly positive integer scalar", call = abortcall)
-  
-  if(!is.numeric(pos) || length(pos) != 1) {
-    stop(error.txt2)
-  }
-  if(pos < 1) { # removed any(), as pos is scalar
-    stop(error.txt2)
-  }
-  if(pos > n) { # removed any(), as pos is scalar
-    stop(simpleError("subscript out of bounds", call = abortcall))
-  }
-  
-}
-
-
-#' @keywords internal
-#' @noRd
-.is_prepend <- function(pos, n) {
-  if(pos == 1 || n == 1) { 
-      return(TRUE)
-  }
-  return(FALSE)
-}
-
-
-#' @keywords internal
-#' @noRd
-.is_postpend <- function(pos, n) {
-  if(pos == n || n == 1) {
-      return(TRUE)
-  }
-  return(FALSE)
-}
-
-
-
-#' @keywords internal
-#' @noRd
-.sb_in_dim_before <- function(x, margin, pos, new, .attr, abortcall) {
-  
-  n.x <- dim(x)[[margin]]
-  
-  if(.is_prepend(pos, n.x)) {
-    out <- .abind(new, x, ._along = margin)
-    out <- .fix_attr(out, .attr)
-    return(out)
-  }
-
-  out <- .abind(
-    .asub(x, idx = seq_len(pos-1), dims = margin),
-    new,
-    .asub(x, idx = seq.int(pos, n.x), dims = margin),
-    ._along = margin
-  )
-  out <- .fix_attr(out, .attr)
-  return(out)
-
-}
-
-#' @keywords internal
-#' @noRd
-.sb_in_dim_after <- function(x, margin, pos, new, .attr, abortcall) {
-  
-  n.x <- dim(x)[[margin]]
-  
-  if(.is_postpend(pos, n.x)) {
-    out <- .abind(x, new, ._along = margin)
-    out <- .fix_attr(out, .attr)
-    return(out)
-  }
-  
-  out <- .abind(
-    .asub(x, idx = seq_len(pos), dims = margin),
-    new,
-    .asub(x, idx = seq.int(pos+1, n.x), dims = margin),
-    ._along = margin
-  )
-  out <- .fix_attr(out, .attr)
-  return(out)
-
-}

@@ -19,6 +19,10 @@ expect_error(
   dt_setadd(x, data.table::data.table(e = 1:10)),
   pattern = "`x` must be a data.table"
 )
+expect_error(
+  dt_setreorder(x),
+  pattern = "`x` must be a data.table"
+)
 
 x <- data.table::data.table(a = 1:10, a = letters[1:10])
 expect_error(
@@ -35,6 +39,10 @@ expect_error(
 )
 expect_error(
   dt_setadd(x, data.table::data.table(e = 1:10)),
+  pattern = "`x` does not have unique variable names for all columns; \n fix this before subsetting"
+)
+expect_error(
+  dt_setreorder(x, varorder = 2),
   pattern = "`x` does not have unique variable names for all columns; \n fix this before subsetting"
 )
 
@@ -163,6 +171,71 @@ dt_setadd(x, new)
 expect_equal(
   x,
   y
+)
+
+enumerate <- enumerate + 1
+
+# dt_setreorder - roworder ====
+n <- 1e4
+chrs <- sample(c(letters, LETTERS), n, TRUE)
+x <- data.table::data.table(
+  a = 1L:n, b = n:1L, c = as.double(1:n), d = as.double(n:1),
+  e = sort(chrs), f = sort(chrs, TRUE)
+)
+x2 <- x
+x3 <- data.table::copy(x)
+dt_setreorder(x, roworder = nrow(x):1)
+expect_equal(
+  x,
+  x3[nrow(x3):1,]
+)
+expect_equal(
+  x, x2
+)
+expect_error(
+  dt_setreorder(x, roworder = (n-1):1),
+  pattern = "`roworder` must be a strict permutation/shuffle of 1:nrow(x)",
+  fixed = TRUE
+)
+
+n <- 1e4
+chrs <- sample(c(letters, LETTERS), n, TRUE)
+x <- data.table::data.table(
+  a = 1L:n, b = n:1L, c = as.double(1:n), d = as.double(n:1),
+  e = sort(chrs), f = sort(chrs, TRUE)
+)
+names(x) <- stringi::stri_dup(names(x), 100)
+x2 <- x
+x3 <- data.table::copy(x)
+dt_setreorder(x, roworder = nrow(x):1)
+expect_equal(
+  x,
+  x3[nrow(x3):1,]
+)
+expect_equal(
+  x, x2
+)
+expect_error(
+  dt_setreorder(x, roworder = (n-1):1),
+  pattern = "`roworder` must be a strict permutation/shuffle of 1:nrow(x)",
+  fixed = TRUE
+)
+enumerate <- enumerate + 6
+
+
+# dt_setreorder - varorder ====
+n <- 1e4
+chrs <- sample(c(letters, LETTERS), n, TRUE)
+x <- data.table::data.table(
+  a = 1L:n, b = n:1L, c = as.double(1:n), d = as.double(n:1),
+  e = sort(chrs), f = sort(chrs, TRUE)
+)
+x2 <- x
+newnms <- rev(names(x))
+dt_setreorder(x, varorder = rev(names(x)))
+expect_equal(
+  names(x2),
+  newnms
 )
 
 enumerate <- enumerate + 1

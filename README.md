@@ -97,5 +97,8 @@ tinycodet::import_LL("squarebrackets", selection = ... )
 - 24 March 2024: Methods are now split between methods for non-recursive
   objects (`sb_`), and methods for recursive objects (`sb2_`).
 - 26 March 2024: Replaced `seq_rec()` with `seq_rec2()`.
+- 27 March 2024: Added `dt_setreorder()`, and added tests for this also.
+  ‘abind’ now as a dependency, and ‘abind’ based code removed, as it is
+  redundant.
 
  

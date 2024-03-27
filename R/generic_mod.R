@@ -89,7 +89,7 @@ sb_mod <- function(x, ...) {
 #' @export
 sb_mod.default <- function(
     x, i, ...,
-    rp, tf, chkdup = getOption("sb.chkdup", FALSE)
+    rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
   
@@ -117,7 +117,7 @@ sb_mod.default <- function(
 #' @export
 sb_mod.matrix <- function(
     x, row = NULL, col = NULL, i = NULL, ...,
-    rp, tf, chkdup = getOption("sb.chkdup", FALSE)
+    rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
   
@@ -167,7 +167,7 @@ sb_mod.matrix <- function(
 #' @export
 sb_mod.array <- function(
     x, idx = NULL, dims = NULL, rcl = NULL, i = NULL, ...,
-    rp, tf, chkdup = getOption("sb.chkdup", FALSE)
+    rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
   
@@ -208,7 +208,7 @@ sb_mod.array <- function(
 #' @rdname sb_mod
 #' @export
 sb_mod.factor <- function(
-    x, i = NULL, lvl = NULL, ..., rp, chkdup = getOption("sb.chkdup", FALSE)
+    x, i = NULL, lvl = NULL, ..., rp, chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
   
@@ -250,7 +250,7 @@ sb2_mod <- function(x, ...) {
 #' @export
 sb2_mod.default <- function(
     x, i, ...,
-    rp, tf, chkdup = getOption("sb.chkdup", FALSE), .lapply = lapply
+    rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE), .lapply = lapply
 ) {
   
   
@@ -283,7 +283,7 @@ sb2_mod.default <- function(
 #' @export
 sb2_mod.array <- function(
     x, idx = NULL, dims = NULL, i = NULL, ...,
-    rp, tf, chkdup = getOption("sb.chkdup", FALSE), .lapply = lapply
+    rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE), .lapply = lapply
 ) {
   
   if(!is.null(i)) {
@@ -305,7 +305,7 @@ sb2_mod.array <- function(
 #' @export
 sb2_mod.data.frame <- function(
     x, row = NULL, col = NULL, filter = NULL, vars = NULL, coe = FALSE, ...,
-    rp, tf, chkdup = getOption("sb.chkdup", FALSE), .lapply = lapply
+    rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE), .lapply = lapply
 ) {
   
   # checks, errors, and transformations:

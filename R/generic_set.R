@@ -59,7 +59,7 @@ sb_set <- function(x, ...) {
 #' @rdname sb_set
 #' @export
 sb_set.default <- function(
-    x, i, ..., rp, tf, chkdup = getOption("sb.chkdup", FALSE)
+    x, i, ..., rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
   # error checks:
@@ -81,7 +81,7 @@ sb_set.default <- function(
 
 #' @rdname sb_set
 #' @export
-sb_set.matrix <- function(x, row = NULL, col = NULL, i = NULL, ..., rp, tf, chkdup = getOption("sb.chkdup", FALSE)) {
+sb_set.matrix <- function(x, row = NULL, col = NULL, i = NULL, ..., rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)) {
   
   # error checks:
   if(!is.mutable_atomic(x)){
@@ -126,7 +126,7 @@ sb_set.matrix <- function(x, row = NULL, col = NULL, i = NULL, ..., rp, tf, chkd
 #' @rdname sb_set
 #' @export
 sb_set.array <- function(
-    x, idx = NULL, dims = NULL, rcl = NULL, i = NULL, ..., rp, tf, chkdup = getOption("sb.chkdup", FALSE)
+    x, idx = NULL, dims = NULL, rcl = NULL, i = NULL, ..., rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
   # error checks:
@@ -187,7 +187,7 @@ sb2_set.default <- function(x, ...) {
 #' @export
 sb2_set.data.table <- function(
     x, row = NULL, col = NULL, filter = NULL, vars = NULL,
-    ..., rp, tf, chkdup = getOption("sb.chkdup", FALSE), .lapply = lapply
+    ..., rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE), .lapply = lapply
 ) {
   
   if(!data.table::is.data.table(x)) {

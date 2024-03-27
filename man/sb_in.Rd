@@ -87,9 +87,6 @@ inserts new values before some position along a dimension. \cr
 The \code{sb_after()}/\code{sb2_after()} method
 inserts new values after some position along a dimension. \cr
 \cr
-These functions use a modified version of \code{abind::}\link[abind]{abind}
-(see reference below). \cr
-\cr
 Use \code{sb_before(x, ...)}/\code{sb_afterr(x, ...)}
 if \code{x} is a non-recursive object (i.e. atomic or factor). \cr
 Use \code{sb2_before(x, ...)}/\code{sb2_afterr(x, ...)}

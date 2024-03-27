@@ -13,6 +13,9 @@ using pass-by-reference semantics.
 dt_setadd(x, new)
 adds the columns from data.table/tidytable new to data.table/tidytable x,
 thereby modifying x
+using pass-by-reference semantics.
+dt_setreorder()
+reorder the rows and/or variables of a data.table
 using pass-by-reference semantics.  
 
 "><title>Functional Forms of data.table Operations — dt • squarebrackets</title><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><link href="../deps/Roboto_Serif-0.4.7/font.css" rel="stylesheet"><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Functional Forms of data.table Operations — dt"><meta property="og:description" content="Functional forms of special data.table operations - ALL programmatically friendly
@@ -29,6 +32,9 @@ using pass-by-reference semantics.
 dt_setadd(x, new)
 adds the columns from data.table/tidytable new to data.table/tidytable x,
 thereby modifying x
+using pass-by-reference semantics.
+dt_setreorder()
+reorder the rows and/or variables of a data.table
 using pass-by-reference semantics.  
 
 "><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -94,6 +100,9 @@ using <a href="aaa5_squarebrackets_PassByReference.html">pass-by-reference seman
 <li><p><code>dt_setadd(x, new)</code>
 adds the columns from data.table/tidytable <code>new</code> to data.table/tidytable <code>x</code>,
 thereby modifying <code>x</code>
+using <a href="aaa5_squarebrackets_PassByReference.html">pass-by-reference semantics</a>.</p></li>
+<li><p><code>dt_setreorder()</code>
+reorder the rows and/or variables of a <code>data.table</code>
 using <a href="aaa5_squarebrackets_PassByReference.html">pass-by-reference semantics</a>. <br><br></p></li>
 </ul></div>
 
@@ -111,7 +120,9 @@ using <a href="aaa5_squarebrackets_PassByReference.html">pass-by-reference seman
 <span></span>
 <span><span class="fu">dt_setrm</span><span class="op">(</span><span class="va">x</span>, col <span class="op">=</span> <span class="cn">NULL</span>, vars <span class="op">=</span> <span class="cn">NULL</span>, chkdup <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"sb.chkdup"</span>, <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">dt_setadd</span><span class="op">(</span><span class="va">x</span>, <span class="va">new</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">dt_setadd</span><span class="op">(</span><span class="va">x</span>, <span class="va">new</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">dt_setreorder</span><span class="op">(</span><span class="va">x</span>, roworder <span class="op">=</span> <span class="cn">NULL</span>, varorder <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -156,6 +167,20 @@ Duplicates are not allowed.</p></dd>
 <dd><p>a <code>data.table</code> or <code>tidytable</code>. <br>
 It must have column names that do not already exist in <code>x</code>.</p></dd>
 
+
+<dt>roworder</dt>
+<dd><p>a integer vector of the same length as <code>nrow(x)</code>,
+giving the order in which the rows are to be re-order.
+Internally,
+this numeric vector will be turned into an order using <a href="https://rdrr.io/r/base/order.html" class="external-link">order</a>,
+thus ensuring it is a strict permutation of <code>1:nrow(x)</code>.</p></dd>
+
+
+<dt>varorder</dt>
+<dd><p>integer or character vector of the same length as <code>ncol(x)</code>,
+giving the new column order. <br>
+See <code>data.table::</code><a href="https://rdatatable.gitlab.io/data.table/reference/setcolorder.html" class="external-link">setcolorder</a>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -185,33 +210,42 @@ It must have column names that do not already exist in <code>x</code>.</p></dd>
 
 
     </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p><code>dt_setreorder(x, roworder = roworder)</code>
+internally creates a new column to reorder the data.table by,
+and then removes the new column. <br>
+The column name is randomized,
+and extra care is given to ensure it does not overwrite any existing columns. <br><br></p>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"sf"</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># dt_aggregate on sf-data.table ====</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># dt_aggregate on sf-data.table ====</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html" class="external-link">st_read</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"shape/nc.shp"</span>, package <span class="op">=</span> <span class="st">"sf"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"sf"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html" class="external-link">st_read</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"shape/nc.shp"</span>, package <span class="op">=</span> <span class="st">"sf"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://rdatatable.gitlab.io/data.table/reference/as.data.table.html" class="external-link">as.data.table</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  </span></span>
+<span class="r-in"><span>  <span class="va">x</span><span class="op">$</span><span class="va">region</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">x</span><span class="op">$</span><span class="va">CNTY_ID</span> <span class="op">&lt;=</span> <span class="fl">2000</span>, <span class="st">'high'</span>, <span class="st">'low'</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">d.aggr</span> <span class="op">&lt;-</span> <span class="fu">dt_aggregate</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="va">x</span>, SDcols <span class="op">=</span> <span class="st">"geometry"</span>, f<span class="op">=</span> <span class="fu">sf</span><span class="fu">::</span><span class="va"><a href="https://r-spatial.github.io/sf/reference/geos_combine.html" class="external-link">st_union</a></span>, by <span class="op">=</span> <span class="st">"region"</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span>  </span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">d.aggr</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required namespace: sf</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Reading layer `nc' from data source `D:\Programs\R-4.3.2\library\sf\shape\nc.shp' using driver `ESRI Shapefile'</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Simple feature collection with 100 features and 14 fields</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Geometry type: MULTIPOLYGON</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Dimension:     XY</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Bounding box:  xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Geodetic CRS:  NAD27</span>
-<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://rdatatable.gitlab.io/data.table/reference/as.data.table.html" class="external-link">as.data.table</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">x</span><span class="op">$</span><span class="va">region</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">x</span><span class="op">$</span><span class="va">CNTY_ID</span> <span class="op">&lt;=</span> <span class="fl">2000</span>, <span class="st">'high'</span>, <span class="st">'low'</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">d.aggr</span> <span class="op">&lt;-</span> <span class="fu">dt_aggregate</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="va">x</span>, SDcols <span class="op">=</span> <span class="st">"geometry"</span>, f<span class="op">=</span> <span class="fu">sf</span><span class="fu">::</span><span class="va"><a href="https://r-spatial.github.io/sf/reference/geos_combine.html" class="external-link">st_union</a></span>, by <span class="op">=</span> <span class="st">"region"</span></span></span>
-<span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">d.aggr</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    region                       geometry</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    &lt;char&gt;             &lt;sfc_MULTIPOLYGON&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:   high MULTIPOLYGON (((-75.78317 3...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2:    low MULTIPOLYGON (((-76.46926 3...</span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#############################################################################</span></span></span>
@@ -262,7 +296,6 @@ It must have column names that do not already exist in <code>x</code>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, ".internal.selfref")=&lt;externalptr&gt; </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#############################################################################</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
@@ -303,6 +336,7 @@ It must have column names that do not already exist in <code>x</code>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ d: Factor w/ 10 levels "a","b","c","d",..: 1 2 3 4 5 6 7 8 9 10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, ".internal.selfref")=&lt;externalptr&gt; </span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#############################################################################</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
@@ -319,16 +353,48 @@ It must have column names that do not already exist in <code>x</code>.</p></dd>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         a      b     c      d      e      f</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;int&gt; &lt;char&gt; &lt;int&gt; &lt;fctr&gt; &lt;lgcl&gt; &lt;lgcl&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1:     1      a    11      a   TRUE   TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2:     2      b    12      b  FALSE   TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3:     3      c    13      c  FALSE   TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  4:     4      d    14      d   TRUE  FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  5:     5      e    15      e  FALSE   TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  6:     6      f    16      f   TRUE  FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1:     1      a    11      a  FALSE  FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  2:     2      b    12      b   TRUE   TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3:     3      c    13      c  FALSE  FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  4:     4      d    14      d  FALSE   TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  5:     5      e    15      e  FALSE  FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  6:     6      f    16      f  FALSE   TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  7:     7      g    17      g   TRUE  FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  8:     8      h    18      h   TRUE   TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  9:     9      i    19      i  FALSE  FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10:    10      j    20      j   TRUE  FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  8:     8      h    18      h  FALSE   TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  9:     9      i    19      i  FALSE   TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10:    10      j    20      j  FALSE   TRUE</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#############################################################################</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># dt_setreorder====</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">1e4</span></span></span>
+<span class="r-in"><span><span class="va">obj</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://rdatatable.gitlab.io/data.table/reference/data.table.html" class="external-link">data.table</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  a <span class="op">=</span> <span class="fl">1L</span><span class="op">:</span><span class="va">n</span>, b <span class="op">=</span> <span class="va">n</span><span class="op">:</span><span class="fl">1L</span>, c <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/double.html" class="external-link">as.double</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="va">n</span><span class="op">)</span>, d <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/double.html" class="external-link">as.double</a></span><span class="op">(</span><span class="va">n</span><span class="op">:</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">dt_setreorder</span><span class="op">(</span><span class="va">obj</span>, roworder <span class="op">=</span> <span class="va">n</span><span class="op">:</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        a     b     c     d</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    &lt;int&gt; &lt;int&gt; &lt;num&gt; &lt;num&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1: 10000     1 10000     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2:  9999     2  9999     2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3:  9998     3  9998     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4:  9997     4  9997     4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5:  9996     5  9996     5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6:  9995     6  9995     6</span>
+<span class="r-in"><span><span class="fu">dt_setreorder</span><span class="op">(</span><span class="va">obj</span>, varorder <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span><span class="op">:</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        d     c     b     a</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    &lt;num&gt; &lt;num&gt; &lt;int&gt; &lt;int&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:     1 10000     1 10000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2:     2  9999     2  9999</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3:     3  9998     3  9998</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4:     4  9997     4  9997</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5:     5  9996     5  9996</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6:     6  9995     6  9995</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

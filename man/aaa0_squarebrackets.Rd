@@ -189,27 +189,6 @@ taking into account the order and any duplicate values of both vectors.
 \references{
 The badges shown in the documentation of this R-package were made using the services of: \url{https://shields.io/}
 }
-\seealso{
-'squarebrackets' relies on the 'collapse', 'Rcpp', and 'data.table' R-packages
-to ensure an acceptable performance of its functions despite the many checks that these functions perform. \cr
-I also recommend using these packages for other sub-setting and data wrangling functionalities. \cr
-\cr
-'squarebrackets' uses a modified version of the \link[abind]{abind} function from the 'abind' R-package;
-the 'abind' package is recommended for binding and sub-filling arrays of arbitrary dimensions. \cr
-\cr
-Besides these package,
-the following R packages work very nicely together with 'squarebrackets':
-\itemize{
-\item 'stringi': \cr
-The primary R package for fast and concise string manipulation - an essential part of any programming language.
-\item 'tinycodet': \cr
-Helps the user with their coding etiquette.
-Focuses on 4 aspects: (1) safe functionalities;
-(2) an import system that combines benefits of using a package without attaching, and attaching a package;
-(3) extending the capabilities of the 'stringi' package;
-(4) functions to reduce repetitive code.
-}
-}
 \author{
 \strong{Maintainer}: Tony Wilkes \email{tony_a_wilkes@outlook.com} (\href{https://orcid.org/0000-0001-9498-8379}{ORCID})
 }

@@ -14,7 +14,7 @@
 \usage{
 sb_mod(x, ...)
 
-\method{sb_mod}{default}(x, i, ..., rp, tf, chkdup = getOption("sb.chkdup", FALSE))
+\method{sb_mod}{default}(x, i, ..., rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE))
 
 \method{sb_mod}{matrix}(
   x,
@@ -24,7 +24,7 @@ sb_mod(x, ...)
   ...,
   rp,
   tf,
-  chkdup = getOption("sb.chkdup", FALSE)
+  chkdup = getOption("squarebrackets.chkdup", FALSE)
 )
 
 \method{sb_mod}{array}(
@@ -36,7 +36,7 @@ sb_mod(x, ...)
   ...,
   rp,
   tf,
-  chkdup = getOption("sb.chkdup", FALSE)
+  chkdup = getOption("squarebrackets.chkdup", FALSE)
 )
 
 \method{sb_mod}{factor}(
@@ -45,7 +45,7 @@ sb_mod(x, ...)
   lvl = NULL,
   ...,
   rp,
-  chkdup = getOption("sb.chkdup", FALSE)
+  chkdup = getOption("squarebrackets.chkdup", FALSE)
 )
 
 sb2_mod(x, ...)
@@ -56,7 +56,7 @@ sb2_mod(x, ...)
   ...,
   rp,
   tf,
-  chkdup = getOption("sb.chkdup", FALSE),
+  chkdup = getOption("squarebrackets.chkdup", FALSE),
   .lapply = lapply
 )
 
@@ -68,7 +68,7 @@ sb2_mod(x, ...)
   ...,
   rp,
   tf,
-  chkdup = getOption("sb.chkdup", FALSE),
+  chkdup = getOption("squarebrackets.chkdup", FALSE),
   .lapply = lapply
 )
 
@@ -82,7 +82,7 @@ sb2_mod(x, ...)
   ...,
   rp,
   tf,
-  chkdup = getOption("sb.chkdup", FALSE),
+  chkdup = getOption("squarebrackets.chkdup", FALSE),
   .lapply = lapply
 )
 }

@@ -3,8 +3,8 @@
 
 enumerate <- 0 # to count number of tests in loops
 sys.source(file.path(getwd(), "source", "functions4testing.R"), envir = environment())
-.abind <- squarebrackets:::.abind
-.asub <- squarebrackets:::.asub
+.abind <- abind::abind
+.asub <- abind::asub
 
 # one-dimensional objects ====
 y <- 1:10
@@ -42,18 +42,18 @@ new <- matrix(21:40, ncol = 5)
 for(margin in 1:2) {
   expect_equivalent(
     sb_before(y, new, margin),
-    .abind(new, y, ._along = margin)
+    .abind(new, y, along = margin)
   ) |> errorfun()
   expect_equivalent(
     sb_after(y, new, margin),
-    .abind(y, new, ._along = margin)
+    .abind(y, new, along = margin)
   ) |> errorfun()
   expect_equivalent(
     sb_before(y, new, margin, 4),
     .abind(
       .asub(y, 1:3, dims = margin),
       new,
-      .asub(y, 4:dim(y)[margin], dims = margin), ._along = margin
+      .asub(y, 4:dim(y)[margin], dims = margin), along = margin
     )
   ) |> errorfun()
   expect_equivalent(
@@ -61,7 +61,7 @@ for(margin in 1:2) {
     .abind(
       .asub(y, 1:2, dims = margin),
       new,
-      .asub(y, 3:dim(y)[margin], dims = margin), ._along = margin
+      .asub(y, 3:dim(y)[margin], dims = margin), along = margin
     )
   ) |> errorfun()
   enumerate <- enumerate + 4
@@ -72,18 +72,18 @@ new <- matrix(1:16, ncol = 4)
 for(margin in 1:3) {
   expect_equivalent(
     sb_before(y, new, margin),
-    .abind(new, y, ._along = margin)
+    .abind(new, y, along = margin)
   ) |> errorfun()
   expect_equivalent(
     sb_after(y, new, margin),
-    .abind(y, new, ._along = margin)
+    .abind(y, new, along = margin)
   ) |> errorfun()
   expect_equivalent(
     sb_before(y, new, margin, 4),
     .abind(
       .asub(y, 1:3, dims = margin),
       new,
-      .asub(y, 4:dim(y)[margin], dims = margin), ._along = margin
+      .asub(y, 4:dim(y)[margin], dims = margin), along = margin
     )
   ) |> errorfun()
   expect_equivalent(
@@ -91,7 +91,7 @@ for(margin in 1:3) {
     .abind(
       .asub(y, 1:2, dims = margin),
       new,
-      .asub(y, 3:dim(y)[margin], dims = margin), ._along = margin
+      .asub(y, 3:dim(y)[margin], dims = margin), along = margin
     )
   ) |> errorfun()
   enumerate <- enumerate + 4

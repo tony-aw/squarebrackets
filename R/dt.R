@@ -15,6 +15,9 @@
 #'  * `dt_setadd(x, new)`
 #'  adds the columns from data.table/tidytable `new` to data.table/tidytable `x`,
 #'  thereby modifying `x`
+#'  using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
+#'  * `dt_setreorder()`
+#'  reorder the rows and/or variables of a `data.table`
 #'  using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr \cr
 #' 
 #' 
@@ -34,6 +37,22 @@
 #' indicating if the aggregated result should be ordered by the columns specified in `by`.
 #' @param chkdup see \link{squarebrackets_duplicates}. \cr
 #' `r .mybadge_performance_set2("FALSE")` \cr
+#' @param roworder a integer vector of the same length as `nrow(x)`,
+#' giving the order in which the rows are to be re-order.
+#' Internally,
+#' this numeric vector will be turned into an order using \link[base]{order},
+#' thus ensuring it is a strict permutation of `1:nrow(x)`.
+#' @param varorder integer or character vector of the same length as `ncol(x)`,
+#' giving the new column order. \cr
+#' See \code{data.table::}\link[data.table]{setcolorder}.
+#' 
+#' @details
+#' `dt_setreorder(x, roworder = roworder)`
+#' internally creates a new column to reorder the data.table by,
+#' and then removes the new column. \cr
+#' The column name is randomized,
+#' and extra care is given to ensure it does not overwrite any existing columns. \cr \cr
+#' 
 #'
 #' @returns
 #' For `dt_aggregate()`: \cr
@@ -46,79 +65,10 @@
 #'
 #'
 #'
-#' @examplesIf requireNamespace("sf")
-#' requireNamespace("sf")
+#' @example inst/examples/dt.R
 #' 
 #' 
-#' # dt_aggregate on sf-data.table ====
-#' 
-#' x <- sf::st_read(system.file("shape/nc.shp", package = "sf"))
-#' x <- data.table::as.data.table(x)
-#' 
-#' x$region <- ifelse(x$CNTY_ID <= 2000, 'high', 'low')
-#' d.aggr <- dt_aggregate(
-#'   x, SDcols = "geometry", f= sf::st_union, by = "region"
-#' )
-#' 
-#' head(d.aggr)
-#' 
-#' 
-#' #############################################################################
-#' 
-#' 
-#' # dt_setcoe ====
-#' 
-#' obj <- data.table::data.table(a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10]))
-#' str(obj) # notice that columns "a" and "c" are INTEGER (`int`)
-#' sb2_set(
-#'   obj, filter = ~ (a >= 2) & (c <= 17), vars = is.numeric,
-#'   tf = sqrt # WARNING: sqrt() results in `dbl`, but columns are `int`, so decimals lost
-#' )
-#' str(obj)
-#' obj <- data.table::data.table(a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10]))
-#' dt_setcoe(obj, vars = is.numeric, v = as.numeric) # integers are now numeric
-#' str(obj)
-#' sb2_set(obj,
-#'   filter = ~ (a >= 2) & (c <= 17), vars = is.numeric,
-#'   tf = sqrt # SAFE: coercion performed; so no warnings
-#' ) 
-#' str(obj)
-#'
-#'
-#'
-#' #############################################################################
-#' 
-#' 
-#' # dt_setrm ====
-#' 
-#' obj <- data.table::data.table(
-#'   a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10])
-#' )
-#' str(obj)
-#' dt_setrm(obj, col = 1)
-#' str(obj)
-#' 
-#' obj <- data.table::data.table(
-#'   a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10])
-#' )
-#' str(obj)
-#' dt_setrm(obj, vars = is.numeric)
-#' str(obj)
-#' 
-#' #############################################################################
-#' 
-#' 
-#' # dt_setadd ====
-#' 
-#' obj <- data.table::data.table(
-#'   a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10])
-#' )
-#' new <- data.table::data.table(
-#'   e = sample(c(TRUE, FALSE), 10, TRUE),
-#'   f = sample(c(TRUE, FALSE), 10, TRUE)
-#' )
-#' dt_setadd(obj, new)
-#' print(obj)
+#
 #' 
 #' 
 
@@ -239,4 +189,56 @@ dt_setadd <- function(x, new) {
   data.table::set(x, j = names(new), value = new)
   
   return(invisible(NULL))
+}
+
+
+
+#' @rdname dt
+#' @export
+dt_setreorder <- function(x, roworder = NULL, varorder = NULL) {
+  
+  
+  if(!data.table::is.data.table(x)) { stop("`x` must be a data.table") }
+  .check_bindingIsLocked(substitute(x), parent.frame(n = 1), abortcall = sys.call())
+  
+  
+  if(!is.null(varorder)) {
+    if(anyDuplicated(names(x))) {
+      stop("`x` does not have unique variable names for all columns; \n fix this before subsetting")
+    }
+    data.table::setcolorder(x, neworder = varorder)
+  }
+  
+  
+  if(!is.null(roworder)) {
+    if(!is.numeric(roworder) || length(roworder) != nrow(x)) {
+      stop("`roworder` must be a strict permutation/shuffle of 1:nrow(x)")
+    }
+    roworder <- order(roworder)
+    nms <- names(x)
+    nms_lens <- stringi::stri_length(nms)
+    if(any(nms_lens)==0) {
+      stop("zero-length names detected")
+    }
+    if(min(nms_lens) > 1) {
+      j <- stringi::stri_rand_strings(1, 1)
+    } else {
+      j <- stringi::stri_rand_strings(1, max(nms_lens) + 1)
+    }
+    if(data.table::`%chin%`(j, nms)) {
+      stop(
+        "the names of `x` have changed while `dt_setreorder()` was running",
+        "\n",
+        "exiting function"
+      )
+    }
+    data.table::set(x, j = j, value = roworder)
+    data.table::setorderv(x, cols = j)
+    data.table::set(x, j = j, value = NULL)
+  }
+  
+  
+  return(invisible(NULL))
+  
+  
 }

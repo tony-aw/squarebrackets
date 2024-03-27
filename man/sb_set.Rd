@@ -12,7 +12,7 @@
 \usage{
 sb_set(x, ...)
 
-\method{sb_set}{default}(x, i, ..., rp, tf, chkdup = getOption("sb.chkdup", FALSE))
+\method{sb_set}{default}(x, i, ..., rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE))
 
 \method{sb_set}{matrix}(
   x,
@@ -22,7 +22,7 @@ sb_set(x, ...)
   ...,
   rp,
   tf,
-  chkdup = getOption("sb.chkdup", FALSE)
+  chkdup = getOption("squarebrackets.chkdup", FALSE)
 )
 
 \method{sb_set}{array}(
@@ -34,7 +34,7 @@ sb_set(x, ...)
   ...,
   rp,
   tf,
-  chkdup = getOption("sb.chkdup", FALSE)
+  chkdup = getOption("squarebrackets.chkdup", FALSE)
 )
 
 sb2_set(x, ...)
@@ -50,7 +50,7 @@ sb2_set(x, ...)
   ...,
   rp,
   tf,
-  chkdup = getOption("sb.chkdup", FALSE),
+  chkdup = getOption("squarebrackets.chkdup", FALSE),
   .lapply = lapply
 )
 }
