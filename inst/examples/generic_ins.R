@@ -5,9 +5,10 @@ x <- matrix(1:20 , ncol = 4)
 print(x)
 new <- -1 * x
 sb_before(x, new, 1)
-sb_before(x, new, 2)
 sb_after(x, new, 1)
+sb_before(x, new, 2)
 sb_after(x, new, 2)
+
 
 #############################################################################
 
@@ -30,6 +31,21 @@ new <- lapply(x, \(x)x*-1)
 print(x)
 sb2_before(x, new)
 sb2_after(x, new)
+
+
+#############################################################################
+
+
+# recursive arrays / dimensional lists ====
+
+x <- matrix(c(as.list(1:20), as.list(letters[1:20])) , ncol = 8) |> t()
+print(x)
+new <- matrix(c(as.list(-1:-20), as.list(letters[26:7])) , ncol = 8) |> t()
+sb2_before(x, new, 1)
+sb2_after(x, new, 1)
+sb2_before(x, new, 2)
+sb2_after(x, new, 2)
+
 
 
 #############################################################################

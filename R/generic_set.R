@@ -19,10 +19,10 @@
 #' and the same same length as the selected subset of \code{x} or a length of 1.
 #' @param chkdup see \link{squarebrackets_duplicates}. \cr
 #' `r .mybadge_performance_set2("FALSE")` \cr
-#' @param .lapply `sb_set()` by default uses \link[base]{lapply}
-#' for lists and \link[collapse]{dapply} data.frame-like objects
-#' to compute `tf()` on every list element or data.frame column. \cr
-#' The user may supply a custom `lapply()/dapply()`-like function
+#' @param .lapply the generic methods use \link[base]{lapply}
+#' for list- and data.frame-like objects
+#' to compute `tf()` on every list element or dataset column. \cr
+#' The user may supply a custom `lapply()`-like function
 #' in this argument to use instead. \cr
 #' For example, the perform parallel transformation,
 #' the user may supply `future.apply::`\link[future.apply]{future_lapply}. \cr

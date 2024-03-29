@@ -84,3 +84,53 @@
   return(out)
   
 }
+
+
+#' @keywords internal
+#' @noRd
+.sb_in_dimlist_before <- function(x, margin, pos, new, .attr, abortcall) {
+  
+  n.x <- dim(x)[[margin]]
+  
+  if(.is_prepend(pos, n.x)) {
+    out <- .abind.recursive(list(new, x), margin)
+    out <- .fix_attr(out, .attr)
+    return(out)
+  }
+  
+  out <- .abind.recursive(list(
+    abind::asub(x, idx = seq_len(pos-1), dims = margin),
+    new,
+    abind::asub(x, idx = seq.int(pos, n.x), dims = margin)
+  ), margin)
+  
+  out <- .fix_attr(out, .attr)
+  return(out)
+  
+}
+
+
+#' @keywords internal
+#' @noRd
+.sb_in_dimlist_after <- function(x, margin, pos, new, .attr, abortcall) {
+  
+  n.x <- dim(x)[[margin]]
+  
+  if(.is_postpend(pos, n.x)) {
+    out <- .abind.recursive(list(x, new), margin)
+    out <- .fix_attr(out, .attr)
+    return(out)
+  }
+  
+  out <- .abind.recursive(list(
+    abind::asub(x, idx = seq_len(pos), dims = margin),
+    new,
+    abind::asub(x, idx = seq.int(pos+1, n.x), dims = margin)
+  ), margin)
+  
+  out <- .fix_attr(out, .attr)
+  return(out)
+  
+}
+
+

@@ -100,5 +100,8 @@ tinycodet::import_LL("squarebrackets", selection = ... )
 - 27 March 2024: Added `dt_setreorder()`, and added tests for this also.
   ‘abind’ now as a dependency, and ‘abind’ based code removed, as it is
   redundant.
+- 29 March 2029: Added `sb2_before.array()` and `sb2_after.array()`, and
+  added tests for these also. Added tests for data.frame-like coercion
+  types. Tweaked the documentation here and there a bit.
 
  

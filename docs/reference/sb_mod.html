@@ -172,10 +172,10 @@ and the same same length as the selected subset of <code>x</code> or a length of
 
 
 <dt>.lapply</dt>
-<dd><p><code>sb_mod()</code> by default uses <a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a>
-for lists and <a href="https://sebkrantz.github.io/collapse/reference/dapply.html" class="external-link">dapply</a> data.frame-like objects
-to compute <code>tf()</code> on every list element or data.frame column. <br>
-The user may supply a custom <code>lapply()/dapply()</code>-like function
+<dd><p>the generic methods use <a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a>
+for list- and data.frame-like objects
+to compute <code>tf()</code> on every list element or dataset column. <br>
+The user may supply a custom <code><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply()</a></code>-like function
 in this argument to use instead. <br>
 For example, the perform parallel transformation,
 the user may supply <code>future.apply::</code><a href="https://future.apply.futureverse.org/reference/future_lapply.html" class="external-link">future_lapply</a>. <br>

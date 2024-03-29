@@ -110,12 +110,10 @@ In a 4 by 4 matrix, subscript \verb{[1,2]} corresponds to flat index \code{5}. \
 The functions described here thus follow also this convention. \cr
 \cr
 }
-\section{Warning}{
-
-These functions do not support duplicate indices. \cr
+\note{
+These functions were not specifically designed for duplicate indices per-sé. \cr
 For efficiency, they do not check for duplicate indices either. \cr
 }
-
 \examples{
 
 x.dim <- c(10, 10, 3)

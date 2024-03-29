@@ -72,6 +72,7 @@ for(iFile in files) {
 rem <-  setdiff(ls(), c("SourceFileLocation", "enumerate", "enumerate_total"))
 rm(list = rem)
 
+
 wd <- SourceFileLocation()
 setwd(wd)
 setwd("..")
@@ -87,6 +88,7 @@ for(iFile in files) {
 }
 rem <-  setdiff(ls(), c("SourceFileLocation", "enumerate", "enumerate_total"))
 rm(list = rem)
+
 
 print(enumerate_total)
 

@@ -102,10 +102,10 @@ and the same same length as the selected subset of \code{x} or a length of 1.}
 \item{chkdup}{see \link{squarebrackets_duplicates}. \cr
 \ifelse{html}{\figure{for_performance-set_to_FALSE-red.svg}{options: alt='[for performance: set to FALSE]'}}{\link[=squarebrackets_help]{for performance: set to FALSE}} \cr}
 
-\item{.lapply}{\code{sb_mod()} by default uses \link[base]{lapply}
-for lists and \link[collapse]{dapply} data.frame-like objects
-to compute \code{tf()} on every list element or data.frame column. \cr
-The user may supply a custom \code{lapply()/dapply()}-like function
+\item{.lapply}{the generic methods use \link[base]{lapply}
+for list- and data.frame-like objects
+to compute \code{tf()} on every list element or dataset column. \cr
+The user may supply a custom \code{lapply()}-like function
 in this argument to use instead. \cr
 For example, the perform parallel transformation,
 the user may supply \verb{future.apply::}\link[future.apply]{future_lapply}. \cr

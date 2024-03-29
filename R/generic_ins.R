@@ -6,12 +6,17 @@
 #' The `sb_after()`/`sb2_after()` method
 #' inserts new values after some position along a dimension. \cr
 #' \cr
-#' Use `sb_before(x, ...)`/`sb_afterr(x, ...)`
+#' Use `sb_before(x, ...)`/`sb_after(x, ...)`
 #' if `x` is a non-recursive object (i.e. atomic or factor). \cr
-#' Use `sb2_before(x, ...)`/`sb2_afterr(x, ...)`
+#' Use `sb2_before(x, ...)`/`sb2_after(x, ...)`
 #' if `x` is a recursive object (i.e. list or data.frame-like). \cr
-#' Note that `sb2_before()` and `sb2_after()`
-#' offer no support for dimensional lists (i.e. recursive arrays). \cr \cr
+#' \cr
+#' `sb2_before.array()` and `sb2_after.array()`
+#' use a altered version of \code{abind::}\link[abind]{abind}
+#' (see references below),
+#' which has been modified to work on recursive arrays
+#' (i.e. dimensional lists). \cr \cr
+#' 
 #'
 #' @param x see \link{squarebrackets_immutable_classes} and \link{squarebrackets_mutable_classes}.
 #' @param new the new value(s). The type of object depends on `x`:
@@ -247,6 +252,34 @@ sb2_after.default <- function(x, new, pos = length(x), .attr = NULL, ...) {
   out <- .fix_attr(out, .attr)
   return(out)
 }
+
+
+#' @rdname sb_in
+#' @export
+sb2_before.array <- function(x, new, margin, pos = 1, .attr = NULL, ...) {
+  
+  if(length(margin)>1 || !is.numeric(margin)) {
+    stop("`margin` must be a single integer scalar")
+  }
+  n <- dim(x)[[margin]]
+  .check_in(pos, n, abortcall = sys.call())
+  return(.sb_in_dimlist_before(x, margin, pos, new, .attr, abortcall = sys.call()))
+}
+
+
+#' @rdname sb_in
+#' @export
+sb2_after.array <- function(x, new, margin, pos = dim(x)[margin], .attr = NULL, ...) {
+  
+  if(length(margin)>1 || !is.numeric(margin)) {
+    stop("`margin` must be a single integer scalar")
+  }
+  
+  n <- dim(x)[[margin]]
+  .check_in(pos, n, abortcall = sys.call())
+  return(.sb_in_dimlist_after(x, margin, pos, new, .attr, abortcall = sys.call()))
+}
+
 
 #' @rdname sb_in
 #' @export

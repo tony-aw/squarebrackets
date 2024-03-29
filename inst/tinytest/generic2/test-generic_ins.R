@@ -28,6 +28,56 @@ expect_equivalent(
 ) |> errorfun()
 enumerate <- enumerate + 4
 
+# recursive arrays ====
+enumerate <- 0
+for(margin in 1:3) {
+  
+  dims <- c(4,4,4)
+  dims[margin] <- 1
+  ya <- array(1:64, c(4,4,4))
+  yl <- array(as.list(1:64), c(4,4,4))
+  newa <- array(1:16, dim = dims)
+  newl <- array(as.list(1:16), dim = dims)
+  
+  out <- sb2_after.array(yl, newl, margin)
+  expected <- array(as.list(abind::abind(ya, newa, along = margin)), dim = dim(out))
+  expect_equivalent(
+    out, expected
+  ) |> errorfun()
+  
+  out <- sb2_before(yl, newl, margin)
+  expected <- array(as.list(abind::abind(newa, ya, along = margin)), dim = dim(out))
+  expect_equivalent(
+    out, expected
+  ) |> errorfun()
+  
+  out <- sb2_before(yl, newl, margin, 4)
+  expected <- abind::abind(
+    abind::asub(ya, 1:3, dims = margin),
+    newa,
+    abind::asub(ya, 4:dim(ya)[margin], dims = margin), along = margin
+  )
+  expected <- array(as.list(expected), dim = dim(out))
+  expect_equivalent(
+    out, expected
+  ) |> errorfun()
+  
+  
+  out <- sb2_after(yl, newl, margin, 2)
+  expected <- abind::abind(
+    abind::asub(ya, 1:2, dims = margin),
+    newa,
+    abind::asub(ya, 3:dim(ya)[margin], dims = margin), along = margin
+  )
+  expected <- array(as.list(expected), dim = dim(out))
+  expect_equivalent(
+    out, expected
+  ) |> errorfun()
+  
+  enumerate <- enumerate + 4
+}
+
+
 
 # data.frames - rows ====
 x. <- data.frame(a = 1:5, b = letters[1:5])

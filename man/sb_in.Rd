@@ -13,6 +13,8 @@
 \alias{sb2_after}
 \alias{sb2_before.default}
 \alias{sb2_after.default}
+\alias{sb2_before.array}
+\alias{sb2_after.array}
 \alias{sb2_before.data.frame}
 \alias{sb2_after.data.frame}
 \title{Methods to Insert New Values Before or After an Index Along a Dimension}
@@ -40,6 +42,10 @@ sb2_after(x, ...)
 \method{sb2_before}{default}(x, new, pos = 1, .attr = NULL, ...)
 
 \method{sb2_after}{default}(x, new, pos = length(x), .attr = NULL, ...)
+
+\method{sb2_before}{array}(x, new, margin, pos = 1, .attr = NULL, ...)
+
+\method{sb2_after}{array}(x, new, margin, pos = dim(x)[margin], .attr = NULL, ...)
 
 \method{sb2_before}{data.frame}(x, new, margin, pos = 1, .attr = NULL, ...)
 
@@ -87,12 +93,16 @@ inserts new values before some position along a dimension. \cr
 The \code{sb_after()}/\code{sb2_after()} method
 inserts new values after some position along a dimension. \cr
 \cr
-Use \code{sb_before(x, ...)}/\code{sb_afterr(x, ...)}
+Use \code{sb_before(x, ...)}/\code{sb_after(x, ...)}
 if \code{x} is a non-recursive object (i.e. atomic or factor). \cr
-Use \code{sb2_before(x, ...)}/\code{sb2_afterr(x, ...)}
+Use \code{sb2_before(x, ...)}/\code{sb2_after(x, ...)}
 if \code{x} is a recursive object (i.e. list or data.frame-like). \cr
-Note that \code{sb2_before()} and \code{sb2_after()}
-offer no support for dimensional lists (i.e. recursive arrays). \cr \cr
+\cr
+\code{sb2_before.array()} and \code{sb2_after.array()}
+use a altered version of \code{abind::}\link[abind]{abind}
+(see references below),
+which has been modified to work on recursive arrays
+(i.e. dimensional lists). \cr \cr
 }
 \examples{
 
@@ -102,9 +112,10 @@ x <- matrix(1:20 , ncol = 4)
 print(x)
 new <- -1 * x
 sb_before(x, new, 1)
-sb_before(x, new, 2)
 sb_after(x, new, 1)
+sb_before(x, new, 2)
 sb_after(x, new, 2)
+
 
 #############################################################################
 
@@ -127,6 +138,21 @@ new <- lapply(x, \(x)x*-1)
 print(x)
 sb2_before(x, new)
 sb2_after(x, new)
+
+
+#############################################################################
+
+
+# recursive arrays / dimensional lists ====
+
+x <- matrix(c(as.list(1:20), as.list(letters[1:20])) , ncol = 8) |> t()
+print(x)
+new <- matrix(c(as.list(-1:-20), as.list(letters[26:7])) , ncol = 8) |> t()
+sb2_before(x, new, 1)
+sb2_after(x, new, 1)
+sb2_before(x, new, 2)
+sb2_after(x, new, 2)
+
 
 
 #############################################################################
