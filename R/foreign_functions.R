@@ -151,12 +151,6 @@
   ## Make sure all arguments conform (re-written this part using 'Rcpp')
   conform.dim <- arg.dim[,1]
   .rcpp_check_conform_dims(conform.dim, arg.dim, ncol(arg.dim), along)
-  # for (i in collapse::seq_col(arg.dim)) {
-  #   if (any((conform.dim != arg.dim[,i])[-along])) {
-  #     stop("arg '", arg.alt.names[i], "' has dims=", paste(arg.dim[,i], collapse=", "),
-  #          "; but need dims=", paste(replace(conform.dim, along, "X"), collapse=", "))
-  #   }
-  # }
   
   ## find the last (or first) names for each dimensions except the join dimension
   if (N > 1L)
