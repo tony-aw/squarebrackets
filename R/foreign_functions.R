@@ -9,13 +9,12 @@
   # This function is a modified version of abind::abind.
   # The modification is different in 4 ways:
   # 1) .abind.recursive can bind recursive arrays (i.e. dimensional lists), whereas abind::abind can't.
-  # 2) .abind.recursibe is faster, due to more efficient code, and through 'collapse' package.
+  # 2) .abind.recursibe is faster, through more efficient code and packages 'collapse' and 'Rcpp".
   # 3) The main input is a list, instead of an ellipsis.
   # 4) some arguments have been disabled or set at a fixed value for simplicity.
   
-  #make.names <- FALSE
-  # use.anon.names <- FALSE
-  # force.array <- TRUE
+  # make.names <- use.anon.names <- FALSE # cannot have make.names=TRUE with a list argument
+  # force.array <- TRUE # needs to be TRUE, otherwise results will be inconsistent for dim = 1 or 2.
   
   if (is.character(hier.names)) {
     hier.names <- match.arg(hier.names, c('before', 'after', 'none'))
@@ -149,14 +148,15 @@
     }
   }
   
-  ## Make sure all arguments conform
+  ## Make sure all arguments conform (re-written this part using 'Rcpp')
   conform.dim <- arg.dim[,1]
-  for (i in collapse::seq_col(arg.dim)) {
-    if (any((conform.dim != arg.dim[,i])[-along])) {
-      stop("arg '", arg.alt.names[i], "' has dims=", paste(arg.dim[,i], collapse=", "),
-           "; but need dims=", paste(replace(conform.dim, along, "X"), collapse=", "))
-    }
-  }
+  .rcpp_check_conform_dims(conform.dim, arg.dim, ncol(arg.dim), along)
+  # for (i in collapse::seq_col(arg.dim)) {
+  #   if (any((conform.dim != arg.dim[,i])[-along])) {
+  #     stop("arg '", arg.alt.names[i], "' has dims=", paste(arg.dim[,i], collapse=", "),
+  #          "; but need dims=", paste(replace(conform.dim, along, "X"), collapse=", "))
+  #   }
+  # }
   
   ## find the last (or first) names for each dimensions except the join dimension
   if (N > 1L)

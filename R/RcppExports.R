@@ -417,6 +417,12 @@
 
 #' @keywords internal
 #' @noRd
+.rcpp_check_conform_dims <- function(conform_dim, arg_dim, n, along) {
+    invisible(.Call(`_squarebrackets_rcpp_check_conform_dims`, conform_dim, arg_dim, n, along))
+}
+
+#' @keywords internal
+#' @noRd
 .rcpp_sb_str <- function(x, ind) {
     .Call(`_squarebrackets_rcpp_sb_str`, x, ind)
 }

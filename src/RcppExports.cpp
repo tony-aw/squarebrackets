@@ -867,6 +867,19 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// rcpp_check_conform_dims
+void rcpp_check_conform_dims(IntegerVector conform_dim, IntegerMatrix arg_dim, int n, int along);
+RcppExport SEXP _squarebrackets_rcpp_check_conform_dims(SEXP conform_dimSEXP, SEXP arg_dimSEXP, SEXP nSEXP, SEXP alongSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type conform_dim(conform_dimSEXP);
+    Rcpp::traits::input_parameter< IntegerMatrix >::type arg_dim(arg_dimSEXP);
+    Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    Rcpp::traits::input_parameter< int >::type along(alongSEXP);
+    rcpp_check_conform_dims(conform_dim, arg_dim, n, along);
+    return R_NilValue;
+END_RCPP
+}
 // rcpp_sb_str
 String rcpp_sb_str(std::string x, IntegerVector ind);
 RcppExport SEXP _squarebrackets_rcpp_sb_str(SEXP xSEXP, SEXP indSEXP) {
@@ -1064,6 +1077,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_squarebrackets_rcpp_all_addresses", (DL_FUNC) &_squarebrackets_rcpp_all_addresses, 2},
     {"_squarebrackets_rcpp_address_in_env", (DL_FUNC) &_squarebrackets_rcpp_address_in_env, 3},
     {"_squarebrackets_rcpp_anybad", (DL_FUNC) &_squarebrackets_rcpp_anybad, 2},
+    {"_squarebrackets_rcpp_check_conform_dims", (DL_FUNC) &_squarebrackets_rcpp_check_conform_dims, 4},
     {"_squarebrackets_rcpp_sb_str", (DL_FUNC) &_squarebrackets_rcpp_sb_str, 2},
     {"_squarebrackets_rcpp_sb_str_rp", (DL_FUNC) &_squarebrackets_rcpp_sb_str_rp, 4},
     {"_squarebrackets_rcpp_mlen", (DL_FUNC) &_squarebrackets_rcpp_mlen, 1},

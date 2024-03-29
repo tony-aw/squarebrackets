@@ -40,3 +40,11 @@ for(margin in 1:3) {
   
   enumerate <- enumerate + 1
 }
+
+
+x <- array(1:1e4, dim = c(100,50, 10))
+y <- array(-1e4:-1, dim =c(100,10, 10))
+expect_error(
+  .abind.recursive(list(x,y)),
+  pattern = "non-conformable dimensions"
+)
