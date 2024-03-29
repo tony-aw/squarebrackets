@@ -146,6 +146,7 @@ sb2_after(x, new)
 # recursive arrays / dimensional lists ====
 
 x <- matrix(c(as.list(1:20), as.list(letters[1:20])) , ncol = 8) |> t()
+dimnames(x) <- list(letters[1:8], letters[1:5])
 print(x)
 new <- matrix(c(as.list(-1:-20), as.list(letters[26:7])) , ncol = 8) |> t()
 sb2_before(x, new, 1)

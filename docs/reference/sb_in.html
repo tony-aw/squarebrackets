@@ -358,73 +358,74 @@ If speed is important, <code>NULL</code> is the best option (but then attributes
 <span class="r-in"><span><span class="co"># recursive arrays / dimensional lists ====</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">20</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">20</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> , ncol <span class="op">=</span> <span class="fl">8</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/dimnames.html" class="external-link">dimnames</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">8</span><span class="op">]</span>, <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2] [,3] [,4] [,5]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 1    2    3    4    5   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 6    7    8    9    10  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 11   12   13   14   15  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] 16   17   18   19   20  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [5,] "a"  "b"  "c"  "d"  "e" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [6,] "f"  "g"  "h"  "i"  "j" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [7,] "k"  "l"  "m"  "n"  "o" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [8,] "p"  "q"  "r"  "s"  "t" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   a   b   c   d   e  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a 1   2   3   4   5  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> b 6   7   8   9   10 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> c 11  12  13  14  15 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> d 16  17  18  19  20 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> e "a" "b" "c" "d" "e"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> f "f" "g" "h" "i" "j"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> g "k" "l" "m" "n" "o"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> h "p" "q" "r" "s" "t"</span>
 <span class="r-in"><span><span class="va">new</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span><span class="op">:</span><span class="op">-</span><span class="fl">20</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">26</span><span class="op">:</span><span class="fl">7</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> , ncol <span class="op">=</span> <span class="fl">8</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">sb2_before</span><span class="op">(</span><span class="va">x</span>, <span class="va">new</span>, <span class="fl">1</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       [,1] [,2] [,3] [,4] [,5]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,] -1   -2   -3   -4   -5  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,] -6   -7   -8   -9   -10 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,] -11  -12  -13  -14  -15 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,] -16  -17  -18  -19  -20 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,] "z"  "y"  "x"  "w"  "v" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] "u"  "t"  "s"  "r"  "q" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,] "p"  "o"  "n"  "m"  "l" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,] "k"  "j"  "i"  "h"  "g" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,] 1    2    3    4    5   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [10,] 6    7    8    9    10  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [11,] 11   12   13   14   15  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [12,] 16   17   18   19   20  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [13,] "a"  "b"  "c"  "d"  "e" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [14,] "f"  "g"  "h"  "i"  "j" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [15,] "k"  "l"  "m"  "n"  "o" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [16,] "p"  "q"  "r"  "s"  "t" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   a   b   c   d   e  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   -1  -2  -3  -4  -5 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   -6  -7  -8  -9  -10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   -11 -12 -13 -14 -15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   -16 -17 -18 -19 -20</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   "z" "y" "x" "w" "v"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   "u" "t" "s" "r" "q"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   "p" "o" "n" "m" "l"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   "k" "j" "i" "h" "g"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a 1   2   3   4   5  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> b 6   7   8   9   10 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> c 11  12  13  14  15 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> d 16  17  18  19  20 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> e "a" "b" "c" "d" "e"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> f "f" "g" "h" "i" "j"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> g "k" "l" "m" "n" "o"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> h "p" "q" "r" "s" "t"</span>
 <span class="r-in"><span><span class="fu">sb2_after</span><span class="op">(</span><span class="va">x</span>, <span class="va">new</span>, <span class="fl">1</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       [,1] [,2] [,3] [,4] [,5]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,] 1    2    3    4    5   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,] 6    7    8    9    10  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,] 11   12   13   14   15  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,] 16   17   18   19   20  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,] "a"  "b"  "c"  "d"  "e" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] "f"  "g"  "h"  "i"  "j" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,] "k"  "l"  "m"  "n"  "o" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,] "p"  "q"  "r"  "s"  "t" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,] -1   -2   -3   -4   -5  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [10,] -6   -7   -8   -9   -10 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [11,] -11  -12  -13  -14  -15 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [12,] -16  -17  -18  -19  -20 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [13,] "z"  "y"  "x"  "w"  "v" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [14,] "u"  "t"  "s"  "r"  "q" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [15,] "p"  "o"  "n"  "m"  "l" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [16,] "k"  "j"  "i"  "h"  "g" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   a   b   c   d   e  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a 1   2   3   4   5  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> b 6   7   8   9   10 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> c 11  12  13  14  15 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> d 16  17  18  19  20 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> e "a" "b" "c" "d" "e"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> f "f" "g" "h" "i" "j"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> g "k" "l" "m" "n" "o"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> h "p" "q" "r" "s" "t"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   -1  -2  -3  -4  -5 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   -6  -7  -8  -9  -10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   -11 -12 -13 -14 -15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   -16 -17 -18 -19 -20</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   "z" "y" "x" "w" "v"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   "u" "t" "s" "r" "q"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   "p" "o" "n" "m" "l"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   "k" "j" "i" "h" "g"</span>
 <span class="r-in"><span><span class="fu">sb2_before</span><span class="op">(</span><span class="va">x</span>, <span class="va">new</span>, <span class="fl">2</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -1   -2   -3   -4   -5   1    2    3    4    5    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -6   -7   -8   -9   -10  6    7    8    9    10   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] -11  -12  -13  -14  -15  11   12   13   14   15   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] -16  -17  -18  -19  -20  16   17   18   19   20   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [5,] "z"  "y"  "x"  "w"  "v"  "a"  "b"  "c"  "d"  "e"  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [6,] "u"  "t"  "s"  "r"  "q"  "f"  "g"  "h"  "i"  "j"  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [7,] "p"  "o"  "n"  "m"  "l"  "k"  "l"  "m"  "n"  "o"  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [8,] "k"  "j"  "i"  "h"  "g"  "p"  "q"  "r"  "s"  "t"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                       a   b   c   d   e  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a -1  -2  -3  -4  -5  1   2   3   4   5  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> b -6  -7  -8  -9  -10 6   7   8   9   10 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> c -11 -12 -13 -14 -15 11  12  13  14  15 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> d -16 -17 -18 -19 -20 16  17  18  19  20 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> e "z" "y" "x" "w" "v" "a" "b" "c" "d" "e"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> f "u" "t" "s" "r" "q" "f" "g" "h" "i" "j"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> g "p" "o" "n" "m" "l" "k" "l" "m" "n" "o"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> h "k" "j" "i" "h" "g" "p" "q" "r" "s" "t"</span>
 <span class="r-in"><span><span class="fu">sb2_after</span><span class="op">(</span><span class="va">x</span>, <span class="va">new</span>, <span class="fl">2</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 1    2    3    4    5    -1   -2   -3   -4   -5   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 6    7    8    9    10   -6   -7   -8   -9   -10  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 11   12   13   14   15   -11  -12  -13  -14  -15  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] 16   17   18   19   20   -16  -17  -18  -19  -20  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [5,] "a"  "b"  "c"  "d"  "e"  "z"  "y"  "x"  "w"  "v"  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [6,] "f"  "g"  "h"  "i"  "j"  "u"  "t"  "s"  "r"  "q"  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [7,] "k"  "l"  "m"  "n"  "o"  "p"  "o"  "n"  "m"  "l"  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [8,] "p"  "q"  "r"  "s"  "t"  "k"  "j"  "i"  "h"  "g"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   a   b   c   d   e                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a 1   2   3   4   5   -1  -2  -3  -4  -5 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> b 6   7   8   9   10  -6  -7  -8  -9  -10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> c 11  12  13  14  15  -11 -12 -13 -14 -15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> d 16  17  18  19  20  -16 -17 -18 -19 -20</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> e "a" "b" "c" "d" "e" "z" "y" "x" "w" "v"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> f "f" "g" "h" "i" "j" "u" "t" "s" "r" "q"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> g "k" "l" "m" "n" "o" "p" "o" "n" "m" "l"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> h "p" "q" "r" "s" "t" "k" "j" "i" "h" "g"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
