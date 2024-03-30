@@ -34,7 +34,7 @@ The components of the list can be either \code{NULL},
 or a character vector with the same length as the corresponding dimension. \cr
 Instead of a list,
 simply \code{NULL} can be specified,
-which will remove the dimnames completely.}
+which will remove the \code{dimnames} completely.}
 
 \item{old}{the old column names}
 

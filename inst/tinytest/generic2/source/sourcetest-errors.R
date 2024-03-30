@@ -54,16 +54,6 @@ for(i in 1:length(xlist)) {
   enumerate <- enumerate + 1
 }
 
-for(i in 1:length(xlist)) {
-  expect_error(
-    sb_test(xlist[[i]], i = rep(NA, length(xlist[[i]]))),
-    pattern = "NA indices not allowed",
-    fixed = TRUE
-  )|> errorfun()
-  enumerate <- enumerate + 1
-}
-
-
 
 xlist <- list(
   as.list(1:10),
@@ -131,14 +121,6 @@ for(i in 1:length(xlist)) {
   enumerate <- enumerate + 1
 }
 
-for(i in 1:length(xlist)) {
-  expect_error(
-    sb_test(xlist[[i]], row = rep(NA, nrow(xlist[[i]]))),
-    pattern = "NA indices not allowed",
-    fixed = TRUE
-  )|> errorfun()
-  enumerate <- enumerate + 1
-}
 
 # col ====
 xlist <- list(
@@ -189,17 +171,6 @@ for(i in 1:length(xlist)) {
   )|> errorfun()
   enumerate <- enumerate + 1
 }
-
-for(i in 1:length(xlist)) {
-  expect_error(
-    sb_test(xlist[[i]], col = rep(NA, ncol(xlist[[i]]))),
-    pattern = "NA indices not allowed",
-    fixed = TRUE
-  )|> errorfun()
-  enumerate <- enumerate + 1
-}
-
-
 
 # dimensions ==== 
 x <- array(as.list(1:27), c(3,3,3))
@@ -252,15 +223,6 @@ enumerate <- enumerate + 1
 expect_error(
   sb_test(x,list(sample(c(TRUE, FALSE), size = nrow(x) + 1, replace = TRUE)), dim = 1),
   pattern = "incorrect length of logical indices",
-  fixed = TRUE
-)|> errorfun()
-enumerate <- enumerate + 1
-
-
-
-expect_error(
-  sb_test(x, list(rep(NA, nrow(x))), dim = 1),
-  pattern = "NA indices not allowed",
   fixed = TRUE
 )|> errorfun()
 enumerate <- enumerate + 1
@@ -407,3 +369,4 @@ if(!test_allow_duplicates) {
   )
   
 }
+

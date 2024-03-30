@@ -185,10 +185,13 @@
 #' as that method can be used for duplicating indices. \cr
 #' \cr
 #' 
-#' @section Out-of-Bounds Integers and Unknown Names/Levels:
-#' Integers that are out of bounds always give an error. \cr
-#' Specifying unknown names/levels is considered a form of zero-length indexing. \cr
-#' \cr
+#' @section Out-of-Bounds Integers, Non-Existing Names/Levels, and NAs:
+#' 
+#'  - Integer indices that are out of bounds (including `NaN` and `NA_integer_`) always give an error.
+#'  - Specifying non-existing names/levels (including `NA_character_`) as indices
+#'  is considered a form of zero-length indexing.
+#'  - Logical indices are translated internally to integers using \link[base]{which},
+#'  and so `NA`s are ignored. \cr \cr
 #' 
 #' @section Disallowed Combinations of Index Arguments:
 #' 

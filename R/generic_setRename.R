@@ -39,7 +39,7 @@
 #' or a character vector with the same length as the corresponding dimension. \cr
 #' Instead of a list,
 #' simply `NULL` can be specified,
-#' which will remove the dimnames completely.
+#' which will remove the `dimnames` completely.
 #' @param old the old column names
 #' @param new the new column names, in the same order as `old`
 #' @param skip_absent Skip items in old that are missing

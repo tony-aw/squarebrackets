@@ -9,7 +9,7 @@
   # This function is a modified version of abind::abind.
   # The modification is different in 4 ways:
   # 1) .abind.recursive can bind recursive arrays (i.e. dimensional lists), whereas abind::abind can't.
-  # 2) .abind.recursibe is faster, through more efficient code and packages 'collapse' and 'Rcpp".
+  # 2) .abind.recursive is faster, through more efficient code and packages 'collapse' and 'Rcpp'.
   # 3) The main input is a list, instead of an ellipsis.
   # 4) some arguments have been disabled or set at a fixed value for simplicity.
   
@@ -23,7 +23,6 @@
     hier.names <- if (hier.names) 'before' else 'no'
   }
   
-  arg.list <- arg.list
   # have.list.arg <- TRUE
   
   N <- max(

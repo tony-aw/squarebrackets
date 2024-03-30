@@ -33,8 +33,6 @@
   
   n.indx <- length(indx)
   
-  .indx_check_general(indx, abortcall)
-  
   if(n.indx == 0) {
     return(integer(0))
   }
@@ -66,8 +64,7 @@
 #' @keywords internal
 #' @noRd
 .lvl2indx.sb_x <- function(indx, x, abortcall) {
-  
-  .indx_check_general(indx, abortcall)
+
   
   if(length(indx)==0) {
     return(integer(0))
@@ -84,8 +81,6 @@
     indx, x, dim.L=1, abortcall
 ) {
   
-
-  .indx_check_general(indx, abortcall)
   n.indx <- length(indx)
   
   if(n.indx == 0) {
@@ -120,8 +115,6 @@
 .indx_make_tableind.sb_x <- function(
     indx, x, dim.L=1, abortcall
 ) {
-  
-  .indx_check_general(indx, abortcall)
   
   n.indx <- length(indx)
   

@@ -12,14 +12,6 @@
 }
 
 
-#' @keywords internal
-#' @noRd
-.indx_check_general <- function(indx, abortcall) {
-  if(anyNA(indx)) {
-    stop(simpleError("NA indices not allowed", call = abortcall))
-  }
-}
-
 
 #' @keywords internal
 #' @noRd
@@ -96,8 +88,7 @@
 .lvl2indx <- function(indx, x, chkdup, inv, abortcall) {
   
   n <- length(x)
-  
-  .indx_check_general(indx, abortcall)
+
   
   if(length(indx)==0) {
     if(!inv) return(integer(0))
@@ -168,8 +159,7 @@
   }
   
   n.indx <- length(indx)
-  
-  .indx_check_general(indx, abortcall)
+
   
   if(n.indx == 0) {
     n <- length(x)
@@ -211,7 +201,6 @@
 ) {
   
 
-  .indx_check_general(indx, abortcall)
   n.indx <- length(indx)
   
   if(n.indx == 0) {
@@ -250,8 +239,7 @@
 .indx_make_tableind <- function(
     indx, x, dim.L=1, chkdup, inv, abortcall
 ) {
-  
-  .indx_check_general(indx, abortcall)
+
   
   n.indx <- length(indx)
   
