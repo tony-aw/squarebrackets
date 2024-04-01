@@ -100,16 +100,16 @@
 
 #' @keywords internal
 #' @noRd
-.sb3d_mod <- function(x, row, col, lyr, rp, tf, chkdup, abortcall) {
+.sb3d_mod <- function(x, row, col, lyr, inv, rp, tf, chkdup, abortcall) {
   
   if(!is.null(row)) {
-    row <- .indx_make_dim(row, x,  1, chkdup = chkdup, inv = FALSE, abortcall = abortcall)
+    row <- .indx_make_dim(row, x,  1, chkdup = chkdup, inv = inv, abortcall = abortcall)
   }
   if(!is.null(col)) {
-    col <- .indx_make_dim(col, x,  2, chkdup = chkdup, inv = FALSE, abortcall = abortcall)
+    col <- .indx_make_dim(col, x,  2, chkdup = chkdup, inv = inv, abortcall = abortcall)
   }
   if(!is.null(lyr)) {
-    lyr <- .indx_make_dim(lyr, x,  3, chkdup = chkdup, inv = FALSE, abortcall = abortcall)
+    lyr <- .indx_make_dim(lyr, x,  3, chkdup = chkdup, inv = inv, abortcall = abortcall)
   }
   
   if(.any_empty_indices(row, col, lyr)) {
@@ -134,16 +134,16 @@
 
 #' @keywords internal
 #' @noRd
-.sb3d_get_elements <- function(x, row, col, lyr, chkdup, abortcall) {
+.sb3d_get_elements <- function(x, row, col, lyr, inv, chkdup, abortcall) {
   
   if(!is.null(row)) {
-    row <- .indx_make_dim(row, x,  1, chkdup = chkdup, inv = FALSE, abortcall = abortcall)
+    row <- .indx_make_dim(row, x,  1, chkdup = chkdup, inv = inv, abortcall = abortcall)
   }
   if(!is.null(col)) {
-    col <- .indx_make_dim(col, x,  2, chkdup = chkdup, inv = FALSE, abortcall = abortcall)
+    col <- .indx_make_dim(col, x,  2, chkdup = chkdup, inv = inv, abortcall = abortcall)
   }
   if(!is.null(lyr)) {
-    lyr <- .indx_make_dim(lyr, x,  3, chkdup = chkdup, inv = FALSE, abortcall = abortcall)
+    lyr <- .indx_make_dim(lyr, x,  3, chkdup = chkdup, inv = inv, abortcall = abortcall)
   }
   
   if(.any_empty_indices(row, col, lyr)) {

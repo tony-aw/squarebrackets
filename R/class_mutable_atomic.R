@@ -138,9 +138,13 @@ is.mutable_atomic <- function(x) {
   
   if(!couldb.mutable_atomic(x)) return(FALSE)
   if(is.factor(x)) return(FALSE)
-  check1 <- !data.table::`%chin%`(.rcpp_address(x), getOption("squarebrackets.protected"))
-  check2 <- inherits(x, "mutable_atomic") && isTRUE(attr(x, "typeof") == typeof(x))
-  return(check1 && check2)
+  check_protected <- data.table::`%chin%`(
+    .rcpp_address(x),
+    getOption("squarebrackets.protected", default = .protected_addresses())
+  )
+  if(check_protected) return(FALSE)
+  check <- inherits(x, "mutable_atomic") && isTRUE(attr(x, "typeof") == typeof(x))
+  return(check)
   
 }
 
@@ -194,24 +198,4 @@ print.mutable_atomic <- function(x, ...) {
   print(x, ...)
   cat("mutable_atomic \n")
   cat(paste("typeof: ", typeof(x), "\n"))
-}
-
-
-#' @keywords internal
-#' @noRd
-.protected_addresses <- function() {
-  tempfun <- function(x) {
-    if(!is.function(x)) {
-      return(.rcpp_address(x))
-    }
-  }
-  lst <- eapply(baseenv(), tempfun, all.names = TRUE, USE.NAMES = TRUE)
-  lst <- lst[sapply(lst, \(x)!is.null(x))]
-  protected_bnds <- sapply(
-    names(lst), \(x) bindingIsLocked(x, env = baseenv()) || bindingIsActive(x, env = baseenv())
-  )
-  lst <- lst[protected_bnds]
-  lst <- lst[!names(lst) %in% c(".Last.value", "Last.value")]
-  
-  return(unlist(lst))
 }

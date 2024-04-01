@@ -129,6 +129,7 @@
 #' `r .mybadge_intro_section("SPECIALIZED FUNCTIONS", "darkred")` \cr
 #' Additional specialized sub-setting functions are provided:
 #'  
+#'  * \link{idx1}: translate given indices/subscripts to flat/linear integer indices.
 #'  * \link{setapply}: apply functions over mutable matrix margins
 #'  using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
 #'  * \link{ma_setv}: Find & Replace values in \link{mutable_atomic} objects

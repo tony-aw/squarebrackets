@@ -142,21 +142,30 @@ Use <code>sb2_coe(x, ...)</code> if <code>x</code> is a recursive object (i.e. l
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">sb_coe</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for default</span></span>
-<span><span class="fu">sb_coe</span><span class="op">(</span><span class="va">x</span>, <span class="va">v</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">sb_coe</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span>, <span class="va">v</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for factor</span></span>
-<span><span class="fu">sb_coe</span><span class="op">(</span><span class="va">x</span>, <span class="va">v</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">sb_coe</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span>, <span class="va">v</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">sb2_coe</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for default</span></span>
-<span><span class="fu">sb2_coe</span><span class="op">(</span><span class="va">x</span>, <span class="va">i</span>, <span class="va">v</span>, <span class="va">...</span>, .lapply <span class="op">=</span> <span class="va">lapply</span><span class="op">)</span></span>
+<span><span class="fu">sb2_coe</span><span class="op">(</span><span class="va">x</span>, <span class="va">i</span>, inv <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span>, <span class="va">v</span>, .lapply <span class="op">=</span> <span class="va">lapply</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for array</span></span>
-<span><span class="fu">sb2_coe</span><span class="op">(</span><span class="va">x</span>, idx <span class="op">=</span> <span class="cn">NULL</span>, dims <span class="op">=</span> <span class="cn">NULL</span>, i <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">v</span>, <span class="va">...</span>, .lapply <span class="op">=</span> <span class="va">lapply</span><span class="op">)</span></span>
+<span><span class="fu">sb2_coe</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  idx <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  dims <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  i <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  inv <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  <span class="va">v</span>,</span>
+<span>  .lapply <span class="op">=</span> <span class="va">lapply</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for data.frame</span></span>
-<span><span class="fu">sb2_coe</span><span class="op">(</span><span class="va">x</span>, col <span class="op">=</span> <span class="cn">NULL</span>, vars <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">v</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">sb2_coe</span><span class="op">(</span><span class="va">x</span>, col <span class="op">=</span> <span class="cn">NULL</span>, vars <span class="op">=</span> <span class="cn">NULL</span>, inv <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span>, <span class="va">v</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -173,7 +182,7 @@ Use <code>sb2_coe(x, ...)</code> if <code>x</code> is a recursive object (i.e. l
 <dd><p>the coercive transformation function to use.</p></dd>
 
 
-<dt>i, col, vars, idx, dims</dt>
+<dt>i, col, vars, idx, dims, inv</dt>
 <dd><p>See <a href="aaa3_squarebrackets_indx_args.html">squarebrackets_indx_args</a>. <br>
 An empty index selection returns the original object unchanged. <br></p></dd>
 

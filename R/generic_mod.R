@@ -3,10 +3,12 @@
 #' @description
 #' This is an S3 Method to return a copy of an object with modified subsets. \cr
 #' Use `sb_mod(x, ...)` if `x` is a non-recursive object (i.e. atomic or factor). \cr
-#' Use `sb2_mod(x, ...)` if `x` is a recursive object (i.e. list or data.frame-like). \cr \cr
+#' Use `sb2_mod(x, ...)` if `x` is a recursive object (i.e. list or data.frame-like). \cr
+#' \cr
+#' For modifying subsets using R's default copy-on-modification semantics, see \link{idx1}. \cr \cr
 #'
 #' @param x see \link{squarebrackets_immutable_classes} and \link{squarebrackets_mutable_classes}.
-#' @param i,lvl,row,col,idx,dims,rcl,filter,vars See \link{squarebrackets_indx_args}. \cr
+#' @param i,lvl,row,col,idx,dims,rcl,filter,vars,inv See \link{squarebrackets_indx_args}. \cr
 #' An empty index selection returns the original object unchanged. \cr
 #' @param ... further arguments passed to or from other methods.
 #' @param tf the transformation function.
@@ -88,7 +90,7 @@ sb_mod <- function(x, ...) {
 #' @rdname sb_mod
 #' @export
 sb_mod.default <- function(
-    x, i, ...,
+    x, i, inv = FALSE, ...,
     rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
@@ -96,7 +98,7 @@ sb_mod.default <- function(
   if(!missing(rp) && !missing(tf)) stop("cannot specify both `rp` and `tf`")
   
   elements <- .indx_make_element(
-    i, x, is_list = FALSE, chkdup = chkdup, inv = FALSE, abortcall = sys.call()
+    i, x, is_list = FALSE, chkdup = chkdup, inv = inv, abortcall = sys.call()
   )
   
   n.i <- length(elements)
@@ -116,7 +118,7 @@ sb_mod.default <- function(
 #' @rdname sb_mod
 #' @export
 sb_mod.matrix <- function(
-    x, row = NULL, col = NULL, i = NULL, ...,
+    x, row = NULL, col = NULL, i = NULL, inv = FALSE, ...,
     rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
@@ -125,7 +127,7 @@ sb_mod.matrix <- function(
   
   if(!is.null(i)) {
     elements <- .indx_make_element(
-      i, x, is_list = FALSE, chkdup = chkdup, inv = FALSE, abortcall = sys.call()
+      i, x, is_list = FALSE, chkdup = chkdup, inv = inv, abortcall = sys.call()
     )
     n.i <- length(elements)
     if(n.i == 0) return(x)
@@ -139,10 +141,10 @@ sb_mod.matrix <- function(
   }
   
   if(!is.null(row)) {
-    row <- .indx_make_dim(row, x,  1, chkdup = chkdup, inv = FALSE, abortcall = sys.call())
+    row <- .indx_make_dim(row, x,  1, chkdup = chkdup, inv = inv, abortcall = sys.call())
   }
   if(!is.null(col)) {
-    col <- .indx_make_dim(col, x,  2, chkdup = chkdup, inv = FALSE, abortcall = sys.call())
+    col <- .indx_make_dim(col, x,  2, chkdup = chkdup, inv = inv, abortcall = sys.call())
   }
   
   if(.any_empty_indices(row, col)) {
@@ -166,14 +168,14 @@ sb_mod.matrix <- function(
 #' @rdname sb_mod
 #' @export
 sb_mod.array <- function(
-    x, idx = NULL, dims = NULL, rcl = NULL, i = NULL, ...,
+    x, idx = NULL, dims = NULL, rcl = NULL, i = NULL, inv = FALSE, ...,
     rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
   
   if(!is.null(i)) {
     elements <- .indx_make_element(
-      i, x, is_list = FALSE, chkdup = chkdup, inv = FALSE, abortcall = sys.call()
+      i, x, is_list = FALSE, chkdup = chkdup, inv = inv, abortcall = sys.call()
     )
     n.i <- length(elements)
     if(n.i == 0) return(x)
@@ -190,17 +192,17 @@ sb_mod.array <- function(
     if(length(dim(x)) != 3) stop("`rcl` only applicable for arrays with exactly 3 dimensions")
     if(!is.list(rcl) || length(rcl) != 3) stop("`rcl` must be a list of length 3")
     return(.sb3d_mod(
-      x, rcl[[1]], rcl[[2]], rcl[[3]], rp = rp, tf = tf, chkdup = chkdup, abortcall = sys.call()
+      x, rcl[[1]], rcl[[2]], rcl[[3]], inv, rp = rp, tf = tf, chkdup = chkdup, abortcall = sys.call()
     ))
   }
   
   if(!missing(rp)) {
     if(is.recursive(rp)) stop("`rp` must be non-recursive")
-    return(.arr_repl(x, idx, dims, rp, chkdup = chkdup, abortcall = sys.call()))
+    return(.arr_repl(x, idx, dims, inv, rp, chkdup = chkdup, abortcall = sys.call()))
   }
   if(!missing(tf)) {
     if(!is.function(tf)) stop("`tf` must be a function")
-    return(.arr_tf(x, idx, dims, tf, chkdup = chkdup, abortcall = sys.call()))
+    return(.arr_tf(x, idx, dims, inv, tf, chkdup = chkdup, abortcall = sys.call()))
   }
 }
 
@@ -208,7 +210,7 @@ sb_mod.array <- function(
 #' @rdname sb_mod
 #' @export
 sb_mod.factor <- function(
-    x, i = NULL, lvl = NULL, ..., rp, chkdup = getOption("squarebrackets.chkdup", FALSE)
+    x, i = NULL, lvl = NULL, inv = FALSE, ..., rp, chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
   
@@ -216,7 +218,7 @@ sb_mod.factor <- function(
   
   if(!is.null(i)) {
     elements <- .indx_make_element(
-      i, x, is_list = FALSE, chkdup = chkdup, inv = FALSE, abortcall = sys.call()
+      i, x, is_list = FALSE, chkdup = chkdup, inv = inv, abortcall = sys.call()
     )
     n.i <- length(elements)
     if(n.i == 0) return(x)
@@ -249,7 +251,7 @@ sb2_mod <- function(x, ...) {
 #' @rdname sb_mod
 #' @export
 sb2_mod.default <- function(
-    x, i, ...,
+    x, i, inv = FALSE, ...,
     rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE), .lapply = lapply
 ) {
   
@@ -257,7 +259,7 @@ sb2_mod.default <- function(
   if(!missing(rp) && !missing(tf)) stop("cannot specify both `rp` and `tf`")
   
   elements <- .indx_make_element(
-    i, x, is_list = TRUE, chkdup = chkdup, inv = FALSE, abortcall = sys.call()
+    i, x, is_list = TRUE, chkdup = chkdup, inv = inv, abortcall = sys.call()
   )
   
   n.i <- length(elements)
@@ -282,21 +284,21 @@ sb2_mod.default <- function(
 #' @rdname sb_mod
 #' @export
 sb2_mod.array <- function(
-    x, idx = NULL, dims = NULL, i = NULL, ...,
+    x, idx = NULL, dims = NULL, i = NULL, inv = FALSE, ...,
     rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE), .lapply = lapply
 ) {
   
   if(!is.null(i)) {
-    return(sb2_mod.default(x, i, ..., rp = rp, tf = tf, chkdup = chkdup))
+    return(sb2_mod.default(x, i, inv = inv, ..., rp = rp, tf = tf, chkdup = chkdup))
   }
   
   if(!missing(rp)) {
     if(!is.list(rp)) stop("`rp` must be a list")
-    return(.arr_repl_list(x, idx, dims, rp, chkdup = chkdup, abortcall = sys.call()))
+    return(.arr_repl_list(x, idx, dims, inv, rp, chkdup = chkdup, abortcall = sys.call()))
   }
   if(!missing(tf)) {
     if(!is.function(tf)) stop("`tf` must be a function")
-    return(.arr_tf_list(x, idx, dims, tf, chkdup = chkdup, .lapply, abortcall = sys.call()))
+    return(.arr_tf_list(x, idx, dims, inv, tf, chkdup = chkdup, .lapply, abortcall = sys.call()))
   }
 }
 
@@ -304,7 +306,7 @@ sb2_mod.array <- function(
 #' @rdname sb_mod
 #' @export
 sb2_mod.data.frame <- function(
-    x, row = NULL, col = NULL, filter = NULL, vars = NULL, coe = FALSE, ...,
+    x, row = NULL, col = NULL, filter = NULL, vars = NULL, inv = FALSE, coe = FALSE, ...,
     rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE), .lapply = lapply
 ) {
   
@@ -312,17 +314,17 @@ sb2_mod.data.frame <- function(
   .check_args_df(x, row, col, filter, vars, abortcall = sys.call())
   
   if(!is.null(row)) { row <- .indx_make_tableind(
-    row, x,  1, chkdup = chkdup, inv = FALSE, abortcall = sys.call()
+    row, x,  1, chkdup = chkdup, inv = inv, abortcall = sys.call()
   )}
   if(!is.null(col)) { col <- .indx_make_tableind(
-    col, x,  2, chkdup = chkdup, inv = FALSE, abortcall = sys.call()
+    col, x,  2, chkdup = chkdup, inv = inv, abortcall = sys.call()
   )}
   
   if(!is.null(filter)) {
-    row <- .indx_make_filter(x, filter, inv = FALSE, abortcall = sys.call())
+    row <- .indx_make_filter(x, filter, inv = inv, abortcall = sys.call())
   }
   if(!is.null(vars)) {
-    col <- .indx_make_vars(x, vars, inv = FALSE, abortcall = sys.call())
+    col <- .indx_make_vars(x, vars, inv = inv, abortcall = sys.call())
   }
   
   # empty return:
@@ -400,7 +402,7 @@ sb2_mod.data.frame <- function(
   
   row <- as.integer(row)
   
-  extraction <- data.table::setDF(collapse::ss(x, j = col, check = FALSE))
+  extraction <- collapse::qDF(collapse::ss(x, j = col, check = FALSE))
   if(ncol(extraction) == ncol(x) && ncol(x) > 1) {
     warning(simpleWarning("coercing all columns", call = abortcall))
   }

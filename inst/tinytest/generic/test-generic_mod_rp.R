@@ -72,6 +72,8 @@ x2 <- x
 x2[which(names(x2) == "a")] <- "Male"
 expect_equal(sb_mod(x, i = "a", rp = "Male"), x2)
 
+enumerate <- enumerate + 3
+
 
 # test matrix & 3d array ====
 

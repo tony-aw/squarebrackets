@@ -12,13 +12,22 @@
 \usage{
 sb_set(x, ...)
 
-\method{sb_set}{default}(x, i, ..., rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE))
+\method{sb_set}{default}(
+  x,
+  i,
+  inv = FALSE,
+  ...,
+  rp,
+  tf,
+  chkdup = getOption("squarebrackets.chkdup", FALSE)
+)
 
 \method{sb_set}{matrix}(
   x,
   row = NULL,
   col = NULL,
   i = NULL,
+  inv = FALSE,
   ...,
   rp,
   tf,
@@ -31,6 +40,7 @@ sb_set(x, ...)
   dims = NULL,
   rcl = NULL,
   i = NULL,
+  inv = FALSE,
   ...,
   rp,
   tf,
@@ -47,6 +57,7 @@ sb2_set(x, ...)
   col = NULL,
   filter = NULL,
   vars = NULL,
+  inv = FALSE,
   ...,
   rp,
   tf,
@@ -60,7 +71,7 @@ sb2_set(x, ...)
 
 \item{...}{further arguments passed to or from other methods.}
 
-\item{i, row, col, idx, dims, rcl, filter, vars}{See \link{squarebrackets_indx_args}. \cr
+\item{i, row, col, idx, dims, rcl, filter, vars, inv}{See \link{squarebrackets_indx_args}. \cr
 An empty index selection returns the original object unchanged. \cr}
 
 \item{rp}{an object of somewhat the same type as the selected subset of \code{x},

@@ -52,7 +52,7 @@ For lists, \code{i} is interpreted as \code{lapply(x, i)}. \cr
 
 Using the \code{i} arguments corresponds to doing something like the following:
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{ sb_x(x, i = i) # ==> x[i]
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{ sb_x(x, i = i) # ==> x[i]
  
 }\if{html}{\out{</div>}}
 
@@ -84,7 +84,7 @@ NOTE: The arguments \code{row} and \code{col} will be ignored if \code{i} is spe
 
 Using the \verb{row, col} arguments corresponds to doing something like the following:
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{ sb_x(x, row = row, col = col) # ==> x[row, col, drop = FALSE]
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{ sb_x(x, row = row, col = col) # ==> x[row, col, drop = FALSE]
  
 }\if{html}{\out{</div>}}
 }
@@ -108,7 +108,7 @@ Using the \verb{idx, dims} arguments,
 corresponds to doing something like the following,
 here using an example of a 4-dimensional array:
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{sb_x(x, n(1:10, 1:5), c(1, 3)) # ==> x[1:10, , 1:5, , drop = FALSE]
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{sb_x(x, n(1:10, 1:5), c(1, 3)) # ==> x[1:10, , 1:5, , drop = FALSE]
 
 }\if{html}{\out{</div>}}
 }
@@ -150,7 +150,7 @@ the user can use the \link{n} function instead of \code{list()} to specify \code
 \cr
 Using the \code{rcl} argument corresponds to doing something like the following:
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{sb_x(x, rcl = n(NULL, 1:10, 1:5)) # ==> x[, 1:10, 1:5, drop = FALSE]
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{sb_x(x, rcl = n(NULL, 1:10, 1:5)) # ==> x[, 1:10, 1:5, drop = FALSE]
 
 }\if{html}{\out{</div>}}
 }
@@ -190,12 +190,22 @@ For example, to select all numeric columns, specify \code{vars = is.numeric}. \c
 \cr
 }
 
-\section{Duplicates (for Names, Integers, and Levels)}{
+\section{inv}{
 
-Generally speaking, duplicate names, integers, or levels are not allowed in index selection. \cr
-The exception is the \link{sb_x} method,
-as that method can be used for duplicating indices. \cr
-\cr
+\ifelse{html}{\figure{all_classes-red.svg}{options: alt='[all classes]'}}{\link[=squarebrackets_indx_args]{all classes}} \cr
+
+Relevant for \link{sb_mod}, \link{sb_set}, \link{sb_coe}, and \link{idx1}. \cr
+By default, \code{inv = FALSE} which translates the indices like normally. \cr
+When \code{inv = TRUE}, the inverse of the indices is taken. \cr
+Consider, for example, an atomic matrix \code{x}; \cr
+using \code{inv} for transformations corresponds to something like the following:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{
+sb_mod(x, 1:2, 1:2, tf = tf) ==> tf(x[1:2, 1:2])
+
+sb_mod(x, 1:2, 1:2, inv = TRUE, tf = tf) ==> tf(x[-1:-2, -1:-2])
+
+}\if{html}{\out{</div>}}
 }
 
 \section{Out-of-Bounds Integers, Non-Existing Names/Levels, and NAs}{

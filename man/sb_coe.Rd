@@ -12,17 +12,26 @@
 \usage{
 sb_coe(x, ...)
 
-\method{sb_coe}{default}(x, v, ...)
+\method{sb_coe}{default}(x, ..., v)
 
-\method{sb_coe}{factor}(x, v, ...)
+\method{sb_coe}{factor}(x, ..., v)
 
 sb2_coe(x, ...)
 
-\method{sb2_coe}{default}(x, i, v, ..., .lapply = lapply)
+\method{sb2_coe}{default}(x, i, inv = FALSE, ..., v, .lapply = lapply)
 
-\method{sb2_coe}{array}(x, idx = NULL, dims = NULL, i = NULL, v, ..., .lapply = lapply)
+\method{sb2_coe}{array}(
+  x,
+  idx = NULL,
+  dims = NULL,
+  i = NULL,
+  inv = FALSE,
+  ...,
+  v,
+  .lapply = lapply
+)
 
-\method{sb2_coe}{data.frame}(x, col = NULL, vars = NULL, v, ...)
+\method{sb2_coe}{data.frame}(x, col = NULL, vars = NULL, inv = FALSE, ..., v)
 }
 \arguments{
 \item{x}{see \link{squarebrackets_immutable_classes} and \link{squarebrackets_mutable_classes}.}
@@ -31,7 +40,7 @@ sb2_coe(x, ...)
 
 \item{v}{the coercive transformation function to use.}
 
-\item{i, col, vars, idx, dims}{See \link{squarebrackets_indx_args}. \cr
+\item{i, col, vars, idx, dims, inv}{See \link{squarebrackets_indx_args}. \cr
 An empty index selection returns the original object unchanged. \cr}
 
 \item{.lapply}{\code{sb2_coe()} by default uses \link[base]{lapply}

@@ -8,7 +8,7 @@ sys.source(file.path(getwd(), "source", "functions4testing.R"), envir = environm
 # lists ====
 x <- list(a = seq(1.5, 10.5, by = 1), b = letters)
 expect_equal(
-  sb2_coe(x, 1, as.integer),
+  sb2_coe(x, 1, v = as.integer),
   {x[[1]] <- as.integer(x[[1]]); x}
 )
 

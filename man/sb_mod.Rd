@@ -14,13 +14,22 @@
 \usage{
 sb_mod(x, ...)
 
-\method{sb_mod}{default}(x, i, ..., rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE))
+\method{sb_mod}{default}(
+  x,
+  i,
+  inv = FALSE,
+  ...,
+  rp,
+  tf,
+  chkdup = getOption("squarebrackets.chkdup", FALSE)
+)
 
 \method{sb_mod}{matrix}(
   x,
   row = NULL,
   col = NULL,
   i = NULL,
+  inv = FALSE,
   ...,
   rp,
   tf,
@@ -33,6 +42,7 @@ sb_mod(x, ...)
   dims = NULL,
   rcl = NULL,
   i = NULL,
+  inv = FALSE,
   ...,
   rp,
   tf,
@@ -43,6 +53,7 @@ sb_mod(x, ...)
   x,
   i = NULL,
   lvl = NULL,
+  inv = FALSE,
   ...,
   rp,
   chkdup = getOption("squarebrackets.chkdup", FALSE)
@@ -53,6 +64,7 @@ sb2_mod(x, ...)
 \method{sb2_mod}{default}(
   x,
   i,
+  inv = FALSE,
   ...,
   rp,
   tf,
@@ -65,6 +77,7 @@ sb2_mod(x, ...)
   idx = NULL,
   dims = NULL,
   i = NULL,
+  inv = FALSE,
   ...,
   rp,
   tf,
@@ -78,6 +91,7 @@ sb2_mod(x, ...)
   col = NULL,
   filter = NULL,
   vars = NULL,
+  inv = FALSE,
   coe = FALSE,
   ...,
   rp,
@@ -91,7 +105,7 @@ sb2_mod(x, ...)
 
 \item{...}{further arguments passed to or from other methods.}
 
-\item{i, lvl, row, col, idx, dims, rcl, filter, vars}{See \link{squarebrackets_indx_args}. \cr
+\item{i, lvl, row, col, idx, dims, rcl, filter, vars, inv}{See \link{squarebrackets_indx_args}. \cr
 An empty index selection returns the original object unchanged. \cr}
 
 \item{rp}{an object of somewhat the same type as the selected subset of \code{x},
@@ -125,7 +139,9 @@ A copy of the object with replaced/transformed values. \cr \cr
 \description{
 This is an S3 Method to return a copy of an object with modified subsets. \cr
 Use \code{sb_mod(x, ...)} if \code{x} is a non-recursive object (i.e. atomic or factor). \cr
-Use \code{sb2_mod(x, ...)} if \code{x} is a recursive object (i.e. list or data.frame-like). \cr \cr
+Use \code{sb2_mod(x, ...)} if \code{x} is a recursive object (i.e. list or data.frame-like). \cr
+\cr
+For modifying subsets using R's default copy-on-modification semantics, see \link{idx1}. \cr \cr
 }
 \details{
 \bold{Transform or Replace} \cr

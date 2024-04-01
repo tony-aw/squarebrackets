@@ -47,7 +47,7 @@
 #' 
 #' Using the `i` arguments corresponds to doing something like the following:
 #' 
-#' ```
+#' ```{r eval = FALSE, echo = TRUE}
 #'  sb_x(x, i = i) # ==> x[i]
 #'  
 #' ```
@@ -78,7 +78,7 @@
 #' 
 #' Using the `row, col` arguments corresponds to doing something like the following:
 #' 
-#' ```
+#' ```{r eval = FALSE, echo = TRUE}
 #'  sb_x(x, row = row, col = col) # ==> x[row, col, drop = FALSE]
 #'  
 #' ```
@@ -101,7 +101,7 @@
 #' corresponds to doing something like the following,
 #' here using an example of a 4-dimensional array:
 #' 
-#' ```
+#' ```{r eval = FALSE, echo = TRUE}
 #' sb_x(x, n(1:10, 1:5), c(1, 3)) # ==> x[1:10, , 1:5, , drop = FALSE]
 #' 
 #' ```
@@ -141,7 +141,7 @@
 #' \cr
 #' Using the `rcl` argument corresponds to doing something like the following:
 #' 
-#' ```
+#' ```{r eval = FALSE, echo = TRUE}
 #' sb_x(x, rcl = n(NULL, 1:10, 1:5)) # ==> x[, 1:10, 1:5, drop = FALSE]
 #' 
 #' ```
@@ -179,11 +179,23 @@
 #' For example, to select all numeric columns, specify `vars = is.numeric`. \cr
 #' \cr
 #' 
-#' @section Duplicates (for Names, Integers, and Levels):
-#' Generally speaking, duplicate names, integers, or levels are not allowed in index selection. \cr
-#' The exception is the \link{sb_x} method,
-#' as that method can be used for duplicating indices. \cr
-#' \cr
+#' @section inv:
+#' `r .mybadge_all_classes()` \cr
+#' 
+#' Relevant for \link{sb_mod}, \link{sb_set}, \link{sb_coe}, and \link{idx1}. \cr
+#' By default, `inv = FALSE` which translates the indices like normally. \cr
+#' When `inv = TRUE`, the inverse of the indices is taken. \cr
+#' Consider, for example, an atomic matrix `x`; \cr
+#' using `inv` for transformations corresponds to something like the following:
+#' 
+#' ```{r eval = FALSE, echo = TRUE}
+#' 
+#' sb_mod(x, 1:2, 1:2, tf = tf) ==> tf(x[1:2, 1:2])
+#' 
+#' sb_mod(x, 1:2, 1:2, inv = TRUE, tf = tf) ==> tf(x[-1:-2, -1:-2])
+#' 
+#' ```
+#' 
 #' 
 #' @section Out-of-Bounds Integers, Non-Existing Names/Levels, and NAs:
 #' 

@@ -47,7 +47,7 @@
 #' Use `sb2_coe(x, ...)` if `x` is a recursive object (i.e. list or data.frame-like). \cr \cr
 #'
 #' @param x see \link{squarebrackets_immutable_classes} and \link{squarebrackets_mutable_classes}.
-#' @param i,col,vars,idx,dims See \link{squarebrackets_indx_args}. \cr
+#' @param i,col,vars,idx,dims,inv See \link{squarebrackets_indx_args}. \cr
 #' An empty index selection returns the original object unchanged. \cr
 #' @param v the coercive transformation function to use.
 #' @param .lapply `sb2_coe()` by default uses \link[base]{lapply}
@@ -83,7 +83,7 @@ sb_coe <- function(x, ...) {
 
 #' @rdname sb_coe
 #' @export
-sb_coe.default <- function(x, v, ...) {
+sb_coe.default <- function(x, ..., v) {
   
   temp.attr <- attributes(x)
   out <- v(x)
@@ -93,7 +93,7 @@ sb_coe.default <- function(x, v, ...) {
 
 #' @rdname sb_coe
 #' @export
-sb_coe.factor <- function(x, v, ...) {
+sb_coe.factor <- function(x, ..., v) {
   
   return(v(x))
 }
@@ -113,9 +113,9 @@ sb2_coe <- function(x, ...) {
 
 #' @rdname sb_coe
 #' @export
-sb2_coe.default <- function(x, i, v, ..., .lapply = lapply) {
+sb2_coe.default <- function(x, i, inv = FALSE, ..., v, .lapply = lapply) {
   elements <- .indx_make_element(
-    i, x, is_list = TRUE, chkdup = FALSE, inv = FALSE, abortcall = sys.call()
+    i, x, is_list = TRUE, chkdup = FALSE, inv = inv, abortcall = sys.call()
   )
   
   
@@ -130,28 +130,28 @@ sb2_coe.default <- function(x, i, v, ..., .lapply = lapply) {
 #' @rdname sb_coe
 #' @export
 sb2_coe.array <- function(
-    x, idx = NULL, dims = NULL, i = NULL, v, ..., .lapply = lapply
+    x, idx = NULL, dims = NULL, i = NULL, inv = FALSE, ..., v, .lapply = lapply
 ) {
   
   
   if(!is.null(i)) {
-    return(sb2_coe.default(x, i, v, ..., .lapply = lapply))
+    return(sb2_coe.default(x, i, inv = inv, ..., v = v, .lapply = lapply))
   }
   
-  return(.arr_tf_list(x, idx, dims, v, chkdup = FALSE, .lapply, abortcall = sys.call()))
+  return(.arr_tf_list(x, idx, dims, inv, v, chkdup = FALSE, .lapply, abortcall = sys.call()))
 }
 
 #' @rdname sb_coe
 #' @export
-sb2_coe.data.frame <- function(x, col = NULL, vars = NULL, v, ...) {
+sb2_coe.data.frame <- function(x, col = NULL, vars = NULL, inv = FALSE, ..., v) {
   
   .check_args_df(x, row = NULL, col, filter = NULL, vars, abortcall = sys.call())
   
   if(!is.null(col)) { col <- .indx_make_tableind(
-    col, x,  2, chkdup = FALSE, inv = FALSE, abortcall = sys.call()
+    col, x,  2, chkdup = FALSE, inv = inv, abortcall = sys.call()
   )}
   if(!is.null(vars)) {
-    col <- .indx_make_vars(x, vars, inv = FALSE, abortcall = sys.call())
+    col <- .indx_make_vars(x, vars, inv = inv, abortcall = sys.call())
   }
   
   if(length(col) == 0) return(x)

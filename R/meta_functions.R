@@ -1,16 +1,21 @@
-#' Internal functions
-#'
-#'
-#'
-#'
-#'
-#'
 
 #' @keywords internal
 #' @noRd
 .mybadge_class <- function(x) {
   txt <- paste0("class: ", x)
   file <- paste0("class-", gsub(" ", "_", x), "-red.svg")
+  text <- sprintf("\\link[=squarebrackets_indx_args]{%s}", txt)
+  html <- sprintf(
+    "\\figure{%s}{options: alt='[%s]'}",
+    file, txt)
+  sprintf("\\ifelse{html}{%s}{%s}", html, text)
+}
+
+#' @keywords internal
+#' @noRd
+.mybadge_all_classes <- function() {
+  txt <- "all classes"
+  file <- "all_classes-red.svg"
   text <- sprintf("\\link[=squarebrackets_indx_args]{%s}", txt)
   html <- sprintf(
     "\\figure{%s}{options: alt='[%s]'}",
@@ -141,4 +146,23 @@
   }
 }
 
+
+#' @keywords internal
+#' @noRd
+.protected_addresses <- function() {
+  tempfun <- function(x) {
+    if(!is.function(x)) {
+      return(.rcpp_address(x))
+    }
+  }
+  lst <- eapply(baseenv(), tempfun, all.names = TRUE, USE.NAMES = TRUE)
+  lst <- lst[sapply(lst, \(x)!is.null(x))]
+  protected_bnds <- sapply(
+    names(lst), \(x) bindingIsLocked(x, env = baseenv()) || bindingIsActive(x, env = baseenv())
+  )
+  lst <- lst[protected_bnds]
+  lst <- lst[!names(lst) %in% c(".Last.value", "Last.value")]
+  
+  return(unlist(lst))
+}
 

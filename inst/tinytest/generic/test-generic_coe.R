@@ -8,7 +8,7 @@ sys.source(file.path(getwd(), "source", "functions4testing.R"), envir = environm
 # default method ====
 x <- seq(1.5, 10.5, by = 1)
 expect_equal(
-  sb_coe(x, as.integer),
+  sb_coe(x, v = as.integer),
   {x[] <- as.integer(x); print(x)}
 )
 
@@ -16,7 +16,7 @@ expect_equal(
 # default method - mutable atomic ====
 x <- as.mutable_atomic(seq(1.5, 10.5, by = 1))
 expect_equal(
-  sb_coe(x, as.integer),
+  sb_coe(x, v = as.integer),
   {x[] <- as.integer(x); x}
 )
 
@@ -24,7 +24,7 @@ expect_equal(
 # factors ====
 x <- as.factor(letters)
 expect_equal(
-  sb_coe(x, as.character),
+  sb_coe(x, v = as.character),
   as.character(x)
 )
 

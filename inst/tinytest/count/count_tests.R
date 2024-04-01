@@ -31,7 +31,7 @@ files <- list.files(normalizePath(getwd()), pattern = ".R", full.names = TRUE)
 max.width <- max(stringi::stri_width(basename(files))) + 8
 for(iFile in files) {
   print(iFile)
-  capture.output(source(normalizePath(iFile)), file = nullfile())
+  capture.output(source(normalizePath(iFile)), file = nullfile()) |> suppressMessages()
   cat(stringi::stri_pad_right(basename(iFile), max.width), " -> ", enumerate,  "\n")
   enumerate_total <- enumerate_total + enumerate
 }
@@ -48,7 +48,7 @@ files <- list.files(normalizePath(getwd()), pattern = ".R", full.names = TRUE)
 max.width <- max(stringi::stri_width(basename(files))) + 8
 for(iFile in files) {
   print(iFile)
-  capture.output(source(normalizePath(iFile)), file = nullfile())
+  capture.output(source(normalizePath(iFile)), file = nullfile()) |> suppressMessages()
   cat(stringi::stri_pad_right(basename(iFile), max.width), " -> ", enumerate,  "\n")
   enumerate_total <- enumerate_total + enumerate
 }
@@ -82,7 +82,7 @@ files <- list.files(normalizePath(getwd()), pattern = ".R", full.names = TRUE)
 max.width <- max(stringi::stri_width(basename(files))) + 8
 for(iFile in files) {
   print(iFile)
-  capture.output(source(normalizePath(iFile)), file = nullfile())
+  capture.output(source(normalizePath(iFile)), file = nullfile()) |> suppressMessages()
   cat(stringi::stri_pad_right(basename(iFile), max.width), " -> ", enumerate,  "\n")
   enumerate_total <- enumerate_total + enumerate
 }

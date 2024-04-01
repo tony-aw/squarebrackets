@@ -79,12 +79,12 @@
 
 #' @keywords internal
 #' @noRd
-.arr_tf <- function(x, idx, dims, tf, chkdup, abortcall) {
+.arr_tf <- function(x, idx, dims, inv, tf, chkdup, abortcall) {
   
   ndims <- length(dim(x))
   .arr_check(x, idx, dims, ndims, abortcall)
   
-  lst <- .arr_lst_brackets(x, ndims, idx, dims, chkdup = chkdup, inv = FALSE, abortcall = abortcall)
+  lst <- .arr_lst_brackets(x, ndims, idx, dims, chkdup = chkdup, inv = inv, abortcall = abortcall)
   
   temp.fun <- function(...) {
     rp <- tf(x[..., drop = FALSE])
@@ -98,12 +98,12 @@
 
 #' @keywords internal
 #' @noRd
-.arr_tf_list <- function(x, idx, dims, tf, chkdup, .lapply, abortcall) {
+.arr_tf_list <- function(x, idx, dims, inv, tf, chkdup, .lapply, abortcall) {
   
   ndims <- length(dim(x))
   .arr_check(x, idx, dims, ndims, abortcall)
   
-  lst <- .arr_lst_brackets(x, ndims, idx, dims, chkdup = chkdup, inv = FALSE, abortcall = abortcall)
+  lst <- .arr_lst_brackets(x, ndims, idx, dims, chkdup = chkdup, inv = inv, abortcall = abortcall)
   
   temp.fun <- function(...) {
     rp <- .lapply(x[..., drop = FALSE], tf)
@@ -118,12 +118,12 @@
 
 #' @keywords internal
 #' @noRd
-.arr_repl <- function(x, idx, dims, rp, chkdup, abortcall) {
+.arr_repl <- function(x, idx, dims, inv, rp, chkdup, abortcall) {
   
   ndims <- length(dim(x))
   .arr_check(x, idx, dims, ndims, abortcall)
   
-  lst <- .arr_lst_brackets(x, ndims, idx, dims, chkdup = chkdup, inv = FALSE, abortcall = abortcall)
+  lst <- .arr_lst_brackets(x, ndims, idx, dims, chkdup = chkdup, inv = inv, abortcall = abortcall)
   
   temp.fun <- function(...) {
     .check_rp_atomic(rp, prod(collapse::vlengths(lst)), abortcall) # used to be.arr_length(x, lst, dims)
@@ -136,12 +136,12 @@
 
 #' @keywords internal
 #' @noRd
-.arr_repl_list <- function(x, idx, dims, rp, chkdup, abortcall) {
+.arr_repl_list <- function(x, idx, dims, inv, rp, chkdup, abortcall) {
   
   ndims <- length(dim(x))
   .arr_check(x, idx, dims, ndims, abortcall)
   
-  lst <- .arr_lst_brackets(x, ndims, idx, dims, chkdup = chkdup, inv = FALSE, abortcall = abortcall)
+  lst <- .arr_lst_brackets(x, ndims, idx, dims, chkdup = chkdup, inv = inv, abortcall = abortcall)
   
   temp.fun <- function(...) {
     .check_rp_list(rp, prod(collapse::vlengths(lst)), abortcall) # used to be.arr_length(x, lst, dims)

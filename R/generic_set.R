@@ -11,7 +11,7 @@
 #'
 #' @param x a \bold{variable} belonging to one of the
 #' \link[=squarebrackets_mutable_classes]{supported mutable classes}. \cr
-#' @param i,row,col,idx,dims,rcl,filter,vars See \link{squarebrackets_indx_args}. \cr
+#' @param i,row,col,idx,dims,rcl,filter,vars,inv See \link{squarebrackets_indx_args}. \cr
 #' An empty index selection returns the original object unchanged. \cr
 #' @param ... further arguments passed to or from other methods.
 #' @param tf the transformation function.
@@ -59,7 +59,7 @@ sb_set <- function(x, ...) {
 #' @rdname sb_set
 #' @export
 sb_set.default <- function(
-    x, i, ..., rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
+    x, i, inv = FALSE, ...,  rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
   # error checks:
@@ -71,7 +71,7 @@ sb_set.default <- function(
   
   # function:
   elements <- .indx_make_element(
-    i, x, is_list = FALSE, chkdup = chkdup, inv = FALSE, abortcall = sys.call()
+    i, x, is_list = FALSE, chkdup = chkdup, inv = inv, abortcall = sys.call()
   )
   .sb_set_atomic(x, elements, rp = rp, tf = tf, abortcall = sys.call())
   return(invisible(NULL))
@@ -81,7 +81,7 @@ sb_set.default <- function(
 
 #' @rdname sb_set
 #' @export
-sb_set.matrix <- function(x, row = NULL, col = NULL, i = NULL, ..., rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)) {
+sb_set.matrix <- function(x, row = NULL, col = NULL, i = NULL, inv = FALSE, ...,  rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)) {
   
   # error checks:
   if(!is.mutable_atomic(x)){
@@ -94,7 +94,7 @@ sb_set.matrix <- function(x, row = NULL, col = NULL, i = NULL, ..., rp, tf, chkd
   # function:
   if(!is.null(i)) {
     elements <- .indx_make_element(
-      i, x, is_list = FALSE, chkdup = chkdup, inv = FALSE, abortcall = sys.call()
+      i, x, is_list = FALSE, chkdup = chkdup, inv = inv, abortcall = sys.call()
     )
     return(.sb_set_atomic(x, elements, rp = rp, tf = tf, abortcall = sys.call()))
     
@@ -102,10 +102,10 @@ sb_set.matrix <- function(x, row = NULL, col = NULL, i = NULL, ..., rp, tf, chkd
 
 
   if(!is.null(row)) {
-    row <- .indx_make_dim(row, x,  1, chkdup = chkdup, inv = FALSE, abortcall = sys.call())
+    row <- .indx_make_dim(row, x,  1, chkdup = chkdup, inv = inv, abortcall = sys.call())
   }
   if(!is.null(col)) {
-    col <- .indx_make_dim(col, x,  2, chkdup = chkdup, inv = FALSE, abortcall = sys.call())
+    col <- .indx_make_dim(col, x,  2, chkdup = chkdup, inv = inv, abortcall = sys.call())
   }
   
   if(.any_empty_indices(row, col)) {
@@ -126,7 +126,7 @@ sb_set.matrix <- function(x, row = NULL, col = NULL, i = NULL, ..., rp, tf, chkd
 #' @rdname sb_set
 #' @export
 sb_set.array <- function(
-    x, idx = NULL, dims = NULL, rcl = NULL, i = NULL, ..., rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
+    x, idx = NULL, dims = NULL, rcl = NULL, i = NULL, inv = FALSE, ...,  rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
   # error checks:
@@ -137,35 +137,7 @@ sb_set.array <- function(
   .check_bindingIsLocked(substitute(x), parent.frame(n = 1), abortcall = sys.call())
   
   # function:
-  if(!is.null(i)) {
-    elements <- .indx_make_element(
-      i, x, is_list = FALSE, chkdup = chkdup, inv = FALSE, abortcall = sys.call()
-    )
-    .sb_set_atomic(x, elements, rp = rp, tf = tf, abortcall = sys.call())
-    return(invisible(NULL))
-  }
-  
-  if(!is.null(rcl)) {
-    elements <- .sb3d_get_elements(
-      x, row = rcl[[1]], col = rcl[[2]], lyr = rcl[[3]], chkdup = chkdup, abortcall = sys.call()
-    )
-    .sb_set_atomic(x, elements, rp = rp, tf = tf, abortcall = sys.call())
-    return(invisible(NULL))
-  }
-
-  if(is.null(idx) && is.null(dims)) {
-    .sb_set_atomic(x, seq_along(x), rp, tf, abortcall = sys.call())
-    return(invisible(NULL))
-  }
-  
-  x.dim <- dim(x)
-  ndims <- length(x.dim)
-  .arr_check(x, idx, dims, ndims, abortcall = sys.call())
-  lst <- .arr_lst_grid(
-    x, ndims, idx, dims, chkdup = chkdup, inv = FALSE, abortcall = sys.call()
-  )
-  elements <- sub2ind(lst, x.dim, checks = FALSE)
-  
+  elements <- idx1.array(x, idx, dims, rcl, i, inv, chkdup = chkdup)
   .sb_set_atomic(x, elements, rp = rp, tf = tf, abortcall = sys.call())
   return(invisible(NULL))
 }
@@ -186,7 +158,7 @@ sb2_set.default <- function(x, ...) {
 #' @rdname sb_set
 #' @export
 sb2_set.data.table <- function(
-    x, row = NULL, col = NULL, filter = NULL, vars = NULL,
+    x, row = NULL, col = NULL, filter = NULL, vars = NULL, inv = FALSE,
     ..., rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE), .lapply = lapply
 ) {
   
@@ -198,17 +170,17 @@ sb2_set.data.table <- function(
   .check_bindingIsLocked(substitute(x), parent.frame(n = 1), abortcall = sys.call())
   
   if(!is.null(row)) { row <- .indx_make_tableind(
-    row, x,  1, chkdup = chkdup, inv = FALSE, abortcall = sys.call()
+    row, x,  1, chkdup = chkdup, inv = inv, abortcall = sys.call()
   )}
   if(!is.null(col)) { col <- .indx_make_tableind(
-    col, x,  2, chkdup = chkdup, inv = FALSE, abortcall = sys.call()
+    col, x,  2, chkdup = chkdup, inv = inv, abortcall = sys.call()
   )}
   
   if(!is.null(filter)) {
-    row <- .indx_make_filter(x, filter, inv = FALSE, abortcall = sys.call())
+    row <- .indx_make_filter(x, filter, inv = inv, abortcall = sys.call())
   }
   if(!is.null(vars)) {
-    col <- .indx_make_vars(x, vars, inv = FALSE, abortcall = sys.call())
+    col <- .indx_make_vars(x, vars, inv = inv, abortcall = sys.call())
   }
   
   if(.any_empty_indices(row, col)) {

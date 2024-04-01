@@ -105,5 +105,8 @@ tinycodet::import_LL("squarebrackets", selection = ... )
   types. Tweaked the documentation here and there a bit.
 - 30 March 2024: Removed the separate `NA` checks, as they are
   redundant. Fixed some linguistic mistakes in the documentation.
+- 1 April 2024: Added `inv` argument to `sb_mod()`/`sb2_mod()` and
+  `sb_set()`/`sb2_set()`, and added tests for these. Added `idx1()` for
+  Copy-On-Modification Substitution, and added tests for `idx1()` also.
 
  
