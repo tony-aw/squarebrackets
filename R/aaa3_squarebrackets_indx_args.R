@@ -186,15 +186,26 @@
 #' By default, `inv = FALSE` which translates the indices like normally. \cr
 #' When `inv = TRUE`, the inverse of the indices is taken. \cr
 #' Consider, for example, an atomic matrix `x`; \cr
-#' using `inv` for transformations corresponds to something like the following:
+#' using `sb_mod(x, 1:2, 1:2, tf = tf)`
+#' corresponds to something like the following:
 #' 
 #' ```{r eval = FALSE, echo = TRUE}
 #' 
-#' sb_mod(x, 1:2, 1:2, tf = tf) ==> tf(x[1:2, 1:2])
-#' 
-#' sb_mod(x, 1:2, 1:2, inv = TRUE, tf = tf) ==> tf(x[-1:-2, -1:-2])
+#' x[1:2, 1:2] <- tf(x[1:2, 1:2])
+#' x
 #' 
 #' ```
+#' 
+#' and using `sb_mod(x, 1:2, 1:2, inv = TRUE, tf = tf)`
+#' corresponds to something like the following:
+#' 
+#' ```{r eval = FALSE, echo = TRUE}
+#' 
+#' x[-1:-2, -1:-2] <- tf(x[-1:-2, -1:-2])
+#' x
+#' 
+#' ```
+#' 
 #' 
 #' 
 #' @section Out-of-Bounds Integers, Non-Existing Names/Levels, and NAs:

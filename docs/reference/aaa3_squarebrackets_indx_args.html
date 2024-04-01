@@ -230,13 +230,18 @@ For example, to select all numeric columns, specify <code>vars = is.numeric</cod
 By default, <code>inv = FALSE</code> which translates the indices like normally. <br>
 When <code>inv = TRUE</code>, the inverse of the indices is taken. <br>
 Consider, for example, an atomic matrix <code>x</code>; <br>
-using <code>inv</code> for transformations corresponds to something like the following:</p>
-<p></p><div class="sourceCode r"><pre><code>
-sb_mod(x, 1:2, 1:2, tf = tf) ==&gt; tf(x[1:2, 1:2])
-
-sb_mod(x, 1:2, 1:2, inv = TRUE, tf = tf) ==&gt; tf(x[-1:-2, -1:-2])
-
-</code></pre><p></p></div>
+using <code>sb_mod(x, 1:2, 1:2, tf = tf)</code>
+corresponds to something like the following:</p>
+<p></p><div class="sourceCode r"><pre><code><span></span>
+<span><span class="va">x</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">tf</span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">x</span></span>
+<span></span></code></pre><p></p></div>
+<p>and using <code>sb_mod(x, 1:2, 1:2, inv = TRUE, tf = tf)</code>
+corresponds to something like the following:</p>
+<p></p><div class="sourceCode r"><pre><code><span></span>
+<span><span class="va">x</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">:</span><span class="op">-</span><span class="fl">2</span>, <span class="op">-</span><span class="fl">1</span><span class="op">:</span><span class="op">-</span><span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">tf</span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">:</span><span class="op">-</span><span class="fl">2</span>, <span class="op">-</span><span class="fl">1</span><span class="op">:</span><span class="op">-</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">x</span></span>
+<span></span></code></pre><p></p></div>
     </div>
     <div class="section level2">
     <h2 id="out-of-bounds-integers-non-existing-names-levels-and-nas">Out-of-Bounds Integers, Non-Existing Names/Levels, and NAs<a class="anchor" aria-label="anchor" href="#out-of-bounds-integers-non-existing-names-levels-and-nas"></a></h2>

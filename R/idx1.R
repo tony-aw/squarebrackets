@@ -1,4 +1,4 @@
-#' Compute Flat Integer Indices
+#' Compute Flat Integer Indices (for Copy-On-Modify Substitution)
 #'
 #' @description
 #' The `idx1()` method

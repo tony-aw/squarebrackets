@@ -198,12 +198,21 @@ Relevant for \link{sb_mod}, \link{sb_set}, \link{sb_coe}, and \link{idx1}. \cr
 By default, \code{inv = FALSE} which translates the indices like normally. \cr
 When \code{inv = TRUE}, the inverse of the indices is taken. \cr
 Consider, for example, an atomic matrix \code{x}; \cr
-using \code{inv} for transformations corresponds to something like the following:
+using \code{sb_mod(x, 1:2, 1:2, tf = tf)}
+corresponds to something like the following:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{
-sb_mod(x, 1:2, 1:2, tf = tf) ==> tf(x[1:2, 1:2])
+x[1:2, 1:2] <- tf(x[1:2, 1:2])
+x
 
-sb_mod(x, 1:2, 1:2, inv = TRUE, tf = tf) ==> tf(x[-1:-2, -1:-2])
+}\if{html}{\out{</div>}}
+
+and using \code{sb_mod(x, 1:2, 1:2, inv = TRUE, tf = tf)}
+corresponds to something like the following:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{
+x[-1:-2, -1:-2] <- tf(x[-1:-2, -1:-2])
+x
 
 }\if{html}{\out{</div>}}
 }

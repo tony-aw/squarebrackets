@@ -150,7 +150,8 @@ and use \code{sb2_rm()} to remove subsets from recursive arrays. \cr \cr
 \ifelse{html}{\figure{specialized_functions-darkred.svg}{options: alt='[SPECIALIZED FUNCTIONS]'}}{\link[=squarebrackets_help]{SPECIALIZED FUNCTIONS}} \cr
 Additional specialized sub-setting functions are provided:
 \itemize{
-\item \link{idx1}: translate given indices/subscripts to flat/linear integer indices.
+\item \link{idx1}: translate given indices/subscripts to flat/linear integer indices,
+for the purpose of copy-on-modify substitution.
 \item \link{setapply}: apply functions over mutable matrix margins
 using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
 \item \link{ma_setv}: Find & Replace values in \link{mutable_atomic} objects
