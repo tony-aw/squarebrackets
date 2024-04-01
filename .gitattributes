@@ -15,6 +15,6 @@ R/meta_functions.R -linguist-documentation
 R/zzz.R -linguist-vendored
 R/RcppExports.R -linguist-vendored
 R/squarebracketsWrappers.R -linguist-vendored
-exported_utilities.R -linguist-vendored
+R/exported_utilities.R -linguist-vendored
 DynamicallyType_RcppScripts.R -linguist-vendored
 DynamicallyType_Rtemplates.R -linguist-vendored
