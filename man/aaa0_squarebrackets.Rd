@@ -131,8 +131,7 @@ using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
 \item \link{sb_mod}, \link{sb2_mod}: return a \bold{copy}
 of an object with modified
 (transformed or replaced) subsets.
-\item \link{sb_coe}, \link{sb2_coe}: Coercively transform a whole object,
-or a recursive subset of an object.
+\item \link{sb2_coe}: Coercively transform subsets of recursive objects.
 \item \link{sb_before}, \link{sb_after}, \link{sb2_before}, \link{sb2_after}: insert new values before or after an index
 along a dimension of an object.
 \item \link{sb2_rec}: accesses recursive subsets of lists.

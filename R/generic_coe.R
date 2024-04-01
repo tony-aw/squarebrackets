@@ -1,59 +1,22 @@
 #' Method to Coercively Transform (Recursive Subsets of) an Object
 #'
 #' @description
-#' This is an S3 Method to completely transform
-#' (a recursive subsets of)
-#' an object with explicit coercion. \cr
+#' This is an S3 Method to completely transform subsets of
+#' recursive objects with explicit coercion. \cr
 #' \cr
-#' Given some coercing function `v()`,
-#' the following can be stated about this method. \cr
-#' 
-#' (1) For atomic objects (vectors, matrices, arrays),
-#' this method is \bold{almost} equivalent to:
-#' 
-#' ```{r eval = FALSE}
-#' x[] <- v(x)
-#' ```
-#' 
-#' (2) For factors, this method is equivalent to:
-#' 
-#' ```{r eval = FALSE}
-#' x <- v(x)
-#' ```
-#' 
-#' (3) For lists,
-#' with one or multiple elements specified by argument `i`,
-#' this method is equivalent to:
-#' 
-#' ```{r eval = FALSE}
-#' \(x, i) { x[i] <- lapply(x[i], v); return(x) }
-#' ```
-#' 
-#' (4) And for data.frame-like objects,
-#' with one or multiple columns specified by argument `col`,
-#' this method is equivalent to:
-#' 
-#' ```{r eval = FALSE}
-#' collapse::ftransformv(x, col, v)
-#' 
-#' ```
-#' 
 #' Note that when `x` is a `data.table`,
 #' one can coercively transform columns by reference
 #' (which is more memory efficient),
-#' using \link{dt_setcoe}. \cr
-#' \cr
-#' Use `sb_coe(x, ...)` if `x` is a non-recursive object (i.e. atomic or factor). \cr
-#' Use `sb2_coe(x, ...)` if `x` is a recursive object (i.e. list or data.frame-like). \cr \cr
+#' using \link{dt_setcoe}. \cr \cr
 #'
-#' @param x see \link{squarebrackets_immutable_classes} and \link{squarebrackets_mutable_classes}.
+#' @param x a recursive object (list-like or data.frame-like).
 #' @param i,col,vars,idx,dims,inv See \link{squarebrackets_indx_args}. \cr
 #' An empty index selection returns the original object unchanged. \cr
 #' @param v the coercive transformation function to use.
-#' @param .lapply `sb2_coe()` by default uses \link[base]{lapply}
-#' for lists and \link[collapse]{dapply} data.frame-like objects
-#' to compute `tf()` on every list element or data.frame column. \cr
-#' The user may supply a custom `lapply()/dapply()`-like function
+#' @param .lapply the generic methods use \link[base]{lapply}
+#' for list- and data.frame-like objects
+#' to compute `tf()` on every list element or dataset column. \cr
+#' The user may supply a custom `lapply()`-like function
 #' in this argument to use instead. \cr
 #' For example, the perform parallel transformation,
 #' the user may supply `future.apply::`\link[future.apply]{future_lapply}. \cr
@@ -69,49 +32,17 @@
 #'
 #' @example inst/examples/generic_coe.R
 
-#' @rdname sb_coe
-#' @export
-sb_coe <- function(x, ...) {
-  
-  if(is.recursive(x)) {
-    stop("Use the `sb2_` methods for recursive objects")
-  }
-  
-  UseMethod("sb_coe", x)
-}
 
 
-#' @rdname sb_coe
-#' @export
-sb_coe.default <- function(x, ..., v) {
-  
-  temp.attr <- attributes(x)
-  out <- v(x)
-  return(.fix_attr(out, temp.attr))
-}
-
-
-#' @rdname sb_coe
-#' @export
-sb_coe.factor <- function(x, ..., v) {
-  
-  return(v(x))
-}
-
-
-#' @rdname sb_coe
+#' @rdname sb2_coe
 #' @export
 sb2_coe <- function(x, ...) {
-  
-  if(!is.recursive(x)) {
-    stop("Use the `sb_` methods for non-recursive objects")
-  }
   
   UseMethod("sb2_coe", x)
 }
 
 
-#' @rdname sb_coe
+#' @rdname sb2_coe
 #' @export
 sb2_coe.default <- function(x, i, inv = FALSE, ..., v, .lapply = lapply) {
   elements <- .indx_make_element(
@@ -127,7 +58,7 @@ sb2_coe.default <- function(x, i, inv = FALSE, ..., v, .lapply = lapply) {
 }
 
 
-#' @rdname sb_coe
+#' @rdname sb2_coe
 #' @export
 sb2_coe.array <- function(
     x, idx = NULL, dims = NULL, i = NULL, inv = FALSE, ..., v, .lapply = lapply
@@ -141,7 +72,7 @@ sb2_coe.array <- function(
   return(.arr_tf_list(x, idx, dims, inv, v, chkdup = FALSE, .lapply, abortcall = sys.call()))
 }
 
-#' @rdname sb_coe
+#' @rdname sb2_coe
 #' @export
 sb2_coe.data.frame <- function(x, col = NULL, vars = NULL, inv = FALSE, ..., v) {
   

@@ -24,7 +24,7 @@ Second, if 2 or more variables refer to exactly the same object,
 changing one variable also changes the other ones. \cr
 I.e. the following code,
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{x <- y <- 1:16
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{x <- y <- mutable_atomic(1:16)
 sb_set(x, i = 1:6, rp = 8)
 }\if{html}{\out{</div>}}
 
@@ -33,9 +33,9 @@ This is true even if one of the variables is locked
 (see \link[base]{bindingIsLocked}). \cr
 I.e. the following code,
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{tinycodet::import_LL("tinycodet", "\%<-c\%")
-x <- 1:16
-y \%<-c\% x
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{x <- mutable_atomic(1:16)
+y <- x
+lockBinding("y", environment())
 sb_set(x, i = 1:6, rp = 8)
 }\if{html}{\out{</div>}}
 
@@ -79,9 +79,9 @@ However, \link[base]{lockBinding} does not lock the address/pointer of an object
 only one particular binding of an object. \cr
 This problematic; consider the following example: \cr
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{tinycodet::import_LL("tinycodet", "\%<-c\%")
-x <- 1:16
-y \%<-c\% x
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{x <- mutable_atomic(1:16)
+y <- x
+lockBinding("y", environment())
 sb_set(x, i = 1:6, rp = 8)
 }\if{html}{\out{</div>}}
 
@@ -89,8 +89,8 @@ In the above code, \code{x} and \code{y} share the same address,
 thus pointing to the same memory,
 yet only \code{y} is actually locked. \cr
 Since \code{x} is not locked, modifying \code{x} is allowed. \cr
-But since \code{sb_set()} performs modification by reference,
-\code{y} will STILL be modified, despite being locked. \cr
+But since \code{sb_set()}/\code{sb2_set()} performs modification by reference,
+\code{y} will still be modified, despite being locked. \cr
 \cr
 To remedy the issue as explained above,
 'squarebrackets' provides the \link{sb_currentBindings} method. \cr
@@ -129,8 +129,8 @@ Methods/functions that perform in-place modification by reference
 can be thought of as similar to functions in the style of \code{some_function(x, ...) <- value},
 in the sense that the variable \bold{must actually exist as an actual variable}. \cr
 Thus things like any of the following, \cr
-\code{sb_set(1:10, ...)}, \code{sb_set(x$a, ...)}, or \code{sb_set(base::letters)}, \cr
-\bold{will not work}. \cr \cr
+\code{sb_set(1:10, ...)}, \code{sb2_set(x$a, ...)}, or \code{sb_set(base::letters)}, \cr
+will not work. \cr \cr
 }
 
 \section{Views of Lists}{
@@ -174,7 +174,7 @@ sb_set(letters, i = 1, rp = "XXX")
 
 The above won't work because:
 \enumerate{
-\item base objects are disallowed;
+\item addresses in \code{baseenv()} are protected;
 \item immutable objects are disallowed
 (you'll have to create a mutable object,
 which will create a copy of the original,

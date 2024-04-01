@@ -9,8 +9,6 @@
 #' All elements in an atomic vector class
 #' must have the same atomic type
 #' ("logical", "integer", "numeric", "complex", "character" and "raw"). \cr
-#' Therefore, the \link{sb_coe} method will coerce the entirety of an atomic vector,
-#' not just a subset of it. \cr
 #' \cr
 #' \bold{Factor} \cr
 #' `r .mybadge_require_unique_names("NO")` \cr

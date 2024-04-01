@@ -6,8 +6,6 @@ Matrices and Arrays are just atomic vectors with dimension attributes.
 All elements in an atomic vector class
 must have the same atomic type
 (&quot;logical&quot;, &quot;integer&quot;, &quot;numeric&quot;, &quot;complex&quot;, &quot;character&quot; and &quot;raw&quot;). 
-Therefore, the sb_coe method will coerce the entirety of an atomic vector,
-not just a subset of it. 
 
 Factor 
  
@@ -51,8 +49,6 @@ Matrices and Arrays are just atomic vectors with dimension attributes.
 All elements in an atomic vector class
 must have the same atomic type
 (&quot;logical&quot;, &quot;integer&quot;, &quot;numeric&quot;, &quot;complex&quot;, &quot;character&quot; and &quot;raw&quot;). 
-Therefore, the sb_coe method will coerce the entirety of an atomic vector,
-not just a subset of it. 
 
 Factor 
  
@@ -145,9 +141,7 @@ The atomic vector is the most basic class type. <br>
 Matrices and Arrays are just atomic vectors with dimension attributes. <br>
 All elements in an atomic vector class
 must have the same atomic type
-("logical", "integer", "numeric", "complex", "character" and "raw"). <br>
-Therefore, the <a href="sb_coe.html">sb_coe</a> method will coerce the entirety of an atomic vector,
-not just a subset of it. <br><br><b>Factor</b> <br><img src="figures/require_unique_names-NO-red.svg" alt="[require unique names: NO]"><br>
+("logical", "integer", "numeric", "complex", "character" and "raw"). <br><br><b>Factor</b> <br><img src="figures/require_unique_names-NO-red.svg" alt="[require unique names: NO]"><br>
 Factors have the property that they can only store values that are defined in
 their "levels" attribute; other values are not allowed, and thus result in <code>NA</code>s. <br>
 Thus <a href="sb_mod.html">sb_mod</a> does not coerce replacement values for factors.

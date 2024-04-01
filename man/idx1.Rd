@@ -75,7 +75,9 @@ whilst still using R's default copy-on-modification semantics
 provided by 'squarebrackets'). \cr
 \cr
 \code{idx1()} supports any \code{x} that is a vector, matrix, or array,
-regardless if \code{x} is atomic or recursive. \cr \cr
+regardless if \code{x} is atomic or recursive. \cr
+\cr
+For data.frames, see \code{collapse::}\link[collapse]{fsubset}. \cr \cr
 }
 \examples{
 

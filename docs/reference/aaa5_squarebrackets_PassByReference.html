@@ -83,15 +83,15 @@ First, the coercion rules are slightly different: see <a href="aaa2_squarebracke
 Second, if 2 or more variables refer to exactly the same object,
 changing one variable also changes the other ones. <br>
 I.e. the following code,</p>
-<p></p><div class="sourceCode r"><pre><code><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">y</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">16</span></span>
+<p></p><div class="sourceCode r"><pre><code><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/class_mutable_atomic.html">mutable_atomic</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">16</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/sb_set.html">sb_set</a></span><span class="op">(</span><span class="va">x</span>, i <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">6</span>, rp <span class="op">=</span> <span class="fl">8</span><span class="op">)</span></span></code></pre><p></p></div>
 <p>modifies not just <code>x</code>, but also <code>y</code>. <br>
 This is true even if one of the variables is locked
 (see <a href="https://rdrr.io/r/base/bindenv.html" class="external-link">bindingIsLocked</a>). <br>
 I.e. the following code,</p>
-<p></p><div class="sourceCode r"><pre><code><span><span class="fu">tinycodet</span><span class="fu">::</span><span class="fu"><a href="https://tony-aw.github.io/tinycodet/reference/import_misc.html" class="external-link">import_LL</a></span><span class="op">(</span><span class="st">"tinycodet"</span>, <span class="st">"%&lt;-c%"</span><span class="op">)</span></span>
-<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">16</span></span>
-<span><span class="va">y</span> <span class="op">%&lt;-c%</span> <span class="va">x</span></span>
+<p></p><div class="sourceCode r"><pre><code><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/class_mutable_atomic.html">mutable_atomic</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">16</span><span class="op">)</span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">x</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/bindenv.html" class="external-link">lockBinding</a></span><span class="op">(</span><span class="st">"y"</span>, <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/sb_set.html">sb_set</a></span><span class="op">(</span><span class="va">x</span>, i <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">6</span>, rp <span class="op">=</span> <span class="fl">8</span><span class="op">)</span></span></code></pre><p></p></div>
 <p>modifies both <code>x</code> and <code>y</code> without error,
 even though <code>y</code> is a locked constant. <br><br></p>
@@ -132,16 +132,16 @@ and disallows modification of objects by reference. <br><br>
 However, <a href="https://rdrr.io/r/base/bindenv.html" class="external-link">lockBinding</a> does not lock the address/pointer of an object,
 only one particular binding of an object. <br>
 This problematic; consider the following example: <br></p>
-<p></p><div class="sourceCode r"><pre><code><span><span class="fu">tinycodet</span><span class="fu">::</span><span class="fu"><a href="https://tony-aw.github.io/tinycodet/reference/import_misc.html" class="external-link">import_LL</a></span><span class="op">(</span><span class="st">"tinycodet"</span>, <span class="st">"%&lt;-c%"</span><span class="op">)</span></span>
-<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">16</span></span>
-<span><span class="va">y</span> <span class="op">%&lt;-c%</span> <span class="va">x</span></span>
+<p></p><div class="sourceCode r"><pre><code><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/class_mutable_atomic.html">mutable_atomic</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">16</span><span class="op">)</span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">x</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/bindenv.html" class="external-link">lockBinding</a></span><span class="op">(</span><span class="st">"y"</span>, <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/sb_set.html">sb_set</a></span><span class="op">(</span><span class="va">x</span>, i <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">6</span>, rp <span class="op">=</span> <span class="fl">8</span><span class="op">)</span></span></code></pre><p></p></div>
 <p>In the above code, <code>x</code> and <code>y</code> share the same address,
 thus pointing to the same memory,
 yet only <code>y</code> is actually locked. <br>
 Since <code>x</code> is not locked, modifying <code>x</code> is allowed. <br>
-But since <code><a href="sb_set.html">sb_set()</a></code> performs modification by reference,
-<code>y</code> will STILL be modified, despite being locked. <br><br>
+But since <code><a href="sb_set.html">sb_set()</a></code>/<code><a href="sb_set.html">sb2_set()</a></code> performs modification by reference,
+<code>y</code> will still be modified, despite being locked. <br><br>
 To remedy the issue as explained above,
 'squarebrackets' provides the <a href="sb_currentBindings.html">sb_currentBindings</a> method. <br>
 This method can do multiple things.
@@ -179,7 +179,8 @@ Needless to say, the user should never touch this option. <br><br></p>
 <p>Methods/functions that perform in-place modification by reference
 can be thought of as similar to functions in the style of <code>some_function(x, ...) &lt;- value</code>,
 in the sense that the variable <b>must actually exist as an actual variable</b>. <br>
-Thus things like any of the following, <br><code>sb_set(1:10, ...)</code>, <code>sb_set(x$a, ...)</code>, or <code>sb_set(base::letters)</code>, <br><b>will not work</b>. <br><br></p>
+Thus things like any of the following, <br><code>sb_set(1:10, ...)</code>, <code>sb2_set(x$a, ...)</code>, or <code>sb_set(base::letters)</code>, <br>
+will not work. <br><br></p>
     </div>
     <div class="section level2">
     <h2 id="views-of-lists">Views of Lists<a class="anchor" aria-label="anchor" href="#views-of-lists"></a></h2>
@@ -217,7 +218,7 @@ something like the following will not work:</p>
 <span><span class="co"># letters = base::letters</span></span>
 <span><span class="fu"><a href="../reference/sb_set.html">sb_set</a></span><span class="op">(</span><span class="va">letters</span>, i <span class="op">=</span> <span class="fl">1</span>, rp <span class="op">=</span> <span class="st">"XXX"</span><span class="op">)</span></span>
 <span></span></code></pre><p></p></div>
-<p>The above won't work because:</p><ol><li><p>base objects are disallowed;</p></li>
+<p>The above won't work because:</p><ol><li><p>addresses in <code><a href="https://rdrr.io/r/base/environment.html" class="external-link">baseenv()</a></code> are protected;</p></li>
 <li><p>immutable objects are disallowed
 (you'll have to create a mutable object,
 which will create a copy of the original,

@@ -12,8 +12,6 @@ Matrices and Arrays are just atomic vectors with dimension attributes. \cr
 All elements in an atomic vector class
 must have the same atomic type
 ("logical", "integer", "numeric", "complex", "character" and "raw"). \cr
-Therefore, the \link{sb_coe} method will coerce the entirety of an atomic vector,
-not just a subset of it. \cr
 \cr
 \bold{Factor} \cr
 \ifelse{html}{\figure{require_unique_names-NO-red.svg}{options: alt='[require unique names: NO]'}}{\link[=squarebrackets_technical]{require unique names: NO}} \cr

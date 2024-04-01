@@ -190,11 +190,11 @@ For example, to select all numeric columns, specify \code{vars = is.numeric}. \c
 \cr
 }
 
-\section{inv}{
+\section{Argument inv}{
 
 \ifelse{html}{\figure{all_classes-red.svg}{options: alt='[all classes]'}}{\link[=squarebrackets_indx_args]{all classes}} \cr
 
-Relevant for \link{sb_mod}, \link{sb_set}, \link{sb_coe}, and \link{idx1}. \cr
+Relevant for \link{sb_mod}, \link{sb_set}, \link{sb2_coe}, and \link{idx1}. \cr
 By default, \code{inv = FALSE} which translates the indices like normally. \cr
 When \code{inv = TRUE}, the inverse of the indices is taken. \cr
 Consider, for example, an atomic matrix \code{x}; \cr

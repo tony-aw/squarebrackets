@@ -33,7 +33,7 @@ reference:
   - '`sb_rm`'
   - '`sb_mod`'
   - '`sb_set`'
-  - '`sb_coe`'
+  - '`sb2_coe`'
   - '`sb_before`'
   - '`sb_after`'
   - '`sb2_rec`'

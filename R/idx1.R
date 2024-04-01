@@ -24,7 +24,9 @@
 #' provided by 'squarebrackets'). \cr
 #' \cr
 #' `idx1()` supports any `x` that is a vector, matrix, or array,
-#' regardless if `x` is atomic or recursive. \cr \cr
+#' regardless if `x` is atomic or recursive. \cr
+#' \cr
+#' For data.frames, see \code{collapse::}\link[collapse]{fsubset}. \cr \cr
 #' 
 #' 
 #' @param x vector, matrix, or array; both atomic and recursive objects are supported.

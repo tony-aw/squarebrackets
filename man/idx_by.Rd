@@ -38,7 +38,11 @@ the \code{idx_by()} function takes indices \code{f(r)} \bold{per group} \code{gr
 The result of \code{idx_by()} can be supplied to the indexing arguments
 (see \link{squarebrackets_indx_args})
 of: \cr
-\link{sb_x}, \link{sb_rm}, \link{sb_mod}, \link{sb_set}, or \link{sb_coe}, \cr
+\link{sb_x}/\link{sb2_x},
+\link{sb_rm}/\link{sb2_rm},
+\link{sb_mod}/\link{sb2_mod},
+\link{sb_set}/\link{sb2_set},
+or \link{sb2_coe}, \cr
 to perform \bold{grouped} subset operations. \cr
 \cr
 }

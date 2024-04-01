@@ -692,11 +692,13 @@ tests for data.frame-like coercion types. Tweaked the documentation here
 and there a bit.</li>
 <li>30 March 2024: Removed the separate <code>NA</code> checks, as they
 are redundant. Fixed some linguistic mistakes in the documentation.</li>
-<li>1 April 2024: Added <code>inv</code> argument to
-<code>sb_mod()</code>/<code>sb2_mod()</code> and
-<code>sb_set()</code>/<code>sb2_set()</code>, and added tests for these.
-Added <code>idx1()</code> for Copy-On-Modification Substitution, and
-added tests for <code>idx1()</code> also.</li>
+<li>1 April 2024: Removed <code>sb_coe()</code> but kept
+<code>sb2_coe()</code>. Added <code>inv</code> argument to
+<code>sb_mod()</code>/<code>sb2_mod()</code>,
+<code>sb_set()</code>/<code>sb2_set()</code>, and
+<code>sb2_coe()</code>, and added tests for these. Added
+<code>idx1()</code> for Copy-On-Modification Substitution, and added
+tests for <code>idx1()</code> also.</li>
 </ul>
 <p> </p>
 
