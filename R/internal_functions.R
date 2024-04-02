@@ -61,7 +61,7 @@
     }
   }
   
-  if(!inv) { return(collapse::`%iin%`(dnames, indx)) }
+  if(!inv) { return(match_all(indx, dnames)) }
   if(inv){ return(collapse::`%!iin%`(dnames, indx)) }
   
 }
@@ -106,7 +106,7 @@
   #   stop(simpleError(error.txt, call = abortcall))
   # }
   
-  if(!inv) { return(collapse::`%iin%`(x, indx)) }
+  if(!inv) { return(match_all(indx, x)) }
   if(inv){ return(collapse::`%!iin%`(x, indx)) }
   
   .indx_stop(abortcall)

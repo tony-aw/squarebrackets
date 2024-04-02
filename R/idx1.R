@@ -10,8 +10,6 @@
 #' 
 #' ```{r eval = FALSE, echo = TRUE}
 #' 
-#' x[idx1(x, ...)] <- value
-#' # OR
 #' my_indices <- idx1(x, ...)
 #' x[my_indices] <- value
 #' 
@@ -26,12 +24,24 @@
 #' `idx1()` supports any `x` that is a vector, matrix, or array,
 #' regardless if `x` is atomic or recursive. \cr
 #' \cr
-#' For data.frames, see \code{collapse::}\link[collapse]{fsubset}. \cr \cr
+#' `idx1_dim()` translates indices for a specific dimension
+#' (handy for data.frames). \cr
+#' Use it for example like so:
+#' 
+#' ```{r eval = FALSE, echo = TRUE}
+#' 
+#' rows <- idx1_dim(x, 1:10, 1)
+#' cols <- idx1_dim(x, c("b", "a"), 2)
+#' x[rows, cols] <- value
+#' 
+#' ```
 #' 
 #' 
 #' @param x vector, matrix, or array; both atomic and recursive objects are supported.
 #' @param i,row,col,idx,dims,rcl,inv See \link{squarebrackets_indx_args}. \cr
 #' Duplicates are not allowed.
+#' @param slice works the same as arguments `row` and `col`.
+#' @param margin a single integer, specifying the dimension for `slice`.
 #' @param chkdup see \link{squarebrackets_duplicates}. \cr
 #' `r .mybadge_performance_set2("FALSE")` \cr
 #' @param ... further arguments passed to or from other methods.
@@ -42,6 +52,25 @@
 #'
 #'
 #' @example inst/examples/idx1.R
+
+
+#' @rdname idx1
+#' @export
+idx1_dim <- function(
+    x, slice, margin, inv = FALSE, chkdup = getOption("squarebrackets.chkdup", FALSE)
+) {
+  if(is.null(dim(x))) {
+    stop("`x` has no dimensions")
+  }
+  obj <- stats::setNames(seq_len(dim(x)[margin]), dimnames(x)[[margin]])
+  if(!is.atomic(slice)) {
+    stop("`slice` must be atomic")
+  }
+  elements <- .indx_make_element(
+    slice, obj, is_list = FALSE, chkdup = chkdup, inv = inv, abortcall = sys.call()
+  )
+  return(elements)
+}
 
 
 #' @rdname idx1

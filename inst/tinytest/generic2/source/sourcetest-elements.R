@@ -2,6 +2,24 @@
 general_names <- combn(letters, 2) |> apply(2, paste, collapse = "")
 
 
+indx_general <- list(
+  integer(0),
+  1, 1:2, 2:1,
+  c(rep(TRUE, 24), rep(FALSE, 24)),
+  rep(TRUE, 48), rep(FALSE, 48),
+  c(TRUE, rep(FALSE, 47)), c(FALSE, rep(TRUE, 47)),
+  function(x) x>5
+)
+if(test_allow_duplicates) {
+  indx_general <- c(indx_general, list(c(1, 1, 1)))
+}
+
+indx_named <- c(indx_general, "ab", list(c("ab", "ac")), list(c("ac", "ab")))
+if(test_allow_duplicates) {
+  indx_named <- c(indx_named, list(c("ab", "ab")))
+}
+
+
 # uniquely named list ====
 x <- -sample.int(48) |> as.list()
 names(x) <- general_names[1:48]

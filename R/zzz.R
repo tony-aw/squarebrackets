@@ -1,7 +1,7 @@
 .onAttach <- function(libname, pkgname) {
   txt <- paste0(
     "Run `",
-    '?squarebrackets::subsets',
+    '?squarebrackets::squarebrackets_help',
     "` to open the introduction help page of 'squarebrackets'."
   )
   packageStartupMessage(txt)
@@ -11,6 +11,7 @@
   options(
     squarebrackets.protected = .protected_addresses(),
     squarebrackets.rat = FALSE,
-    squarebrackets.chkdup = FALSE
+    squarebrackets.chkdup = FALSE,
+    squarebrackets.ma_messages = TRUE
   )
 }

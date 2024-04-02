@@ -55,7 +55,7 @@ indx_general <- function(x, dim.i) {
 }
 
 indx_named <- function(x, dim.i) {
-  c(indx_general(x, dim.i), list("a", c("a", "b")))
+  c(indx_general(x, dim.i), list("a", c("a", "b"), c("b", "a")))
 }
 
 

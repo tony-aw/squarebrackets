@@ -51,7 +51,7 @@ indx_general <- list(
   function(x) x>5
 )
 
-indx_named <- c(indx_general, "ab")
+indx_named <- c(indx_general, c("ab", "ac"), c("ac", "ab"))
 
 sys.source(file.path(getwd(), "source", "sourcetest-elements.R"), envir = environment())
 
@@ -70,7 +70,7 @@ subset_arr <- function(x, i, j, l) {
 x <- array(as.list(seq_len(5^4)), dim = c(5, 5, 5, 5))
 rownames(x) <- c(letters[1:3], "a", NA)
 
-idx <- list(c("a"), c(1:3), c(rep(TRUE, 2), rep(FALSE, 3)))
+idx <- list(c("b", "a"), c(1:3), c(rep(TRUE, 2), rep(FALSE, 3)))
 dims <- c(1,2,4)
 rp <- list(seq_len(length(sb2_x(x, idx, dims)))* -1)
 expect_equal(
@@ -78,7 +78,7 @@ expect_equal(
   subset_arr(x, idx[[1]], idx[[2]], idx[[3]])
 )
 
-idx <- list(c("a"), logical(0), c(rep(TRUE, 2), rep(FALSE, 3)))
+idx <- list(c("b", "a"), logical(0), c(rep(TRUE, 2), rep(FALSE, 3)))
 dims <- c(1,2,4)
 rp <- list(seq_len(length(sb2_x(x, idx, dims)))* -1)
 expect_equal(
@@ -86,7 +86,7 @@ expect_equal(
   subset_arr(x, idx[[1]], idx[[2]], idx[[3]])
 )
 
-idx <- list(c("a"), c(1:4), rep(FALSE, 5))
+idx <- list(c("b", "a"), c(1:4), rep(FALSE, 5))
 dims <- c(1,2,4)
 rp <- list(seq_len(length(sb2_x(x, idx, dims)))* -1)
 expect_equal(
@@ -202,8 +202,8 @@ indx_general <- function(x, dim.i) {
 }
 
 indx_named <- function(x, dim.i) {
-  if(dim.i==1) return(c(indx_general(x, dim.i), list("1", c("1", "2"))))
-  if(dim.i==2) return(c(indx_general(x, dim.i), list("a", c("a", "b"))))
+  if(dim.i==1) return(c(indx_general(x, dim.i), list("1", c("1", "2"), c("2", "1"))))
+  if(dim.i==2) return(c(indx_general(x, dim.i), list("a", c("a", "b"), c("b", "a"))))
 }
 
 sys.source(file.path(getwd(), "source", "sourcetest-datasets.R"), envir = environment())

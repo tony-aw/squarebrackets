@@ -242,6 +242,14 @@ corresponds to something like the following:</p>
 <span><span class="va">x</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">:</span><span class="op">-</span><span class="fl">2</span>, <span class="op">-</span><span class="fl">1</span><span class="op">:</span><span class="op">-</span><span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">tf</span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">:</span><span class="op">-</span><span class="fl">2</span>, <span class="op">-</span><span class="fl">1</span><span class="op">:</span><span class="op">-</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="va">x</span></span>
 <span></span></code></pre><p></p></div>
+<p><b>NOTE</b> <br>
+The order in which the user gives indices when <code>inv = TRUE</code> generally does not matter. <br>
+The order of the indices as they appear in the original object <code>x</code> is maintained,
+just like in base 'R'. <br>
+Therefore, when replacing multiple values where the order of the replacement matters,
+it is better to keep <code>inv = FALSE</code>, which is the default. <br>
+For replacement with a single value or with a transformation function,
+<code>inv = TRUE</code> can be used without considering the ordering. <br><br></p>
     </div>
     <div class="section level2">
     <h2 id="out-of-bounds-integers-non-existing-names-levels-and-nas">Out-of-Bounds Integers, Non-Existing Names/Levels, and NAs<a class="anchor" aria-label="anchor" href="#out-of-bounds-integers-non-existing-names-levels-and-nas"></a></h2>

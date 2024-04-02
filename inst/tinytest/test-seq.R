@@ -132,15 +132,13 @@ expect_equal(
 enumerate <- enumerate + 2
 
 
-# seq_mlen ====
+# .rcpp_seq_mlen ====
 expect_equal(
-  seq_mlen(1:10),
+  squarebrackets:::.rcpp_seq_mlen(1:10),
   lapply(1:10, seq_len)
 )
-expect_error(
-  seq_mlen(letters)
-)
-enumerate <- enumerate + 2
+
+enumerate <- enumerate + 1
 
 
 # seq_names ====

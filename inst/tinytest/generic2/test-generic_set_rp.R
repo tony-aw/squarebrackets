@@ -102,8 +102,8 @@ indx_general <- function(x, dim.i) {
 }
 
 indx_named <- function(x, dim.i) {
-  if(dim.i==1) return(c(indx_general(x, dim.i), list("1", c("1", "2"))))
-  if(dim.i==2) return(c(indx_general(x, dim.i), list("a", c("a", "b"))))
+  if(dim.i==1) return(c(indx_general(x, dim.i), list("1", c("1", "2"), c("2", "1"))))
+  if(dim.i==2) return(c(indx_general(x, dim.i), list("a", c("a", "b"), c("b", "a"))))
 }
 
 sys.source(file.path(getwd(), "source", "sourcetest-datasets.R"), envir = environment())

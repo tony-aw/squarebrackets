@@ -54,7 +54,6 @@ reference:
   - '`idx_by`'
   - '`idx_ord_v`'
   - '`seq_rec2`'
-  - '`seq_mlen`'
   - '`seq_names`'
 - title: Misc
   contents:

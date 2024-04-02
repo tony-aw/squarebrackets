@@ -161,7 +161,6 @@
 #'  \link{seq_rec2} for the recursive sequence generator
 #'  (for example to generate a Fibonacci sequence). \cr
 #'  \link{seq_names} to create a range of indices from a specified starting and ending name. \cr
-#'  \link{seq_mlen} to create multiple sequences of the given lengths at once. \cr \cr
 #' 
 #' 
 #' @author \strong{Maintainer}: Tony Wilkes \email{tony_a_wilkes@outlook.com} (\href{https://orcid.org/0000-0001-9498-8379}{ORCID})

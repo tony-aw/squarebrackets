@@ -215,6 +215,15 @@ x[-1:-2, -1:-2] <- tf(x[-1:-2, -1:-2])
 x
 
 }\if{html}{\out{</div>}}
+
+\bold{NOTE} \cr
+The order in which the user gives indices when \code{inv = TRUE} generally does not matter. \cr
+The order of the indices as they appear in the original object \code{x} is maintained,
+just like in base 'R'. \cr
+Therefore, when replacing multiple values where the order of the replacement matters,
+it is better to keep \code{inv = FALSE}, which is the default. \cr
+For replacement with a single value or with a transformation function,
+\code{inv = TRUE} can be used without considering the ordering. \cr \cr
 }
 
 \section{Out-of-Bounds Integers, Non-Existing Names/Levels, and NAs}{

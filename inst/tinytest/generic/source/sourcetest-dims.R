@@ -1,4 +1,32 @@
 
+
+
+indx_general <- function(x, dim.i) {
+  dim.n <- dim(x)[[dim.i]]
+  dim.n1 <- dim.n - round(dim.n/2)
+  dim.n2 <- dim.n - dim.n1
+  out <- list(
+    NULL,
+    logical(0),
+    rep(TRUE, dim.n),
+    rep(FALSE, dim.n),
+    c(rep(TRUE, dim.n1), rep(FALSE, dim.n2)),
+    1,
+    1:2,
+    2:1
+  )
+  if(test_allow_duplicates) {
+    out <- c(out, list(c(1, 1, 1)))
+  }
+  return(out)
+}
+
+indx_named <- function(x, dim.i) {
+  # note: duplicate names tested separetely, since it's something inconsistent in R
+  return(c(indx_general(x, dim.i), list("a", c("a", "b"), c("b", "a"))))
+}
+
+
 # uniquely named matrix ====
 x <- matrix(as.double(-sample.int(20)), nrow = 5, ncol=4)
 rownames(x) <- letters[1:5]

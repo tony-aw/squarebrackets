@@ -41,18 +41,6 @@ temp.fun <- function(x, elements) {
   }
 }
 
-
-indx_general <- list(
-  integer(0),
-  1, 1:2, 2:1,
-  c(rep(TRUE, 24), rep(FALSE, 24)),
-  rep(TRUE, 48), rep(FALSE, 48),
-  c(TRUE, rep(FALSE, 47)), c(FALSE, rep(TRUE, 47)),
-  function(x) x>5
-)
-
-indx_named <- c(indx_general, "ab")
-
 sys.source(file.path(getwd(), "source", "sourcetest-elements.R"), envir = environment())
 
 
@@ -181,23 +169,6 @@ temp.fun.3darray <- function(x, row, col, lyr) {
 }
 
 
-indx_general <- function(x, dim.i) {
-  dim.n <- dim(x)[[dim.i]]
-  dim.n1 <- dim.n - round(dim.n/2)
-  dim.n2 <- dim.n - dim.n1
-  list(
-    NULL,
-    logical(0),
-    rep(TRUE, dim.n), rep(FALSE, dim.n),
-    c(rep(TRUE, dim.n1), rep(FALSE, dim.n2)),
-    1, seq(1, 2, by = 1), seq(2, 1, by = -1)
-  )
-}
-
-indx_named <- function(x, dim.i) {
-  c(indx_general(x, dim.i), list("a", c("a", "b")))
-}
-
 sys.source(file.path(getwd(), "source", "sourcetest-dims.R"), envir = environment())
 
 
@@ -215,7 +186,7 @@ subset_arr <- function(x, i, j, l) {
 x <- array(seq_len(5^4), dim = c(5, 5, 5, 5))
 rownames(x) <- c(letters[1:3], "a", NA)
 
-idx <- list(c("a"), c(1:3), c(rep(TRUE, 2), rep(FALSE, 3)))
+idx <- list(c("b", "a"), c(1:3), c(rep(TRUE, 2), rep(FALSE, 3)))
 dims <- c(1,2,4)
 rp <- seq_len(length(sb_x(x, idx, dims)))* -1
 expect_equal(
@@ -223,7 +194,7 @@ expect_equal(
   subset_arr(x, idx[[1]], idx[[2]], idx[[3]])
 )
 
-idx <- list(c("a"), logical(0), c(rep(TRUE, 2), rep(FALSE, 3)))
+idx <- list(c("b", "a"), logical(0), c(rep(TRUE, 2), rep(FALSE, 3)))
 dims <- c(1,2,4)
 rp <- seq_len(length(sb_x(x, idx, dims)))* -1
 expect_equal(
@@ -231,7 +202,7 @@ expect_equal(
   subset_arr(x, idx[[1]], idx[[2]], idx[[3]])
 )
 
-idx <- list(c("a"), c(1:4), rep(FALSE, 5))
+idx <- list(c("b", "a"), c(1:4), rep(FALSE, 5))
 dims <- c(1,2,4)
 rp <- seq_len(length(sb_x(x, idx, dims)))* -1
 expect_equal(

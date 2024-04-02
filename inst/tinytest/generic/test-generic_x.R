@@ -26,16 +26,6 @@ temp.fun <- function(x, elements) {
 }
 
 
-indx_general <- list(
-  logical(0),
-  1, 1:2, 2:1, c(1, 1, 1), 
-  c(rep(TRUE, 24), rep(FALSE, 24)),
-  rep(TRUE, 48), rep(FALSE, 48),
-  function(x) x>5
-)
-
-indx_named <- c(indx_general, "ab", list(c("ab", "ab")))
-
 sys.source(file.path(getwd(), "source", "sourcetest-elements.R"), envir = environment())
 
 
@@ -144,23 +134,6 @@ temp.fun.3darray <- function(x, row, col, lyr) {
   }
 }
 
-
-indx_general <- function(x, dim.i) {
-  dim.n <- dim(x)[[dim.i]]
-  dim.n1 <- dim.n - round(dim.n/2)
-  dim.n2 <- dim.n - dim.n1
-  list(
-    NULL,
-    logical(0),
-    rep(TRUE, dim.n), rep(FALSE, dim.n),
-    c(rep(TRUE, dim.n1), rep(FALSE, dim.n2)),
-    1,1:2, 2:1, c(1, 1, 1)
-  )
-}
-
-indx_named <- function(x, dim.i) {
-  c(indx_general(x, dim.i), list("a", c("a", "b")))
-}
 
 sys.source(file.path(getwd(), "source", "sourcetest-dims.R"), envir = environment())
 

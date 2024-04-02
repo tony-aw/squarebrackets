@@ -108,6 +108,10 @@ tinycodet::import_LL("squarebrackets", selection = ... )
 - 1 April 2024: Removed `sb_coe()` but kept `sb2_coe()`. Added `inv`
   argument to `sb_mod()`/`sb2_mod()`, `sb_set()`/`sb2_set()`, and
   `sb2_coe()`, and added tests for these. Added `idx1()` for
-  Copy-On-Modification Substitution, and added tests for `idx1()` also.
+  Copy-On-Modification Substitution, and added tests for `idx1()`
+  also.Fixed a bug in character subset ordering in the
+  `sb`/`sb2`\_`mod`/`set`/`coe` - generic methods. Fixed a bug in the
+  introduction message. Added even more tests. Added `idx1_dim()`, and
+  added tests for these also.
 
  

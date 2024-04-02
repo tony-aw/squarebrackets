@@ -171,7 +171,9 @@ couldb.mutable_atomic <- function(x) {
 #' @export
 `[<-.mutable_atomic` <- function(x, ..., value) {
   
-  message("copying on modification; for modification by reference, use `sb_set()`")
+  if(getOption("squarebrackets.ma_messages", TRUE)) {
+    message("copying on modification; for modification by reference, use `sb_set()`")
+  }
   
   oc <- oldClass(x)
   class(x) <- NULL
