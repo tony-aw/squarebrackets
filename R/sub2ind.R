@@ -146,15 +146,7 @@ coord2ind <- function(coord, x.dim, checks = TRUE) {
   
   ind2 <- coord[, 1L, drop = TRUE]
   
-  if(n > 1L) {
-    for(i in seq.int(n, 2L)) {
-      ind2 <- as.integer(
-        ind2 + prod(x.dim[seq_len(i - 1L)]) * (coord[, i, drop = TRUE] - 1L)
-      )
-    }
-  }
-  
-  return(ind2)
+  return(.rcpp_coord2ind(ind2, coord, x.dim))
 }
 
 

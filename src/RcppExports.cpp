@@ -880,6 +880,42 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
+// rcpp_prod_int
+int rcpp_prod_int(IntegerVector x);
+RcppExport SEXP _squarebrackets_rcpp_prod_int(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_prod_int(x));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_pre_coord2ind
+void rcpp_pre_coord2ind(IntegerVector ind, IntegerVector coord, int myprod);
+RcppExport SEXP _squarebrackets_rcpp_pre_coord2ind(SEXP indSEXP, SEXP coordSEXP, SEXP myprodSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type ind(indSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type coord(coordSEXP);
+    Rcpp::traits::input_parameter< int >::type myprod(myprodSEXP);
+    rcpp_pre_coord2ind(ind, coord, myprod);
+    return R_NilValue;
+END_RCPP
+}
+// rcpp_coord2ind
+IntegerVector rcpp_coord2ind(IntegerVector ind, IntegerMatrix coord, IntegerVector xdim);
+RcppExport SEXP _squarebrackets_rcpp_coord2ind(SEXP indSEXP, SEXP coordSEXP, SEXP xdimSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type ind(indSEXP);
+    Rcpp::traits::input_parameter< IntegerMatrix >::type coord(coordSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type xdim(xdimSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_coord2ind(ind, coord, xdim));
+    return rcpp_result_gen;
+END_RCPP
+}
 // rcpp_sb_str
 String rcpp_sb_str(std::string x, IntegerVector ind);
 RcppExport SEXP _squarebrackets_rcpp_sb_str(SEXP xSEXP, SEXP indSEXP) {
@@ -1078,6 +1114,9 @@ static const R_CallMethodDef CallEntries[] = {
     {"_squarebrackets_rcpp_address_in_env", (DL_FUNC) &_squarebrackets_rcpp_address_in_env, 3},
     {"_squarebrackets_rcpp_anybad", (DL_FUNC) &_squarebrackets_rcpp_anybad, 2},
     {"_squarebrackets_rcpp_check_conform_dims", (DL_FUNC) &_squarebrackets_rcpp_check_conform_dims, 4},
+    {"_squarebrackets_rcpp_prod_int", (DL_FUNC) &_squarebrackets_rcpp_prod_int, 1},
+    {"_squarebrackets_rcpp_pre_coord2ind", (DL_FUNC) &_squarebrackets_rcpp_pre_coord2ind, 3},
+    {"_squarebrackets_rcpp_coord2ind", (DL_FUNC) &_squarebrackets_rcpp_coord2ind, 3},
     {"_squarebrackets_rcpp_sb_str", (DL_FUNC) &_squarebrackets_rcpp_sb_str, 2},
     {"_squarebrackets_rcpp_sb_str_rp", (DL_FUNC) &_squarebrackets_rcpp_sb_str_rp, 4},
     {"_squarebrackets_rcpp_mlen", (DL_FUNC) &_squarebrackets_rcpp_mlen, 1},

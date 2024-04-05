@@ -166,3 +166,36 @@
   return(unlist(lst))
 }
 
+
+#' @keywords internal
+#' @noRd
+.old_coord2ind <- function(coord, x.dim, checks = TRUE) {
+  n <- length(x.dim)
+  
+  if(checks) {
+    if(n == 0L) {
+      stop("`length(x.dim) == 0`")
+    }
+    
+    if(!is.numeric(x.dim) || !is.numeric(coord)) {
+      stop("`x.dim` and `coord` must both be numeric")
+    }
+    
+    if(!isTRUE(collapse::fncol(coord) == n)) {
+      stop("`ncol(coord) != length(x.dim)`")
+    }
+  }
+  
+  ind2 <- coord[, 1L, drop = TRUE]
+  
+  if(n > 1L) {
+    for(i in seq.int(n, 2L)) {
+      myprod <- prod(x.dim[seq_len(i - 1L)])
+      ind2 <- as.integer(
+        ind2 + myprod * (coord[, i, drop = TRUE] - 1L)
+      )
+    }
+  }
+  
+  return(ind2)
+}

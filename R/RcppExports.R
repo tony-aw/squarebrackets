@@ -423,6 +423,24 @@
 
 #' @keywords internal
 #' @noRd
+.rcpp_prod_int <- function(x) {
+    .Call(`_squarebrackets_rcpp_prod_int`, x)
+}
+
+#' @keywords internal
+#' @noRd
+.rcpp_pre_coord2ind <- function(ind, coord, myprod) {
+    invisible(.Call(`_squarebrackets_rcpp_pre_coord2ind`, ind, coord, myprod))
+}
+
+#' @keywords internal
+#' @noRd
+.rcpp_coord2ind <- function(ind, coord, xdim) {
+    .Call(`_squarebrackets_rcpp_coord2ind`, ind, coord, xdim)
+}
+
+#' @keywords internal
+#' @noRd
 .rcpp_sb_str <- function(x, ind) {
     .Call(`_squarebrackets_rcpp_sb_str`, x, ind)
 }

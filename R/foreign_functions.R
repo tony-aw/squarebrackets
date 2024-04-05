@@ -9,7 +9,8 @@
   # This function is a modified version of abind::abind.
   # The modification is different in 4 ways:
   # 1) .abind.recursive can bind recursive arrays (i.e. dimensional lists), whereas abind::abind can't.
-  # 2) .abind.recursive is faster, through more efficient code and packages 'collapse' and 'Rcpp'.
+  # 2) .abind.recursive is partially written in C++ (instead of fully R),
+  #       and also calls fast 'C' functions from collapse'.
   # 3) The main input is a list, instead of an ellipsis.
   # 4) some arguments have been disabled or set at a fixed value for simplicity.
   
@@ -192,7 +193,7 @@
         if (arg.dim[along,i] == 1L) {
           dnm.along <- arg.names[i]
         }
-        else if (arg.names[i]=="") {
+        else if (arg.names[i] == "") {
           dnm.along <- collapse::alloc("", arg.dim[along,i])
         }
         else {
@@ -216,6 +217,7 @@
     dimnames.new[along] <- list(NULL)
   }
   
+  # the next part makes sure a recursive array now also works:
   out <- do.call(c, arg.list)
   out <- array(
     out, dim = c(arg.dim[-along, 1L], sum(arg.dim[along,])),
