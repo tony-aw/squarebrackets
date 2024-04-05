@@ -89,6 +89,7 @@ tinycodet::import_LL("squarebrackets", selection = ... )
  - 29 March 2024: Added `sb2_before.array()` and `sb2_after.array()`, and added tests for these also. Added tests for data.frame-like coercion types. Tweaked the documentation here and there a bit.
  - 30 March 2024: Removed the separate `NA` checks, as they are redundant. Fixed some linguistic mistakes in the documentation.
  - 1 April 2024: Removed `sb_coe()` but kept `sb2_coe()`. Added `inv` argument to `sb_mod()`/`sb2_mod()`, `sb_set()`/`sb2_set()`, and `sb2_coe()`, and added tests for these. Added `idx1()` for Copy-On-Modification Substitution, and added tests for `idx1()` also.Fixed a bug in character subset ordering in the `sb`/`sb2`_`mod`/`set`/`coe` - generic methods. Fixed a bug in the introduction message. Added even more tests. Added `idx1_dim()`, and added tests for these also.
+ - 5 April 2024: Replaced `idx1`/`idx0` with `idx()`.
  
 
 &nbsp;

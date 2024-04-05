@@ -113,5 +113,6 @@ tinycodet::import_LL("squarebrackets", selection = ... )
   `sb`/`sb2`\_`mod`/`set`/`coe` - generic methods. Fixed a bug in the
   introduction message. Added even more tests. Added `idx1_dim()`, and
   added tests for these also.
+- 5 April 2024: Replaced `idx1`/`idx0` with `idx()`.
 
  

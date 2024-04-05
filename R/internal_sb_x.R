@@ -5,7 +5,7 @@
 #' @noRd
 .indx_convert_chr.sb_x <- function(indx, dnames, is_unique, abortcall) {
   if(is_unique) {
-    out <- collapse::fmatch(indx, dnames)
+    out <- collapse::fmatch(collapse::na_omit(indx), dnames)
   } else { out <- match_all(indx, dnames) }
   return(out)
 }

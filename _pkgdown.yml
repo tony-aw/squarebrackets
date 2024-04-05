@@ -41,7 +41,7 @@ reference:
   - '`sb_currentBindings`'
 - title: Specialized Functions
   contents:
-  - '`idx1`'
+  - '`idx`'
   - '`setapply`'
   - '`ma_setv`'
   - '`dt`'

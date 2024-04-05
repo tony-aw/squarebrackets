@@ -5,7 +5,7 @@
 #' Use `sb_mod(x, ...)` if `x` is a non-recursive object (i.e. atomic or factor). \cr
 #' Use `sb2_mod(x, ...)` if `x` is a recursive object (i.e. list or data.frame-like). \cr
 #' \cr
-#' For modifying subsets using R's default copy-on-modification semantics, see \link{idx1}. \cr \cr
+#' For modifying subsets using R's default copy-on-modification semantics, see \link{idx}. \cr \cr
 #'
 #' @param x see \link{squarebrackets_immutable_classes} and \link{squarebrackets_mutable_classes}.
 #' @param i,lvl,row,col,idx,dims,rcl,filter,vars,inv See \link{squarebrackets_indx_args}. \cr

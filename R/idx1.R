@@ -1,18 +1,34 @@
-#' Compute Flat Integer Indices (for Copy-On-Modify Substitution)
+#' Convert/Translate Indices (for Copy-On-Modify Substitution)
 #'
 #' @description
-#' The `idx1()` method
-#' translates the given indices/subscripts to flat/linear integer indices. \cr
+#' The `idx()` method converts indices. \cr
+#' The type of output depends on the type of input index arguments given:
+#' 
+#'  - `idx(x, i = i, ...)`
+#'  converts linear indices to a strictly positive integer vector of linear indices.
+#'  - `idx(x, idx = idx, dims = dims, ...)`
+#'  converts dimensional indices to a strictly positive integer vector of linear indices.
+#'  - `idx(x, slice = slice, margin = margin, ...)`
+#'  converts indices of one dimension to a strictly positive integer vector of
+#'  indices for that specific dimension.
+#' 
+#' Vectors (both atomic and recursive) only have index argument `i`. \cr
+#' Data.frame-like objects only have the `slice, margin` index argument pair. \cr
+#' Arrays (both atomic and recursive) have the `idx, dims` index argument pair,
+#' as well as the arguments `i` and `slice, margin`. \cr
 #' \cr
-#' This function can be used inside the regular square brackets operators
-#' (without commas; as stated, these are linear indices). \cr
+#' The `idx()` method can be used inside the regular square brackets operators. \cr
 #' For example like so:
 #' 
 #' ```{r eval = FALSE, echo = TRUE}
-#' 
-#' my_indices <- idx1(x, ...)
+#' x <- array(...)
+#' my_indices <- idx(x, idx, dims)
 #' x[my_indices] <- value
 #' 
+#' y <- data.frame(...)
+#' rows <- idx(y, 1:10, 1, inv = TRUE)
+#' cols <- idx(y, c("a", "b"), 2)
+#' y[rows, cols] <- value
 #' ```
 #' 
 #' thus allowing the user to benefit from the convenient index translations from 'squarebrackets',
@@ -20,69 +36,38 @@
 #' (instead of the deep copy semantics and
 #' \link[=squarebrackets_PassByReference]{pass-by-reference semantics}
 #' provided by 'squarebrackets'). \cr
-#' \cr
-#' `idx1()` supports any `x` that is a vector, matrix, or array,
-#' regardless if `x` is atomic or recursive. \cr
-#' \cr
-#' `idx1_dim()` translates indices for a specific dimension
-#' (handy for data.frames). \cr
-#' Use it for example like so:
-#' 
-#' ```{r eval = FALSE, echo = TRUE}
-#' 
-#' rows <- idx1_dim(x, 1:10, 1)
-#' cols <- idx1_dim(x, c("b", "a"), 2)
-#' x[rows, cols] <- value
-#' 
-#' ```
 #' 
 #' 
-#' @param x vector, matrix, or array; both atomic and recursive objects are supported.
-#' @param i,row,col,idx,dims,rcl,inv See \link{squarebrackets_indx_args}. \cr
+#' @param x vector, matrix, array, or data.frame; both atomic and recursive objects are supported.
+#' @param i,idx,dims,inv See \link{squarebrackets_indx_args}. \cr
 #' Duplicates are not allowed.
-#' @param slice works the same as arguments `row` and `col`.
+#' @param slice see arguments `row` and `col` in \link{squarebrackets_indx_args}.
 #' @param margin a single integer, specifying the dimension for `slice`.
 #' @param chkdup see \link{squarebrackets_duplicates}. \cr
 #' `r .mybadge_performance_set2("FALSE")` \cr
 #' @param ... further arguments passed to or from other methods.
 #'
 #' @returns
-#' A vector of flat/linear integer indices.
+#' A vector of strictly positive integer indices.
 #'
 #'
 #'
 #' @example inst/examples/idx1.R
 
 
+
+
+
 #' @rdname idx1
 #' @export
-idx1_dim <- function(
-    x, slice, margin, inv = FALSE, chkdup = getOption("squarebrackets.chkdup", FALSE)
-) {
-  if(is.null(dim(x))) {
-    stop("`x` has no dimensions")
-  }
-  obj <- stats::setNames(seq_len(dim(x)[margin]), dimnames(x)[[margin]])
-  if(!is.atomic(slice)) {
-    stop("`slice` must be atomic")
-  }
-  elements <- .indx_make_element(
-    slice, obj, is_list = FALSE, chkdup = chkdup, inv = inv, abortcall = sys.call()
-  )
-  return(elements)
+idx <- function(x, ...) {
+  UseMethod("idx", x)
 }
 
 
 #' @rdname idx1
 #' @export
-idx1 <- function(x, ...) {
-  UseMethod("idx1", x)
-}
-
-
-#' @rdname idx1
-#' @export
-idx1.default <- function(
+idx.default <- function(
     x, i, inv = FALSE,
     ...,
     chkdup = getOption("squarebrackets.chkdup", FALSE)
@@ -96,11 +81,24 @@ idx1.default <- function(
 
 #' @rdname idx1
 #' @export
-idx1.matrix <- function(
-    x, row = NULL, col = NULL, i = NULL, inv = FALSE,
+idx.array <- function(
+    x, idx = NULL, dims = NULL, slice = NULL, margin = NULL, i = NULL, inv = FALSE,
     ...,
     chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
+  
+  check_args <- c(
+    !is.null(idx) && !is.null(dims),
+    !is.null(slice) && !is.null(margin),
+    !is.null(i)
+  )
+  if(sum(check_args)>1) {
+    stop("incorrect combination of arguments given")
+  }
+  check_args <- is.null(idx) == is.null(dims) && is.null(slice) == is.null(margin)
+  if(!check_args) {
+    stop("incorrect combination of arguments given")
+  }
   
   if(!is.null(i)) {
     elements <- .indx_make_element(
@@ -109,47 +107,8 @@ idx1.matrix <- function(
     return(elements)
   }
   
-  if(!is.null(row)) {
-    row <- .indx_make_dim(row, x,  1, chkdup = chkdup, inv = inv, abortcall = sys.call())
-  }
-  if(!is.null(col)) {
-    col <- .indx_make_dim(col, x,  2, chkdup = chkdup, inv = inv, abortcall = sys.call())
-  }
-  
-  if(.any_empty_indices(row, col)) {
-    return(integer(0))
-  }
-  if(is.null(row) && is.null(col)) {
-    return(seq_along(x))
-  }
-  
-  if(is.null(row)) row <- collapse::seq_row(x)
-  if(is.null(col)) col <- collapse::seq_col(x)
-  
-  elements <- sub2ind(list(row, col), dim(x), checks = FALSE)
-  return(elements)
-}
-
-
-#' @rdname idx1
-#' @export
-idx1.array <- function(
-    x, idx = NULL, dims = NULL, rcl = NULL, i = NULL, inv = FALSE,
-    ...,
-    chkdup = getOption("squarebrackets.chkdup", FALSE)
-) {
-  if(!is.null(i)) {
-    elements <- .indx_make_element(
-      i, x, is_list = is.list(x), chkdup = chkdup, inv = inv, abortcall = sys.call()
-    )
-    return(elements)
-  }
-  
-  if(!is.null(rcl)) {
-    elements <- .sb3d_get_elements(
-      x, row = rcl[[1]], col = rcl[[2]], lyr = rcl[[3]], inv, chkdup = chkdup, abortcall = sys.call()
-    )
-    return(elements)
+  if(!is.null(slice) && !is.null(margin)) {
+    .idx_slicemargin(x, slice, margin, inv, chkdup)
   }
   
   x.dim <- dim(x)
@@ -161,4 +120,33 @@ idx1.array <- function(
   elements <- sub2ind(lst, x.dim, checks = FALSE)
   return(elements)
   
+}
+
+#' @rdname idx1
+#' @export
+idx.data.frame <- function(
+    x, slice, margin, inv = FALSE,
+    ...,
+    chkdup = getOption("squarebrackets.chkdup", FALSE)) {
+  
+  return(.idx_slicemargin(
+    x, slice, margin, inv, chkdup, abortcall = sys.call()
+  ))
+  
+}
+
+#' @keywords internal
+#' @noRd
+.idx_slicemargin <- function(x, slice, margin, inv, chkdup, abortcall) {
+  if(is.null(dim(x))) {
+    stop(simpleError("`x` has no dimensions", call = abortcall))
+  }
+  obj <- stats::setNames(seq_len(dim(x)[margin]), dimnames(x)[[margin]])
+  if(!is.atomic(slice)) {
+    stop(simpleError("`slice` must be atomic", call = abortcall))
+  }
+  elements <- .indx_make_element(
+    slice, obj, is_list = FALSE, chkdup = chkdup, inv = inv, abortcall = sys.call()
+  )
+  return(elements)
 }

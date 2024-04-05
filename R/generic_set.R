@@ -137,7 +137,29 @@ sb_set.array <- function(
   .check_bindingIsLocked(substitute(x), parent.frame(n = 1), abortcall = sys.call())
   
   # function:
-  elements <- idx1.array(x, idx, dims, rcl, i, inv, chkdup = chkdup)
+  if(!is.null(i)) {
+    elements <- .indx_make_element(
+      i, x, is_list = is.list(x), chkdup = chkdup, inv = inv, abortcall = sys.call()
+    )
+    .sb_set_atomic(x, elements, rp = rp, tf = tf, abortcall = sys.call())
+    return(invisible(NULL))
+  }
+  
+  if(!is.null(rcl)) {
+    elements <- .sb3d_get_elements(
+      x, row = rcl[[1]], col = rcl[[2]], lyr = rcl[[3]], inv, chkdup = chkdup, abortcall = sys.call()
+    )
+    .sb_set_atomic(x, elements, rp = rp, tf = tf, abortcall = sys.call())
+    return(invisible(NULL))
+  }
+  
+  x.dim <- dim(x)
+  ndims <- length(x.dim)
+  .arr_check(x, idx, dims, ndims, abortcall = sys.call())
+  lst <- .arr_lst_grid(
+    x, ndims, idx, dims, chkdup = chkdup, inv = inv, abortcall = sys.call()
+  )
+  elements <- sub2ind(lst, x.dim, checks = FALSE)
   .sb_set_atomic(x, elements, rp = rp, tf = tf, abortcall = sys.call())
   return(invisible(NULL))
 }

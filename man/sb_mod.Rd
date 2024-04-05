@@ -141,7 +141,7 @@ This is an S3 Method to return a copy of an object with modified subsets. \cr
 Use \code{sb_mod(x, ...)} if \code{x} is a non-recursive object (i.e. atomic or factor). \cr
 Use \code{sb2_mod(x, ...)} if \code{x} is a recursive object (i.e. list or data.frame-like). \cr
 \cr
-For modifying subsets using R's default copy-on-modification semantics, see \link{idx1}. \cr \cr
+For modifying subsets using R's default copy-on-modification semantics, see \link{idx}. \cr \cr
 }
 \details{
 \bold{Transform or Replace} \cr
