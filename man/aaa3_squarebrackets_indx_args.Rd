@@ -180,9 +180,6 @@ specify the following formula:
 
 If the formula is linked to an environment,
 any variables not found in the data set will be searched from the environment. \cr
-See also \code{tinycodet::}\link[tinycodet]{form}
-for conveniently creating formulas without environments,
-thus reducing the possibility of memory leaks. \cr
 \cr
 \code{vars} must be a function that returns a logical vector,
 giving the column indices to select for the operation. \cr

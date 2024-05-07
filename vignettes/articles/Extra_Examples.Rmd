@@ -46,9 +46,9 @@ x$region <- ifelse(x$CNTY_ID <= 2000, 'high', 'low')
 plotdat <- dt_aggregate(
   x, SDcols = "geometry", f = sf::st_union, by = "region"
 )
-geometry <- form(~geometry)
-fill <- form(~region)
-fct <- form(~region)
+geometry <- ~geometry
+fill <- ~region
+fct <- ~region
 ggplot(plotdat, aes_pro(geometry = geometry, fill = fill)) + 
   facet_wrap2(fct, nrow = 2) +
   geom_sf()
@@ -120,7 +120,7 @@ We can mutate a column of a data.table by reference, by combining 'squarebracket
 x <- sf::st_read(system.file("shape/nc.shp", package = "sf"))
 x <- dt.$as.data.table(x)
 
-myform <- form(~ PERIMETER / AREA)
+myform <- ~ PERIMETER / AREA
 x$newcolumn <- 1:nrow(x)
 mutated <- dt.$as.data.table(with_pro(x, myform))
 sb2_set(x, col = "newcolumn", rp = mutated)

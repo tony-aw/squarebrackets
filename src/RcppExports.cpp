@@ -1040,8 +1040,8 @@ BEGIN_RCPP
 END_RCPP
 }
 
-RcppExport SEXP C_any_badindx(void *, void *);
-RcppExport SEXP C_any_nonpos(void *, void *);
+RcppExport SEXP C_any_badindx(SEXP, SEXP);
+RcppExport SEXP C_any_nonpos(SEXP, SEXP);
 
 static const R_CallMethodDef CallEntries[] = {
     {"_squarebrackets_rcpp_seq_rec2_plus", (DL_FUNC) &_squarebrackets_rcpp_seq_rec2_plus, 6},

@@ -2,7 +2,7 @@ Package: squarebrackets
 Type: Package
 Title: Methods as an Alternative to the Square Brackets Operators
 Version: 0.0.0.9
-Date: 2024-03-26
+Date: 2024-05-07
 Authors@R: 
     person("Tony", "Wilkes",
            email = "tony_a_wilkes@outlook.com",
@@ -23,7 +23,7 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LinkingTo: Rcpp
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
 Suggests:
     rlang,
     knitr,
@@ -48,4 +48,3 @@ Imports:
 URL: https://github.com/tony-aw/squarebrackets/, https://tony-aw.github.io/squarebrackets/
 BugReports: https://github.com/tony-aw/squarebrackets/issues/
 Language: en-gb
-

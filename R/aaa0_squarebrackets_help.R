@@ -168,7 +168,6 @@
 #' 
 #' @references The badges shown in the documentation of this R-package were made using the services of: \url{https://shields.io/}
 #' 
-#' @docType package
 #' @name aaa0_squarebrackets
 #' @rdname aaa0_squarebrackets
 #' @aliases squarebrackets-package

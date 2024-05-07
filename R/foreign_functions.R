@@ -18,10 +18,10 @@
   # force.array <- TRUE # needs to be TRUE, otherwise results will be inconsistent for dim = 1 or 2.
   
   if (is.character(hier.names)) {
-    hier.names <- match.arg(hier.names, c('before', 'after', 'none'))
+    hier.names <- match.arg(hier.names, c("before", "after", "none"))
   }
   else {
-    hier.names <- if (hier.names) 'before' else 'no'
+    hier.names <- if (hier.names) "before" else "no"
   }
   
   # have.list.arg <- TRUE
@@ -62,8 +62,8 @@
   }
   ## if new.names is a character vector, treat it as argument names
   if (is.character(new.names)) {
-    arg.names[seq_along(new.names)[nchar(new.names)>0]] <-
-      new.names[nchar(new.names)>0]
+    arg.names[seq_along(new.names)[nchar(new.names) > 0L]] <-
+      new.names[nchar(new.names) > 0L]
     new.names <- NULL
   }
   
@@ -72,7 +72,7 @@
   if (collapse::anyv(arg.names, "")) {
     arg.alt.names <- arg.names
     temp.indx <- collapse::whichv(arg.names, "")
-    arg.alt.names[temp.indx] <- paste("X", seq_along(arg.names), sep="")[temp.indx]
+    arg.alt.names[temp.indx] <- paste("X", seq_along(arg.names), sep = "")[temp.indx]
   }
   else {
     arg.alt.names <- arg.names
@@ -125,7 +125,7 @@
         ## is equivalent to arg.dimnames[-N,i] <- dimnames(m)
         arg.dimnames[-along,i] <- dimnames(m)
         if (use.dnns && !is.null(names(dimnames(m))))
-          arg.dnns[-along,i] <- as.list(names(dimnames(m)))
+          arg.dnns[-along, i] <- as.list(names(dimnames(m)))
         ## remove the dimnames so that we can assign a dim of an extra length
         dimnames(m) <- NULL
       }
@@ -149,7 +149,7 @@
   }
   
   ## Make sure all arguments conform (re-written this part using 'Rcpp')
-  conform.dim <- arg.dim[,1]
+  conform.dim <- arg.dim[, 1L]
   .rcpp_check_conform_dims(conform.dim, arg.dim, ncol(arg.dim), along)
   
   ## find the last (or first) names for each dimensions except the join dimension
@@ -177,15 +177,15 @@
   ## find or create names for the join dimension
   for (i in seq_along(arg.names)) {
     ## only use names if arg i contributes some elements
-    if (arg.dim[along,i] > 0) {
+    if (arg.dim[along,i] > 0L) {
       dnm.along <- arg.dimnames[[along,i]]
       if (length(dnm.along) == arg.dim[along,i]) {
         use.along.names <- TRUE
-        if (hier.names == 'before' && arg.names[i]!="") {
-          dnm.along <- paste(arg.names[i], dnm.along, sep=".")
+        if (hier.names == "before" && arg.names[i] != "") {
+          dnm.along <- paste(arg.names[i], dnm.along, sep = ".")
         }
-        else if (hier.names == 'after' && arg.names[i] != "") {
-          dnm.along <- paste(dnm.along, arg.names[i], sep=".")
+        else if (hier.names == "after" && arg.names[i] != "") {
+          dnm.along <- paste(dnm.along, arg.names[i], sep = ".")
         }
       }
       else {
@@ -220,7 +220,7 @@
   # the next part makes sure a recursive array now also works:
   out <- do.call(c, arg.list)
   out <- array(
-    out, dim = c(arg.dim[-along, 1L], sum(arg.dim[along,])),
+    out, dim = c(arg.dim[-along, 1L], sum(arg.dim[along, ])),
     dimnames = dimnames.new[perm]
   )
   
@@ -241,14 +241,14 @@
           warning(paste("Component ", dd,
                         " of new.names ignored: has length ",
                         length(new.names[[dd]]), ", should be ",
-                        dim(out)[dd], sep=""))
+                        dim(out)[dd], sep = ""))
         }
       }
-      if (use.dnns && !is.null(names(new.names)) && names(new.names)[dd]!='')
+      if (use.dnns && !is.null(names(new.names)) && names(new.names)[dd] != "")
         names(dimnames(out))[dd] <- names(new.names)[dd]
     }
   }
   if (use.dnns && !is.null(names(dimnames(out))) && any(i <- is.na(names(dimnames(out)))))
-    names(dimnames(out))[i] <- ''
+    names(dimnames(out))[i] <- ""
   return(out)
 }

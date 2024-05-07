@@ -99,9 +99,11 @@ Use \code{sb2_before(x, ...)}/\code{sb2_after(x, ...)}
 if \code{x} is a recursive object (i.e. list or data.frame-like). \cr
 \cr
 \code{sb2_before.array()} and \code{sb2_after.array()}
-use a altered version of \code{abind::}\link[abind]{abind}
+use an altered version of \code{abind::}\link[abind]{abind}
 (see references below),
-which has been modified to work on recursive arrays
+which has been partially re-written in
+'C++' (via 'Rcpp') and 'C' (via 'collapse')
+to work on recursive arrays
 (i.e. dimensional lists). \cr \cr
 }
 \examples{

@@ -1,10 +1,10 @@
 pandoc: 3.1.1
-pkgdown: 2.0.7
+pkgdown: 2.0.8
 pkgdown_sha: ~
 articles:
   a_benchmarks_x: a_benchmarks_x.html
   Extra_Examples: Extra_Examples.html
-last_built: 2024-04-05T15:52Z
+last_built: 2024-05-07T17:53Z
 urls:
   reference: https://tony-aw.github.io/squarebrackets/reference
   article: https://tony-aw.github.io/squarebrackets/articles
