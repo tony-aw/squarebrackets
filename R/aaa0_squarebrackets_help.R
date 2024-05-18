@@ -119,7 +119,9 @@
 #'  a \link[=squarebrackets_mutable_classes]{mutable object}
 #'  using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
 #'  * \link{sb_currentBindings}, \link{sb2_currentBindings}: list or lock all currently existing bindings
-#'  that share the share the same address as the input variable. \cr
+#'  that share the share the same address as the input variable.
+#'  * \link{idx}: translate given indices/subscripts,
+#'  for the purpose of copy-on-modify substitution. \cr \cr
 #'  
 #' So for example,
 #' use `sb_rm()` to remove subsets from atomic arrays,
@@ -128,8 +130,6 @@
 #' `r .mybadge_intro_section("SPECIALIZED FUNCTIONS", "darkred")` \cr
 #' Additional specialized sub-setting functions are provided:
 #'  
-#'  * \link{idx}: translate given indices/subscripts,
-#'  for the purpose of copy-on-modify substitution.
 #'  * \link{setapply}: apply functions over mutable matrix margins
 #'  using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
 #'  * \link{ma_setv}: Find & Replace values in \link{mutable_atomic} objects
@@ -175,25 +175,25 @@
 #' @aliases squarebrackets_help
 #' @useDynLib squarebrackets, .registration=TRUE
 #' @importFrom Rcpp evalCpp
-#' @exportPattern "sb_x"
-#' @exportPattern "sb_rm"
-#' @exportPattern "sb_set"
-#' @exportPattern "sb_mod"
-#' @exportPattern "sb_coe"
-#' @exportPattern "sb_before"
-#' @exportPattern "sb_after"
-#' @exportPattern "sb_setRename"
-#' @exportPattern "sb_currentBindings"
-#' @exportPattern "sb2_x"
-#' @exportPattern "sb2_rm"
-#' @exportPattern "sb2_set"
-#' @exportPattern "sb2_mod"
-#' @exportPattern "sb2_coe"
-#' @exportPattern "sb2_before"
-#' @exportPattern "sb2_after"
-#' @exportPattern "sb2_rec"
-#' @exportPattern "sb2_setRename"
-#' @exportPattern "sb2_currentBindings"
+#' @exportPattern "^sb_x"
+#' @exportPattern "^sb_rm"
+#' @exportPattern "^sb_set"
+#' @exportPattern "^sb_mod"
+#' @exportPattern "^sb_coe"
+#' @exportPattern "^sb_before"
+#' @exportPattern "^sb_after"
+#' @exportPattern "^sb_setRename"
+#' @exportPattern "^sb_currentBindings"
+#' @exportPattern "^sb2_x"
+#' @exportPattern "^sb2_rm"
+#' @exportPattern "^sb2_set"
+#' @exportPattern "^sb2_mod"
+#' @exportPattern "^sb2_coe"
+#' @exportPattern "^sb2_before"
+#' @exportPattern "^sb2_after"
+#' @exportPattern "^sb2_rec"
+#' @exportPattern "^sb2_setRename"
+#' @exportPattern "^sb2_currentBindings"
 #' @method `[` mutable_atomic
 #' @method `[<-` mutable_atomic
 #' 

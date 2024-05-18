@@ -359,37 +359,32 @@ and ‘tinycodet’) from an aggregation by region of the spatial
 data.table:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">library</span>(ggh4x)</span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="co">#&gt; Attaching package: &#39;ggh4x&#39;</span></span>
-<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="co">#&gt; The following object is masked from &#39;package:ggplot2&#39;:</span></span>
-<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="co">#&gt;     guide_axis_logticks</span></span>
-<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="fu">library</span>(tinycodet)</span>
-<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="co">#&gt; Run `?tinycodet::tinycodet` to open the introduction help page of &#39;tinycodet&#39;.</span></span>
-<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="fu">import_as</span>(<span class="sc">~</span>dt., <span class="st">&quot;data.table&quot;</span>)</span>
-<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="co">#&gt; Importing packages and registering methods...</span></span>
-<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="co">#&gt; Done</span></span>
-<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="co">#&gt; You can now access the functions using `dt.$`</span></span>
-<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a><span class="co">#&gt; For conflicts report, packages order, and other attributes, run `attr.import(dt.)`</span></span>
-<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a>x <span class="ot">&lt;-</span> sf<span class="sc">::</span><span class="fu">st_read</span>(<span class="fu">system.file</span>(<span class="st">&quot;shape/nc.shp&quot;</span>, <span class="at">package =</span> <span class="st">&quot;sf&quot;</span>))</span>
-<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a><span class="co">#&gt; Reading layer `nc&#39; from data source `D:\Programs\R-4.3.3\library\sf\shape\nc.shp&#39; using driver `ESRI Shapefile&#39;</span></span>
-<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a><span class="co">#&gt; Simple feature collection with 100 features and 14 fields</span></span>
-<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a><span class="co">#&gt; Geometry type: MULTIPOLYGON</span></span>
-<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a><span class="co">#&gt; Dimension:     XY</span></span>
-<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a><span class="co">#&gt; Bounding box:  xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965</span></span>
-<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a><span class="co">#&gt; Geodetic CRS:  NAD27</span></span>
-<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a>x <span class="ot">&lt;-</span> dt.<span class="sc">$</span><span class="fu">as.data.table</span>(x)</span>
-<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a></span>
-<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a>x<span class="sc">$</span>region <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(x<span class="sc">$</span>CNTY_ID <span class="sc">&lt;=</span> <span class="dv">2000</span>, <span class="st">&#39;high&#39;</span>, <span class="st">&#39;low&#39;</span>)</span>
-<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a>plotdat <span class="ot">&lt;-</span> <span class="fu">dt_aggregate</span>(</span>
-<span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a>  x, <span class="at">SDcols =</span> <span class="st">&quot;geometry&quot;</span>, <span class="at">f =</span> sf<span class="sc">::</span>st_union, <span class="at">by =</span> <span class="st">&quot;region&quot;</span></span>
-<span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a>)</span>
-<span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a>geometry <span class="ot">&lt;-</span> <span class="er">~</span>geometry</span>
-<span id="cb2-29"><a href="#cb2-29" tabindex="-1"></a>fill <span class="ot">&lt;-</span> <span class="er">~</span>region</span>
-<span id="cb2-30"><a href="#cb2-30" tabindex="-1"></a>fct <span class="ot">&lt;-</span> <span class="er">~</span>region</span>
-<span id="cb2-31"><a href="#cb2-31" tabindex="-1"></a><span class="fu">ggplot</span>(plotdat, <span class="fu">aes_pro</span>(<span class="at">geometry =</span> geometry, <span class="at">fill =</span> fill)) <span class="sc">+</span> </span>
-<span id="cb2-32"><a href="#cb2-32" tabindex="-1"></a>  <span class="fu">facet_wrap2</span>(fct, <span class="at">nrow =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb2-33"><a href="#cb2-33" tabindex="-1"></a>  <span class="fu">geom_sf</span>()</span></code></pre></div>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="fu">library</span>(tinycodet)</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="co">#&gt; Run `?tinycodet::tinycodet` to open the introduction help page of &#39;tinycodet&#39;.</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="fu">import_as</span>(<span class="sc">~</span>dt., <span class="st">&quot;data.table&quot;</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="co">#&gt; Importing packages and registering methods...</span></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="co">#&gt; Done</span></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="co">#&gt; You can now access the functions using `dt.$`</span></span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="co">#&gt; For conflicts report, packages order, and other attributes, run `attr.import(dt.)`</span></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>x <span class="ot">&lt;-</span> sf<span class="sc">::</span><span class="fu">st_read</span>(<span class="fu">system.file</span>(<span class="st">&quot;shape/nc.shp&quot;</span>, <span class="at">package =</span> <span class="st">&quot;sf&quot;</span>))</span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="co">#&gt; Reading layer `nc&#39; from data source `D:\Programs\R-4.4.0\library\sf\shape\nc.shp&#39; using driver `ESRI Shapefile&#39;</span></span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="co">#&gt; Simple feature collection with 100 features and 14 fields</span></span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="co">#&gt; Geometry type: MULTIPOLYGON</span></span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a><span class="co">#&gt; Dimension:     XY</span></span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a><span class="co">#&gt; Bounding box:  xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965</span></span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a><span class="co">#&gt; Geodetic CRS:  NAD27</span></span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a>x <span class="ot">&lt;-</span> dt.<span class="sc">$</span><span class="fu">as.data.table</span>(x)</span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a>x<span class="sc">$</span>region <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(x<span class="sc">$</span>CNTY_ID <span class="sc">&lt;=</span> <span class="dv">2000</span>, <span class="st">&#39;high&#39;</span>, <span class="st">&#39;low&#39;</span>)</span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a>plotdat <span class="ot">&lt;-</span> <span class="fu">dt_aggregate</span>(</span>
+<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a>  x, <span class="at">SDcols =</span> <span class="st">&quot;geometry&quot;</span>, <span class="at">f =</span> sf<span class="sc">::</span>st_union, <span class="at">by =</span> <span class="st">&quot;region&quot;</span></span>
+<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a>)</span>
+<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a>geometry <span class="ot">&lt;-</span> <span class="er">~</span>geometry</span>
+<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a>fill <span class="ot">&lt;-</span> <span class="er">~</span>region</span>
+<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a>fct <span class="ot">&lt;-</span> <span class="er">~</span>region</span>
+<span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a><span class="fu">ggplot</span>(plotdat, <span class="fu">aes_pro</span>(<span class="at">geometry =</span> geometry, <span class="at">fill =</span> fill)) <span class="sc">+</span> </span>
+<span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a>  <span class="fu">facet_wrap2</span>(fct, <span class="at">nrow =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a>  <span class="fu">geom_sf</span>()</span></code></pre></div>
 <p><img src="data:image/png;base64,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" /><!-- --></p>
 <p> </p>
 </div>
@@ -409,23 +404,23 @@ exactly what will be done here.</p>
 <span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="co">#&gt; , , 1</span></span>
 <span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
-<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="co">#&gt; [1,]   23    2    7</span></span>
-<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="co">#&gt; [2,]   25    5   20</span></span>
-<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="co">#&gt; [3,]   21   11   16</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="co">#&gt; [1,]    4    2   11</span></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="co">#&gt; [2,]   17    9   20</span></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="co">#&gt; [3,]   25   18   26</span></span>
 <span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a><span class="co">#&gt; , , 2</span></span>
 <span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
-<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a><span class="co">#&gt; [1,]    8   27    4</span></span>
-<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a><span class="co">#&gt; [2,]   10   19    6</span></span>
-<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a><span class="co">#&gt; [3,]   17   24   14</span></span>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a><span class="co">#&gt; [1,]   12    1   27</span></span>
+<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a><span class="co">#&gt; [2,]   16    8   22</span></span>
+<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a><span class="co">#&gt; [3,]    6    5    3</span></span>
 <span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a><span class="co">#&gt; , , 3</span></span>
 <span id="cb3-18"><a href="#cb3-18" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb3-19"><a href="#cb3-19" tabindex="-1"></a><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
-<span id="cb3-20"><a href="#cb3-20" tabindex="-1"></a><span class="co">#&gt; [1,]   12   22   26</span></span>
-<span id="cb3-21"><a href="#cb3-21" tabindex="-1"></a><span class="co">#&gt; [2,]    1   13   18</span></span>
-<span id="cb3-22"><a href="#cb3-22" tabindex="-1"></a><span class="co">#&gt; [3,]    3   15    9</span></span>
+<span id="cb3-20"><a href="#cb3-20" tabindex="-1"></a><span class="co">#&gt; [1,]    7   10   19</span></span>
+<span id="cb3-21"><a href="#cb3-21" tabindex="-1"></a><span class="co">#&gt; [2,]   23   14   21</span></span>
+<span id="cb3-22"><a href="#cb3-22" tabindex="-1"></a><span class="co">#&gt; [3,]   13   24   15</span></span>
 <span id="cb3-23"><a href="#cb3-23" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb3-24"><a href="#cb3-24" tabindex="-1"></a><span class="co">#&gt; mutable_atomic </span></span>
 <span id="cb3-25"><a href="#cb3-25" tabindex="-1"></a><span class="co">#&gt; typeof:  integer</span></span></code></pre></div>
@@ -443,23 +438,23 @@ by reference:</p>
 <span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="co">#&gt; , , 1</span></span>
 <span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
-<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="co">#&gt; [1,]   21    2    7</span></span>
-<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="co">#&gt; [2,]   23    5   16</span></span>
-<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="co">#&gt; [3,]   25   11   20</span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="co">#&gt; [1,]    4    2   11</span></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="co">#&gt; [2,]   17    9   20</span></span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="co">#&gt; [3,]   25   18   26</span></span>
 <span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a><span class="co">#&gt; , , 2</span></span>
 <span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
-<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a><span class="co">#&gt; [1,]    8   19    4</span></span>
-<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a><span class="co">#&gt; [2,]   10   24    6</span></span>
-<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a><span class="co">#&gt; [3,]   17   27   14</span></span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a><span class="co">#&gt; [1,]    6    1    3</span></span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a><span class="co">#&gt; [2,]   12    5   22</span></span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a><span class="co">#&gt; [3,]   16    8   27</span></span>
 <span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a><span class="co">#&gt; , , 3</span></span>
 <span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
-<span id="cb5-19"><a href="#cb5-19" tabindex="-1"></a><span class="co">#&gt; [1,]    1   13    9</span></span>
-<span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a><span class="co">#&gt; [2,]    3   15   18</span></span>
-<span id="cb5-21"><a href="#cb5-21" tabindex="-1"></a><span class="co">#&gt; [3,]   12   22   26</span></span>
+<span id="cb5-19"><a href="#cb5-19" tabindex="-1"></a><span class="co">#&gt; [1,]    7   10   15</span></span>
+<span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a><span class="co">#&gt; [2,]   13   14   19</span></span>
+<span id="cb5-21"><a href="#cb5-21" tabindex="-1"></a><span class="co">#&gt; [3,]   23   24   21</span></span>
 <span id="cb5-22"><a href="#cb5-22" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb5-23"><a href="#cb5-23" tabindex="-1"></a><span class="co">#&gt; mutable_atomic </span></span>
 <span id="cb5-24"><a href="#cb5-24" tabindex="-1"></a><span class="co">#&gt; typeof:  integer</span></span></code></pre></div>
@@ -472,24 +467,24 @@ order:</p>
 <span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="fu">print</span>(x)</span>
 <span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="co">#&gt; , , 1</span></span>
 <span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
-<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="co">#&gt; [1,] &quot;o&quot;  &quot;w&quot;  &quot;m&quot; </span></span>
-<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="co">#&gt; [2,] &quot;r&quot;  &quot;n&quot;  &quot;d&quot; </span></span>
-<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="co">#&gt; [3,] &quot;s&quot;  &quot;x&quot;  &quot;f&quot; </span></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="co">#&gt;      [,1] [,2]   [,3]</span></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="co">#&gt; [1,] &quot;r&quot;  &quot;1000&quot; &quot;a&quot; </span></span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="co">#&gt; [2,] &quot;d&quot;  &quot;v&quot;    &quot;q&quot; </span></span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="co">#&gt; [3,] &quot;f&quot;  &quot;o&quot;    &quot;i&quot; </span></span>
 <span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a><span class="co">#&gt; , , 2</span></span>
 <span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a><span class="co">#&gt;      [,1] [,2] [,3]  </span></span>
-<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a><span class="co">#&gt; [1,] &quot;j&quot;  &quot;t&quot;  &quot;b&quot;   </span></span>
-<span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a><span class="co">#&gt; [2,] &quot;g&quot;  &quot;l&quot;  &quot;1000&quot;</span></span>
-<span id="cb6-15"><a href="#cb6-15" tabindex="-1"></a><span class="co">#&gt; [3,] &quot;p&quot;  &quot;v&quot;  &quot;a&quot;   </span></span>
+<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
+<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a><span class="co">#&gt; [1,] &quot;b&quot;  &quot;y&quot;  &quot;l&quot; </span></span>
+<span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a><span class="co">#&gt; [2,] &quot;x&quot;  &quot;c&quot;  &quot;u&quot; </span></span>
+<span id="cb6-15"><a href="#cb6-15" tabindex="-1"></a><span class="co">#&gt; [3,] &quot;g&quot;  &quot;k&quot;  &quot;e&quot; </span></span>
 <span id="cb6-16"><a href="#cb6-16" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb6-17"><a href="#cb6-17" tabindex="-1"></a><span class="co">#&gt; , , 3</span></span>
 <span id="cb6-18"><a href="#cb6-18" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb6-19"><a href="#cb6-19" tabindex="-1"></a><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
-<span id="cb6-20"><a href="#cb6-20" tabindex="-1"></a><span class="co">#&gt; [1,] &quot;z&quot;  &quot;u&quot;  &quot;q&quot; </span></span>
-<span id="cb6-21"><a href="#cb6-21" tabindex="-1"></a><span class="co">#&gt; [2,] &quot;e&quot;  &quot;y&quot;  &quot;h&quot; </span></span>
-<span id="cb6-22"><a href="#cb6-22" tabindex="-1"></a><span class="co">#&gt; [3,] &quot;k&quot;  &quot;c&quot;  &quot;i&quot; </span></span>
+<span id="cb6-20"><a href="#cb6-20" tabindex="-1"></a><span class="co">#&gt; [1,] &quot;w&quot;  &quot;m&quot;  &quot;j&quot; </span></span>
+<span id="cb6-21"><a href="#cb6-21" tabindex="-1"></a><span class="co">#&gt; [2,] &quot;t&quot;  &quot;n&quot;  &quot;s&quot; </span></span>
+<span id="cb6-22"><a href="#cb6-22" tabindex="-1"></a><span class="co">#&gt; [3,] &quot;h&quot;  &quot;z&quot;  &quot;p&quot; </span></span>
 <span id="cb6-23"><a href="#cb6-23" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb6-24"><a href="#cb6-24" tabindex="-1"></a><span class="co">#&gt; mutable_atomic </span></span>
 <span id="cb6-25"><a href="#cb6-25" tabindex="-1"></a><span class="co">#&gt; typeof:  character</span></span>
@@ -501,24 +496,24 @@ order:</p>
 <span id="cb6-31"><a href="#cb6-31" tabindex="-1"></a><span class="fu">print</span>(x)</span>
 <span id="cb6-32"><a href="#cb6-32" tabindex="-1"></a><span class="co">#&gt; , , 1</span></span>
 <span id="cb6-33"><a href="#cb6-33" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb6-34"><a href="#cb6-34" tabindex="-1"></a><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
-<span id="cb6-35"><a href="#cb6-35" tabindex="-1"></a><span class="co">#&gt; [1,] &quot;o&quot;  &quot;n&quot;  &quot;d&quot; </span></span>
-<span id="cb6-36"><a href="#cb6-36" tabindex="-1"></a><span class="co">#&gt; [2,] &quot;r&quot;  &quot;w&quot;  &quot;f&quot; </span></span>
-<span id="cb6-37"><a href="#cb6-37" tabindex="-1"></a><span class="co">#&gt; [3,] &quot;s&quot;  &quot;x&quot;  &quot;m&quot; </span></span>
+<span id="cb6-34"><a href="#cb6-34" tabindex="-1"></a><span class="co">#&gt;      [,1] [,2]   [,3]</span></span>
+<span id="cb6-35"><a href="#cb6-35" tabindex="-1"></a><span class="co">#&gt; [1,] &quot;d&quot;  &quot;1000&quot; &quot;a&quot; </span></span>
+<span id="cb6-36"><a href="#cb6-36" tabindex="-1"></a><span class="co">#&gt; [2,] &quot;f&quot;  &quot;o&quot;    &quot;i&quot; </span></span>
+<span id="cb6-37"><a href="#cb6-37" tabindex="-1"></a><span class="co">#&gt; [3,] &quot;r&quot;  &quot;v&quot;    &quot;q&quot; </span></span>
 <span id="cb6-38"><a href="#cb6-38" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb6-39"><a href="#cb6-39" tabindex="-1"></a><span class="co">#&gt; , , 2</span></span>
 <span id="cb6-40"><a href="#cb6-40" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb6-41"><a href="#cb6-41" tabindex="-1"></a><span class="co">#&gt;      [,1] [,2] [,3]  </span></span>
-<span id="cb6-42"><a href="#cb6-42" tabindex="-1"></a><span class="co">#&gt; [1,] &quot;g&quot;  &quot;l&quot;  &quot;1000&quot;</span></span>
-<span id="cb6-43"><a href="#cb6-43" tabindex="-1"></a><span class="co">#&gt; [2,] &quot;j&quot;  &quot;t&quot;  &quot;a&quot;   </span></span>
-<span id="cb6-44"><a href="#cb6-44" tabindex="-1"></a><span class="co">#&gt; [3,] &quot;p&quot;  &quot;v&quot;  &quot;b&quot;   </span></span>
+<span id="cb6-41"><a href="#cb6-41" tabindex="-1"></a><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
+<span id="cb6-42"><a href="#cb6-42" tabindex="-1"></a><span class="co">#&gt; [1,] &quot;b&quot;  &quot;c&quot;  &quot;e&quot; </span></span>
+<span id="cb6-43"><a href="#cb6-43" tabindex="-1"></a><span class="co">#&gt; [2,] &quot;g&quot;  &quot;k&quot;  &quot;l&quot; </span></span>
+<span id="cb6-44"><a href="#cb6-44" tabindex="-1"></a><span class="co">#&gt; [3,] &quot;x&quot;  &quot;y&quot;  &quot;u&quot; </span></span>
 <span id="cb6-45"><a href="#cb6-45" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb6-46"><a href="#cb6-46" tabindex="-1"></a><span class="co">#&gt; , , 3</span></span>
 <span id="cb6-47"><a href="#cb6-47" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb6-48"><a href="#cb6-48" tabindex="-1"></a><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
-<span id="cb6-49"><a href="#cb6-49" tabindex="-1"></a><span class="co">#&gt; [1,] &quot;e&quot;  &quot;c&quot;  &quot;h&quot; </span></span>
-<span id="cb6-50"><a href="#cb6-50" tabindex="-1"></a><span class="co">#&gt; [2,] &quot;k&quot;  &quot;u&quot;  &quot;i&quot; </span></span>
-<span id="cb6-51"><a href="#cb6-51" tabindex="-1"></a><span class="co">#&gt; [3,] &quot;z&quot;  &quot;y&quot;  &quot;q&quot; </span></span>
+<span id="cb6-49"><a href="#cb6-49" tabindex="-1"></a><span class="co">#&gt; [1,] &quot;h&quot;  &quot;m&quot;  &quot;j&quot; </span></span>
+<span id="cb6-50"><a href="#cb6-50" tabindex="-1"></a><span class="co">#&gt; [2,] &quot;t&quot;  &quot;n&quot;  &quot;p&quot; </span></span>
+<span id="cb6-51"><a href="#cb6-51" tabindex="-1"></a><span class="co">#&gt; [3,] &quot;w&quot;  &quot;z&quot;  &quot;s&quot; </span></span>
 <span id="cb6-52"><a href="#cb6-52" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb6-53"><a href="#cb6-53" tabindex="-1"></a><span class="co">#&gt; mutable_atomic </span></span>
 <span id="cb6-54"><a href="#cb6-54" tabindex="-1"></a><span class="co">#&gt; typeof:  character</span></span></code></pre></div>
@@ -533,7 +528,7 @@ order:</p>
 follows:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a></span>
 <span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> sf<span class="sc">::</span><span class="fu">st_read</span>(<span class="fu">system.file</span>(<span class="st">&quot;shape/nc.shp&quot;</span>, <span class="at">package =</span> <span class="st">&quot;sf&quot;</span>))</span>
-<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="co">#&gt; Reading layer `nc&#39; from data source `D:\Programs\R-4.3.3\library\sf\shape\nc.shp&#39; using driver `ESRI Shapefile&#39;</span></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="co">#&gt; Reading layer `nc&#39; from data source `D:\Programs\R-4.4.0\library\sf\shape\nc.shp&#39; using driver `ESRI Shapefile&#39;</span></span>
 <span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="co">#&gt; Simple feature collection with 100 features and 14 fields</span></span>
 <span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="co">#&gt; Geometry type: MULTIPOLYGON</span></span>
 <span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a><span class="co">#&gt; Dimension:     XY</span></span>

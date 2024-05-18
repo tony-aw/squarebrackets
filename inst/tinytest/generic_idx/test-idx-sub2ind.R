@@ -15,11 +15,11 @@ for(i in 1:10) {
   x <- array(sample(seq_len(len*10), len, FALSE), dims)
   ind1 <- sample(1:10, 4, FALSE)
   ind2 <- sample(1:10, 4, FALSE)
-  ind3 <- sample(1:10, 4, FALSE)
+  ind3 <- seq_len(dim(x)[3])
   ind4 <- sample(1:10, 4, FALSE)
   ind5 <- sample(1:10, 4, FALSE)
-  subs <- list(ind1, ind2, ind3, ind4, ind5)
-  ind <- sub2ind(subs, dims)
+  subs <- list(ind1, ind2, ind4, ind5)
+  ind <- idx(x, idx = subs, dims = c(1, 2, 4, 5))
   
   expect_equal(
     x[ind], as.vector(x[ind1, ind2, ind3, ind4, ind5])
@@ -37,10 +37,10 @@ for(i in 1:10) {
   x <- array(sample(seq_len(len*10), len, FALSE), dims)
   ind1 <- sample(1:10, 4, FALSE)
   ind2 <- sample(1:10, 4, FALSE)
-  ind3 <- sample(1:10, 4, FALSE)
+  ind3 <- seq_len(dim(x)[3])
   ind4 <- sample(1:10, 4, FALSE)
-  subs <- list(ind1, ind2, ind3, ind4)
-  ind <- sub2ind(subs, dims)
+  subs <- list(ind1, ind2, ind4)
+  ind <- idx(x, idx = subs, dims = c(1, 2, 4))
   
   expect_equal(
     x[ind], as.vector(x[ind1, ind2, ind3, ind4])
@@ -56,10 +56,10 @@ len <- prod(dims)
 for(i in 1:10) {
   x <- array(sample(seq_len(len*10), len, FALSE), dims)
   ind1 <- sample(1:10, 4, FALSE)
-  ind2 <- sample(1:10, 4, FALSE)
+  ind2 <- seq_len(dim(x)[2])
   ind3 <- sample(1:10, 4, FALSE)
-  subs <- list(ind1, ind2, ind3)
-  ind <- sub2ind(subs, dims)
+  subs <- list(ind1, ind3)
+  ind <- idx(x, subs, dims = c(1, 3))
   
   expect_equal(
     x[ind], as.vector(x[ind1, ind2, ind3])
@@ -77,7 +77,7 @@ for(i in 1:10) {
   ind1 <- sample(1:10, 4, FALSE)
   ind2 <- sample(1:10, 4, FALSE)
   subs <- list(ind1, ind2)
-  ind <- sub2ind(subs, dims)
+  ind <- idx(x, subs, dims = c(1,2))
   
   expect_equal(
     x[ind], as.vector(x[ind1, ind2])

@@ -100,11 +100,13 @@ if \code{x} is a recursive object (i.e. list or data.frame-like). \cr
 \cr
 \code{sb2_before.array()} and \code{sb2_after.array()}
 use an altered version of \code{abind::}\link[abind]{abind}
-(see references below),
-which has been partially re-written in
-'C++' (via 'Rcpp') and 'C' (via 'collapse')
+(see references below)
 to work on recursive arrays
-(i.e. dimensional lists). \cr \cr
+(i.e. dimensional lists). \cr
+It is partially written in
+'C++' (via 'Rcpp') and 'C' (via 'collapse'),
+for better performance.
+\cr \cr
 }
 \examples{
 

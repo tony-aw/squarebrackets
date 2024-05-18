@@ -84,7 +84,7 @@
 #' 
 #' 
 
-#' @rdname aaa7_squarebrackets_inconveniences
-#' @name aaa7_squarebrackets_inconveniences
+#' @rdname aaa6_squarebrackets_inconveniences
+#' @name aaa6_squarebrackets_inconveniences
 #' @aliases squarebrackets_inconveniences
 NULL

@@ -2,7 +2,7 @@
 % Please edit documentation in R/setapply.R
 \name{setapply}
 \alias{setapply}
-\title{Apply Functions Over Mutable Atomic Matrix Margins By Reference}
+\title{Apply Functions Over mutable_atomic Matrix Margins By Reference}
 \usage{
 setapply(x, MARGIN, FUN)
 }

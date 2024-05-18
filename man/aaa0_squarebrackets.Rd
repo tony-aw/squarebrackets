@@ -138,7 +138,9 @@ along a dimension of an object.
 a \link[=squarebrackets_mutable_classes]{mutable object}
 using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
 \item \link{sb_currentBindings}, \link{sb2_currentBindings}: list or lock all currently existing bindings
-that share the share the same address as the input variable. \cr
+that share the share the same address as the input variable.
+\item \link{idx}: translate given indices/subscripts,
+for the purpose of copy-on-modify substitution. \cr \cr
 }
 
 So for example,
@@ -148,8 +150,6 @@ and use \code{sb2_rm()} to remove subsets from recursive arrays. \cr \cr
 \ifelse{html}{\figure{specialized_functions-darkred.svg}{options: alt='[SPECIALIZED FUNCTIONS]'}}{\link[=squarebrackets_help]{SPECIALIZED FUNCTIONS}} \cr
 Additional specialized sub-setting functions are provided:
 \itemize{
-\item \link{idx}: translate given indices/subscripts,
-for the purpose of copy-on-modify substitution.
 \item \link{setapply}: apply functions over mutable matrix margins
 using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
 \item \link{ma_setv}: Find & Replace values in \link{mutable_atomic} objects

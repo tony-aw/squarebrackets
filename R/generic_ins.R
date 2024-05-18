@@ -13,11 +13,13 @@
 #' \cr
 #' `sb2_before.array()` and `sb2_after.array()`
 #' use an altered version of \code{abind::}\link[abind]{abind}
-#' (see references below),
-#' which has been partially re-written in
-#' 'C++' (via 'Rcpp') and 'C' (via 'collapse')
+#' (see references below)
 #' to work on recursive arrays
-#' (i.e. dimensional lists). \cr \cr
+#' (i.e. dimensional lists). \cr
+#' It is partially written in
+#' 'C++' (via 'Rcpp') and 'C' (via 'collapse'),
+#' for better performance.
+#' \cr \cr
 #' 
 #'
 #' @param x see \link{squarebrackets_immutable_classes} and \link{squarebrackets_mutable_classes}.

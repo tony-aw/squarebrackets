@@ -1,4 +1,4 @@
-#' Apply Functions Over Mutable Atomic Matrix Margins By Reference
+#' Apply Functions Over mutable_atomic Matrix Margins By Reference
 #'
 #' @description
 #' The `setapply()` function

@@ -12,7 +12,7 @@
 #' @param x a \bold{variable} belonging to one of the
 #' \link[=squarebrackets_mutable_classes]{supported mutable classes}. \cr
 #' @param i,row,col,idx,dims,rcl,filter,vars,inv See \link{squarebrackets_indx_args}. \cr
-#' An empty index selection returns the original object unchanged. \cr
+#' An empty index selection leaves the original object unchanged. \cr
 #' @param ... further arguments passed to or from other methods.
 #' @param tf the transformation function.
 #' @param rp an object of somewhat the same type as the selected subset of \code{x},

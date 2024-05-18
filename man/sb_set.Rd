@@ -72,7 +72,7 @@ sb2_set(x, ...)
 \item{...}{further arguments passed to or from other methods.}
 
 \item{i, row, col, idx, dims, rcl, filter, vars, inv}{See \link{squarebrackets_indx_args}. \cr
-An empty index selection returns the original object unchanged. \cr}
+An empty index selection leaves the original object unchanged. \cr}
 
 \item{rp}{an object of somewhat the same type as the selected subset of \code{x},
 and the same same length as the selected subset of \code{x} or a length of 1.}

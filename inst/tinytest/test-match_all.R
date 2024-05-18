@@ -6,7 +6,7 @@ general_names <- combn(letters, 2) |> apply(2, paste, collapse = "")
 
 needles <- list(
   "ab",
-  c("ab", "ab", "ab", "ac"),
+  c("ac", "ab", "ab", "ac"), # to check duplicates AND ordering
   NA,
   1:10,
   character(0),
@@ -17,7 +17,7 @@ needles <- list(
 )
 haystack <- list(
   "ab",
-  c("ab", "ab", "ab", "ac"),
+  c("ac", "ab", "ab", "ac"),
   NA,
   1:10,
   character(0),

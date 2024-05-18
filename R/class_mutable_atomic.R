@@ -151,8 +151,10 @@ is.mutable_atomic <- function(x) {
 #' @rdname class_mutable_atomic
 #' @export
 couldb.mutable_atomic <- function(x) {
+  check1 <- is.logical(x) || is.integer(x) || is.double(x) || is.character(x) || is.complex(x) || is.raw(x)
+  check2 <- !is.null(x) && !is.factor(x)
   return(
-    is.logical(x) || is.integer(x) || is.double(x) || is.character(x) || is.complex(x) || is.raw(x)
+    check1 && check2
   )
 }
 
