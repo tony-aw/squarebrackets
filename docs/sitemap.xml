@@ -4,12 +4,6 @@
     <loc>https://tony-aw.github.io/squarebrackets/404.html</loc>
   </url>
   <url>
-    <loc>https://tony-aw.github.io/squarebrackets/articles/articles/a_benchmarks_x.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/articles/articles/Extra_Examples.html</loc>
-  </url>
-  <url>
     <loc>https://tony-aw.github.io/squarebrackets/articles/a_benchmarks_x.html</loc>
   </url>
   <url>
@@ -52,13 +46,10 @@
     <loc>https://tony-aw.github.io/squarebrackets/reference/aaa6_squarebrackets_inconveniences.html</loc>
   </url>
   <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/aaa6_squarebrackets_technical.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/aaa7_squarebrackets_inconveniences.html</loc>
-  </url>
-  <url>
     <loc>https://tony-aw.github.io/squarebrackets/reference/class_mutable_atomic.html</loc>
+  </url>
+  <url>
+    <loc>https://tony-aw.github.io/squarebrackets/reference/currentBindings.html</loc>
   </url>
   <url>
     <loc>https://tony-aw.github.io/squarebrackets/reference/dt.html</loc>
@@ -95,9 +86,6 @@
   </url>
   <url>
     <loc>https://tony-aw.github.io/squarebrackets/reference/sb2_rec.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/sb_currentBindings.html</loc>
   </url>
   <url>
     <loc>https://tony-aw.github.io/squarebrackets/reference/sb_in.html</loc>

@@ -91,7 +91,7 @@ name-based arguments, instead of position based arguments. <br><br></p>
     
 
 
-<p>he <a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a>, <a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a>, <a href="https://rdatatable.gitlab.io/data.table/reference/data.table.html" class="external-link">data.table</a>,
+<p>The <a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a>, <a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a>, <a href="https://rdatatable.gitlab.io/data.table/reference/data.table.html" class="external-link">data.table</a>,
 and <a href="https://markfairbanks.github.io/tidytable/reference/tidytable.html" class="external-link">tidytable</a> classes
 all inherit from class “data.frame”. <br>
 Yet they use different rules regarding the usage of the square bracket operators. <br>
@@ -99,8 +99,23 @@ Constantly switching between these rules is annoying,
 and makes one's code inconsistent. <br><br>
 The methods provided by 'squarebrackets'
 use the same sub-setting rules for all data.frame inherited classes,
-thus solving this issue. <br><br></p>
-    </div>
+thus solving this issue. <br><br>
+The 'squarebrackets' package attempts to keep the
+data.frame methods as class agnostic as possible,
+through the class agnostic functionality of the 'collapse' and 'data.table' R-packages. <br>
+This attempt to keep data.frame-like classes consistent does,
+admittedly,
+result in some oddities in how data.frames are treated by 'squarebrackets',
+compared to how other classes are treated by 'squarebrackets':</p><ul><li><p>Whole-columns will be auto-coerced when replaced/transformed by <a href="sb_mod.html">sb_mod</a>,
+but partial columns will not be auto-coerced by default.</p></li>
+<li><p>The <a href="sb_x.html">sb_x</a> and <a href="sb_rm.html">sb_rm</a> methods always automatically conserve all attributes
+(though names and dimensions are adjusted accordingly, of course); <br>
+the attributes are not stripped, unlike the other classes.</p></li>
+<li><p>Giving a data.frame-like object with non-unique column names to the <code>sb_</code>-methods
+returns an error; <br>
+duplicating columns with <a href="sb_x.html">sb_x</a>
+will automatically adjust the column names to make them unique. <br><br></p></li>
+</ul></div>
     <div class="section level2">
     <h2 id="annoying-sub-setting-by-names">Annoying Sub-setting By Names<a class="anchor" aria-label="anchor" href="#annoying-sub-setting-by-names"></a></h2>
     
@@ -121,14 +136,16 @@ not just the first match. <br><br></p>
     
 
 
-<p>‘R’ adheres to copy-on-modification semantics when replacing values using <code>[&lt;-</code>. <br>
+<p>‘R’ adheres to copy-on-modify semantics when replacing values using <code>[&lt;-</code>. <br>
 But sometimes one would like explicit control when to create a copy,
 and when to modify using pass-by-reference semantics. <br><br>
 The 'squarebrackets' package
 provides the <a href="sb_mod.html">sb_mod</a> method
 to return a copy of an object with modified subsets,
 and the  <a href="sb_set.html">sb_set</a> method
-to modify using pass-by-reference semantics. <br><br></p>
+to modify using pass-by-reference semantics. <br>
+The <a href="idx1.html">idx</a> method can be used in combination with R's own <code>[&lt;-</code> operator
+for R's default copy-on-modify semantics. <br><br></p>
     </div>
     <div class="section level2">
     <h2 id="regarding-other-packages">Regarding Other Packages<a class="anchor" aria-label="anchor" href="#regarding-other-packages"></a></h2>
@@ -140,7 +157,7 @@ But using different packages for solving different issues for the same common th
 leads to inconsistent code. <br>
 I have not found an R-package that provides a holistic approach
 to providing alternative methods to the square brackets operators. <br>
-Thus this 'R' package was born. <br><br></p>
+Thus, this 'R' package was born. <br><br></p>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

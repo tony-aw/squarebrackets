@@ -1,8 +1,8 @@
 #' Functional Forms of data.table Operations
 #'
 #' @description
-#' Functional forms of special data.table operations - ALL programmatically friendly 
-#' (no Non-Standard Evaluation). \cr
+#' Functional forms of special data.table operations. \cr
+#' These functions do not use Non-Standard Evaluation. \cr
 #' \cr
 #'  * `dt_aggregate()`
 #'  aggregates a data.table or tidytable, and returns the aggregated copy.

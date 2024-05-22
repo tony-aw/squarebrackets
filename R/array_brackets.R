@@ -28,7 +28,7 @@
   # Note: since arrays have many dimensions,
   # but the maximum total number of elements remains the same
   # the maximum of each dimension reduces.
-  # Thus, creating sequences here is not a big issue.
+  # Thus, creating sequences here is not so expensive.
   
   lst <- .rcpp_seq_mlen(as.integer(dim(x))) 
   for(i in seq_along(dims)) {

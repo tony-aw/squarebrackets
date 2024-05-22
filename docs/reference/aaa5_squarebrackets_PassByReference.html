@@ -78,7 +78,7 @@ use pass-by-reference semantics. <br><br></p>
 
 <p>The main advantage of pass-by-reference is that much less memory is required to modify objects. <br>
 But at least 2 things should be taken into consideration
-when modifying an object by reference. <br>
+when modifying an object by reference. <br><br>
 First, the coercion rules are slightly different: see <a href="aaa2_squarebrackets_mutable_classes.html">squarebrackets_mutable_classes</a>. <br><br>
 Second, if 2 or more variables refer to exactly the same object,
 changing one variable also changes the other ones. <br>
@@ -121,67 +121,31 @@ which are simply atomic objects
 that have the permission to be modified by reference. <br><br></p>
     </div>
     <div class="section level2">
-    <h2 id="lock-binding">Lock Binding<a class="anchor" aria-label="anchor" href="#lock-binding"></a></h2>
+    <h2 id="mutability-rules-with-respect-to-recursive-objects">Mutability rules with respect to recursive objects<a class="anchor" aria-label="anchor" href="#mutability-rules-with-respect-to-recursive-objects"></a></h2>
     
 
-<p>The <a href="https://rdrr.io/r/base/bindenv.html" class="external-link">lockBinding</a> function locks a binding of an object,
-preventing modification. <br>
-'R' also uses locked bindings to prevent modification of objects from package namespaces. <br>
-The pass-by-reference semantics of 'squarebrackets' in principle respect this,
-and disallows modification of objects by reference. <br><br>
-However, <a href="https://rdrr.io/r/base/bindenv.html" class="external-link">lockBinding</a> does not lock the address/pointer of an object,
-only one particular binding of an object. <br>
-This problematic; consider the following example: <br></p>
-<p></p><div class="sourceCode r"><pre><code><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/class_mutable_atomic.html">mutable_atomic</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">16</span><span class="op">)</span></span>
-<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">x</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/bindenv.html" class="external-link">lockBinding</a></span><span class="op">(</span><span class="st">"y"</span>, <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/sb_set.html">sb_set</a></span><span class="op">(</span><span class="va">x</span>, i <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">6</span>, rp <span class="op">=</span> <span class="fl">8</span><span class="op">)</span></span></code></pre><p></p></div>
-<p>In the above code, <code>x</code> and <code>y</code> share the same address,
-thus pointing to the same memory,
-yet only <code>y</code> is actually locked. <br>
-Since <code>x</code> is not locked, modifying <code>x</code> is allowed. <br>
-But since <code><a href="sb_set.html">sb_set()</a></code>/<code><a href="sb_set.html">sb2_set()</a></code> performs modification by reference,
-<code>y</code> will still be modified, despite being locked. <br><br>
-To remedy the issue as explained above,
-'squarebrackets' provides the <a href="sb_currentBindings.html">sb_currentBindings</a> method. <br>
-This method can do multiple things.
-One of which is to look at the address of some object <code>x</code>,
-find all <b>currently existing</b> bindings in
-the <b>caller environment</b>
-sharing the same address as <code>x</code>,
-and locking all these bindings. <br><br>
-Warning: <br>
-The <a href="sb_currentBindings.html">sb_currentBindings</a> method
-only locks <b>currently existing</b> bindings
-in the <b>caller environment</b>; <br>
-bindings that are created <b>after</b> calling <a href="sb_currentBindings.html">sb_currentBindings</a>
-will not automatically be locked. <br>
-Thus, every time the user creates a new binding of the same object,
-and the user wishes it to be locked,
-<a href="sb_currentBindings.html">sb_currentBindings</a> must be called again. <br><br></p>
-    </div>
-    <div class="section level2">
-    <h2 id="protected-addresses">Protected Addresses<a class="anchor" aria-label="anchor" href="#protected-addresses"></a></h2>
-    
-
-<p>To prevent an accidental pass-by-reference modification of objects in the base environment,
-all addresses of all exported objects in the base environment
-(<a href="https://rdrr.io/r/base/environment.html" class="external-link">baseenv</a>)
-are stored in
-the option <code>squarebrackets.protected</code> whenever 'squarebrackets' is <b>loaded</b>,
-either directly or indirectly. <br>
-Needless to say, the user should never touch this option. <br><br></p>
-    </div>
-    <div class="section level2">
-    <h2 id="input-variable">Input Variable<a class="anchor" aria-label="anchor" href="#input-variable"></a></h2>
-    
-
-<p>Methods/functions that perform in-place modification by reference
-can be thought of as similar to functions in the style of <code>some_function(x, ...) &lt;- value</code>,
-in the sense that the variable <b>must actually exist as an actual variable</b>. <br>
-Thus things like any of the following, <br><code>sb_set(1:10, ...)</code>, <code>sb2_set(x$a, ...)</code>, or <code>sb_set(base::letters)</code>, <br>
-will not work. <br><br></p>
-    </div>
+<p>Lists are difficult objects in that they do not contain elements,
+they simply point to  other objects,
+that one can access via a list. <br>
+When a recursive object is of a mutable class,
+all its subsets are treated as mutable,
+as long as they are part of the object. <br>
+On the other hand,
+When a recursive object is of an immutable class,
+than its recursive subsets retain their original mutability. <br><br>
+For example: <br></p><ul><li><p>A <code>data.table</code> is a mutable class. <br>
+So all columns of the <code>data.table</code> are treated as mutable; <br>
+There is no requirement, for example,
+to first change all columns into the class of <a href="class_mutable_atomic.html">mutable_atomic</a>
+to modify them by reference. <br></p></li>
+<li><p>A regular <code>list</code> is an immutable class. <br>
+The contents of the list therefore retain their mutability. <br>
+So if a mutable object,
+such as a <a href="class_mutable_atomic.html">mutable_atomic</a> object or a <code>data.table</code>,
+is a subset of a list,
+the view of that list subset can be modified by reference,
+even though the list as a whole is immutable. <br><br></p></li>
+</ul></div>
     <div class="section level2">
     <h2 id="views-of-lists">Views of Lists<a class="anchor" aria-label="anchor" href="#views-of-lists"></a></h2>
     
@@ -206,6 +170,45 @@ Therefore, the following will work: <br></p>
 since they have the same address. <br>
 Thus changing <code>mypointer</code> also changes <code>x$a</code>. <br>
 In other words: <code>mypointer</code> is what could be called a "view" of <code>x$a</code>. <br><br></p>
+    </div>
+    <div class="section level2">
+    <h2 id="lock-binding">Lock Binding<a class="anchor" aria-label="anchor" href="#lock-binding"></a></h2>
+    
+
+<p><a href="aaa2_squarebrackets_mutable_classes.html">Mutable classes</a> are,
+as the name suggests,
+meant to be mutable. <br>
+Locking the binding of a mutable object is <b>mostly</b> fruitless
+(but not completely;
+see the <a href="currentBindings.html">currentBindings</a> function). <br>
+To prevent modification of an object's binding, 2 things must be true: <br></p><ul><li><p>the object must be an <a href="aaa1_squarebrackets_immutable_classes.html">immutable class</a>.</p></li>
+<li><p>the binding must be <b>locked</b> (see <a href="https://rdrr.io/r/base/bindenv.html" class="external-link">lockBinding</a>).</p></li>
+</ul><p>Some packages that provide pass-by-reference semantics
+tend to ignore the lock of an object's binding. <br>
+Use the 'squarebrackets'  methods and (of course) core/base 'R' methods,
+in case the user fears the binding locks will not be respected. <br><br></p>
+    </div>
+    <div class="section level2">
+    <h2 id="protected-addresses">Protected Addresses<a class="anchor" aria-label="anchor" href="#protected-addresses"></a></h2>
+    
+
+<p>To prevent an accidental pass-by-reference modification of objects in the base environment,
+all addresses of all exported objects in the base environment
+(<a href="https://rdrr.io/r/base/environment.html" class="external-link">baseenv</a>)
+are stored in
+the option <code>squarebrackets.protected</code> whenever 'squarebrackets' is <b>loaded</b>,
+either directly or indirectly. <br>
+Needless to say, the user should never touch this option. <br><br></p>
+    </div>
+    <div class="section level2">
+    <h2 id="input-variable">Input Variable<a class="anchor" aria-label="anchor" href="#input-variable"></a></h2>
+    
+
+<p>Methods/functions that perform in-place modification by reference
+can be thought of as similar to functions in the style of <code>some_function(x, ...) &lt;- value</code>,
+in the sense that the variable <b>must actually exist as an actual variable</b>. <br>
+Thus things like any of the following, <br><code>sb_set(1:10, ...)</code>, <code>sb2_set(x$a, ...)</code>, or <code>sb_set(base::letters)</code>, <br>
+will not work. <br><br></p>
     </div>
     <div class="section level2">
     <h2 id="protection">Protection<a class="anchor" aria-label="anchor" href="#protection"></a></h2>

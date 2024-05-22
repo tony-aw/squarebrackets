@@ -14,16 +14,14 @@ The \code{sb_} generic methods support the following Mutable S3 classes: \cr
 \item \bold{Views of Lists}:
 Though lists themselves are treated as immutable,
 lists can contain mutable objects,
-and so modification by reference of mutable views of lists \bold{is} support by the 'squarebrackets'. \cr \cr
+and so modification by reference of mutable views of lists \bold{is} support by 'squarebrackets'. \cr \cr
 }
 
 The mutable version of the \code{list} class
-would be, for example,
-the various \link[collections]{collections} classes from the 'collections' package,
-and the \link[fastmap]{fastmap} class from the 'fastmap' package;
-both of these use their own sub-setting method which is \bold{not} based on square brackets operators,
-and thus not covered by this package. \cr
-Environments are also not covered by this package. \cr \cr
+would be the environment class,
+and the various key-value storage classes available in other packages, such as the 'collapse' package. \cr
+Key-value storage classes generally do not use square brackets for their primary sub-setting method,
+and thus not covered by this package. \cr \cr
 }
 \section{Auto-Coercion Rules}{
 

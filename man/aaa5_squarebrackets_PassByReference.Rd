@@ -18,6 +18,7 @@ use pass-by-reference semantics. \cr \cr
 The main advantage of pass-by-reference is that much less memory is required to modify objects. \cr
 But at least 2 things should be taken into consideration
 when modifying an object by reference. \cr
+\cr
 First, the coercion rules are slightly different: see \link{squarebrackets_mutable_classes}. \cr
 \cr
 Second, if 2 or more variables refer to exactly the same object,
@@ -67,70 +68,33 @@ which are simply atomic objects
 that have the permission to be modified by reference. \cr \cr
 }
 
-\section{Lock Binding}{
+\section{Mutability rules with respect to recursive objects}{
 
-The \link[base]{lockBinding} function locks a binding of an object,
-preventing modification. \cr
-'R' also uses locked bindings to prevent modification of objects from package namespaces. \cr
-The pass-by-reference semantics of 'squarebrackets' in principle respect this,
-and disallows modification of objects by reference. \cr
+Lists are difficult objects in that they do not contain elements,
+they simply point to  other objects,
+that one can access via a list. \cr
+When a recursive object is of a mutable class,
+all its subsets are treated as mutable,
+as long as they are part of the object. \cr
+On the other hand,
+When a recursive object is of an immutable class,
+than its recursive subsets retain their original mutability. \cr
 \cr
-However, \link[base]{lockBinding} does not lock the address/pointer of an object,
-only one particular binding of an object. \cr
-This problematic; consider the following example: \cr
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{x <- mutable_atomic(1:16)
-y <- x
-lockBinding("y", environment())
-sb_set(x, i = 1:6, rp = 8)
-}\if{html}{\out{</div>}}
-
-In the above code, \code{x} and \code{y} share the same address,
-thus pointing to the same memory,
-yet only \code{y} is actually locked. \cr
-Since \code{x} is not locked, modifying \code{x} is allowed. \cr
-But since \code{sb_set()}/\code{sb2_set()} performs modification by reference,
-\code{y} will still be modified, despite being locked. \cr
-\cr
-To remedy the issue as explained above,
-'squarebrackets' provides the \link{sb_currentBindings} method. \cr
-This method can do multiple things.
-One of which is to look at the address of some object \code{x},
-find all \bold{currently existing} bindings in
-the \bold{caller environment}
-sharing the same address as \code{x},
-and locking all these bindings. \cr
-\cr
-Warning: \cr
-The \link{sb_currentBindings} method
-only locks \bold{currently existing} bindings
-in the \bold{caller environment}; \cr
-bindings that are created \bold{after} calling \link{sb_currentBindings}
-will not automatically be locked. \cr
-Thus, every time the user creates a new binding of the same object,
-and the user wishes it to be locked,
-\link{sb_currentBindings} must be called again. \cr \cr
+For example: \cr
+\itemize{
+\item A \code{data.table} is a mutable class. \cr
+So all columns of the \code{data.table} are treated as mutable; \cr
+There is no requirement, for example,
+to first change all columns into the class of \link{mutable_atomic}
+to modify them by reference. \cr
+\item A regular \code{list} is an immutable class. \cr
+The contents of the list therefore retain their mutability. \cr
+So if a mutable object,
+such as a \link{mutable_atomic} object or a \code{data.table},
+is a subset of a list,
+the view of that list subset can be modified by reference,
+even though the list as a whole is immutable. \cr \cr
 }
-
-\section{Protected Addresses}{
-
-To prevent an accidental pass-by-reference modification of objects in the base environment,
-all addresses of all exported objects in the base environment
-(\link[base]{baseenv})
-are stored in
-the option \code{squarebrackets.protected} whenever 'squarebrackets' is \bold{loaded},
-either directly or indirectly. \cr
-Needless to say, the user should never touch this option. \cr \cr
-}
-
-\section{Input Variable}{
-
-Methods/functions that perform in-place modification by reference
-can be thought of as similar to functions in the style of \code{some_function(x, ...) <- value},
-in the sense that the variable \bold{must actually exist as an actual variable}. \cr
-Thus things like any of the following, \cr
-\code{sb_set(1:10, ...)}, \code{sb2_set(x$a, ...)}, or \code{sb_set(base::letters)}, \cr
-will not work. \cr \cr
 }
 
 \section{Views of Lists}{
@@ -158,6 +122,47 @@ Notice in the above code that \code{mypointer} is not a copy of \code{x$a},
 since they have the same address. \cr
 Thus changing \code{mypointer} also changes \code{x$a}. \cr
 In other words: \code{mypointer} is what could be called a "view" of \code{x$a}. \cr \cr
+}
+
+\section{Lock Binding}{
+
+\link[=squarebrackets_mutable_classes]{Mutable classes} are,
+as the name suggests,
+meant to be mutable. \cr
+Locking the binding of a mutable object is \bold{mostly} fruitless
+(but not completely;
+see the \link{currentBindings} function). \cr
+To prevent modification of an object's binding, 2 things must be true: \cr
+\itemize{
+\item the object must be an \link[=squarebrackets_immutable_classes]{immutable class}.
+\item the binding must be \bold{locked} (see \link[base]{lockBinding}).
+}
+
+Some packages that provide pass-by-reference semantics
+tend to ignore the lock of an object's binding. \cr
+Use the 'squarebrackets'  methods and (of course) core/base 'R' methods,
+in case the user fears the binding locks will not be respected. \cr \cr
+}
+
+\section{Protected Addresses}{
+
+To prevent an accidental pass-by-reference modification of objects in the base environment,
+all addresses of all exported objects in the base environment
+(\link[base]{baseenv})
+are stored in
+the option \code{squarebrackets.protected} whenever 'squarebrackets' is \bold{loaded},
+either directly or indirectly. \cr
+Needless to say, the user should never touch this option. \cr \cr
+}
+
+\section{Input Variable}{
+
+Methods/functions that perform in-place modification by reference
+can be thought of as similar to functions in the style of \code{some_function(x, ...) <- value},
+in the sense that the variable \bold{must actually exist as an actual variable}. \cr
+Thus things like any of the following, \cr
+\code{sb_set(1:10, ...)}, \code{sb2_set(x$a, ...)}, or \code{sb_set(base::letters)}, \cr
+will not work. \cr \cr
 }
 
 \section{Protection}{

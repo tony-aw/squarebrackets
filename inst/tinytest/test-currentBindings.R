@@ -19,9 +19,9 @@ for(i in mynms) {
 
 
 # sb_set gives error when modifying locked objects ====
-sb_currentBindings(a)
-sb_currentBindings(a, action = "lockbindings")
-expect_true(all(sb_currentBindings(a, action = "checklock")))
+currentBindings(a)
+currentBindings(a, action = "lockbindings")
+expect_true(all(currentBindings(a, action = "checklock")))
 
 
 expect_error(

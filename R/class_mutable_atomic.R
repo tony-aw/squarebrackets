@@ -113,7 +113,7 @@ as.mutable_atomic <- function(x, ...) {
     return(x)
   }
   
-  y <- x
+  y <- data.table::copy(x)
   attr(y, "typeof") <- typeof(x)
   class(y) <- c("mutable_atomic", class(y))
   
@@ -137,7 +137,6 @@ as.mutable_atomic <- function(x, ...) {
 is.mutable_atomic <- function(x) {
   
   if(!couldb.mutable_atomic(x)) return(FALSE)
-  if(is.factor(x)) return(FALSE)
   check_protected <- data.table::`%chin%`(
     .rcpp_address(x),
     getOption("squarebrackets.protected", default = .protected_addresses())

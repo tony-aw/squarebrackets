@@ -33,8 +33,8 @@
   
   n.indx <- length(indx)
   
-  if(n.indx == 0) {
-    return(integer(0))
+  if(n.indx == 0L) {
+    return(integer(0L))
   }
   
   if(is.numeric(indx)) {
@@ -66,8 +66,8 @@
 .lvl2indx.sb_x <- function(indx, x, abortcall) {
 
   
-  if(length(indx)==0) {
-    return(integer(0))
+  if(length(indx) == 0L) {
+    return(integer(0L))
   }
   
   return(match_all(indx, x))
@@ -78,13 +78,13 @@
 #' @keywords internal
 #' @noRd
 .indx_make_dim.sb_x <- function(
-    indx, x, dim.L=1, abortcall
+    indx, x, dim.L, abortcall
 ) {
   
   n.indx <- length(indx)
   
-  if(n.indx == 0) {
-    return(integer(0))
+  if(n.indx == 0L) {
+    return(integer(0L))
   }
   
   if(is.numeric(indx)) {
@@ -113,33 +113,33 @@
 #' @keywords internal
 #' @noRd
 .indx_make_tableind.sb_x <- function(
-    indx, x, dim.L=1, abortcall
+    indx, x, dim.L, abortcall
 ) {
   
   n.indx <- length(indx)
   
-  if(n.indx == 0) {
-    return(integer(0))
+  if(n.indx == 0L) {
+    return(integer(0L))
   }
   
   if(is.numeric(indx)) {
-    if(dim.L == 1) dlength <- collapse::fnrow(x)
-    if(dim.L == 2) dlength <- collapse::fncol(x)
+    if(dim.L == 1L) dlength <- collapse::fnrow(x)
+    if(dim.L == 2L) dlength <- collapse::fncol(x)
     .indx_check_int(indx, dlength, abortcall)
     return(indx)
   }
   
   if(is.character(indx)) {
-    if(dim.L == 1) dnames <- rownames(x)
-    if(dim.L == 2) dnames <- names(x)
+    if(dim.L == 1L) dnames <- rownames(x)
+    if(dim.L == 2L) dnames <- names(x)
 
     .indx_check_names(dnames, abortcall)
     return(.indx_convert_chr.sb_x(indx, dnames, TRUE, abortcall))
   }
   
   if(is.logical(indx)) {
-    if(dim.L == 1) dlength <- collapse::fnrow(x)
-    if(dim.L == 2) dlength <- collapse::fncol(x)
+    if(dim.L == 1L) dlength <- collapse::fnrow(x)
+    if(dim.L == 2L) dlength <- collapse::fncol(x)
     .indx_check_logical(n.indx, dlength, abortcall)
     
     return(which(indx))

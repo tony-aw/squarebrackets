@@ -78,29 +78,25 @@
 #' (including `tidytable` and `sf-data.table`). \cr
 #' \cr
 #' There are, of course, a lot of classes which are not supported by 'squarebrackets'. \cr
-#' Most notably, certain types of list(-like) classes are not supported
-#' (note that regular immutable lists are fully supported):
-#' 
-#'  * Environments are not supported.
-#'  * Mutable list-like classes,
-#'  such as the various 'collections' classes from the 'collections' package,
-#'  are not supported
-#'  (their sub-setting method is not based on square-brackets).
-#'  * Locked list-like classes,
-#'  such as the deferred list from the 'deflist' package, are not supported. \cr \cr
-#' 
+#' Most notably, key-value stores,
+#' such as environments,
+#' or the various 'collections' classes
+#' from the 'collections' package,
+#' are not supported. \cr \cr
+#
 #'  
 #' @section Methods and Functions:
 #' 
 #' `r .mybadge_intro_section("GENERIC METHODS", "darkgreen")` \cr
-#' The main focus is on the generic methods. \cr
-#' There are 2 types of generic methods:
-#' 
-#'  - generic methods for non-recursive objects (atomic, factor, etc.);
-#'  these all start with `sb_`.
-#'  - generic methods for recursive objects (list, data.frame, etc.);
-#'  these all start with `sb2_`. \cr
-#' 
+#' The main focus of this package is on its generic methods. \cr
+#' \cr
+#' Generic methods for non-recursive objects (atomic, factor, etc.)
+#' start with `sb_`. \cr
+#' Generic methods for recursive objects (list, data.frame, etc.)
+#' start with `sb2_`. \cr
+#' There is also the somewhat separate \link{idx} method,
+#' which works on both recursive and non-recursive objects. \cr
+#' \cr
 #' The available generic methods are the following:
 #' 
 #'  * \link{sb_x}, \link{sb2_x}: extract, exchange, or duplicate subsets.
@@ -114,12 +110,10 @@
 #'  * \link{sb2_coe}: Coercively transform subsets of recursive objects.
 #'  * \link{sb_before}, \link{sb_after}, \link{sb2_before}, \link{sb2_after}: insert new values before or after an index
 #'  along a dimension of an object.
-#'  * \link{sb2_rec}: accesses recursive subsets of lists.
+#'  * \link{sb2_rec}: access recursive subsets of lists.
 #'  * \link{sb_setRename}, \link{sb2_setRename}: change the names of
 #'  a \link[=squarebrackets_mutable_classes]{mutable object}
 #'  using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
-#'  * \link{sb_currentBindings}, \link{sb2_currentBindings}: list or lock all currently existing bindings
-#'  that share the share the same address as the input variable.
 #'  * \link{idx}: translate given indices/subscripts,
 #'  for the purpose of copy-on-modify substitution. \cr \cr
 #'  
@@ -146,6 +140,8 @@
 #' (often needed in sub-setting)
 #' are provided:
 #' 
+#'  * \link{currentBindings}, \link{currentBindings}: list or lock all currently existing bindings
+#'  that share the share the same address as the input variable.
 #'  * \link{n}: Nested version of \link[base]{c},
 #'  and short-hand for \link[base]{list}.
 #'  * \link{sub2coord}, \link{coord2ind}: Convert subscripts
@@ -183,7 +179,7 @@
 #' @exportPattern "^sb_before"
 #' @exportPattern "^sb_after"
 #' @exportPattern "^sb_setRename"
-#' @exportPattern "^sb_currentBindings"
+#' @exportPattern "^currentBindings"
 #' @exportPattern "^sb2_x"
 #' @exportPattern "^sb2_rm"
 #' @exportPattern "^sb2_set"
@@ -193,7 +189,7 @@
 #' @exportPattern "^sb2_after"
 #' @exportPattern "^sb2_rec"
 #' @exportPattern "^sb2_setRename"
-#' @exportPattern "^sb2_currentBindings"
+#' @exportPattern "^currentBindings"
 #' @method `[` mutable_atomic
 #' @method `[<-` mutable_atomic
 #' 

@@ -7,12 +7,18 @@
 \description{
 The \code{sb_} generic methods support the following immutable S3 classes: \cr
 \itemize{
-\item \code{atomic} classes (atomic vectors, matrices, and arrays);
+\item \code{atomic} classes \cr
+(atomic vectors, matrices, and arrays);
 \item \link[base]{factor};
-\item \link[base]{list};
-\item \link[base]{data.frame}
+\item \link[base]{list} - including dimensional lists \cr
+(note that lists are merely pointers to other objects,
+and these other objects may be of a different class and may even be mutable);
+\item \link[base]{data.frame} \cr
 (including the classes \code{tibble}, \code{sf-data.frame} and \code{sf-tibble}) \cr \cr
 }
+
+Note that "immutable" does not mean you cannot modify it. \cr
+It simply means that modification leads to a copy being made. \cr \cr
 }
 \section{Auto-Coercion Rules}{
 

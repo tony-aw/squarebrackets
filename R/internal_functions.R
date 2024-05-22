@@ -17,7 +17,7 @@
 #' @noRd
 .indx_check_names <- function(dnames, abortcall) {
   
-  if(length(dnames) == 0) {
+  if(length(dnames) == 0L) {
     stop(simpleError("`x` has no names; fix this before subsetting", call = abortcall))
   }
 }
@@ -90,8 +90,8 @@
   n <- length(x)
 
   
-  if(length(indx)==0) {
-    if(!inv) return(integer(0))
+  if(length(indx) == 0L) {
+    if(!inv) return(integer(0L))
     if(inv) return(seq_len(n))
   }
   
@@ -118,8 +118,8 @@
 .prep_relevel <- function(indx, rp, x, abortcall) {
   
   n.indx <- length(indx)
-  if(n.indx == 0) {
-    return(logical(0))
+  if(n.indx == 0L) {
+    return(logical(0L))
   }
 
   if(collapse::any_duplicated(indx)) {
@@ -145,7 +145,7 @@
   
   if(is.function(indx)) {
     if(is_list){
-      indx <- vapply(x, indx, FUN.VALUE = logical(1), USE.NAMES = FALSE) |> unlist()
+      indx <- vapply(x, indx, FUN.VALUE = logical(1L), USE.NAMES = FALSE) |> unlist()
     } else {indx <- indx(x)}
     
     if(!is.logical(indx) || length(indx) != length(x)) {
@@ -161,9 +161,9 @@
   n.indx <- length(indx)
 
   
-  if(n.indx == 0) {
+  if(n.indx == 0L) {
     n <- length(x)
-    if(!inv) return(integer(0))
+    if(!inv) return(integer(0L))
     if(inv) return(seq_len(n))
   }
   
@@ -203,8 +203,8 @@
 
   n.indx <- length(indx)
   
-  if(n.indx == 0) {
-    if(!inv) return(integer(0))
+  if(n.indx == 0L) {
+    if(!inv) return(integer(0L))
     if(inv) return(NULL)
   }
   
@@ -237,38 +237,38 @@
 #' @keywords internal
 #' @noRd
 .indx_make_tableind <- function(
-    indx, x, dim.L=1, chkdup, inv, abortcall
+    indx, x, dim.L, chkdup, inv, abortcall
 ) {
 
   
   n.indx <- length(indx)
   
-  if(n.indx == 0) {
-    if(!inv) return(integer(0))
+  if(n.indx == 0L) {
+    if(!inv) return(integer(0L))
     if(inv){
-      if(dim.L == 1) return(collapse::seq_row(x))
-      if(dim.L == 2) return(collapse::seq_col(x))
+      if(dim.L == 1L) return(collapse::seq_row(x))
+      if(dim.L == 2L) return(collapse::seq_col(x))
     }
   }
   
   if(is.numeric(indx)) {
-    if(dim.L == 1) dlength <- collapse::fnrow(x)
-    if(dim.L == 2) dlength <- collapse::fncol(x)
+    if(dim.L == 1L) dlength <- collapse::fnrow(x)
+    if(dim.L == 2L) dlength <- collapse::fncol(x)
     .indx_check_int(indx, dlength, abortcall)
     return(.indx_convert_int(indx, dlength, chkdup, inv, abortcall))
   }
   
   if(is.character(indx)) {
-    if(dim.L == 1) dnames <- rownames(x)
-    if(dim.L == 2) dnames <- names(x)
+    if(dim.L == 1L) dnames <- rownames(x)
+    if(dim.L == 2L) dnames <- names(x)
 
     .indx_check_names(dnames, abortcall)
     return(.indx_convert_chr(indx, dnames, chkdup, inv, abortcall))
   }
   
   if(is.logical(indx)) {
-    if(dim.L == 1) dlength <- collapse::fnrow(x)
-    if(dim.L == 2) dlength <- collapse::fncol(x)
+    if(dim.L == 1L) dlength <- collapse::fnrow(x)
+    if(dim.L == 2L) dlength <- collapse::fncol(x)
     .indx_check_logical(n.indx, dlength, abortcall)
     
     if(!inv){return(which(indx))}
@@ -283,11 +283,11 @@
 #' @noRd
 .indx_make_filter <- function(x, filter, inv, abortcall) {
   
-  is_formula <- inherits(filter, "formula") && is.call(filter) && filter[[1]] == quote(`~`)
+  is_formula <- inherits(filter, "formula") && is.call(filter) && filter[[1L]] == quote(`~`)
   if(!is_formula) {
     stop(simpleError("`filter` must be a formula", call = abortcall))
   }
-  if(length(filter) != 2) {
+  if(length(filter) != 2L) {
     stop(simpleError("improper formula given", call = abortcall))
   }
   
@@ -370,7 +370,7 @@
 #' @noRd
 .any_empty_indices <- function(...) {
   lst <- list(...)
-  check <- vapply(lst, \(x)!is.null(x) && length(x) == 0, FUN.VALUE = logical(1))
+  check <- vapply(lst, \(x)!is.null(x) && length(x) == 0L, FUN.VALUE = logical(1L))
   if(any(check)) {
     return(TRUE)
   } else {
@@ -396,8 +396,12 @@
 #' @noRd
 .check_rp_atomic <- function(rp, sslength, abortcall) {
   n.rp <- length(rp)
-  if(is.recursive(rp)) stop(simpleError("`rp` must be non-recursive", call = abortcall))
-  if(n.rp != sslength && n.rp != 1)  stop(simpleError("recycling not allowed", call = abortcall))
+  if(is.recursive(rp)) {
+    stop(simpleError("`rp` must be non-recursive", call = abortcall))
+  }
+  if(n.rp != sslength && n.rp != 1L) {
+    stop(simpleError("recycling not allowed", call = abortcall))
+  }
   # if(typeof(rp) != sstype) stop("type coercion not allowed")
 }
 
@@ -405,7 +409,9 @@
 #' @keywords internal
 #' @noRd
 .check_rp_df <- function(rp, abortcall) {
-  if(!is.list(rp)) stop(simpleError("`rp` must be a data.frame-like object or a list", call = abortcall))
+  if(!is.list(rp)) {
+    stop(simpleError("`rp` must be a data.frame-like object or a list", call = abortcall))
+  }
   # if(any(collapse::vtypes(rp) != sstypes)) stop("type coercion not allowed")
 }
 
@@ -414,8 +420,12 @@
 #' @noRd
 .check_rp_list <- function(rp, sslength, abortcall) {
   n.rp <- length(rp)
-  if(!is.list(rp)) stop(simpleError("`rp` must be a list", call = abortcall))
-  if(sslength != n.rp && n.rp != 1) stop(simpleError("recycling not allowed", call = abortcall))
+  if(!is.list(rp)) {
+    stop(simpleError("`rp` must be a list", call = abortcall))
+  }
+  if(sslength != n.rp && n.rp != 1L) {
+    stop(simpleError("recycling not allowed", call = abortcall))
+  }
   # if(any(collapse::vtypes(rp) != sstypes)) stop("type coercion not allowed")
 }
 
@@ -426,8 +436,9 @@
   env <- environment(form)
   search_names <- c(names(data), names(env))
   if(any(!vars %in% search_names)) stop("unknown variable(s) given")
-  txt <- as.character(form)[2]
+  txt <- as.character(form)[2L]
   out <- eval(parse(text = txt), data, enclos = env)
   environment(form) <- NULL
   return(out)
 }
+

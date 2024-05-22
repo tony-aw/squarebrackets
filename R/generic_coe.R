@@ -1,4 +1,4 @@
-#' Method to Coercively Transform (Recursive Subsets of) an Object
+#' Method to Coercively Transform Subsets of Recursive Objects
 #'
 #' @description
 #' This is an S3 Method to completely transform subsets of

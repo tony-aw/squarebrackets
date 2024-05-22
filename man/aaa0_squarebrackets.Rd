@@ -94,32 +94,26 @@ Supported  \link[=squarebrackets_mutable_classes]{mutable classes}: \cr
 (including \code{tidytable} and \code{sf-data.table}). \cr
 \cr
 There are, of course, a lot of classes which are not supported by 'squarebrackets'. \cr
-Most notably, certain types of list(-like) classes are not supported
-(note that regular immutable lists are fully supported):
-\itemize{
-\item Environments are not supported.
-\item Mutable list-like classes,
-such as the various 'collections' classes from the 'collections' package,
-are not supported
-(their sub-setting method is not based on square-brackets).
-\item Locked list-like classes,
-such as the deferred list from the 'deflist' package, are not supported. \cr \cr
-}
+Most notably, key-value stores,
+such as environments,
+or the various 'collections' classes
+from the 'collections' package,
+are not supported. \cr \cr
 }
 
 \section{Methods and Functions}{
 
 
 \ifelse{html}{\figure{generic_methods-darkgreen.svg}{options: alt='[GENERIC METHODS]'}}{\link[=squarebrackets_help]{GENERIC METHODS}} \cr
-The main focus is on the generic methods. \cr
-There are 2 types of generic methods:
-\itemize{
-\item generic methods for non-recursive objects (atomic, factor, etc.);
-these all start with \code{sb_}.
-\item generic methods for recursive objects (list, data.frame, etc.);
-these all start with \code{sb2_}. \cr
-}
-
+The main focus of this package is on its generic methods. \cr
+\cr
+Generic methods for non-recursive objects (atomic, factor, etc.)
+start with \code{sb_}. \cr
+Generic methods for recursive objects (list, data.frame, etc.)
+start with \code{sb2_}. \cr
+There is also the somewhat separate \link{idx} method,
+which works on both recursive and non-recursive objects. \cr
+\cr
 The available generic methods are the following:
 \itemize{
 \item \link{sb_x}, \link{sb2_x}: extract, exchange, or duplicate subsets.
@@ -133,12 +127,10 @@ of an object with modified
 \item \link{sb2_coe}: Coercively transform subsets of recursive objects.
 \item \link{sb_before}, \link{sb_after}, \link{sb2_before}, \link{sb2_after}: insert new values before or after an index
 along a dimension of an object.
-\item \link{sb2_rec}: accesses recursive subsets of lists.
+\item \link{sb2_rec}: access recursive subsets of lists.
 \item \link{sb_setRename}, \link{sb2_setRename}: change the names of
 a \link[=squarebrackets_mutable_classes]{mutable object}
 using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
-\item \link{sb_currentBindings}, \link{sb2_currentBindings}: list or lock all currently existing bindings
-that share the share the same address as the input variable.
 \item \link{idx}: translate given indices/subscripts,
 for the purpose of copy-on-modify substitution. \cr \cr
 }
@@ -167,6 +159,8 @@ a couple of helper functions for creating ranges, sequences, and indices
 (often needed in sub-setting)
 are provided:
 \itemize{
+\item \link{currentBindings}, \link{currentBindings}: list or lock all currently existing bindings
+that share the share the same address as the input variable.
 \item \link{n}: Nested version of \link[base]{c},
 and short-hand for \link[base]{list}.
 \item \link{sub2coord}, \link{coord2ind}: Convert subscripts

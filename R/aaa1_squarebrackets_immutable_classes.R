@@ -3,13 +3,19 @@
 #' @description
 #' The `sb_` generic methods support the following immutable S3 classes: \cr
 #' 
-#'  * `atomic` classes (atomic vectors, matrices, and arrays);
+#'  * `atomic` classes \cr
+#'  (atomic vectors, matrices, and arrays);
 #'  * \link[base]{factor};
-#'  * \link[base]{list};
-#'  * \link[base]{data.frame}
+#'  * \link[base]{list} - including dimensional lists \cr
+#'  (note that lists are merely pointers to other objects,
+#'  and these other objects may be of a different class and may even be mutable);
+#'  * \link[base]{data.frame} \cr
 #'  (including the classes `tibble`, `sf-data.frame` and `sf-tibble`) \cr \cr
 #'  
-#'  
+#' Note that "immutable" does not mean you cannot modify it. \cr
+#' It simply means that modification leads to a copy being made. \cr \cr
+#'
+#' 
 #' @section Auto-Coercion Rules:
 #' 
 #' \bold{Atomic} \cr

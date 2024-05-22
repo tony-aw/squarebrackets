@@ -37,7 +37,7 @@ name-based arguments, instead of position based arguments. \cr \cr
 \section{Different Rulesets for data.frame-like Objects}{
 
 
-he \link{data.frame}, \link[tibble]{tibble}, \link[data.table]{data.table},
+The \link{data.frame}, \link[tibble]{tibble}, \link[data.table]{data.table},
 and \link[tidytable]{tidytable} classes
 all inherit from class “data.frame”. \cr
 Yet they use different rules regarding the usage of the square bracket operators. \cr
@@ -46,7 +46,26 @@ and makes one's code inconsistent. \cr
 \cr
 The methods provided by 'squarebrackets'
 use the same sub-setting rules for all data.frame inherited classes,
-thus solving this issue. \cr \cr
+thus solving this issue. \cr
+\cr
+The 'squarebrackets' package attempts to keep the
+data.frame methods as class agnostic as possible,
+through the class agnostic functionality of the 'collapse' and 'data.table' R-packages. \cr
+This attempt to keep data.frame-like classes consistent does,
+admittedly,
+result in some oddities in how data.frames are treated by 'squarebrackets',
+compared to how other classes are treated by 'squarebrackets':
+\itemize{
+\item Whole-columns will be auto-coerced when replaced/transformed by \link{sb_mod},
+but partial columns will not be auto-coerced by default.
+\item The \link{sb_x} and \link{sb_rm} methods always automatically conserve all attributes
+(though names and dimensions are adjusted accordingly, of course); \cr
+the attributes are not stripped, unlike the other classes.
+\item Giving a data.frame-like object with non-unique column names to the \code{sb_}-methods
+returns an error; \cr
+duplicating columns with \link{sb_x}
+will automatically adjust the column names to make them unique. \cr \cr
+}
 }
 
 \section{Annoying Sub-setting By Names}{
@@ -67,7 +86,7 @@ not just the first match. \cr \cr
 \section{Copy Semantics}{
 
 
-‘R’ adheres to copy-on-modification semantics when replacing values using \code{[<-}. \cr
+‘R’ adheres to copy-on-modify semantics when replacing values using \code{[<-}. \cr
 But sometimes one would like explicit control when to create a copy,
 and when to modify using pass-by-reference semantics. \cr
 \cr
@@ -75,7 +94,9 @@ The 'squarebrackets' package
 provides the \link{sb_mod} method
 to return a copy of an object with modified subsets,
 and the  \link{sb_set} method
-to modify using pass-by-reference semantics. \cr \cr
+to modify using pass-by-reference semantics. \cr
+The \link{idx} method can be used in combination with R's own \verb{[<-} operator
+for R's default copy-on-modify semantics. \cr \cr
 }
 
 \section{Regarding Other Packages}{
@@ -86,6 +107,6 @@ But using different packages for solving different issues for the same common th
 leads to inconsistent code. \cr
 I have not found an R-package that provides a holistic approach
 to providing alternative methods to the square brackets operators. \cr
-Thus this 'R' package was born. \cr \cr
+Thus, this 'R' package was born. \cr \cr
 }
 

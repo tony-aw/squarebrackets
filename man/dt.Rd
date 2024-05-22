@@ -70,8 +70,8 @@ Do not use assignments like \code{x <- dt_setcoe(x, ...)}. \cr
 Since these functions return void, you'll just get \code{NULL}. \cr \cr
 }
 \description{
-Functional forms of special data.table operations - ALL programmatically friendly
-(no Non-Standard Evaluation). \cr
+Functional forms of special data.table operations. \cr
+These functions do not use Non-Standard Evaluation. \cr
 \cr
 \itemize{
 \item \code{dt_aggregate()}

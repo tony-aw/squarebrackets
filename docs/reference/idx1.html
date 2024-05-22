@@ -15,7 +15,8 @@ Data.frame-like objects only have the slice, margin index argument pair.
 Arrays (both atomic and recursive) have the idx, dims index argument pair,
 as well as the arguments i and slice, margin. 
 
-The idx() method can be used inside the regular square brackets operators. 
+The result of the idx() method
+can be used inside the regular square-brackets operators. 
 For example like so:
 x &amp;lt;- array(...)
 my_indices &amp;lt;- idx(x, idx, dims)
@@ -46,7 +47,8 @@ Data.frame-like objects only have the slice, margin index argument pair.
 Arrays (both atomic and recursive) have the idx, dims index argument pair,
 as well as the arguments i and slice, margin. 
 
-The idx() method can be used inside the regular square brackets operators. 
+The result of the idx() method
+can be used inside the regular square-brackets operators. 
 For example like so:
 x &amp;lt;- array(...)
 my_indices &amp;lt;- idx(x, idx, dims)
@@ -107,7 +109,7 @@ provided by 'squarebrackets'). "><!-- mathjax --><script src="https://cdnjs.clou
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Convert/Translate Indices (for Copy-On-Modify Substitution)</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tony-aw/squarebrackets/blob/HEAD/R/idx1.R" class="external-link"><code>R/idx1.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tony-aw/squarebrackets/blob/HEAD/R/generic_idx.R" class="external-link"><code>R/generic_idx.R</code></a></small>
       <div class="d-none name"><code>idx1.Rd</code></div>
     </div>
 
@@ -124,7 +126,8 @@ indices for that specific dimension.</p></li>
 Data.frame-like objects only have the <code>slice, margin</code> index argument pair. <br>
 Arrays (both atomic and recursive) have the <code>idx, dims</code> index argument pair,
 as well as the arguments <code>i</code> and <code>slice, margin</code>. <br><br>
-The <code>idx()</code> method can be used inside the regular square brackets operators. <br>
+The result of the <code>idx()</code> method
+can be used inside the regular square-brackets operators. <br>
 For example like so:</p>
 <p></p><div class="sourceCode r"><pre><code><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/array.html" class="external-link">array</a></span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span>
 <span><span class="va">my_indices</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/idx1.html">idx</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">idx</span>, <span class="va">dims</span><span class="op">)</span></span>

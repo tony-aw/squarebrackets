@@ -1,25 +1,23 @@
 #' List or Lock All Currently Existing Bindings Pointing To Same Address
 #'
 #' @description
-#' `sb_currentBindings(x, action = "list")` \cr
+#' `currentBindings(x, action = "list")` \cr
 #' lists all \bold{currently existing} objects
 #' sharing the same \bold{address} as `x`, in a given environment. \cr
 #' \cr
-#' `sb_currentBindings(x, action = "checklock")` \cr
+#' `currentBindings(x, action = "checklock")` \cr
 #' searches all \bold{currently existing} objects
 #' sharing the same \bold{address} as `x`, in a given environment,
 #' and reports which of these are locked and which are not locked. \cr
 #' \cr
-#' `sb_currentBindings(x, action = "lockbindings")` \cr
+#' `currentBindings(x, action = "lockbindings")` \cr
 #' searches all \bold{currently existing} objects
 #' sharing the same \bold{address} as `x`, in a given environment,
 #' and locks them using \link[base]{lockBinding}. \cr
 #' \cr
 #' See also \link{squarebrackets_PassByReference} for information regarding
 #' the relation between locked bindings and pass-by-reference modifications. \cr
-#' \cr
-#' `sb2_currentBindings()` is an alias for `sb_currentBindings()`,
-#' and exists just for consistency with the other `sb_`/ `sb2_` methods. \cr \cr
+#' \cr \cr
 #' 
 #' 
 #' @param x the existing variable whose address to use when searching for bindings.
@@ -32,18 +30,61 @@
 #' If `NULL` (default), the caller environment is used.
 #' 
 #' 
+#' @details
+#' 
+#' The \link[base]{lockBinding} function locks a binding of an object,
+#' preventing modification. \cr
+#' 'R' also uses locked bindings to prevent modification of objects from package namespaces. \cr
+#' The pass-by-reference semantics of 'squarebrackets' in principle respect this,
+#' and disallows modification of objects by reference. \cr
+#' \cr
+#' However, \link[base]{lockBinding} does not lock the address/pointer of an object,
+#' only one particular binding of an object. \cr
+#' This problematic; consider the following example: \cr
+#' 
+#' ```{r eval = FALSE}
+#' x <- mutable_atomic(1:16)
+#' y <- x
+#' lockBinding("y", environment())
+#' sb_set(x, i = 1:6, rp = 8)
+#' ```
+#' 
+#' In the above code, `x` and `y` share the same address,
+#' thus pointing to the same memory,
+#' yet only `y` is actually locked. \cr
+#' Since `x` is not locked, modifying `x` is allowed. \cr
+#' But since `sb_set()`/`sb2_set()` performs modification by reference,
+#' `y` will still be modified, despite being locked. \cr
+#' \cr
+#' The \link{currentBindings} function
+#' allows to user to:
+#' find all \bold{currently existing} bindings in the \bold{caller environment}
+#' sharing the same address as `x`,
+#' and locking all these bindings. \cr
+#' \cr
+#' 
+#' @section Warning: 
+#' The \link{currentBindings} function
+#' only locks \bold{currently existing} bindings
+#' in the \bold{caller environment}; \cr
+#' bindings that are created \bold{after} calling \link{currentBindings}
+#' will not automatically be locked. \cr
+#' Thus, every time the user creates a new binding of the same object,
+#' and the user wishes it to be locked,
+#' \link{currentBindings} must be called again. \cr \cr
+#' 
 #' 
 #' @returns
-#' For `sb_currentBindings(x, action = "list")`: \cr
+#' For `currentBindings(x, action = "list")`: \cr
 #' Returns a character vector. \cr
 #' \cr
-#' For `sb_currentBindings(x, action = "checklock")`: \cr
+#' For `currentBindings(x, action = "checklock")`: \cr
 #' Returns a named logical vector. \cr
 #' The names give the names of the bindings, \cr
 #' and each associated value indicates whether the binding is
 #' locked (`TRUE`) or not locked (`FALSE`). \cr
 #' \cr
-#' For `sb_currentBindings(x, action = "lockbindings")`: \cr
+#' For `currentBindings(x, action = "lockbindings")`: \cr
 #' Returns VOID. It just locks the currently existing bindings. \cr
 #' To unlock the bindings, remove the objects (see \link[base]{rm}). \cr \cr
 #'
@@ -53,9 +94,9 @@
 #' 
 #' 
 
-#' @rdname sb_currentBindings
+#' @rdname currentBindings
 #' @export
-sb_currentBindings <- function(x, action = "list", env = NULL) {
+currentBindings <- function(x, action = "list", env = NULL) {
   
   if(is.null(env)) env <- parent.frame(n = 1)
   
@@ -90,10 +131,6 @@ sb_currentBindings <- function(x, action = "list", env = NULL) {
   stop("unknown `action` specified")
   
 }
-
-#' @rdname sb_currentBindings
-#' @export
-sb2_currentBindings <- sb_currentBindings
 
 #' @keywords internal
 #' @noRd

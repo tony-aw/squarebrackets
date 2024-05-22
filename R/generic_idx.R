@@ -17,7 +17,8 @@
 #' Arrays (both atomic and recursive) have the `idx, dims` index argument pair,
 #' as well as the arguments `i` and `slice, margin`. \cr
 #' \cr
-#' The `idx()` method can be used inside the regular square brackets operators. \cr
+#' The result of the `idx()` method
+#' can be used inside the regular square-brackets operators. \cr
 #' For example like so:
 #' 
 #' ```{r eval = FALSE, echo = TRUE}

@@ -124,27 +124,26 @@ Supported <a href="aaa1_squarebrackets_immutable_classes.html">immutable classes
 Supported  <a href="aaa2_squarebrackets_mutable_classes.html">mutable classes</a>: <br><a href="class_mutable_atomic.html">mutable_atomic</a>, <code>data.table</code>
 (including <code>tidytable</code> and <code>sf-data.table</code>). <br><br>
 There are, of course, a lot of classes which are not supported by 'squarebrackets'. <br>
-Most notably, certain types of list(-like) classes are not supported
-(note that regular immutable lists are fully supported):</p><ul><li><p>Environments are not supported.</p></li>
-<li><p>Mutable list-like classes,
-such as the various 'collections' classes from the 'collections' package,
-are not supported
-(their sub-setting method is not based on square-brackets).</p></li>
-<li><p>Locked list-like classes,
-such as the deferred list from the 'deflist' package, are not supported. <br><br></p></li>
-</ul></div>
+Most notably, key-value stores,
+such as environments,
+or the various 'collections' classes
+from the 'collections' package,
+are not supported. <br><br></p>
+    </div>
     <div class="section level2">
     <h2 id="methods-and-functions">Methods and Functions<a class="anchor" aria-label="anchor" href="#methods-and-functions"></a></h2>
     
 
 
 <p><img src="figures/generic_methods-darkgreen.svg" alt="[GENERIC METHODS]"><br>
-The main focus is on the generic methods. <br>
-There are 2 types of generic methods:</p><ul><li><p>generic methods for non-recursive objects (atomic, factor, etc.);
-these all start with <code>sb_</code>.</p></li>
-<li><p>generic methods for recursive objects (list, data.frame, etc.);
-these all start with <code>sb2_</code>. <br></p></li>
-</ul><p>The available generic methods are the following:</p><ul><li><p><a href="sb_x.html">sb_x</a>, <a href="sb_x.html">sb2_x</a>: extract, exchange, or duplicate subsets.</p></li>
+The main focus of this package is on its generic methods. <br><br>
+Generic methods for non-recursive objects (atomic, factor, etc.)
+start with <code>sb_</code>. <br>
+Generic methods for recursive objects (list, data.frame, etc.)
+start with <code>sb2_</code>. <br>
+There is also the somewhat separate <a href="idx1.html">idx</a> method,
+which works on both recursive and non-recursive objects. <br><br>
+The available generic methods are the following:</p><ul><li><p><a href="sb_x.html">sb_x</a>, <a href="sb_x.html">sb2_x</a>: extract, exchange, or duplicate subsets.</p></li>
 <li><p><a href="sb_rm.html">sb_rm</a>,  <a href="sb_rm.html">sb2_rm</a>: un-select/remove subsets.</p></li>
 <li><p><a href="sb_set.html">sb_set</a>, <a href="sb_set.html">sb2_set</a>: modify (transform or replace)
 subsets of a <a href="aaa2_squarebrackets_mutable_classes.html">mutable object</a>
@@ -155,12 +154,10 @@ of an object with modified
 <li><p><a href="sb2_coe.html">sb2_coe</a>: Coercively transform subsets of recursive objects.</p></li>
 <li><p><a href="sb_in.html">sb_before</a>, <a href="sb_in.html">sb_after</a>, <a href="sb_in.html">sb2_before</a>, <a href="sb_in.html">sb2_after</a>: insert new values before or after an index
 along a dimension of an object.</p></li>
-<li><p><a href="sb2_rec.html">sb2_rec</a>: accesses recursive subsets of lists.</p></li>
+<li><p><a href="sb2_rec.html">sb2_rec</a>: access recursive subsets of lists.</p></li>
 <li><p><a href="sb_setRename.html">sb_setRename</a>, <a href="sb_setRename.html">sb2_setRename</a>: change the names of
 a <a href="aaa2_squarebrackets_mutable_classes.html">mutable object</a>
 using <a href="aaa5_squarebrackets_PassByReference.html">pass-by-reference semantics</a>.</p></li>
-<li><p><a href="sb_currentBindings.html">sb_currentBindings</a>, <a href="sb_currentBindings.html">sb2_currentBindings</a>: list or lock all currently existing bindings
-that share the share the same address as the input variable.</p></li>
 <li><p><a href="idx1.html">idx</a>: translate given indices/subscripts,
 for the purpose of copy-on-modify substitution. <br><br></p></li>
 </ul><p>So for example,
@@ -180,7 +177,9 @@ This is considerably faster and more memory efficient than using <a href="sb_set
 And finally,
 a couple of helper functions for creating ranges, sequences, and indices
 (often needed in sub-setting)
-are provided:</p><ul><li><p><a href="nest.html">n</a>: Nested version of <a href="https://rdrr.io/r/base/c.html" class="external-link">c</a>,
+are provided:</p><ul><li><p><a href="currentBindings.html">currentBindings</a>, <a href="currentBindings.html">currentBindings</a>: list or lock all currently existing bindings
+that share the share the same address as the input variable.</p></li>
+<li><p><a href="nest.html">n</a>: Nested version of <a href="https://rdrr.io/r/base/c.html" class="external-link">c</a>,
 and short-hand for <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a>.</p></li>
 <li><p><a href="sub2ind.html">sub2coord</a>, <a href="sub2ind.html">coord2ind</a>: Convert subscripts
 (array indices) to coordinates,

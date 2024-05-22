@@ -5,7 +5,7 @@
 \alias{sb2_coe.default}
 \alias{sb2_coe.array}
 \alias{sb2_coe.data.frame}
-\title{Method to Coercively Transform (Recursive Subsets of) an Object}
+\title{Method to Coercively Transform Subsets of Recursive Objects}
 \usage{
 sb2_coe(x, ...)
 

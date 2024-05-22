@@ -116,9 +116,10 @@
     return(x)
   }
   
-  if(is.null(row)) row <- collapse::seq_row(x)
-  if(is.null(col)) col <- collapse::seq_col(x)
-  if(is.null(lyr)) lyr <- seq_len(dim(x)[3])
+  x.dim <- dim(x)
+  if(is.null(row)) row <- seq_len(x.dim[1L])
+  if(is.null(col)) col <- seq_len(x.dim[2L])
+  if(is.null(lyr)) lyr <- seq_len(x.dim[3L])
   
   if(!missing(tf)) {
     if(!is.function(tf)) stop("`tf` must be a function")
@@ -154,11 +155,12 @@
     return(seq_along(x))
   }
   
-  if(is.null(row)) row <- collapse::seq_row(x)
-  if(is.null(col)) col <- collapse::seq_col(x)
-  if(is.null(lyr)) lyr <- seq_len(dim(x)[3])
+  x.dim <- dim(x)
+  if(is.null(row)) row <- seq_len(x.dim[1L])
+  if(is.null(col)) col <- seq_len(x.dim[2L])
+  if(is.null(lyr)) lyr <- seq_len(x.dim[3L])
   
-  dimcumprod <- as.integer(cumprod(dim(x)))
+  dimcumprod <- as.integer(cumprod(x.dim))
   elements <- .rcpp_sub2ind_3d(
     as.integer(row), as.integer(col), as.integer(lyr), dimcumprod
   )
