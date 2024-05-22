@@ -116,6 +116,15 @@
 #' In other words: `mypointer` is what could be called a "view" of `x$a`. \cr \cr
 #' 
 #' 
+#' @section Input Variable:
+#' Methods/functions that perform in-place modification by reference
+#' can be thought of as similar to functions in the style of `some_function(x, ...) <- value`,
+#' in the sense that the variable must actually exist as an actual variable. \cr
+#' Thus things like any of the following, \cr
+#' `sb_set(1:10, ...)`, `sb2_set(x$a, ...)`, or `sb_set(base::letters)`, \cr
+#' will not work. \cr \cr
+#' 
+#' 
 #' @section Lock Binding:
 #' \link[=squarebrackets_mutable_classes]{Mutable classes} are,
 #' as the name suggests,
@@ -144,24 +153,15 @@
 #' Needless to say, the user should never touch this option. \cr \cr
 #' 
 #' 
-#' @section Input Variable:
-#' Methods/functions that perform in-place modification by reference
-#' can be thought of as similar to functions in the style of `some_function(x, ...) <- value`,
-#' in the sense that the variable \bold{must actually exist as an actual variable}. \cr
-#' Thus things like any of the following, \cr
-#' `sb_set(1:10, ...)`, `sb2_set(x$a, ...)`, or `sb_set(base::letters)`, \cr
-#' will not work. \cr \cr
-#' 
-#' 
 #' 
 #' @section Protection:
 #' 
-#' Due to the properties given in this help page so far,
+#' Due to the properties described above in this help page,
 #' something like the following will not work:
 #' 
 #' ```{r eval = FALSE}
 #' 
-#' # letters = base::letters
+#' letters <- base::letters
 #' sb_set(letters, i = 1, rp = "XXX")
 #' 
 #' ```
