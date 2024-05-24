@@ -77,7 +77,7 @@ Since \code{x} is not locked, modifying \code{x} is allowed. \cr
 But since \code{sb_set()}/\code{sb2_set()} performs modification by reference,
 \code{y} will still be modified, despite being locked. \cr
 \cr
-The \link{currentBindings} function
+The \code{currentBindings()} function
 allows to user to:
 find all \bold{currently existing} bindings in the \bold{caller environment}
 sharing the same address as \code{x},
@@ -86,14 +86,14 @@ and locking all these bindings. \cr
 }
 \section{Warning}{
 
-The \link{currentBindings} function
+The \code{currentBindings()} function
 only locks \bold{currently existing} bindings
 in the \bold{caller environment}; \cr
-bindings that are created \bold{after} calling \link{currentBindings}
+bindings that are created \bold{after} calling \code{currentBindings()}
 will not automatically be locked. \cr
 Thus, every time the user creates a new binding of the same object,
 and the user wishes it to be locked,
-\link{currentBindings} must be called again. \cr \cr
+\code{currentBindings()} must be called again. \cr \cr
 }
 
 \examples{

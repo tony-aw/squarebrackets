@@ -12,7 +12,7 @@ lvl: specify levels, for factors only.
 filter, vars: to specify rows and/or columns specifically in data.frame-like objects.  
 
 
-In this help page, x refers to the object to be sub-setted. 
+In this help page x refers to the object on which subset operations are performed. 
 "><title>Index Arguments in the Generic Sub-setting Methods — aaa3_squarebrackets_indx_args • squarebrackets</title><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Roboto_Serif-0.4.9/font.css" rel="stylesheet"><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js" integrity="sha512-7O5pXpc0oCRrxk8RUfDYFgn0nO1t+jLuIOQdOMRp4APB7uZ4vSjspzp5y6YDtDs4VzUSTbWzBFZ/LKJhnyFOKw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Index Arguments in the Generic Sub-setting Methods — aaa3_squarebrackets_indx_args"><meta property="og:description" content="There are 6 types of arguments that can be used
 in the generic methods of 'squarebrackets' to specify the indices to perform operations on:
 i: to specify flat (i.e. dimensionless) indices.
@@ -26,7 +26,7 @@ lvl: specify levels, for factors only.
 filter, vars: to specify rows and/or columns specifically in data.frame-like objects.  
 
 
-In this help page, x refers to the object to be sub-setted. 
+In this help page x refers to the object on which subset operations are performed. 
 "><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -53,6 +53,7 @@ In this help page, x refers to the object to be sub-setted.
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/a_benchmarks_x.html">Benchmarks - sb_x</a>
+    <a class="dropdown-item" href="../articles/b_benchmarks_tf.html">Benchmarks - transform operations</a>
     <a class="dropdown-item" href="../articles/Extra_Examples.html">Additional Examples</a>
   </div>
 </li>
@@ -88,7 +89,7 @@ and layers (third dimension),
 in arrays that have exactly 3 dimensions.</p></li>
 <li><p><code>lvl</code>: specify levels, for factors only.</p></li>
 <li><p><code>filter, vars</code>: to specify rows and/or columns specifically in data.frame-like objects. <br><br></p></li>
-</ul><p>In this help page, <code>x</code> refers to the object to be sub-setted. <br><br></p>
+</ul><p>In this help page <code>x</code> refers to the object on which subset operations are performed. <br><br></p>
     </div>
 
 
@@ -96,7 +97,7 @@ in arrays that have exactly 3 dimensions.</p></li>
     <h2 id="argument-i">Argument i<a class="anchor" aria-label="anchor" href="#argument-i"></a></h2>
     
 
-<p><img src="figures/class-atomic-red.svg" alt="[class: atomic]"><br><img src="figures/class-factor-red.svg" alt="[class: factor]"><br><img src="figures/class-list-red.svg" alt="[class: list]"><br></p>
+<p><img src="figures/class-atomic_vector-blue.svg" alt="[class: atomic vector]"><br><img src="figures/class-factor-blue.svg" alt="[class: factor]"><br><img src="figures/class-recursive_vector-blue.svg" alt="[class: recursive vector]"><br></p>
 <p>Any of the following can be specified for argument <code>i</code>:</p><ul><li><p><code>NULL</code>, only for multi-dimensional objects or factors,
 when specifying the other arguments
 (i.e. dimensional indices or factor levels.)</p></li>
@@ -126,7 +127,7 @@ see the <code>Details</code> section in <a href="sub2ind.html">sub2ind</a>. <br>
     <h2 id="arguments-row-col">Arguments row, col<a class="anchor" aria-label="anchor" href="#arguments-row-col"></a></h2>
     
 
-<p><img src="figures/class-atomic_matrix-red.svg" alt="[class: atomic matrix]"><br><img src="figures/class-data.frame-like-red.svg" alt="[class: data.frame-like]"><br></p>
+<p><img src="figures/class-atomic_matrix-blue.svg" alt="[class: atomic matrix]"><br><img src="figures/class-data.frame-like-blue.svg" alt="[class: data.frame-like]"><br></p>
 <p>Any of the following can be specified for the arguments <code>row</code> / <code>col</code>:</p><ul><li><p><code>NULL</code> (default), corresponds to a missing argument,
 which results in ALL of the indices in this dimension being selected for the operation.</p></li>
 <li><p>a vector of length 0,
@@ -146,7 +147,7 @@ ALL the corresponding indices will be selected for the operation.</p></li>
     <h2 id="arguments-idx-dims">Arguments idx, dims<a class="anchor" aria-label="anchor" href="#arguments-idx-dims"></a></h2>
     
 
-<p><img src="figures/class-atomic_array-red.svg" alt="[class: atomic array]"><br><img src="figures/class-recursive_array-red.svg" alt="[class: recursive array]"><br></p>
+<p><img src="figures/class-atomic_array-blue.svg" alt="[class: atomic array]"><br><img src="figures/class-recursive_array-blue.svg" alt="[class: recursive array]"><br></p>
 <p><code>idx</code> must be a list of indices. <br><code>dims</code> must be an integer vector of the same length as <code>idx</code>,
 giving the dimensions to which the indices given in <code>idx</code> correspond to. <br>
 The elements of <code>idx</code> follow the same rules as the rules for <code>row</code> and <code>col</code>,
@@ -164,7 +165,7 @@ here using an example of a 4-dimensional array:</p>
     <h2 id="arguments-rcl">Arguments rcl<a class="anchor" aria-label="anchor" href="#arguments-rcl"></a></h2>
     
 
-<p><img src="figures/class-atomic_array-red.svg" alt="[class: atomic array]"><br></p>
+<p><img src="figures/class-atomic_array-blue.svg" alt="[class: atomic array]"><br></p>
 <p>The <code>rcl</code> argument is only applicable for atomic arrays with exactly 3 dimensions. <br>
 If the user knows a-priori that an array has 3 dimensions,
 using <code>rcl</code> is more efficient than using the <code>idx, dims</code> arguments. <br><br>
@@ -197,7 +198,7 @@ Using the <code>rcl</code> argument corresponds to doing something like the foll
     <h2 id="argument-lvl">Argument lvl<a class="anchor" aria-label="anchor" href="#argument-lvl"></a></h2>
     
 
-<p><img src="figures/class-factor-red.svg" alt="[class: factor]"><br></p>
+<p><img src="figures/class-factor-blue.svg" alt="[class: factor]"><br></p>
 <p>For this argument, the names of the levels of <code>x</code> can be given,
 selecting the corresponding indices for the operation. <br><br></p>
     </div>
@@ -205,7 +206,7 @@ selecting the corresponding indices for the operation. <br><br></p>
     <h2 id="arguments-filter-vars">Arguments filter, vars<a class="anchor" aria-label="anchor" href="#arguments-filter-vars"></a></h2>
     
 
-<p><img src="figures/class-data.frame-like-red.svg" alt="[class: data.frame-like]"><br></p>
+<p><img src="figures/class-data.frame-like-blue.svg" alt="[class: data.frame-like]"><br></p>
 <p><code>filter</code> must be a one-sided formula
 with a single logical expression using the column names of the data.frame,
 giving the condition which observation/row indices should be selected for the operation. <br>
@@ -222,9 +223,9 @@ For example, to select all numeric columns, specify <code>vars = is.numeric</cod
     <h2 id="argument-inv">Argument inv<a class="anchor" aria-label="anchor" href="#argument-inv"></a></h2>
     
 
-<p><img src="figures/all_classes-red.svg" alt="[all classes]"><br></p>
+<p><img src="figures/all_classes-blue.svg" alt="[all classes]"><br></p>
 <p>Relevant for <a href="sb_mod.html">sb_mod</a>, <a href="sb_set.html">sb_set</a>, <a href="sb2_coe.html">sb2_coe</a>, and <a href="idx1.html">idx</a>. <br>
-By default, <code>inv = FALSE</code> which translates the indices like normally. <br>
+By default, <code>inv = FALSE</code>, which translates the indices like normally. <br>
 When <code>inv = TRUE</code>, the inverse of the indices is taken. <br>
 Consider, for example, an atomic matrix <code>x</code>; <br>
 using <code>sb_mod(x, 1:2, 1:2, tf = tf)</code>
@@ -293,6 +294,14 @@ use the <a href="https://rdrr.io/r/base/drop.html" class="external-link">drop</a
 One can use the <a href="https://rdatatable.gitlab.io/data.table/reference/last.html" class="external-link">last</a> function to get the last <code>N</code> indices. <br><br>
 One can use the <a href="https://rdatatable.gitlab.io/data.table/reference/last.html" class="external-link">first</a> function to get the first <code>N</code> indices. <br><br>
 To shuffle elements of indices, use the <a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a> function. <br><br></p>
+    </div>
+    <div class="section level2">
+    <h2 id="regarding-performance">Regarding Performance<a class="anchor" aria-label="anchor" href="#regarding-performance"></a></h2>
+    
+
+<p>Integer indices and logical indices are the fastest. <br>
+Indexing through names or levens (i.e. character vectors) is the slowest. <br>
+Thus if performance is important, use integer or logical indices. <br><br></p>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

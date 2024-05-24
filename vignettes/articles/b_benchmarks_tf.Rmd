@@ -1,0 +1,208 @@
+---
+title: "Benchmarks - transform operations"
+output:
+  rmarkdown::html_vignette:
+    toc: true
+    number_sections: true
+vignette: >
+  %\VignetteIndexEntry{Benchmarks - transform operations}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(squarebrackets)
+```
+
+
+&nbsp;
+
+# Introduction
+
+
+Base R's `[<-`, `[[<-`, `$<-` methods perform in-place modification on subsets of objects using "copy-on-modify" semantics. The 'squarebrackets' R-package provides 2 alternative semantics for modification: "pass-by-reference" through the `sb_set()` method, and "deep-copy" through the `sb_mod()` method. Moreover, where base 'R' provides direct replacement only, 'squarebrackets' provides both replacement (through the `rp` argument) and transformation (through the `tf` argument) mechanics. Thus, 'squarebrackets' and base R are not really directly comparable in terms of benchmarking. Nonetheless, I have tried to keep the comparisons somewhat fair.
+
+The `sb_set()` method is generally several times (2 to 5 times) faster than base R's in-place modification, and generally uses about half the memory. The `sb_mod()` method is generally about as fast as base R's in-place modification, and uses about the same amount of memory.
+
+
+Below are some benchmarks to give one an idea of the speed loss. These are just examples; speed is determined by a great number of factors. To keep comparisons between the classes fair, all objects have approximately `1e7` elements.
+
+
+&nbsp;
+
+```{r}
+library(bench)
+library(ggplot2)
+library(patchwork)
+library(tinycodet)
+```
+
+```{r echo = TRUE}
+
+plotfun <- function(title1, bm1, title2, bm2) {
+
+  plotdat1 <- bm1 |> tidyr::unnest(cols = c("time", "gc", "mem_alloc"))
+  plotdat1$expression <- paste(
+    plotdat1$expression,
+    "\n (", as.character(plotdat1$mem_alloc), ")"
+  )
+  p1 <- ggplot(plotdat1, aes_pro(x = ~ time, y = ~ expression, color = ~ gc)) +
+  ggbeeswarm::geom_quasirandom() + ggtitle(title1)
+
+  plotdat2 <- bm2 |> tidyr::unnest(cols = c("time", "gc", "mem_alloc"))
+  plotdat2$expression <- paste(
+    plotdat2$expression,
+    "\n (", as.character(plotdat2$mem_alloc), ")"
+  )
+  p2 <- ggplot(plotdat2, aes_pro(x = ~ time, y = ~ expression, color = ~ gc)) +
+  ggbeeswarm::geom_quasirandom() + ggtitle(title2)
+
+  combined <- p1 + p2 & theme(legend.position = "bottom")
+  combined + plot_layout(guides = "collect")
+}
+
+```
+
+# Atomic objects
+
+## Matrix
+
+```{r eval=FALSE, echo=TRUE}
+
+n <- 3162 # approx sqrt(1e7)
+x.mat <- matrix(seq_len(n*n), ncol = n)
+x.mat2 <- as.mutable_atomic(x.mat)
+colnames(x.mat) <- sample(c(letters, LETTERS, NA), n, TRUE)
+sel.rows <- 1:1000
+sel.cols <- 1:1000
+basefun <- function(x, rows, cols, tf) {
+  x[rows, cols] <- tf(x[rows, cols])
+  return(x)
+}
+tf <- function(x) { return(-1 * x) }
+bm.sb_tf.matrix <- bench::mark(
+  "base [<-" =  basefun(x.mat, sel.rows, sel.cols, tf = tf),
+  "sb_set" = sb_set.matrix(x.mat2, sel.rows, sel.cols, tf = tf),
+  "sb_mod" = sb_mod.matrix(x.mat, sel.rows, sel.cols, tf = tf),
+  check = FALSE,
+  min_iterations = 500
+)
+bm.sb_tf.matrix
+summary(bm.sb_tf.matrix)
+
+```
+
+
+```{r echo = FALSE, eval = TRUE}
+load("bm.sb_tf.matrix.RData")
+summary(bm.sb_tf.matrix)
+```
+
+
+&nbsp;
+
+## Array (3D)
+
+```{r eval=FALSE, echo=TRUE}
+
+x.dims <- c(1900, 1900, 3) # leads to approx 1e7 elements
+x.3d <- array(1:prod(x.dims), x.dims)
+x.3d2 <- as.mutable_atomic(x.3d)
+sel.rows <- 1:900
+sel.lyrs <- c(TRUE, FALSE, TRUE)
+basefun <- function(x, rows, lyrs, tf) {
+  x[rows, , lyrs] <- tf(x[rows, , lyrs])
+  return(x)
+}
+tf <- function(x) { return(-1 * x) }
+bm.sb_tf.3d <- bench::mark(
+  "base [<-" = basefun(x.3d, sel.rows, sel.lyrs, tf = tf ),
+  "sb_set" =  sb_set.array(x.3d2, rcl = n(sel.rows, NULL, sel.lyrs), tf = tf),
+  "sb_mod" = sb_mod.array(x.3d, rcl = n(sel.rows, NULL, sel.lyrs), tf = tf),
+  check = FALSE,
+  min_iterations = 500
+)
+summary(bm.sb_tf.3d)
+
+```
+
+```{r echo = FALSE, eval = TRUE}
+load("bm.sb_tf.3d.RData")
+summary(bm.sb_tf.3d)
+```
+
+&nbsp;
+
+## Plot
+
+```{r echo = FALSE, fig.width = 8}
+plotfun("Matrix", bm.sb_tf.matrix, "Array (3D)", bm.sb_tf.3d)
+```
+
+
+&nbsp;
+
+# Data.frame-like
+
+
+```{r eval=FALSE, echo=TRUE}
+
+n <- 1e5
+ncol <- 200 # times 2
+chrmat <- matrix(
+  sample(letters, n*ncol, replace = TRUE), ncol = ncol
+)
+intmat <- matrix(
+  seq.int(n*ncol), ncol = ncol
+)
+x <- cbind(chrmat, intmat) |> as.data.frame()
+colnames(x) <- make.names(colnames(x), unique = TRUE)
+x2 <- data.table::as.data.table(x)
+rm(list = c("chrmat", "intmat"))
+
+sel.rows <- 1:1000
+basefun <- function(x, rows, tf) {
+  x[rows, sapply(x, is.numeric)] <- lapply(x[rows, sapply(x, is.numeric)], tf)
+  return(x)
+}
+bm.sb_tf.df <- bench::mark(
+  "base [<-" = basefun(x, sel.rows, tf = \(x) -1 * x),
+  "sb_set" = sb2_set.data.table(
+    x2, rows = sel.rows, vars = is.numeric, tf = \(x) -1 * x
+  ),
+  "sb_mod" = sb2_mod.data.frame(
+    x, rows = sel.rows, vars = is.numeric, tf = \(x) -1 * x, coe = TRUE
+  ),
+  check = FALSE,
+  min_iterations = 500
+)
+summary(bm.sb_tf.df)
+```
+
+```{r echo = FALSE, eval = TRUE}
+load("bm.sb_tf.df.RData")
+summary(bm.sb_tf.df)
+```
+
+&nbsp;
+
+
+```{r echo = FALSE, fig.width = 8}
+plotdat1 <- bm.sb_tf.df |> tidyr::unnest(cols = c("time", "gc", "mem_alloc"))
+plotdat1$expression <- paste(
+    plotdat1$expression,
+    "\n (", as.character(plotdat1$mem_alloc), ")"
+  )
+p1 <- ggplot(plotdat1, aes_pro(x = ~ time, y = ~ expression, color = ~ gc)) +
+ggbeeswarm::geom_quasirandom() + ggtitle("data.frame-like")
+p1
+```
+
+&nbsp;

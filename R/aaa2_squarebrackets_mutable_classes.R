@@ -16,7 +16,7 @@
 #' would be the environment class,
 #' and the various key-value storage classes available in other packages, such as the 'collapse' package. \cr
 #' Key-value storage classes generally do not use square brackets for their primary sub-setting method,
-#' and thus not covered by this package. \cr \cr
+#' and are thus not covered by this package. \cr \cr
 #' 
 #' 
 #' 

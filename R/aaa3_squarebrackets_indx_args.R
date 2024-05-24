@@ -14,13 +14,13 @@
 #'  * `lvl`: specify levels, for factors only.
 #'  * `filter, vars`: to specify rows and/or columns specifically in data.frame-like objects. \cr \cr
 #' 
-#' In this help page, `x` refers to the object to be sub-setted. \cr
+#' In this help page `x` refers to the object on which subset operations are performed. \cr
 #' \cr
 #' 
 #' @section Argument i:
-#' `r .mybadge_class("atomic")` \cr
+#' `r .mybadge_class("atomic vector")` \cr
 #' `r .mybadge_class("factor")` \cr
-#' `r .mybadge_class("list")` \cr
+#' `r .mybadge_class("recursive vector")` \cr
 #' 
 #' 
 #' Any of the following can be specified for argument `i`:
@@ -180,7 +180,7 @@
 #' `r .mybadge_all_classes()` \cr
 #' 
 #' Relevant for \link{sb_mod}, \link{sb_set}, \link{sb2_coe}, and \link{idx}. \cr
-#' By default, `inv = FALSE` which translates the indices like normally. \cr
+#' By default, `inv = FALSE`, which translates the indices like normally. \cr
 #' When `inv = TRUE`, the inverse of the indices is taken. \cr
 #' Consider, for example, an atomic matrix `x`; \cr
 #' using `sb_mod(x, 1:2, 1:2, tf = tf)`
@@ -260,6 +260,11 @@
 #' To shuffle elements of indices, use the \link[base]{sample} function. \cr
 #' \cr
 #' 
+#' 
+#' @section Regarding Performance:
+#' Integer indices and logical indices are the fastest. \cr
+#' Indexing through names or levens (i.e. character vectors) is the slowest. \cr
+#' Thus if performance is important, use integer or logical indices. \cr \cr
 
 
 #' @rdname aaa3_squarebrackets_indx_args

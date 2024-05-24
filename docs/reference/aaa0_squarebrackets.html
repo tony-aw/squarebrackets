@@ -25,6 +25,7 @@
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/a_benchmarks_x.html">Benchmarks - sb_x</a>
+    <a class="dropdown-item" href="../articles/b_benchmarks_tf.html">Benchmarks - transform operations</a>
     <a class="dropdown-item" href="../articles/Extra_Examples.html">Additional Examples</a>
   </div>
 </li>
@@ -70,8 +71,7 @@ The Goal of the 'squarebrackets' package
 is not to replace the square-brackets operators,
 but to provide <b>alternative</b> sub-setting methods and functions,
 to be used in situations where the square bracket operators are inconvenient. <br><br>
-These alternative sub-setting methods and functions have the following properties:</p><ul><li><p><b>Programmatically friendly</b>:</p><ul><li><p>Name-based arguments instead of position-based arguments.</p></li>
-<li><p>Unlike base <code>[</code>,
+These alternative sub-setting methods and functions have the following properties:</p><ul><li><p><b>Programmatically friendly</b>:</p><ul><li><p>Unlike base <code>[</code>,
 it's not required to know the number of dimensions of an array a-priori,
 to perform subset-operations on an array.</p></li>
 <li><p>Missing arguments can be filled with <code>NULL</code>,
@@ -83,15 +83,16 @@ instead of using dark magic like <code>base::quote(expr =    )</code>.</p></li>
 </ul></li>
 <li><p><b>Class consistent</b>:</p><ul><li><p>sub-setting of multi-dimensional objects by specifying dimensions
 (i.e. rows, columns, ...)
-use <code>drop = FALSE</code>. So matrix in, matrix out.</p></li>
-<li><p>The functions deliver the same results for
-data.frames, data.tables, tibbles, and tidytables.
+use <code>drop = FALSE</code>. <br>
+So matrix in, matrix out.</p></li>
+<li><p>The methods deliver the same results for
+data.frames, data.tables, tibbles, and tidytables. <br>
 No longer does one have to re-learn the different brackets-based sub-setting rules
-for different types of data.frame-like objects.
+for different types of data.frame-like objects. <br>
 Powered by the subclass agnostic 'C'-code from 'collapse' and 'data.table'.</p></li>
 </ul></li>
 <li><p><b>Explicit copy semantics</b>:</p><ul><li><p>Sub-set operations that change its memory allocations,
-always return a modified copy of the object.</p></li>
+always return a modified copy of the object. <br></p></li>
 <li><p>For sub-set operations that just change values in-place
 (similar to the <code>[&lt;-</code> and <code>[[&lt;-</code> methods)
 the user can choose a method that modifies the object by <b>reference</b>,
@@ -103,14 +104,13 @@ not just the first.</p></li>
 are forced to have unique column names.</p></li>
 <li><p>Attributes of data.frame-like objects (see supported classes below) are always preserved when sub-setting.</p></li>
 <li><p>For other object types, the user can specify whether to preserve Attributes,
-or use R's <code>[</code> attribute behaviour (i.e. drop most attributes).
+or use R's <code>[</code> attribute behaviour (i.e. drop most attributes). <br>
 This is to ensure compatibility with R-packages that create their own attribute behaviour for sub-setting.</p></li>
 </ul></li>
 <li><p><b>Concise function and argument names</b>.</p></li>
 <li><p><b>Performance aware</b>: <br>
 Despite the many checks performed, the functions are kept reasonably speedy,
-through the use of the 'Rcpp', 'collapse', and 'data.table' R-packages.
-Most of the heavy lifting in this package is done by the 'collapse' package. <br><br></p></li>
+through the use of the 'Rcpp', 'collapse', and 'data.table' R-packages. <br><br></p></li>
 </ul></div>
     <div class="section level2">
     <h2 id="supported-classes">Supported  Classes<a class="anchor" aria-label="anchor" href="#supported-classes"></a></h2>
@@ -177,7 +177,7 @@ This is considerably faster and more memory efficient than using <a href="sb_set
 And finally,
 a couple of helper functions for creating ranges, sequences, and indices
 (often needed in sub-setting)
-are provided:</p><ul><li><p><a href="currentBindings.html">currentBindings</a>, <a href="currentBindings.html">currentBindings</a>: list or lock all currently existing bindings
+are provided:</p><ul><li><p><a href="currentBindings.html">currentBindings</a>: list or lock all currently existing bindings
 that share the share the same address as the input variable.</p></li>
 <li><p><a href="nest.html">n</a>: Nested version of <a href="https://rdrr.io/r/base/c.html" class="external-link">c</a>,
 and short-hand for <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a>.</p></li>

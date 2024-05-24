@@ -19,14 +19,14 @@ in arrays that have exactly 3 dimensions.
 \item \verb{filter, vars}: to specify rows and/or columns specifically in data.frame-like objects. \cr \cr
 }
 
-In this help page, \code{x} refers to the object to be sub-setted. \cr
+In this help page \code{x} refers to the object on which subset operations are performed. \cr
 \cr
 }
 \section{Argument i}{
 
-\ifelse{html}{\figure{class-atomic-red.svg}{options: alt='[class: atomic]'}}{\link[=squarebrackets_indx_args]{class: atomic}} \cr
-\ifelse{html}{\figure{class-factor-red.svg}{options: alt='[class: factor]'}}{\link[=squarebrackets_indx_args]{class: factor}} \cr
-\ifelse{html}{\figure{class-list-red.svg}{options: alt='[class: list]'}}{\link[=squarebrackets_indx_args]{class: list}} \cr
+\ifelse{html}{\figure{class-atomic_vector-blue.svg}{options: alt='[class: atomic vector]'}}{\link[=squarebrackets_indx_args]{class: atomic vector}} \cr
+\ifelse{html}{\figure{class-factor-blue.svg}{options: alt='[class: factor]'}}{\link[=squarebrackets_indx_args]{class: factor}} \cr
+\ifelse{html}{\figure{class-recursive_vector-blue.svg}{options: alt='[class: recursive vector]'}}{\link[=squarebrackets_indx_args]{class: recursive vector}} \cr
 
 Any of the following can be specified for argument \code{i}:
 \itemize{
@@ -63,8 +63,8 @@ see the \code{Details} section in \link{sub2ind}. \cr
 
 \section{Arguments row, col}{
 
-\ifelse{html}{\figure{class-atomic_matrix-red.svg}{options: alt='[class: atomic matrix]'}}{\link[=squarebrackets_indx_args]{class: atomic matrix}} \cr
-\ifelse{html}{\figure{class-data.frame-like-red.svg}{options: alt='[class: data.frame-like]'}}{\link[=squarebrackets_indx_args]{class: data.frame-like}} \cr
+\ifelse{html}{\figure{class-atomic_matrix-blue.svg}{options: alt='[class: atomic matrix]'}}{\link[=squarebrackets_indx_args]{class: atomic matrix}} \cr
+\ifelse{html}{\figure{class-data.frame-like-blue.svg}{options: alt='[class: data.frame-like]'}}{\link[=squarebrackets_indx_args]{class: data.frame-like}} \cr
 
 Any of the following can be specified for the arguments \code{row} / \code{col}:
 \itemize{
@@ -91,8 +91,8 @@ Using the \verb{row, col} arguments corresponds to doing something like the foll
 
 \section{Arguments idx, dims}{
 
-\ifelse{html}{\figure{class-atomic_array-red.svg}{options: alt='[class: atomic array]'}}{\link[=squarebrackets_indx_args]{class: atomic array}} \cr
-\ifelse{html}{\figure{class-recursive_array-red.svg}{options: alt='[class: recursive array]'}}{\link[=squarebrackets_indx_args]{class: recursive array}} \cr
+\ifelse{html}{\figure{class-atomic_array-blue.svg}{options: alt='[class: atomic array]'}}{\link[=squarebrackets_indx_args]{class: atomic array}} \cr
+\ifelse{html}{\figure{class-recursive_array-blue.svg}{options: alt='[class: recursive array]'}}{\link[=squarebrackets_indx_args]{class: recursive array}} \cr
 
 \code{idx} must be a list of indices. \cr
 \code{dims} must be an integer vector of the same length as \code{idx},
@@ -115,7 +115,7 @@ here using an example of a 4-dimensional array:
 
 \section{Arguments rcl}{
 
-\ifelse{html}{\figure{class-atomic_array-red.svg}{options: alt='[class: atomic array]'}}{\link[=squarebrackets_indx_args]{class: atomic array}} \cr
+\ifelse{html}{\figure{class-atomic_array-blue.svg}{options: alt='[class: atomic array]'}}{\link[=squarebrackets_indx_args]{class: atomic array}} \cr
 
 The \code{rcl} argument is only applicable for atomic arrays with exactly 3 dimensions. \cr
 If the user knows a-priori that an array has 3 dimensions,
@@ -157,7 +157,7 @@ Using the \code{rcl} argument corresponds to doing something like the following:
 
 \section{Argument lvl}{
 
-\ifelse{html}{\figure{class-factor-red.svg}{options: alt='[class: factor]'}}{\link[=squarebrackets_indx_args]{class: factor}} \cr
+\ifelse{html}{\figure{class-factor-blue.svg}{options: alt='[class: factor]'}}{\link[=squarebrackets_indx_args]{class: factor}} \cr
 
 For this argument, the names of the levels of \code{x} can be given,
 selecting the corresponding indices for the operation. \cr
@@ -166,7 +166,7 @@ selecting the corresponding indices for the operation. \cr
 
 \section{Arguments filter, vars}{
 
-\ifelse{html}{\figure{class-data.frame-like-red.svg}{options: alt='[class: data.frame-like]'}}{\link[=squarebrackets_indx_args]{class: data.frame-like}} \cr
+\ifelse{html}{\figure{class-data.frame-like-blue.svg}{options: alt='[class: data.frame-like]'}}{\link[=squarebrackets_indx_args]{class: data.frame-like}} \cr
 
 \code{filter} must be a one-sided formula
 with a single logical expression using the column names of the data.frame,
@@ -189,10 +189,10 @@ For example, to select all numeric columns, specify \code{vars = is.numeric}. \c
 
 \section{Argument inv}{
 
-\ifelse{html}{\figure{all_classes-red.svg}{options: alt='[all classes]'}}{\link[=squarebrackets_indx_args]{all classes}} \cr
+\ifelse{html}{\figure{all_classes-blue.svg}{options: alt='[all classes]'}}{\link[=squarebrackets_indx_args]{all classes}} \cr
 
 Relevant for \link{sb_mod}, \link{sb_set}, \link{sb2_coe}, and \link{idx}. \cr
-By default, \code{inv = FALSE} which translates the indices like normally. \cr
+By default, \code{inv = FALSE}, which translates the indices like normally. \cr
 When \code{inv = TRUE}, the inverse of the indices is taken. \cr
 Consider, for example, an atomic matrix \code{x}; \cr
 using \code{sb_mod(x, 1:2, 1:2, tf = tf)}
@@ -275,5 +275,12 @@ One can use the \link[data.table]{first} function to get the first \code{N} indi
 \cr
 To shuffle elements of indices, use the \link[base]{sample} function. \cr
 \cr
+}
+
+\section{Regarding Performance}{
+
+Integer indices and logical indices are the fastest. \cr
+Indexing through names or levens (i.e. character vectors) is the slowest. \cr
+Thus if performance is important, use integer or logical indices. \cr \cr
 }
 

@@ -56,7 +56,7 @@
 #' But since `sb_set()`/`sb2_set()` performs modification by reference,
 #' `y` will still be modified, despite being locked. \cr
 #' \cr
-#' The \link{currentBindings} function
+#' The `currentBindings()` function
 #' allows to user to:
 #' find all \bold{currently existing} bindings in the \bold{caller environment}
 #' sharing the same address as `x`,
@@ -64,14 +64,14 @@
 #' \cr
 #' 
 #' @section Warning: 
-#' The \link{currentBindings} function
+#' The `currentBindings()` function
 #' only locks \bold{currently existing} bindings
 #' in the \bold{caller environment}; \cr
-#' bindings that are created \bold{after} calling \link{currentBindings}
+#' bindings that are created \bold{after} calling `currentBindings()`
 #' will not automatically be locked. \cr
 #' Thus, every time the user creates a new binding of the same object,
 #' and the user wishes it to be locked,
-#' \link{currentBindings} must be called again. \cr \cr
+#' `currentBindings()` must be called again. \cr \cr
 #' 
 #' 
 #' @returns

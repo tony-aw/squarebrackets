@@ -185,6 +185,87 @@ writeLines(rcpp_code, fileConn)
 close(fileConn)
 
 
+################################################################################
+
+# set 3d ====
+
+RTYPES <- c("Logical", "Integer", "Numeric", "Character", "Complex", "Raw")
+
+templatecode <- "
+
+//' @keywords internal
+//' @noRd
+// [[Rcpp::export(.rcpp_set_3d_RTYPE)]]
+void rcpp_set_3d_RTYPE(
+  RTYPEVector x,
+  IntegerVector ind1, IntegerVector ind2, IntegerVector ind3,
+  IntegerVector dimcumprod,
+  RTYPEVector rp
+) {
+  int ni = ind1.length();
+  int nj = ind2.length();
+  int nk = ind3.length();
+  int flatind = 0;
+  
+  if(rp.length() == 1) {
+    for(int k = 0; k < nk; ++k){
+      for(int j = 0; j < nj; ++j) {
+        for(int i = 0; i < ni; ++i) {
+          flatind = ind1[i] + dimcumprod[0]  * (ind2[j] - 1) + dimcumprod[1] * (ind3[k] - 1);
+          x[flatind - 1] = rp[0];
+        }
+      }
+    }
+  }
+  else {
+    int counter = 0;
+    for(int k = 0; k < nk; ++k){
+      for(int j = 0; j < nj; ++j) {
+        for(int i = 0; i < ni; ++i) {
+          flatind = ind1[i] + dimcumprod[0]  * (ind2[j] - 1) + dimcumprod[1] * (ind3[k] - 1);
+          x[flatind - 1] = rp[counter];
+          counter++;
+        }
+      }
+    }
+  }
+}
+
+"
+
+rcpp_scripts <- character(length(RTYPES))
+names(rcpp_scripts) <- RTYPES
+for(i in seq_along(RTYPES)) {
+  rcpp_scripts[[i]] <- stri_replace_all(
+    templatecode,
+    fixed = c("RTYPE"),
+    replacement = c(RTYPES[i]),
+    case_insensitive = FALSE,
+    vectorize_all = FALSE
+  )
+}
+
+
+headers <- "
+
+#include <Rcpp.h>
+
+using namespace Rcpp;
+
+
+"
+rcpp_code <- paste(c(headers, rcpp_scripts), collapse = "\n\n\n")
+cat(rcpp_code)
+
+Rcpp::sourceCpp(
+  code = rcpp_code # no errors, good
+)
+
+fileConn <- file("src/dynamic_rcpp_set_3d.cpp")
+writeLines(rcpp_code, fileConn)
+close(fileConn)
+
+
 
 
 ################################################################################

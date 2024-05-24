@@ -146,10 +146,11 @@ sb_set.array <- function(
   }
   
   if(!is.null(rcl)) {
-    elements <- .sb3d_get_elements(
-      x, row = rcl[[1]], col = rcl[[2]], lyr = rcl[[3]], inv, chkdup = chkdup, abortcall = sys.call()
+    .sb3d_set(
+      x,
+      rcl[[1]], rcl[[2]], rcl[[3]], inv,
+      rp, tf, chkdup = chkdup, abortcall = sys.call()
     )
-    .sb_set_atomic(x, elements, rp = rp, tf = tf, abortcall = sys.call())
     return(invisible(NULL))
   }
   

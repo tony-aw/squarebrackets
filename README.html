@@ -613,31 +613,34 @@ padding-top: 0px;
 
 <p>squarebrackets: Methods as an Alternative to the Square Brackets
 Operators</p>
+<h1 id="description">Description</h1>
+<p>Provides subset methods (supporting both non-recursive and recursive
+S3 classes) that may be more convenient alternatives to the
+<code>[</code> and <code>[&lt;-</code> operators, whilst maintaining
+similar performance.</p>
+<p>Some nice properties of these methods include, but are not limited
+to, the following:</p>
+<ol style="list-style-type: decimal">
+<li>The<code>[</code> and <code>[&lt;-</code> operators use different
+rulesets for data.frame-like types (data.frames, tibbles, data.tables,
+tibbles, etc.). The ‘squarebrackets’ methods use consistent methods for
+these data.frame-like types.</li>
+<li>Performing dimensional subset operations on an array using
+<code>[</code> and <code>[&lt;-</code>, requires a-priori knowledge of
+the number of dimensions the array has. The ‘squarebrackets’ methods
+work on any arbitrary dimensions without requiring such prior
+knowledge.</li>
+<li>When selecting names with the <code>[</code> and <code>[&lt;-</code>
+operators, only the first occurrence of the names are selected in case
+of duplicate names. The ‘squarebrackets’ methods always perform on all
+names in case of duplicates, not just the first.</li>
+<li>The <code>[&lt;-</code> operator only supports copy-on-modify
+semantics for most classes. The ‘squarebrackets’ methods provides
+explicit pass-by-reference and pass-by-value semantics, whilst still
+respecting things like binding-locks and mutability rules.</li>
+</ol>
 <p> </p>
-<p>Among programming languages, ‘R’ has perhaps one of the most flexible
-and comprehensive sub-setting functionality, provided by the square
-brackets operators (<code>[</code>, <code>[ &lt;-</code>).</p>
-<p>But in some occasions, the square brackets operators are less than
-optimally convenient; examples:</p>
-<ul>
-<li>Performing subset operations on an array, when the number of
-dimensions of the array are not known a-priori, is quite
-convoluted.</li>
-<li>The <code>data.frame</code>, <code>tibble</code>,
-<code>data.table</code> and <code>tidytable</code> classes use different
-rule sets for the square brackets operators. So one needs to learn new
-rules for different data.frame classes, making your one’s code
-inconsistent.</li>
-<li>Selecting names for sub-setting, only the first occurrences of the
-names are selected for the sub-set. And when un-selecting/removing names
-for sub-setting, the syntax is very different from selecting names</li>
-<li>‘R’ implicitly uses copy-on-modify semantics. The
-<code>[&lt;-</code> operator does not support explicitly choosing
-between deep copy or pass-by-reference semantics.</li>
-</ul>
-<p>The ‘squarebrackets’ package provides methods as an alternative to
-the square brackets operators, that are more convenient in such
-occasions.</p>
+<h2 id="get-started">Get Started</h2>
 <p>To get started see <code>?squarebrackets_help</code></p>
 <p> </p>
 <h2 id="installing--loading">Installing &amp; Loading</h2>
@@ -650,8 +653,8 @@ from the fastverse. So one can attach the package - thus exposing its
 functions to the namespace - using:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">library</span>(squarebrackets)</span></code></pre></div>
 <p>Should the user wish to expose specific functions from
-‘squarebrackets’ ONLY within a specific environment, like only within a
-specific function, one can use the following:</p>
+‘squarebrackets’ only within the current/local environment, one can use
+the following:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>tinycodet<span class="sc">::</span><span class="fu">import_LL</span>(<span class="st">&quot;squarebrackets&quot;</span>, <span class="at">selection =</span> ... )</span></code></pre></div>
 <p> </p>
 <h2 id="changelog-experimental-versions">Changelog (EXPERIMENTAL

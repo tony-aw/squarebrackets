@@ -29,7 +29,6 @@ These alternative sub-setting methods and functions have the following propertie
 \itemize{
 \item \bold{Programmatically friendly}:
 \itemize{
-\item Name-based arguments instead of position-based arguments.
 \item Unlike base \code{[},
 it's not required to know the number of dimensions of an array a-priori,
 to perform subset-operations on an array.
@@ -44,17 +43,18 @@ instead of using dark magic like \code{base::quote(expr =    )}.
 \itemize{
 \item sub-setting of multi-dimensional objects by specifying dimensions
 (i.e. rows, columns, ...)
-use \code{drop = FALSE}. So matrix in, matrix out.
-\item The functions deliver the same results for
-data.frames, data.tables, tibbles, and tidytables.
+use \code{drop = FALSE}. \cr
+So matrix in, matrix out.
+\item The methods deliver the same results for
+data.frames, data.tables, tibbles, and tidytables. \cr
 No longer does one have to re-learn the different brackets-based sub-setting rules
-for different types of data.frame-like objects.
+for different types of data.frame-like objects. \cr
 Powered by the subclass agnostic 'C'-code from 'collapse' and 'data.table'.
 }
 \item \bold{Explicit copy semantics}:
 \itemize{
 \item Sub-set operations that change its memory allocations,
-always return a modified copy of the object.
+always return a modified copy of the object. \cr
 \item For sub-set operations that just change values in-place
 (similar to the \verb{[<-} and \verb{[[<-} methods)
 the user can choose a method that modifies the object by \bold{reference},
@@ -68,14 +68,13 @@ not just the first.
 are forced to have unique column names.
 \item Attributes of data.frame-like objects (see supported classes below) are always preserved when sub-setting.
 \item For other object types, the user can specify whether to preserve Attributes,
-or use R's \code{[} attribute behaviour (i.e. drop most attributes).
+or use R's \code{[} attribute behaviour (i.e. drop most attributes). \cr
 This is to ensure compatibility with R-packages that create their own attribute behaviour for sub-setting.
 }
 \item \bold{Concise function and argument names}.
 \item \bold{Performance aware}: \cr
 Despite the many checks performed, the functions are kept reasonably speedy,
-through the use of the 'Rcpp', 'collapse', and 'data.table' R-packages.
-Most of the heavy lifting in this package is done by the 'collapse' package. \cr \cr
+through the use of the 'Rcpp', 'collapse', and 'data.table' R-packages. \cr \cr
 }
 }
 
@@ -159,7 +158,7 @@ a couple of helper functions for creating ranges, sequences, and indices
 (often needed in sub-setting)
 are provided:
 \itemize{
-\item \link{currentBindings}, \link{currentBindings}: list or lock all currently existing bindings
+\item \link{currentBindings}: list or lock all currently existing bindings
 that share the share the same address as the input variable.
 \item \link{n}: Nested version of \link[base]{c},
 and short-hand for \link[base]{list}.

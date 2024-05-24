@@ -27,11 +27,12 @@
 #' when number of dimensions of `x` is not known a-priori? \cr
 #' It’s not impossible, but still rather convoluted. \cr
 #' \cr
-#' The methods provided by 'squarebrackets' solve this by using
-#' name-based arguments, instead of position based arguments. \cr \cr
+#' The methods provided by 'squarebrackets' do not use position-based arguments,
+#' and as such work on any arbitrary dimensions without requiring prior knowledge; \cr
+#' see \link{squarebrackets_indx_args} for details. \cr \cr
 #' 
 #' 
-#' @section Different Rulesets for data.frame-like Objects:
+#' @section Rule-sets for data.frame-like Objects:
 #' 
 #' The \link{data.frame}, \link[tibble]{tibble}, \link[data.table]{data.table},
 #' and \link[tidytable]{tidytable} classes
@@ -77,7 +78,7 @@
 #' not just the first match. \cr \cr
 #' 
 #' 
-#' @section Copy Semantics:
+#' @section Modification Semantics:
 #' 
 #' ‘R’ adheres to copy-on-modify semantics when replacing values using \code{[<-}. \cr
 #' But sometimes one would like explicit control when to create a copy,

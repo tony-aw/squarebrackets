@@ -64,7 +64,7 @@
 #' that have the permission to be modified by reference. \cr \cr
 #' 
 #' 
-#' @section Mutability rules with respect to recursive objects:
+#' @section Mutability Rules With Respect To Recursive Objects:
 #' Lists are difficult objects in that they do not contain elements,
 #' they simply point to  other objects,
 #' that one can access via a list. \cr
@@ -161,7 +161,7 @@
 #' 
 #' ```{r eval = FALSE}
 #' 
-#' letters <- base::letters
+#' # letters = base::letters
 #' sb_set(letters, i = 1, rp = "XXX")
 #' 
 #' ```
@@ -178,7 +178,10 @@
 #' Despite the checks made by this package,
 #' the user should never actively try to modify
 #' a \bold{locked} or \bold{protected} object by reference,
-#' as that would defeat the purpose of locking an object. \cr \cr
+#' as that would defeat the purpose of locking an object. \cr
+#' \cr
+#' Some packages provide functions that change class-related attributes of objects by reference. \cr
+#' Using such functions is discouraged, unless you know exactly what you're doing. \cr \cr
 #' 
 #' 
 #' @example inst/examples/aaa5_squarebrackets_PassByReference.R
