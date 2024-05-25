@@ -611,9 +611,9 @@ padding-top: 0px;
 <a href="https://orcid.org/0000-0001-9498-8379"><img src="data:image/svg+xml;charset=utf-8;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMTg0IiBoZWlnaHQ9IjIwIiByb2xlPSJpbWciIGFyaWEtbGFiZWw9Ik9SQ0lEOiAwMDAwLTAwMDEtOTQ5OC04Mzc5Ij48dGl0bGU+T1JDSUQ6IDAwMDAtMDAwMS05NDk4LTgzNzk8L3RpdGxlPjxsaW5lYXJHcmFkaWVudCBpZD0icyIgeDI9IjAiIHkyPSIxMDAlIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNiYmIiIHN0b3Atb3BhY2l0eT0iLjEiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3Atb3BhY2l0eT0iLjEiLz48L2xpbmVhckdyYWRpZW50PjxjbGlwUGF0aCBpZD0iciI+PHJlY3Qgd2lkdGg9IjE4NCIgaGVpZ2h0PSIyMCIgcng9IjMiIGZpbGw9IiNmZmYiLz48L2NsaXBQYXRoPjxnIGNsaXAtcGF0aD0idXJsKCNyKSI+PHJlY3Qgd2lkdGg9IjQ3IiBoZWlnaHQ9IjIwIiBmaWxsPSIjNTU1Ii8+PHJlY3QgeD0iNDciIHdpZHRoPSIxMzciIGhlaWdodD0iMjAiIGZpbGw9IiM5N2NhMDAiLz48cmVjdCB3aWR0aD0iMTg0IiBoZWlnaHQ9IjIwIiBmaWxsPSJ1cmwoI3MpIi8+PC9nPjxnIGZpbGw9IiNmZmYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJWZXJkYW5hLEdlbmV2YSxEZWphVnUgU2FucyxzYW5zLXNlcmlmIiB0ZXh0LXJlbmRlcmluZz0iZ2VvbWV0cmljUHJlY2lzaW9uIiBmb250LXNpemU9IjExMCI+PHRleHQgYXJpYS1oaWRkZW49InRydWUiIHg9IjI0NSIgeT0iMTUwIiBmaWxsPSIjMDEwMTAxIiBmaWxsLW9wYWNpdHk9Ii4zIiB0cmFuc2Zvcm09InNjYWxlKC4xKSIgdGV4dExlbmd0aD0iMzcwIj5PUkNJRDwvdGV4dD48dGV4dCB4PSIyNDUiIHk9IjE0MCIgdHJhbnNmb3JtPSJzY2FsZSguMSkiIGZpbGw9IiNmZmYiIHRleHRMZW5ndGg9IjM3MCI+T1JDSUQ8L3RleHQ+PHRleHQgYXJpYS1oaWRkZW49InRydWUiIHg9IjExNDUiIHk9IjE1MCIgZmlsbD0iIzAxMDEwMSIgZmlsbC1vcGFjaXR5PSIuMyIgdHJhbnNmb3JtPSJzY2FsZSguMSkiIHRleHRMZW5ndGg9IjEyNzAiPjAwMDAtMDAwMS05NDk4LTgzNzk8L3RleHQ+PHRleHQgeD0iMTE0NSIgeT0iMTQwIiB0cmFuc2Zvcm09InNjYWxlKC4xKSIgZmlsbD0iI2ZmZiIgdGV4dExlbmd0aD0iMTI3MCI+MDAwMC0wMDAxLTk0OTgtODM3OTwvdGV4dD48L2c+PC9zdmc+" /></a></p>
 <!-- badges: end -->
 
-<p>squarebrackets: Methods as an Alternative to the Square Brackets
-Operators</p>
-<h1 id="description">Description</h1>
+<p>squarebrackets: Subset Methods as an Alternative to the Square
+Brackets Operators</p>
+<h2 id="description">Description</h2>
 <p>Provides subset methods (supporting both non-recursive and recursive
 S3 classes) that may be more convenient alternatives to the
 <code>[</code> and <code>[&lt;-</code> operators, whilst maintaining
@@ -622,9 +622,9 @@ similar performance.</p>
 to, the following:</p>
 <ol style="list-style-type: decimal">
 <li>The<code>[</code> and <code>[&lt;-</code> operators use different
-rulesets for data.frame-like types (data.frames, tibbles, data.tables,
-tibbles, etc.). The ‘squarebrackets’ methods use consistent methods for
-these data.frame-like types.</li>
+rule-sets for different data.frame-like types (data.frames, tibbles,
+data.tables, tibbles, etc.). The ‘squarebrackets’ methods use the same
+rule-sets for the different data.frame-like types.</li>
 <li>Performing dimensional subset operations on an array using
 <code>[</code> and <code>[&lt;-</code>, requires a-priori knowledge of
 the number of dimensions the array has. The ‘squarebrackets’ methods

@@ -12,8 +12,9 @@ indx_general <- function(x, dim.i) {
     rep(FALSE, dim.n),
     c(rep(TRUE, dim.n1), rep(FALSE, dim.n2)),
     1,
-    1:2,
-    2:1
+    1:3,
+    3:1,
+    c(2, 3, 1)
   )
   if(test_allow_duplicates) {
     out <- c(out, list(c(1, 1, 1)))

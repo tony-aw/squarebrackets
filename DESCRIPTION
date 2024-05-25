@@ -13,9 +13,9 @@ Description: Provides subset methods
     that may be more convenient alternatives to the `[` and `[<-` operators,
     whilst maintaining similar performance.
     Some nice properties of these methods include, but are not limited to, the following.
-    1) The`[` and `[<-` operators use different rulesets for data.frame-like types
+    1) The`[` and `[<-` operators use different rule-sets for different data.frame-like types
     (data.frames, tibbles, data.tables, tibbles, etc.).
-    The 'squarebrackets' methods use consistent methods for these data.frame-like types.
+    The 'squarebrackets' methods use the same rule-sets for the different data.frame-like types.
     2) Performing dimensional subset operations on an array using `[` and `[<-`,
     requires a-priori knowledge of the number of dimensions the array has.
     The 'squarebrackets' methods work on any arbitrary dimensions without requiring such prior knowledge.

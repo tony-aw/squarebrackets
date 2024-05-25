@@ -19,6 +19,8 @@ indices <- list(
   2, 10:5, 1:100, NULL
 )
 
+# test functionality
+
 for(iD in 1:length(x.data)) {
   for(iIndices in 1:length(indices)) {
     temp.ind <- indices[[iIndices]]
@@ -53,6 +55,8 @@ for(iD in 1:length(x.data)) {
     
   }
 }
+
+# test if object is changed by reference
 
 for(iD in 1:length(x.data)) {
   for(iIndices in 1:length(indices)) {

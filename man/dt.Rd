@@ -42,7 +42,7 @@ indicating if the aggregated result should be ordered by the columns specified i
 \item{col, vars}{see \link{squarebrackets_indx_args}. \cr
 Duplicates are not allowed.}
 
-\item{v}{the coerciove transformation function}
+\item{v}{the coercive transformation function}
 
 \item{chkdup}{see \link{squarebrackets_duplicates}. \cr
 \ifelse{html}{\figure{for_performance-set_to_FALSE-red.svg}{options: alt='[for performance: set to FALSE]'}}{\link[=squarebrackets_help]{for performance: set to FALSE}} \cr}
@@ -72,7 +72,9 @@ Since these functions return void, you'll just get \code{NULL}. \cr \cr
 \description{
 Functional forms of special data.table operations. \cr
 These functions do not use Non-Standard Evaluation. \cr
-\cr
+These functions also benefit from the security measures that
+'squarebrackets' implements for
+the \link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr
 \itemize{
 \item \code{dt_aggregate()}
 aggregates a data.table or tidytable, and returns the aggregated copy.
@@ -87,7 +89,7 @@ adds the columns from data.table/tidytable \code{new} to data.table/tidytable \c
 thereby modifying \code{x}
 using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
 \item \code{dt_setreorder()}
-reorder the rows and/or variables of a \code{data.table}
+reorders the rows and/or variables of a \code{data.table}
 using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr \cr
 }
 }

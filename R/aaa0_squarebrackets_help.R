@@ -1,7 +1,7 @@
-#' squarebrackets: Methods as an Alternative to the Square Brackets Operators
+#' squarebrackets: Subset Methods as an Alternative to the Square Brackets Operators
 #' 
 #' @description
-#' squarebrackets: Methods as an Alternative to the Square Brackets Operators \cr \cr
+#' squarebrackets: Subset Methods as an Alternative to the Square Brackets Operators \cr \cr
 #' 
 #' 
 #' @section Goal & Properties:
@@ -128,7 +128,9 @@
 #'  * \link{ma_setv}: Find & Replace values in \link{mutable_atomic} objects
 #'  using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr
 #'  This is considerably faster and more memory efficient than using \link{sb_set} for this.
-#'  * The \link[=dt_setcoe]{dt_}-functions for `data.table`-specific `[`-operations.
+#'  * The \link[=dt_setcoe]{dt_}-functions
+#'  to programmatically perform `data.table`-specific `[`-operations,
+#'  with the security measures provided by the 'squarebrackets' package.
 #'  * \link{sb_str}: extract or replace a subset of characters of a single string
 #'  (each single character is treated as a single element).
 #'  * \link{sb_a}: extract multiple attributes from an object. \cr \cr

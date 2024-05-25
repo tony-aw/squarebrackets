@@ -3,7 +3,10 @@
 #' @description
 #' Functional forms of special data.table operations. \cr
 #' These functions do not use Non-Standard Evaluation. \cr
-#' \cr
+#' These functions also benefit from the security measures that
+#' 'squarebrackets' implements for 
+#' the \link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr
+#' 
 #'  * `dt_aggregate()`
 #'  aggregates a data.table or tidytable, and returns the aggregated copy.
 #'  * `dt_setcoe()`
@@ -17,7 +20,7 @@
 #'  thereby modifying `x`
 #'  using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
 #'  * `dt_setreorder()`
-#'  reorder the rows and/or variables of a `data.table`
+#'  reorders the rows and/or variables of a `data.table`
 #'  using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr \cr
 #' 
 #' 
@@ -26,7 +29,7 @@
 #' @param new a `data.table` or `tidytable`. \cr
 #' It must have column names that do not already exist in `x`.
 #' @param f the aggregation function
-#' @param v the coerciove transformation function
+#' @param v the coercive transformation function
 #' @param col,vars see \link{squarebrackets_indx_args}. \cr
 #' Duplicates are not allowed.
 #' @param SDcols atomic vector,
@@ -217,13 +220,13 @@ dt_setreorder <- function(x, roworder = NULL, varorder = NULL) {
     roworder <- order(roworder)
     nms <- names(x)
     nms_lens <- stringi::stri_length(nms)
-    if(any(nms_lens)==0) {
+    if(any(nms_lens) == 0L) {
       stop("zero-length names detected")
     }
-    if(min(nms_lens) > 1) {
-      j <- stringi::stri_rand_strings(1, 1)
+    if(min(nms_lens) > 1L) {
+      j <- stringi::stri_rand_strings(1L, 1L)
     } else {
-      j <- stringi::stri_rand_strings(1, max(nms_lens) + 1)
+      j <- stringi::stri_rand_strings(1L, max(nms_lens) + 1L)
     }
     if(data.table::`%chin%`(j, nms)) {
       stop(
@@ -239,6 +242,5 @@ dt_setreorder <- function(x, roworder = NULL, varorder = NULL) {
   
   
   return(invisible(NULL))
-  
   
 }

@@ -5,9 +5,9 @@
 \alias{squarebrackets-package}
 \alias{squarebrackets}
 \alias{squarebrackets_help}
-\title{squarebrackets: Methods as an Alternative to the Square Brackets Operators}
+\title{squarebrackets: Subset Methods as an Alternative to the Square Brackets Operators}
 \description{
-squarebrackets: Methods as an Alternative to the Square Brackets Operators \cr \cr
+squarebrackets: Subset Methods as an Alternative to the Square Brackets Operators \cr \cr
 }
 \section{Goal & Properties}{
 
@@ -146,7 +146,9 @@ using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
 \item \link{ma_setv}: Find & Replace values in \link{mutable_atomic} objects
 using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr
 This is considerably faster and more memory efficient than using \link{sb_set} for this.
-\item The \link[=dt_setcoe]{dt_}-functions for \code{data.table}-specific \code{[}-operations.
+\item The \link[=dt_setcoe]{dt_}-functions
+to programmatically perform \code{data.table}-specific \code{[}-operations,
+with the security measures provided by the 'squarebrackets' package.
 \item \link{sb_str}: extract or replace a subset of characters of a single string
 (each single character is treated as a single element).
 \item \link{sb_a}: extract multiple attributes from an object. \cr \cr

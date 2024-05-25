@@ -80,34 +80,20 @@ On the other hand,
 When a recursive object is of an immutable class,
 than its recursive subsets retain their original mutability. \cr
 \cr
-For example: \cr
-\itemize{
-\item A \code{data.table} is a mutable class. \cr
+\bold{Example 1: Mutable data.tables} \cr
+A \code{data.table} is a mutable class. \cr
 So all columns of the \code{data.table} are treated as mutable; \cr
-There is no requirement, for example,
-to first change all columns into the class of \link{mutable_atomic}
-to modify them by reference. \cr
-\item A regular \code{list} is an immutable class. \cr
-The contents of the list therefore retain their mutability. \cr
-So if a mutable object,
-such as a \link{mutable_atomic} object or a \code{data.table},
-is a subset of a list,
-the view of that list subset can be modified by reference,
-even though the list as a whole is immutable. \cr \cr
-}
-}
-
-\section{Views of Lists}{
-
-Regular lists themselves are not treated as mutable objects by 'squarebrackets'. \cr
-However, lists are not actually really objects,
-merely a (potentially hierarchical) structure of pointers. \cr
-Thus, even if a list itself is not treated as mutable,
-subsets of a list which are themselves mutable classes, are mutable. \cr
-For example,
-if you have a list of \code{data.table} objects,
-the data.tables themselves are mutable. \cr
-Therefore, the following will work: \cr
+There is no requirement to, for instance,
+first change all columns into the class of \link{mutable_atomic}
+to modify these columns by reference. \cr
+\cr
+\bold{Example 2: Immutable lists} \cr
+A regular \code{list} is an immutable class. \cr
+So the list itself is immutable,
+but the recursive subsets of the list retain their mutability. \cr
+If you have a list of \code{data.table} objects, for example,
+the data.tables themselves remain mutable. \cr
+Therefore, the following pass-by-reference modification will work: \cr
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{x <- list(
  a = data.table(cola = 1:10, colb = letters[1:10]),
@@ -118,10 +104,10 @@ sb_set(mypointer, col = "cola", tf = \\(x)x^2)
 
 }\if{html}{\out{</div>}}
 
-Notice in the above code that \code{mypointer} is not a copy of \code{x$a},
-since they have the same address. \cr
+Notice in the above code that \code{mypointer} has the same address as \code{x$a},
+and is therefore not a copy of \code{x$a}. \cr
 Thus changing \code{mypointer} also changes \code{x$a}. \cr
-In other words: \code{mypointer} is what could be called a "view" of \code{x$a}. \cr \cr
+In other words: \code{mypointer} is what could be called a "\bold{View}" of \code{x$a}. \cr \cr
 }
 
 \section{Input Variable}{

@@ -63,7 +63,10 @@ Returns \code{FALSE} otherwise. \cr \cr
 The \code{mutable_atomic} class is a mutable version of atomic classes. \cr
 It works exactly the same in all aspects as regular atomic classes,
 with only one real difference: \cr
-\link{sb_set} accepts \code{mutable_atomic}, but does not accept regular \code{atomic}. \cr
+The 'squarebrackets' methods and functions that perform modification by reference
+(basically all methods and functions with "set" in the name)
+accept \code{mutable_atomic},
+but do not accept regular \code{atomic}. \cr
 See \link{squarebrackets_PassByReference} for details. \cr
 \cr
 Like \code{data.table}, \verb{[<-} performs R's default copy-on-modification semantics. \cr

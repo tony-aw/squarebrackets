@@ -133,33 +133,18 @@ all its subsets are treated as mutable,
 as long as they are part of the object. <br>
 On the other hand,
 When a recursive object is of an immutable class,
-than its recursive subsets retain their original mutability. <br><br>
-For example: <br></p><ul><li><p>A <code>data.table</code> is a mutable class. <br>
+than its recursive subsets retain their original mutability. <br><br><b>Example 1: Mutable data.tables</b> <br>
+A <code>data.table</code> is a mutable class. <br>
 So all columns of the <code>data.table</code> are treated as mutable; <br>
-There is no requirement, for example,
-to first change all columns into the class of <a href="class_mutable_atomic.html">mutable_atomic</a>
-to modify them by reference. <br></p></li>
-<li><p>A regular <code>list</code> is an immutable class. <br>
-The contents of the list therefore retain their mutability. <br>
-So if a mutable object,
-such as a <a href="class_mutable_atomic.html">mutable_atomic</a> object or a <code>data.table</code>,
-is a subset of a list,
-the view of that list subset can be modified by reference,
-even though the list as a whole is immutable. <br><br></p></li>
-</ul></div>
-    <div class="section level2">
-    <h2 id="views-of-lists">Views of Lists<a class="anchor" aria-label="anchor" href="#views-of-lists"></a></h2>
-    
-
-<p>Regular lists themselves are not treated as mutable objects by 'squarebrackets'. <br>
-However, lists are not actually really objects,
-merely a (potentially hierarchical) structure of pointers. <br>
-Thus, even if a list itself is not treated as mutable,
-subsets of a list which are themselves mutable classes, are mutable. <br>
-For example,
-if you have a list of <code>data.table</code> objects,
-the data.tables themselves are mutable. <br>
-Therefore, the following will work: <br></p>
+There is no requirement to, for instance,
+first change all columns into the class of <a href="class_mutable_atomic.html">mutable_atomic</a>
+to modify these columns by reference. <br><br><b>Example 2: Immutable lists</b> <br>
+A regular <code>list</code> is an immutable class. <br>
+So the list itself is immutable,
+but the recursive subsets of the list retain their mutability. <br>
+If you have a list of <code>data.table</code> objects, for example,
+the data.tables themselves remain mutable. <br>
+Therefore, the following pass-by-reference modification will work: <br></p>
 <p></p><div class="sourceCode r"><pre><code><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span> a <span class="op">=</span> <span class="fu">data.table</span><span class="op">(</span>cola <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, colb <span class="op">=</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span><span class="op">)</span>,</span>
 <span> b <span class="op">=</span> <span class="fu">data.table</span><span class="op">(</span>cola <span class="op">=</span> <span class="fl">11</span><span class="op">:</span><span class="fl">20</span>, colb <span class="op">=</span> <span class="va">letters</span><span class="op">[</span><span class="fl">11</span><span class="op">:</span><span class="fl">20</span><span class="op">]</span><span class="op">)</span></span>
@@ -167,10 +152,10 @@ Therefore, the following will work: <br></p>
 <span><span class="va">mypointer</span> <span class="op">&lt;-</span> <span class="va">x</span><span class="op">$</span><span class="va">a</span></span>
 <span><span class="fu"><a href="../reference/sb_set.html">sb_set</a></span><span class="op">(</span><span class="va">mypointer</span>, col <span class="op">=</span> <span class="st">"cola"</span>, tf <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span>
 <span></span></code></pre><p></p></div>
-<p>Notice in the above code that <code>mypointer</code> is not a copy of <code>x$a</code>,
-since they have the same address. <br>
+<p>Notice in the above code that <code>mypointer</code> has the same address as <code>x$a</code>,
+and is therefore not a copy of <code>x$a</code>. <br>
 Thus changing <code>mypointer</code> also changes <code>x$a</code>. <br>
-In other words: <code>mypointer</code> is what could be called a "view" of <code>x$a</code>. <br><br></p>
+In other words: <code>mypointer</code> is what could be called a "<b>View</b>" of <code>x$a</code>. <br><br></p>
     </div>
     <div class="section level2">
     <h2 id="input-variable">Input Variable<a class="anchor" aria-label="anchor" href="#input-variable"></a></h2>

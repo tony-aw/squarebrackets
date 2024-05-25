@@ -12,10 +12,10 @@ public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostat
 [![](https://img.shields.io/badge/ORCID-0000--0001--9498--8379-green.svg)](https://orcid.org/0000-0001-9498-8379)
 <!-- badges: end -->
 
-squarebrackets: Methods as an Alternative to the Square Brackets
+squarebrackets: Subset Methods as an Alternative to the Square Brackets
 Operators
 
-# Description
+## Description
 
 Provides subset methods (supporting both non-recursive and recursive S3
 classes) that may be more convenient alternatives to the `[` and `[<-`
@@ -24,10 +24,10 @@ operators, whilst maintaining similar performance.
 Some nice properties of these methods include, but are not limited to,
 the following:
 
-1)  The`[` and `[<-` operators use different rulesets for
+1)  The`[` and `[<-` operators use different rule-sets for different
     data.frame-like types (data.frames, tibbles, data.tables, tibbles,
-    etc.). The ‘squarebrackets’ methods use consistent methods for these
-    data.frame-like types.
+    etc.). The ‘squarebrackets’ methods use the same rule-sets for the
+    different data.frame-like types.
 2)  Performing dimensional subset operations on an array using `[` and
     `[<-`, requires a-priori knowledge of the number of dimensions the
     array has. The ‘squarebrackets’ methods work on any arbitrary
