@@ -84,7 +84,7 @@
 #'  
 #' ```
 #' 
-#' @section Arguments idx, dims:
+#' @section Argument Pair idx, dims:
 #' `r .mybadge_class("atomic array")` \cr
 #' `r .mybadge_class("recursive array")` \cr
 #'  
@@ -107,7 +107,7 @@
 #' 
 #' ```
 #' 
-#' @section Arguments rcl:
+#' @section Argument rcl:
 #' `r .mybadge_class("atomic array")` \cr
 #' 
 #' The `rcl` argument is only applicable for atomic arrays with exactly 3 dimensions. \cr
@@ -177,7 +177,7 @@
 #' For example, to select all numeric columns, specify `vars = is.numeric`. \cr
 #' \cr
 #' 
-#' @section Argument margin, slice:
+#' @section Argument Pair margin, slice:
 #' `r .mybadge_class("atomic array")` \cr
 #' `r .mybadge_class("recursive array")` \cr
 #' `r .mybadge_class("data.frame-like")` \cr
@@ -261,9 +261,12 @@
 #'  2) Argument `lvl` (for factors) or argument `rcl` (for 3-dimensional arrays)
 #'  3) The rest of the indexing arguments.
 #' 
-#' One cannot specify `row` and `filter` simultaneously.
-#' It's either one or the other. Similarly,
-#' one cannot specify `col` and `vars` simultaneously. \cr
+#' One cannot specify `row` and `filter` simultaneously;
+#' it's either one or the other. \cr
+#' One cannot specify `col` and `vars` simultaneously;
+#' it's either one or the other. \cr
+#' One cannot specify the `idx, dims` pair and `slice, margin` pair simultaneously;
+#' it's either one pair or the other pair. \cr
 #' In the above cases it holds that if one set is specified, the other is set is ignored. \cr
 #' \cr
 #' 

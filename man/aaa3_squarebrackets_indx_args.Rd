@@ -90,7 +90,7 @@ Using the \verb{row, col} arguments corresponds to doing something like the foll
 }\if{html}{\out{</div>}}
 }
 
-\section{Arguments idx, dims}{
+\section{Argument Pair idx, dims}{
 
 \ifelse{html}{\figure{class-atomic_array-blue.svg}{options: alt='[class: atomic array]'}}{\link[=squarebrackets_indx_args]{class: atomic array}} \cr
 \ifelse{html}{\figure{class-recursive_array-blue.svg}{options: alt='[class: recursive array]'}}{\link[=squarebrackets_indx_args]{class: recursive array}} \cr
@@ -114,7 +114,7 @@ here using an example of a 4-dimensional array:
 }\if{html}{\out{</div>}}
 }
 
-\section{Arguments rcl}{
+\section{Argument rcl}{
 
 \ifelse{html}{\figure{class-atomic_array-blue.svg}{options: alt='[class: atomic array]'}}{\link[=squarebrackets_indx_args]{class: atomic array}} \cr
 
@@ -188,7 +188,7 @@ For example, to select all numeric columns, specify \code{vars = is.numeric}. \c
 \cr
 }
 
-\section{Argument margin, slice}{
+\section{Argument Pair margin, slice}{
 
 \ifelse{html}{\figure{class-atomic_array-blue.svg}{options: alt='[class: atomic array]'}}{\link[=squarebrackets_indx_args]{class: atomic array}} \cr
 \ifelse{html}{\figure{class-recursive_array-blue.svg}{options: alt='[class: recursive array]'}}{\link[=squarebrackets_indx_args]{class: recursive array}} \cr
@@ -277,9 +277,12 @@ The arguments are  evaluated in the following order:
 \item The rest of the indexing arguments.
 }
 
-One cannot specify \code{row} and \code{filter} simultaneously.
-It's either one or the other. Similarly,
-one cannot specify \code{col} and \code{vars} simultaneously. \cr
+One cannot specify \code{row} and \code{filter} simultaneously;
+it's either one or the other. \cr
+One cannot specify \code{col} and \code{vars} simultaneously;
+it's either one or the other. \cr
+One cannot specify the \verb{idx, dims} pair and \verb{slice, margin} pair simultaneously;
+it's either one pair or the other pair. \cr
 In the above cases it holds that if one set is specified, the other is set is ignored. \cr
 \cr
 }

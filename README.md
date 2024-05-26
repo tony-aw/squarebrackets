@@ -24,7 +24,7 @@ operators, whilst maintaining similar performance.
 Some nice properties of these methods include, but are not limited to,
 the following:
 
-1)  The`[` and `[<-` operators use different rule-sets for different
+1)  The `[` and `[<-` operators use different rule-sets for different
     data.frame-like types (data.frames, tibbles, data.tables, tibbles,
     etc.). The ‘squarebrackets’ methods use the same rule-sets for the
     different data.frame-like types.

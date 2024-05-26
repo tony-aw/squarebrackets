@@ -65,7 +65,7 @@
 #'
 #'
 #'
-#' @example inst/examples/idx1.R
+#' @example inst/examples/generic_idx.R
 
 
 

@@ -147,7 +147,7 @@ ALL the corresponding indices will be selected for the operation.</p></li>
 <span> </span></code></pre><p></p></div>
     </div>
     <div class="section level2">
-    <h2 id="arguments-idx-dims">Arguments idx, dims<a class="anchor" aria-label="anchor" href="#arguments-idx-dims"></a></h2>
+    <h2 id="argument-pair-idx-dims">Argument Pair idx, dims<a class="anchor" aria-label="anchor" href="#argument-pair-idx-dims"></a></h2>
     
 
 <p><img src="figures/class-atomic_array-blue.svg" alt="[class: atomic array]"><br><img src="figures/class-recursive_array-blue.svg" alt="[class: recursive array]"><br></p>
@@ -165,7 +165,7 @@ here using an example of a 4-dimensional array:</p>
 <span></span></code></pre><p></p></div>
     </div>
     <div class="section level2">
-    <h2 id="arguments-rcl">Arguments rcl<a class="anchor" aria-label="anchor" href="#arguments-rcl"></a></h2>
+    <h2 id="argument-rcl">Argument rcl<a class="anchor" aria-label="anchor" href="#argument-rcl"></a></h2>
     
 
 <p><img src="figures/class-atomic_array-blue.svg" alt="[class: atomic array]"><br></p>
@@ -223,7 +223,7 @@ giving the column indices to select for the operation. <br>
 For example, to select all numeric columns, specify <code>vars = is.numeric</code>. <br><br></p>
     </div>
     <div class="section level2">
-    <h2 id="argument-margin-slice">Argument margin, slice<a class="anchor" aria-label="anchor" href="#argument-margin-slice"></a></h2>
+    <h2 id="argument-pair-margin-slice">Argument Pair margin, slice<a class="anchor" aria-label="anchor" href="#argument-pair-margin-slice"></a></h2>
     
 
 <p><img src="figures/class-atomic_array-blue.svg" alt="[class: atomic array]"><br><img src="figures/class-recursive_array-blue.svg" alt="[class: recursive array]"><br><img src="figures/class-data.frame-like-blue.svg" alt="[class: data.frame-like]"><br></p>
@@ -295,9 +295,12 @@ it's either <code>i</code>, or the other arguments. <br>
 The arguments are  evaluated in the following order:</p><ol><li><p>Argument <code>i</code></p></li>
 <li><p>Argument <code>lvl</code> (for factors) or argument <code>rcl</code> (for 3-dimensional arrays)</p></li>
 <li><p>The rest of the indexing arguments.</p></li>
-</ol><p>One cannot specify <code>row</code> and <code>filter</code> simultaneously.
-It's either one or the other. Similarly,
-one cannot specify <code>col</code> and <code>vars</code> simultaneously. <br>
+</ol><p>One cannot specify <code>row</code> and <code>filter</code> simultaneously;
+it's either one or the other. <br>
+One cannot specify <code>col</code> and <code>vars</code> simultaneously;
+it's either one or the other. <br>
+One cannot specify the <code>idx, dims</code> pair and <code>slice, margin</code> pair simultaneously;
+it's either one pair or the other pair. <br>
 In the above cases it holds that if one set is specified, the other is set is ignored. <br><br></p>
     </div>
     <div class="section level2">
