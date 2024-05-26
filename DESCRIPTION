@@ -1,6 +1,6 @@
 Package: squarebrackets
 Type: Package
-Title: Subset Methods as an Alternative to the Square Brackets Operators
+Title: Subset Methods as Alternatives to the Square Brackets Operators
 Version: 0.0.0.9
 Date: 2024-05-07
 Authors@R: 
@@ -13,7 +13,7 @@ Description: Provides subset methods
     that may be more convenient alternatives to the `[` and `[<-` operators,
     whilst maintaining similar performance.
     Some nice properties of these methods include, but are not limited to, the following.
-    1) The`[` and `[<-` operators use different rule-sets for different data.frame-like types
+    1) The `[` and `[<-` operators use different rule-sets for different data.frame-like types
     (data.frames, tibbles, data.tables, tibbles, etc.).
     The 'squarebrackets' methods use the same rule-sets for the different data.frame-like types.
     2) Performing dimensional subset operations on an array using `[` and `[<-`,

@@ -12,7 +12,7 @@ public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostat
 [![](https://img.shields.io/badge/ORCID-0000--0001--9498--8379-green.svg)](https://orcid.org/0000-0001-9498-8379)
 <!-- badges: end -->
 
-squarebrackets: Subset Methods as an Alternative to the Square Brackets
+squarebrackets: Subset Methods as Alternatives to the Square Brackets
 Operators
 
 ## Description

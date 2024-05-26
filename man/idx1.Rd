@@ -43,12 +43,16 @@ Duplicates are not allowed.}
 \item{chkdup}{see \link{squarebrackets_duplicates}. \cr
 \ifelse{html}{\figure{for_performance-set_to_FALSE-red.svg}{options: alt='[for performance: set to FALSE]'}}{\link[=squarebrackets_help]{for performance: set to FALSE}} \cr}
 
-\item{slice}{see arguments \code{row} and \code{col} in \link{squarebrackets_indx_args}.}
-
-\item{margin}{a single integer, specifying the dimension for \code{slice}.}
+\item{margin, slice}{See \link{squarebrackets_indx_args}. \cr
+Duplicates are not allowed.}
 }
 \value{
-A vector of strictly positive integer indices.
+For \code{idx(x, i = i, ...)} and \code{idx(x, idx = idx, dims = dims, ...)}: \cr
+A strictly positive integer vector of flat indices. \cr
+\cr
+For \code{idx(x, margin = margin, slice = slice, ...)}: \cr
+A strictly positive integer vector of indices
+for the dimension specified in \code{margin}. \cr \cr
 }
 \description{
 The \code{idx()} method converts indices. \cr

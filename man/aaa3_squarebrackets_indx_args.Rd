@@ -5,7 +5,7 @@
 \alias{squarebrackets_indx_args}
 \title{Index Arguments in the Generic Sub-setting Methods}
 \description{
-There are 6 types of arguments that can be used
+There are 7 types of arguments that can be used
 in the generic methods of 'squarebrackets' to specify the indices to perform operations on:
 \itemize{
 \item \code{i}: to specify flat (i.e. dimensionless) indices.
@@ -16,7 +16,8 @@ columns (second dimension),
 and layers (third dimension),
 in arrays that have exactly 3 dimensions.
 \item \code{lvl}: specify levels, for factors only.
-\item \verb{filter, vars}: to specify rows and/or columns specifically in data.frame-like objects. \cr \cr
+\item \verb{filter, vars}: to specify rows and/or columns specifically in data.frame-like objects.
+\item \verb{margin, slice}: to specify indices of one particular dimension. \cr \cr
 }
 
 In this help page \code{x} refers to the object on which subset operations are performed. \cr
@@ -37,7 +38,7 @@ when specifying the other arguments
 in which case no indices are selected for the operation
 (i.e. empty selection).
 \item a \bold{strictly positive integer} vector with indices.
-\item a \bold{logical vector} (without \code{NA}s!),
+\item a \bold{logical vector},
 of the same length as \code{x},
 giving the indices to select for the operation.
 \item a \bold{character} vector of index names. \cr
@@ -73,10 +74,10 @@ which results in ALL of the indices in this dimension being selected for the ope
 \item a vector of length 0,
 in which case no indices are selected for the operation (i.e. empty selection).
 \item a \bold{strictly positive integer} vector with dimension indices to select for the operation.
-\item a \bold{logical} vector (without \code{NA}s!) of the same length as the corresponding dimension size,
+\item a \bold{logical} vector of the same length as the corresponding dimension size,
 giving the indices of this dimension to select for the operation.
 \item a \bold{character} vector of index names. \cr
-If an object has multiple indices with the given name,
+If a dimension has multiple indices with the given name,
 ALL the corresponding indices will be selected for the operation.
 }
 
@@ -135,7 +136,7 @@ which results in ALL of the indices in this dimension being selected for the ope
 \item a vector of length 0,
 in which case no indices are selected for the operation (i.e. empty selection).
 \item a \bold{strictly positive integer} vector with dimension indices to select for the operation.
-\item a \bold{logical} vector (without \code{NA}s!) of the same length as the corresponding dimension size,
+\item a \bold{logical} vector of the same length as the corresponding dimension size,
 giving the indices of this dimension to select for the operation.
 \item a \bold{character} vector of index names. \cr
 If an object has multiple indices with the given name,
@@ -187,11 +188,41 @@ For example, to select all numeric columns, specify \code{vars = is.numeric}. \c
 \cr
 }
 
+\section{Argument margin, slice}{
+
+\ifelse{html}{\figure{class-atomic_array-blue.svg}{options: alt='[class: atomic array]'}}{\link[=squarebrackets_indx_args]{class: atomic array}} \cr
+\ifelse{html}{\figure{class-recursive_array-blue.svg}{options: alt='[class: recursive array]'}}{\link[=squarebrackets_indx_args]{class: recursive array}} \cr
+\ifelse{html}{\figure{class-data.frame-like-blue.svg}{options: alt='[class: data.frame-like]'}}{\link[=squarebrackets_indx_args]{class: data.frame-like}} \cr
+
+Relevant only for the \link{idx} method. \cr
+The \code{margin} argument specifies the dimension on which argument \code{slice} is used. \cr
+I.e. when \code{margin = 1}, \code{slice} selects rows; \cr
+when \code{margin = 2}, \code{slice} selects columns; \cr
+etc. \cr
+\cr
+The \code{slice} argument can be any of the following:
+\itemize{
+\item a \bold{strictly positive integer} vector with dimension indices to select for the operation.
+\item a \bold{logical} vector of the same length as the corresponding dimension size,
+giving the dimension indices to select for the operation.
+\item a \bold{character} vector of index names. \cr
+If a dimension has multiple indices with the given name,
+ALL the corresponding indices will be selected for the operation. \cr
+}
+
+One could also give a vector of length \code{0} for \code{slice}; \cr
+Argument \code{slice} is only used in method \code{idx},
+and the result of \code{idx} are meant to be used inside the regular \code{[} and \verb{[<-} operators. \cr
+Thus the result of a zero-length index specification depends on the rule-set of
+\verb{[.class(x)} and \verb{[<-.class(x)}. \cr \cr
+}
+
 \section{Argument inv}{
 
 \ifelse{html}{\figure{all_classes-blue.svg}{options: alt='[all classes]'}}{\link[=squarebrackets_indx_args]{all classes}} \cr
 
-Relevant for \link{sb_mod}, \link{sb_set}, and \link{idx}. \cr
+Relevant for the \link{sb_mod}/\link{sb2_mod}, \link{sb_set}/\link{sb2_set},
+and \link{idx} methods. \cr
 By default, \code{inv = FALSE}, which translates the indices like normally. \cr
 When \code{inv = TRUE}, the inverse of the indices is taken. \cr
 Consider, for example, an atomic matrix \code{x}; \cr

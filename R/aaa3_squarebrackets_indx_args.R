@@ -1,7 +1,7 @@
 #' Index Arguments in the Generic Sub-setting Methods
 #'
 #' @description
-#' There are 6 types of arguments that can be used
+#' There are 7 types of arguments that can be used
 #' in the generic methods of 'squarebrackets' to specify the indices to perform operations on:
 #' 
 #'  * `i`: to specify flat (i.e. dimensionless) indices.
@@ -12,7 +12,8 @@
 #'  and layers (third dimension),
 #'  in arrays that have exactly 3 dimensions.
 #'  * `lvl`: specify levels, for factors only.
-#'  * `filter, vars`: to specify rows and/or columns specifically in data.frame-like objects. \cr \cr
+#'  * `filter, vars`: to specify rows and/or columns specifically in data.frame-like objects.
+#'  *  `margin, slice`: to specify indices of one particular dimension. \cr \cr
 #' 
 #' In this help page `x` refers to the object on which subset operations are performed. \cr
 #' \cr
@@ -32,7 +33,7 @@
 #'  in which case no indices are selected for the operation
 #'  (i.e. empty selection).
 #'  * a \bold{strictly positive integer} vector with indices.
-#'  * a \bold{logical vector} (without `NA`s!),
+#'  * a \bold{logical vector},
 #'  of the same length as `x`,
 #'  giving the indices to select for the operation.
 #'  * a \bold{character} vector of index names. \cr
@@ -68,10 +69,10 @@
 #'  * a vector of length 0,
 #'  in which case no indices are selected for the operation (i.e. empty selection).
 #'  * a \bold{strictly positive integer} vector with dimension indices to select for the operation.
-#'  * a \bold{logical} vector (without `NA`s!) of the same length as the corresponding dimension size,
+#'  * a \bold{logical} vector of the same length as the corresponding dimension size,
 #'  giving the indices of this dimension to select for the operation.
 #'  * a \bold{character} vector of index names. \cr
-#'  If an object has multiple indices with the given name,
+#'  If a dimension has multiple indices with the given name,
 #'  ALL the corresponding indices will be selected for the operation.
 #' 
 #' NOTE: The arguments `row` and `col` will be ignored if `i` is specified.
@@ -127,7 +128,7 @@
 #'  * a vector of length 0,
 #'  in which case no indices are selected for the operation (i.e. empty selection).
 #'  * a \bold{strictly positive integer} vector with dimension indices to select for the operation.
-#'  * a \bold{logical} vector (without `NA`s!) of the same length as the corresponding dimension size,
+#'  * a \bold{logical} vector of the same length as the corresponding dimension size,
 #'  giving the indices of this dimension to select for the operation.
 #'  * a \bold{character} vector of index names. \cr
 #'  If an object has multiple indices with the given name,
@@ -176,10 +177,38 @@
 #' For example, to select all numeric columns, specify `vars = is.numeric`. \cr
 #' \cr
 #' 
+#' @section Argument margin, slice:
+#' `r .mybadge_class("atomic array")` \cr
+#' `r .mybadge_class("recursive array")` \cr
+#' `r .mybadge_class("data.frame-like")` \cr
+#' 
+#' Relevant only for the \link{idx} method. \cr
+#' The `margin` argument specifies the dimension on which argument `slice` is used. \cr
+#' I.e. when `margin = 1`, `slice` selects rows; \cr
+#' when `margin = 2`, `slice` selects columns; \cr
+#' etc. \cr
+#' \cr
+#' The `slice` argument can be any of the following:
+#' 
+#'  * a \bold{strictly positive integer} vector with dimension indices to select for the operation.
+#'  * a \bold{logical} vector of the same length as the corresponding dimension size,
+#'  giving the dimension indices to select for the operation.
+#'  * a \bold{character} vector of index names. \cr
+#'  If a dimension has multiple indices with the given name,
+#'  ALL the corresponding indices will be selected for the operation. \cr
+#'  
+#' One could also give a vector of length `0` for `slice`; \cr
+#' Argument `slice` is only used in method `idx`,
+#' and the result of `idx` are meant to be used inside the regular `[` and `[<-` operators. \cr
+#' Thus the result of a zero-length index specification depends on the rule-set of
+#' `[.class(x)` and `[<-.class(x)`. \cr \cr
+#' 
+#' 
 #' @section Argument inv:
 #' `r .mybadge_all_classes()` \cr
 #' 
-#' Relevant for \link{sb_mod}, \link{sb_set}, and \link{idx}. \cr
+#' Relevant for the \link{sb_mod}/\link{sb2_mod}, \link{sb_set}/\link{sb2_set},
+#' and \link{idx} methods. \cr
 #' By default, `inv = FALSE`, which translates the indices like normally. \cr
 #' When `inv = TRUE`, the inverse of the indices is taken. \cr
 #' Consider, for example, an atomic matrix `x`; \cr

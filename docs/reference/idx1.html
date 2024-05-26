@@ -215,19 +215,33 @@ Duplicates are not allowed.</p></dd>
 <dd><p>see <a href="aaa4_squarebrackets_duplicates.html">squarebrackets_duplicates</a>. <br><img src="figures/for_performance-set_to_FALSE-red.svg" alt="[for performance: set to FALSE]"><br></p></dd>
 
 
-<dt>slice</dt>
-<dd><p>see arguments <code>row</code> and <code>col</code> in <a href="aaa3_squarebrackets_indx_args.html">squarebrackets_indx_args</a>.</p></dd>
-
-
-<dt>margin</dt>
-<dd><p>a single integer, specifying the dimension for <code>slice</code>.</p></dd>
+<dt>margin, slice</dt>
+<dd><p>See <a href="aaa3_squarebrackets_indx_args.html">squarebrackets_indx_args</a>. <br>
+Duplicates are not allowed.</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>A vector of strictly positive integer indices.</p>
+<p>For <code>idx(x, i = i, ...)</code> and <code>idx(x, idx = idx, dims = dims, ...)</code>: <br></p>
+
+
+<p>A strictly positive integer vector of flat indices. <br></p>
+
+
+<p><br></p>
+
+
+<p>For <code>idx(x, margin = margin, slice = slice, ...)</code>: <br></p>
+
+
+<p>A strictly positive integer vector of indices
+for the dimension specified in <code>margin</code>. <br></p>
+<p></p>
+<p><br></p>
+
+
     </div>
 
     <div class="section level2">

@@ -1,7 +1,7 @@
-#' squarebrackets: Subset Methods as an Alternative to the Square Brackets Operators
+#' squarebrackets: Subset Methods as Alternatives to the Square Brackets Operators
 #' 
 #' @description
-#' squarebrackets: Subset Methods as an Alternative to the Square Brackets Operators \cr \cr
+#' squarebrackets: Subset Methods as Alternatives to the Square Brackets Operators \cr \cr
 #' 
 #' 
 #' @section Goal & Properties:
