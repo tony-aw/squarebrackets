@@ -32,7 +32,6 @@ reference:
   - '`sb_rm`'
   - '`sb_mod`'
   - '`sb_set`'
-  - '`sb2_coe`'
   - '`sb_before`'
   - '`sb_after`'
   - '`sb2_rec`'

@@ -106,7 +106,6 @@
 #'  * \link{sb_mod}, \link{sb2_mod}: return a \bold{copy}
 #'  of an object with modified
 #'  (transformed or replaced) subsets.
-#'  * \link{sb2_coe}: Coercively transform subsets of recursive objects.
 #'  * \link{sb_before}, \link{sb_after}, \link{sb2_before}, \link{sb2_after}: insert new values before or after an index
 #'  along a dimension of an object.
 #'  * \link{sb2_rec}: access recursive subsets of lists.
@@ -185,12 +184,11 @@
 #' @exportPattern "^sb2_rm"
 #' @exportPattern "^sb2_set"
 #' @exportPattern "^sb2_mod"
-#' @exportPattern "^sb2_coe"
 #' @exportPattern "^sb2_before"
 #' @exportPattern "^sb2_after"
 #' @exportPattern "^sb2_rec"
 #' @exportPattern "^sb2_setRename"
-#' @exportPattern "^currentBindings"
+#' @exportPattern "^idx"
 #' @method `[` mutable_atomic
 #' @method `[<-` mutable_atomic
 #' 

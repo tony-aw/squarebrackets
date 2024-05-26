@@ -37,6 +37,13 @@
 #' (instead of the deep copy semantics and
 #' \link[=squarebrackets_PassByReference]{pass-by-reference semantics}
 #' provided by 'squarebrackets'). \cr
+#' \cr
+#' The `idx()` method
+#' is particularly handy for replacing or coercively transforming shallow subsets
+#' of recursive objects,
+#' without having to return a copy of the entire object. \cr
+#' Thus combining `[<-` with `idx` is more efficient than \link{sb2_mod}
+#' for recursive objects. \cr \cr
 #' 
 #' 
 #' @param x vector, matrix, array, or data.frame; both atomic and recursive objects are supported.

@@ -40,19 +40,22 @@ couldb.mutable_atomic(x)
 \item{value}{see \link[base]{Extract}.}
 }
 \value{
-For \code{as.mutable_atomic}: \cr
+For \code{mutable_atomic()}: \cr
+Returns a \code{mutable_atomic} object. \cr
+\cr
+For \code{as.mutable_atomic()}: \cr
 Converts an atomic object (vector, matrix, array)
 to the same object, but with additional class \code{"mutable_atomic"},
 and the additional attribute \code{"typeof"}. \cr
 \cr
-For \code{is.mutable_atomic}: \cr
+For \code{is.mutable_atomic()}: \cr
 Returns \code{TRUE} if the object is atomic, has
 the class \code{"mutable_atomic"},
 has the correctly set attribute \code{"typeof"},
 \bold{and} has an address that does not overlap with the addresses of base objects. \cr
 \code{is.mutable_atomic} returns \code{FALSE} otherwise. \cr
 \cr
-For \code{couldb.mutable_atomic}: \cr
+For \code{couldb.mutable_atomic()}: \cr
 Returns \code{TRUE} if the object is one of the following types: \cr
 \link{logical}, \link{integer}, \link{double}, \link{character}, \link{complex}, \link{raw}. \cr
 \code{bit64::}\link[bit64]{integer64} type is also supported,
@@ -72,8 +75,9 @@ See \link{squarebrackets_PassByReference} for details. \cr
 Like \code{data.table}, \verb{[<-} performs R's default copy-on-modification semantics. \cr
 For modification  by reference, use \link{sb_set}. \cr
 \cr
-Exposed functions (besides the S3 methods):
+Exposed functions (beside the S3 methods):
 \itemize{
+\item \code{mutable_atomic()}: create a \code{mutable_atomic} object.
 \item \code{is.mutable_atomic()}: checks if an object is atomic.
 \item \code{as.mutable_atomic()}: converts a regular atomic object to \code{mutable_atomic}.
 \item \code{couldb.mutable_atomic()}: checks if an object could be \code{mutable_atomic}. \cr

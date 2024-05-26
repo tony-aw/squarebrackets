@@ -33,8 +33,9 @@
 #' @param newnames atomic character vector giving the new names. \cr
 #' Specifying `NULL` will remove the names.
 #' @param newdimnames a list of the same length as `dim(x)`. \cr
-#' The first element of the list corresponds to the first dimension,
-#' the second element to the second dimension, and so on. \cr
+#' The first element of the list corresponds to the first dimension (i.e. rows),
+#' the second element to the second dimension (i.e. columns),
+#' and so on. \cr
 #' The components of the list can be either `NULL`,
 #' or a character vector with the same length as the corresponding dimension. \cr
 #' Instead of a list,
@@ -96,7 +97,7 @@ sb_setRename.default <- function(x, newnames, ...) {
 
 #' @rdname sb_setRename
 #' @export
-sb_setRename.array <- function(x, newnames, newdimnames, ...) {
+sb_setRename.array <- function(x, newdimnames, newnames, ...) {
   
   # error checks:
   if(!is.mutable_atomic(x)){
@@ -104,20 +105,6 @@ sb_setRename.array <- function(x, newnames, newdimnames, ...) {
   }
   .check_bindingIsLocked(substitute(x), parent.frame(n = 1), abortcall = sys.call())
   
-  
-  if(!missing(newnames)) {
-    if(!is.null(newnames)) {
-      if(!is.character(newnames)) {
-        stop("improper `newnames` given")
-      }
-      if(length(newnames) != length(x)) {
-        stop("improper `newnames` given")
-      }
-      data.table::setattr(x, "names", NULL) # protecting original names
-      newnames <- data.table::copy(newnames) # protecting original names
-    }
-    data.table::setattr(x, "names", newnames) 
-  }
   
   
   if(!missing(newdimnames)) {
@@ -145,6 +132,21 @@ sb_setRename.array <- function(x, newnames, newdimnames, ...) {
     }
     data.table::setattr(x, "dimnames", newdimnames) 
   }
+  
+  if(!missing(newnames)) {
+    if(!is.null(newnames)) {
+      if(!is.character(newnames)) {
+        stop("improper `newnames` given")
+      }
+      if(length(newnames) != length(x)) {
+        stop("improper `newnames` given")
+      }
+      data.table::setattr(x, "names", NULL) # protecting original names
+      newnames <- data.table::copy(newnames) # protecting original names
+    }
+    data.table::setattr(x, "names", newnames) 
+  }
+  
   
   return(invisible(NULL))
   

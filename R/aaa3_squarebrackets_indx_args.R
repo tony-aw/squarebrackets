@@ -179,7 +179,7 @@
 #' @section Argument inv:
 #' `r .mybadge_all_classes()` \cr
 #' 
-#' Relevant for \link{sb_mod}, \link{sb_set}, \link{sb2_coe}, and \link{idx}. \cr
+#' Relevant for \link{sb_mod}, \link{sb_set}, and \link{idx}. \cr
 #' By default, `inv = FALSE`, which translates the indices like normally. \cr
 #' When `inv = TRUE`, the inverse of the indices is taken. \cr
 #' Consider, for example, an atomic matrix `x`; \cr
@@ -263,7 +263,7 @@
 #' 
 #' @section Regarding Performance:
 #' Integer indices and logical indices are the fastest. \cr
-#' Indexing through names or levens (i.e. character vectors) is the slowest. \cr
+#' Indexing through names or levels (i.e. character vectors) is the slowest. \cr
 #' Thus if performance is important, use integer or logical indices. \cr \cr
 
 

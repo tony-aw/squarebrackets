@@ -12,7 +12,7 @@ sb_setRename(x, ...)
 
 \method{sb_setRename}{default}(x, newnames, ...)
 
-\method{sb_setRename}{array}(x, newnames, newdimnames, ...)
+\method{sb_setRename}{array}(x, newdimnames, newnames, ...)
 
 sb2_setRename(x, ...)
 
@@ -28,8 +28,9 @@ sb2_setRename(x, ...)
 Specifying \code{NULL} will remove the names.}
 
 \item{newdimnames}{a list of the same length as \code{dim(x)}. \cr
-The first element of the list corresponds to the first dimension,
-the second element to the second dimension, and so on. \cr
+The first element of the list corresponds to the first dimension (i.e. rows),
+the second element to the second dimension (i.e. columns),
+and so on. \cr
 The components of the list can be either \code{NULL},
 or a character vector with the same length as the corresponding dimension. \cr
 Instead of a list,
@@ -93,7 +94,7 @@ x <- mutable_atomic(
 print(x)
 sb_setRename(
   x,
-  newdimnames = lapply(dimnames(x), rev)
+  lapply(dimnames(x), rev)
 )
 print(x)
 
@@ -103,8 +104,9 @@ x <- mutable_atomic(
 )
 print(x)
 sb_setRename(
-  x, newnames = rev(names(x)),
-  newdimnames = lapply(dimnames(x), rev)
+  x,
+  newdimnames = lapply(dimnames(x), rev),
+  newnames = rev(names(x))
 )
 print(x)
 

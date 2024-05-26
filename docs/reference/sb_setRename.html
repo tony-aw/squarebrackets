@@ -125,7 +125,7 @@ Use <code>sb2_setRename(x, ...)</code> if <code>x</code> is a recursive object
 <span><span class="fu">sb_setRename</span><span class="op">(</span><span class="va">x</span>, <span class="va">newnames</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for array</span></span>
-<span><span class="fu">sb_setRename</span><span class="op">(</span><span class="va">x</span>, <span class="va">newnames</span>, <span class="va">newdimnames</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">sb_setRename</span><span class="op">(</span><span class="va">x</span>, <span class="va">newdimnames</span>, <span class="va">newnames</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">sb2_setRename</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
@@ -151,8 +151,9 @@ Specifying <code>NULL</code> will remove the names.</p></dd>
 
 <dt>newdimnames</dt>
 <dd><p>a list of the same length as <code>dim(x)</code>. <br>
-The first element of the list corresponds to the first dimension,
-the second element to the second dimension, and so on. <br>
+The first element of the list corresponds to the first dimension (i.e. rows),
+the second element to the second dimension (i.e. columns),
+and so on. <br>
 The components of the list can be either <code>NULL</code>,
 or a character vector with the same length as the corresponding dimension. <br>
 Instead of a list,
@@ -221,7 +222,7 @@ Default <code>FALSE</code> halts with error if any are missing.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  integer </span>
 <span class="r-in"><span><span class="fu">sb_setRename</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">x</span>,</span></span>
-<span class="r-in"><span>  newdimnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/dimnames.html" class="external-link">dimnames</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="va">rev</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/dimnames.html" class="external-link">dimnames</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="va">rev</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   d  c  b  a</span>
@@ -250,8 +251,9 @@ Default <code>FALSE</code> halts with error if any are missing.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> mutable_atomic </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  integer </span>
 <span class="r-in"><span><span class="fu">sb_setRename</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="va">x</span>, newnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rev.html" class="external-link">rev</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  newdimnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/dimnames.html" class="external-link">dimnames</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="va">rev</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">x</span>,</span></span>
+<span class="r-in"><span>  newdimnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/dimnames.html" class="external-link">dimnames</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="va">rev</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  newnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rev.html" class="external-link">rev</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   d  c  b  a</span>

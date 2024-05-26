@@ -46,7 +46,7 @@
 #' most of base R's data types are treated as immutable: \cr
 #' Modifying an object in 'R' will make a copy of the object,
 #' something called 'copy-on-modify' semantics. \cr
-#' However, almost any of base R's datatypes can be modified by reference,
+#' However, almost any of base R's data types can be modified by reference,
 #' through R's own 'C' API, or through 'C++' code (like via 'Rcpp'),
 #' thus treating these objects as mutable,
 #' even though they are not "supposed" to be mutable. \cr

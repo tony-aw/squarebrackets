@@ -14,7 +14,7 @@ x <- mutable_atomic(
 print(x)
 sb_setRename(
   x,
-  newdimnames = lapply(dimnames(x), rev)
+  lapply(dimnames(x), rev)
 )
 print(x)
 
@@ -24,8 +24,9 @@ x <- mutable_atomic(
 )
 print(x)
 sb_setRename(
-  x, newnames = rev(names(x)),
-  newdimnames = lapply(dimnames(x), rev)
+  x,
+  newdimnames = lapply(dimnames(x), rev),
+  newnames = rev(names(x))
 )
 print(x)
 

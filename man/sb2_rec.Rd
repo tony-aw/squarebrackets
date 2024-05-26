@@ -4,7 +4,7 @@
 \alias{sb2_rec}
 \title{Access Recursive Subsets}
 \usage{
-sb2_rec(lst, rec, rp)
+sb2_rec(lst, rec, rp, tf)
 }
 \arguments{
 \item{lst}{a list, or list-like object.}
@@ -18,20 +18,27 @@ only the first one will be selected when performing recursive indexing by name,
 due to the recursive nature of this type of subsetting.}
 
 \item{rp}{optional. If specified, performs \code{lst[[rec]] <- rp},
-using R's default in-place semantics. \cr \cr}
+using R's default in-place semantics. \cr
+Since this is a replacement of a recursive subset,
+\code{rp} does not necessarily have to be a list itself; \cr
+\code{rp} can be any type of object. \cr}
+
+\item{tf}{an optional function. If specified, performs \code{lst[[rec]] <- tf(lst[[rec]])},
+using R's default copy-on-modify in-place semantics. \cr \cr}
 }
 \value{
-If \code{rp} is not specified: Returns the recursive subset. \cr
-If \code{rp} is specified: Returns nothing,
-but replaces the recursive subset with \code{rp},
-using R's default in-place semantics. \cr \cr
+If \code{rp} and \code{tf} are not specified: Returns the recursive subset. \cr
+\cr
+If \code{rp} or \code{tf} is specified: Returns VOID,
+but replaces or transforms the recursive subset,
+using R's default copy-on-modify in-place semantics. \cr \cr
 }
 \description{
 The \code{sb2_rec()} method allows the user to access recursive subsets of lists. \cr
 \cr
 The \code{sb2_rec()} method also allows replacing or transforming a recursive subset of a list,
-using R's default in-place semantics,
-by specifying the \code{rp} argument.
+using R's default copy-on-modify in-place semantics,
+by specifying the \code{rp} or \code{tf} argument, respectively. \cr \cr
 }
 \examples{
 
@@ -60,13 +67,23 @@ sb2_rec(lst, c("B", "B", "A")) # this gives "BBA"
 
 #############################################################################
 
-# replace with R's default in-place semantics ====
+# replace recursive subset with R's default in-place semantics ====
 
 # replace "AAB" using R's default in-place semantics:
 sb2_rec(
   lst, c("A", "A", "B"),
   rp = "THIS IS REPLACED WITH IN-PLACE SEMANTICS"
 )
+print(lst)
+
+
+
+#############################################################################
+
+# replace shallow subsets with R's default in-place semantics ====
+
+for(i in c("A", "B")) sb2_rec(lst, i, rp = "AND THEN THERE WERE NONE")
+
 print(lst)
 
 

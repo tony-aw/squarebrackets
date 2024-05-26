@@ -201,13 +201,14 @@ obj <- data.table::data.table(
   a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10])
 )
 str(obj)
-obj <- sb2_coe(obj, vars = is.numeric, v = as.numeric)
+dt_setcoe(obj, vars = is.numeric, v = as.numeric)
 str(obj)
 sb2_set(obj,
   filter = ~ (a >= 2) & (c <= 17), vars = is.numeric,
-  tf = sqrt # SAFE: coercion performed by sb_coe(); so no warnings
+  tf = sqrt # SAFE: coercion performed by dt_setcoe(); so no warnings
 ) 
 print(obj)
+
 
 #############################################################################
 

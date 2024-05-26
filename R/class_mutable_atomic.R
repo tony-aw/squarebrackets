@@ -13,8 +13,9 @@
 #' Like `data.table`, `[<-` performs R's default copy-on-modification semantics. \cr
 #' For modification  by reference, use \link{sb_set}. \cr
 #' \cr
-#' Exposed functions (besides the S3 methods):
+#' Exposed functions (beside the S3 methods):
 #' 
+#'  * `mutable_atomic()`: create a `mutable_atomic` object.
 #'  * `is.mutable_atomic()`: checks if an object is atomic.
 #'  * `as.mutable_atomic()`: converts a regular atomic object to `mutable_atomic`.
 #'  * `couldb.mutable_atomic()`: checks if an object could be `mutable_atomic`. \cr
@@ -37,19 +38,22 @@
 #' 
 #' 
 #' @returns
-#' For `as.mutable_atomic`: \cr
+#' For `mutable_atomic()`: \cr
+#' Returns a `mutable_atomic` object. \cr
+#' \cr
+#' For `as.mutable_atomic()`: \cr
 #' Converts an atomic object (vector, matrix, array)
 #' to the same object, but with additional class `"mutable_atomic"`,
 #' and the additional attribute `"typeof"`. \cr
 #' \cr
-#' For `is.mutable_atomic`: \cr
+#' For `is.mutable_atomic()`: \cr
 #' Returns `TRUE` if the object is atomic, has
 #' the class `"mutable_atomic"`,
 #' has the correctly set attribute `"typeof"`,
 #' \bold{and} has an address that does not overlap with the addresses of base objects. \cr
 #' `is.mutable_atomic` returns `FALSE` otherwise. \cr
 #' \cr
-#' For `couldb.mutable_atomic`: \cr
+#' For `couldb.mutable_atomic()`: \cr
 #' Returns `TRUE` if the object is one of the following types: \cr
 #' \link{logical}, \link{integer}, \link{double}, \link{character}, \link{complex}, \link{raw}. \cr
 #' \code{bit64::}\link[bit64]{integer64} type is also supported,

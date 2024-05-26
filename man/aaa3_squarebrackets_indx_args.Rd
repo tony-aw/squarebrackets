@@ -191,7 +191,7 @@ For example, to select all numeric columns, specify \code{vars = is.numeric}. \c
 
 \ifelse{html}{\figure{all_classes-blue.svg}{options: alt='[all classes]'}}{\link[=squarebrackets_indx_args]{all classes}} \cr
 
-Relevant for \link{sb_mod}, \link{sb_set}, \link{sb2_coe}, and \link{idx}. \cr
+Relevant for \link{sb_mod}, \link{sb_set}, and \link{idx}. \cr
 By default, \code{inv = FALSE}, which translates the indices like normally. \cr
 When \code{inv = TRUE}, the inverse of the indices is taken. \cr
 Consider, for example, an atomic matrix \code{x}; \cr
@@ -280,7 +280,7 @@ To shuffle elements of indices, use the \link[base]{sample} function. \cr
 \section{Regarding Performance}{
 
 Integer indices and logical indices are the fastest. \cr
-Indexing through names or levens (i.e. character vectors) is the slowest. \cr
+Indexing through names or levels (i.e. character vectors) is the slowest. \cr
 Thus if performance is important, use integer or logical indices. \cr \cr
 }
 

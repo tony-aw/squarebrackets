@@ -120,5 +120,6 @@ tinycodet::import_LL("squarebrackets", selection = ... )
 - 18 May 2024: Added a few tests for the `idx()` method (need to add
   more). Fixed the export pattern expressions in the Namespace file.
   Adjusted the documentation.
+- 26 May 2024: Removed `sb2_coe()`, as it is redundant.
 
  

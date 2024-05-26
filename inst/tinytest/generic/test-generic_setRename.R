@@ -89,15 +89,15 @@ x <- mutable_atomic(
 y <- x
 nms <- sample(letters, 260, TRUE)
 expect_error(
-  sb_setRename(x, rev(letters[1:10])),
+  sb_setRename(x, newnames = rev(letters[1:10])),
   pattern = "improper `newnames` given"
 )
 expect_error(
-  sb_setRename(x, 1:26),
+  sb_setRename(x, newnames = 1:26),
   pattern = "improper `newnames` given"
 )
 expect_error(
-  sb_setRename(x, ~ letters),
+  sb_setRename(x, newnames = ~ letters),
   pattern = "improper `newnames` given"
 )
 

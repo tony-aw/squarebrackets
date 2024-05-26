@@ -11,7 +11,8 @@ See squarebrackets_PassByReference for details.
 Like data.table, [&amp;lt;- performs R's default copy-on-modification semantics. 
 For modification  by reference, use sb_set. 
 
-Exposed functions (besides the S3 methods):
+Exposed functions (beside the S3 methods):
+mutable_atomic(): create a mutable_atomic object.
 is.mutable_atomic(): checks if an object is atomic.
 as.mutable_atomic(): converts a regular atomic object to mutable_atomic.
 couldb.mutable_atomic(): checks if an object could be mutable_atomic. 
@@ -32,7 +33,8 @@ See squarebrackets_PassByReference for details.
 Like data.table, [&amp;lt;- performs R's default copy-on-modification semantics. 
 For modification  by reference, use sb_set. 
 
-Exposed functions (besides the S3 methods):
+Exposed functions (beside the S3 methods):
+mutable_atomic(): create a mutable_atomic object.
 is.mutable_atomic(): checks if an object is atomic.
 as.mutable_atomic(): converts a regular atomic object to mutable_atomic.
 couldb.mutable_atomic(): checks if an object could be mutable_atomic. 
@@ -103,7 +105,8 @@ but do not accept regular <code>atomic</code>. <br>
 See <a href="aaa5_squarebrackets_PassByReference.html">squarebrackets_PassByReference</a> for details. <br><br>
 Like <code>data.table</code>, <code>[&lt;-</code> performs R's default copy-on-modification semantics. <br>
 For modification  by reference, use <a href="sb_set.html">sb_set</a>. <br><br>
-Exposed functions (besides the S3 methods):</p><ul><li><p><code>is.mutable_atomic()</code>: checks if an object is atomic.</p></li>
+Exposed functions (beside the S3 methods):</p><ul><li><p><code>mutable_atomic()</code>: create a <code>mutable_atomic</code> object.</p></li>
+<li><p><code>is.mutable_atomic()</code>: checks if an object is atomic.</p></li>
 <li><p><code>as.mutable_atomic()</code>: converts a regular atomic object to <code>mutable_atomic</code>.</p></li>
 <li><p><code>couldb.mutable_atomic()</code>: checks if an object could be <code>mutable_atomic</code>. <br>
 An objects can become <code>mutable_atomic</code> if it is one of the following types: <br><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a>, <a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a>, <a href="https://rdrr.io/r/base/double.html" class="external-link">double</a>, <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a>, <a href="https://rdrr.io/r/base/complex.html" class="external-link">complex</a>, <a href="https://rdrr.io/r/base/raw.html" class="external-link">raw</a>. <br><code>bit64::</code><a href="https://rdrr.io/pkg/bit64/man/bit64-package.html" class="external-link">integer64</a> type is also supported,
@@ -159,7 +162,16 @@ print(x, ...)</code></pre></div>
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>For <code>as.mutable_atomic</code>: <br></p>
+<p>For <code>mutable_atomic()</code>: <br></p>
+
+
+<p>Returns a <code>mutable_atomic</code> object. <br></p>
+
+
+<p><br></p>
+
+
+<p>For <code>as.mutable_atomic()</code>: <br></p>
 
 
 <p>Converts an atomic object (vector, matrix, array)
@@ -170,7 +182,7 @@ and the additional attribute <code>"typeof"</code>. <br></p>
 <p><br></p>
 
 
-<p>For <code>is.mutable_atomic</code>: <br></p>
+<p>For <code>is.mutable_atomic()</code>: <br></p>
 
 
 <p>Returns <code>TRUE</code> if the object is atomic, has
@@ -185,7 +197,7 @@ has the correctly set attribute <code>"typeof"</code>,
 <p><br></p>
 
 
-<p>For <code>couldb.mutable_atomic</code>: <br></p>
+<p>For <code>couldb.mutable_atomic()</code>: <br></p>
 
 
 <p>Returns <code>TRUE</code> if the object is one of the following types: <br></p>
