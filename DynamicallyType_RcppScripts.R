@@ -23,132 +23,204 @@ library(stringi)
 # rcpp_set_rowcol_Numeric1(x, 2L, 2L, as.numeric(NaN))
 # x
 
+
+# set all ====
+
+RTYPES <- c("Logical", "Integer", "Numeric", "Character", "Complex", "Raw")
+
+templatecode <- "
+
+//' @keywords internal
+//' @noRd
+// [[Rcpp::export(.rcpp_set_all_RTYPE)]]
+void rcpp_set_all_RTYPE(RTYPEVector x, RTYPEVector rp) {
+  R_xlen_t n = x.length();
+
+  if(rp.length() == 1) {
+    for(R_xlen_t i = 0; i < n; ++i){
+      x[i] = rp[0];
+    }
+  }
+  else {
+    int counter = 0;
+    for(R_xlen_t i = 0; i < n; ++i){
+      x[i] = rp[counter];
+      counter++;
+    }
+  }
+
+}
+
+"
+
+
+rcpp_scripts <- character(length(RTYPES))
+names(rcpp_scripts) <- RTYPES
+for(i in seq_along(RTYPES)) {
+  rcpp_scripts[[i]] <- stri_replace_all(
+    templatecode,
+    fixed = c("RTYPE"),
+    replacement = c(RTYPES[i]),
+    case_insensitive = FALSE,
+    vectorize_all = FALSE
+  )
+}
+
+
+headers <- "
+
+#include <Rcpp.h>
+
+using namespace Rcpp;
+
+
+
+
+"
+rcpp_code <- paste(c(headers, rcpp_scripts), collapse = "\n\n\n")
+cat(rcpp_code)
+
+Rcpp::sourceCpp(
+  code = rcpp_code # no errors, good
+)
+
+fileConn <- file("src/dynamic_rcpp_set_all.cpp")
+writeLines(rcpp_code, fileConn)
+close(fileConn)
+
+
 # set matrix scripts ====
 
 RTYPES <- c("Logical", "Integer", "Numeric", "Character", "Complex", "Raw")
 
 templatecode <- list()
 
-templatecode[["set_rowcol"]] <- "
+
+templatecode[["set_matrix_rowcol"]] <- "
   
 //' @keywords internal
 //' @noRd
-// [[Rcpp::export(.rcpp_set_rowcol_RTYPE)]]
-void rcpp_set_rowcol_RTYPE(RTYPEMatrix x, IntegerVector rowind, IntegerVector colind, RTYPEVector rp) {
+// [[Rcpp::export(.rcpp_set_matrix_rowcol_RTYPE)]]
+void rcpp_set_matrix_rowcol_RTYPE(
+  RTYPEMatrix x, IntegerVector rowind, IntegerVector colind, RTYPEVector rp
+) {
   int ni = rowind.length();
   int nj = colind.length();
-  int counter = 0;
-  for(int j = 0; j < nj; ++j){
-    RTYPEMatrix::Column col = x(_, colind[j]);
-    for(int i = 0; i < ni; ++i) {
-      col[rowind[i]] = rp[counter];
-      counter += 1;
+  
+  if(rp.length() == 1) {
+    for(int j = 0; j < nj; ++j){
+      RTYPEMatrix::Column col = x(_, colind[j]);
+      for(int i = 0; i < ni; ++i) {
+         col[rowind[i]] = rp[0];
+      }
     }
   }
+  else {
+    int counter = 0;
+    for(int j = 0; j < nj; ++j){
+      RTYPEMatrix::Column col = x(_, colind[j]);
+      for(int i = 0; i < ni; ++i) {
+         col[rowind[i]] = rp[counter];
+        counter++;
+      }
+    }
+  }
+  
+  
 }
 
 "
 
 
-templatecode[["set_rowcol1"]] <- "
+templatecode[["set_matrix_row"]] <- "
   
 //' @keywords internal
 //' @noRd
-// [[Rcpp::export(.rcpp_set_rowcol_RTYPE1)]]
-void rcpp_set_rowcol_RTYPE1(RTYPEMatrix x, IntegerVector rowind, IntegerVector colind, RTYPEVector rp) {
-  int ni = rowind.length();
-  int nj = colind.length();
-  int counter = 0;
-  for(int j = 0; j < nj; ++j){
-    RTYPEMatrix::Column col = x(_, colind[j]);
-    for(int i = 0; i < ni; ++i) {
-      col[rowind[i]] = rp[0];
-      counter += 1;
-    }
-  }
-}
-
-"
-
-templatecode[["set_row"]] <- "
-  
-//' @keywords internal
-//' @noRd
-// [[Rcpp::export(.rcpp_set_row_RTYPE)]]
-void rcpp_set_row_RTYPE(RTYPEMatrix x, IntegerVector rowind, RTYPEVector rp) {
+// [[Rcpp::export(.rcpp_set_matrix_row_RTYPE)]]
+void rcpp_set_matrix_row_RTYPE(RTYPEMatrix x, IntegerVector rowind, RTYPEVector rp) {
   int ni = rowind.length();
   int nj = x.ncol();
-  int counter = 0;
-  for(int j = 0; j < nj; ++j){
-    RTYPEMatrix::Column col = x(_, j);
-    for(int i = 0; i < ni; ++i) {
-      col[rowind[i]] = rp[counter];
-      counter += 1;
+  
+  if(rp.length() == 1) {
+    for(int j = 0; j < nj; ++j){
+      RTYPEMatrix::Column col = x(_, j);
+      for(int i = 0; i < ni; ++i) {
+        col[rowind[i]] = rp[0];
+      }
     }
   }
+  else {
+    int counter = 0;
+    for(int j = 0; j < nj; ++j){
+      RTYPEMatrix::Column col = x(_, j);
+      for(int i = 0; i < ni; ++i) {
+        col[rowind[i]] = rp[counter];
+        counter++;
+      }
+    }
+  }
+  
+  
 }
 
 "
 
-templatecode[["set_row1"]] <- "
+templatecode[["set_matrix_col"]] <- "
   
 //' @keywords internal
 //' @noRd
-// [[Rcpp::export(.rcpp_set_row_RTYPE1)]]
-void rcpp_set_row_RTYPE1(RTYPEMatrix x, IntegerVector rowind, RTYPEVector rp) {
-  int ni = rowind.length();
-  int nj = x.ncol();
-  int counter = 0;
-  for(int j = 0; j < nj; ++j){
-    RTYPEMatrix::Column col = x(_, j);
-    for(int i = 0; i < ni; ++i) {
-      col[rowind[i]] = rp[0];
-      counter += 1;
-    }
-  }
-}
-
-"
-
-templatecode[["set_col"]] <- "
-  
-//' @keywords internal
-//' @noRd
-// [[Rcpp::export(.rcpp_set_col_RTYPE)]]
-void rcpp_set_col_RTYPE(RTYPEMatrix x, IntegerVector colind, RTYPEVector rp) {
+// [[Rcpp::export(.rcpp_set_matrix_col_RTYPE)]]
+void rcpp_set_matrix_col_RTYPE(RTYPEMatrix x, IntegerVector colind, RTYPEVector rp) {
   int ni = x.nrow();
   int nj = colind.length();
-  int counter = 0;
-  for(int j = 0; j < nj; ++j){
-    RTYPEMatrix::Column col = x(_, colind[j]);
-    for(int i = 0; i < ni; ++i) {
-      col[i] = rp[counter];
-      counter += 1;
+  
+  if(rp.length() == 1) {
+    for(int j = 0; j < nj; ++j){
+      RTYPEMatrix::Column col = x(_, colind[j]);
+      for(int i = 0; i < ni; ++i) {
+        col[i] = rp[0];
+      }
     }
   }
+  else {
+    int counter = 0;
+    for(int j = 0; j < nj; ++j){
+      RTYPEMatrix::Column col = x(_, colind[j]);
+      for(int i = 0; i < ni; ++i) {
+        col[i] = rp[counter];
+        counter++;
+      }
+    }
+  }
+  
 }
 
 "
 
-templatecode[["set_col1"]] <- "
-  
+
+
+templatecode[["set_matrix"]] <- "
+
 //' @keywords internal
 //' @noRd
-// [[Rcpp::export(.rcpp_set_col_RTYPE1)]]
-void rcpp_set_col_RTYPE1(RTYPEMatrix x, IntegerVector colind, RTYPEVector rp) {
-  int ni = x.nrow();
-  int nj = colind.length();
-  int counter = 0;
-  for(int j = 0; j < nj; ++j){
-    RTYPEMatrix::Column col = x(_, colind[j]);
-    for(int i = 0; i < ni; ++i) {
-      col[i] = rp[0];
-      counter += 1;
-    }
+// [[Rcpp::export(.rcpp_set_matrix_RTYPE)]]
+void rcpp_set_matrix_RTYPE(
+  RTYPEMatrix x, IntegerVector rowind, IntegerVector colind, RTYPEVector rp
+) {
+  if(colind.length() == 1 && colind[0] == -1) {
+    rcpp_set_matrix_row_RTYPE(x, rowind, rp);
+  }
+  else if(rowind.length() == 1 && rowind[0] == -1) {
+    rcpp_set_matrix_col_RTYPE(x, colind, rp);
+  }
+  else {
+    rcpp_set_matrix_rowcol_RTYPE(x, rowind, colind, rp);
   }
 }
 
+
 "
+
 
 templatecode <- do.call(paste, templatecode)
 
@@ -172,6 +244,8 @@ headers <- "
 using namespace Rcpp;
 
 
+
+
 "
 rcpp_code <- paste(c(headers, rcpp_scripts), collapse = "\n\n\n")
 cat(rcpp_code)
@@ -180,10 +254,212 @@ Rcpp::sourceCpp(
   code = rcpp_code # no errors, good
 )
 
-fileConn <- file("src/dynamic_rcpp_set_rowcol.cpp")
+fileConn <- file("src/dynamic_rcpp_set_matrix.cpp")
 writeLines(rcpp_code, fileConn)
 close(fileConn)
 
+
+
+################################################################################
+
+# setapply ====
+
+rtypes <- c("Logical", "Integer", "Numeric", "Character", "Complex", "Raw")
+
+templatecode <- "
+
+//' @keywords internal
+//' @noRd
+// [[Rcpp::export(.rcpp_setapply_row_RTYPE)]]
+void rcpp_setapply_col_RTYPE(RTYPEMatrix x, Function f) {
+  int nvec = x.nrow();
+  int lenvec = x.ncol();
+  RTYPEVector subset1(lenvec);
+  for(int j = 0; j < nvec; ++j) {
+    RTYPEMatrix::Row row = x(j, _);
+    subset1 = f(x(j, _));
+    row = subset1;
+  }
+}
+
+
+//' @keywords internal
+//' @noRd
+// [[Rcpp::export(.rcpp_setapply_col_RTYPE)]]
+void rcpp_setapply_row_RTYPE(RTYPEMatrix x, Function f) {
+  int nvec = x.ncol();
+  int lenvec = x.nrow();
+  RTYPEVector subset1(lenvec);
+  for(int j = 0; j < nvec; ++j) {
+    RTYPEMatrix::Column col = x(_, j);
+    subset1 = f(x(_, j));
+    col = subset1;
+  }
+}
+"
+
+rcpp_scripts <- character(length(rtypes))
+
+for(i in seq_along(rtypes)) {
+  rcpp_scripts[i] <- stri_replace_all(
+    templatecode,
+    fixed = "RTYPE",
+    replacement = rtypes[i],
+    case_insensitive = FALSE,
+    vectorize_all = FALSE
+  )
+}
+
+
+headers <- "
+
+#include <Rcpp.h>
+
+using namespace Rcpp;
+
+
+"
+rcpp_code <- paste(c(headers, rcpp_scripts), collapse = "\n\n\n")
+cat(rcpp_code)
+
+
+Rcpp::sourceCpp(
+  code = rcpp_code # no errors, good
+)
+
+
+fileConn <- file("src/dynamic_rcpp_setapply.cpp")
+writeLines(rcpp_code, fileConn)
+close(fileConn)
+
+
+################################################################################
+# sub2ind dims ====
+
+DTYPES <- 2:5
+all_args <- c(
+  "IntegerVector ind1",
+  "IntegerVector ind2",
+  "IntegerVector ind3",
+  "IntegerVector ind4",
+  "IntegerVector ind5"
+)
+setlengths <- c("int ni = ind1.length();",
+                "int nj = ind2.length();",
+                "int nk = ind3.length();",
+                "int nl = ind4.length();",
+                "int nm = ind5.length();")
+all_lengths <- c("ni", "nj",  "nk", "nl", "nm")
+all_for <- rev(c(
+  "for(int m = 0; m < nm; ++m) {",
+  "for(int l = 0; l < nl; ++l) {",
+  "for(int k = 0; k < nk; ++k) {",
+  "for(int j = 0; j < nj; ++j) {",
+  "for(int i = 0; i < ni; ++i) {"
+))
+
+all_parts <- c(
+  "ind1[i]",
+  "dimcumprod[0]  * (ind2[j] - 1)",
+  "dimcumprod[1] * (ind3[k] - 1)",
+  "dimcumprod[2] * (ind4[l] - 1)",
+  "dimcumprod[3] * (ind5[m] - 1)"
+)
+
+templatecode <- "
+
+//' @keywords internal
+//' @noRd
+// [[Rcpp::export(.rcpp_sub2ind_DTYPEd)]]
+IntegerVector rcpp_sub2ind_DTYPEd(
+  <args>, IntegerVector dimcumprod
+) {
+  <setlength1>
+  <setlength2>
+  <setlength3>
+  <setlength4>
+  <setlength5>
+  R_xlen_t counter = 0;
+  IntegerVector flatind(<setlength_mult>);
+  <for5>
+    <for4>
+      <for3>
+        <for2>
+          <for1>
+            flatind[counter] = <main>;
+            counter++;
+          <end1>
+        <end2>
+      <end3>
+    <end4>
+  <end5>
+  
+  
+  return flatind;
+  
+}
+
+
+"
+
+rcpp_scripts <- character(length(DTYPES))
+names(rcpp_scripts) <- DTYPES
+for(i in seq_along(DTYPES)) {
+  
+  current_args <- stri_c(all_args[1:i], collapse = ", ")
+  current_setlength_mult <- stri_c(all_lengths[1:i], collapse = " * ")
+  current_main <- stri_c(all_parts[1:i], collapse = " + ")
+  
+  current_fixed <- c(
+    "DTYPE",
+    "<args>",
+    paste0("<setlength", 1:5, ">"),
+    "<setlength_mult>",
+    paste0("<for", 1:5, ">"),
+    "<main>",
+    paste0("<end", 1:5, ">")
+  )
+  current_replacement <- c(
+    i,
+    current_args,
+    c(setlengths[1:i],rep("", 5-i)),
+    current_setlength_mult,
+    c(all_for[1:i], rep("", 5-i)),
+    current_main,
+    c(rep("}", i), rep("", 5-i))
+  )
+  
+  out <- stri_replace_all(
+    templatecode,
+    fixed = current_fixed,
+    replacement = current_replacement,
+    case_insensitive = FALSE,
+    vectorize_all = FALSE
+  )
+  
+  rcpp_scripts[[i]] <- out
+}
+
+
+headers <- "
+
+#include <Rcpp.h>
+
+using namespace Rcpp;
+
+
+"
+
+rcpp_code <- paste(c(headers, rcpp_scripts), collapse = "\n\n\n")
+cat(rcpp_code)
+
+Rcpp::sourceCpp(
+  code = rcpp_code # no errors, good
+)
+
+fileConn <- file("src/dynamic_rcpp_set_3d.cpp")
+writeLines(rcpp_code, fileConn)
+close(fileConn)
 
 ################################################################################
 
@@ -265,80 +541,6 @@ fileConn <- file("src/dynamic_rcpp_set_3d.cpp")
 writeLines(rcpp_code, fileConn)
 close(fileConn)
 
-
-
-
-################################################################################
-
-# setapply ====
-
-rtypes <- c("Logical", "Integer", "Numeric", "Character", "Complex", "Raw")
-
-templatecode <- "
-
-//' @keywords internal
-//' @noRd
-// [[Rcpp::export(.rcpp_setapply_row_RTYPE)]]
-void rcpp_setapply_col_RTYPE(RTYPEMatrix x, Function f) {
-  int nvec = x.nrow();
-  int lenvec = x.ncol();
-  RTYPEVector subset1(lenvec);
-  for(int j = 0; j < nvec; ++j) {
-    RTYPEMatrix::Row row = x(j, _);
-    subset1 = f(x(j, _));
-    row = subset1;
-  }
-}
-
-
-//' @keywords internal
-//' @noRd
-// [[Rcpp::export(.rcpp_setapply_col_RTYPE)]]
-void rcpp_setapply_row_RTYPE(RTYPEMatrix x, Function f) {
-  int nvec = x.ncol();
-  int lenvec = x.nrow();
-  RTYPEVector subset1(lenvec);
-  for(int j = 0; j < nvec; ++j) {
-    RTYPEMatrix::Column col = x(_, j);
-    subset1 = f(x(_, j));
-    col = subset1;
-  }
-}
-"
-
-rcpp_scripts <- character(length(rtypes))
-
-for(i in seq_along(rtypes)) {
-  rcpp_scripts[i] <- stri_replace_all(
-    templatecode,
-    fixed = "RTYPE",
-    replacement = rtypes[i],
-    case_insensitive = FALSE,
-    vectorize_all = FALSE
-  )
-}
-
-
-headers <- "
-
-#include <Rcpp.h>
-
-using namespace Rcpp;
-
-
-"
-rcpp_code <- paste(c(headers, rcpp_scripts), collapse = "\n\n\n")
-cat(rcpp_code)
-
-
-Rcpp::sourceCpp(
-  code = rcpp_code # no errors, good
-)
-
-
-fileConn <- file("src/dynamic_rcpp_setapply.cpp")
-writeLines(rcpp_code, fileConn)
-close(fileConn)
 
 
 

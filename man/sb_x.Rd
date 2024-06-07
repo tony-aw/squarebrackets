@@ -69,8 +69,7 @@ sb2_x(x, ...)
 Duplicates are allowed, resulting in duplicated indices. \cr
 An empty index selection results in an empty object of length 0. \cr}
 
-\item{rat}{Boolean, indicating if attributes should be returned with the sub-setted object.
-See Details section for more info. \cr
+\item{rat}{see \link{squarebrackets_options}. \cr
 \ifelse{html}{\figure{for_performance-set_to_FALSE-red.svg}{options: alt='[for performance: set to FALSE]'}}{\link[=squarebrackets_help]{for performance: set to FALSE}} \cr}
 
 \item{drop}{Boolean.
@@ -91,26 +90,6 @@ This is an S3 Method to extract, exchange,
 or duplicate (i.e. repeat x times) subsets of an object. \cr
 Use \code{sb_x(x, ...)} if \code{x} is a non-recursive object (i.e. atomic or factor). \cr
 Use \code{sb2_x(x, ...)} if \code{x} is a recursive object (i.e. list or data.frame-like). \cr \cr
-}
-\details{
-\bold{One the \code{rat} argument} \cr
-Most \code{[} - methods strip most (but not all) attributes. \cr
-If \code{rat = FALSE}, this default behaviour is preserved,
-for compatibility with special classes. This is the fastest option. \cr
-If \code{rat = TRUE},
-attributes from \code{x} missing after sub-setting are re-assigned to \code{x}.
-Already existing attributes after sub-setting will not be overwritten. \cr
-There is no \code{rat} argument for data.frame-like object:
-their attributes will always be preserved. \cr
-NOTE: In the following situations, the \code{rat} argument will be ignored,
-as the attributes necessarily have to be dropped:
-\itemize{
-\item when \code{x} is a list, AND \code{drop = TRUE},
-AND a single element is selected,
-AND sub-setting is done through the \code{i} argument.
-\item when \code{x} is an atomic matrix or array,
-and sub-setting is done through the \code{i} argument. \cr \cr
-}
 }
 \examples{
 

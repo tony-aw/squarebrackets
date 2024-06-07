@@ -3,7 +3,7 @@
 \name{aaa2_squarebrackets_mutable_classes}
 \alias{aaa2_squarebrackets_mutable_classes}
 \alias{squarebrackets_mutable_classes}
-\title{Supported Mutable S3 classes, With Auto-Coercion Rules}
+\title{Supported Mutable S3 Classes, With Auto-Coercion Rules}
 \description{
 The \code{sb_} generic methods support the following Mutable S3 classes: \cr
 \itemize{
@@ -35,8 +35,6 @@ modify subsets of an object \bold{by reference}. \cr
 These 2 copy semantics - "pass by reference" or "modify copy" -
 have slightly different auto-coercion rules. \cr
 These are explained in this section. \cr
-Note that the \link{sb_before} and \link{sb_after} methods
-usually allow coercion for all classes.
 \cr
 \cr
 \bold{mutable_atomic} \cr

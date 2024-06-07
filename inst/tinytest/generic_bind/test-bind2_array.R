@@ -8,7 +8,7 @@ temp.fun <- function(x, ...) {
 }
 enumerate <- 0
 
-.abind.recursive <- squarebrackets:::.abind.recursive
+
 
 for(margin in 1:3) {
   
@@ -26,13 +26,14 @@ for(margin in 1:3) {
   dimnames(newa) <- dimnames2
   dimnames(newl) <- dimnames2
   
-  out <- .abind.recursive(list(yl, newl, yl), margin)
+  out <- bind2_array(list(yl, newl, yl), margin)
   pre_expected <- abind::abind(ya, newa, ya, along = margin)
   expected <- array(
     as.list(pre_expected),
     dim = dim(pre_expected),
     dimnames = dimnames(pre_expected)
   )
+  dimnames(expected)[-margin] <- list(NULL)
   expect_equal(
     out, expected
   ) |> errorfun()
@@ -45,6 +46,10 @@ for(margin in 1:3) {
 x <- array(1:1e4, dim = c(100,50, 10))
 y <- array(-1e4:-1, dim =c(100,10, 10))
 expect_error(
-  .abind.recursive(list(x,y)),
+  bind2_array(list(x,y), along = 1),
+  pattern = "non-conformable dimensions"
+)
+expect_error(
+  bind2_array(list(x,y), along = 3),
   pattern = "non-conformable dimensions"
 )

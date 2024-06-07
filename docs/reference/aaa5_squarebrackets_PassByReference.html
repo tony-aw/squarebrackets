@@ -78,8 +78,7 @@ use pass-by-reference semantics. <br><br></p>
     
 
 <p>The main advantage of pass-by-reference is that much less memory is required to modify objects. <br>
-But at least 2 things should be taken into consideration
-when modifying an object by reference. <br><br>
+But it does have several disadvantages. <br>
 First, the coercion rules are slightly different: see <a href="aaa2_squarebrackets_mutable_classes.html">squarebrackets_mutable_classes</a>. <br><br>
 Second, if 2 or more variables refer to exactly the same object,
 changing one variable also changes the other ones. <br>
@@ -218,7 +217,8 @@ the user should never actively try to modify
 a <b>locked</b> or <b>protected</b> object by reference,
 as that would defeat the purpose of locking an object. <br><br>
 Some packages provide functions that change class-related attributes of objects by reference. <br>
-Using such functions is discouraged, unless you know exactly what you're doing. <br><br></p>
+Using such functions is discouraged,
+unless you know exactly what you're doing. <br><br></p>
     </div>
 
     <div class="section level2">

@@ -114,7 +114,23 @@
   sprintf("\\ifelse{html}{%s}{%s}", html, text)
 }
 
-
+#' @keywords internal
+#' @noRd
+.mybadge_option <- function(type, x) {
+  extra.txt <- ""
+  extra.file <- ""
+  if(type == "option") {
+    extra.txt <- "squarebrackets."
+    extra.file <- "squarebrackets_dot_"
+  }
+  txt <- paste0(type, ": ", extra.txt, x)
+  file <- paste0(type, "-", extra.file, x, "-blue.svg")
+  text <- sprintf("\\link[=squarebrackets_options]{%s}", txt)
+  html <- sprintf(
+    "\\figure{%s}{options: alt='[%s]'}",
+    file, txt)
+  sprintf("\\ifelse{html}{%s}{%s}", html, text)
+}
 
 
 #' @keywords internal

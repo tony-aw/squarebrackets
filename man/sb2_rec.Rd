@@ -2,43 +2,85 @@
 % Please edit documentation in R/generic_rec.R
 \name{sb2_rec}
 \alias{sb2_rec}
-\title{Access Recursive Subsets}
+\alias{sb2_reccom}
+\title{Access, Replace, Transform, Remove, and Extend Recursive Subsets}
 \usage{
-sb2_rec(lst, rec, rp, tf)
+sb2_rec(x, rec)
+
+sb2_reccom(x, rec, rp, tf)
 }
 \arguments{
-\item{lst}{a list, or list-like object.}
+\item{x}{a list, or list-like object.}
 
-\item{rec}{a vector of length \code{p},
-such that \code{lst[[rec]]} is equivalent to \verb{lst[[ rec[1] ]]...[[ rec[p] ]]},
+\item{rec}{an integer (including negative integers) or character vector of length \code{p},
+such that \code{x[[rec]]} is equivalent to \verb{x[[ rec[1] ]]...[[ rec[p] ]]},
 providing all but the final indexing results in a list. \cr
 When on a certain subset level of a nested list,
 multiple subsets with the same name exist,
 only the first one will be selected when performing recursive indexing by name,
 due to the recursive nature of this type of subsetting.}
 
-\item{rp}{optional. If specified, performs \code{lst[[rec]] <- rp},
-using R's default in-place semantics. \cr
+\item{rp}{optional, and allows for multiple functionalities:
+\itemize{
+\item In the simplest case, performs \code{x[[rec]] <- rp},
+using R's default semantics. \cr
 Since this is a replacement of a recursive subset,
 \code{rp} does not necessarily have to be a list itself; \cr
-\code{rp} can be any type of object. \cr}
+\code{rp} can be any type of object.
+\item When specifying \code{rp = NULL}, will \bold{remove} (recursive) subset \code{x[[rec]]}. \cr
+To specify actual \code{NULL} instead of removing a subset, use \code{list(NULL)}.
+\item When \code{rec} is an integer, and specifies an out-of-bounds subset,
+\code{sb2_reccom()} will add value \code{rp} to the list. \cr
+Any empty positions in between will be filled with \code{NA}.
+\item When \code{rec} is character, and specifies a non-existing name,
+\code{sb2_reccom()} will add value \code{rp} to the list as a new element at the end.
+}}
 
-\item{tf}{an optional function. If specified, performs \code{lst[[rec]] <- tf(lst[[rec]])},
-using R's default copy-on-modify in-place semantics. \cr \cr}
+\item{tf}{an optional function. If specified, performs \code{x[[rec]] <- tf(x[[rec]])},
+using R's default Copy-On-Modify semantics. \cr
+Does not support extending a list like argument \code{rp}.}
 }
 \value{
-If \code{rp} and \code{tf} are not specified: Returns the recursive subset. \cr
+For \code{sb2_rec()}: \cr
+Returns the recursive subset. \cr
 \cr
-If \code{rp} or \code{tf} is specified: Returns VOID,
-but replaces or transforms the recursive subset,
-using R's default copy-on-modify in-place semantics. \cr \cr
+For \code{sb2_reccom(..., rp = rp)}: \cr
+Returns VOID,
+but replaces, adds, or removes the specified recursive subset,
+using R's default Copy-On-Modify semantics. \cr
+\cr
+For \code{sb2_reccom(..., tf = tf)}: \cr
+Returns VOID,
+but transforms the specified recursive subset,
+using R's default Copy-On-Modify semantics. \cr \cr
 }
 \description{
-The \code{sb2_rec()} method allows the user to access recursive subsets of lists. \cr
+The \code{sb2_rec()} and \code{sb2_reccom()} methods
+are essentially convenient wrappers around \code{[[} and \verb{[[<-},
+respectively. \cr
 \cr
-The \code{sb2_rec()} method also allows replacing or transforming a recursive subset of a list,
-using R's default copy-on-modify in-place semantics,
-by specifying the \code{rp} or \code{tf} argument, respectively. \cr \cr
+\code{sb2_rec()} will access recursive subsets of lists. \cr
+\cr
+\code{sb2_reccom()} can do the following things: \cr
+\itemize{
+\item replace or transform recursive subsets of a list,
+using R's default Copy-On-Modify semantics,
+by specifying the \code{rp} or \code{tf} argument, respectively.
+\item remove a recursive subset of a list,
+using R's default Copy-On-Modify semantics,
+by specifying argument \code{rp = NULL}.
+\item extending a list with additional recursive elements,
+using R's default Copy-On-Modify semantics. \cr
+This is done by specifying an out-of-bounds index in argument \code{rec},
+and entering the new values in argument \code{rp}. \cr
+Note that adding surface level elements of a dimensional list
+will remove the dimension attributes of that list. \cr \cr
+}
+}
+\details{
+Since recursive objects are pointers to objects,
+extending a list or removing an element of a list does not copy the entire list,
+in contrast to atomic vectors. \cr \cr
 }
 \examples{
 
@@ -70,7 +112,7 @@ sb2_rec(lst, c("B", "B", "A")) # this gives "BBA"
 # replace recursive subset with R's default in-place semantics ====
 
 # replace "AAB" using R's default in-place semantics:
-sb2_rec(
+sb2_reccom(
   lst, c("A", "A", "B"),
   rp = "THIS IS REPLACED WITH IN-PLACE SEMANTICS"
 )
@@ -82,7 +124,7 @@ print(lst)
 
 # replace shallow subsets with R's default in-place semantics ====
 
-for(i in c("A", "B")) sb2_rec(lst, i, rp = "AND THEN THERE WERE NONE")
+for(i in c("A", "B")) sb2_reccom(lst, i, rp = "AND THEN THERE WERE NONE")
 
 print(lst)
 

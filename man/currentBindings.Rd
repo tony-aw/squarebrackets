@@ -18,7 +18,7 @@ Must be one of the following:
 }}
 
 \item{env}{the environment where to look for objects. \cr
-If \code{NULL} (default), the caller environment is used.}
+If \code{NULL} (default), the caller environment is used. \cr \cr}
 }
 \value{
 For \code{currentBindings(x, action = "list")}: \cr

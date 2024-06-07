@@ -634,6 +634,13 @@ knowledge.</li>
 operators, only the first occurrence of the names are selected in case
 of duplicate names. The ‘squarebrackets’ methods always perform on all
 names in case of duplicates, not just the first.</li>
+<li>The <code>[[</code> and <code>[[&lt;-</code> operators allow
+operating on a recursive subset of a nested list. But these only operate
+on a single recursive subset, and are not vectorized for multiple
+recursive subsets of a nested list at once. ‘squarebrackets’ provides a
+way to reshape a nested list into a 2D recursive array of lists, thereby
+allowing vectorized operations on recursive subsets of such a nested
+list.</li>
 <li>The <code>[&lt;-</code> operator only supports copy-on-modify
 semantics for most classes. The ‘squarebrackets’ methods provides
 explicit pass-by-reference and pass-by-value semantics, whilst still
@@ -714,6 +721,10 @@ also.</li>
 Namespace file. Adjusted the documentation.</li>
 <li>26 May 2024: Removed <code>sb2_coe()</code>, as it is
 redundant.</li>
+<li>6 June 2024: Removed the <code>sb(2)_before/after</code> methods in
+favour of the the new <code>bind_</code>/<code>bind2_</code>
+implementations. Added the <code>lst_</code> functions. Added the
+<code>options</code> help page.</li>
 </ul>
 <p> </p>
 

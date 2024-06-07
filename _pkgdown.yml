@@ -18,11 +18,11 @@ url: https://tony-aw.github.io/squarebrackets
 reference:
 - title: Overview Help Pages
   contents:
-  - '`aaa0_squarebrackets`'
+  - '`aaa0_squarebrackets_help`'
   - '`aaa1_squarebrackets_immutable_classes`'
   - '`aaa2_squarebrackets_mutable_classes`'
   - '`aaa3_squarebrackets_indx_args`'
-  - '`aaa4_squarebrackets_duplicates`'
+  - '`aaa4_squarebrackets_options`'
   - '`aaa5_squarebrackets_PassByReference`'
   - '`aaa6_squarebrackets_inconveniences`'
   - '`class_mutable_atomic`'
@@ -32,16 +32,16 @@ reference:
   - '`sb_rm`'
   - '`sb_mod`'
   - '`sb_set`'
-  - '`sb_before`'
-  - '`sb_after`'
   - '`sb2_rec`'
   - '`sb_setRename`'
+  - '`bind`'
   - '`idx`'
 - title: Specialized Functions
   contents:
+  - '`lst`'
+  - '`dt`'
   - '`setapply`'
   - '`ma_setv`'
-  - '`dt`'
   - '`sb_special`'
 - title: Helper Functions
   contents:

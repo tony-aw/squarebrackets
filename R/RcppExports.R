@@ -63,218 +63,182 @@
 
 #' @keywords internal
 #' @noRd
-.rcpp_set_rowcol_Logical <- function(x, rowind, colind, rp) {
-    invisible(.Call(`_squarebrackets_rcpp_set_rowcol_Logical`, x, rowind, colind, rp))
+.rcpp_set_all_Logical <- function(x, rp) {
+    invisible(.Call(`_squarebrackets_rcpp_set_all_Logical`, x, rp))
 }
 
 #' @keywords internal
 #' @noRd
-.rcpp_set_rowcol_Logical1 <- function(x, rowind, colind, rp) {
-    invisible(.Call(`_squarebrackets_rcpp_set_rowcol_Logical1`, x, rowind, colind, rp))
+.rcpp_set_all_Integer <- function(x, rp) {
+    invisible(.Call(`_squarebrackets_rcpp_set_all_Integer`, x, rp))
 }
 
 #' @keywords internal
 #' @noRd
-.rcpp_set_row_Logical <- function(x, rowind, rp) {
-    invisible(.Call(`_squarebrackets_rcpp_set_row_Logical`, x, rowind, rp))
+.rcpp_set_all_Numeric <- function(x, rp) {
+    invisible(.Call(`_squarebrackets_rcpp_set_all_Numeric`, x, rp))
 }
 
 #' @keywords internal
 #' @noRd
-.rcpp_set_row_Logical1 <- function(x, rowind, rp) {
-    invisible(.Call(`_squarebrackets_rcpp_set_row_Logical1`, x, rowind, rp))
+.rcpp_set_all_Character <- function(x, rp) {
+    invisible(.Call(`_squarebrackets_rcpp_set_all_Character`, x, rp))
 }
 
 #' @keywords internal
 #' @noRd
-.rcpp_set_col_Logical <- function(x, colind, rp) {
-    invisible(.Call(`_squarebrackets_rcpp_set_col_Logical`, x, colind, rp))
+.rcpp_set_all_Complex <- function(x, rp) {
+    invisible(.Call(`_squarebrackets_rcpp_set_all_Complex`, x, rp))
 }
 
 #' @keywords internal
 #' @noRd
-.rcpp_set_col_Logical1 <- function(x, colind, rp) {
-    invisible(.Call(`_squarebrackets_rcpp_set_col_Logical1`, x, colind, rp))
+.rcpp_set_all_Raw <- function(x, rp) {
+    invisible(.Call(`_squarebrackets_rcpp_set_all_Raw`, x, rp))
 }
 
 #' @keywords internal
 #' @noRd
-.rcpp_set_rowcol_Integer <- function(x, rowind, colind, rp) {
-    invisible(.Call(`_squarebrackets_rcpp_set_rowcol_Integer`, x, rowind, colind, rp))
+.rcpp_set_matrix_rowcol_Logical <- function(x, rowind, colind, rp) {
+    invisible(.Call(`_squarebrackets_rcpp_set_matrix_rowcol_Logical`, x, rowind, colind, rp))
 }
 
 #' @keywords internal
 #' @noRd
-.rcpp_set_rowcol_Integer1 <- function(x, rowind, colind, rp) {
-    invisible(.Call(`_squarebrackets_rcpp_set_rowcol_Integer1`, x, rowind, colind, rp))
+.rcpp_set_matrix_row_Logical <- function(x, rowind, rp) {
+    invisible(.Call(`_squarebrackets_rcpp_set_matrix_row_Logical`, x, rowind, rp))
 }
 
 #' @keywords internal
 #' @noRd
-.rcpp_set_row_Integer <- function(x, rowind, rp) {
-    invisible(.Call(`_squarebrackets_rcpp_set_row_Integer`, x, rowind, rp))
+.rcpp_set_matrix_col_Logical <- function(x, colind, rp) {
+    invisible(.Call(`_squarebrackets_rcpp_set_matrix_col_Logical`, x, colind, rp))
 }
 
 #' @keywords internal
 #' @noRd
-.rcpp_set_row_Integer1 <- function(x, rowind, rp) {
-    invisible(.Call(`_squarebrackets_rcpp_set_row_Integer1`, x, rowind, rp))
+.rcpp_set_matrix_Logical <- function(x, rowind, colind, rp) {
+    invisible(.Call(`_squarebrackets_rcpp_set_matrix_Logical`, x, rowind, colind, rp))
 }
 
 #' @keywords internal
 #' @noRd
-.rcpp_set_col_Integer <- function(x, colind, rp) {
-    invisible(.Call(`_squarebrackets_rcpp_set_col_Integer`, x, colind, rp))
+.rcpp_set_matrix_rowcol_Integer <- function(x, rowind, colind, rp) {
+    invisible(.Call(`_squarebrackets_rcpp_set_matrix_rowcol_Integer`, x, rowind, colind, rp))
 }
 
 #' @keywords internal
 #' @noRd
-.rcpp_set_col_Integer1 <- function(x, colind, rp) {
-    invisible(.Call(`_squarebrackets_rcpp_set_col_Integer1`, x, colind, rp))
+.rcpp_set_matrix_row_Integer <- function(x, rowind, rp) {
+    invisible(.Call(`_squarebrackets_rcpp_set_matrix_row_Integer`, x, rowind, rp))
 }
 
 #' @keywords internal
 #' @noRd
-.rcpp_set_rowcol_Numeric <- function(x, rowind, colind, rp) {
-    invisible(.Call(`_squarebrackets_rcpp_set_rowcol_Numeric`, x, rowind, colind, rp))
+.rcpp_set_matrix_col_Integer <- function(x, colind, rp) {
+    invisible(.Call(`_squarebrackets_rcpp_set_matrix_col_Integer`, x, colind, rp))
 }
 
 #' @keywords internal
 #' @noRd
-.rcpp_set_rowcol_Numeric1 <- function(x, rowind, colind, rp) {
-    invisible(.Call(`_squarebrackets_rcpp_set_rowcol_Numeric1`, x, rowind, colind, rp))
+.rcpp_set_matrix_Integer <- function(x, rowind, colind, rp) {
+    invisible(.Call(`_squarebrackets_rcpp_set_matrix_Integer`, x, rowind, colind, rp))
 }
 
 #' @keywords internal
 #' @noRd
-.rcpp_set_row_Numeric <- function(x, rowind, rp) {
-    invisible(.Call(`_squarebrackets_rcpp_set_row_Numeric`, x, rowind, rp))
+.rcpp_set_matrix_rowcol_Numeric <- function(x, rowind, colind, rp) {
+    invisible(.Call(`_squarebrackets_rcpp_set_matrix_rowcol_Numeric`, x, rowind, colind, rp))
 }
 
 #' @keywords internal
 #' @noRd
-.rcpp_set_row_Numeric1 <- function(x, rowind, rp) {
-    invisible(.Call(`_squarebrackets_rcpp_set_row_Numeric1`, x, rowind, rp))
+.rcpp_set_matrix_row_Numeric <- function(x, rowind, rp) {
+    invisible(.Call(`_squarebrackets_rcpp_set_matrix_row_Numeric`, x, rowind, rp))
 }
 
 #' @keywords internal
 #' @noRd
-.rcpp_set_col_Numeric <- function(x, colind, rp) {
-    invisible(.Call(`_squarebrackets_rcpp_set_col_Numeric`, x, colind, rp))
+.rcpp_set_matrix_col_Numeric <- function(x, colind, rp) {
+    invisible(.Call(`_squarebrackets_rcpp_set_matrix_col_Numeric`, x, colind, rp))
 }
 
 #' @keywords internal
 #' @noRd
-.rcpp_set_col_Numeric1 <- function(x, colind, rp) {
-    invisible(.Call(`_squarebrackets_rcpp_set_col_Numeric1`, x, colind, rp))
+.rcpp_set_matrix_Numeric <- function(x, rowind, colind, rp) {
+    invisible(.Call(`_squarebrackets_rcpp_set_matrix_Numeric`, x, rowind, colind, rp))
 }
 
 #' @keywords internal
 #' @noRd
-.rcpp_set_rowcol_Character <- function(x, rowind, colind, rp) {
-    invisible(.Call(`_squarebrackets_rcpp_set_rowcol_Character`, x, rowind, colind, rp))
+.rcpp_set_matrix_rowcol_Character <- function(x, rowind, colind, rp) {
+    invisible(.Call(`_squarebrackets_rcpp_set_matrix_rowcol_Character`, x, rowind, colind, rp))
 }
 
 #' @keywords internal
 #' @noRd
-.rcpp_set_rowcol_Character1 <- function(x, rowind, colind, rp) {
-    invisible(.Call(`_squarebrackets_rcpp_set_rowcol_Character1`, x, rowind, colind, rp))
+.rcpp_set_matrix_row_Character <- function(x, rowind, rp) {
+    invisible(.Call(`_squarebrackets_rcpp_set_matrix_row_Character`, x, rowind, rp))
 }
 
 #' @keywords internal
 #' @noRd
-.rcpp_set_row_Character <- function(x, rowind, rp) {
-    invisible(.Call(`_squarebrackets_rcpp_set_row_Character`, x, rowind, rp))
+.rcpp_set_matrix_col_Character <- function(x, colind, rp) {
+    invisible(.Call(`_squarebrackets_rcpp_set_matrix_col_Character`, x, colind, rp))
 }
 
 #' @keywords internal
 #' @noRd
-.rcpp_set_row_Character1 <- function(x, rowind, rp) {
-    invisible(.Call(`_squarebrackets_rcpp_set_row_Character1`, x, rowind, rp))
+.rcpp_set_matrix_Character <- function(x, rowind, colind, rp) {
+    invisible(.Call(`_squarebrackets_rcpp_set_matrix_Character`, x, rowind, colind, rp))
 }
 
 #' @keywords internal
 #' @noRd
-.rcpp_set_col_Character <- function(x, colind, rp) {
-    invisible(.Call(`_squarebrackets_rcpp_set_col_Character`, x, colind, rp))
+.rcpp_set_matrix_rowcol_Complex <- function(x, rowind, colind, rp) {
+    invisible(.Call(`_squarebrackets_rcpp_set_matrix_rowcol_Complex`, x, rowind, colind, rp))
 }
 
 #' @keywords internal
 #' @noRd
-.rcpp_set_col_Character1 <- function(x, colind, rp) {
-    invisible(.Call(`_squarebrackets_rcpp_set_col_Character1`, x, colind, rp))
+.rcpp_set_matrix_row_Complex <- function(x, rowind, rp) {
+    invisible(.Call(`_squarebrackets_rcpp_set_matrix_row_Complex`, x, rowind, rp))
 }
 
 #' @keywords internal
 #' @noRd
-.rcpp_set_rowcol_Complex <- function(x, rowind, colind, rp) {
-    invisible(.Call(`_squarebrackets_rcpp_set_rowcol_Complex`, x, rowind, colind, rp))
+.rcpp_set_matrix_col_Complex <- function(x, colind, rp) {
+    invisible(.Call(`_squarebrackets_rcpp_set_matrix_col_Complex`, x, colind, rp))
 }
 
 #' @keywords internal
 #' @noRd
-.rcpp_set_rowcol_Complex1 <- function(x, rowind, colind, rp) {
-    invisible(.Call(`_squarebrackets_rcpp_set_rowcol_Complex1`, x, rowind, colind, rp))
+.rcpp_set_matrix_Complex <- function(x, rowind, colind, rp) {
+    invisible(.Call(`_squarebrackets_rcpp_set_matrix_Complex`, x, rowind, colind, rp))
 }
 
 #' @keywords internal
 #' @noRd
-.rcpp_set_row_Complex <- function(x, rowind, rp) {
-    invisible(.Call(`_squarebrackets_rcpp_set_row_Complex`, x, rowind, rp))
+.rcpp_set_matrix_rowcol_Raw <- function(x, rowind, colind, rp) {
+    invisible(.Call(`_squarebrackets_rcpp_set_matrix_rowcol_Raw`, x, rowind, colind, rp))
 }
 
 #' @keywords internal
 #' @noRd
-.rcpp_set_row_Complex1 <- function(x, rowind, rp) {
-    invisible(.Call(`_squarebrackets_rcpp_set_row_Complex1`, x, rowind, rp))
+.rcpp_set_matrix_row_Raw <- function(x, rowind, rp) {
+    invisible(.Call(`_squarebrackets_rcpp_set_matrix_row_Raw`, x, rowind, rp))
 }
 
 #' @keywords internal
 #' @noRd
-.rcpp_set_col_Complex <- function(x, colind, rp) {
-    invisible(.Call(`_squarebrackets_rcpp_set_col_Complex`, x, colind, rp))
+.rcpp_set_matrix_col_Raw <- function(x, colind, rp) {
+    invisible(.Call(`_squarebrackets_rcpp_set_matrix_col_Raw`, x, colind, rp))
 }
 
 #' @keywords internal
 #' @noRd
-.rcpp_set_col_Complex1 <- function(x, colind, rp) {
-    invisible(.Call(`_squarebrackets_rcpp_set_col_Complex1`, x, colind, rp))
-}
-
-#' @keywords internal
-#' @noRd
-.rcpp_set_rowcol_Raw <- function(x, rowind, colind, rp) {
-    invisible(.Call(`_squarebrackets_rcpp_set_rowcol_Raw`, x, rowind, colind, rp))
-}
-
-#' @keywords internal
-#' @noRd
-.rcpp_set_rowcol_Raw1 <- function(x, rowind, colind, rp) {
-    invisible(.Call(`_squarebrackets_rcpp_set_rowcol_Raw1`, x, rowind, colind, rp))
-}
-
-#' @keywords internal
-#' @noRd
-.rcpp_set_row_Raw <- function(x, rowind, rp) {
-    invisible(.Call(`_squarebrackets_rcpp_set_row_Raw`, x, rowind, rp))
-}
-
-#' @keywords internal
-#' @noRd
-.rcpp_set_row_Raw1 <- function(x, rowind, rp) {
-    invisible(.Call(`_squarebrackets_rcpp_set_row_Raw1`, x, rowind, rp))
-}
-
-#' @keywords internal
-#' @noRd
-.rcpp_set_col_Raw <- function(x, colind, rp) {
-    invisible(.Call(`_squarebrackets_rcpp_set_col_Raw`, x, colind, rp))
-}
-
-#' @keywords internal
-#' @noRd
-.rcpp_set_col_Raw1 <- function(x, colind, rp) {
-    invisible(.Call(`_squarebrackets_rcpp_set_col_Raw1`, x, colind, rp))
+.rcpp_set_matrix_Raw <- function(x, rowind, colind, rp) {
+    invisible(.Call(`_squarebrackets_rcpp_set_matrix_Raw`, x, rowind, colind, rp))
 }
 
 #' @keywords internal
@@ -423,6 +387,30 @@
 
 #' @keywords internal
 #' @noRd
+.rcpp_abind_all_conform_dims <- function(conform_dim, arg_dim, n, along) {
+    .Call(`_squarebrackets_rcpp_abind_all_conform_dims`, conform_dim, arg_dim, n, along)
+}
+
+#' @keywords internal
+#' @noRd
+.rcpp_abind_get_maxdims <- function(arg_dim) {
+    .Call(`_squarebrackets_rcpp_abind_get_maxdims`, arg_dim)
+}
+
+#' @keywords internal
+#' @noRd
+.rcpp_abind_check_conform_dims <- function(conform_dim, arg_dim, n, along) {
+    .Call(`_squarebrackets_rcpp_abind_check_conform_dims`, conform_dim, arg_dim, n, along)
+}
+
+#' @keywords internal
+#' @noRd
+.rcpp_abind_get_dimnames <- function(x, along) {
+    .Call(`_squarebrackets_rcpp_abind_get_dimnames`, x, along)
+}
+
+#' @keywords internal
+#' @noRd
 .rcpp_address <- function(x) {
     .Call(`_squarebrackets_rcpp_address`, x)
 }
@@ -449,12 +437,6 @@
 #' @noRd
 .rcpp_anybad <- function(indx, value) {
     .Call(`_squarebrackets_rcpp_anybad`, indx, value)
-}
-
-#' @keywords internal
-#' @noRd
-.rcpp_check_conform_dims <- function(conform_dim, arg_dim, n, along) {
-    invisible(.Call(`_squarebrackets_rcpp_check_conform_dims`, conform_dim, arg_dim, n, along))
 }
 
 #' @keywords internal
@@ -490,7 +472,19 @@
 #' @keywords internal
 #' @noRd
 .rcpp_seq_mlen <- function(x) {
-    .Call(`_squarebrackets_rcpp_mlen`, x)
+    .Call(`_squarebrackets_rcpp_seq_mlen`, x)
+}
+
+#' @keywords internal
+#' @noRd
+.rcpp_recycle_seq_mlen <- function(x, y) {
+    .Call(`_squarebrackets_rcpp_recycle_seq_mlen`, x, y)
+}
+
+#' @keywords internal
+#' @noRd
+.rcpp_set_namepointer <- function(nms, ind, rp) {
+    invisible(.Call(`_squarebrackets_rcpp_set_namepointer`, nms, ind, rp))
 }
 
 #' @keywords internal

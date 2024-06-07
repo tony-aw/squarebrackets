@@ -23,7 +23,14 @@ Description: Provides subset methods
     only the first occurrence of the names are selected in case of duplicate names.
     The 'squarebrackets' methods always perform on all names in case of duplicates,
     not just the first.
-    4) The `[<-` operator only supports copy-on-modify semantics for most classes.
+    4) The `[[` and `[[<-` operators
+    allow operating on a recursive subset of a nested list.
+    But these only operate on a single recursive subset,
+    and are not vectorized for multiple recursive subsets of a nested list at once.
+    'squarebrackets' provides a way to reshape a nested list
+    into a 2D recursive array of lists,
+    thereby allowing vectorized operations on recursive subsets of such a nested list.
+    5) The `[<-` operator only supports copy-on-modify semantics for most classes.
     The 'squarebrackets' methods provides explicit pass-by-reference and pass-by-value semantics,
     whilst still respecting things like binding-locks and mutability rules.
 License: MIT + file LICENSE
@@ -43,15 +50,15 @@ Suggests:
     sf,
     future.apply,
     collections,
-    fastmap
+    rrapply,
+    abind
 Depends: 
     R (>= 4.2.0)
 Imports:
     Rcpp (>= 1.0.11),
     collapse (>= 2.0.2),
     data.table (>= 1.14.8),
-    stringi (>= 1.7.12),
-    abind (>= 1.4.5)
+    stringi (>= 1.7.12)
 URL: https://github.com/tony-aw/squarebrackets/, https://tony-aw.github.io/squarebrackets/
 BugReports: https://github.com/tony-aw/squarebrackets/issues/
 Language: en-gb

@@ -94,12 +94,7 @@ sb2_rm(x, ...)
 An empty index selection results in nothing being removed,
 and the entire object is returned. \cr}
 
-\item{rat}{Boolean,
-indicating if attributes should be returned with the sub-setted object. \cr
-See Details section for more info. \cr
-\ifelse{html}{\figure{for_performance-set_to_FALSE-red.svg}{options: alt='[for performance: set to FALSE]'}}{\link[=squarebrackets_help]{for performance: set to FALSE}} \cr}
-
-\item{chkdup}{see \link{squarebrackets_duplicates}. \cr
+\item{rat, chkdup}{see \link{squarebrackets_options}. \cr
 \ifelse{html}{\figure{for_performance-set_to_FALSE-red.svg}{options: alt='[for performance: set to FALSE]'}}{\link[=squarebrackets_help]{for performance: set to FALSE}} \cr}
 
 \item{drop}{Boolean.
@@ -119,26 +114,6 @@ A copy of the sub-setted object.
 This is an S3 Method to un-select/remove subsets from an object. \cr
 Use \code{sb_rm(x, ...)} if \code{x} is a non-recursive object (i.e. atomic or factor). \cr
 Use \code{sb2_rm(x, ...)} if \code{x} is a recursive object (i.e. list or data.frame-like). \cr \cr
-}
-\details{
-\bold{One the \code{rat} argument} \cr
-Most \code{[} - methods strip most (but not all) attributes. \cr
-If \code{rat = FALSE}, this default behaviour is preserved,
-for compatibility with special classes. This is the fastest option. \cr
-If \code{rat = TRUE},
-attributes from \code{x} missing after sub-setting are re-assigned to \code{x}.
-Already existing attributes after sub-setting will not be overwritten. \cr
-There is no \code{rat} argument for data.frame-like object:
-their attributes will always be preserved. \cr
-NOTE: In the following situations, the \code{rat} argument will be ignored,
-as the attributes necessarily have to be dropped:
-\itemize{
-\item when \code{x} is a list, AND \code{drop = TRUE},
-AND a single element is selected,
-AND sub-setting is done through the \code{i} argument.
-\item when \code{x} is an atomic matrix or array,
-and sub-setting is done through the \code{i} argument. \cr \cr
-}
 }
 \examples{
 

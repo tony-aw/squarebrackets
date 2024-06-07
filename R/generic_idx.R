@@ -47,13 +47,12 @@
 #' 
 #' 
 #' @param x vector, matrix, array, or data.frame; both atomic and recursive objects are supported.
-#' @param i,idx,dims,inv See \link{squarebrackets_indx_args}. \cr
+#' @param i,idx,dims,margin,slice,inv See \link{squarebrackets_indx_args}. \cr
 #' Duplicates are not allowed.
-#' @param margin,slice See \link{squarebrackets_indx_args}. \cr
-#' Duplicates are not allowed.
-#' @param chkdup see \link{squarebrackets_duplicates}. \cr
+#' @param chkdup see \link{squarebrackets_options}. \cr
 #' `r .mybadge_performance_set2("FALSE")` \cr
 #' @param ... further arguments passed to or from other methods.
+#'
 #'
 #' @returns
 #' For `idx(x, i = i, ...)` and `idx(x, idx = idx, dims = dims, ...)`: \cr

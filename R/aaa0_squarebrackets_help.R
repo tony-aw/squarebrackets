@@ -87,12 +87,17 @@
 #' @section Methods and Functions:
 #' 
 #' `r .mybadge_intro_section("GENERIC METHODS", "darkgreen")` \cr
-#' The main focus of this package is on its generic methods. \cr
+#' The main focus of this package is on its generic methods
+#' and binding implementations. \cr
 #' \cr
 #' Generic methods for non-recursive objects (atomic, factor, etc.)
 #' start with `sb_`. \cr
 #' Generic methods for recursive objects (list, data.frame, etc.)
 #' start with `sb2_`. \cr
+#' The binding implementations for non-recursive objects (atomic, factor, etc.)
+#' start with `bind_`. \cr
+#' The binding implementations for recursive objects (list, data.frame, etc.)
+#' start with `bind2_`. \cr
 #' There is also the somewhat separate \link{idx} method,
 #' which works on both recursive and non-recursive objects. \cr
 #' \cr
@@ -106,12 +111,13 @@
 #'  * \link{sb_mod}, \link{sb2_mod}: return a \bold{copy}
 #'  of an object with modified
 #'  (transformed or replaced) subsets.
-#'  * \link{sb_before}, \link{sb_after}, \link{sb2_before}, \link{sb2_after}: insert new values before or after an index
-#'  along a dimension of an object.
 #'  * \link{sb2_rec}: access recursive subsets of lists.
+#'  * \link{sb2_reccom}: replace, transform, remove, or add recursive subsets to a list,
+#'  through R's default Copy-On-Modify semantics.
 #'  * \link{sb_setRename}, \link{sb2_setRename}: change the names of
 #'  a \link[=squarebrackets_mutable_classes]{mutable object}
 #'  using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
+#'  * \link[=bind]{bind_}, \link[=bind]{bind2_}:  implementations for binding dimensional objects.
 #'  * \link{idx}: translate given indices/subscripts,
 #'  for the purpose of copy-on-modify substitution. \cr \cr
 #'  
@@ -122,14 +128,16 @@
 #' `r .mybadge_intro_section("SPECIALIZED FUNCTIONS", "darkred")` \cr
 #' Additional specialized sub-setting functions are provided:
 #'  
+#'  * \link{lst_untree}: unnest tree-like nested list,
+#'  to make vectorized sub-setting on recursive subsets of the list easier.
+#'  * The \link[=dt_setcoe]{dt_}-functions
+#'  to programmatically perform `data.table`-specific `[`-operations,
+#'  with the security measures provided by the 'squarebrackets' package.
 #'  * \link{setapply}: apply functions over mutable matrix margins
 #'  using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
 #'  * \link{ma_setv}: Find & Replace values in \link{mutable_atomic} objects
 #'  using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr
 #'  This is considerably faster and more memory efficient than using \link{sb_set} for this.
-#'  * The \link[=dt_setcoe]{dt_}-functions
-#'  to programmatically perform `data.table`-specific `[`-operations,
-#'  with the security measures provided by the 'squarebrackets' package.
 #'  * \link{sb_str}: extract or replace a subset of characters of a single string
 #'  (each single character is treated as a single element).
 #'  * \link{sb_a}: extract multiple attributes from an object. \cr \cr
@@ -140,6 +148,7 @@
 #' (often needed in sub-setting)
 #' are provided:
 #' 
+#'  * \link{lst}: list-related helper functions.
 #'  * \link{currentBindings}: list or lock all currently existing bindings
 #'  that share the share the same address as the input variable.
 #'  * \link{n}: Nested version of \link[base]{c},
@@ -164,8 +173,8 @@
 #' 
 #' @references The badges shown in the documentation of this R-package were made using the services of: \url{https://shields.io/}
 #' 
-#' @name aaa0_squarebrackets
-#' @rdname aaa0_squarebrackets
+#' @name aaa0_squarebrackets_help
+#' @rdname aaa0_squarebrackets_help
 #' @aliases squarebrackets-package
 #' @aliases squarebrackets
 #' @aliases squarebrackets_help
@@ -176,16 +185,12 @@
 #' @exportPattern "^sb_set"
 #' @exportPattern "^sb_mod"
 #' @exportPattern "^sb_coe"
-#' @exportPattern "^sb_before"
-#' @exportPattern "^sb_after"
 #' @exportPattern "^sb_setRename"
 #' @exportPattern "^currentBindings"
 #' @exportPattern "^sb2_x"
 #' @exportPattern "^sb2_rm"
 #' @exportPattern "^sb2_set"
 #' @exportPattern "^sb2_mod"
-#' @exportPattern "^sb2_before"
-#' @exportPattern "^sb2_after"
 #' @exportPattern "^sb2_rec"
 #' @exportPattern "^sb2_setRename"
 #' @exportPattern "^idx"

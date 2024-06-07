@@ -1,35 +1,74 @@
-#' Access Recursive Subsets
+#' Access, Replace, Transform, Remove, and Extend Recursive Subsets
 #'
 #' @description
-#' The `sb2_rec()` method allows the user to access recursive subsets of lists. \cr
+#' The `sb2_rec()` and `sb2_reccom()` methods
+#' are essentially convenient wrappers around `[[` and `[[<-`,
+#' respectively. \cr
 #' \cr
-#' The `sb2_rec()` method also allows replacing or transforming a recursive subset of a list,
-#' using R's default copy-on-modify in-place semantics,
-#' by specifying the `rp` or `tf` argument, respectively. \cr \cr
+#' `sb2_rec()` will access recursive subsets of lists. \cr
+#' \cr
+#' `sb2_reccom()` can do the following things: \cr
 #' 
-#' @param lst a list, or list-like object.
-#' @param rec a vector of length `p`,
-#' such that `lst[[rec]]` is equivalent to `lst[[ rec[1] ]]...[[ rec[p] ]]`,
+#'  - replace or transform recursive subsets of a list,
+#'  using R's default Copy-On-Modify semantics,
+#'  by specifying the `rp` or `tf` argument, respectively.
+#'  - remove a recursive subset of a list,
+#'  using R's default Copy-On-Modify semantics,
+#'  by specifying argument `rp = NULL`.
+#'  - extending a list with additional recursive elements,
+#'  using R's default Copy-On-Modify semantics. \cr
+#'  This is done by specifying an out-of-bounds index in argument `rec`,
+#'  and entering the new values in argument `rp`. \cr
+#'  Note that adding surface level elements of a dimensional list
+#'  will remove the dimension attributes of that list. \cr \cr
+#' 
+#' 
+#' 
+#' @param x a list, or list-like object.
+#' @param rec an integer (including negative integers) or character vector of length `p`,
+#' such that `x[[rec]]` is equivalent to `x[[ rec[1] ]]...[[ rec[p] ]]`,
 #' providing all but the final indexing results in a list. \cr
 #' When on a certain subset level of a nested list,
 #' multiple subsets with the same name exist,
 #' only the first one will be selected when performing recursive indexing by name,
 #' due to the recursive nature of this type of subsetting.
-#' @param rp optional. If specified, performs `lst[[rec]] <- rp`,
-#' using R's default in-place semantics. \cr
+#' @param rp optional, and allows for multiple functionalities:
+#'  - In the simplest case, performs `x[[rec]] <- rp`,
+#' using R's default semantics. \cr
 #' Since this is a replacement of a recursive subset,
 #' `rp` does not necessarily have to be a list itself; \cr
-#' `rp` can be any type of object. \cr
-#' @param tf an optional function. If specified, performs `lst[[rec]] <- tf(lst[[rec]])`,
-#' using R's default copy-on-modify in-place semantics. \cr \cr
+#' `rp` can be any type of object.
+#' - When specifying `rp = NULL`, will \bold{remove} (recursive) subset `x[[rec]]`. \cr
+#' To specify actual `NULL` instead of removing a subset, use `list(NULL)`.
+#' - When `rec` is an integer, and specifies an out-of-bounds subset,
+#' `sb2_reccom()` will add value `rp` to the list. \cr
+#' Any empty positions in between will be filled with `NA`.
+#' - When `rec` is character, and specifies a non-existing name,
+#' `sb2_reccom()` will add value `rp` to the list as a new element at the end.
+#' @param tf an optional function. If specified, performs `x[[rec]] <- tf(x[[rec]])`,
+#' using R's default Copy-On-Modify semantics. \cr
+#' Does not support extending a list like argument `rp`.
+#' 
+#' 
+#' @details
+#' Since recursive objects are pointers to objects,
+#' extending a list or removing an element of a list does not copy the entire list,
+#' in contrast to atomic vectors. \cr \cr
 #' 
 #'
 #' @returns
-#' If `rp` and `tf` are not specified: Returns the recursive subset. \cr
+#' For `sb2_rec()`: \cr
+#' Returns the recursive subset. \cr
 #' \cr
-#' If `rp` or `tf` is specified: Returns VOID,
-#' but replaces or transforms the recursive subset,
-#' using R's default copy-on-modify in-place semantics. \cr \cr
+#' For `sb2_reccom(..., rp = rp)`: \cr
+#' Returns VOID,
+#' but replaces, adds, or removes the specified recursive subset,
+#' using R's default Copy-On-Modify semantics. \cr
+#' \cr
+#' For `sb2_reccom(..., tf = tf)`: \cr
+#' Returns VOID,
+#' but transforms the specified recursive subset,
+#' using R's default Copy-On-Modify semantics. \cr \cr
 #' 
 #'
 #'
@@ -44,27 +83,41 @@ NULL
 
 #' @rdname sb2_rec
 #' @export
-sb2_rec <- function(lst, rec, rp, tf) {
+sb2_rec <- function(x, rec) {
   
-  if(!is.list(lst)) {
-    stop("`lst` must be a list")
+  if(!is.list(x)) {
+    stop("`x` must be a list")
   }
-  if(!missing(rp) && !missing(tf)) stop("cannot specify both `rp` and `tf`")
-  
-  
-  if(missing(rp) && missing(tf)) {
-    return(lst[[rec]])
-  }
-  if(!missing(rp)) {
-    eval.parent(substitute(lst[[rec]] <- rp))
-  }
-  if(!missing(tf)) {
-    eval.parent(substitute(lst[[rec]] <- tf(lst[[rec]])))
+  if(!is.numeric(rec) && !is.character(rec)) {
+    stop("`rec` must be an integer vector or a character vector")
   }
   
-  return(invisible(NULL))
-  
+  return(x[[rec]])
 }
 
 
-
+#' @rdname sb2_rec
+#' @export
+sb2_reccom <- function(x, rec, rp, tf) {
+  
+  # error handling:
+  if(!is.list(x)) {
+    stop("`x` must be a list")
+  }
+  if(!is.numeric(rec) && !is.character(rec)) {
+    stop("`rec` must be an integer vector or a character vector")
+  }
+  if(!missing(rp) && !missing(tf)) stop("cannot specify both `rp` and `tf`")
+  
+  # function:
+  if(!missing(rp)) {
+    eval.parent(substitute(x[[rec]] <- rp))
+  }
+  if(!missing(tf)) {
+    eval.parent(substitute(x[[rec]] <- tf(x[[rec]])))
+  }
+  
+  # end:
+  return(invisible(NULL))
+  
+}

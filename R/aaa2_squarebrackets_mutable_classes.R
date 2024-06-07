@@ -1,4 +1,4 @@
-#' Supported Mutable S3 classes, With Auto-Coercion Rules
+#' Supported Mutable S3 Classes, With Auto-Coercion Rules
 #'
 #' @description
 #' The `sb_` generic methods support the following Mutable S3 classes: \cr
@@ -32,8 +32,6 @@
 #' These 2 copy semantics - "pass by reference" or "modify copy" - 
 #' have slightly different auto-coercion rules. \cr
 #' These are explained in this section. \cr
-#' Note that the \link{sb_before} and \link{sb_after} methods
-#' usually allow coercion for all classes.
 #' \cr
 #' \cr
 #' \bold{mutable_atomic} \cr

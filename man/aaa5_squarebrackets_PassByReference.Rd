@@ -16,9 +16,7 @@ use pass-by-reference semantics. \cr \cr
 \section{Advantages and Disadvantages}{
 
 The main advantage of pass-by-reference is that much less memory is required to modify objects. \cr
-But at least 2 things should be taken into consideration
-when modifying an object by reference. \cr
-\cr
+But it does have several disadvantages. \cr
 First, the coercion rules are slightly different: see \link{squarebrackets_mutable_classes}. \cr
 \cr
 Second, if 2 or more variables refer to exactly the same object,
@@ -41,7 +39,8 @@ sb_set(x, i = 1:6, rp = 8)
 }\if{html}{\out{</div>}}
 
 modifies both \code{x} and \code{y} without error,
-even though \code{y} is a locked constant. \cr \cr
+even though \code{y} is a locked constant. \cr
+\cr
 }
 
 \section{Mutable vs Immutable types}{
@@ -179,7 +178,8 @@ a \bold{locked} or \bold{protected} object by reference,
 as that would defeat the purpose of locking an object. \cr
 \cr
 Some packages provide functions that change class-related attributes of objects by reference. \cr
-Using such functions is discouraged, unless you know exactly what you're doing. \cr \cr
+Using such functions is discouraged,
+unless you know exactly what you're doing. \cr \cr
 }
 
 \examples{

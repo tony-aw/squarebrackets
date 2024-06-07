@@ -4,15 +4,6 @@
     <loc>https://tony-aw.github.io/squarebrackets/404.html</loc>
   </url>
   <url>
-    <loc>https://tony-aw.github.io/squarebrackets/articles/articles/a_benchmarks_x.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/articles/articles/b_benchmarks_tf.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/articles/articles/Extra_Examples.html</loc>
-  </url>
-  <url>
     <loc>https://tony-aw.github.io/squarebrackets/articles/a_benchmarks_x.html</loc>
   </url>
   <url>
@@ -37,7 +28,7 @@
     <loc>https://tony-aw.github.io/squarebrackets/LICENSE.html</loc>
   </url>
   <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/aaa0_squarebrackets.html</loc>
+    <loc>https://tony-aw.github.io/squarebrackets/reference/aaa0_squarebrackets_help.html</loc>
   </url>
   <url>
     <loc>https://tony-aw.github.io/squarebrackets/reference/aaa1_squarebrackets_immutable_classes.html</loc>
@@ -49,13 +40,16 @@
     <loc>https://tony-aw.github.io/squarebrackets/reference/aaa3_squarebrackets_indx_args.html</loc>
   </url>
   <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/aaa4_squarebrackets_duplicates.html</loc>
+    <loc>https://tony-aw.github.io/squarebrackets/reference/aaa4_squarebrackets_options.html</loc>
   </url>
   <url>
     <loc>https://tony-aw.github.io/squarebrackets/reference/aaa5_squarebrackets_PassByReference.html</loc>
   </url>
   <url>
     <loc>https://tony-aw.github.io/squarebrackets/reference/aaa6_squarebrackets_inconveniences.html</loc>
+  </url>
+  <url>
+    <loc>https://tony-aw.github.io/squarebrackets/reference/bind.html</loc>
   </url>
   <url>
     <loc>https://tony-aw.github.io/squarebrackets/reference/class_mutable_atomic.html</loc>
@@ -82,6 +76,9 @@
     <loc>https://tony-aw.github.io/squarebrackets/reference/index.html</loc>
   </url>
   <url>
+    <loc>https://tony-aw.github.io/squarebrackets/reference/lst.html</loc>
+  </url>
+  <url>
     <loc>https://tony-aw.github.io/squarebrackets/reference/match_all.html</loc>
   </url>
   <url>
@@ -94,13 +91,7 @@
     <loc>https://tony-aw.github.io/squarebrackets/reference/reexports.html</loc>
   </url>
   <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/sb2_coe.html</loc>
-  </url>
-  <url>
     <loc>https://tony-aw.github.io/squarebrackets/reference/sb2_rec.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/sb_in.html</loc>
   </url>
   <url>
     <loc>https://tony-aw.github.io/squarebrackets/reference/sb_mod.html</loc>

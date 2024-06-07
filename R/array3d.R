@@ -139,6 +139,11 @@
 #' @noRd
 .sb3d_set <- function(x, row, col, lyr, inv, rp, tf, chkdup, abortcall) {
   
+  if(is.null(row) && is.null(col) && is.null(lyr)) {
+    .rcpp_set_all(x, rp, tf, abortcall = sys.call())
+    return(invisible(NULL))
+  }
+  
   if(!is.null(row)) {
     row <- .indx_make_dim(row, x,  1, chkdup = chkdup, inv = inv, abortcall = abortcall)
   }
@@ -148,7 +153,6 @@
   if(!is.null(lyr)) {
     lyr <- .indx_make_dim(lyr, x,  3, chkdup = chkdup, inv = inv, abortcall = abortcall)
   }
-  
   if(.any_empty_indices(row, col, lyr)) {
     return(invisible(NULL))
   }

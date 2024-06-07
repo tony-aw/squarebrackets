@@ -62,7 +62,7 @@
 #' 
 #' Thus, the orientation of flat indices in, for example, a 4 by 4 matrix, is as follows:
 #' 
-#' ```{r echo = FALSE, comment=NA}
+#' ```{r echo = FALSE, eval = TRUE, comment = NA}
 #' matrix(1:16, ncol = 4)
 #' ```
 #' The subscript `[1,2]` refers to the first row and the second column.

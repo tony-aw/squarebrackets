@@ -36,7 +36,13 @@ the following:
     first occurrence of the names are selected in case of duplicate
     names. The ‘squarebrackets’ methods always perform on all names in
     case of duplicates, not just the first.
-4)  The `[<-` operator only supports copy-on-modify semantics for most
+4)  The `[[` and `[[<-` operators allow operating on a recursive subset
+    of a nested list. But these only operate on a single recursive
+    subset, and are not vectorized for multiple recursive subsets of a
+    nested list at once. ‘squarebrackets’ provides a way to reshape a
+    nested list into a 2D recursive array of lists, thereby allowing
+    vectorized operations on recursive subsets of such a nested list.
+5)  The `[<-` operator only supports copy-on-modify semantics for most
     classes. The ‘squarebrackets’ methods provides explicit
     pass-by-reference and pass-by-value semantics, whilst still
     respecting things like binding-locks and mutability rules.
@@ -121,5 +127,8 @@ tinycodet::import_LL("squarebrackets", selection = ... )
   more). Fixed the export pattern expressions in the Namespace file.
   Adjusted the documentation.
 - 26 May 2024: Removed `sb2_coe()`, as it is redundant.
+- 6 June 2024: Removed the `sb(2)_before/after` methods in favour of the
+  the new `bind_`/`bind2_` implementations. Added the `lst_` functions.
+  Added the `options` help page.
 
  

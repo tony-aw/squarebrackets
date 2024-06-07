@@ -38,7 +38,7 @@
 #' giving the grouping columns.
 #' @param order_by Boolean,
 #' indicating if the aggregated result should be ordered by the columns specified in `by`.
-#' @param chkdup see \link{squarebrackets_duplicates}. \cr
+#' @param chkdup see \link{squarebrackets_options}. \cr
 #' `r .mybadge_performance_set2("FALSE")` \cr
 #' @param roworder a integer vector of the same length as `nrow(x)`,
 #' giving the order in which the rows are to be re-order.

@@ -44,7 +44,7 @@ Duplicates are not allowed.}
 
 \item{v}{the coercive transformation function}
 
-\item{chkdup}{see \link{squarebrackets_duplicates}. \cr
+\item{chkdup}{see \link{squarebrackets_options}. \cr
 \ifelse{html}{\figure{for_performance-set_to_FALSE-red.svg}{options: alt='[for performance: set to FALSE]'}}{\link[=squarebrackets_help]{for performance: set to FALSE}} \cr}
 
 \item{new}{a \code{data.table} or \code{tidytable}. \cr

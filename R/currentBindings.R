@@ -27,7 +27,7 @@
 #'  * `"checklock"`.
 #'  * `"lockbindings"`.
 #' @param env the environment where to look for objects. \cr
-#' If `NULL` (default), the caller environment is used.
+#' If `NULL` (default), the caller environment is used. \cr \cr
 #' 
 #' 
 #' @details

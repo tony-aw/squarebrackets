@@ -17,29 +17,11 @@
 #'  selecting a single element will give the simplified result,
 #'  like using `[[]]`.
 #'  If `drop = FALSE`, a list is always returned regardless of the number of elements.
-#' @param rat Boolean, indicating if attributes should be returned with the sub-setted object.
-#' See Details section for more info. \cr
+#' @param rat see \link{squarebrackets_options}. \cr
 #' `r .mybadge_performance_set2("FALSE")` \cr
 #' @param ... further arguments passed to or from other methods.
 #'
 #'
-#' @details
-#' \bold{One the \code{rat} argument} \cr
-#' Most `[` - methods strip most (but not all) attributes. \cr
-#' If `rat = FALSE`, this default behaviour is preserved,
-#' for compatibility with special classes. This is the fastest option. \cr
-#' If `rat = TRUE`,
-#' attributes from `x` missing after sub-setting are re-assigned to `x`.
-#' Already existing attributes after sub-setting will not be overwritten. \cr
-#' There is no `rat` argument for data.frame-like object:
-#' their attributes will always be preserved. \cr
-#' NOTE: In the following situations, the `rat` argument will be ignored,
-#' as the attributes necessarily have to be dropped:
-#'  * when `x` is a list, AND `drop = TRUE`,
-#'  AND a single element is selected,
-#'  AND sub-setting is done through the `i` argument.
-#'  * when `x` is an atomic matrix or array,
-#'  and sub-setting is done through the `i` argument. \cr \cr
 #'
 #' @returns
 #' Returns a copy of the sub-setted object.

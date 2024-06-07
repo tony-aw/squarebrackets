@@ -37,14 +37,11 @@ idx(x, ...)
 
 \item{...}{further arguments passed to or from other methods.}
 
-\item{i, idx, dims, inv}{See \link{squarebrackets_indx_args}. \cr
+\item{i, idx, dims, margin, slice, inv}{See \link{squarebrackets_indx_args}. \cr
 Duplicates are not allowed.}
 
-\item{chkdup}{see \link{squarebrackets_duplicates}. \cr
+\item{chkdup}{see \link{squarebrackets_options}. \cr
 \ifelse{html}{\figure{for_performance-set_to_FALSE-red.svg}{options: alt='[for performance: set to FALSE]'}}{\link[=squarebrackets_help]{for performance: set to FALSE}} \cr}
-
-\item{margin, slice}{See \link{squarebrackets_indx_args}. \cr
-Duplicates are not allowed.}
 }
 \value{
 For \code{idx(x, i = i, ...)} and \code{idx(x, idx = idx, dims = dims, ...)}: \cr

@@ -6,7 +6,7 @@ sb2_mod(x, 1, rp = list(1)) # first element fully changed.
 
 x <- list(1:10, 1:10)
 print(x)
-sb2_rec(x, 1, rp = "a") # coerces first element to character
+sb2_reccom(x, 1, rp = "a") # coerces first element to character
 print(x)
 
 

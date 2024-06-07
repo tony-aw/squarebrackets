@@ -89,8 +89,8 @@ basefun <- function(x, rows, cols, tf) {
 tf <- function(x) { return(-1 * x) }
 bm.sb_tf.matrix <- bench::mark(
   "base [<-" =  basefun(x.mat, sel.rows, sel.cols, tf = tf),
-  "sb_set" = sb_set.matrix(x.mat2, sel.rows, sel.cols, tf = tf),
-  "sb_mod" = sb_mod.matrix(x.mat, sel.rows, sel.cols, tf = tf),
+  "sb_set" = sb_set(x.mat2, sel.rows, sel.cols, tf = tf),
+  "sb_mod" = sb_mod(x.mat, sel.rows, sel.cols, tf = tf),
   check = FALSE,
   min_iterations = 500
 )
@@ -124,8 +124,8 @@ basefun <- function(x, rows, lyrs, tf) {
 tf <- function(x) { return(-1 * x) }
 bm.sb_tf.3d <- bench::mark(
   "base [<-" = basefun(x.3d, sel.rows, sel.lyrs, tf = tf ),
-  "sb_set" =  sb_set.array(x.3d2, rcl = n(sel.rows, NULL, sel.lyrs), tf = tf),
-  "sb_mod" = sb_mod.array(x.3d, rcl = n(sel.rows, NULL, sel.lyrs), tf = tf),
+  "sb_set" =  sb_set(x.3d2, rcl = n(sel.rows, NULL, sel.lyrs), tf = tf),
+  "sb_mod" = sb_mod(x.3d, rcl = n(sel.rows, NULL, sel.lyrs), tf = tf),
   check = FALSE,
   min_iterations = 500
 )

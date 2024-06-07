@@ -138,8 +138,7 @@ An empty index selection results in an empty object of length 0. <br></p></dd>
 
 
 <dt>rat</dt>
-<dd><p>Boolean, indicating if attributes should be returned with the sub-setted object.
-See Details section for more info. <br><img src="figures/for_performance-set_to_FALSE-red.svg" alt="[for performance: set to FALSE]"><br></p></dd>
+<dd><p>see <a href="aaa4_squarebrackets_options.html">squarebrackets_options</a>. <br><img src="figures/for_performance-set_to_FALSE-red.svg" alt="[for performance: set to FALSE]"><br></p></dd>
 
 
 <dt>drop</dt>
@@ -158,24 +157,6 @@ If <code>drop = FALSE</code>, a list is always returned regardless of the number
 
 <p>Returns a copy of the sub-setted object.</p>
     </div>
-    <div class="section level2">
-    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p><b>One the <code>rat</code> argument</b> <br>
-Most <code>[</code> - methods strip most (but not all) attributes. <br>
-If <code>rat = FALSE</code>, this default behaviour is preserved,
-for compatibility with special classes. This is the fastest option. <br>
-If <code>rat = TRUE</code>,
-attributes from <code>x</code> missing after sub-setting are re-assigned to <code>x</code>.
-Already existing attributes after sub-setting will not be overwritten. <br>
-There is no <code>rat</code> argument for data.frame-like object:
-their attributes will always be preserved. <br>
-NOTE: In the following situations, the <code>rat</code> argument will be ignored,
-as the attributes necessarily have to be dropped:</p><ul><li><p>when <code>x</code> is a list, AND <code>drop = TRUE</code>,
-AND a single element is selected,
-AND sub-setting is done through the <code>i</code> argument.</p></li>
-<li><p>when <code>x</code> is an atomic matrix or array,
-and sub-setting is done through the <code>i</code> argument. <br><br></p></li>
-</ul></div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>

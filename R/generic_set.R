@@ -16,8 +16,9 @@
 #' @param ... further arguments passed to or from other methods.
 #' @param tf the transformation function.
 #' @param rp an object of somewhat the same type as the selected subset of \code{x},
-#' and the same same length as the selected subset of \code{x} or a length of 1.
-#' @param chkdup see \link{squarebrackets_duplicates}. \cr
+#' and the same same length as the selected subset of \code{x} or a length of 1. \cr
+#' To remove recursive subsets of recursive objects, see either \link{sb2_rec} or \link{sb2_rm}.
+#' @param chkdup see \link{squarebrackets_options}. \cr
 #' `r .mybadge_performance_set2("FALSE")` \cr
 #' @param .lapply the generic methods use \link[base]{lapply}
 #' for list- and data.frame-like objects
@@ -112,10 +113,6 @@ sb_set.matrix <- function(x, row = NULL, col = NULL, i = NULL, inv = FALSE, ...,
     return(invisible(NULL))
   }
   
-  if(is.null(row) && is.null(col)) {
-    .sb_set_atomic(x, seq_along(x), rp, tf, abortcall = sys.call())
-    return(invisible(NULL))
-  }
   
   .set_mat(x, row, col, rp, tf, abortcall = sys.call())
   return(invisible(NULL))
@@ -247,7 +244,7 @@ sb2_set.data.table <- function(
   
   if(!missing(tf)) {
     if(!is.function(tf)) stop(simpleError("`tf` must be a function", call = abortcall))
-    rp = tf(x[elements])
+    rp <- tf(x[elements])
   }
   
   .check_rp_atomic(rp, n.i, abortcall)
@@ -261,5 +258,6 @@ sb2_set.data.table <- function(
   }
   
 }
+
 
 
