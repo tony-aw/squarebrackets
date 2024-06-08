@@ -26,7 +26,9 @@ Indicates if dimension \code{along} should be named. \cr
 Other dimensions will never be named.}
 
 \item{name_flat}{Boolean, for \code{bind_array()} and \code{bind2_array()}. \cr
-Indicates if flat indices should be named. \cr \cr}
+Indicates if flat indices should be named. \cr
+Note that setting this to \code{TRUE} will reduce performance considerably. \cr
+\ifelse{html}{\figure{for_performance-set_to_FALSE-red.svg}{options: alt='[for performance: set to FALSE]'}}{\link[=squarebrackets_help]{for performance: set to FALSE}} \cr \cr}
 }
 \value{
 The new object.

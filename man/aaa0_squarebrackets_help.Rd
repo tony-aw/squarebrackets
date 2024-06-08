@@ -167,7 +167,6 @@ a couple of helper functions for creating ranges, sequences, and indices
 (often needed in sub-setting)
 are provided:
 \itemize{
-\item \link{lst}: list-related helper functions.
 \item \link{currentBindings}: list or lock all currently existing bindings
 that share the share the same address as the input variable.
 \item \link{n}: Nested version of \link[base]{c},

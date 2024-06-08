@@ -127,7 +127,7 @@
 #' 
 #' `r .mybadge_intro_section("SPECIALIZED FUNCTIONS", "darkred")` \cr
 #' Additional specialized sub-setting functions are provided:
-#'  
+#' 
 #'  * \link{lst_untree}: unnest tree-like nested list,
 #'  to make vectorized sub-setting on recursive subsets of the list easier.
 #'  * The \link[=dt_setcoe]{dt_}-functions
@@ -148,7 +148,6 @@
 #' (often needed in sub-setting)
 #' are provided:
 #' 
-#'  * \link{lst}: list-related helper functions.
 #'  * \link{currentBindings}: list or lock all currently existing bindings
 #'  that share the share the same address as the input variable.
 #'  * \link{n}: Nested version of \link[base]{c},

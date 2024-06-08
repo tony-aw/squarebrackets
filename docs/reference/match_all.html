@@ -48,6 +48,7 @@ Core of the code is based on a suggestion by Sebastian Kranz
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/a_benchmarks_x.html">Benchmarks - sb_x</a>
     <a class="dropdown-item" href="../articles/b_benchmarks_tf.html">Benchmarks - transform operations</a>
+    <a class="dropdown-item" href="../articles/c_benchmarks_lst.html">Benchmarks - Vectorized Recursive Subset Operations On Nested Lists</a>
     <a class="dropdown-item" href="../articles/Extra_Examples.html">Additional Examples</a>
   </div>
 </li>
@@ -124,7 +125,7 @@ or an empty list (if <code>unlist = FALSE</code>). <br></p>
 <span class="r-in"><span><span class="va">needles</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="va">letters</span>, <span class="va">n</span><span class="op">/</span><span class="fl">2</span>, <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">indices1</span> <span class="op">&lt;-</span> <span class="fu">match_all</span><span class="op">(</span><span class="va">needles</span>, <span class="va">haystack</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">indices1</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1]   8  14  40  64 132 136</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  71  88 147 154   8  32</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span> </span></span>
 </code></pre></div>

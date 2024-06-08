@@ -58,6 +58,7 @@ Faster than do.call(cbind, ...) or do.call(rbind, ...) for regular data.frame ob
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/a_benchmarks_x.html">Benchmarks - sb_x</a>
     <a class="dropdown-item" href="../articles/b_benchmarks_tf.html">Benchmarks - transform operations</a>
+    <a class="dropdown-item" href="../articles/c_benchmarks_lst.html">Benchmarks - Vectorized Recursive Subset Operations On Nested Lists</a>
     <a class="dropdown-item" href="../articles/Extra_Examples.html">Additional Examples</a>
   </div>
 </li>
@@ -127,7 +128,8 @@ Other dimensions will never be named.</p></dd>
 
 <dt>name_flat</dt>
 <dd><p>Boolean, for <code>bind_array()</code> and <code>bind2_array()</code>. <br>
-Indicates if flat indices should be named. <br><br></p></dd>
+Indicates if flat indices should be named. <br>
+Note that setting this to <code>TRUE</code> will reduce performance considerably. <br><img src="figures/for_performance-set_to_FALSE-red.svg" alt="[for performance: set to FALSE]"><br><br></p></dd>
 
 </dl></div>
     <div class="section level2">

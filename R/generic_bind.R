@@ -29,7 +29,9 @@
 #' Indicates if dimension `along` should be named. \cr
 #' Other dimensions will never be named.
 #' @param name_flat Boolean, for `bind_array()` and `bind2_array()`. \cr
-#' Indicates if flat indices should be named. \cr \cr
+#' Indicates if flat indices should be named. \cr
+#' Note that setting this to `TRUE` will reduce performance considerably. \cr
+#' `r .mybadge_performance_set2("FALSE")` \cr \cr
 #' 
 #' @returns
 #' The new object.
@@ -50,7 +52,10 @@ NULL
 bind_array <- function(
     arg.list, along, name_along = TRUE, name_flat = FALSE
 ) {
-  out <- .internal_abind(arg.list, along, TRUE, name_along, name_flat)
+  out <- .internal_abind(arg.list, along, TRUE, name_along)
+  if(name_flat) {
+    names(out) <- .bind_make_flatnames(arg.list, along)
+  }
   if(couldb.mutable_atomic(out)) {
     # Note: no need to copy names, as .internal_abind already does that
     attr(out, "typeof") <- typeof(out)
@@ -64,7 +69,11 @@ bind_array <- function(
 bind2_array <- function(
     arg.list, along, name_along = TRUE, name_flat = FALSE
 ) {
-  return(.internal_abind(arg.list, along, FALSE, name_along, name_flat))
+  out <- .internal_abind(arg.list, along, FALSE, name_along)
+  if(name_flat) {
+    names(out) <- .bind_make_flatnames(arg.list, along)
+  }
+  return(out)
 }
 
 #' @rdname bind
@@ -78,65 +87,5 @@ bind2_dt <- function(
   if(along == 2) {
     return(do.call(data.table::data.table, arg.list))
   }
-}
-
-
-#' @keywords internal
-#' @noRd
-.bind_set_dimnames <- function(
-    out, along, arg.list, arg.dimnames, arg.marginlen
-) {
-  name_along <- vector(mode = "character", length = dim(out)[along])
-  arg.names <- names(arg.list)
-  start.pos <- 0L
-  for(i in seq_along(arg.list)) {
-    marginlen <- arg.marginlen[i]
-    indx <- seq_len(marginlen) + start.pos
-    temp.dimnames <- .bind_getnames(arg.dimnames[[i]], arg.names[i], marginlen)
-    collapse::setv(
-      name_along, indx, temp.dimnames, vind1 = TRUE, xlist = FALSE
-    )
-    start.pos <- start.pos + marginlen
-  }
-  dimnames <- rep(list(NULL), length(dim(out)))
-  dimnames[[along]] <- name_along
-  data.table::setattr(out, "dimnames", dimnames)
-}
-
-
-#' @keywords internal
-#' @noRd
-.bind_make_flatnames <- function(
-    out, arg.list, arg.flatnames, arg.lens
-) {
-  name_flat <- vector(mode = "character", length = length(out))
-  arg.names <- names(arg.list)
-  start.pos <- 0L
-  for(i in seq_along(arg.list)) {
-    len <- arg.lens[i]
-    indx <- seq_len(len) + start.pos
-    temp.names <- .bind_getnames(arg.flatnames[[i]], arg.names[i], len)
-    collapse::setv(
-      name_flat, indx, temp.names, vind1 = TRUE, xlist = FALSE
-    )
-    start.pos <- start.pos + len
-  }
-  return(name_flat)
-}
-
-
-#' @keywords internal
-#' @noRd
-.bind_getnames <- function(main.names, arg.name, size) {
-  if(!is.null(main.names)) {
-    temp.names <- main.names
-  }
-  else if(!is.null(arg.name)) {
-    temp.names <- stringi::stri_c(arg.name, ".", seq_len(size))
-  }
-  else {
-    temp.names <- stringi::stri_c("X", seq_len(size))
-  }
-  return(temp.names)
 }
 

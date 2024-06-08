@@ -87,11 +87,16 @@ x <- list(
   )
 )
 
-# simple flattened list:
-y <- lst_untree(x, margin = 0, use.names = TRUE)
+
+# un-tree column-wise:
+sapply(x, lst_nlists) |> max() # number of rows `y` will have
+y <- lst_untree(x, margin = 2, use.names = TRUE)
+dim(y)
 print(y)
-y[["Y.Z.Y"]]
-x[[c("Y", "Z", "Y")]] # equivalent in the original list
+y[["Y.Z.Y"]] # you can still use names for selecting/replacing
+y[1:3, 1:2] # vectorized selection of multiple recursive elements
+sb2_x(y, n(1:3, 1:2), 1:2) # equivalent
+
 
 # un-tree row-wise:
 sapply(x, lst_nlists) |> max() # number of columns `y` will have
@@ -102,14 +107,12 @@ y[["Y.Z.Y"]] # you can still use names for selecting/replacing
 y[1:2, 1:3] # vectorized selection of multiple recursive elements
 sb2_x(y, n(1:2, 1:3), 1:2) # equivalent
 
-# un-tree column-wise:
-sapply(x, lst_nlists) |> max() # number of rows `y` will have
-y <- lst_untree(x, margin = 2, use.names = TRUE)
-dim(y)
+
+# simple flattened list:
+y <- lst_untree(x, margin = 0, use.names = TRUE)
 print(y)
-y[["Y.Z.Y"]] # you can still use names for selecting/replacing
-y[1:3, 1:2] # vectorized selection of multiple recursive elements
-sb2_x(y, n(1:3, 1:2), 1:2) # equivalent
+y[["Y.Z.Y"]]
+x[[c("Y", "Z", "Y")]] # equivalent in the original list
 
 
 ################################################################################
@@ -126,4 +129,22 @@ print(y)
 
 lst_untree(x, margin = 0)
 
+
+################################################################################
+
+# showcasing vectorized sub-setting ====
+x <- lapply(1:10, \(x) list(
+  list(sample(letters[1:10]), sample(LETTERS[1:10])),
+  list(sample(month.abb), sample(month.name)),
+  list(sample(1:10), rnorm(10))
+))
+y <- lst_untree(x, 1)
+
+# getting the first recursive elements in the second level/depth in base R:
+for(i in seq_along(x)) {
+  x[[c(i, c(1,1))]]
+}
+
+# the same, but vectorized using the untree'd list:
+y[seq_len(nrow(y)), 1]
 }
