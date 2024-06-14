@@ -12,8 +12,6 @@
     rp <- tf(x)
   }
   
-  .check_rp_atomic(rp, length(x), abortcall)
-  
   if(is.logical(x)) {
     .rcpp_set_all_Logical(x, as.logical(rp))
     return(invisible(NULL))

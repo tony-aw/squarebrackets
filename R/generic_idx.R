@@ -126,8 +126,8 @@ idx.array <- function(
   x.dim <- dim(x)
   ndims <- length(x.dim)
   .arr_check(x, idx, dims, ndims, abortcall = sys.call())
-  lst <- .arr_lst_grid(
-    x, ndims, idx, dims, chkdup = chkdup, inv = inv, abortcall = sys.call()
+  lst <- .arr_lst_brackets(
+    x, idx, dims, chkdup = chkdup, inv = inv, abortcall = sys.call()
   )
   elements <- sub2ind(lst, x.dim, checks = FALSE)
   return(elements)

@@ -22,8 +22,7 @@ y <- lst_untree(x, margin = 2, use.names = TRUE)
 dim(y)
 print(y)
 y[["Y.Z.Y"]] # you can still use names for selecting/replacing
-y[1:3, 1:2] # vectorized selection of multiple recursive elements
-sb2_x(y, n(1:3, 1:2), 1:2) # equivalent
+sb2_x(y, n(1:3, 1:2), 1:2) # vectorized selection of multiple recursive elements
 
 
 # un-tree row-wise:
@@ -32,8 +31,7 @@ y <- lst_untree(x, margin = 1, use.names = TRUE)
 dim(y)
 print(y)
 y[["Y.Z.Y"]] # you can still use names for selecting/replacing
-y[1:2, 1:3] # vectorized selection of multiple recursive elements
-sb2_x(y, n(1:2, 1:3), 1:2) # equivalent
+sb2_x(y, n(1:2, 1:3), 1:2)  # vectorized selection of multiple recursive elements
 
 
 # simple flattened list:
@@ -55,7 +53,7 @@ y <- lst_untree(x, margin = 1)
 dim(y)
 print(y)
 
-lst_untree(x, margin = 0)
+lst_untree(x, margin = 1)
 
 
 ################################################################################

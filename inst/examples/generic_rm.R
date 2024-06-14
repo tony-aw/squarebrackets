@@ -14,8 +14,7 @@ sb_rm(obj, col = "a")
 obj <- array(1:64, c(4,4,3))
 print(obj)
 sb_rm(obj, n(1, c(1, 3)), c(1, 3))
-sb_rm(obj, rcl = n(1, NULL, c(1, 3)))
-# above 2 lines are equivalent to obj[-1, c(-1, -3), drop = FALSE]
+# above is equivalent to obj[-1, c(-1, -3), drop = FALSE]
 sb_rm(obj, i = \(x)x>5)
 # above is equivalent to obj[!obj > 5]
 

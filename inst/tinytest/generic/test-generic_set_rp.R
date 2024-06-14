@@ -7,7 +7,6 @@ source(file.path(getwd(), "source", "functions4testing.R"))
 test_allow_duplicates <- FALSE
 test_use_factors <- FALSE
 test_PassByReference <- TRUE
-any_empty_indices <- squarebrackets:::.any_empty_indices
 
 
 sb_set2 <- function(x, ...) {
@@ -65,22 +64,6 @@ pre_subset_mat <- function(x, row = NULL, col = NULL) {
   return(x[row, col])
 }
 
-pre_subset_3darray <- function(x, row = NULL, col = NULL, lyr = NULL) {
-  
-  if(!is.null(row)) row <- indx_x(row, x, rownames(x), nrow(x))
-  if(!is.null(col)) col <- indx_x(col, x, colnames(x), ncol(x))
-  if(!is.null(lyr)) lyr <- indx_x(lyr, x, dimnames(x)[[3]], dim(x)[3])
-  
-  if(any_empty_indices(row, col, lyr)) {
-    return(x)
-  }
-  
-  if(is.null(row)) row <- seq_len(nrow(x))
-  if(is.null(col)) col <- seq_len(ncol(x))
-  if(is.null(lyr)) lyr <- seq_len(dim(x)[3])
-  
-  return(x[row, col, lyr])
-}
 
 subset_mat <- function(x, row = NULL, col = NULL, rp) {
   
@@ -100,26 +83,6 @@ subset_mat <- function(x, row = NULL, col = NULL, rp) {
   return(x)
 }
 
-subset_3darray <- function(x, row = NULL, col = NULL, lyr = NULL, rp) {
-  
-  if(is.atomic(x)) x <- as.mutable_atomic(x)
-  
-  if(!is.null(row)) row <- indx_x(row, x, rownames(x), nrow(x))
-  if(!is.null(col)) col <- indx_x(col, x, colnames(x), ncol(x))
-  if(!is.null(lyr)) lyr <- indx_x(lyr, x, dimnames(x)[[3]], dim(x)[3])
-  
-  if(any_empty_indices(row, col, lyr)) {
-    return(x)
-  }
-  
-  if(is.null(row)) row <- seq_len(nrow(x))
-  if(is.null(col)) col <- seq_len(ncol(x))
-  if(is.null(lyr)) lyr <- seq_len(dim(x)[3])
-  
-  x[row, col, lyr] <- rp
-  
-  return(x)
-}
 
 
 temp.fun.matrix <- function(x, row, col) {
@@ -146,34 +109,6 @@ temp.fun.matrix <- function(x, row, col) {
     }
   }
 }
-
-temp.fun.3darray <- function(x, row, col, lyr) {
-  for(i in 1:length(row)) {
-    for(j in 1:length(col)) {
-      for(k in 1:length(lyr)) {
-        len <- length(pre_subset_3darray(x, row[[i]], col[[j]], lyr[[k]]))
-        rp <- sample(c(seq_len(len), NA), size = len)
-        expect_equal(
-          sb_set2(x, rcl = list(row[[i]], col[[j]], lyr[[k]]), rp = rp),
-          subset_3darray(x, row[[i]], col[[j]], lyr[[k]], rp = rp)
-        ) |> errorfun()
-        expect_true(sb_set2(x, rcl = list(row[[i]], col[[j]], lyr[[k]]), rp = rp) |>
-                      is.array()) |> errorfun()
-        
-        rp <- NA
-        expect_equal(
-          sb_set2(x, rcl = list(row[[i]], col[[j]], lyr[[k]]), rp = rp),
-          subset_3darray(x, row[[i]], col[[j]], lyr[[k]], rp = rp)
-        ) |> errorfun()
-        expect_true(sb_set2(x, rcl = list(row[[i]], col[[j]], lyr[[k]]), rp = rp) |>
-                      is.array()) |> errorfun()
-        
-        assign("enumerate", enumerate + 4, envir = parent.frame(n = 1))
-      }
-    }
-  }
-}
-
 
 
 sys.source(file.path(getwd(), "source", "sourcetest-dims.R"), envir = environment())
@@ -291,7 +226,7 @@ expect_error(
   sb_set2(x, list(1:2, 1:2), c(2,3), rp = 1:6),
   pattern = "recycling not allowed"
 )
-enumerate <- enumerate + 5
+enumerate <- enumerate + 7
 
 
 # report number of tests

@@ -18,7 +18,6 @@
       ))
       rp <- tf(x[row, ])
     }
-    .check_rp_atomic(rp, length(row) * ncol(x), abortcall)
     col <- 0
   }
   else if(is.null(row) && !is.null(col)) { # CASE 2: columns specified, rows missing
@@ -28,7 +27,6 @@
       ))
       rp <- tf(x[, col])
     }
-    .check_rp_atomic(rp, length(col) * nrow(x), abortcall)
     row <- 0
   }
   else if(!is.null(row) && !is.null(col)) { # CASE 3: rows AND columns specified
@@ -38,7 +36,6 @@
       ))
       rp <- tf(x[row, col])
     }
-    .check_rp_atomic(rp, length(row) * length(col), abortcall)
   }
   
   # return:

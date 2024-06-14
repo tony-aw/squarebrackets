@@ -7,7 +7,6 @@ source(file.path(getwd(), "source", "functions4testing.R"))
 test_allow_duplicates <- FALSE
 test_use_factors <- FALSE
 test_PassByReference <- TRUE
-any_empty_indices <- squarebrackets:::.any_empty_indices
 
 
 sb2_set2 <- function(x, ...) {

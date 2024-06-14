@@ -51,21 +51,25 @@ a list of equal-length vectors,
 a data.frame or a matrix (row-wise and column-wise are both supported),
 as the input. \cr
 \cr
-For a vector \code{x},
-\code{idx_ord_v(x)} is equivalent to \link[base]{order}\code{(x)}. \cr
+For a vector \code{x}, \cr
+\code{idx_ord_v(x)} is equivalent to \cr
+\link[base]{order}\code{(x)}. \cr
 \cr
-For a data.frame or a list of equal-length vectors \code{x}, with \code{p} columns/elements,
-\code{idx_ord_df(x)} is equivalent to \code{order(x[[1]], ..., x[[p]])}. \cr
+For a data.frame or a list of equal-length vectors \code{x}, with \code{p} columns/elements, \cr
+\code{idx_ord_df(x)} is equivalent to \cr
+\code{order(x[[1]], ..., x[[p]])}. \cr
 \cr
-For a matrix (or array) \code{x} with \code{p} rows,
-\code{idx_ord_m(x, margin = 1)} is equivalent to \code{order(x[1, ], ..., x[p, ], ...)}. \cr
+For a matrix (or array) \code{x} with \code{p} rows, \cr
+\code{idx_ord_m(x, margin = 1)} is equivalent to \cr
+\code{order(x[1, ], ..., x[p, ], ...)}. \cr
 \cr
-For a matrix (or array) \code{x} with \code{p} columns,
-\code{idx_ord_m(x, margin = 2)} is equivalent to \code{order(x[, 1], ..., x[, p], ...)}. \cr
+For a matrix (or array) \code{x} with \code{p} columns, \cr
+\code{idx_ord_m(x, margin = 2)} is equivalent to \cr
+\code{order(x[, 1], ..., x[, p], ...)}. \cr
 \cr
 Note that these are merely a convenience functions,
 and that these are actually slightly slower than \link[base]{order} (except for \code{idx_ord_v()}),
-due to the additional functionality.
+due to the additional functionality. \cr \cr
 }
 \examples{
 

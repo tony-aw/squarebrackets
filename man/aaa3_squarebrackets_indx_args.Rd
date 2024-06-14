@@ -5,16 +5,12 @@
 \alias{squarebrackets_indx_args}
 \title{Index Arguments in the Generic Sub-setting Methods}
 \description{
-There are 7 types of arguments that can be used
+There are 6 types of arguments that can be used
 in the generic methods of 'squarebrackets' to specify the indices to perform operations on:
 \itemize{
 \item \code{i}: to specify flat (i.e. dimensionless) indices.
 \item \verb{row, col}: to specify rows and/or columns in tabular objects.
 \item \verb{idx, dims}: to specify indices of arbitrary dimensions in arrays.
-\item \code{rcl}: to specify rows (first dimension),
-columns (second dimension),
-and layers (third dimension),
-in arrays that have exactly 3 dimensions.
 \item \code{lvl}: specify levels, for factors only.
 \item \verb{filter, vars}: to specify rows and/or columns specifically in data.frame-like objects.
 \item \verb{margin, slice}: to specify indices of one particular dimension. \cr \cr
@@ -110,48 +106,6 @@ corresponds to doing something like the following,
 here using an example of a 4-dimensional array:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{sb_x(x, n(1:10, 1:5), c(1, 3)) # ==> x[1:10, , 1:5, , drop = FALSE]
-
-}\if{html}{\out{</div>}}
-}
-
-\section{Argument rcl}{
-
-\ifelse{html}{\figure{class-atomic_array-blue.svg}{options: alt='[class: atomic array]'}}{\link[=squarebrackets_indx_args]{class: atomic array}} \cr
-
-The \code{rcl} argument is only applicable for atomic arrays with exactly 3 dimensions. \cr
-If the user knows a-priori that an array has 3 dimensions,
-using \code{rcl} is more efficient than using the \verb{idx, dims} arguments. \cr
-\cr
-The \code{rcl} argument must be a list of exactly 3 elements,
-with the first element giving the indices of the first dimension (rows),
-the second element giving the indices of the second dimension (columns),
-and the third element giving the indices of the third and last dimension (layers);
-thus \code{rcl} stands for "rows, columns, layers"
-(i.e. the 3 dimensions of a 3-dimensional array). \cr
-For each of the aforementioned 3 elements of the list \code{rcl},
-any of the following can be specified:
-\itemize{
-\item \code{NULL}, corresponds to a missing argument,
-which results in ALL of the indices in this dimension being selected for the operation.
-\item a vector of length 0,
-in which case no indices are selected for the operation (i.e. empty selection).
-\item a \bold{strictly positive integer} vector with dimension indices to select for the operation.
-\item a \bold{logical} vector of the same length as the corresponding dimension size,
-giving the indices of this dimension to select for the operation.
-\item a \bold{character} vector of index names. \cr
-If an object has multiple indices with the given name,
-ALL the corresponding indices will be selected for the operation.
-}
-
-By default \code{rcl} is not a list but simply \code{NULL},
-to be used when specifying the other arguments (either \verb{idx, dims} or \code{i}). \cr
-\cr
-To keep the syntax short,
-the user can use the \link{n} function instead of \code{list()} to specify \code{rcl}. \cr
-\cr
-Using the \code{rcl} argument corresponds to doing something like the following:
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{sb_x(x, rcl = n(NULL, 1:10, 1:5)) # ==> x[, 1:10, 1:5, drop = FALSE]
 
 }\if{html}{\out{</div>}}
 }
@@ -273,7 +227,7 @@ it's either \code{i}, or the other arguments. \cr
 The arguments are  evaluated in the following order:
 \enumerate{
 \item Argument \code{i}
-\item Argument \code{lvl} (for factors) or argument \code{rcl} (for 3-dimensional arrays)
+\item Argument \code{lvl} (for factors)
 \item The rest of the indexing arguments.
 }
 

@@ -93,17 +93,6 @@ subset_mat <- function(x, row = NULL, col = NULL) {
   x[row, col, drop = FALSE]
 }
 
-subset_3darray <- function(x, row = NULL, col = NULL, lyr = NULL) {
-  if(!is.null(row)) row <- indx_x(row, x, rownames(x), nrow(x))
-  if(!is.null(col)) col <- indx_x(col, x, colnames(x), ncol(x))
-  if(!is.null(lyr)) lyr <- indx_x(lyr, x, dimnames(x)[[3]], dim(x)[3])
-  
-  if(is.null(row)) row <- base::quote(expr = )
-  if(is.null(col)) col <- base::quote(expr = )
-  if(is.null(lyr)) lyr <- base::quote(expr = )
-  x[row, col, lyr, drop = FALSE]
-}
-
 temp.fun.matrix <- function(x, row, col) {
   for(i in 1:length(row)) {
     for(j in 1:length(col)) {
@@ -118,21 +107,6 @@ temp.fun.matrix <- function(x, row, col) {
   }
 }
 
-temp.fun.3darray <- function(x, row, col, lyr) {
-  for(i in 1:length(row)) {
-    for(j in 1:length(col)) {
-      for(k in 1:length(lyr)) {
-        expect_equal(
-          sb_x(x, rcl = list(row[[i]], col[[j]], lyr[[k]])),
-          subset_3darray(x, row[[i]], col[[j]], lyr[[k]])
-        ) |> errorfun()
-        expect_true(sb_x(x, rcl = list(row[[i]], col[[j]], lyr[[k]])) |>
-                      is.array()) |> errorfun()
-        assign("enumerate", enumerate + 2, envir = parent.frame(n = 1))
-      }
-    }
-  }
-}
 
 
 sys.source(file.path(getwd(), "source", "sourcetest-dims.R"), envir = environment())

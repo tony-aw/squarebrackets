@@ -16,10 +16,15 @@ dt_setcoe(
   col = NULL,
   vars = NULL,
   v,
-  chkdup = getOption("sb.chkdup", FALSE)
+  chkdup = getOption("squarebrackets.chkdup", FALSE)
 )
 
-dt_setrm(x, col = NULL, vars = NULL, chkdup = getOption("sb.chkdup", FALSE))
+dt_setrm(
+  x,
+  col = NULL,
+  vars = NULL,
+  chkdup = getOption("squarebrackets.chkdup", FALSE)
+)
 
 dt_setadd(x, new)
 

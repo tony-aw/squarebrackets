@@ -9,7 +9,7 @@ temp.fun <- function(x, ...) {
 enumerate <- 0
 
 
-
+# test main ====
 for(margin in 1:3) {
   
   dims <- c(4,4,4)
@@ -42,7 +42,20 @@ for(margin in 1:3) {
   enumerate <- enumerate + 1
 }
 
+# test name_flatargument ====
+x <- letters
+dim(x) <- c(2, 13)
+names(x) <- LETTERS
+y <- LETTERS
+dim(y) <- c(2, 13)
+names(y) <- letters
+z <- bind_array(list(x, y), 1, name_flat = TRUE)
+expect_equal(
+  as.character(tolower(z)), as.character(tolower(names(z)))
+)
 
+
+# test errors ====
 x <- array(1:1e4, dim = c(100,50, 10))
 y <- array(-1e4:-1, dim =c(100,10, 10))
 expect_error(

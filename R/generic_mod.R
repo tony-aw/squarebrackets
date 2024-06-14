@@ -8,7 +8,7 @@
 #' For modifying subsets using R's default copy-on-modification semantics, see \link{idx}. \cr \cr
 #'
 #' @param x see \link{squarebrackets_immutable_classes} and \link{squarebrackets_mutable_classes}.
-#' @param i,lvl,row,col,idx,dims,rcl,filter,vars,inv See \link{squarebrackets_indx_args}. \cr
+#' @param i,lvl,row,col,idx,dims,filter,vars,inv See \link{squarebrackets_indx_args}. \cr
 #' An empty index selection returns the original object unchanged. \cr
 #' @param ... further arguments passed to or from other methods.
 #' @param tf the transformation function.
@@ -148,7 +148,7 @@ sb_mod.matrix <- function(
     col <- .indx_make_dim(col, x,  2, chkdup = chkdup, inv = inv, abortcall = sys.call())
   }
   
-  if(.any_empty_indices(row, col)) {
+  if(.any_empty_indices(n(row, col))) {
     return(x)
   }
   
@@ -169,7 +169,7 @@ sb_mod.matrix <- function(
 #' @rdname sb_mod
 #' @export
 sb_mod.array <- function(
-    x, idx = NULL, dims = NULL, rcl = NULL, i = NULL, inv = FALSE, ...,
+    x, idx = NULL, dims = NULL, i = NULL, inv = FALSE, ...,
     rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
@@ -187,14 +187,6 @@ sb_mod.array <- function(
     .check_rp_atomic(rp, n.i, abortcall = sys.call())
     x[elements] <- rp
     return(x)
-  }
-  
-  if(!is.null(rcl)) {
-    if(length(dim(x)) != 3) stop("`rcl` only applicable for arrays with exactly 3 dimensions")
-    if(!is.list(rcl) || length(rcl) != 3) stop("`rcl` must be a list of length 3")
-    return(.sb3d_mod(
-      x, rcl[[1]], rcl[[2]], rcl[[3]], inv, rp = rp, tf = tf, chkdup = chkdup, abortcall = sys.call()
-    ))
   }
   
   if(!missing(rp)) {
@@ -329,7 +321,7 @@ sb2_mod.data.frame <- function(
   }
   
   # empty return:
-  if(.any_empty_indices(row, col)) {
+  if(.any_empty_indices(n(row, col))) {
     return(x)
   }
   

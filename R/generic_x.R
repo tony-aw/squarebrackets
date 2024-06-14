@@ -7,7 +7,7 @@
 #' Use `sb2_x(x, ...)` if `x` is a recursive object (i.e. list or data.frame-like). \cr \cr
 #'
 #' @param x see \link{squarebrackets_immutable_classes} and \link{squarebrackets_mutable_classes}.
-#' @param i,lvl,row,col,idx,dims,rcl,filter,vars See \link{squarebrackets_indx_args}. \cr
+#' @param i,lvl,row,col,idx,dims,filter,vars See \link{squarebrackets_indx_args}. \cr
 #' Duplicates are allowed, resulting in duplicated indices. \cr
 #' An empty index selection results in an empty object of length 0. \cr
 #' @param drop Boolean.
@@ -17,8 +17,6 @@
 #'  selecting a single element will give the simplified result,
 #'  like using `[[]]`.
 #'  If `drop = FALSE`, a list is always returned regardless of the number of elements.
-#' @param rat see \link{squarebrackets_options}. \cr
-#' `r .mybadge_performance_set2("FALSE")` \cr
 #' @param ... further arguments passed to or from other methods.
 #'
 #'
@@ -45,19 +43,17 @@ sb_x <- function(x, ...) {
 
 #' @rdname sb_x
 #' @export
-sb_x.default <- function(x, i, ..., rat = getOption("squarebrackets.rat", FALSE)) {
-  
+sb_x.default <- function(x, i, ...) {
   elements <- .indx_make_element.sb_x(i, x, is_list = FALSE, abortcall = sys.call())
-  if(rat) {
-    x <- .fix_attr(x[elements], attributes(x))
-  } else{ x <- x[elements] }
-  return(x)
+  return(x[elements])
 }
 
 
 #' @rdname sb_x
 #' @export
-sb_x.matrix <- function(x, row = NULL, col = NULL, i = NULL, ..., rat = getOption("squarebrackets.rat", FALSE)) {
+sb_x.matrix <- function(
+    x, row = NULL, col = NULL, i = NULL, ...
+) {
   
   if(!is.null(i)) {
     elements <- .indx_make_element.sb_x(i, x, is_list = FALSE, abortcall = sys.call())
@@ -75,72 +71,68 @@ sb_x.matrix <- function(x, row = NULL, col = NULL, i = NULL, ..., rat = getOptio
     return(x)
   }
   if(is.null(row)) {
-    if(rat) {
-      x <- .fix_attr(x[, col, drop = FALSE], attributes(x))
-    } else{ x <- x[, col, drop = FALSE] }
-    
+    if(is.null(names(x))) {
+      x <- x[, col, drop = FALSE]
+    }
+    else {
+      x <- .internal_fix_names(x, \(x)x[, col, drop = FALSE])
+    }
     return(x)
   }
   if(is.null(col)) {
-    if(rat) {
-      x <- .fix_attr(x[row, , drop = FALSE], attributes(x))
-    } else{ x <- x[row, , drop = FALSE] }
-    
+    if(is.null(names(x))) {
+      x <- x[row, , drop = FALSE]
+    }
+    else {
+      x <- .internal_fix_names(x, \(x)x[row, , drop = FALSE])
+    }
     return(x)
   }
   
-  if(rat) {
-    x <- .fix_attr(x[row, col, drop = FALSE], attributes(x))
-  } else{ x <- x[row, col, drop = FALSE] }
-  
+  if(is.null(names(x))) {
+    x <- x[row, col, drop = FALSE]
+  } else {
+    x <- .internal_fix_names(x, \(x)x[row, col, drop = FALSE])
+  }
   return(x)
 }
 
 
 #' @rdname sb_x
 #' @export
-sb_x.array <- function(x, idx = NULL, dims = NULL, rcl = NULL, i = NULL, ..., rat = getOption("squarebrackets.rat", FALSE)) {
+sb_x.array <- function(
+    x, idx = NULL, dims = NULL, i = NULL, ...
+) {
   
   if(!is.null(i)) {
     elements <- .indx_make_element.sb_x(i, x, is_list = FALSE, abortcall = sys.call())
     return(x[elements])
   }
   
-  if(!is.null(rcl)) {
-    if(length(dim(x)) != 3) stop("`rcl` only applicable for arrays with exactly 3 dimensions")
-    if(!is.list(rcl) || length(rcl) != 3) stop("`rcl` must be a list of length 3")
-    x <- .sb3d_x(x, rcl[[1]], rcl[[2]], rcl[[3]], rat = rat)
-    return(x)
-  }
-  
-  if(rat) {
-    x <- .fix_attr(.arr_x(x, idx, dims, abortcall = sys.call()), attributes(x))
-  } else {
+  if(is.null(names(x))) {
     x <- .arr_x(x, idx, dims, abortcall = sys.call())
   }
+  else {
+    x <- .internal_fix_names(x, \(x).arr_x(x, idx, dims, abortcall = sys.call()))
+  }
+  
   return(x)
   
 }
 
 #' @rdname sb_x
 #' @export
-sb_x.factor <- function(x, i = NULL, lvl = NULL, drop = FALSE, ..., rat = getOption("squarebrackets.rat", FALSE)) {
+sb_x.factor <- function(x, i = NULL, lvl = NULL, drop = FALSE, ...) {
   
   .check_args_factor(i, lvl, drop, abortcall = sys.call())
   
   if(!is.null(i)) {
     elements <- .indx_make_element.sb_x(i, x, is_list = FALSE, abortcall = sys.call())
-    if(rat) {
-      x <- .fix_attr(x[elements, drop = drop], attributes(x))
-    } else{ x <- x[elements, drop = drop] }
-    return(x)
+    return(x[elements, drop = drop])
   }
   if(!is.null(lvl)) {
     indx <- .lvl2indx.sb_x(lvl, x, abortcall = sys.call())
-    if(rat) {
-      x <- .fix_attr(x[indx, drop = drop], attributes(x))
-    } else{ x <- x[indx, drop = drop] }
-    return(x)
+    return(x <- x[indx, drop = drop])
   }
 }
 
@@ -160,7 +152,7 @@ sb2_x <- function(x, ...) {
 
 #' @rdname sb_x
 #' @export
-sb2_x.default <- function(x, i, drop = FALSE, ..., rat = getOption("squarebrackets.rat", FALSE)) {
+sb2_x.default <- function(x, i, drop = FALSE, ...) {
   
   if(!isTRUE(drop) && !isFALSE(drop)) {
     stop("`drop` must be either `TRUE` or `FALSE`")
@@ -174,28 +166,30 @@ sb2_x.default <- function(x, i, drop = FALSE, ..., rat = getOption("squarebracke
     return(x[[elements]])
   }
   
-  if(rat) {
-    return(.fix_attr(x[elements], attributes(x)) )
-  } else {
-    return(x[elements])
-  }
-    
-  return(x)
+  return(x[elements])
 }
 
 
 #' @rdname sb_x
 #' @export
-sb2_x.array <- function(x, idx = NULL, dims = NULL, i = NULL, drop = FALSE, ..., rat = getOption("squarebrackets.rat", FALSE)) {
+sb2_x.array <- function(
+    x, idx = NULL, dims = NULL, i = NULL, drop = FALSE, ...
+) {
   
   if(!is.null(i)) {
-    return(sb2_x.default(x, i, drop = drop, ..., rat = rat))
+    return(sb2_x.default(x, i, drop = drop, ...))
   }
   
-  if(rat) {
-    x <- .fix_attr(.arr_x(x, idx, dims, abortcall = sys.call()), attributes(x))
-  } else{ x <- .arr_x(x, idx, dims, abortcall = sys.call()) }
+  if(is.null(names(x))) {
+    x <- .arr_x(x, idx, dims, abortcall = sys.call())
+  }
+  else {
+    x <- .internal_fix_names(x, \(x).arr_x(x, idx, dims, abortcall = sys.call()))
+  }
   
+  if(length(x) == 1 && drop) {
+    return(x[[1]])
+  }
   return(x)
   
 }

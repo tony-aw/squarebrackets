@@ -29,40 +29,13 @@
 #' The default can be changed in the `squarebrackets.chkdup` option. \cr \cr
 #' 
 #' 
-#' @section Retain Attributes:
-#' `r .mybadge_option("argument", "rat")` \cr
-#' `r .mybadge_option("option", "rat")` \cr
-#' Like the `[` - methods,
-#' \link{sb_x} and \link{sb_rm} will by default
-#' strip most (but not all) attributes. \cr
-#' The \link{sb_x} and \link{sb_rm} methods
-#' in 'squarebrackets' have the `rat` argument,
-#' to control this control the attribute stripping behaviour. \cr
-#' If `rat = FALSE`, this default behaviour is preserved,
-#' for compatibility with special classes. This is the fastest option. \cr
-#' If `rat = TRUE`,
-#' attributes from `x` missing after sub-setting are re-assigned to `x`.
-#' Already existing attributes after sub-setting will not be overwritten. \cr
-#' There is no `rat` argument for data.frame-like object:
-#' their attributes will always be preserved. \cr
-#' NOTE: In the following situations, the `rat` argument will be ignored,
-#' as the attributes necessarily have to be dropped:
-#'  * when `x` is a list, AND `drop = TRUE`,
-#'  AND a single element is selected,
-#'  AND sub-setting is done through the `i` argument.
-#'  * when `x` is an atomic matrix or array,
-#'  and sub-setting is done through the `i` argument. \cr
-#'  
-#' The default value for the `rat` argument can be changed in the `squarebrackets.rat` option. \cr \cr
-#' 
-#' 
 #' @section Mutable Atomic Messages:
 #' `r .mybadge_option("option", "ma_messages")` \cr
 #' The `[<-.mutable_atomic` method notifies the user of copy-on-modification. \cr
 #' Should the user find this annoying,
 #' the user can disable these messages
-#' by setting `squarebrackets.ma_messages` to `FALSE`. \cr \cr
-#' 
+#' by setting `squarebrackets.ma_messages` to `FALSE`. \cr
+#' \cr
 #' 
 #' @section squarebrackets.protected:
 #' The user should NEVER touch the `squarebrackets.protected` option. \cr

@@ -21,16 +21,8 @@ void rcpp_set_matrix_rowcol_Logical(
   int ni = rowind.length();
   int nj = colind.length();
   
-  if(rp.length() == 1) {
-    for(int j = 0; j < nj; ++j){
-      LogicalMatrix::Column col = x(_, colind[j]);
-      for(int i = 0; i < ni; ++i) {
-         col[rowind[i]] = rp[0];
-      }
-    }
-  }
-  else {
-    int counter = 0;
+  if(rp.length() == (ni * nj)) {
+    R_xlen_t counter = 0;
     for(int j = 0; j < nj; ++j){
       LogicalMatrix::Column col = x(_, colind[j]);
       for(int i = 0; i < ni; ++i) {
@@ -40,6 +32,15 @@ void rcpp_set_matrix_rowcol_Logical(
     }
   }
   
+  else if(rp.length() == 1) {
+    for(int j = 0; j < nj; ++j){
+      LogicalMatrix::Column col = x(_, colind[j]);
+      for(int i = 0; i < ni; ++i) {
+         col[rowind[i]] = rp[0];
+      }
+    }
+  }
+  else stop("recycling not allowed");
   
 }
 
@@ -52,17 +53,9 @@ void rcpp_set_matrix_row_Logical(LogicalMatrix x, IntegerVector rowind, LogicalV
   int ni = rowind.length();
   int nj = x.ncol();
   
-  if(rp.length() == 1) {
-    for(int j = 0; j < nj; ++j){
-      LogicalMatrix::Column col = x(_, j);
-      for(int i = 0; i < ni; ++i) {
-        col[rowind[i]] = rp[0];
-      }
-    }
-  }
-  else {
-    int counter = 0;
-    for(int j = 0; j < nj; ++j){
+  if(rp.length() == (ni * nj)) {
+    R_xlen_t counter = 0;
+    for(int j = 0; j < nj; ++j) {
       LogicalMatrix::Column col = x(_, j);
       for(int i = 0; i < ni; ++i) {
         col[rowind[i]] = rp[counter];
@@ -70,7 +63,15 @@ void rcpp_set_matrix_row_Logical(LogicalMatrix x, IntegerVector rowind, LogicalV
       }
     }
   }
-  
+  else if(rp.length() == 1) {
+    for(int j = 0; j < nj; ++j){
+      LogicalMatrix::Column col = x(_, j);
+      for(int i = 0; i < ni; ++i) {
+        col[rowind[i]] = rp[0];
+      }
+    }
+  }
+  else stop("recycling not allowed");
   
 }
 
@@ -83,16 +84,8 @@ void rcpp_set_matrix_col_Logical(LogicalMatrix x, IntegerVector colind, LogicalV
   int ni = x.nrow();
   int nj = colind.length();
   
-  if(rp.length() == 1) {
-    for(int j = 0; j < nj; ++j){
-      LogicalMatrix::Column col = x(_, colind[j]);
-      for(int i = 0; i < ni; ++i) {
-        col[i] = rp[0];
-      }
-    }
-  }
-  else {
-    int counter = 0;
+  if(rp.length() == (ni * nj)) {
+    R_xlen_t counter = 0;
     for(int j = 0; j < nj; ++j){
       LogicalMatrix::Column col = x(_, colind[j]);
       for(int i = 0; i < ni; ++i) {
@@ -101,6 +94,15 @@ void rcpp_set_matrix_col_Logical(LogicalMatrix x, IntegerVector colind, LogicalV
       }
     }
   }
+  else if(rp.length() == 1) {
+    for(int j = 0; j < nj; ++j){
+      LogicalMatrix::Column col = x(_, colind[j]);
+      for(int i = 0; i < ni; ++i) {
+        col[i] = rp[0];
+      }
+    }
+  }
+  else stop("recycling not allowed");
   
 }
 
@@ -138,16 +140,8 @@ void rcpp_set_matrix_rowcol_Integer(
   int ni = rowind.length();
   int nj = colind.length();
   
-  if(rp.length() == 1) {
-    for(int j = 0; j < nj; ++j){
-      IntegerMatrix::Column col = x(_, colind[j]);
-      for(int i = 0; i < ni; ++i) {
-         col[rowind[i]] = rp[0];
-      }
-    }
-  }
-  else {
-    int counter = 0;
+  if(rp.length() == (ni * nj)) {
+    R_xlen_t counter = 0;
     for(int j = 0; j < nj; ++j){
       IntegerMatrix::Column col = x(_, colind[j]);
       for(int i = 0; i < ni; ++i) {
@@ -157,6 +151,15 @@ void rcpp_set_matrix_rowcol_Integer(
     }
   }
   
+  else if(rp.length() == 1) {
+    for(int j = 0; j < nj; ++j){
+      IntegerMatrix::Column col = x(_, colind[j]);
+      for(int i = 0; i < ni; ++i) {
+         col[rowind[i]] = rp[0];
+      }
+    }
+  }
+  else stop("recycling not allowed");
   
 }
 
@@ -169,17 +172,9 @@ void rcpp_set_matrix_row_Integer(IntegerMatrix x, IntegerVector rowind, IntegerV
   int ni = rowind.length();
   int nj = x.ncol();
   
-  if(rp.length() == 1) {
-    for(int j = 0; j < nj; ++j){
-      IntegerMatrix::Column col = x(_, j);
-      for(int i = 0; i < ni; ++i) {
-        col[rowind[i]] = rp[0];
-      }
-    }
-  }
-  else {
-    int counter = 0;
-    for(int j = 0; j < nj; ++j){
+  if(rp.length() == (ni * nj)) {
+    R_xlen_t counter = 0;
+    for(int j = 0; j < nj; ++j) {
       IntegerMatrix::Column col = x(_, j);
       for(int i = 0; i < ni; ++i) {
         col[rowind[i]] = rp[counter];
@@ -187,7 +182,15 @@ void rcpp_set_matrix_row_Integer(IntegerMatrix x, IntegerVector rowind, IntegerV
       }
     }
   }
-  
+  else if(rp.length() == 1) {
+    for(int j = 0; j < nj; ++j){
+      IntegerMatrix::Column col = x(_, j);
+      for(int i = 0; i < ni; ++i) {
+        col[rowind[i]] = rp[0];
+      }
+    }
+  }
+  else stop("recycling not allowed");
   
 }
 
@@ -200,16 +203,8 @@ void rcpp_set_matrix_col_Integer(IntegerMatrix x, IntegerVector colind, IntegerV
   int ni = x.nrow();
   int nj = colind.length();
   
-  if(rp.length() == 1) {
-    for(int j = 0; j < nj; ++j){
-      IntegerMatrix::Column col = x(_, colind[j]);
-      for(int i = 0; i < ni; ++i) {
-        col[i] = rp[0];
-      }
-    }
-  }
-  else {
-    int counter = 0;
+  if(rp.length() == (ni * nj)) {
+    R_xlen_t counter = 0;
     for(int j = 0; j < nj; ++j){
       IntegerMatrix::Column col = x(_, colind[j]);
       for(int i = 0; i < ni; ++i) {
@@ -218,6 +213,15 @@ void rcpp_set_matrix_col_Integer(IntegerMatrix x, IntegerVector colind, IntegerV
       }
     }
   }
+  else if(rp.length() == 1) {
+    for(int j = 0; j < nj; ++j){
+      IntegerMatrix::Column col = x(_, colind[j]);
+      for(int i = 0; i < ni; ++i) {
+        col[i] = rp[0];
+      }
+    }
+  }
+  else stop("recycling not allowed");
   
 }
 
@@ -255,16 +259,8 @@ void rcpp_set_matrix_rowcol_Numeric(
   int ni = rowind.length();
   int nj = colind.length();
   
-  if(rp.length() == 1) {
-    for(int j = 0; j < nj; ++j){
-      NumericMatrix::Column col = x(_, colind[j]);
-      for(int i = 0; i < ni; ++i) {
-         col[rowind[i]] = rp[0];
-      }
-    }
-  }
-  else {
-    int counter = 0;
+  if(rp.length() == (ni * nj)) {
+    R_xlen_t counter = 0;
     for(int j = 0; j < nj; ++j){
       NumericMatrix::Column col = x(_, colind[j]);
       for(int i = 0; i < ni; ++i) {
@@ -274,6 +270,15 @@ void rcpp_set_matrix_rowcol_Numeric(
     }
   }
   
+  else if(rp.length() == 1) {
+    for(int j = 0; j < nj; ++j){
+      NumericMatrix::Column col = x(_, colind[j]);
+      for(int i = 0; i < ni; ++i) {
+         col[rowind[i]] = rp[0];
+      }
+    }
+  }
+  else stop("recycling not allowed");
   
 }
 
@@ -286,17 +291,9 @@ void rcpp_set_matrix_row_Numeric(NumericMatrix x, IntegerVector rowind, NumericV
   int ni = rowind.length();
   int nj = x.ncol();
   
-  if(rp.length() == 1) {
-    for(int j = 0; j < nj; ++j){
-      NumericMatrix::Column col = x(_, j);
-      for(int i = 0; i < ni; ++i) {
-        col[rowind[i]] = rp[0];
-      }
-    }
-  }
-  else {
-    int counter = 0;
-    for(int j = 0; j < nj; ++j){
+  if(rp.length() == (ni * nj)) {
+    R_xlen_t counter = 0;
+    for(int j = 0; j < nj; ++j) {
       NumericMatrix::Column col = x(_, j);
       for(int i = 0; i < ni; ++i) {
         col[rowind[i]] = rp[counter];
@@ -304,7 +301,15 @@ void rcpp_set_matrix_row_Numeric(NumericMatrix x, IntegerVector rowind, NumericV
       }
     }
   }
-  
+  else if(rp.length() == 1) {
+    for(int j = 0; j < nj; ++j){
+      NumericMatrix::Column col = x(_, j);
+      for(int i = 0; i < ni; ++i) {
+        col[rowind[i]] = rp[0];
+      }
+    }
+  }
+  else stop("recycling not allowed");
   
 }
 
@@ -317,16 +322,8 @@ void rcpp_set_matrix_col_Numeric(NumericMatrix x, IntegerVector colind, NumericV
   int ni = x.nrow();
   int nj = colind.length();
   
-  if(rp.length() == 1) {
-    for(int j = 0; j < nj; ++j){
-      NumericMatrix::Column col = x(_, colind[j]);
-      for(int i = 0; i < ni; ++i) {
-        col[i] = rp[0];
-      }
-    }
-  }
-  else {
-    int counter = 0;
+  if(rp.length() == (ni * nj)) {
+    R_xlen_t counter = 0;
     for(int j = 0; j < nj; ++j){
       NumericMatrix::Column col = x(_, colind[j]);
       for(int i = 0; i < ni; ++i) {
@@ -335,6 +332,15 @@ void rcpp_set_matrix_col_Numeric(NumericMatrix x, IntegerVector colind, NumericV
       }
     }
   }
+  else if(rp.length() == 1) {
+    for(int j = 0; j < nj; ++j){
+      NumericMatrix::Column col = x(_, colind[j]);
+      for(int i = 0; i < ni; ++i) {
+        col[i] = rp[0];
+      }
+    }
+  }
+  else stop("recycling not allowed");
   
 }
 
@@ -372,16 +378,8 @@ void rcpp_set_matrix_rowcol_Character(
   int ni = rowind.length();
   int nj = colind.length();
   
-  if(rp.length() == 1) {
-    for(int j = 0; j < nj; ++j){
-      CharacterMatrix::Column col = x(_, colind[j]);
-      for(int i = 0; i < ni; ++i) {
-         col[rowind[i]] = rp[0];
-      }
-    }
-  }
-  else {
-    int counter = 0;
+  if(rp.length() == (ni * nj)) {
+    R_xlen_t counter = 0;
     for(int j = 0; j < nj; ++j){
       CharacterMatrix::Column col = x(_, colind[j]);
       for(int i = 0; i < ni; ++i) {
@@ -391,6 +389,15 @@ void rcpp_set_matrix_rowcol_Character(
     }
   }
   
+  else if(rp.length() == 1) {
+    for(int j = 0; j < nj; ++j){
+      CharacterMatrix::Column col = x(_, colind[j]);
+      for(int i = 0; i < ni; ++i) {
+         col[rowind[i]] = rp[0];
+      }
+    }
+  }
+  else stop("recycling not allowed");
   
 }
 
@@ -403,17 +410,9 @@ void rcpp_set_matrix_row_Character(CharacterMatrix x, IntegerVector rowind, Char
   int ni = rowind.length();
   int nj = x.ncol();
   
-  if(rp.length() == 1) {
-    for(int j = 0; j < nj; ++j){
-      CharacterMatrix::Column col = x(_, j);
-      for(int i = 0; i < ni; ++i) {
-        col[rowind[i]] = rp[0];
-      }
-    }
-  }
-  else {
-    int counter = 0;
-    for(int j = 0; j < nj; ++j){
+  if(rp.length() == (ni * nj)) {
+    R_xlen_t counter = 0;
+    for(int j = 0; j < nj; ++j) {
       CharacterMatrix::Column col = x(_, j);
       for(int i = 0; i < ni; ++i) {
         col[rowind[i]] = rp[counter];
@@ -421,7 +420,15 @@ void rcpp_set_matrix_row_Character(CharacterMatrix x, IntegerVector rowind, Char
       }
     }
   }
-  
+  else if(rp.length() == 1) {
+    for(int j = 0; j < nj; ++j){
+      CharacterMatrix::Column col = x(_, j);
+      for(int i = 0; i < ni; ++i) {
+        col[rowind[i]] = rp[0];
+      }
+    }
+  }
+  else stop("recycling not allowed");
   
 }
 
@@ -434,16 +441,8 @@ void rcpp_set_matrix_col_Character(CharacterMatrix x, IntegerVector colind, Char
   int ni = x.nrow();
   int nj = colind.length();
   
-  if(rp.length() == 1) {
-    for(int j = 0; j < nj; ++j){
-      CharacterMatrix::Column col = x(_, colind[j]);
-      for(int i = 0; i < ni; ++i) {
-        col[i] = rp[0];
-      }
-    }
-  }
-  else {
-    int counter = 0;
+  if(rp.length() == (ni * nj)) {
+    R_xlen_t counter = 0;
     for(int j = 0; j < nj; ++j){
       CharacterMatrix::Column col = x(_, colind[j]);
       for(int i = 0; i < ni; ++i) {
@@ -452,6 +451,15 @@ void rcpp_set_matrix_col_Character(CharacterMatrix x, IntegerVector colind, Char
       }
     }
   }
+  else if(rp.length() == 1) {
+    for(int j = 0; j < nj; ++j){
+      CharacterMatrix::Column col = x(_, colind[j]);
+      for(int i = 0; i < ni; ++i) {
+        col[i] = rp[0];
+      }
+    }
+  }
+  else stop("recycling not allowed");
   
 }
 
@@ -489,16 +497,8 @@ void rcpp_set_matrix_rowcol_Complex(
   int ni = rowind.length();
   int nj = colind.length();
   
-  if(rp.length() == 1) {
-    for(int j = 0; j < nj; ++j){
-      ComplexMatrix::Column col = x(_, colind[j]);
-      for(int i = 0; i < ni; ++i) {
-         col[rowind[i]] = rp[0];
-      }
-    }
-  }
-  else {
-    int counter = 0;
+  if(rp.length() == (ni * nj)) {
+    R_xlen_t counter = 0;
     for(int j = 0; j < nj; ++j){
       ComplexMatrix::Column col = x(_, colind[j]);
       for(int i = 0; i < ni; ++i) {
@@ -508,6 +508,15 @@ void rcpp_set_matrix_rowcol_Complex(
     }
   }
   
+  else if(rp.length() == 1) {
+    for(int j = 0; j < nj; ++j){
+      ComplexMatrix::Column col = x(_, colind[j]);
+      for(int i = 0; i < ni; ++i) {
+         col[rowind[i]] = rp[0];
+      }
+    }
+  }
+  else stop("recycling not allowed");
   
 }
 
@@ -520,17 +529,9 @@ void rcpp_set_matrix_row_Complex(ComplexMatrix x, IntegerVector rowind, ComplexV
   int ni = rowind.length();
   int nj = x.ncol();
   
-  if(rp.length() == 1) {
-    for(int j = 0; j < nj; ++j){
-      ComplexMatrix::Column col = x(_, j);
-      for(int i = 0; i < ni; ++i) {
-        col[rowind[i]] = rp[0];
-      }
-    }
-  }
-  else {
-    int counter = 0;
-    for(int j = 0; j < nj; ++j){
+  if(rp.length() == (ni * nj)) {
+    R_xlen_t counter = 0;
+    for(int j = 0; j < nj; ++j) {
       ComplexMatrix::Column col = x(_, j);
       for(int i = 0; i < ni; ++i) {
         col[rowind[i]] = rp[counter];
@@ -538,7 +539,15 @@ void rcpp_set_matrix_row_Complex(ComplexMatrix x, IntegerVector rowind, ComplexV
       }
     }
   }
-  
+  else if(rp.length() == 1) {
+    for(int j = 0; j < nj; ++j){
+      ComplexMatrix::Column col = x(_, j);
+      for(int i = 0; i < ni; ++i) {
+        col[rowind[i]] = rp[0];
+      }
+    }
+  }
+  else stop("recycling not allowed");
   
 }
 
@@ -551,16 +560,8 @@ void rcpp_set_matrix_col_Complex(ComplexMatrix x, IntegerVector colind, ComplexV
   int ni = x.nrow();
   int nj = colind.length();
   
-  if(rp.length() == 1) {
-    for(int j = 0; j < nj; ++j){
-      ComplexMatrix::Column col = x(_, colind[j]);
-      for(int i = 0; i < ni; ++i) {
-        col[i] = rp[0];
-      }
-    }
-  }
-  else {
-    int counter = 0;
+  if(rp.length() == (ni * nj)) {
+    R_xlen_t counter = 0;
     for(int j = 0; j < nj; ++j){
       ComplexMatrix::Column col = x(_, colind[j]);
       for(int i = 0; i < ni; ++i) {
@@ -569,6 +570,15 @@ void rcpp_set_matrix_col_Complex(ComplexMatrix x, IntegerVector colind, ComplexV
       }
     }
   }
+  else if(rp.length() == 1) {
+    for(int j = 0; j < nj; ++j){
+      ComplexMatrix::Column col = x(_, colind[j]);
+      for(int i = 0; i < ni; ++i) {
+        col[i] = rp[0];
+      }
+    }
+  }
+  else stop("recycling not allowed");
   
 }
 
@@ -606,16 +616,8 @@ void rcpp_set_matrix_rowcol_Raw(
   int ni = rowind.length();
   int nj = colind.length();
   
-  if(rp.length() == 1) {
-    for(int j = 0; j < nj; ++j){
-      RawMatrix::Column col = x(_, colind[j]);
-      for(int i = 0; i < ni; ++i) {
-         col[rowind[i]] = rp[0];
-      }
-    }
-  }
-  else {
-    int counter = 0;
+  if(rp.length() == (ni * nj)) {
+    R_xlen_t counter = 0;
     for(int j = 0; j < nj; ++j){
       RawMatrix::Column col = x(_, colind[j]);
       for(int i = 0; i < ni; ++i) {
@@ -625,6 +627,15 @@ void rcpp_set_matrix_rowcol_Raw(
     }
   }
   
+  else if(rp.length() == 1) {
+    for(int j = 0; j < nj; ++j){
+      RawMatrix::Column col = x(_, colind[j]);
+      for(int i = 0; i < ni; ++i) {
+         col[rowind[i]] = rp[0];
+      }
+    }
+  }
+  else stop("recycling not allowed");
   
 }
 
@@ -637,17 +648,9 @@ void rcpp_set_matrix_row_Raw(RawMatrix x, IntegerVector rowind, RawVector rp) {
   int ni = rowind.length();
   int nj = x.ncol();
   
-  if(rp.length() == 1) {
-    for(int j = 0; j < nj; ++j){
-      RawMatrix::Column col = x(_, j);
-      for(int i = 0; i < ni; ++i) {
-        col[rowind[i]] = rp[0];
-      }
-    }
-  }
-  else {
-    int counter = 0;
-    for(int j = 0; j < nj; ++j){
+  if(rp.length() == (ni * nj)) {
+    R_xlen_t counter = 0;
+    for(int j = 0; j < nj; ++j) {
       RawMatrix::Column col = x(_, j);
       for(int i = 0; i < ni; ++i) {
         col[rowind[i]] = rp[counter];
@@ -655,7 +658,15 @@ void rcpp_set_matrix_row_Raw(RawMatrix x, IntegerVector rowind, RawVector rp) {
       }
     }
   }
-  
+  else if(rp.length() == 1) {
+    for(int j = 0; j < nj; ++j){
+      RawMatrix::Column col = x(_, j);
+      for(int i = 0; i < ni; ++i) {
+        col[rowind[i]] = rp[0];
+      }
+    }
+  }
+  else stop("recycling not allowed");
   
 }
 
@@ -668,16 +679,8 @@ void rcpp_set_matrix_col_Raw(RawMatrix x, IntegerVector colind, RawVector rp) {
   int ni = x.nrow();
   int nj = colind.length();
   
-  if(rp.length() == 1) {
-    for(int j = 0; j < nj; ++j){
-      RawMatrix::Column col = x(_, colind[j]);
-      for(int i = 0; i < ni; ++i) {
-        col[i] = rp[0];
-      }
-    }
-  }
-  else {
-    int counter = 0;
+  if(rp.length() == (ni * nj)) {
+    R_xlen_t counter = 0;
     for(int j = 0; j < nj; ++j){
       RawMatrix::Column col = x(_, colind[j]);
       for(int i = 0; i < ni; ++i) {
@@ -686,6 +689,15 @@ void rcpp_set_matrix_col_Raw(RawMatrix x, IntegerVector colind, RawVector rp) {
       }
     }
   }
+  else if(rp.length() == 1) {
+    for(int j = 0; j < nj; ++j){
+      RawMatrix::Column col = x(_, colind[j]);
+      for(int i = 0; i < ni; ++i) {
+        col[i] = rp[0];
+      }
+    }
+  }
+  else stop("recycling not allowed");
   
 }
 

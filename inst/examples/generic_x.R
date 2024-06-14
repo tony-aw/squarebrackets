@@ -15,8 +15,7 @@ sb_x(obj, col = c("a", "a"))
 obj <- array(1:64, c(4,4,3))
 print(obj)
 sb_x(obj, n(1:3, 1:2), c(1,3))
-sb_x(obj, rcl = n(1:3, NULL, 1:2))
-# above 2 lines are equivalent to obj[1:3, , 1:2, drop = FALSE]
+# above is equivalent to obj[1:3, , 1:2, drop = FALSE]
 sb_x(obj, i = \(x)x>5)
 # above is equivalent to obj[obj > 5]
 

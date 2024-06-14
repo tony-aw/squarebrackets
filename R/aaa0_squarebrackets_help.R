@@ -1,7 +1,7 @@
-#' squarebrackets: Subset Methods as Alternatives to the Square Brackets Operators
+#' squarebrackets: Subset Methods as Alternatives to the Square Brackets Operators for Programming
 #' 
 #' @description
-#' squarebrackets: Subset Methods as Alternatives to the Square Brackets Operators \cr \cr
+#' squarebrackets: Subset Methods as Alternatives to the Square Brackets Operators for Programming \cr \cr
 #' 
 #' 
 #' @section Goal & Properties:
@@ -48,15 +48,13 @@
 #'    (similar to the `[<-` and `[[<-` methods)
 #'    the user can choose a method that modifies the object by \bold{reference},
 #'    or choose a method that returns a \bold{deep copy}.
-#'  * \bold{Careful handling of names and other attributes}:
-#'    * Sub-setting an object by index names returns ALL indices with that name,
+#'  * \bold{Careful handling of names}:
+#'    * Sub-setting an object by index names returns ALL matches with the given names,
 #'    not just the first.
 #'    * Data.frame-like objects (see supported classes below)
 #'    are forced to have unique column names.
-#'    * Attributes of data.frame-like objects (see supported classes below) are always preserved when sub-setting.
-#'    * For other object types, the user can specify whether to preserve Attributes,
-#'    or use R's `[` attribute behaviour (i.e. drop most attributes). \cr
-#'    This is to ensure compatibility with R-packages that create their own attribute behaviour for sub-setting.
+#'    * Sub-setting arrays using `x[indx1, indx2, etc.]` will drop `names(x)`. \cr
+#'    The methods from 'squarebrackets' will not drop `names(x)`.
 #'  * \bold{Concise function and argument names}.
 #'  * \bold{Performance aware}: \cr
 #'  Despite the many checks performed, the functions are kept reasonably speedy,

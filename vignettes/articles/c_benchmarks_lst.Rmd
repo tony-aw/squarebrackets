@@ -34,6 +34,7 @@ Below are the benchmarks on operating on the original list, and the list transfo
 
 
 ```{r fig.width = 8}
+
 x <- lapply(1:1000, \(x) list(
   list(sample(letters), sample(LETTERS)),
   list(sample(month.abb), sample(month.name)),
@@ -43,12 +44,13 @@ y <- lst_untree(x, 1)
 
 foo <- bench::mark(
   original = for(i in seq_along(x)) {x[[c(i, c(1,2))]]},
-  `untree'd` = y[seq_len(nrow(y)), 2],
+  "untree'd" = sb2_x(n(seq_len(nrow(y)), 2), 1:2),
   check = FALSE,
-  min_iterations = 500
+  min_iterations = 1000
 )
 summary(foo)
 ggplot2::autoplot(foo)
+
 ```
 
 &nbsp;

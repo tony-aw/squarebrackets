@@ -101,7 +101,7 @@ dt_aggregate <- function(
 #' @rdname dt
 #' @export
 dt_setcoe <- function(
-    x, col = NULL, vars = NULL, v, chkdup = getOption("sb.chkdup", FALSE)
+    x, col = NULL, vars = NULL, v, chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
   if(!data.table::is.data.table(x)) { stop("`x` must be a data.table") }
@@ -134,7 +134,7 @@ dt_setcoe <- function(
 
 #' @rdname dt
 #' @export
-dt_setrm <- function(x, col = NULL, vars = NULL, chkdup = getOption("sb.chkdup", FALSE)) {
+dt_setrm <- function(x, col = NULL, vars = NULL, chkdup = getOption("squarebrackets.chkdup", FALSE)) {
   
   if(!data.table::is.data.table(x)) { stop("`x` must be a data.table") }
   

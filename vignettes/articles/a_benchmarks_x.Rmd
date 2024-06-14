@@ -59,7 +59,7 @@ colnames(x.mat) <- sample(c(letters, NA), n, TRUE)
 sel.rows <- 1:100
 sel.cols <- rep(sample(letters[1:13]), 10)
 bm.sb_x.matrix <- bench::mark(
-  "squarebrackets" = sb_x(x.mat, sel.rows, sel.cols),
+  "sb_x" = sb_x(x.mat, sel.rows, sel.cols),
   "base R" = x.mat[sel.rows, lapply(sel.cols, \(i) which(colnames(x.mat) == i)) |> unlist(), drop = FALSE],
   min_iterations = 500
 )

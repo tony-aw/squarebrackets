@@ -11,7 +11,7 @@ are less than optimally convenient,
 and how the methods provided by 'squarebrackets' can be helpful
 in those cases. \cr \cr
 }
-\section{Array with Unknown Number of Dimensions}{
+\section{Arrays}{
 
 
 In order to perform subset operations on some array \code{x}
@@ -32,7 +32,16 @@ It’s not impossible, but still rather convoluted. \cr
 \cr
 The methods provided by 'squarebrackets' do not use position-based arguments,
 and as such work on any arbitrary dimensions without requiring prior knowledge; \cr
-see \link{squarebrackets_indx_args} for details. \cr \cr
+see \link{squarebrackets_indx_args} for details. \cr
+\cr
+When extracting/removing dimensional sub-set from an array,
+i.e. \code{x[indx1, indx2]},
+\code{dimnames(x)} will be preserved (within the range of the subset of course),
+but \code{names(x)} will be dropped completely. \cr
+The methods provided by 'squarebrackets' do not completely remove \code{names(x)}
+when extracting/removing subsets. \cr
+After all: why bother giving arrays flat names if they'll be stripped anyway? \cr
+\cr
 }
 
 \section{Rule-sets for data.frame-like Objects}{

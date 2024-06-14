@@ -11,7 +11,7 @@
 #'
 #' @param x a \bold{variable} belonging to one of the
 #' \link[=squarebrackets_mutable_classes]{supported mutable classes}. \cr
-#' @param i,row,col,idx,dims,rcl,filter,vars,inv See \link{squarebrackets_indx_args}. \cr
+#' @param i,row,col,idx,dims,filter,vars,inv See \link{squarebrackets_indx_args}. \cr
 #' An empty index selection leaves the original object unchanged. \cr
 #' @param ... further arguments passed to or from other methods.
 #' @param tf the transformation function.
@@ -109,7 +109,7 @@ sb_set.matrix <- function(x, row = NULL, col = NULL, i = NULL, inv = FALSE, ...,
     col <- .indx_make_dim(col, x,  2, chkdup = chkdup, inv = inv, abortcall = sys.call())
   }
   
-  if(.any_empty_indices(row, col)) {
+  if(.any_empty_indices(n(row, col))) {
     return(invisible(NULL))
   }
   
@@ -123,7 +123,7 @@ sb_set.matrix <- function(x, row = NULL, col = NULL, i = NULL, inv = FALSE, ...,
 #' @rdname sb_set
 #' @export
 sb_set.array <- function(
-    x, idx = NULL, dims = NULL, rcl = NULL, i = NULL, inv = FALSE, ...,  rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
+    x, idx = NULL, dims = NULL, i = NULL, inv = FALSE, ...,  rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
   # error checks:
@@ -142,23 +142,7 @@ sb_set.array <- function(
     return(invisible(NULL))
   }
   
-  if(!is.null(rcl)) {
-    .sb3d_set(
-      x,
-      rcl[[1]], rcl[[2]], rcl[[3]], inv,
-      rp, tf, chkdup = chkdup, abortcall = sys.call()
-    )
-    return(invisible(NULL))
-  }
-  
-  x.dim <- dim(x)
-  ndims <- length(x.dim)
-  .arr_check(x, idx, dims, ndims, abortcall = sys.call())
-  lst <- .arr_lst_grid(
-    x, ndims, idx, dims, chkdup = chkdup, inv = inv, abortcall = sys.call()
-  )
-  elements <- sub2ind(lst, x.dim, checks = FALSE)
-  .sb_set_atomic(x, elements, rp = rp, tf = tf, abortcall = sys.call())
+  .arr_set(x, idx, dims, chkdup, inv, rp, tf, abortcall = sys.call())
   return(invisible(NULL))
 }
 
@@ -203,7 +187,7 @@ sb2_set.data.table <- function(
     col <- .indx_make_vars(x, vars, inv = inv, abortcall = sys.call())
   }
   
-  if(.any_empty_indices(row, col)) {
+  if(.any_empty_indices(n(row, col))) {
     return(invisible(NULL))
   }
   

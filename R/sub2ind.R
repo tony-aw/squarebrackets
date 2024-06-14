@@ -209,6 +209,18 @@ sub2ind <- function(sub, x.dim, checks = TRUE) {
       dimcumprod
     ))
   }
+  else if(n == 6) {
+    dimcumprod <- as.integer(cumprod(x.dim))
+    return(.rcpp_sub2ind_6d(
+      as.integer(sub[[1]]),
+      as.integer(sub[[2]]),
+      as.integer(sub[[3]]),
+      as.integer(sub[[4]]),
+      as.integer(sub[[5]]),
+      as.integer(sub[[6]]),
+      dimcumprod
+    ))
+  }
   
   return(.sub2ind_general(sub, x.dim))
   

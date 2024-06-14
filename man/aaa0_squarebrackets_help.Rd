@@ -5,9 +5,9 @@
 \alias{squarebrackets-package}
 \alias{squarebrackets}
 \alias{squarebrackets_help}
-\title{squarebrackets: Subset Methods as Alternatives to the Square Brackets Operators}
+\title{squarebrackets: Subset Methods as Alternatives to the Square Brackets Operators for Programming}
 \description{
-squarebrackets: Subset Methods as Alternatives to the Square Brackets Operators \cr \cr
+squarebrackets: Subset Methods as Alternatives to the Square Brackets Operators for Programming \cr \cr
 }
 \section{Goal & Properties}{
 
@@ -60,16 +60,14 @@ always return a modified copy of the object. \cr
 the user can choose a method that modifies the object by \bold{reference},
 or choose a method that returns a \bold{deep copy}.
 }
-\item \bold{Careful handling of names and other attributes}:
+\item \bold{Careful handling of names}:
 \itemize{
-\item Sub-setting an object by index names returns ALL indices with that name,
+\item Sub-setting an object by index names returns ALL matches with the given names,
 not just the first.
 \item Data.frame-like objects (see supported classes below)
 are forced to have unique column names.
-\item Attributes of data.frame-like objects (see supported classes below) are always preserved when sub-setting.
-\item For other object types, the user can specify whether to preserve Attributes,
-or use R's \code{[} attribute behaviour (i.e. drop most attributes). \cr
-This is to ensure compatibility with R-packages that create their own attribute behaviour for sub-setting.
+\item Sub-setting arrays using \code{x[indx1, indx2, etc.]} will drop \code{names(x)}. \cr
+The methods from 'squarebrackets' will not drop \code{names(x)}.
 }
 \item \bold{Concise function and argument names}.
 \item \bold{Performance aware}: \cr

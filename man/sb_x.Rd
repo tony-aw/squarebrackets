@@ -14,49 +14,19 @@
 \usage{
 sb_x(x, ...)
 
-\method{sb_x}{default}(x, i, ..., rat = getOption("squarebrackets.rat", FALSE))
+\method{sb_x}{default}(x, i, ...)
 
-\method{sb_x}{matrix}(
-  x,
-  row = NULL,
-  col = NULL,
-  i = NULL,
-  ...,
-  rat = getOption("squarebrackets.rat", FALSE)
-)
+\method{sb_x}{matrix}(x, row = NULL, col = NULL, i = NULL, ...)
 
-\method{sb_x}{array}(
-  x,
-  idx = NULL,
-  dims = NULL,
-  rcl = NULL,
-  i = NULL,
-  ...,
-  rat = getOption("squarebrackets.rat", FALSE)
-)
+\method{sb_x}{array}(x, idx = NULL, dims = NULL, i = NULL, ...)
 
-\method{sb_x}{factor}(
-  x,
-  i = NULL,
-  lvl = NULL,
-  drop = FALSE,
-  ...,
-  rat = getOption("squarebrackets.rat", FALSE)
-)
+\method{sb_x}{factor}(x, i = NULL, lvl = NULL, drop = FALSE, ...)
 
 sb2_x(x, ...)
 
-\method{sb2_x}{default}(x, i, drop = FALSE, ..., rat = getOption("squarebrackets.rat", FALSE))
+\method{sb2_x}{default}(x, i, drop = FALSE, ...)
 
-\method{sb2_x}{array}(
-  x,
-  idx = NULL,
-  dims = NULL,
-  i = NULL,
-  drop = FALSE,
-  ...,
-  rat = getOption("squarebrackets.rat", FALSE)
-)
+\method{sb2_x}{array}(x, idx = NULL, dims = NULL, i = NULL, drop = FALSE, ...)
 
 \method{sb2_x}{data.frame}(x, row = NULL, col = NULL, filter = NULL, vars = NULL, ...)
 }
@@ -65,12 +35,9 @@ sb2_x(x, ...)
 
 \item{...}{further arguments passed to or from other methods.}
 
-\item{i, lvl, row, col, idx, dims, rcl, filter, vars}{See \link{squarebrackets_indx_args}. \cr
+\item{i, lvl, row, col, idx, dims, filter, vars}{See \link{squarebrackets_indx_args}. \cr
 Duplicates are allowed, resulting in duplicated indices. \cr
 An empty index selection results in an empty object of length 0. \cr}
-
-\item{rat}{see \link{squarebrackets_options}. \cr
-\ifelse{html}{\figure{for_performance-set_to_FALSE-red.svg}{options: alt='[for performance: set to FALSE]'}}{\link[=squarebrackets_help]{for performance: set to FALSE}} \cr}
 
 \item{drop}{Boolean.
 \itemize{
@@ -109,8 +76,7 @@ sb_x(obj, col = c("a", "a"))
 obj <- array(1:64, c(4,4,3))
 print(obj)
 sb_x(obj, n(1:3, 1:2), c(1,3))
-sb_x(obj, rcl = n(1:3, NULL, 1:2))
-# above 2 lines are equivalent to obj[1:3, , 1:2, drop = FALSE]
+# above is equivalent to obj[1:3, , 1:2, drop = FALSE]
 sb_x(obj, i = \(x)x>5)
 # above is equivalent to obj[obj > 5]
 

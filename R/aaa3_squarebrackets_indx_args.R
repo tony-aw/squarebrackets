@@ -1,16 +1,12 @@
 #' Index Arguments in the Generic Sub-setting Methods
 #'
 #' @description
-#' There are 7 types of arguments that can be used
+#' There are 6 types of arguments that can be used
 #' in the generic methods of 'squarebrackets' to specify the indices to perform operations on:
 #' 
 #'  * `i`: to specify flat (i.e. dimensionless) indices.
 #'  * `row, col`: to specify rows and/or columns in tabular objects.
 #'  * `idx, dims`: to specify indices of arbitrary dimensions in arrays.
-#'  * `rcl`: to specify rows (first dimension),
-#'  columns (second dimension),
-#'  and layers (third dimension),
-#'  in arrays that have exactly 3 dimensions.
 #'  * `lvl`: specify levels, for factors only.
 #'  * `filter, vars`: to specify rows and/or columns specifically in data.frame-like objects.
 #'  *  `margin, slice`: to specify indices of one particular dimension. \cr \cr
@@ -104,46 +100,6 @@
 #' 
 #' ```{r eval = FALSE, echo = TRUE}
 #' sb_x(x, n(1:10, 1:5), c(1, 3)) # ==> x[1:10, , 1:5, , drop = FALSE]
-#' 
-#' ```
-#' 
-#' @section Argument rcl:
-#' `r .mybadge_class("atomic array")` \cr
-#' 
-#' The `rcl` argument is only applicable for atomic arrays with exactly 3 dimensions. \cr
-#' If the user knows a-priori that an array has 3 dimensions,
-#' using `rcl` is more efficient than using the `idx, dims` arguments. \cr
-#' \cr
-#' The `rcl` argument must be a list of exactly 3 elements,
-#' with the first element giving the indices of the first dimension (rows),
-#' the second element giving the indices of the second dimension (columns),
-#' and the third element giving the indices of the third and last dimension (layers);
-#' thus `rcl` stands for "rows, columns, layers"
-#' (i.e. the 3 dimensions of a 3-dimensional array). \cr
-#' For each of the aforementioned 3 elements of the list `rcl`,
-#' any of the following can be specified:
-#' 
-#'  * `NULL`, corresponds to a missing argument,
-#'  which results in ALL of the indices in this dimension being selected for the operation.
-#'  * a vector of length 0,
-#'  in which case no indices are selected for the operation (i.e. empty selection).
-#'  * a \bold{strictly positive integer} vector with dimension indices to select for the operation.
-#'  * a \bold{logical} vector of the same length as the corresponding dimension size,
-#'  giving the indices of this dimension to select for the operation.
-#'  * a \bold{character} vector of index names. \cr
-#'  If an object has multiple indices with the given name,
-#'  ALL the corresponding indices will be selected for the operation.
-#' 
-#' By default `rcl` is not a list but simply `NULL`,
-#' to be used when specifying the other arguments (either `idx, dims` or `i`). \cr
-#' \cr
-#' To keep the syntax short,
-#' the user can use the \link{n} function instead of `list()` to specify `rcl`. \cr 
-#' \cr
-#' Using the `rcl` argument corresponds to doing something like the following:
-#' 
-#' ```{r eval = FALSE, echo = TRUE}
-#' sb_x(x, rcl = n(NULL, 1:10, 1:5)) # ==> x[, 1:10, 1:5, drop = FALSE]
 #' 
 #' ```
 #' 
@@ -258,7 +214,7 @@
 #' The arguments are  evaluated in the following order: 
 #' 
 #'  1) Argument `i`
-#'  2) Argument `lvl` (for factors) or argument `rcl` (for 3-dimensional arrays)
+#'  2) Argument `lvl` (for factors)
 #'  3) The rest of the indexing arguments.
 #' 
 #' One cannot specify `row` and `filter` simultaneously;

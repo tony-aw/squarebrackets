@@ -8,21 +8,25 @@
 #' a data.frame or a matrix (row-wise and column-wise are both supported),
 #' as the input. \cr
 #' \cr
-#' For a vector `x`,
-#' `idx_ord_v(x)` is equivalent to \link[base]{order}\code{(x)}. \cr
+#' For a vector `x`, \cr
+#' `idx_ord_v(x)` is equivalent to \cr
+#' \link[base]{order}\code{(x)}. \cr
 #' \cr
-#' For a data.frame or a list of equal-length vectors `x`, with `p` columns/elements,
-#' `idx_ord_df(x)` is equivalent to `order(x[[1]], ..., x[[p]])`. \cr
+#' For a data.frame or a list of equal-length vectors `x`, with `p` columns/elements, \cr
+#' `idx_ord_df(x)` is equivalent to \cr
+#' `order(x[[1]], ..., x[[p]])`. \cr
 #' \cr
-#' For a matrix (or array) `x` with `p` rows,
-#' `idx_ord_m(x, margin = 1)` is equivalent to `order(x[1, ], ..., x[p, ], ...)`. \cr
+#' For a matrix (or array) `x` with `p` rows, \cr
+#' `idx_ord_m(x, margin = 1)` is equivalent to \cr
+#' `order(x[1, ], ..., x[p, ], ...)`. \cr
 #' \cr
-#' For a matrix (or array) `x` with `p` columns,
-#' `idx_ord_m(x, margin = 2)` is equivalent to `order(x[, 1], ..., x[, p], ...)`. \cr
+#' For a matrix (or array) `x` with `p` columns, \cr
+#' `idx_ord_m(x, margin = 2)` is equivalent to \cr
+#' `order(x[, 1], ..., x[, p], ...)`. \cr
 #' \cr
 #' Note that these are merely a convenience functions,
 #' and that these are actually slightly slower than \link[base]{order} (except for `idx_ord_v()`),
-#' due to the additional functionality.
+#' due to the additional functionality. \cr \cr
 #' 
 #' 
 #' @param x a vector, data.frame, or array

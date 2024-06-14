@@ -6,17 +6,15 @@
 #' Use `sb2_rm(x, ...)` if `x` is a recursive object (i.e. list or data.frame-like). \cr \cr
 #'
 #' @param x see \link{squarebrackets_immutable_classes} and \link{squarebrackets_mutable_classes}.
-#' @param i,lvl,row,col,idx,dims,rcl,filter,vars See \link{squarebrackets_indx_args}. \cr
+#' @param i,lvl,row,col,idx,dims,filter,vars See \link{squarebrackets_indx_args}. \cr
 #' An empty index selection results in nothing being removed,
 #' and the entire object is returned. \cr
 #' @param drop Boolean.
 #'  * For factors: If `drop = TRUE`, unused levels are dropped, if `drop = FALSE` they are not dropped.
-#'  * For lists: if `drop = TRUE`,
-#'  and sub-setting is done using argument `i`,
-#'  selecting a single element will give the simplified result,
+#'  * For lists: if `drop = TRUE`, selecting a single element will give the simplified result,
 #'  like using `[[]]`.
 #'  If `drop = FALSE`, a list is always returned regardless of the number of elements.
-#' @param rat,chkdup see \link{squarebrackets_options}. \cr
+#' @param chkdup see \link{squarebrackets_options}. \cr
 #' `r .mybadge_performance_set2("FALSE")` \cr
 #' @param ... further arguments passed to or from other methods.
 #'
@@ -46,16 +44,13 @@ sb_rm <- function(x, ...) {
 #' @export
 sb_rm.default <- function(
     x, i, ...,
-    rat = getOption("squarebrackets.rat", FALSE),
     chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
-  
-  elements <- .indx_make_element(i, x, is_list = FALSE, chkdup = chkdup, inv = TRUE, abortcall = sys.call())
-  if(rat) {
-    x <- .fix_attr(x[elements], attributes(x))
-  } else{ x <- x[elements] }
-  return(x)
+  elements <- .indx_make_element(
+    i, x, is_list = FALSE, chkdup = chkdup, inv = TRUE, abortcall = sys.call()
+  )
+  return(x[elements])
 }
 
 
@@ -63,9 +58,8 @@ sb_rm.default <- function(
 #' @export
 sb_rm.matrix <- function(
     x, row = NULL, col = NULL, i = NULL, ...,
-    rat = getOption("squarebrackets.rat", FALSE), chkdup = getOption("squarebrackets.chkdup", FALSE)
+    chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
-  
   
   if(!is.null(i)) {
     elements <- .indx_make_element(i, x, is_list = FALSE, chkdup = chkdup, inv = TRUE, abortcall = sys.call())
@@ -83,24 +77,29 @@ sb_rm.matrix <- function(
     return(x)
   }
   if(is.null(row)) {
-    if(rat) {
-      x <- .fix_attr(x[, col, drop = FALSE], attributes(x))
-    } else{ x <- x[, col, drop = FALSE] }
-    
+    if(is.null(names(x))) {
+      x <- x[, col, drop = FALSE]
+    }
+    else {
+      x <- .internal_fix_names(x, \(x)x[, col, drop = FALSE])
+    }
     return(x)
   }
   if(is.null(col)) {
-    if(rat) {
-      x <- .fix_attr(x[row, , drop = FALSE], attributes(x))
-    } else{ x <- x[row, , drop = FALSE] }
-    
+    if(is.null(names(x))) {
+      x <- x[row, , drop = FALSE]
+    }
+    else {
+      x <- .internal_fix_names(x, \(x)x[row, , drop = FALSE])
+    }
     return(x)
   }
   
-  if(rat) {
-    x <- .fix_attr(x[row, col, drop = FALSE], attributes(x))
-  } else{ x <- x[row, col, drop = FALSE] }
-  
+  if(is.null(names(x))) {
+    x <- x[row, col, drop = FALSE]
+  } else {
+    x <- .internal_fix_names(x, \(x)x[row, col, drop = FALSE])
+  }
   return(x)
 }
 
@@ -108,10 +107,9 @@ sb_rm.matrix <- function(
 #' @rdname sb_rm
 #' @export
 sb_rm.array <- function(
-    x, idx = NULL, dims = NULL, rcl = NULL, i = NULL, ...,
-    rat = getOption("squarebrackets.rat", FALSE), chkdup = getOption("squarebrackets.chkdup", FALSE)
+    x, idx = NULL, dims = NULL, i = NULL, ...,
+    chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
-  
   
   if(!is.null(i)) {
     elements <- .indx_make_element(
@@ -121,19 +119,12 @@ sb_rm.array <- function(
   }
   
   
-  if(!is.null(rcl)) {
-    if(length(dim(x)) != 3) stop("`rcl` only applicable for arrays with exactly 3 dimensions")
-    if(!is.list(rcl) || length(rcl) != 3) stop("`rcl` must be a list of length 3")
-    
-    x <- .sb3d_rm(
-      x, rcl[[1]], rcl[[2]], rcl[[3]], rat = rat, chkdup = chkdup, abortcall = sys.call()
-    )
-    return(x)
+  if(is.null(names(x))) {
+    x <- .arr_rm(x, idx, dims, chkdup = chkdup, abortcall = sys.call())
   }
-  
-  if(rat) {
-    x <- .fix_attr(.arr_rm(x, idx, dims, chkdup = chkdup, abortcall = sys.call()), attributes(x))
-  } else{ x <- .arr_rm(x, idx, dims, chkdup = chkdup, abortcall = sys.call()) }
+  else {
+    x <- .internal_fix_names(x, \(x).arr_rm(x, idx, dims, chkdup = chkdup, abortcall = sys.call()))
+  }
   
   return(x)
 }
@@ -143,7 +134,7 @@ sb_rm.array <- function(
 #' @export
 sb_rm.factor <- function(
     x, i = NULL, lvl = NULL, drop = FALSE, ...,
-    rat = getOption("squarebrackets.rat", FALSE), chkdup = getOption("squarebrackets.chkdup", FALSE)
+    chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
  
@@ -151,17 +142,11 @@ sb_rm.factor <- function(
   
   if(!is.null(i)) {
     elements <- .indx_make_element(i, x, is_list = FALSE, chkdup = chkdup, inv = TRUE, abortcall = sys.call())
-    if(rat) {
-      x <- .fix_attr(x[elements, drop = drop], attributes(x))
-    } else{ x <- x[elements, drop = drop] }
-    return(x)
+    return(x[elements, drop = drop])
   }
   if(!is.null(lvl)) {
     indx <- .lvl2indx(lvl, x, chkdup = chkdup, inv = TRUE, abortcall = sys.call())
-    if(rat) {
-      x <- .fix_attr(x[indx, drop = drop], attributes(x))
-    } else{ x <- x[indx, drop = drop] }
-    return(x)
+    return(x[indx, drop = drop])
   }
 }
 
@@ -182,19 +167,18 @@ sb2_rm <- function(x, ...) {
 #' @export
 sb2_rm.default <- function(
     x, i, drop = FALSE, ...,
-    rat = getOption("squarebrackets.rat", FALSE), chkdup = getOption("squarebrackets.chkdup", FALSE)
+    chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
   
   elements <- .indx_make_element(i, x, is_list = TRUE, chkdup = chkdup, inv = TRUE, abortcall = sys.call())
   n.i <- length(elements)
   if(n.i == 1 && drop) {
-    x <- x[[elements]]
-  } else {
-    if(rat) x <- .fix_attr(x[elements], attributes(x))
-    if(!rat) x <- x[elements]
+    return(x[[elements]])
   }
-  return(x)
+  else {
+    return(x[elements])
+  }
 }
 
 
@@ -202,17 +186,23 @@ sb2_rm.default <- function(
 #' @export
 sb2_rm.array <- function(
     x, idx = NULL, dims = NULL, i = NULL, drop = FALSE, ...,
-    rat = getOption("squarebrackets.rat", FALSE), chkdup = getOption("squarebrackets.chkdup", FALSE)
+    chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
-  
   if(!is.null(i)) {
-    return(sb2_rm.default(x, i, drop = drop, ..., rat = rat, chkdup = chkdup))
+    return(sb2_rm.default(x, i, drop = drop, ..., chkdup = chkdup))
   }
   
-  if(rat) {
-    x <- .fix_attr(.arr_rm(x, idx, dims, chkdup = chkdup, abortcall = sys.call()), attributes(x))
-  } else{ x <- .arr_rm(x, idx, dims, chkdup = chkdup, abortcall = sys.call()) }
+  if(is.null(names(x))) {
+    x <- .arr_rm(x, idx, dims, chkdup = chkdup, abortcall = sys.call())
+  }
+  else {
+    x <- .internal_fix_names(x, \(x).arr_rm(x, idx, dims, chkdup = chkdup, abortcall = sys.call()))
+  }
+  
+  if(length(x) == 1 && drop) {
+    return(x[[1]])
+  }
   
   return(x)
 }

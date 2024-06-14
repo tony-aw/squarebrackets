@@ -7,7 +7,6 @@ source(file.path(getwd(), "source", "functions4testing.R"))
 test_allow_duplicates <- FALSE
 test_use_factors <- FALSE
 test_PassByReference <- TRUE
-any_empty_indices <- squarebrackets:::.any_empty_indices
 
 
 sb_set2 <- function(x, ...) {
@@ -69,26 +68,6 @@ subset_mat <- function(x, row = NULL, col = NULL) {
 }
 
 
-subset_3darray <- function(x, row = NULL, col = NULL, lyr = NULL) {
-  if(is.atomic(x)) x <- as.mutable_atomic(x)
-  tf <- mean
-  
-  if(!is.null(row)) row <- indx_x(row, x, rownames(x), nrow(x))
-  if(!is.null(col)) col <- indx_x(col, x, colnames(x), ncol(x))
-  if(!is.null(lyr)) lyr <- indx_x(lyr, x, dimnames(x)[[3]], dim(x)[3])
-  
-  if(any_empty_indices(row, col, lyr)) {
-    return(x)
-  }
-  
-  if(is.null(row)) row <- seq_len(nrow(x))
-  if(is.null(col)) col <- seq_len(ncol(x))
-  if(is.null(lyr)) lyr <- seq_len(dim(x)[3])
-  x[row, col, lyr] <- tf(x[row, col, lyr])
-  
-  return(x)
-}
-
 temp.fun.matrix <- function(x, row, col) {
   for(i in 1:length(row)) {
     for(j in 1:length(col)) {
@@ -103,22 +82,6 @@ temp.fun.matrix <- function(x, row, col) {
   }
 }
 
-
-temp.fun.3darray <- function(x, row, col, lyr) {
-  for(i in 1:length(row)) {
-    for(j in 1:length(col)) {
-      for(k in 1:length(lyr)) {
-        expect_equal(
-          sb_set2(x, rcl = list(row[[i]], col[[j]], lyr[[k]]), tf = mean),
-          subset_3darray(x, row[[i]], col[[j]], lyr[[k]])
-        ) |> errorfun()
-        expect_true(sb_set2(x, rcl = list(row[[i]], col[[j]], lyr[[k]]), tf = mean) |>
-                      is.array()) |> errorfun()
-        assign("enumerate", enumerate + 2, envir = parent.frame(n = 1))
-      }
-    }
-  }
-}
 
 sys.source(file.path(getwd(), "source", "sourcetest-dims.R"), envir = environment())
 

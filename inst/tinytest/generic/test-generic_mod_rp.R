@@ -7,7 +7,6 @@ source(file.path(getwd(), "source", "functions4testing.R"))
 test_allow_duplicates <- FALSE
 test_use_factors <- FALSE
 test_PassByReference <- FALSE
-any_empty_indices <- squarebrackets:::.any_empty_indices
 
 
 # test elements ====
@@ -63,7 +62,7 @@ expect_equal(sb_mod(x, i = "a", rp = "Male"), x2)
 enumerate <- enumerate + 3
 
 
-# test matrix & 3d array ====
+# test matrix ====
 
 rep3.bind <- function(x, dim) {
   return(abind::abind(x, x, x, along = dim))
@@ -83,23 +82,6 @@ pre_subset_mat <- function(x, row = NULL, col = NULL) {
   return(x[row, col])
 }
 
-pre_subset_3darray <- function(x, row = NULL, col = NULL, lyr = NULL) {
-  
-  if(!is.null(row)) row <- indx_x(row, x, rownames(x), nrow(x))
-  if(!is.null(col)) col <- indx_x(col, x, colnames(x), ncol(x))
-  if(!is.null(lyr)) lyr <- indx_x(lyr, x, dimnames(x)[[3]], dim(x)[3])
-  
-  if(any_empty_indices(row, col, lyr)) {
-    return(x)
-  }
-  
-  if(is.null(row)) row <- base::quote(expr = )
-  if(is.null(col)) col <- base::quote(expr = )
-  if(is.null(lyr)) lyr <- base::quote(expr = )
-  
-  return(x[row, col, lyr])
-}
-
 subset_mat <- function(x, row = NULL, col = NULL, rp) {
   
   if(!is.null(row)) row <- indx_x(row, x, rownames(x), nrow(x))
@@ -116,24 +98,6 @@ subset_mat <- function(x, row = NULL, col = NULL, rp) {
   return(x)
 }
 
-subset_3darray <- function(x, row = NULL, col = NULL, lyr = NULL, rp) {
-  
-  if(!is.null(row)) row <- indx_x(row, x, rownames(x), nrow(x))
-  if(!is.null(col)) col <- indx_x(col, x, colnames(x), ncol(x))
-  if(!is.null(lyr)) lyr <- indx_x(lyr, x, dimnames(x)[[3]], dim(x)[3])
-  
-  if(any_empty_indices(row, col, lyr)) {
-    return(x)
-  }
-  
-  if(is.null(row)) row <- base::quote(expr = )
-  if(is.null(col)) col <- base::quote(expr = )
-  if(is.null(lyr)) lyr <- base::quote(expr = )
-  x[row, col, lyr] <- rp
-  
-  return(x)
-}
-
 temp.fun.matrix <- function(x, row, col) {
   for(i in 1:length(row)) {
     for(j in 1:length(col)) {
@@ -146,24 +110,6 @@ temp.fun.matrix <- function(x, row, col) {
         expect_true(sb_mod(x, row = row[[i]], col = col[[j]], rp = rp) |>
                       is.matrix()) |> errorfun()
         assign("enumerate", enumerate + 2, envir = parent.frame(n = 1))
-    }
-  }
-}
-
-temp.fun.3darray <- function(x, row, col, lyr) {
-  for(i in 1:length(row)) {
-    for(j in 1:length(col)) {
-      for(k in 1:length(lyr)) {
-        len <- length(pre_subset_3darray(x, row[[i]], col[[j]], lyr[[k]]))
-        rp <- seq_len(len)
-        expect_equal(
-          sb_mod(x, rcl = list(row[[i]], col[[j]], lyr[[k]]), rp = rp),
-          subset_3darray(x, row[[i]], col[[j]], lyr[[k]], rp = rp)
-        ) |> errorfun()
-        expect_true(sb_mod(x, rcl = list(row[[i]], col[[j]], lyr[[k]]), rp = rp) |>
-                      is.array()) |> errorfun()
-        assign("enumerate", enumerate + 2, envir = parent.frame(n = 1))
-      }
     }
   }
 }

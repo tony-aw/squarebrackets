@@ -24,19 +24,9 @@ void rcpp_set_3d_Logical(
   int nk = ind3.length();
   int flatind = 0;
   
-  if(rp.length() == 1) {
-    for(int k = 0; k < nk; ++k){
-      for(int j = 0; j < nj; ++j) {
-        for(int i = 0; i < ni; ++i) {
-          flatind = ind1[i] + dimcumprod[0]  * (ind2[j] - 1) + dimcumprod[1] * (ind3[k] - 1);
-          x[flatind - 1] = rp[0];
-        }
-      }
-    }
-  }
-  else {
-    int counter = 0;
-    for(int k = 0; k < nk; ++k){
+  if(rp.length() == (ni * nj * nk)) {
+    R_xlen_t counter = 0;
+    for(int k = 0; k < nk; ++k) {
       for(int j = 0; j < nj; ++j) {
         for(int i = 0; i < ni; ++i) {
           flatind = ind1[i] + dimcumprod[0]  * (ind2[j] - 1) + dimcumprod[1] * (ind3[k] - 1);
@@ -46,6 +36,17 @@ void rcpp_set_3d_Logical(
       }
     }
   }
+  else if(rp.length() == 1) {
+    for(int k = 0; k < nk; ++k){
+      for(int j = 0; j < nj; ++j) {
+        for(int i = 0; i < ni; ++i) {
+          flatind = ind1[i] + dimcumprod[0]  * (ind2[j] - 1) + dimcumprod[1] * (ind3[k] - 1);
+          x[flatind - 1] = rp[0];
+        }
+      }
+    }
+  }
+  else stop("recycling not allowed");
 }
 
 
@@ -67,19 +68,9 @@ void rcpp_set_3d_Integer(
   int nk = ind3.length();
   int flatind = 0;
   
-  if(rp.length() == 1) {
-    for(int k = 0; k < nk; ++k){
-      for(int j = 0; j < nj; ++j) {
-        for(int i = 0; i < ni; ++i) {
-          flatind = ind1[i] + dimcumprod[0]  * (ind2[j] - 1) + dimcumprod[1] * (ind3[k] - 1);
-          x[flatind - 1] = rp[0];
-        }
-      }
-    }
-  }
-  else {
-    int counter = 0;
-    for(int k = 0; k < nk; ++k){
+  if(rp.length() == (ni * nj * nk)) {
+    R_xlen_t counter = 0;
+    for(int k = 0; k < nk; ++k) {
       for(int j = 0; j < nj; ++j) {
         for(int i = 0; i < ni; ++i) {
           flatind = ind1[i] + dimcumprod[0]  * (ind2[j] - 1) + dimcumprod[1] * (ind3[k] - 1);
@@ -89,6 +80,17 @@ void rcpp_set_3d_Integer(
       }
     }
   }
+  else if(rp.length() == 1) {
+    for(int k = 0; k < nk; ++k){
+      for(int j = 0; j < nj; ++j) {
+        for(int i = 0; i < ni; ++i) {
+          flatind = ind1[i] + dimcumprod[0]  * (ind2[j] - 1) + dimcumprod[1] * (ind3[k] - 1);
+          x[flatind - 1] = rp[0];
+        }
+      }
+    }
+  }
+  else stop("recycling not allowed");
 }
 
 
@@ -110,19 +112,9 @@ void rcpp_set_3d_Numeric(
   int nk = ind3.length();
   int flatind = 0;
   
-  if(rp.length() == 1) {
-    for(int k = 0; k < nk; ++k){
-      for(int j = 0; j < nj; ++j) {
-        for(int i = 0; i < ni; ++i) {
-          flatind = ind1[i] + dimcumprod[0]  * (ind2[j] - 1) + dimcumprod[1] * (ind3[k] - 1);
-          x[flatind - 1] = rp[0];
-        }
-      }
-    }
-  }
-  else {
-    int counter = 0;
-    for(int k = 0; k < nk; ++k){
+  if(rp.length() == (ni * nj * nk)) {
+    R_xlen_t counter = 0;
+    for(int k = 0; k < nk; ++k) {
       for(int j = 0; j < nj; ++j) {
         for(int i = 0; i < ni; ++i) {
           flatind = ind1[i] + dimcumprod[0]  * (ind2[j] - 1) + dimcumprod[1] * (ind3[k] - 1);
@@ -132,6 +124,17 @@ void rcpp_set_3d_Numeric(
       }
     }
   }
+  else if(rp.length() == 1) {
+    for(int k = 0; k < nk; ++k){
+      for(int j = 0; j < nj; ++j) {
+        for(int i = 0; i < ni; ++i) {
+          flatind = ind1[i] + dimcumprod[0]  * (ind2[j] - 1) + dimcumprod[1] * (ind3[k] - 1);
+          x[flatind - 1] = rp[0];
+        }
+      }
+    }
+  }
+  else stop("recycling not allowed");
 }
 
 
@@ -153,19 +156,9 @@ void rcpp_set_3d_Character(
   int nk = ind3.length();
   int flatind = 0;
   
-  if(rp.length() == 1) {
-    for(int k = 0; k < nk; ++k){
-      for(int j = 0; j < nj; ++j) {
-        for(int i = 0; i < ni; ++i) {
-          flatind = ind1[i] + dimcumprod[0]  * (ind2[j] - 1) + dimcumprod[1] * (ind3[k] - 1);
-          x[flatind - 1] = rp[0];
-        }
-      }
-    }
-  }
-  else {
-    int counter = 0;
-    for(int k = 0; k < nk; ++k){
+  if(rp.length() == (ni * nj * nk)) {
+    R_xlen_t counter = 0;
+    for(int k = 0; k < nk; ++k) {
       for(int j = 0; j < nj; ++j) {
         for(int i = 0; i < ni; ++i) {
           flatind = ind1[i] + dimcumprod[0]  * (ind2[j] - 1) + dimcumprod[1] * (ind3[k] - 1);
@@ -175,6 +168,17 @@ void rcpp_set_3d_Character(
       }
     }
   }
+  else if(rp.length() == 1) {
+    for(int k = 0; k < nk; ++k){
+      for(int j = 0; j < nj; ++j) {
+        for(int i = 0; i < ni; ++i) {
+          flatind = ind1[i] + dimcumprod[0]  * (ind2[j] - 1) + dimcumprod[1] * (ind3[k] - 1);
+          x[flatind - 1] = rp[0];
+        }
+      }
+    }
+  }
+  else stop("recycling not allowed");
 }
 
 
@@ -196,19 +200,9 @@ void rcpp_set_3d_Complex(
   int nk = ind3.length();
   int flatind = 0;
   
-  if(rp.length() == 1) {
-    for(int k = 0; k < nk; ++k){
-      for(int j = 0; j < nj; ++j) {
-        for(int i = 0; i < ni; ++i) {
-          flatind = ind1[i] + dimcumprod[0]  * (ind2[j] - 1) + dimcumprod[1] * (ind3[k] - 1);
-          x[flatind - 1] = rp[0];
-        }
-      }
-    }
-  }
-  else {
-    int counter = 0;
-    for(int k = 0; k < nk; ++k){
+  if(rp.length() == (ni * nj * nk)) {
+    R_xlen_t counter = 0;
+    for(int k = 0; k < nk; ++k) {
       for(int j = 0; j < nj; ++j) {
         for(int i = 0; i < ni; ++i) {
           flatind = ind1[i] + dimcumprod[0]  * (ind2[j] - 1) + dimcumprod[1] * (ind3[k] - 1);
@@ -218,6 +212,17 @@ void rcpp_set_3d_Complex(
       }
     }
   }
+  else if(rp.length() == 1) {
+    for(int k = 0; k < nk; ++k){
+      for(int j = 0; j < nj; ++j) {
+        for(int i = 0; i < ni; ++i) {
+          flatind = ind1[i] + dimcumprod[0]  * (ind2[j] - 1) + dimcumprod[1] * (ind3[k] - 1);
+          x[flatind - 1] = rp[0];
+        }
+      }
+    }
+  }
+  else stop("recycling not allowed");
 }
 
 
@@ -239,19 +244,9 @@ void rcpp_set_3d_Raw(
   int nk = ind3.length();
   int flatind = 0;
   
-  if(rp.length() == 1) {
-    for(int k = 0; k < nk; ++k){
-      for(int j = 0; j < nj; ++j) {
-        for(int i = 0; i < ni; ++i) {
-          flatind = ind1[i] + dimcumprod[0]  * (ind2[j] - 1) + dimcumprod[1] * (ind3[k] - 1);
-          x[flatind - 1] = rp[0];
-        }
-      }
-    }
-  }
-  else {
-    int counter = 0;
-    for(int k = 0; k < nk; ++k){
+  if(rp.length() == (ni * nj * nk)) {
+    R_xlen_t counter = 0;
+    for(int k = 0; k < nk; ++k) {
       for(int j = 0; j < nj; ++j) {
         for(int i = 0; i < ni; ++i) {
           flatind = ind1[i] + dimcumprod[0]  * (ind2[j] - 1) + dimcumprod[1] * (ind3[k] - 1);
@@ -261,6 +256,17 @@ void rcpp_set_3d_Raw(
       }
     }
   }
+  else if(rp.length() == 1) {
+    for(int k = 0; k < nk; ++k){
+      for(int j = 0; j < nj; ++j) {
+        for(int i = 0; i < ni; ++i) {
+          flatind = ind1[i] + dimcumprod[0]  * (ind2[j] - 1) + dimcumprod[1] * (ind3[k] - 1);
+          x[flatind - 1] = rp[0];
+        }
+      }
+    }
+  }
+  else stop("recycling not allowed");
 }
 
 

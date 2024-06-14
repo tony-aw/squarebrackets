@@ -32,43 +32,14 @@ Since checking for duplicates can be expensive, it is set to \code{FALSE} by def
 The default can be changed in the \code{squarebrackets.chkdup} option. \cr \cr
 }
 
-\section{Retain Attributes}{
-
-\ifelse{html}{\figure{argument-rat-blue.svg}{options: alt='[argument: rat]'}}{\link[=squarebrackets_options]{argument: rat}} \cr
-\ifelse{html}{\figure{option-squarebrackets_dot_rat-blue.svg}{options: alt='[option: squarebrackets.rat]'}}{\link[=squarebrackets_options]{option: squarebrackets.rat}} \cr
-Like the \code{[} - methods,
-\link{sb_x} and \link{sb_rm} will by default
-strip most (but not all) attributes. \cr
-The \link{sb_x} and \link{sb_rm} methods
-in 'squarebrackets' have the \code{rat} argument,
-to control this control the attribute stripping behaviour. \cr
-If \code{rat = FALSE}, this default behaviour is preserved,
-for compatibility with special classes. This is the fastest option. \cr
-If \code{rat = TRUE},
-attributes from \code{x} missing after sub-setting are re-assigned to \code{x}.
-Already existing attributes after sub-setting will not be overwritten. \cr
-There is no \code{rat} argument for data.frame-like object:
-their attributes will always be preserved. \cr
-NOTE: In the following situations, the \code{rat} argument will be ignored,
-as the attributes necessarily have to be dropped:
-\itemize{
-\item when \code{x} is a list, AND \code{drop = TRUE},
-AND a single element is selected,
-AND sub-setting is done through the \code{i} argument.
-\item when \code{x} is an atomic matrix or array,
-and sub-setting is done through the \code{i} argument. \cr
-}
-
-The default value for the \code{rat} argument can be changed in the \code{squarebrackets.rat} option. \cr \cr
-}
-
 \section{Mutable Atomic Messages}{
 
 \ifelse{html}{\figure{option-squarebrackets_dot_ma_messages-blue.svg}{options: alt='[option: squarebrackets.ma_messages]'}}{\link[=squarebrackets_options]{option: squarebrackets.ma_messages}} \cr
 The \verb{[<-.mutable_atomic} method notifies the user of copy-on-modification. \cr
 Should the user find this annoying,
 the user can disable these messages
-by setting \code{squarebrackets.ma_messages} to \code{FALSE}. \cr \cr
+by setting \code{squarebrackets.ma_messages} to \code{FALSE}. \cr
+\cr
 }
 
 \section{squarebrackets.protected}{

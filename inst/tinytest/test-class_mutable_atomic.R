@@ -144,37 +144,6 @@ expect_equal(
 enumerate <- enumerate + 4
 
 
-# partial array3d sub-setting ====
-x <- as.mutable_atomic(array(1:27, dim = c(3,3,3)))
-expect_equal(
-  sb_x(x, rcl = n(1, NULL, NULL)),
-  x[1, , ,drop = FALSE]
-)
-expect_equal(
-  sb_x(x, rcl = n(NULL, 1, NULL)),
-  x[, 1, , drop = FALSE]
-)
-expect_equal(
-  sb_x(x, rcl = n(NULL, NULL, 1)),
-  x[, , 1 , drop = FALSE]
-)
-
-expect_equal(
-  sb_rm(x, rcl = n(1, NULL, NULL)),
-  x[-1, , ,drop = FALSE]
-)
-expect_equal(
-  sb_rm(x, rcl = n(NULL, 1, NULL)),
-  x[, -1, , drop = FALSE]
-)
-expect_equal(
-  sb_rm(x, rcl = n(NULL, NULL, 1)),
-  x[, , -1 , drop = FALSE]
-)
-
-enumerate <- enumerate + 6
-
-
 # partial (n=4)-dim array sub-setting ====
 x <- as.mutable_atomic(array(1:81, dim = c(3,3,3, 3)))
 expect_equal(

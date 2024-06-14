@@ -18,18 +18,19 @@ using namespace Rcpp;
 void rcpp_set_all_Logical(LogicalVector x, LogicalVector rp) {
   R_xlen_t n = x.length();
 
-  if(rp.length() == 1) {
-    for(R_xlen_t i = 0; i < n; ++i){
-      x[i] = rp[0];
-    }
-  }
-  else {
-    int counter = 0;
-    for(R_xlen_t i = 0; i < n; ++i){
+  if(rp.length() == n) {
+    R_xlen_t counter = 0;
+    for(R_xlen_t i = 0; i < n; ++i) {
       x[i] = rp[counter];
       counter++;
     }
   }
+  else if(rp.length() == 1) {
+    for(R_xlen_t i = 0; i < n; ++i){
+      x[i] = rp[0];
+    }
+  }
+  else stop("recycling not allowed");
 
 }
 
@@ -44,18 +45,19 @@ void rcpp_set_all_Logical(LogicalVector x, LogicalVector rp) {
 void rcpp_set_all_Integer(IntegerVector x, IntegerVector rp) {
   R_xlen_t n = x.length();
 
-  if(rp.length() == 1) {
-    for(R_xlen_t i = 0; i < n; ++i){
-      x[i] = rp[0];
-    }
-  }
-  else {
-    int counter = 0;
-    for(R_xlen_t i = 0; i < n; ++i){
+  if(rp.length() == n) {
+    R_xlen_t counter = 0;
+    for(R_xlen_t i = 0; i < n; ++i) {
       x[i] = rp[counter];
       counter++;
     }
   }
+  else if(rp.length() == 1) {
+    for(R_xlen_t i = 0; i < n; ++i){
+      x[i] = rp[0];
+    }
+  }
+  else stop("recycling not allowed");
 
 }
 
@@ -70,18 +72,19 @@ void rcpp_set_all_Integer(IntegerVector x, IntegerVector rp) {
 void rcpp_set_all_Numeric(NumericVector x, NumericVector rp) {
   R_xlen_t n = x.length();
 
-  if(rp.length() == 1) {
-    for(R_xlen_t i = 0; i < n; ++i){
-      x[i] = rp[0];
-    }
-  }
-  else {
-    int counter = 0;
-    for(R_xlen_t i = 0; i < n; ++i){
+  if(rp.length() == n) {
+    R_xlen_t counter = 0;
+    for(R_xlen_t i = 0; i < n; ++i) {
       x[i] = rp[counter];
       counter++;
     }
   }
+  else if(rp.length() == 1) {
+    for(R_xlen_t i = 0; i < n; ++i){
+      x[i] = rp[0];
+    }
+  }
+  else stop("recycling not allowed");
 
 }
 
@@ -96,18 +99,19 @@ void rcpp_set_all_Numeric(NumericVector x, NumericVector rp) {
 void rcpp_set_all_Character(CharacterVector x, CharacterVector rp) {
   R_xlen_t n = x.length();
 
-  if(rp.length() == 1) {
-    for(R_xlen_t i = 0; i < n; ++i){
-      x[i] = rp[0];
-    }
-  }
-  else {
-    int counter = 0;
-    for(R_xlen_t i = 0; i < n; ++i){
+  if(rp.length() == n) {
+    R_xlen_t counter = 0;
+    for(R_xlen_t i = 0; i < n; ++i) {
       x[i] = rp[counter];
       counter++;
     }
   }
+  else if(rp.length() == 1) {
+    for(R_xlen_t i = 0; i < n; ++i){
+      x[i] = rp[0];
+    }
+  }
+  else stop("recycling not allowed");
 
 }
 
@@ -122,18 +126,19 @@ void rcpp_set_all_Character(CharacterVector x, CharacterVector rp) {
 void rcpp_set_all_Complex(ComplexVector x, ComplexVector rp) {
   R_xlen_t n = x.length();
 
-  if(rp.length() == 1) {
-    for(R_xlen_t i = 0; i < n; ++i){
-      x[i] = rp[0];
-    }
-  }
-  else {
-    int counter = 0;
-    for(R_xlen_t i = 0; i < n; ++i){
+  if(rp.length() == n) {
+    R_xlen_t counter = 0;
+    for(R_xlen_t i = 0; i < n; ++i) {
       x[i] = rp[counter];
       counter++;
     }
   }
+  else if(rp.length() == 1) {
+    for(R_xlen_t i = 0; i < n; ++i){
+      x[i] = rp[0];
+    }
+  }
+  else stop("recycling not allowed");
 
 }
 
@@ -148,18 +153,19 @@ void rcpp_set_all_Complex(ComplexVector x, ComplexVector rp) {
 void rcpp_set_all_Raw(RawVector x, RawVector rp) {
   R_xlen_t n = x.length();
 
-  if(rp.length() == 1) {
-    for(R_xlen_t i = 0; i < n; ++i){
-      x[i] = rp[0];
-    }
-  }
-  else {
-    int counter = 0;
-    for(R_xlen_t i = 0; i < n; ++i){
+  if(rp.length() == n) {
+    R_xlen_t counter = 0;
+    for(R_xlen_t i = 0; i < n; ++i) {
       x[i] = rp[counter];
       counter++;
     }
   }
+  else if(rp.length() == 1) {
+    for(R_xlen_t i = 0; i < n; ++i){
+      x[i] = rp[0];
+    }
+  }
+  else stop("recycling not allowed");
 
 }
 

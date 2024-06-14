@@ -14,7 +14,6 @@
 }
 
 
-
 #' @keywords internal
 #' @noRd
 .indx_check_names <- function(dnames, abortcall) {
@@ -103,11 +102,6 @@
     }
   }
   
-  # if(any(!data.table::`%chin%`(indx, levels(x)))) {
-  #   error.txt <- "unknown level given"
-  #   stop(simpleError(error.txt, call = abortcall))
-  # }
-  
   if(!inv) { return(match_all(indx, x)) }
   if(inv){ return(collapse::`%!iin%`(x, indx)) }
   
@@ -128,11 +122,6 @@
     stop(simpleError("duplicate integers or names not allowed", call = abortcall))
   }
 
-  # if(any(!data.table::`%chin%`(indx, levels(x)))) {
-  #   error.txt <- "unknown level given"
-  #   stop(simpleError(error.txt, call = abortcall))
-  # }
-  
   if(n.indx != length(rp)) {
     error.txt <- "recycling not allowed"
     stop(simpleError(error.txt, call = abortcall))
@@ -370,8 +359,7 @@
 
 #' @keywords internal
 #' @noRd
-.any_empty_indices <- function(...) {
-  lst <- list(...)
+.any_empty_indices <- function(lst) {
   check <- vapply(lst, \(x)!is.null(x) && length(x) == 0L, FUN.VALUE = logical(1L))
   if(any(check)) {
     return(TRUE)
@@ -381,16 +369,14 @@
 }
 
 
-
 #' @keywords internal
 #' @noRd
-.fix_attr <- function(out, .attr) {
-  if(is.null(.attr)) return(out)
-  out.attr <- attributes(out)
-  .attr.names <- names(.attr)
-  missing.attrnms <- !data.table::`%chin%`(.attr.names, names(out.attr))
-  attributes(out) <- c(out.attr, .attr[missing.attrnms])
-  return(out)
+.internal_fix_names <- function(x, f) {
+  x.names <- names(x)
+  dim(x.names) <- dim(x)
+  x <- f(x)
+  names(x) <- f(x.names)
+  return(x)
 }
 
 

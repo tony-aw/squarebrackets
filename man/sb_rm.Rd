@@ -14,13 +14,7 @@
 \usage{
 sb_rm(x, ...)
 
-\method{sb_rm}{default}(
-  x,
-  i,
-  ...,
-  rat = getOption("squarebrackets.rat", FALSE),
-  chkdup = getOption("squarebrackets.chkdup", FALSE)
-)
+\method{sb_rm}{default}(x, i, ..., chkdup = getOption("squarebrackets.chkdup", FALSE))
 
 \method{sb_rm}{matrix}(
   x,
@@ -28,7 +22,6 @@ sb_rm(x, ...)
   col = NULL,
   i = NULL,
   ...,
-  rat = getOption("squarebrackets.rat", FALSE),
   chkdup = getOption("squarebrackets.chkdup", FALSE)
 )
 
@@ -36,10 +29,8 @@ sb_rm(x, ...)
   x,
   idx = NULL,
   dims = NULL,
-  rcl = NULL,
   i = NULL,
   ...,
-  rat = getOption("squarebrackets.rat", FALSE),
   chkdup = getOption("squarebrackets.chkdup", FALSE)
 )
 
@@ -49,7 +40,6 @@ sb_rm(x, ...)
   lvl = NULL,
   drop = FALSE,
   ...,
-  rat = getOption("squarebrackets.rat", FALSE),
   chkdup = getOption("squarebrackets.chkdup", FALSE)
 )
 
@@ -60,7 +50,6 @@ sb2_rm(x, ...)
   i,
   drop = FALSE,
   ...,
-  rat = getOption("squarebrackets.rat", FALSE),
   chkdup = getOption("squarebrackets.chkdup", FALSE)
 )
 
@@ -71,7 +60,6 @@ sb2_rm(x, ...)
   i = NULL,
   drop = FALSE,
   ...,
-  rat = getOption("squarebrackets.rat", FALSE),
   chkdup = getOption("squarebrackets.chkdup", FALSE)
 )
 
@@ -90,19 +78,17 @@ sb2_rm(x, ...)
 
 \item{...}{further arguments passed to or from other methods.}
 
-\item{i, lvl, row, col, idx, dims, rcl, filter, vars}{See \link{squarebrackets_indx_args}. \cr
+\item{i, lvl, row, col, idx, dims, filter, vars}{See \link{squarebrackets_indx_args}. \cr
 An empty index selection results in nothing being removed,
 and the entire object is returned. \cr}
 
-\item{rat, chkdup}{see \link{squarebrackets_options}. \cr
+\item{chkdup}{see \link{squarebrackets_options}. \cr
 \ifelse{html}{\figure{for_performance-set_to_FALSE-red.svg}{options: alt='[for performance: set to FALSE]'}}{\link[=squarebrackets_help]{for performance: set to FALSE}} \cr}
 
 \item{drop}{Boolean.
 \itemize{
 \item For factors: If \code{drop = TRUE}, unused levels are dropped, if \code{drop = FALSE} they are not dropped.
-\item For lists: if \code{drop = TRUE},
-and sub-setting is done using argument \code{i},
-selecting a single element will give the simplified result,
+\item For lists: if \code{drop = TRUE}, selecting a single element will give the simplified result,
 like using \verb{[[]]}.
 If \code{drop = FALSE}, a list is always returned regardless of the number of elements.
 }}
@@ -132,8 +118,7 @@ sb_rm(obj, col = "a")
 obj <- array(1:64, c(4,4,3))
 print(obj)
 sb_rm(obj, n(1, c(1, 3)), c(1, 3))
-sb_rm(obj, rcl = n(1, NULL, c(1, 3)))
-# above 2 lines are equivalent to obj[-1, c(-1, -3), drop = FALSE]
+# above is equivalent to obj[-1, c(-1, -3), drop = FALSE]
 sb_rm(obj, i = \(x)x>5)
 # above is equivalent to obj[!obj > 5]
 

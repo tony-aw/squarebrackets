@@ -2,27 +2,6 @@
 
 library(stringi)
 
-# Rcpp::cppFunction(
-#   "
-#   void rcpp_set_rowcol_Numeric1(NumericMatrix x, IntegerVector rowind, IntegerVector colind, NumericVector rp) {
-#   int ni = rowind.length();
-#   int nj = colind.length();
-#   int counter = 0;
-#   for(int j = 0; j < nj; ++j){
-#     NumericMatrix::Column col = x(_, colind[j]);
-#     for(int i = 0; i < ni; ++i) {
-#       col[rowind[i]] = rp[0];
-#       counter += 1;
-#     }
-#   }
-# }
-#   "
-# )
-# 
-# x <- matrix(c(1:18, NA, NaN), ncol = 4)
-# rcpp_set_rowcol_Numeric1(x, 2L, 2L, as.numeric(NaN))
-# x
-
 
 # set all ====
 
@@ -36,18 +15,19 @@ templatecode <- "
 void rcpp_set_all_RTYPE(RTYPEVector x, RTYPEVector rp) {
   R_xlen_t n = x.length();
 
-  if(rp.length() == 1) {
-    for(R_xlen_t i = 0; i < n; ++i){
-      x[i] = rp[0];
-    }
-  }
-  else {
-    int counter = 0;
-    for(R_xlen_t i = 0; i < n; ++i){
+  if(rp.length() == n) {
+    R_xlen_t counter = 0;
+    for(R_xlen_t i = 0; i < n; ++i) {
       x[i] = rp[counter];
       counter++;
     }
   }
+  else if(rp.length() == 1) {
+    for(R_xlen_t i = 0; i < n; ++i){
+      x[i] = rp[0];
+    }
+  }
+  else stop(\"recycling not allowed\");
 
 }
 
@@ -107,16 +87,8 @@ void rcpp_set_matrix_rowcol_RTYPE(
   int ni = rowind.length();
   int nj = colind.length();
   
-  if(rp.length() == 1) {
-    for(int j = 0; j < nj; ++j){
-      RTYPEMatrix::Column col = x(_, colind[j]);
-      for(int i = 0; i < ni; ++i) {
-         col[rowind[i]] = rp[0];
-      }
-    }
-  }
-  else {
-    int counter = 0;
+  if(rp.length() == (ni * nj)) {
+    R_xlen_t counter = 0;
     for(int j = 0; j < nj; ++j){
       RTYPEMatrix::Column col = x(_, colind[j]);
       for(int i = 0; i < ni; ++i) {
@@ -126,6 +98,15 @@ void rcpp_set_matrix_rowcol_RTYPE(
     }
   }
   
+  else if(rp.length() == 1) {
+    for(int j = 0; j < nj; ++j){
+      RTYPEMatrix::Column col = x(_, colind[j]);
+      for(int i = 0; i < ni; ++i) {
+         col[rowind[i]] = rp[0];
+      }
+    }
+  }
+  else stop(\"recycling not allowed\");
   
 }
 
@@ -141,17 +122,9 @@ void rcpp_set_matrix_row_RTYPE(RTYPEMatrix x, IntegerVector rowind, RTYPEVector 
   int ni = rowind.length();
   int nj = x.ncol();
   
-  if(rp.length() == 1) {
-    for(int j = 0; j < nj; ++j){
-      RTYPEMatrix::Column col = x(_, j);
-      for(int i = 0; i < ni; ++i) {
-        col[rowind[i]] = rp[0];
-      }
-    }
-  }
-  else {
-    int counter = 0;
-    for(int j = 0; j < nj; ++j){
+  if(rp.length() == (ni * nj)) {
+    R_xlen_t counter = 0;
+    for(int j = 0; j < nj; ++j) {
       RTYPEMatrix::Column col = x(_, j);
       for(int i = 0; i < ni; ++i) {
         col[rowind[i]] = rp[counter];
@@ -159,7 +132,15 @@ void rcpp_set_matrix_row_RTYPE(RTYPEMatrix x, IntegerVector rowind, RTYPEVector 
       }
     }
   }
-  
+  else if(rp.length() == 1) {
+    for(int j = 0; j < nj; ++j){
+      RTYPEMatrix::Column col = x(_, j);
+      for(int i = 0; i < ni; ++i) {
+        col[rowind[i]] = rp[0];
+      }
+    }
+  }
+  else stop(\"recycling not allowed\");
   
 }
 
@@ -174,16 +155,8 @@ void rcpp_set_matrix_col_RTYPE(RTYPEMatrix x, IntegerVector colind, RTYPEVector 
   int ni = x.nrow();
   int nj = colind.length();
   
-  if(rp.length() == 1) {
-    for(int j = 0; j < nj; ++j){
-      RTYPEMatrix::Column col = x(_, colind[j]);
-      for(int i = 0; i < ni; ++i) {
-        col[i] = rp[0];
-      }
-    }
-  }
-  else {
-    int counter = 0;
+  if(rp.length() == (ni * nj)) {
+    R_xlen_t counter = 0;
     for(int j = 0; j < nj; ++j){
       RTYPEMatrix::Column col = x(_, colind[j]);
       for(int i = 0; i < ni; ++i) {
@@ -192,6 +165,15 @@ void rcpp_set_matrix_col_RTYPE(RTYPEMatrix x, IntegerVector colind, RTYPEVector 
       }
     }
   }
+  else if(rp.length() == 1) {
+    for(int j = 0; j < nj; ++j){
+      RTYPEMatrix::Column col = x(_, colind[j]);
+      for(int i = 0; i < ni; ++i) {
+        col[i] = rp[0];
+      }
+    }
+  }
+  else stop(\"recycling not allowed\");
   
 }
 
@@ -333,133 +315,6 @@ writeLines(rcpp_code, fileConn)
 close(fileConn)
 
 
-################################################################################
-# sub2ind dims ====
-
-DTYPES <- 2:5
-all_args <- c(
-  "IntegerVector ind1",
-  "IntegerVector ind2",
-  "IntegerVector ind3",
-  "IntegerVector ind4",
-  "IntegerVector ind5"
-)
-setlengths <- c("int ni = ind1.length();",
-                "int nj = ind2.length();",
-                "int nk = ind3.length();",
-                "int nl = ind4.length();",
-                "int nm = ind5.length();")
-all_lengths <- c("ni", "nj",  "nk", "nl", "nm")
-all_for <- rev(c(
-  "for(int m = 0; m < nm; ++m) {",
-  "for(int l = 0; l < nl; ++l) {",
-  "for(int k = 0; k < nk; ++k) {",
-  "for(int j = 0; j < nj; ++j) {",
-  "for(int i = 0; i < ni; ++i) {"
-))
-
-all_parts <- c(
-  "ind1[i]",
-  "dimcumprod[0]  * (ind2[j] - 1)",
-  "dimcumprod[1] * (ind3[k] - 1)",
-  "dimcumprod[2] * (ind4[l] - 1)",
-  "dimcumprod[3] * (ind5[m] - 1)"
-)
-
-templatecode <- "
-
-//' @keywords internal
-//' @noRd
-// [[Rcpp::export(.rcpp_sub2ind_DTYPEd)]]
-IntegerVector rcpp_sub2ind_DTYPEd(
-  <args>, IntegerVector dimcumprod
-) {
-  <setlength1>
-  <setlength2>
-  <setlength3>
-  <setlength4>
-  <setlength5>
-  R_xlen_t counter = 0;
-  IntegerVector flatind(<setlength_mult>);
-  <for5>
-    <for4>
-      <for3>
-        <for2>
-          <for1>
-            flatind[counter] = <main>;
-            counter++;
-          <end1>
-        <end2>
-      <end3>
-    <end4>
-  <end5>
-  
-  
-  return flatind;
-  
-}
-
-
-"
-
-rcpp_scripts <- character(length(DTYPES))
-names(rcpp_scripts) <- DTYPES
-for(i in seq_along(DTYPES)) {
-  
-  current_args <- stri_c(all_args[1:i], collapse = ", ")
-  current_setlength_mult <- stri_c(all_lengths[1:i], collapse = " * ")
-  current_main <- stri_c(all_parts[1:i], collapse = " + ")
-  
-  current_fixed <- c(
-    "DTYPE",
-    "<args>",
-    paste0("<setlength", 1:5, ">"),
-    "<setlength_mult>",
-    paste0("<for", 1:5, ">"),
-    "<main>",
-    paste0("<end", 1:5, ">")
-  )
-  current_replacement <- c(
-    i,
-    current_args,
-    c(setlengths[1:i],rep("", 5-i)),
-    current_setlength_mult,
-    c(all_for[1:i], rep("", 5-i)),
-    current_main,
-    c(rep("}", i), rep("", 5-i))
-  )
-  
-  out <- stri_replace_all(
-    templatecode,
-    fixed = current_fixed,
-    replacement = current_replacement,
-    case_insensitive = FALSE,
-    vectorize_all = FALSE
-  )
-  
-  rcpp_scripts[[i]] <- out
-}
-
-
-headers <- "
-
-#include <Rcpp.h>
-
-using namespace Rcpp;
-
-
-"
-
-rcpp_code <- paste(c(headers, rcpp_scripts), collapse = "\n\n\n")
-cat(rcpp_code)
-
-Rcpp::sourceCpp(
-  code = rcpp_code # no errors, good
-)
-
-fileConn <- file("src/dynamic_rcpp_set_3d.cpp")
-writeLines(rcpp_code, fileConn)
-close(fileConn)
 
 ################################################################################
 
@@ -483,19 +338,9 @@ void rcpp_set_3d_RTYPE(
   int nk = ind3.length();
   int flatind = 0;
   
-  if(rp.length() == 1) {
-    for(int k = 0; k < nk; ++k){
-      for(int j = 0; j < nj; ++j) {
-        for(int i = 0; i < ni; ++i) {
-          flatind = ind1[i] + dimcumprod[0]  * (ind2[j] - 1) + dimcumprod[1] * (ind3[k] - 1);
-          x[flatind - 1] = rp[0];
-        }
-      }
-    }
-  }
-  else {
-    int counter = 0;
-    for(int k = 0; k < nk; ++k){
+  if(rp.length() == (ni * nj * nk)) {
+    R_xlen_t counter = 0;
+    for(int k = 0; k < nk; ++k) {
       for(int j = 0; j < nj; ++j) {
         for(int i = 0; i < ni; ++i) {
           flatind = ind1[i] + dimcumprod[0]  * (ind2[j] - 1) + dimcumprod[1] * (ind3[k] - 1);
@@ -505,6 +350,17 @@ void rcpp_set_3d_RTYPE(
       }
     }
   }
+  else if(rp.length() == 1) {
+    for(int k = 0; k < nk; ++k){
+      for(int j = 0; j < nj; ++j) {
+        for(int i = 0; i < ni; ++i) {
+          flatind = ind1[i] + dimcumprod[0]  * (ind2[j] - 1) + dimcumprod[1] * (ind3[k] - 1);
+          x[flatind - 1] = rp[0];
+        }
+      }
+    }
+  }
+  else stop(\"recycling not allowed\");
 }
 
 "
@@ -782,3 +638,480 @@ Rcpp::sourceCpp(
 fileConn <- file("src/dynamic_rcpp_seq_rec2.cpp")
 writeLines(rcpp_code, fileConn)
 close(fileConn)
+
+
+
+################################################################################
+# sub2ind dims ====
+
+DTYPES <- 2:6
+all_args <- stri_c("IntegerVector ind", 1:6)
+setlengths <- c("int ni = ind1.length();",
+                "int nj = ind2.length();",
+                "int nk = ind3.length();",
+                "int nl = ind4.length();",
+                "int nm = ind5.length();",
+                "int nn = ind6.length();")
+all_lengths <- c("ni", "nj",  "nk", "nl", "nm", "nn")
+all_for <- rev(c(
+  "\t for(int n = 0; n < nn; ++n) {",
+  "\t for(int m = 0; m < nm; ++m) {",
+  "\t for(int l = 0; l < nl; ++l) {",
+  "\t for(int k = 0; k < nk; ++k) {",
+  "\t for(int j = 0; j < nj; ++j) {",
+  "\t for(int i = 0; i < ni; ++i) {"
+))
+
+all_parts <- c(
+  "ind1[i]",
+  "dimcumprod[0] * (ind2[j] - 1)",
+  "dimcumprod[1] * (ind3[k] - 1)",
+  "dimcumprod[2] * (ind4[l] - 1)",
+  "dimcumprod[3] * (ind5[m] - 1)",
+  "dimcumprod[4] * (ind6[n] - 1)"
+)
+
+templatecode <- "
+
+//' @keywords internal
+//' @noRd
+// [[Rcpp::export(.rcpp_sub2ind_DTYPEd)]]
+IntegerVector rcpp_sub2ind_DTYPEd(
+  <args>, IntegerVector dimcumprod
+) {
+
+<setlengths>
+R_xlen_t counter = 0;
+IntegerVector flatind(<setlength_mult>);
+  
+<startfor>
+  
+      flatind[counter] = <main>;
+      counter++;
+    
+<endfor>
+
+return flatind;
+
+}
+
+
+"
+
+rcpp_scripts <- character(length(DTYPES))
+names(rcpp_scripts) <- DTYPES
+for(i in DTYPES) {
+
+  current_args <- stri_c(all_args[1:i], collapse = ", ")
+  current_setlengths <- stri_c(setlengths[1:i], collapse = "\n")
+  current_setlength_mult <- stri_c(all_lengths[1:i], collapse = " * ")
+  current_for <- stri_c(all_for[i:1], collapse = "\n")
+  current_main <- stri_c(all_parts[1:i], collapse = " + ")
+  current_end <- stri_c(rep("\t }", i), collapse = "\n")
+
+  current_fixed <- c(
+    "DTYPE",
+    "<args>",
+    "<setlengths>",
+    "<setlength_mult>",
+    "<startfor>",
+    "<main>",
+    "<endfor>"
+  )
+  current_replacement <- c(
+    i,
+    current_args,
+    current_setlengths,
+    current_setlength_mult,
+    current_for,
+    current_main,
+    current_end
+  )
+
+  out <- stri_replace_all(
+    templatecode,
+    fixed = current_fixed,
+    replacement = current_replacement,
+    case_insensitive = FALSE,
+    vectorize_all = FALSE
+  )
+
+  rcpp_scripts[[i]] <- out
+}
+
+
+headers <- "
+
+#include <Rcpp.h>
+
+using namespace Rcpp;
+
+
+"
+
+
+
+
+rcpp_code <- paste(c(headers, rcpp_scripts), collapse = "\n\n\n")
+cat(rcpp_code)
+
+Rcpp::sourceCpp(
+  code = rcpp_code # no errors, good
+)
+
+
+fileConn <- file("src/dynamic_rcpp_sub2ind_d.cpp")
+writeLines(rcpp_code, fileConn)
+close(fileConn)
+
+
+################################################################################
+# rcpp_set_array_d ====
+
+# NOTE: USING SAME COMPONENTS AS rcpp_sub2ind
+
+RTYPES <- c("Logical", "Integer", "Numeric", "Character", "Complex", "Raw")
+
+templatecode1 <- "
+
+//' @keywords internal
+//' @noRd
+// [[Rcpp::export(.rcpp_set_array_DTYPEd_RTYPE)]]
+void rcpp_set_array_DTYPEd_RTYPE(
+  RTYPEVector x, <args>, IntegerVector dimcumprod, RTYPEVector rp
+) {
+
+<setlengths>
+R_xlen_t flatind = 0;
+  
+if(rp.length() == (<setlength_mult>)) {
+R_xlen_t counter = 0;
+<startfor>
+      flatind = <main>;
+      x[flatind - 1] = rp[counter];
+      counter++;
+<endfor>
+}
+else if(rp.length() == 1) {
+<startfor>
+      flatind = <main>;
+      x[flatind - 1] = rp[0];
+<endfor>
+}
+else stop(\"recycling not allowed\");
+
+}
+
+"
+
+
+rcpp_scripts1 <- character(length(DTYPES) + length(RTYPES))
+
+counter <- 1
+
+for(j in RTYPES) {
+  for(i in DTYPES) {
+    
+    current_args <- stri_c(all_args[1:i], collapse = ", ")
+    current_setlengths <- stri_c(setlengths[1:i], collapse = "\n")
+    current_setlength_mult <- stri_c(all_lengths[1:i], collapse = " * ")
+    current_for <- stri_c(all_for[i:1], collapse = "\n")
+    current_main <- stri_c(all_parts[1:i], collapse = " + ")
+    current_end <- stri_c(rep("\t }", i), collapse = "\n")
+    
+    current_fixed <- c(
+      "RTYPE",
+      "DTYPE",
+      "<args>",
+      "<setlengths>",
+      "<setlength_mult>",
+      "<startfor>",
+      "<main>",
+      "<endfor>"
+    )
+    current_replacement <- c(
+      j,
+      i,
+      current_args,
+      current_setlengths,
+      current_setlength_mult,
+      current_for,
+      current_main,
+      current_end
+    )
+    
+    out <- stri_replace_all(
+      templatecode1,
+      fixed = current_fixed,
+      replacement = current_replacement,
+      case_insensitive = FALSE,
+      vectorize_all = FALSE
+    )
+    
+    rcpp_scripts1[[counter]] <- out
+    counter <- counter + 1
+    
+  }
+
+}
+
+
+
+
+templatecode2 <- "
+
+//' @keywords internal
+//' @noRd
+// [[Rcpp::export(.rcpp_set_array_2d_6d_RTYPE)]]
+void rcpp_set_array_2d_6d_RTYPE(
+  RTYPEVector x, List out, IntegerVector dimcumprod, RTYPEVector rp
+) {
+  int n = out.length();
+  
+  IntegerVector ind1 = out[0];
+  IntegerVector ind2 = out[1];
+  IntegerVector ind3;
+  IntegerVector ind4;
+  IntegerVector ind5;
+  IntegerVector ind6;
+
+  if(n > 2) {
+    ind3 = out[2];
+    if(n > 3) {
+      ind4 = out[3];
+      if(n > 4) {
+        ind5 = out[4];
+        if(n > 5) {
+          ind6 = out[5];
+        }
+      }
+    }
+  }
+  
+  switch(n) {
+    case 2:
+      rcpp_set_array_2d_RTYPE(
+        x,
+        <args2>,
+        dimcumprod,
+        rp
+      );
+      break;
+    case 3:
+      rcpp_set_array_3d_RTYPE(
+        x,
+        <args3>,
+        dimcumprod,
+        rp
+      );
+      break;
+    case 4:
+      rcpp_set_array_4d_RTYPE(
+        x,
+        <args4>,
+        dimcumprod,
+        rp
+      );
+      break;
+    case 5:
+      rcpp_set_array_5d_RTYPE(
+        x,
+        <args5>,
+        dimcumprod,
+        rp
+      );
+      break;
+    case 6:
+      rcpp_set_array_6d_RTYPE(
+        x,
+        <args6>,
+        dimcumprod,
+        rp
+      );
+      break;
+  }
+}
+
+"
+
+
+args <- sprintf("ind%d", 1:6)
+rp <- sapply(2:6, \(i) stri_c(args[1:i], collapse = ", "))
+
+templatecode2 <- stri_replace_all_fixed(
+  templatecode2,
+  sprintf("<args%d>", 2:6),
+  rp,
+  vectorize_all = FALSE
+)
+
+
+rcpp_scripts2 <- character(length(RTYPES))
+
+
+for(i in seq_along(RTYPES)) {
+  rcpp_scripts2[[i]] <- stri_replace_all(
+    templatecode2,
+    fixed = c("RTYPE"),
+    replacement = c(RTYPES[i]),
+    case_insensitive = FALSE,
+    vectorize_all = FALSE
+  )
+}
+
+headers <- "
+
+#include <Rcpp.h>
+
+using namespace Rcpp;
+
+
+"
+
+
+
+
+rcpp_code <- paste(c(headers, rcpp_scripts1, rcpp_scripts2), sep = "", collapse = "\n\n\n")
+cat(rcpp_code)
+
+Rcpp::sourceCpp(
+  code = rcpp_code # no errors, good
+)
+
+
+fileConn <- file("src/dynamic_rcpp_set_array_d.cpp")
+writeLines(rcpp_code, fileConn)
+close(fileConn)
+
+
+
+sub2ind <- function(sub, x.dim, checks = TRUE) {
+  
+  n <- length(x.dim)
+  
+  if(checks) {
+    if(n == 0) {
+      stop("`length(x.dim) == 0`")
+    }
+    
+    if(length(sub) != n) {
+      stop("`length(sub) != length(x.dim)`")
+    }
+  }
+  
+  if(n == 1) {
+    return(sub[[1]])
+  }
+  else if(n == 2) {
+    dimcumprod <- as.integer(cumprod(x.dim))
+    return(.rcpp_sub2ind_2d(
+      as.integer(sub[[1]]), as.integer(sub[[2]]), dimcumprod
+    ))
+  }
+  else if(n == 3) {
+    dimcumprod <- as.integer(cumprod(x.dim))
+    return(.rcpp_sub2ind_3d(
+      as.integer(sub[[1]]), as.integer(sub[[2]]), as.integer(sub[[3]]), dimcumprod
+    ))
+  }
+  else if(n == 4) {
+    dimcumprod <- as.integer(cumprod(x.dim))
+    return(.rcpp_sub2ind_4d(
+      as.integer(sub[[1]]),
+      as.integer(sub[[2]]),
+      as.integer(sub[[3]]),
+      as.integer(sub[[4]]),
+      dimcumprod
+    ))
+  }
+  else if(n == 5) {
+    dimcumprod <- as.integer(cumprod(x.dim))
+    return(.rcpp_sub2ind_5d(
+      as.integer(sub[[1]]),
+      as.integer(sub[[2]]),
+      as.integer(sub[[3]]),
+      as.integer(sub[[4]]),
+      as.integer(sub[[5]]),
+      dimcumprod
+    ))
+  }
+  else if(n == 6) {
+    dimcumprod <- as.integer(cumprod(x.dim))
+    return(.rcpp_sub2ind_6d(
+      as.integer(sub[[1]]),
+      as.integer(sub[[2]]),
+      as.integer(sub[[3]]),
+      as.integer(sub[[4]]),
+      as.integer(sub[[5]]),
+      as.integer(sub[[6]]),
+      dimcumprod
+    ))
+  }
+  
+  return(.sub2ind_general(sub, x.dim))
+  
+}
+
+sub2ind2 <- function(sub, x.dim) {
+  n <- length(sub)
+  if(n == 1) {
+    return(sub[[1]])
+  }
+  else if(n <=6 ) {
+    dimcumprod <- as.integer(cumprod(x.dim))
+    return(.rcpp_sub2ind_2d_6d(
+      sub, dimcumprod
+    ))
+  }
+  return(.sub2ind_general(sub, x.dim))
+}
+
+
+
+
+x.dim <- c(100, 100, 100)
+x.len <- prod(x.dim)
+x <- array(1:x.len, x.dim)
+sub <- lapply(1:3, \(i)sample(1:99))
+
+foo <- bench::mark(
+  sub2ind(sub, x.dim, checks = FALSE),
+  sub2ind2(sub, x.dim),
+  min_iterations = 1000
+)
+foo
+ggplot2::autoplot(foo)
+
+
+
+################################################################################
+# rcpp_set_array_general ====
+
+templatecode <- "
+
+void rcpp_sub2ind_general(
+  RTYPEVector x, RTYPEVector rp,
+  List lst, int total, IntegerVector reps_each, IntegerVector reps_whole, IntegerVector xdim, IntegerVector dimcumprod
+) {
+  int ndim = lst.length();
+  Rcpp::IntegerVector out(total);
+  Rcpp::IntegerVector coord(total);
+  IntegerVector temp = lst[0];
+  out = rep(temp, reps_whole[0]);
+  if(ndim > 1) {
+    for(int j = 1; j < ndim; ++j) {
+      int myprod = dimcumprod[j - 1];
+      temp = lst[j];
+      R_xlen_t n = temp.length() * reps_each[j];
+      for(int i = 0; i < reps_whole[j]; ++i) {
+        Range myrng = Range(n * i, n * (i + 1) - 1);
+        coord[myrng] = rep_each(temp, reps_each[j]);
+        out[myrng] = out[myrng] + (coord[myrng] - 1) * myprod;
+      }
+    }
+  }
+  return(out);
+}
+
+
+"

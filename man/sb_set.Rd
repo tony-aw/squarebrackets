@@ -38,7 +38,6 @@ sb_set(x, ...)
   x,
   idx = NULL,
   dims = NULL,
-  rcl = NULL,
   i = NULL,
   inv = FALSE,
   ...,
@@ -71,7 +70,7 @@ sb2_set(x, ...)
 
 \item{...}{further arguments passed to or from other methods.}
 
-\item{i, row, col, idx, dims, rcl, filter, vars, inv}{See \link{squarebrackets_indx_args}. \cr
+\item{i, row, col, idx, dims, filter, vars, inv}{See \link{squarebrackets_indx_args}. \cr
 An empty index selection leaves the original object unchanged. \cr}
 
 \item{rp}{an object of somewhat the same type as the selected subset of \code{x},
