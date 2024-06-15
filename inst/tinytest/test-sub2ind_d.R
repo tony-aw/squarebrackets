@@ -7,6 +7,32 @@ temp.fun <- function(x, ...) {
   return(x[...])
 }
 
+# NOTE:
+# sb_set.array uses Rcpp code generated from the same string as the Rcpp code for sub2ind.
+# Thus these tests also function as tests for arrays.
+
+# 6D array ====
+dims <- rep(10, 6)
+len <- prod(dims)
+
+for(i in 1:10) {
+  x <- array(sample(seq_len(len*10), len, FALSE), dims)
+  ind1 <- sample(1:10, 4, FALSE)
+  ind2 <- sample(1:10, 4, FALSE)
+  ind3 <- sample(1:10, 4, FALSE)
+  ind4 <- sample(1:10, 4, FALSE)
+  ind5 <- sample(1:10, 4, FALSE)
+  ind6 <- sample(1:10, 4, FALSE)
+  subs <- list(ind1, ind2, ind3, ind4, ind5, ind6)
+  ind <- sub2ind(subs, dims)
+  
+  expect_equal(
+    x[ind], as.vector(x[ind1, ind2, ind3, ind4, ind5, ind6])
+  ) |> errorfun()
+}
+enumerate <- enumerate + 1
+
+
 # 5D array ====
 dims <- rep(10, 5)
 len <- prod(dims)

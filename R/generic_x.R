@@ -109,6 +109,11 @@ sb_x.array <- function(
     return(x[elements])
   }
   
+  
+  if(length(dims) == 1L && !is.list(idx)) {
+    idx <- list(idx)
+  }
+  
   if(is.null(names(x))) {
     x <- .arr_x(x, idx, dims, abortcall = sys.call())
   }
@@ -178,6 +183,10 @@ sb2_x.array <- function(
   
   if(!is.null(i)) {
     return(sb2_x.default(x, i, drop = drop, ...))
+  }
+  
+  if(length(dims) == 1L && !is.list(idx)) {
+    idx <- list(idx)
   }
   
   if(is.null(names(x))) {

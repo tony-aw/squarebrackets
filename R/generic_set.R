@@ -142,6 +142,10 @@ sb_set.array <- function(
     return(invisible(NULL))
   }
   
+  if(length(dims) == 1L && !is.list(idx)) {
+    idx <- list(idx)
+  }
+  
   .arr_set(x, idx, dims, chkdup, inv, rp, tf, abortcall = sys.call())
   return(invisible(NULL))
 }

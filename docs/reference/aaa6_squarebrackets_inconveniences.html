@@ -69,7 +69,7 @@ in those cases. <br><br></p>
 
 
     <div class="section level2">
-    <h2 id="array-with-unknown-number-of-dimensions">Array with Unknown Number of Dimensions<a class="anchor" aria-label="anchor" href="#array-with-unknown-number-of-dimensions"></a></h2>
+    <h2 id="arrays">Arrays<a class="anchor" aria-label="anchor" href="#arrays"></a></h2>
     
 
 
@@ -87,7 +87,14 @@ when number of dimensions of <code>x</code> is not known a-priori? <br>
 It’s not impossible, but still rather convoluted. <br><br>
 The methods provided by 'squarebrackets' do not use position-based arguments,
 and as such work on any arbitrary dimensions without requiring prior knowledge; <br>
-see <a href="aaa3_squarebrackets_indx_args.html">squarebrackets_indx_args</a> for details. <br><br></p>
+see <a href="aaa3_squarebrackets_indx_args.html">squarebrackets_indx_args</a> for details. <br><br>
+When extracting/removing dimensional sub-set from an array,
+i.e. <code>x[indx1, indx2]</code>,
+<code>dimnames(x)</code> will be preserved (within the range of the subset of course),
+but <code>names(x)</code> will be dropped completely. <br>
+The methods provided by 'squarebrackets' do not completely remove <code>names(x)</code>
+when extracting/removing subsets. <br>
+After all: why bother giving arrays flat names if they'll be stripped anyway? <br><br></p>
     </div>
     <div class="section level2">
     <h2 id="rule-sets-for-data-frame-like-objects">Rule-sets for data.frame-like Objects<a class="anchor" aria-label="anchor" href="#rule-sets-for-data-frame-like-objects"></a></h2>

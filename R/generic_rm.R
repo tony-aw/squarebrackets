@@ -118,6 +118,9 @@ sb_rm.array <- function(
     return(x[elements])
   }
   
+  if(length(dims) == 1L && !is.list(idx)) {
+    idx <- list(idx)
+  }
   
   if(is.null(names(x))) {
     x <- .arr_rm(x, idx, dims, chkdup = chkdup, abortcall = sys.call())
@@ -191,6 +194,10 @@ sb2_rm.array <- function(
   
   if(!is.null(i)) {
     return(sb2_rm.default(x, i, drop = drop, ..., chkdup = chkdup))
+  }
+  
+  if(length(dims) == 1L && !is.list(idx)) {
+    idx <- list(idx)
   }
   
   if(is.null(names(x))) {

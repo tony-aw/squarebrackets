@@ -210,7 +210,7 @@
     return(invisible(NULL))
   }
   
-  elements <- sub2ind(lst, x.dim, checks = FALSE)
+  elements <- .sub2ind_general(lst, x.dim)
   .sb_set_atomic(x, elements, rp = rp, tf = tf, abortcall = sys.call())
   return(invisible(NULL))
   

@@ -189,6 +189,10 @@ sb_mod.array <- function(
     return(x)
   }
   
+  if(length(dims) == 1L && !is.list(idx)) {
+    idx <- list(idx)
+  }
+  
   if(!missing(rp)) {
     if(is.recursive(rp)) stop("`rp` must be non-recursive")
     return(.arr_repl(x, idx, dims, inv, rp, chkdup = chkdup, abortcall = sys.call()))
@@ -283,6 +287,10 @@ sb2_mod.array <- function(
   
   if(!is.null(i)) {
     return(sb2_mod.default(x, i, inv = inv, ..., rp = rp, tf = tf, chkdup = chkdup))
+  }
+  
+  if(length(dims) == 1L && !is.list(idx)) {
+    idx <- list(idx)
   }
   
   if(!missing(rp)) {

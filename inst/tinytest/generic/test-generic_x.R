@@ -78,7 +78,7 @@ expect_equal(sb_x(x, lvl = "Jan", drop = TRUE), x[x == "Jan", drop = TRUE])
 enumerate <- enumerate + 6
 
 
-# test matrix & 3d array ====
+# test matrix ====
 
 rep3.bind <- function(x, dim) {
   return(abind::abind(x, x, x, along = dim))
@@ -118,7 +118,7 @@ subset_arr <- function(x, i, j, l) {
   i <- indx_x(i, x, rownames(x), nrow(x))
   j <- indx_x(j, x, colnames(x), ncol(x))
   l <- indx_x(l, x, dimnames(x)[4], dim(x)[4])
-  x[i, j, , l, drop = FALSE]
+  return(x[i, j, , l, drop = FALSE])
 }
 
 x <- array(seq_len(10^4), dim = c(10, 10, 10, 10))

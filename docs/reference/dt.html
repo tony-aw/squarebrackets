@@ -124,10 +124,15 @@ using <a href="aaa5_squarebrackets_PassByReference.html">pass-by-reference seman
 <span>  col <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  vars <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">v</span>,</span>
-<span>  chkdup <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"sb.chkdup"</span>, <span class="cn">FALSE</span><span class="op">)</span></span>
+<span>  chkdup <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"squarebrackets.chkdup"</span>, <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">dt_setrm</span><span class="op">(</span><span class="va">x</span>, col <span class="op">=</span> <span class="cn">NULL</span>, vars <span class="op">=</span> <span class="cn">NULL</span>, chkdup <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"sb.chkdup"</span>, <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu">dt_setrm</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  col <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  vars <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  chkdup <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"squarebrackets.chkdup"</span>, <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">dt_setadd</span><span class="op">(</span><span class="va">x</span>, <span class="va">new</span><span class="op">)</span></span>
 <span></span>

@@ -60,8 +60,7 @@
 #' 
 #' Any of the following can be specified for the arguments `row` / `col`:
 #' 
-#'  * `NULL` (default), corresponds to a missing argument,
-#'  which results in ALL of the indices in this dimension being selected for the operation.
+#'  * `NULL` (default), corresponds to a missing argument.
 #'  * a vector of length 0,
 #'  in which case no indices are selected for the operation (i.e. empty selection).
 #'  * a \bold{strictly positive integer} vector with dimension indices to select for the operation.
@@ -87,9 +86,10 @@
 #' `idx` must be a list of indices. \cr
 #' `dims` must be an integer vector of the same length as `idx`,
 #' giving the dimensions to which the indices given in `idx` correspond to. \cr
+#' If `dims` is a single integer, `idx` can be given as a atomic vector instead of a single-element list. \cr
+#' \cr
 #' The elements of `idx` follow the same rules as the rules for `row` and `col`,
 #' EXCEPT one should not fill in `NULL`. \cr
-#' NOTE: The arguments `idx` and `dims` will be ignored if `i` is specified. \cr
 #' \cr
 #' To keep the syntax short,
 #' the user can use the \link{n} function instead of `list()` to specify `idx`. \cr

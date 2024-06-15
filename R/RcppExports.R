@@ -27,42 +27,6 @@
 
 #' @keywords internal
 #' @noRd
-.rcpp_set_3d_Logical <- function(x, ind1, ind2, ind3, dimcumprod, rp) {
-    invisible(.Call(`_squarebrackets_rcpp_set_3d_Logical`, x, ind1, ind2, ind3, dimcumprod, rp))
-}
-
-#' @keywords internal
-#' @noRd
-.rcpp_set_3d_Integer <- function(x, ind1, ind2, ind3, dimcumprod, rp) {
-    invisible(.Call(`_squarebrackets_rcpp_set_3d_Integer`, x, ind1, ind2, ind3, dimcumprod, rp))
-}
-
-#' @keywords internal
-#' @noRd
-.rcpp_set_3d_Numeric <- function(x, ind1, ind2, ind3, dimcumprod, rp) {
-    invisible(.Call(`_squarebrackets_rcpp_set_3d_Numeric`, x, ind1, ind2, ind3, dimcumprod, rp))
-}
-
-#' @keywords internal
-#' @noRd
-.rcpp_set_3d_Character <- function(x, ind1, ind2, ind3, dimcumprod, rp) {
-    invisible(.Call(`_squarebrackets_rcpp_set_3d_Character`, x, ind1, ind2, ind3, dimcumprod, rp))
-}
-
-#' @keywords internal
-#' @noRd
-.rcpp_set_3d_Complex <- function(x, ind1, ind2, ind3, dimcumprod, rp) {
-    invisible(.Call(`_squarebrackets_rcpp_set_3d_Complex`, x, ind1, ind2, ind3, dimcumprod, rp))
-}
-
-#' @keywords internal
-#' @noRd
-.rcpp_set_3d_Raw <- function(x, ind1, ind2, ind3, dimcumprod, rp) {
-    invisible(.Call(`_squarebrackets_rcpp_set_3d_Raw`, x, ind1, ind2, ind3, dimcumprod, rp))
-}
-
-#' @keywords internal
-#' @noRd
 .rcpp_set_all_Logical <- function(x, rp) {
     invisible(.Call(`_squarebrackets_rcpp_set_all_Logical`, x, rp))
 }

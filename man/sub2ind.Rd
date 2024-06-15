@@ -76,7 +76,7 @@ it performs a very simple (one might even say naive) conversion. \cr
 \item \code{sub2ind()}
 is a faster and more memory efficient version of \cr
 \code{coord2ind(sub2coord(sub, x.dims), x.dims)} \cr
-(especially for up to 5 dimensions). \cr
+(especially for up to 6 dimensions). \cr
 }
 
 All of these functions are written to be memory-efficient. \cr

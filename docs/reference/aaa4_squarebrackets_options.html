@@ -81,32 +81,6 @@ Since checking for duplicates can be expensive, it is set to <code>FALSE</code> 
 The default can be changed in the <code>squarebrackets.chkdup</code> option. <br><br></p>
     </div>
     <div class="section level2">
-    <h2 id="retain-attributes">Retain Attributes<a class="anchor" aria-label="anchor" href="#retain-attributes"></a></h2>
-    
-
-<p><img src="figures/argument-rat-blue.svg" alt="[argument: rat]"><br><img src="figures/option-squarebrackets_dot_rat-blue.svg" alt="[option: squarebrackets.rat]"><br>
-Like the <code>[</code> - methods,
-<a href="sb_x.html">sb_x</a> and <a href="sb_rm.html">sb_rm</a> will by default
-strip most (but not all) attributes. <br>
-The <a href="sb_x.html">sb_x</a> and <a href="sb_rm.html">sb_rm</a> methods
-in 'squarebrackets' have the <code>rat</code> argument,
-to control this control the attribute stripping behaviour. <br>
-If <code>rat = FALSE</code>, this default behaviour is preserved,
-for compatibility with special classes. This is the fastest option. <br>
-If <code>rat = TRUE</code>,
-attributes from <code>x</code> missing after sub-setting are re-assigned to <code>x</code>.
-Already existing attributes after sub-setting will not be overwritten. <br>
-There is no <code>rat</code> argument for data.frame-like object:
-their attributes will always be preserved. <br>
-NOTE: In the following situations, the <code>rat</code> argument will be ignored,
-as the attributes necessarily have to be dropped:</p><ul><li><p>when <code>x</code> is a list, AND <code>drop = TRUE</code>,
-AND a single element is selected,
-AND sub-setting is done through the <code>i</code> argument.</p></li>
-<li><p>when <code>x</code> is an atomic matrix or array,
-and sub-setting is done through the <code>i</code> argument. <br></p></li>
-</ul><p>The default value for the <code>rat</code> argument can be changed in the <code>squarebrackets.rat</code> option. <br><br></p>
-    </div>
-    <div class="section level2">
     <h2 id="mutable-atomic-messages">Mutable Atomic Messages<a class="anchor" aria-label="anchor" href="#mutable-atomic-messages"></a></h2>
     
 

@@ -65,8 +65,7 @@ see the \code{Details} section in \link{sub2ind}. \cr
 
 Any of the following can be specified for the arguments \code{row} / \code{col}:
 \itemize{
-\item \code{NULL} (default), corresponds to a missing argument,
-which results in ALL of the indices in this dimension being selected for the operation.
+\item \code{NULL} (default), corresponds to a missing argument.
 \item a vector of length 0,
 in which case no indices are selected for the operation (i.e. empty selection).
 \item a \bold{strictly positive integer} vector with dimension indices to select for the operation.
@@ -94,9 +93,10 @@ Using the \verb{row, col} arguments corresponds to doing something like the foll
 \code{idx} must be a list of indices. \cr
 \code{dims} must be an integer vector of the same length as \code{idx},
 giving the dimensions to which the indices given in \code{idx} correspond to. \cr
+If \code{dims} is a single integer, \code{idx} can be given as a atomic vector instead of a single-element list. \cr
+\cr
 The elements of \code{idx} follow the same rules as the rules for \code{row} and \code{col},
 EXCEPT one should not fill in \code{NULL}. \cr
-NOTE: The arguments \code{idx} and \code{dims} will be ignored if \code{i} is specified. \cr
 \cr
 To keep the syntax short,
 the user can use the \link{n} function instead of \code{list()} to specify \code{idx}. \cr

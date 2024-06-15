@@ -74,96 +74,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// rcpp_set_3d_Logical
-void rcpp_set_3d_Logical(LogicalVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, IntegerVector dimcumprod, LogicalVector rp);
-RcppExport SEXP _squarebrackets_rcpp_set_3d_Logical(SEXP xSEXP, SEXP ind1SEXP, SEXP ind2SEXP, SEXP ind3SEXP, SEXP dimcumprodSEXP, SEXP rpSEXP) {
-BEGIN_RCPP
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< LogicalVector >::type x(xSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type ind1(ind1SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type ind2(ind2SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type ind3(ind3SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type dimcumprod(dimcumprodSEXP);
-    Rcpp::traits::input_parameter< LogicalVector >::type rp(rpSEXP);
-    rcpp_set_3d_Logical(x, ind1, ind2, ind3, dimcumprod, rp);
-    return R_NilValue;
-END_RCPP
-}
-// rcpp_set_3d_Integer
-void rcpp_set_3d_Integer(IntegerVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, IntegerVector dimcumprod, IntegerVector rp);
-RcppExport SEXP _squarebrackets_rcpp_set_3d_Integer(SEXP xSEXP, SEXP ind1SEXP, SEXP ind2SEXP, SEXP ind3SEXP, SEXP dimcumprodSEXP, SEXP rpSEXP) {
-BEGIN_RCPP
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< IntegerVector >::type x(xSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type ind1(ind1SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type ind2(ind2SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type ind3(ind3SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type dimcumprod(dimcumprodSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type rp(rpSEXP);
-    rcpp_set_3d_Integer(x, ind1, ind2, ind3, dimcumprod, rp);
-    return R_NilValue;
-END_RCPP
-}
-// rcpp_set_3d_Numeric
-void rcpp_set_3d_Numeric(NumericVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, IntegerVector dimcumprod, NumericVector rp);
-RcppExport SEXP _squarebrackets_rcpp_set_3d_Numeric(SEXP xSEXP, SEXP ind1SEXP, SEXP ind2SEXP, SEXP ind3SEXP, SEXP dimcumprodSEXP, SEXP rpSEXP) {
-BEGIN_RCPP
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type ind1(ind1SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type ind2(ind2SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type ind3(ind3SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type dimcumprod(dimcumprodSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type rp(rpSEXP);
-    rcpp_set_3d_Numeric(x, ind1, ind2, ind3, dimcumprod, rp);
-    return R_NilValue;
-END_RCPP
-}
-// rcpp_set_3d_Character
-void rcpp_set_3d_Character(CharacterVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, IntegerVector dimcumprod, CharacterVector rp);
-RcppExport SEXP _squarebrackets_rcpp_set_3d_Character(SEXP xSEXP, SEXP ind1SEXP, SEXP ind2SEXP, SEXP ind3SEXP, SEXP dimcumprodSEXP, SEXP rpSEXP) {
-BEGIN_RCPP
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< CharacterVector >::type x(xSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type ind1(ind1SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type ind2(ind2SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type ind3(ind3SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type dimcumprod(dimcumprodSEXP);
-    Rcpp::traits::input_parameter< CharacterVector >::type rp(rpSEXP);
-    rcpp_set_3d_Character(x, ind1, ind2, ind3, dimcumprod, rp);
-    return R_NilValue;
-END_RCPP
-}
-// rcpp_set_3d_Complex
-void rcpp_set_3d_Complex(ComplexVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, IntegerVector dimcumprod, ComplexVector rp);
-RcppExport SEXP _squarebrackets_rcpp_set_3d_Complex(SEXP xSEXP, SEXP ind1SEXP, SEXP ind2SEXP, SEXP ind3SEXP, SEXP dimcumprodSEXP, SEXP rpSEXP) {
-BEGIN_RCPP
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< ComplexVector >::type x(xSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type ind1(ind1SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type ind2(ind2SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type ind3(ind3SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type dimcumprod(dimcumprodSEXP);
-    Rcpp::traits::input_parameter< ComplexVector >::type rp(rpSEXP);
-    rcpp_set_3d_Complex(x, ind1, ind2, ind3, dimcumprod, rp);
-    return R_NilValue;
-END_RCPP
-}
-// rcpp_set_3d_Raw
-void rcpp_set_3d_Raw(RawVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, IntegerVector dimcumprod, RawVector rp);
-RcppExport SEXP _squarebrackets_rcpp_set_3d_Raw(SEXP xSEXP, SEXP ind1SEXP, SEXP ind2SEXP, SEXP ind3SEXP, SEXP dimcumprodSEXP, SEXP rpSEXP) {
-BEGIN_RCPP
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< RawVector >::type x(xSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type ind1(ind1SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type ind2(ind2SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type ind3(ind3SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type dimcumprod(dimcumprodSEXP);
-    Rcpp::traits::input_parameter< RawVector >::type rp(rpSEXP);
-    rcpp_set_3d_Raw(x, ind1, ind2, ind3, dimcumprod, rp);
-    return R_NilValue;
-END_RCPP
-}
 // rcpp_set_all_Logical
 void rcpp_set_all_Logical(LogicalVector x, LogicalVector rp);
 RcppExport SEXP _squarebrackets_rcpp_set_all_Logical(SEXP xSEXP, SEXP rpSEXP) {
@@ -1697,12 +1607,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_squarebrackets_rcpp_seq_rec2_min", (DL_FUNC) &_squarebrackets_rcpp_seq_rec2_min, 6},
     {"_squarebrackets_rcpp_seq_rec2_x", (DL_FUNC) &_squarebrackets_rcpp_seq_rec2_x, 6},
     {"_squarebrackets_rcpp_seq_rec2_div", (DL_FUNC) &_squarebrackets_rcpp_seq_rec2_div, 6},
-    {"_squarebrackets_rcpp_set_3d_Logical", (DL_FUNC) &_squarebrackets_rcpp_set_3d_Logical, 6},
-    {"_squarebrackets_rcpp_set_3d_Integer", (DL_FUNC) &_squarebrackets_rcpp_set_3d_Integer, 6},
-    {"_squarebrackets_rcpp_set_3d_Numeric", (DL_FUNC) &_squarebrackets_rcpp_set_3d_Numeric, 6},
-    {"_squarebrackets_rcpp_set_3d_Character", (DL_FUNC) &_squarebrackets_rcpp_set_3d_Character, 6},
-    {"_squarebrackets_rcpp_set_3d_Complex", (DL_FUNC) &_squarebrackets_rcpp_set_3d_Complex, 6},
-    {"_squarebrackets_rcpp_set_3d_Raw", (DL_FUNC) &_squarebrackets_rcpp_set_3d_Raw, 6},
     {"_squarebrackets_rcpp_set_all_Logical", (DL_FUNC) &_squarebrackets_rcpp_set_all_Logical, 2},
     {"_squarebrackets_rcpp_set_all_Integer", (DL_FUNC) &_squarebrackets_rcpp_set_all_Integer, 2},
     {"_squarebrackets_rcpp_set_all_Numeric", (DL_FUNC) &_squarebrackets_rcpp_set_all_Numeric, 2},
