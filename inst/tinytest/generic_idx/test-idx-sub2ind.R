@@ -19,7 +19,7 @@ for(i in 1:10) {
   ind4 <- sample(1:10, 4, FALSE)
   ind5 <- sample(1:10, 4, FALSE)
   subs <- list(ind1, ind2, ind4, ind5)
-  ind <- idx(x, idx = subs, dims = c(1, 2, 4, 5))
+  ind <- idx(x, sub = subs, dims = c(1, 2, 4, 5))
   
   expect_equal(
     x[ind], as.vector(x[ind1, ind2, ind3, ind4, ind5])
@@ -40,7 +40,7 @@ for(i in 1:10) {
   ind3 <- seq_len(dim(x)[3])
   ind4 <- sample(1:10, 4, FALSE)
   subs <- list(ind1, ind2, ind4)
-  ind <- idx(x, idx = subs, dims = c(1, 2, 4))
+  ind <- idx(x, sub = subs, dims = c(1, 2, 4))
   
   expect_equal(
     x[ind], as.vector(x[ind1, ind2, ind3, ind4])

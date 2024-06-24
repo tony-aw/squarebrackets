@@ -3,10 +3,11 @@
 #' @description
 #' The `sb_` generic methods support the following immutable S3 classes: \cr
 #' 
-#'  * `atomic` classes \cr
+#'  * base `atomic` vector classes \cr
 #'  (atomic vectors, matrices, and arrays);
 #'  * \link[base]{factor};
-#'  * \link[base]{list} - including dimensional lists \cr
+#'  * base `recursive` vector classes/lists \cr
+#'  (recursive vectors, matrices, and arrays) \cr
 #'  (note that lists are merely pointers to other objects,
 #'  and these other objects may be of a different class and may even be mutable);
 #'  * \link[base]{data.frame} \cr

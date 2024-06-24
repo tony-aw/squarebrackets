@@ -76,7 +76,7 @@ through the use of the 'Rcpp', 'collapse', and 'data.table' R-packages. \cr \cr
 }
 }
 
-\section{Supported  Classes}{
+\section{Supported Classes}{
 
 'squarebrackets' only supports S3 classes,
 and only those that primarily use square brackets for sub-setting
@@ -103,15 +103,15 @@ are not supported. \cr \cr
 
 \ifelse{html}{\figure{generic_methods-darkgreen.svg}{options: alt='[GENERIC METHODS]'}}{\link[=squarebrackets_help]{GENERIC METHODS}} \cr
 The main focus of this package is on its generic methods
-and binding implementations. \cr
+and dimensional binding implementations. \cr
 \cr
 Generic methods for non-recursive objects (atomic, factor, etc.)
 start with \code{sb_}. \cr
 Generic methods for recursive objects (list, data.frame, etc.)
 start with \code{sb2_}. \cr
-The binding implementations for non-recursive objects (atomic, factor, etc.)
+The binding implementations for non-recursive dimensional objects (atomic arrays)
 start with \code{bind_}. \cr
-The binding implementations for recursive objects (list, data.frame, etc.)
+The binding implementations for recursive dimensional objects (recursive arrays, data.frames)
 start with \code{bind2_}. \cr
 There is also the somewhat separate \link{idx} method,
 which works on both recursive and non-recursive objects. \cr
@@ -139,7 +139,9 @@ for the purpose of copy-on-modify substitution. \cr \cr
 
 So for example,
 use \code{sb_rm()} to remove subsets from atomic arrays,
-and use \code{sb2_rm()} to remove subsets from recursive arrays. \cr \cr
+and use \code{sb2_rm()} to remove subsets from recursive arrays. \cr
+See \link{squarebrackets_method_dispatch} for more information on how 'squarebrackets'
+uses its S3 Method dispatch. \cr \cr
 
 \ifelse{html}{\figure{specialized_functions-darkred.svg}{options: alt='[SPECIALIZED FUNCTIONS]'}}{\link[=squarebrackets_help]{SPECIALIZED FUNCTIONS}} \cr
 Additional specialized sub-setting functions are provided:

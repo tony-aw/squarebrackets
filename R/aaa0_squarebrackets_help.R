@@ -61,7 +61,7 @@
 #'  through the use of the 'Rcpp', 'collapse', and 'data.table' R-packages. \cr \cr
 #'
 #'
-#' @section Supported  Classes:
+#' @section Supported Classes:
 #' 'squarebrackets' only supports S3 classes,
 #' and only those that primarily use square brackets for sub-setting
 #' (hence the name of the package). \cr
@@ -86,15 +86,15 @@
 #' 
 #' `r .mybadge_intro_section("GENERIC METHODS", "darkgreen")` \cr
 #' The main focus of this package is on its generic methods
-#' and binding implementations. \cr
+#' and dimensional binding implementations. \cr
 #' \cr
 #' Generic methods for non-recursive objects (atomic, factor, etc.)
 #' start with `sb_`. \cr
 #' Generic methods for recursive objects (list, data.frame, etc.)
 #' start with `sb2_`. \cr
-#' The binding implementations for non-recursive objects (atomic, factor, etc.)
+#' The binding implementations for non-recursive dimensional objects (atomic arrays)
 #' start with `bind_`. \cr
-#' The binding implementations for recursive objects (list, data.frame, etc.)
+#' The binding implementations for recursive dimensional objects (recursive arrays, data.frames)
 #' start with `bind2_`. \cr
 #' There is also the somewhat separate \link{idx} method,
 #' which works on both recursive and non-recursive objects. \cr
@@ -121,7 +121,9 @@
 #'  
 #' So for example,
 #' use `sb_rm()` to remove subsets from atomic arrays,
-#' and use `sb2_rm()` to remove subsets from recursive arrays. \cr \cr
+#' and use `sb2_rm()` to remove subsets from recursive arrays. \cr
+#' See \link{squarebrackets_method_dispatch} for more information on how 'squarebrackets'
+#' uses its S3 Method dispatch. \cr \cr
 #' 
 #' `r .mybadge_intro_section("SPECIALIZED FUNCTIONS", "darkred")` \cr
 #' Additional specialized sub-setting functions are provided:

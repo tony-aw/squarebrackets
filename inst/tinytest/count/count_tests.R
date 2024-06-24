@@ -125,6 +125,23 @@ rem <-  setdiff(ls(), c("SourceFileLocation", "enumerate", "enumerate_total"))
 rm(list = rem)
 
 
+wd <- SourceFileLocation()
+setwd(wd)
+setwd("..")
+setwd("./rcpp_related")
+getwd()
+files <- list.files(normalizePath(getwd()), pattern = ".R", full.names = TRUE)
+max.width <- max(stringi::stri_width(basename(files))) + 8
+for(iFile in files) {
+  print(iFile)
+  capture.output(source(normalizePath(iFile)), file = nullfile()) |> suppressMessages()
+  cat(stringi::stri_pad_right(basename(iFile), max.width), " -> ", enumerate,  "\n")
+  enumerate_total <- enumerate_total + enumerate
+}
+rem <-  setdiff(ls(), c("SourceFileLocation", "enumerate", "enumerate_total"))
+rm(list = rem)
+
+
 print(enumerate_total)
 
 

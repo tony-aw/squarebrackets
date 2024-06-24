@@ -230,16 +230,16 @@ for(iD in 1:length(x.data)) {
   # set 1
   x <- mutable_atomic(x.data[[iD]], dim = c(10, 10, 10, 10))
   rownames(x) <- c(letters[1:8], "a", NA)
-  idx <- list(c("a"), c(1:3), c(rep(TRUE, 5), rep(FALSE, 5)))
+  sub <- list(c("a"), c(1:3), c(rep(TRUE, 5), rep(FALSE, 5)))
   dims <- c(1,2,4)
-  len <- length(sb_x(x, idx, dims))
+  len <- length(sb_x(x, sub, dims))
   
   x <- mutable_atomic(x.data[[iD]], dim = c(10, 10, 10, 10))
   rownames(x) <- c(letters[1:8], "a", NA)
   rp <- make_rp(len)
   x2 <- x
-  x2 <- subset_arr(x2, idx[[1]], idx[[2]], idx[[3]], rp)
-  sb_set(x, idx, dims, rp = rp)
+  x2 <- subset_arr(x2, sub[[1]], sub[[2]], sub[[3]], rp)
+  sb_set(x, sub, dims, rp = rp)
   expect_equal(
     x, x2
   ) |> errorfun()
@@ -248,16 +248,16 @@ for(iD in 1:length(x.data)) {
   # set 2
   x <- mutable_atomic(x.data[[iD]], dim = c(10, 10, 10, 10))
   rownames(x) <- c(letters[1:8], "a", NA)
-  idx <- list(c("a"), logical(0), c(rep(TRUE, 5), rep(FALSE, 5)))
+  sub <- list(c("a"), logical(0), c(rep(TRUE, 5), rep(FALSE, 5)))
   dims <- c(1,2,4)
-  len <- length(sb_x(x, idx, dims))
+  len <- length(sb_x(x, sub, dims))
   
   x <- mutable_atomic(x.data[[iD]], dim = c(10, 10, 10, 10))
   rownames(x) <- c(letters[1:8], "a", NA)
   rp <- make_rp(len)
   x2 <- x
-  x2 <- subset_arr(x2, idx[[1]], idx[[2]], idx[[3]], rp)
-  sb_set(x, idx, dims, rp = rp)
+  x2 <- subset_arr(x2, sub[[1]], sub[[2]], sub[[3]], rp)
+  sb_set(x, sub, dims, rp = rp)
   expect_equal(
     x, x2
   ) |> errorfun()
@@ -265,16 +265,16 @@ for(iD in 1:length(x.data)) {
   # set 3
   x <- mutable_atomic(x.data[[iD]], dim = c(10, 10, 10, 10))
   rownames(x) <- c(letters[1:8], "a", NA)
-  idx <- list(c("a"), c(1:4), rep(FALSE, 10))
+  sub <- list(c("a"), c(1:4), rep(FALSE, 10))
   dims <- c(1,2,4)
-  len <- length(sb_x(x, idx, dims))
+  len <- length(sb_x(x, sub, dims))
   
   x <- mutable_atomic(x.data[[iD]], dim = c(10, 10, 10, 10))
   rownames(x) <- c(letters[1:8], "a", NA)
   rp <- make_rp(len)
   x2 <- x
-  x2 <- subset_arr(x2, idx[[1]], idx[[2]], idx[[3]], rp)
-  sb_set(x, idx, dims, rp = rp)
+  x2 <- subset_arr(x2, sub[[1]], sub[[2]], sub[[3]], rp)
+  sb_set(x, sub, dims, rp = rp)
   expect_equal(
     x, x2
   ) |> errorfun()
@@ -286,16 +286,16 @@ for(iD in 1:length(x.data)) {
     # set 1
     x <- mutable_atomic(x.data[[iD]], dim = c(10, 10, 10, 10))
     rownames(x) <- c(letters[1:8], "a", NA)
-    idx <- list(c("a"), c(1:3), c(rep(TRUE, 5), rep(FALSE, 5)))
+    sub <- list(c("a"), c(1:3), c(rep(TRUE, 5), rep(FALSE, 5)))
     dims <- c(1,2,4)
-    len <- length(sb_x(x, idx, dims))
+    len <- length(sb_x(x, sub, dims))
     
     x <- mutable_atomic(x.data[[iD]], dim = c(10, 10, 10, 10))
     rownames(x) <- c(letters[1:8], "a", NA)
     rp <- NA
     x2 <- x
-    x2 <- subset_arr(x2, idx[[1]], idx[[2]], idx[[3]], rp)
-    sb_set(x, idx, dims, rp = rp)
+    x2 <- subset_arr(x2, sub[[1]], sub[[2]], sub[[3]], rp)
+    sb_set(x, sub, dims, rp = rp)
     expect_equal(
       x, x2
     ) |> errorfun()
@@ -304,16 +304,16 @@ for(iD in 1:length(x.data)) {
     # set 2
     x <- mutable_atomic(x.data[[iD]], dim = c(10, 10, 10, 10))
     rownames(x) <- c(letters[1:8], "a", NA)
-    idx <- list(c("a"), logical(0), c(rep(TRUE, 5), rep(FALSE, 5)))
+    sub <- list(c("a"), logical(0), c(rep(TRUE, 5), rep(FALSE, 5)))
     dims <- c(1,2,4)
-    len <- length(sb_x(x, idx, dims))
+    len <- length(sb_x(x, sub, dims))
     
     x <- mutable_atomic(x.data[[iD]], dim = c(10, 10, 10, 10))
     rownames(x) <- c(letters[1:8], "a", NA)
     rp <- NA
     x2 <- x
-    x2 <- subset_arr(x2, idx[[1]], idx[[2]], idx[[3]], rp)
-    sb_set(x, idx, dims, rp = rp)
+    x2 <- subset_arr(x2, sub[[1]], sub[[2]], sub[[3]], rp)
+    sb_set(x, sub, dims, rp = rp)
     expect_equal(
       x, x2
     ) |> errorfun()
@@ -322,16 +322,16 @@ for(iD in 1:length(x.data)) {
     # set 3
     x <- mutable_atomic(x.data[[iD]], dim = c(10, 10, 10, 10))
     rownames(x) <- c(letters[1:8], "a", NA)
-    idx <- list(c("a"), c(1:4), rep(FALSE, 10))
+    sub <- list(c("a"), c(1:4), rep(FALSE, 10))
     dims <- c(1,2,4)
-    len <- length(sb_x(x, idx, dims))
+    len <- length(sb_x(x, sub, dims))
     
     x <- mutable_atomic(x.data[[iD]], dim = c(10, 10, 10, 10))
     rownames(x) <- c(letters[1:8], "a", NA)
     rp <- NA
     x2 <- x
-    x2 <- subset_arr(x2, idx[[1]], idx[[2]], idx[[3]], rp)
-    sb_set(x, idx, dims, rp = rp)
+    x2 <- subset_arr(x2, sub[[1]], sub[[2]], sub[[3]], rp)
+    sb_set(x, sub, dims, rp = rp)
     expect_equal(
       x, x2
     ) |> errorfun()
@@ -351,15 +351,15 @@ for(iD in 1:length(x.data)) {
   # set 1
   x <- mutable_atomic(x.data[[iD]], dim = c(10, 10, 10, 10))
   rownames(x) <- c(letters[1:8], "a", NA)
-  idx <- list(c("a"), c(1:3), c(rep(TRUE, 5), rep(FALSE, 5)))
+  sub <- list(c("a"), c(1:3), c(rep(TRUE, 5), rep(FALSE, 5)))
   dims <- c(1,2,4)
-  len <- length(sb_x(x, idx, dims))
+  len <- length(sb_x(x, sub, dims))
   
   x <- mutable_atomic(x.data[[iD]], dim = c(10, 10, 10, 10))
   rownames(x) <- c(letters[1:8], "a", NA)
   rp <- make_rp(len)
   x2 <- x
-  sb_set(x, idx, dims, rp = rp)
+  sb_set(x, sub, dims, rp = rp)
   expect_equal(
     x, x2
   ) |> errorfun()
@@ -368,15 +368,15 @@ for(iD in 1:length(x.data)) {
   # set 2
   x <- mutable_atomic(x.data[[iD]], dim = c(10, 10, 10, 10))
   rownames(x) <- c(letters[1:8], "a", NA)
-  idx <- list(c("a"), logical(0), c(rep(TRUE, 5), rep(FALSE, 5)))
+  sub <- list(c("a"), logical(0), c(rep(TRUE, 5), rep(FALSE, 5)))
   dims <- c(1,2,4)
-  len <- length(sb_x(x, idx, dims))
+  len <- length(sb_x(x, sub, dims))
   
   x <- mutable_atomic(x.data[[iD]], dim = c(10, 10, 10, 10))
   rownames(x) <- c(letters[1:8], "a", NA)
   rp <- make_rp(len)
   x2 <- x
-  sb_set(x, idx, dims, rp = rp)
+  sb_set(x, sub, dims, rp = rp)
   expect_equal(
     x, x2
   ) |> errorfun()
@@ -384,15 +384,15 @@ for(iD in 1:length(x.data)) {
   # set 3
   x <- mutable_atomic(x.data[[iD]], dim = c(10, 10, 10, 10))
   rownames(x) <- c(letters[1:8], "a", NA)
-  idx <- list(c("a"), c(1:4), rep(FALSE, 10))
+  sub <- list(c("a"), c(1:4), rep(FALSE, 10))
   dims <- c(1,2,4)
-  len <- length(sb_x(x, idx, dims))
+  len <- length(sb_x(x, sub, dims))
   
   x <- mutable_atomic(x.data[[iD]], dim = c(10, 10, 10, 10))
   rownames(x) <- c(letters[1:8], "a", NA)
   rp <- make_rp(len)
   x2 <- x
-  sb_set(x, idx, dims, rp = rp)
+  sb_set(x, sub, dims, rp = rp)
   expect_equal(
     x, x2
   ) |> errorfun()
@@ -404,15 +404,15 @@ for(iD in 1:length(x.data)) {
     # set 1
     x <- mutable_atomic(x.data[[iD]], dim = c(10, 10, 10, 10))
     rownames(x) <- c(letters[1:8], "a", NA)
-    idx <- list(c("a"), c(1:3), c(rep(TRUE, 5), rep(FALSE, 5)))
+    sub <- list(c("a"), c(1:3), c(rep(TRUE, 5), rep(FALSE, 5)))
     dims <- c(1,2,4)
-    len <- length(sb_x(x, idx, dims))
+    len <- length(sb_x(x, sub, dims))
     
     x <- mutable_atomic(x.data[[iD]], dim = c(10, 10, 10, 10))
     rownames(x) <- c(letters[1:8], "a", NA)
     rp <- NA
     x2 <- x
-    sb_set(x, idx, dims, rp = rp)
+    sb_set(x, sub, dims, rp = rp)
     expect_equal(
       x, x2
     ) |> errorfun()
@@ -421,15 +421,15 @@ for(iD in 1:length(x.data)) {
     # set 2
     x <- mutable_atomic(x.data[[iD]], dim = c(10, 10, 10, 10))
     rownames(x) <- c(letters[1:8], "a", NA)
-    idx <- list(c("a"), logical(0), c(rep(TRUE, 5), rep(FALSE, 5)))
+    sub <- list(c("a"), logical(0), c(rep(TRUE, 5), rep(FALSE, 5)))
     dims <- c(1,2,4)
-    len <- length(sb_x(x, idx, dims))
+    len <- length(sb_x(x, sub, dims))
     
     x <- mutable_atomic(x.data[[iD]], dim = c(10, 10, 10, 10))
     rownames(x) <- c(letters[1:8], "a", NA)
     rp <- NA
     x2 <- x
-    sb_set(x, idx, dims, rp = rp)
+    sb_set(x, sub, dims, rp = rp)
     expect_equal(
       x, x2
     ) |> errorfun()
@@ -438,15 +438,15 @@ for(iD in 1:length(x.data)) {
     # set 3
     x <- mutable_atomic(x.data[[iD]], dim = c(10, 10, 10, 10))
     rownames(x) <- c(letters[1:8], "a", NA)
-    idx <- list(c("a"), c(1:4), rep(FALSE, 10))
+    sub <- list(c("a"), c(1:4), rep(FALSE, 10))
     dims <- c(1,2,4)
-    len <- length(sb_x(x, idx, dims))
+    len <- length(sb_x(x, sub, dims))
     
     x <- mutable_atomic(x.data[[iD]], dim = c(10, 10, 10, 10))
     rownames(x) <- c(letters[1:8], "a", NA)
     rp <- NA
     x2 <- x
-    sb_set(x, idx, dims, rp = rp)
+    sb_set(x, sub, dims, rp = rp)
     expect_equal(
       x, x2
     ) |> errorfun()

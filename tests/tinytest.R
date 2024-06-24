@@ -22,6 +22,9 @@ if ( requireNamespace("tinytest", quietly = TRUE) ){
     tinytest::test_package(
       "squarebrackets", testdir = "tinytest/generic_idx", set_env=list(LC_COLLATE="C")
     )
+    tinytest::test_package(
+      "squarebrackets", testdir = "tinytest/rcpp_related", set_env=list(LC_COLLATE="C")
+    )
     if(requireNamespace("abind")) {
       tinytest::test_package(
         "squarebrackets", testdir = "tinytest/generic_bind", set_env=list(LC_COLLATE="C")

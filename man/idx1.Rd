@@ -13,7 +13,7 @@ idx(x, ...)
 
 \method{idx}{array}(
   x,
-  idx = NULL,
+  sub = NULL,
   dims = NULL,
   slice = NULL,
   margin = NULL,
@@ -35,16 +35,16 @@ idx(x, ...)
 \arguments{
 \item{x}{vector, matrix, array, or data.frame; both atomic and recursive objects are supported.}
 
-\item{...}{further arguments passed to or from other methods.}
+\item{...}{see \link{squarebrackets_method_dispatch}.}
 
-\item{i, idx, dims, margin, slice, inv}{See \link{squarebrackets_indx_args}. \cr
+\item{i, sub, dims, margin, slice, inv}{See \link{squarebrackets_indx_args}. \cr
 Duplicates are not allowed.}
 
 \item{chkdup}{see \link{squarebrackets_options}. \cr
 \ifelse{html}{\figure{for_performance-set_to_FALSE-red.svg}{options: alt='[for performance: set to FALSE]'}}{\link[=squarebrackets_help]{for performance: set to FALSE}} \cr}
 }
 \value{
-For \code{idx(x, i = i, ...)} and \code{idx(x, idx = idx, dims = dims, ...)}: \cr
+For \code{idx(x, i = i, ...)} and \code{idx(x, sub = sub, dims = dims, ...)}: \cr
 A strictly positive integer vector of flat indices. \cr
 \cr
 For \code{idx(x, margin = margin, slice = slice, ...)}: \cr
@@ -57,7 +57,7 @@ The type of output depends on the type of input index arguments given:
 \itemize{
 \item \code{idx(x, i = i, ...)}
 converts linear indices to a strictly positive integer vector of linear indices.
-\item \code{idx(x, idx = idx, dims = dims, ...)}
+\item \code{idx(x, sub = sub, dims = dims, ...)}
 converts dimensional indices to a strictly positive integer vector of linear indices.
 \item \code{idx(x, slice = slice, margin = margin, ...)}
 converts indices of one dimension to a strictly positive integer vector of
@@ -66,7 +66,7 @@ indices for that specific dimension.
 
 Vectors (both atomic and recursive) only have index argument \code{i}. \cr
 Data.frame-like objects only have the \verb{slice, margin} index argument pair. \cr
-Arrays (both atomic and recursive) have the \verb{idx, dims} index argument pair,
+Arrays (both atomic and recursive) have the \verb{sub, dims} index argument pair,
 as well as the arguments \code{i} and \verb{slice, margin}. \cr
 \cr
 The result of the \code{idx()} method
@@ -74,7 +74,7 @@ can be used inside the regular square-brackets operators. \cr
 For example like so:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{x <- array(...)
-my_indices <- idx(x, idx, dims)
+my_indices <- idx(x, sub, dims)
 x[my_indices] <- value
 
 y <- data.frame(...)
@@ -93,7 +93,7 @@ The \code{idx()} method
 is particularly handy for replacing or coercively transforming shallow subsets
 of recursive objects,
 without having to return a copy of the entire object. \cr
-Thus combining \verb{[<-} with \code{idx} is more efficient than \link{sb2_mod}
+Thus combining \verb{[<-} with \code{sub} is more efficient than \link{sb2_mod}
 for recursive objects. \cr \cr
 }
 \examples{

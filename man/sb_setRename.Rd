@@ -22,7 +22,7 @@ sb2_setRename(x, ...)
 \item{x}{a \bold{variable} belonging to one of the
 \link[=squarebrackets_mutable_classes]{supported mutable classes}. \cr}
 
-\item{...}{further arguments passed to or from other methods. \cr \cr}
+\item{...}{see \link{squarebrackets_method_dispatch}. \cr \cr}
 
 \item{newnames}{atomic character vector giving the new names. \cr
 Specifying \code{NULL} will remove the names.}

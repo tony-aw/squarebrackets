@@ -10,14 +10,14 @@ match_all(needles, haystack, unlist = TRUE)
 \item{needles, haystack}{vectors}
 
 \item{unlist}{Boolean,
-indicating if the result should be a vector (\code{TRUE}, default),
-or a list (\code{FALSE}).}
+indicating if the result should be a single integer vector (\code{TRUE}, default),
+or a list (length = \code{length(needles)}) of integer vectors (\code{FALSE}). \cr}
 }
 \value{
 An integer vector, or list of integer vector. \cr
 If a list, each element of the list corresponds to each value of \code{needles}. \cr
 When \code{needles} and/or \code{haystack} is/are empty or fully \code{NA},
-\code{match_all()} returns an empty integer vector (if \code{unlist = TRUe}),
+\code{match_all()} returns an empty integer vector (if \code{unlist = TRUE}),
 or an empty list (if \code{unlist = FALSE}). \cr
 }
 \description{

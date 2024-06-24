@@ -38,7 +38,7 @@ sb_mod(x, ...)
 
 \method{sb_mod}{array}(
   x,
-  idx = NULL,
+  sub = NULL,
   dims = NULL,
   i = NULL,
   inv = FALSE,
@@ -73,7 +73,7 @@ sb2_mod(x, ...)
 
 \method{sb2_mod}{array}(
   x,
-  idx = NULL,
+  sub = NULL,
   dims = NULL,
   i = NULL,
   inv = FALSE,
@@ -102,9 +102,9 @@ sb2_mod(x, ...)
 \arguments{
 \item{x}{see \link{squarebrackets_immutable_classes} and \link{squarebrackets_mutable_classes}.}
 
-\item{...}{further arguments passed to or from other methods.}
+\item{...}{see \link{squarebrackets_method_dispatch}.}
 
-\item{i, lvl, row, col, idx, dims, filter, vars, inv}{See \link{squarebrackets_indx_args}. \cr
+\item{i, lvl, row, col, sub, dims, filter, vars, inv}{See \link{squarebrackets_indx_args}. \cr
 An empty index selection returns the original object unchanged. \cr}
 
 \item{rp}{an object of somewhat the same type as the selected subset of \code{x},

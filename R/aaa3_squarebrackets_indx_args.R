@@ -6,7 +6,7 @@
 #' 
 #'  * `i`: to specify flat (i.e. dimensionless) indices.
 #'  * `row, col`: to specify rows and/or columns in tabular objects.
-#'  * `idx, dims`: to specify indices of arbitrary dimensions in arrays.
+#'  * `sub, dims`: to specify indices of arbitrary dimensions in arrays.
 #'  * `lvl`: specify levels, for factors only.
 #'  * `filter, vars`: to specify rows and/or columns specifically in data.frame-like objects.
 #'  *  `margin, slice`: to specify indices of one particular dimension. \cr \cr
@@ -79,24 +79,40 @@
 #'  
 #' ```
 #' 
-#' @section Argument Pair idx, dims:
+#' @section Argument Pair sub, dims:
 #' `r .mybadge_class("atomic array")` \cr
 #' `r .mybadge_class("recursive array")` \cr
+#'  The `sub, dims` argument pair is inspired by the
+#'  \code{abind::}\link[abind]{asub} function from the 'abind' package (see reference below). \cr
+#' `dims` must be an integer vector of the same length as `sub`,
+#' giving the dimensions over which to select indices
+#' (i.e. `dims` specifies the "non-missing" index margins). \cr
+#' `sub` must be a list of subscripts, of the same length as `dims`.
+#' Each element of `sub` can be any of the following:
+#' 
+#'  * a vector of length 0,
+#'  in which case no indices are selected for the operation (i.e. empty selection).
+#'  * a \bold{strictly positive integer} vector with dimension indices to select for the operation.
+#'  * a \bold{logical} vector of the same length as the corresponding dimension size,
+#'  giving the indices of this dimension to select for the operation.
+#'  * a \bold{character} vector of index names. \cr
+#'  If a dimension has multiple indices with the given name,
+#'  ALL the corresponding indices will be selected for the operation. \cr
+#' 
+#' Note also the following:
+#'  * If `dims` is a single integer,
+#'  one can specify `sub` as an atomic vector of any of the above specified types,
+#'  instead of as a list of length `1`.
+#'  * As stated, `dims` specifies which index margins are non-missing. \cr
+#'  If `dims` - and thus also `sub` - is of length `0`,
+#'  it is taken as "all index margins are missing". \cr
 #'  
-#' `idx` must be a list of indices. \cr
-#' `dims` must be an integer vector of the same length as `idx`,
-#' giving the dimensions to which the indices given in `idx` correspond to. \cr
-#' If `dims` is a single integer, `idx` can be given as a atomic vector instead of a single-element list. \cr
-#' \cr
-#' The elements of `idx` follow the same rules as the rules for `row` and `col`,
-#' EXCEPT one should not fill in `NULL`. \cr
-#' \cr
 #' To keep the syntax short,
-#' the user can use the \link{n} function instead of `list()` to specify `idx`. \cr
+#' the user can use the \link{n} function instead of `list()` to specify `sub`. \cr
 #' \cr
-#' Using the `idx, dims` arguments,
+#' Using the `sub, dims` arguments,
 #' corresponds to doing something like the following,
-#' here using an example of a 4-dimensional array:
+#' here using an example of extracting subsets from a 4-dimensional array:
 #' 
 #' ```{r eval = FALSE, echo = TRUE}
 #' sb_x(x, n(1:10, 1:5), c(1, 3)) # ==> x[1:10, , 1:5, , drop = FALSE]
@@ -154,8 +170,8 @@
 #'  ALL the corresponding indices will be selected for the operation. \cr
 #'  
 #' One could also give a vector of length `0` for `slice`; \cr
-#' Argument `slice` is only used in method `idx`,
-#' and the result of `idx` are meant to be used inside the regular `[` and `[<-` operators. \cr
+#' Argument `slice` is only used in method `sub`,
+#' and the result of `sub` are meant to be used inside the regular `[` and `[<-` operators. \cr
 #' Thus the result of a zero-length index specification depends on the rule-set of
 #' `[.class(x)` and `[<-.class(x)`. \cr \cr
 #' 
@@ -168,22 +184,22 @@
 #' By default, `inv = FALSE`, which translates the indices like normally. \cr
 #' When `inv = TRUE`, the inverse of the indices is taken. \cr
 #' Consider, for example, an atomic matrix `x`; \cr
-#' using `sb_mod(x, 1:2, 1:2, tf = tf)`
+#' using `sb_mod(x, col = 1:2, tf = tf)`
 #' corresponds to something like the following:
 #' 
 #' ```{r eval = FALSE, echo = TRUE}
 #' 
-#' x[1:2, 1:2] <- tf(x[1:2, 1:2])
+#' x[, 1:2] <- tf(x[, 1:2])
 #' x
 #' 
 #' ```
 #' 
-#' and using `sb_mod(x, 1:2, 1:2, inv = TRUE, tf = tf)`
+#' and using `sb_mod(x, col = 1:2, inv = TRUE, tf = tf)`
 #' corresponds to something like the following:
 #' 
 #' ```{r eval = FALSE, echo = TRUE}
 #' 
-#' x[-1:-2, -1:-2] <- tf(x[-1:-2, -1:-2])
+#' x[, -1:-2] <- tf(x[, -1:-2])
 #' x
 #' 
 #' ```
@@ -221,14 +237,14 @@
 #' it's either one or the other. \cr
 #' One cannot specify `col` and `vars` simultaneously;
 #' it's either one or the other. \cr
-#' One cannot specify the `idx, dims` pair and `slice, margin` pair simultaneously;
+#' One cannot specify the `sub, dims` pair and `slice, margin` pair simultaneously;
 #' it's either one pair or the other pair. \cr
 #' In the above cases it holds that if one set is specified, the other is set is ignored. \cr
 #' \cr
 #' 
 #' @section Drop:
 #' Sub-setting with the generic methods from the 'squarebrackets' R-package using dimensional arguments
-#' (`row, col, lyr, idx, dims, filter, vars`)
+#' (`row, col, lyr, sub, dims, filter, vars`)
 #' always use `drop = FALSE`. \cr
 #' To drop potentially redundant (i.e. single level) dimensions,
 #' use the \link[base]{drop} function, like so:
@@ -253,6 +269,10 @@
 #' Integer indices and logical indices are the fastest. \cr
 #' Indexing through names or levels (i.e. character vectors) is the slowest. \cr
 #' Thus if performance is important, use integer or logical indices. \cr \cr
+#' 
+#' 
+#' @references Plate T, Heiberger R (2016). \emph{abind: Combine Multidimensional Arrays}. R package version 1.4-5, \url{https://CRAN.R-project.org/package=abind}.
+#' 
 
 
 #' @rdname aaa3_squarebrackets_indx_args

@@ -5,7 +5,7 @@ Such recursive subset operations only operate on a single element.
 Performing recursive subset operations on multiple elements is not vectorized,
 and requires a (potentially slow) loop. 
 
-The lst_untree() funtion takes a nested tree-like list,
+The lst_untree() function takes a nested tree-like list,
 and turns it into a 2d recursive array (i.e. a list-matrix),
 allowing vectorized subset operations to be performed on the list. 
 lst_untree() can also simply flatten the list, making it a non-nested list. 
@@ -17,7 +17,7 @@ Such recursive subset operations only operate on a single element.
 Performing recursive subset operations on multiple elements is not vectorized,
 and requires a (potentially slow) loop. 
 
-The lst_untree() funtion takes a nested tree-like list,
+The lst_untree() function takes a nested tree-like list,
 and turns it into a 2d recursive array (i.e. a list-matrix),
 allowing vectorized subset operations to be performed on the list. 
 lst_untree() can also simply flatten the list, making it a non-nested list. 
@@ -81,7 +81,7 @@ can performing recursive subset operation on a nested list. <br>
 Such recursive subset operations only operate on a single element. <br>
 Performing recursive subset operations on multiple elements is not vectorized,
 and requires a (potentially slow) loop. <br><br>
-The <code>lst_untree()</code> funtion takes a nested tree-like list,
+The <code>lst_untree()</code> function takes a nested tree-like list,
 and turns it into a 2d recursive array (i.e. a list-matrix),
 allowing vectorized subset operations to be performed on the list. <br><code>lst_untree()</code> can also simply flatten the list, making it a non-nested list. <br>
 See the Examples section to understand how the list will be arranged and named. <br><br>
@@ -107,7 +107,7 @@ The <code>lst_nlists()</code> counts the total number of recursive list-elements
 with <code>length(x)</code> rows and <code>n</code> columns, <br>
 where <code>n = sapply(x, </code>lst_nlists<code>) |&gt; max()</code>. <br>
 Empty elements will be filled with <code>list(NULL)</code>.</p></li>
-<li><p><code>margin = 2</code> pproduces a 2D recursive array (i.e. a matrix of lists), <br>
+<li><p><code>margin = 2</code> produces a 2D recursive array (i.e. a matrix of lists), <br>
 with <code>length(x)</code> columns and <code>n</code> rows, <br>
 where <code>n = sapply(x, </code>lst_nlists<code>) |&gt; max()</code>. <br>
 Empty elements will be filled with <code>list(NULL)</code>.</p></li>
@@ -368,6 +368,7 @@ giving the total number of recursive list-elements in the given list. <br></p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[10]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "j" "a" "f" "b" "d" "e" "h" "g" "i" "c"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

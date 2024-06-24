@@ -78,7 +78,7 @@ expect_equal(sb_x(x, lvl = "Jan", drop = TRUE), x[x == "Jan", drop = TRUE])
 enumerate <- enumerate + 6
 
 
-# test matrix ====
+# test matrix & arrays ====
 
 rep3.bind <- function(x, dim) {
   return(abind::abind(x, x, x, along = dim))
@@ -90,7 +90,7 @@ subset_mat <- function(x, row = NULL, col = NULL) {
   
   if(is.null(row)) row <- base::quote(expr = )
   if(is.null(col)) col <- base::quote(expr = )
-  x[row, col, drop = FALSE]
+  return(x[row, col, drop = FALSE])
 }
 
 temp.fun.matrix <- function(x, row, col) {
@@ -108,43 +108,58 @@ temp.fun.matrix <- function(x, row, col) {
 }
 
 
+subset_1d <- function(x, i) {
+  i <- indx_x(i, x, dimnames(x)[[1]], length(x))
+  return(x[i, drop = FALSE])
+}
 
-sys.source(file.path(getwd(), "source", "sourcetest-dims.R"), envir = environment())
+temp.fun.1d <- function(x, row) {
+  for(i in 1:length(row)) {
+    expect_equal(
+      sb_x(x, row[[i]], 1),
+      subset_1d(x, row[[i]])
+    ) |> errorfun()
+    expect_true(sb_x(x, row[[i]], 1) |>
+                  is.array()) |> errorfun()
+    assign("enumerate", enumerate + 2, envir = parent.frame(n = 1))
+  }
+}
+
+temp.fun.2d <- function(x, row, col) {
+  for(i in 1:length(row)) {
+    for(j in 1:length(col)) {
+      
+      sub <- n(row[[i]], col[[j]])
+      dims <- 1:2
+      rem <- which(vapply(sub, is.null, logical(1L)))
+      if(length(rem) > 0L) {
+        sub <- sub[-rem]
+        dims <- dims[-rem]
+      }
+      
+      expect_equal(
+        sb_x.array(x, sub, dims),
+        subset_mat(x, row[[i]], col[[j]])
+      ) |> errorfun()
+      expect_true(sb_x.array(x, sub, dims) |>
+                    is.array()) |> errorfun()
+      assign("enumerate", enumerate + 2, envir = parent.frame(n = 1))
+    }
+  }
+}
 
 
-# test arbitrary dimensions ====
+sb_test <- sb_x.array
 
-subset_arr <- function(x, i, j, l) {
+temp.fun.arbitrary <- function(x, i, j, l) {
   i <- indx_x(i, x, rownames(x), nrow(x))
   j <- indx_x(j, x, colnames(x), ncol(x))
   l <- indx_x(l, x, dimnames(x)[4], dim(x)[4])
   return(x[i, j, , l, drop = FALSE])
 }
 
-x <- array(seq_len(10^4), dim = c(10, 10, 10, 10))
-rownames(x) <- c(letters[1:8], "a", NA)
+sys.source(file.path(getwd(), "source", "sourcetest-dims.R"), envir = environment())
 
-idx <- list(c("a", "a"), c(1, 1:3), c(rep(TRUE, 5), rep(FALSE, 5)))
-dims <- c(1,2,4)
-expect_equal(
-  sb_x(x, idx, dims),
-  subset_arr(x, idx[[1]], idx[[2]], idx[[3]])
-)
-
-idx <- list(c("a", "a"), logical(0), c(rep(TRUE, 5), rep(FALSE, 5)))
-dims <- c(1,2,4)
-expect_equal(
-  sb_x(x, idx, dims),
-  subset_arr(x, idx[[1]], idx[[2]], idx[[3]])
-)
-
-idx <- list(c("a", "a"), c(1, 1:4), rep(FALSE, 10))
-dims <- c(1,2,4)
-expect_equal(
-  sb_x(x, idx, dims),
-  subset_arr(x, idx[[1]], idx[[2]], idx[[3]])
-)
-enumerate <- enumerate + 3
 
 
 # test errors ====

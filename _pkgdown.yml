@@ -24,7 +24,8 @@ reference:
   - '`aaa3_squarebrackets_indx_args`'
   - '`aaa4_squarebrackets_options`'
   - '`aaa5_squarebrackets_PassByReference`'
-  - '`aaa6_squarebrackets_inconveniences`'
+  - '`aaa6_squarebrackets_method_dispatch`'
+  - '`aaa7_squarebrackets_inconveniences`'
   - '`class_mutable_atomic`'
 - title: Generic Methods
   contents:

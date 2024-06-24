@@ -33,11 +33,11 @@ sel.rows <- 1:900
 sel.lyrs <- c(TRUE, FALSE, TRUE, FALSE)
 all(
   sb_x.array(x.3d, rcl = n(sel.rows, NULL, sel.lyrs)) ==
-    abind::asub(x.3d, idx = list(sel.rows, sel.lyrs), dims = c(1,3))
+    abind::aidx(x.3d, sub = list(sel.rows, sel.lyrs), dims = c(1,3))
 )
 bm.sb_x.3d <- bench::mark(
   "squarebrackets" =  sb_x.array(x.3d, rcl = n(sel.rows, NULL, sel.lyrs)),
-  "base R + abind" = abind::asub(x.3d, idx = list(sel.rows, sel.lyrs), dims = c(1,3)),
+  "base R + abind" = abind::aidx(x.3d, sub = list(sel.rows, sel.lyrs), dims = c(1,3)),
   min_iterations = 500
 )
 summary(bm.sb_x.3d)
@@ -50,12 +50,12 @@ save(bm.sb_x.3d, file = "bm.sb_x.3d.RData")
 # sel.rows <- 1:900
 # sel.lyrs <- c(TRUE, FALSE, TRUE, FALSE)
 # all(
-#   sb_x.array(x.4d, idx = list(sel.rows, sel.lyrs), dims = c(1,3)) ==
-#     abind::asub(x.4d, idx = list(sel.rows, sel.lyrs), dims = c(1,3))
+#   sb_x.array(x.4d, sub = list(sel.rows, sel.lyrs), dims = c(1,3)) ==
+#     abind::aidx(x.4d, sub = list(sel.rows, sel.lyrs), dims = c(1,3))
 # )
 # bm.sb_x.4d <- bench::mark(
-#   "squarebrackets" =  sb_x.array(x.4d, idx = list(sel.rows, sel.lyrs), dims = c(1,3)),
-#   "base R + abind" = abind::asub(x.4d, idx = list(sel.rows, sel.lyrs), dims = c(1,3)),
+#   "squarebrackets" =  sb_x.array(x.4d, sub = list(sel.rows, sel.lyrs), dims = c(1,3)),
+#   "base R + abind" = abind::aidx(x.4d, sub = list(sel.rows, sel.lyrs), dims = c(1,3)),
 #   min_iterations = 500
 # )
 # summary(bm.sb_x.4d)

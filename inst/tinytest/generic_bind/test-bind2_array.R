@@ -33,7 +33,6 @@ for(margin in 1:3) {
     dim = dim(pre_expected),
     dimnames = dimnames(pre_expected)
   )
-  dimnames(expected)[-margin] <- list(NULL)
   expect_equal(
     out, expected
   ) |> errorfun()
@@ -42,11 +41,11 @@ for(margin in 1:3) {
   enumerate <- enumerate + 1
 }
 
-# test name_flatargument ====
-x <- letters
+# test name_flat argument ====
+x <- as.list(letters)
 dim(x) <- c(2, 13)
 names(x) <- LETTERS
-y <- LETTERS
+y <- as.list(LETTERS)
 dim(y) <- c(2, 13)
 names(y) <- letters
 z <- bind_array(list(x, y), 1, name_flat = TRUE)
@@ -56,8 +55,8 @@ expect_equal(
 
 
 # test errors ====
-x <- array(1:1e4, dim = c(100,50, 10))
-y <- array(-1e4:-1, dim =c(100,10, 10))
+x <- array(as.list(1:1e4), dim = c(100,50, 10))
+y <- array(as.list(-1e4:-1), dim =c(100,10, 10))
 expect_error(
   bind2_array(list(x,y), along = 1),
   pattern = "non-conformable dimensions"

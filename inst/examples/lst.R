@@ -73,3 +73,4 @@ for(i in seq_along(x)) {
 
 # the same, but vectorized using the untree'd list:
 y[seq_len(nrow(y)), 1]
+

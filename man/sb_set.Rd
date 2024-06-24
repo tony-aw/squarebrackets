@@ -36,7 +36,7 @@ sb_set(x, ...)
 
 \method{sb_set}{array}(
   x,
-  idx = NULL,
+  sub = NULL,
   dims = NULL,
   i = NULL,
   inv = FALSE,
@@ -68,9 +68,9 @@ sb2_set(x, ...)
 \item{x}{a \bold{variable} belonging to one of the
 \link[=squarebrackets_mutable_classes]{supported mutable classes}. \cr}
 
-\item{...}{further arguments passed to or from other methods.}
+\item{...}{see \link{squarebrackets_method_dispatch}.}
 
-\item{i, row, col, idx, dims, filter, vars, inv}{See \link{squarebrackets_indx_args}. \cr
+\item{i, row, col, sub, dims, filter, vars, inv}{See \link{squarebrackets_indx_args}. \cr
 An empty index selection leaves the original object unchanged. \cr}
 
 \item{rp}{an object of somewhat the same type as the selected subset of \code{x},

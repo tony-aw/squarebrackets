@@ -574,7 +574,7 @@ NumericVector rcpp_seq_rec2_<INOP>(
   
   NumericVector x(n);
   Range idx(0, 1);
-  x[idx] = inits;
+  x[sub] = inits;
   
   int prev1;
   int prev2;

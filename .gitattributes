@@ -8,7 +8,8 @@ R/aaa2_squarebrackets_mutable_classes.R -linguist-documentation
 R/aaa3_squarebrackets_indx_args.R -linguist-documentation
 R/aaa4_squarebrackets_duplicates.R -linguist-documentation
 R/aaa5_squarebrackets_PassByReference.R -linguist-documentation
-R/aaa6_squarebrackets_inconveniences.R -linguist-documentation
+R/aaa6_squarebrackets_method_dispatch.R -linguist-documentation
+R/aaa7_squarebrackets_inconveniences.R -linguist-documentation
 R/reexports.R -linguist-documentation
 R/meta_functions.R -linguist-documentation
 R/zzz.R -linguist-vendored

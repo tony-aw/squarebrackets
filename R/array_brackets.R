@@ -12,44 +12,35 @@
 
 #' @keywords internal
 #' @noRd
-.arr_check <- function(x, idx, dims, ndims, abortcall) {
-  if(!is.list(idx) || !is.numeric(dims)) {
-    stop(simpleError("`idx` must be a list, and `dims` must be a integer vector", call = abortcall))
+.arr_check <- function(x, sub, dims, ndims, abortcall) {
+  if(!is.list(sub) || !is.numeric(dims)) {
+    stop(simpleError("`sub` must be a list, and `dims` must be a integer vector", call = abortcall))
   }
-  if(length(idx) != length(dims)) {
-    stop(simpleError("`length(idx) != length(dims)`", call = abortcall))
+  if(length(sub) != length(dims)) {
+    stop(simpleError("`length(sub) != length(dims)`", call = abortcall))
+  }
+  if(.C_any_badindx(as.integer(dims), ndims)) {
+    stop(simpleError("`dims` out of range", call = abortcall))
   }
 }
 
 
-
 #' @keywords internal
 #' @noRd
-.arr_lst_brackets <- function(x, idx, dims, chkdup, inv, abortcall) {
+.arr_lst_brackets <- function(x, sub, dims, chkdup, inv, abortcall) {
   
   # Note: since arrays have many dimensions,
   # but the maximum total number of elements remains the same
   # the maximum of each dimension reduces.
   # Thus, creating sequences here is not so expensive.
-  
-  lst <- .rcpp_seq_mlen(as.integer(dim(x))) 
-  for(i in seq_along(dims)) {
-    lst[[dims[i]]] <- .indx_make_dim(
-      idx[[i]], x, dim.L = dims[i], chkdup = chkdup, inv = inv, abortcall
-    )
-  }
-  return(lst)
-}
-
-
-#' @keywords internal
-#' @noRd
-.arr_lst_brackets.sb_x <- function(x, idx, dims, abortcall) {
+  .arr_check(x, sub, dims, length(dim(x)), abortcall)
   lst <- .rcpp_seq_mlen(as.integer(dim(x)))
-  for(i in seq_along(dims)) {
-    lst[[dims[i]]] <- .indx_make_dim.sb_x(
-      idx[[i]], x, dim.L = dims[i], abortcall
-    )
+  if(length(dims) > 0L) {
+    for(i in seq_along(dims)) {
+      lst[[dims[i]]] <- .indx_make_dim(
+        sub[[i]], x, dim.L = dims[i], chkdup = chkdup, inv = inv, abortcall
+      )
+    }
   }
   return(lst)
 }
@@ -57,43 +48,32 @@
 
 #' @keywords internal
 #' @noRd
-.arr_x <- function(x, idx, dims, abortcall) {
-  
-  ndims <- length(dim(x))
-  .arr_check(x, idx, dims, ndims, abortcall)
-  
-  lst <- .arr_lst_brackets.sb_x(x, idx, dims, abortcall = abortcall)
+.arr_lst_brackets.sb_x <- function(x, sub, dims, abortcall) {
   
   
-  return(do.call(function(...)x[..., drop = FALSE], lst))
-}
-
-
-#' @keywords internal
-#' @noRd
-.arr_rm <- function(x, idx, dims, chkdup, abortcall) {
-  
-  ndims <- length(dim(x))
-  .arr_check(x, idx, dims, ndims, abortcall)
-  
-  lst <- .arr_lst_brackets(x, idx, dims, chkdup = chkdup, inv = TRUE, abortcall = abortcall)
-  
-  if(.any_empty_indices(lst)) {
-    return(x)
+  .arr_check(x, sub, dims, length(dim(x)), abortcall)
+  lst <- .rcpp_seq_mlen(as.integer(dim(x)))
+  if(length(dims) > 0L) {
+    for(i in seq_along(dims)) {
+      lst[[dims[i]]] <- .indx_make_dim.sb_x(
+        sub[[i]], x, dim.L = dims[i], abortcall
+      )
+    }
   }
-  
+  return(lst)
+}
+
+
+#' @keywords internal
+#' @noRd
+.arr_x <- function(x, lst, abortcall) {
   return(do.call(function(...)x[..., drop = FALSE], lst))
 }
 
 
 #' @keywords internal
 #' @noRd
-.arr_tf <- function(x, idx, dims, inv, tf, chkdup, abortcall) {
-  
-  ndims <- length(dim(x))
-  .arr_check(x, idx, dims, ndims, abortcall)
-  
-  lst <- .arr_lst_brackets(x, idx, dims, chkdup = chkdup, inv = inv, abortcall = abortcall)
+.arr_tf <- function(x, lst, tf, abortcall) {
   
   if(.any_empty_indices(lst)) {
     return(x)
@@ -111,12 +91,7 @@
 
 #' @keywords internal
 #' @noRd
-.arr_tf_list <- function(x, idx, dims, inv, tf, chkdup, .lapply, abortcall) {
-  
-  ndims <- length(dim(x))
-  .arr_check(x, idx, dims, ndims, abortcall)
-  
-  lst <- .arr_lst_brackets(x, idx, dims, chkdup = chkdup, inv = inv, abortcall = abortcall)
+.arr_tf_list <- function(x, lst, tf, .lapply, abortcall) {
   
   if(.any_empty_indices(lst)) {
     return(x)
@@ -135,13 +110,7 @@
 
 #' @keywords internal
 #' @noRd
-.arr_repl <- function(x, idx, dims, inv, rp, chkdup, abortcall) {
-  
-  ndims <- length(dim(x))
-  .arr_check(x, idx, dims, ndims, abortcall)
-  
-  lst <- .arr_lst_brackets(x, idx, dims, chkdup = chkdup, inv = inv, abortcall = abortcall)
-  
+.arr_repl <- function(x, lst, rp, abortcall) {
   if(.any_empty_indices(lst)) {
     return(x)
   }
@@ -157,12 +126,7 @@
 
 #' @keywords internal
 #' @noRd
-.arr_repl_list <- function(x, idx, dims, inv, rp, chkdup, abortcall) {
-  
-  ndims <- length(dim(x))
-  .arr_check(x, idx, dims, ndims, abortcall)
-  
-  lst <- .arr_lst_brackets(x, idx, dims, chkdup = chkdup, inv = inv, abortcall = abortcall)
+.arr_repl_list <- function(x, lst, rp, abortcall) {
   
   if(.any_empty_indices(lst)) {
     return(x)
@@ -180,27 +144,40 @@
 
 #' @keywords internal
 #' @noRd
-.arr_set <- function(x, idx, dims, chkdup, inv, rp, tf, abortcall) {
+.arr_set <- function(x, sub, dims, chkdup, inv, rp, tf, abortcall) {
   
+  # Prep:
   x.dim <- dim(x)
   ndims <- length(x.dim)
-  .arr_check(x, idx, dims, ndims, abortcall = abortcall)
+  .arr_check(x, sub, dims, ndims, abortcall = abortcall)
   
+  
+  # CASE 1: all subscripts are missing arguments, thus everything needs to change
+  # (regardless if inv = TRUE or not)
+  if(length(sub) == 0 && length(dims) == 0) {
+    .rcpp_set_all(x, rp, tf, abortcall = sys.call())
+    return(invisible(NULL))
+  }
+  
+  # CASE 2: `x` is a vector / 1d array, so subscript translation is waste of computation
   if(ndims == 1L) {
     elements <- .indx_make_element(
-      idx[[1]], x, is_list = FALSE, chkdup = chkdup, inv = inv, abortcall = abortcall
+      sub[[1]], x, is_list = FALSE, chkdup = chkdup, inv = inv, abortcall = abortcall
     )
     .sb_set_atomic(x, elements, rp = rp, tf = tf, abortcall = abortcall)
     return(invisible(NULL))
   }
   
   lst <- .arr_lst_brackets(
-    x, idx, dims, chkdup = chkdup, inv = inv, abortcall = abortcall
+    x, sub, dims, chkdup = chkdup, inv = inv, abortcall = abortcall
   )
+  
+  # CASE 3: all list elements are integer(0), so nothing to change
   if(.any_empty_indices(lst)) {
     return(invisible(NULL))
   }
   
+  # CASE 4: `x` has between 2 and 6 dimensions, and neither all nor empty selection
   if(ndims <= 6L) {
     if(!missing(tf)) {
       if(!is.function(tf)) stop(simpleError("`tf` must be a function", call = abortcall))
@@ -210,6 +187,9 @@
     return(invisible(NULL))
   }
   
+  # CASE 5: `x` has more than 6 dimension
+  # so default to translating subscripts to flat indices,
+  # and treat as vector with the flattened indices.
   elements <- .sub2ind_general(lst, x.dim)
   .sb_set_atomic(x, elements, rp = rp, tf = tf, abortcall = sys.call())
   return(invisible(NULL))

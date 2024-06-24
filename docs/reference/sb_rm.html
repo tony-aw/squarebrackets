@@ -81,7 +81,7 @@ Use <code>sb2_rm(x, ...)</code> if <code>x</code> is a recursive object (i.e. li
 <span><span class="co"># S3 method for array</span></span>
 <span><span class="fu">sb_rm</span><span class="op">(</span></span>
 <span>  <span class="va">x</span>,</span>
-<span>  idx <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  sub <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  dims <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  i <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">...</span>,</span>
@@ -112,7 +112,7 @@ Use <code>sb2_rm(x, ...)</code> if <code>x</code> is a recursive object (i.e. li
 <span><span class="co"># S3 method for array</span></span>
 <span><span class="fu">sb2_rm</span><span class="op">(</span></span>
 <span>  <span class="va">x</span>,</span>
-<span>  idx <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  sub <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  dims <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  i <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  drop <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -139,10 +139,10 @@ Use <code>sb2_rm(x, ...)</code> if <code>x</code> is a recursive object (i.e. li
 
 
 <dt>...</dt>
-<dd><p>further arguments passed to or from other methods.</p></dd>
+<dd><p>see <a href="aaa6_squarebrackets_method_dispatch.html">squarebrackets_method_dispatch</a>.</p></dd>
 
 
-<dt>i, lvl, row, col, idx, dims, filter, vars</dt>
+<dt>i, lvl, row, col, sub, dims, filter, vars</dt>
 <dd><p>See <a href="aaa3_squarebrackets_indx_args.html">squarebrackets_indx_args</a>. <br>
 An empty index selection results in nothing being removed,
 and the entire object is returned. <br></p></dd>

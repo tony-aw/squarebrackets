@@ -19,9 +19,14 @@ basefun <- function(x, rows, cols, tf) {
   x[rows, cols] <- tf(x[rows, cols])
   return(x)
 }
+base_plus_idx <- function(x, rows, cols, tf) {
+  x[idx.array(x, n(rows, cols), 1:2)] <- tf(x[idx.array(x, n(rows, cols), 1:2)])
+  return(x)
+}
 tf <- function(x) { return(-1 * x) }
 bm.sb_tf.matrix <- bench::mark(
   "base [<-" =  basefun(x.mat, sel.rows, sel.cols, tf = tf),
+  "idx + [<-" = base_plus_idx(x.mat, sel.rows, sel.cols, tf = tf),
   "sb_set" = sb_set.matrix(x.mat2, sel.rows, sel.cols, tf = tf),
   "sb_mod" = sb_mod.matrix(x.mat, sel.rows, sel.cols, tf = tf),
   check = FALSE,

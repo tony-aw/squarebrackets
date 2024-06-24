@@ -7,7 +7,7 @@
 #' Performing recursive subset operations on multiple elements is not vectorized,
 #' and requires a (potentially slow) loop. \cr
 #' \cr
-#' The `lst_untree()` funtion takes a nested tree-like list,
+#' The `lst_untree()` function takes a nested tree-like list,
 #' and turns it into a 2d recursive array (i.e. a list-matrix),
 #' allowing vectorized subset operations to be performed on the list. \cr
 #' `lst_untree()` can also simply flatten the list, making it a non-nested list. \cr
@@ -22,7 +22,7 @@
 #'  with `length(x)` rows and `n` columns, \cr
 #'  where \code{n = sapply(x, }\link{lst_nlists}\code{) |> max()}. \cr
 #'  Empty elements will be filled with `list(NULL)`.
-#'  * `margin = 2` pproduces a 2D recursive array (i.e. a matrix of lists), \cr
+#'  * `margin = 2` produces a 2D recursive array (i.e. a matrix of lists), \cr
 #'  with `length(x)` columns and `n` rows, \cr
 #'  where \code{n = sapply(x, }\link{lst_nlists}\code{) |> max()}. \cr
 #'  Empty elements will be filled with `list(NULL)`.

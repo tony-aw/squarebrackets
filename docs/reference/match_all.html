@@ -97,8 +97,8 @@ Core of the code is based on a suggestion by Sebastian Kranz
 
 <dt>unlist</dt>
 <dd><p>Boolean,
-indicating if the result should be a vector (<code>TRUE</code>, default),
-or a list (<code>FALSE</code>).</p></dd>
+indicating if the result should be a single integer vector (<code>TRUE</code>, default),
+or a list (length = <code>length(needles)</code>) of integer vectors (<code>FALSE</code>). <br></p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -112,7 +112,7 @@ or a list (<code>FALSE</code>).</p></dd>
 
 
 <p>When <code>needles</code> and/or <code>haystack</code> is/are empty or fully <code>NA</code>,
-<code>match_all()</code> returns an empty integer vector (if <code>unlist = TRUe</code>),
+<code>match_all()</code> returns an empty integer vector (if <code>unlist = TRUE</code>),
 or an empty list (if <code>unlist = FALSE</code>). <br></p>
 
 

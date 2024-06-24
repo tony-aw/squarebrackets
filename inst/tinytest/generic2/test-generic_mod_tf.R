@@ -7,7 +7,6 @@ source(file.path(getwd(), "source", "functions4testing.R"))
 test_allow_duplicates <- FALSE
 test_use_factors <- FALSE
 test_PassByReference <- FALSE
-any_empty_indices <- squarebrackets:::.any_empty_indices
 
 
 # test elements ====
@@ -56,7 +55,82 @@ sys.source(file.path(getwd(), "source", "sourcetest-elements.R"), envir = enviro
 
 # test arbitrary dimensions ====
 
-subset_arr <- function(x, i, j, l, tf) {
+
+rep3.bind <- function(x, dim) {
+  return(abind::abind(x, x, x, along = dim))
+}
+
+subset_mat <- function(x, row = NULL, col = NULL) {
+  
+  tf <- mean
+  
+  if(!is.null(row)) row <- indx_x(row, x, rownames(x), nrow(x))
+  if(!is.null(col)) col <- indx_x(col, x, colnames(x), ncol(x))
+  
+  if(any_empty_indices(row, col)) {
+    return(x)
+  }
+  
+  if(is.null(row)) row <- base::quote(expr = )
+  if(is.null(col)) col <- base::quote(expr = )
+  x[row, col] <- lapply(x[row, col], tf)
+  
+  return(x)
+}
+
+
+subset_1d <- function(x, i) {
+  tf <- mean
+  i <- indx_x(i, x, dimnames(x)[[1]], length(x))
+  
+  if(any_empty_indices(i)) {
+    return(x)
+  }
+  
+  x[i] <- lapply(x[i], tf)
+  return(x)
+}
+
+temp.fun.1d <- function(x, row) {
+  for(i in 1:length(row)) {
+    expect_equal(
+      sb2_mod(x, row[[i]], 1, tf = mean),
+      subset_1d(x, row[[i]])
+    ) |> errorfun()
+    expect_true(sb2_mod(x, row[[i]], 1, tf = mean) |>
+                  is.array()) |> errorfun()
+    assign("enumerate", enumerate + 2, envir = parent.frame(n = 1))
+  }
+}
+
+temp.fun.2d <- function(x, row, col) {
+  for(i in 1:length(row)) {
+    for(j in 1:length(col)) {
+      
+      sub <- n(row[[i]], col[[j]])
+      dims <- 1:2
+      rem <- which(vapply(sub, is.null, logical(1L)))
+      if(length(rem) > 0L) {
+        sub <- sub[-rem]
+        dims <- dims[-rem]
+      }
+      
+      expect_equal(
+        sb2_mod.array(x, sub, dims, tf = mean),
+        subset_mat(x, row[[i]], col[[j]])
+      ) |> errorfun()
+      expect_true(sb2_mod.array(x, sub, dims, tf = mean) |>
+                    is.array()) |> errorfun()
+      assign("enumerate", enumerate + 2, envir = parent.frame(n = 1))
+    }
+  }
+}
+
+
+sb_test <- function(...) sb2_mod.array(..., tf = mean)
+
+temp.fun.arbitrary <- function(x, i, j, l) {
+  tf <- mean
   i <- indx_x(i, x, rownames(x), nrow(x))
   j <- indx_x(j, x, colnames(x), ncol(x))
   l <- indx_x(l, x, dimnames(x)[4], dim(x)[4])
@@ -64,32 +138,7 @@ subset_arr <- function(x, i, j, l, tf) {
   return(x)
 }
 
-x <- array(as.list(seq_len(10^4)), dim = c(10, 10, 10, 10))
-rownames(x) <- c(letters[1:8], "a", NA)
-tf <- function(x) -x
-
-idx <- list(c("a"), c(1:3), c(rep(TRUE, 5), rep(FALSE, 5)))
-dims <- c(1,2,4)
-expect_equal(
-  sb2_mod(x, idx, dims, tf = tf),
-  subset_arr(x, idx[[1]], idx[[2]], idx[[3]], tf)
-)
-
-idx <- list(c("a"), logical(0), c(rep(TRUE, 5), rep(FALSE, 5)))
-dims <- c(1,2,4)
-expect_equal(
-  sb2_mod(x, idx, dims, tf = tf),
-  subset_arr(x, idx[[1]], idx[[2]], idx[[3]], tf)
-)
-
-idx <- list(c("a"), c(1:4), rep(FALSE, 10))
-dims <- c(1,2,4)
-expect_equal(
-  sb2_mod(x, idx, dims, tf = tf),
-  subset_arr(x, idx[[1]], idx[[2]], idx[[3]], tf)
-)
-
-enumerate <- enumerate + 3
+sys.source(file.path(getwd(), "source", "sourcetest-dims.R"), envir = environment())
 
 
 

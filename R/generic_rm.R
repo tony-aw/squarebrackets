@@ -6,7 +6,7 @@
 #' Use `sb2_rm(x, ...)` if `x` is a recursive object (i.e. list or data.frame-like). \cr \cr
 #'
 #' @param x see \link{squarebrackets_immutable_classes} and \link{squarebrackets_mutable_classes}.
-#' @param i,lvl,row,col,idx,dims,filter,vars See \link{squarebrackets_indx_args}. \cr
+#' @param i,lvl,row,col,sub,dims,filter,vars See \link{squarebrackets_indx_args}. \cr
 #' An empty index selection results in nothing being removed,
 #' and the entire object is returned. \cr
 #' @param drop Boolean.
@@ -16,7 +16,7 @@
 #'  If `drop = FALSE`, a list is always returned regardless of the number of elements.
 #' @param chkdup see \link{squarebrackets_options}. \cr
 #' `r .mybadge_performance_set2("FALSE")` \cr
-#' @param ... further arguments passed to or from other methods.
+#' @param ... see \link{squarebrackets_method_dispatch}.
 #'
 #'
 #'
@@ -107,29 +107,11 @@ sb_rm.matrix <- function(
 #' @rdname sb_rm
 #' @export
 sb_rm.array <- function(
-    x, idx = NULL, dims = NULL, i = NULL, ...,
+    x, sub = NULL, dims = NULL, i = NULL, ...,
     chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
-  if(!is.null(i)) {
-    elements <- .indx_make_element(
-      i, x, is_list = FALSE, chkdup = chkdup, inv = TRUE, abortcall = sys.call()
-    )
-    return(x[elements])
-  }
-  
-  if(length(dims) == 1L && !is.list(idx)) {
-    idx <- list(idx)
-  }
-  
-  if(is.null(names(x))) {
-    x <- .arr_rm(x, idx, dims, chkdup = chkdup, abortcall = sys.call())
-  }
-  else {
-    x <- .internal_fix_names(x, \(x).arr_rm(x, idx, dims, chkdup = chkdup, abortcall = sys.call()))
-  }
-  
-  return(x)
+  return(.sb_rm_array(x, sub, dims, i, chkdup, sys.call()))
 }
 
 
@@ -188,24 +170,11 @@ sb2_rm.default <- function(
 #' @rdname sb_rm
 #' @export
 sb2_rm.array <- function(
-    x, idx = NULL, dims = NULL, i = NULL, drop = FALSE, ...,
+    x, sub = NULL, dims = NULL, i = NULL, drop = FALSE, ...,
     chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
-  if(!is.null(i)) {
-    return(sb2_rm.default(x, i, drop = drop, ..., chkdup = chkdup))
-  }
-  
-  if(length(dims) == 1L && !is.list(idx)) {
-    idx <- list(idx)
-  }
-  
-  if(is.null(names(x))) {
-    x <- .arr_rm(x, idx, dims, chkdup = chkdup, abortcall = sys.call())
-  }
-  else {
-    x <- .internal_fix_names(x, \(x).arr_rm(x, idx, dims, chkdup = chkdup, abortcall = sys.call()))
-  }
+  x <- .sb_rm_array(x, sub, dims, i, chkdup, sys.call())
   
   if(length(x) == 1 && drop) {
     return(x[[1]])
@@ -248,3 +217,34 @@ sb2_rm.data.frame <- function(
 }
 
 
+
+#' @keywords internal
+#' @noRd
+.sb_rm_array <- function(x, sub, dims, i, chkdup, abortcall) {
+  
+  if(!is.null(i)) {
+    elements <- .indx_make_element(
+      i, x, is_list = FALSE, chkdup = chkdup, inv = TRUE, abortcall = abortcall
+    )
+    return(x[elements])
+  }
+  
+  if(length(sub) == 0L && length(dims) == 0L) {
+    return(x)
+  }
+  
+  if(length(dims) == 1L && !is.list(sub)) {
+    sub <- list(sub)
+  }
+  
+  lst <- .arr_lst_brackets(x, sub, dims, chkdup, inv = TRUE, abortcall = abortcall)
+  
+  if(is.null(names(x))) {
+    x <- .arr_x(x, lst, abortcall = abortcall)
+  }
+  else {
+    x <- .internal_fix_names(x, \(x).arr_x(x, lst, abortcall = abortcall))
+  }
+  
+  return(x)
+}

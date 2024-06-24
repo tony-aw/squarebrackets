@@ -22,15 +22,15 @@
 #' 
 #' @param needles,haystack vectors
 #' @param unlist Boolean,
-#' indicating if the result should be a vector (`TRUE`, default),
-#' or a list (`FALSE`).
+#' indicating if the result should be a single integer vector (`TRUE`, default),
+#' or a list (length = `length(needles)`) of integer vectors (`FALSE`). \cr
 #' 
 #' 
 #' @returns
 #' An integer vector, or list of integer vector. \cr
 #' If a list, each element of the list corresponds to each value of `needles`. \cr
 #' When `needles` and/or `haystack` is/are empty or fully `NA`,
-#' `match_all()` returns an empty integer vector (if `unlist = TRUe`),
+#' `match_all()` returns an empty integer vector (if `unlist = TRUE`),
 #' or an empty list (if `unlist = FALSE`). \cr
 #'
 #'

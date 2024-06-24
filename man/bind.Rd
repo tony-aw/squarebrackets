@@ -7,23 +7,49 @@
 \alias{bind2_dt}
 \title{Dimensional Binding of Objects}
 \usage{
-bind_array(arg.list, along, name_along = TRUE, name_flat = FALSE)
+bind_array(
+  arg.list,
+  along,
+  name_along = TRUE,
+  name_shared = 1L,
+  name_flat = FALSE
+)
 
-bind2_array(arg.list, along, name_along = TRUE, name_flat = FALSE)
+bind2_array(
+  arg.list,
+  along,
+  name_along = TRUE,
+  name_shared = 1L,
+  name_flat = FALSE
+)
 
 bind2_dt(arg.list, along)
 }
 \arguments{
-\item{arg.list}{a list of only the appropriate objects.
-Do not mix different types of objects. \cr}
+\item{arg.list}{a list of only the appropriate objects. \cr
+Do not mix recursive and atomic objects in the same list,
+as that may result in unexpected results. \cr}
 
 \item{along}{a single integer,
 indicating the dimension along which to bind the dimensions. \cr
-I.e. use \code{along = 1} for row-binding, \code{along = 2} for column-binding, etc.}
+I.e. use \code{along = 1} for row-binding, \code{along = 2} for column-binding, etc. \cr
+For arrays, additional flexibility is available:
+\itemize{
+\item Specifying \code{along = 0} will bind the arrays on a new dimension before the first,
+making \code{along} the new first dimension.
+\item Specifying \code{along = n+1}, with \code{n} being the last available dimension,
+will create an additional dimension (\code{n+1}) and bind the arrays along that new dimension.
+}}
 
 \item{name_along}{Boolean, for \code{bind_array()} and \code{bind2_array()}. \cr
-Indicates if dimension \code{along} should be named. \cr
-Other dimensions will never be named.}
+Indicates if dimension \code{along} should be named. \cr}
+
+\item{name_shared}{integer or \code{NULL}, for \code{bind_array()} and \code{bind2_array()}. \cr
+Indicates which object in \code{arg.list} should be used for naming the shared dimension. \cr
+If \code{NULL}, no shared names will be given. \cr
+For example: \cr
+When binding columns of atomic matrices,
+\code{name_shared = 1} results in \code{bind_array()} using \code{rownames(arg.list[[1]])} for the row names of the output.}
 
 \item{name_flat}{Boolean, for \code{bind_array()} and \code{bind2_array()}. \cr
 Indicates if flat indices should be named. \cr
@@ -43,25 +69,36 @@ The following implementations are available:
 \item \code{bind_array()} binds atomic arrays and matrices. \cr
 Returns a \link{mutable_atomic} array. \cr
 \item \code{bind2_array()} binds recursive arrays and matrices. \cr
-This is a modified version of the fantastic \code{abind::}\link[abind]{abind} function by Tony Plare and Richard Heiberger,
-such that it can handle recursive arrays
-(\code{abind::}\link[abind]{abind} would unlist everything to atomic). \cr
 Returns dimensional lists.
 \item \code{bind2_dt()} binds data.tables and other data.frame-like objects. \cr
 Returns a \code{data.table}. \cr
 Faster than \code{do.call(cbind, ...)} or \code{do.call(rbind, ...)} for regular \code{data.frame} objects. \cr
 }
 }
+\details{
+\code{bind_array()} and \code{bind2_array()} are modified versions of the fantastic
+\code{abind::}\link[abind]{abind} function
+by Tony Plare and Richard Heiberger (see reference below). \cr
+\code{bind_array()} has slightly better performance than \code{abind::}\link[abind]{abind},
+and has more streamlined naming options. \cr
+\code{bind2_array()} also has the streamlined naming options,
+and additionally differs from \code{abind::}\link[abind]{abind}
+in that it can handle recursive arrays properly
+(the original \code{abind::}\link[abind]{abind} function would unlist everything to atomic arrays). \cr \cr
+}
 \examples{
 
 # atomic arrays ====
 x <- matrix(1:12,3,4)
+dimnames(x) <- n(letters[1:3], LETTERS[1:4])
+names(x) <- month.abb
+print(x)
 y <- x+100
 arg.list <- list(x = x, y=y)
-bind_array(arg.list, along=0) # binds on new dimension before first
-bind_array(arg.list, along=1) # binds on first dimension
-bind_array(arg.list, along=2)
-bind_array(arg.list, along=3) # bind on new dimension after last
+bind_array(arg.list, along=0, name_flat = TRUE) # binds on new dimension before first
+bind_array(arg.list, along=1, name_flat = TRUE) # binds on first dimension
+bind_array(arg.list, along=2, name_flat = TRUE)
+bind_array(arg.list, along=3, name_flat = TRUE) # bind on new dimension after last
 
 
 ################################################################################
@@ -69,13 +106,16 @@ bind_array(arg.list, along=3) # bind on new dimension after last
 
 # recursiv arrays ====
 x <- matrix(as.list(1:12),3,4)
+dimnames(x) <- n(letters[1:3], LETTERS[1:4])
+names(x) <- month.abb
+print(x)
 y <- lapply(x, \(x) + 100)
 dim(y) <- dim(x)
 arg.list <- list(x = x, y=y)
-bind2_array(arg.list, along=0) # binds on new dimension before first
-bind2_array(arg.list, along=1) # binds on first dimension
-bind2_array(arg.list, along=2)
-bind2_array(arg.list, along=3) # bind on new dimension after last
+bind2_array(arg.list, along=0, name_flat = TRUE) # binds on new dimension before first
+bind2_array(arg.list, along=1, name_flat = TRUE) # binds on first dimension
+bind2_array(arg.list, along=2, name_flat = TRUE)
+bind2_array(arg.list, along=3, name_flat = TRUE) # bind on new dimension after last
 
 }
 \references{

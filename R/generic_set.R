@@ -11,9 +11,9 @@
 #'
 #' @param x a \bold{variable} belonging to one of the
 #' \link[=squarebrackets_mutable_classes]{supported mutable classes}. \cr
-#' @param i,row,col,idx,dims,filter,vars,inv See \link{squarebrackets_indx_args}. \cr
+#' @param i,row,col,sub,dims,filter,vars,inv See \link{squarebrackets_indx_args}. \cr
 #' An empty index selection leaves the original object unchanged. \cr
-#' @param ... further arguments passed to or from other methods.
+#' @param ... see \link{squarebrackets_method_dispatch}.
 #' @param tf the transformation function.
 #' @param rp an object of somewhat the same type as the selected subset of \code{x},
 #' and the same same length as the selected subset of \code{x} or a length of 1. \cr
@@ -67,7 +67,7 @@ sb_set.default <- function(
   if(!is.mutable_atomic(x)){
     stop("`x` is not a (supported) mutable object")
   }
-  if(!missing(rp) && !missing(tf)) stop("cannot specify both `rp` and `tf`")
+  .internal_check_rptf(rp, tf, sys.call())
   .check_bindingIsLocked(substitute(x), parent.frame(n = 1), abortcall = sys.call())
   
   # function:
@@ -88,7 +88,7 @@ sb_set.matrix <- function(x, row = NULL, col = NULL, i = NULL, inv = FALSE, ...,
   if(!is.mutable_atomic(x)){
     stop("`x` is not a (supported) mutable object")
   }
-  if(!missing(rp) && !missing(tf)) stop("cannot specify both `rp` and `tf`")
+  .internal_check_rptf(rp, tf, sys.call())
   .check_bindingIsLocked(substitute(x), parent.frame(n = 1), abortcall = sys.call())
   
   
@@ -123,14 +123,14 @@ sb_set.matrix <- function(x, row = NULL, col = NULL, i = NULL, inv = FALSE, ...,
 #' @rdname sb_set
 #' @export
 sb_set.array <- function(
-    x, idx = NULL, dims = NULL, i = NULL, inv = FALSE, ...,  rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
+    x, sub = NULL, dims = NULL, i = NULL, inv = FALSE, ...,  rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
   # error checks:
   if(!is.mutable_atomic(x)){
     stop("`x` is not a (supported) mutable object")
   }
-  if(!missing(rp) && !missing(tf)) stop("cannot specify both `rp` and `tf`")
+  .internal_check_rptf(rp, tf, sys.call())
   .check_bindingIsLocked(substitute(x), parent.frame(n = 1), abortcall = sys.call())
   
   # function:
@@ -142,11 +142,11 @@ sb_set.array <- function(
     return(invisible(NULL))
   }
   
-  if(length(dims) == 1L && !is.list(idx)) {
-    idx <- list(idx)
+  if(length(dims) == 1L && !is.list(sub)) {
+    sub <- list(sub)
   }
   
-  .arr_set(x, idx, dims, chkdup, inv, rp, tf, abortcall = sys.call())
+  .arr_set(x, sub, dims, chkdup, inv, rp, tf, abortcall = sys.call())
   return(invisible(NULL))
 }
 
@@ -174,6 +174,7 @@ sb2_set.data.table <- function(
     stop("`x` is not a (supported) mutable object")
   }
   
+  .internal_check_rptf(rp, tf, sys.call())
   .check_args_df(x, row, col, filter, vars, abortcall = sys.call())
   .check_bindingIsLocked(substitute(x), parent.frame(n = 1), abortcall = sys.call())
   
@@ -201,7 +202,6 @@ sb2_set.data.table <- function(
   
   if(is.null(row)) {
     if(!missing(tf)) {
-      if(!is.function(tf)) stop("`tf` must be a function")
       rp <- .lapply(collapse::ss(x, j = col, check = FALSE), tf)
     }
     .check_rp_df(rp, abortcall = sys.call())
@@ -211,7 +211,6 @@ sb2_set.data.table <- function(
   if(!is.null(row)) {
     row <- as.integer(row)
     if(!missing(tf)) {
-      if(!is.function(tf)) stop("`tf` must be a function")
       rp <- .lapply(collapse::ss(x, i = row, j = col, check = FALSE), tf)
     }
     .check_rp_df(rp, abortcall = sys.call())
@@ -226,12 +225,13 @@ sb2_set.data.table <- function(
 #' @noRd
 .sb_set_atomic <- function(x, elements, rp, tf, abortcall) {
   
+  .internal_check_rptf(rp, tf, abortcall)
+  
   n.i <- length(elements)
   
   if(n.i == 0) return(invisible(NULL))
   
   if(!missing(tf)) {
-    if(!is.function(tf)) stop(simpleError("`tf` must be a function", call = abortcall))
     rp <- tf(x[elements])
   }
   

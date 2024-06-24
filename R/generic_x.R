@@ -7,7 +7,7 @@
 #' Use `sb2_x(x, ...)` if `x` is a recursive object (i.e. list or data.frame-like). \cr \cr
 #'
 #' @param x see \link{squarebrackets_immutable_classes} and \link{squarebrackets_mutable_classes}.
-#' @param i,lvl,row,col,idx,dims,filter,vars See \link{squarebrackets_indx_args}. \cr
+#' @param i,lvl,row,col,sub,dims,filter,vars See \link{squarebrackets_indx_args}. \cr
 #' Duplicates are allowed, resulting in duplicated indices. \cr
 #' An empty index selection results in an empty object of length 0. \cr
 #' @param drop Boolean.
@@ -17,7 +17,7 @@
 #'  selecting a single element will give the simplified result,
 #'  like using `[[]]`.
 #'  If `drop = FALSE`, a list is always returned regardless of the number of elements.
-#' @param ... further arguments passed to or from other methods.
+#' @param ... see \link{squarebrackets_method_dispatch}.
 #'
 #'
 #'
@@ -35,6 +35,10 @@ sb_x <- function(x, ...) {
   
   if(is.recursive(x)) {
     stop("Use the `sb2_` methods for recursive objects")
+  }
+  lst <- list(...)
+  if(any(c("inv", "rp", "tf") %in% names(lst))) {
+    stop("unknown arguments given")
   }
   
   UseMethod("sb_x", x)
@@ -101,27 +105,10 @@ sb_x.matrix <- function(
 #' @rdname sb_x
 #' @export
 sb_x.array <- function(
-    x, idx = NULL, dims = NULL, i = NULL, ...
+    x, sub = NULL, dims = NULL, i = NULL, ...
 ) {
   
-  if(!is.null(i)) {
-    elements <- .indx_make_element.sb_x(i, x, is_list = FALSE, abortcall = sys.call())
-    return(x[elements])
-  }
-  
-  
-  if(length(dims) == 1L && !is.list(idx)) {
-    idx <- list(idx)
-  }
-  
-  if(is.null(names(x))) {
-    x <- .arr_x(x, idx, dims, abortcall = sys.call())
-  }
-  else {
-    x <- .internal_fix_names(x, \(x).arr_x(x, idx, dims, abortcall = sys.call()))
-  }
-  
-  return(x)
+  return(.sb_x_array(x, sub, dims, i, sys.call()))
   
 }
 
@@ -151,6 +138,11 @@ sb2_x <- function(x, ...) {
     stop("Use the `sb_` methods for non-recursive objects")
   }
   
+  lst <- list(...)
+  if(any(c("inv", "rp", "tf") %in% names(lst))) {
+    stop("unknown arguments given")
+  }
+  
   UseMethod("sb2_x", x)
 }
 
@@ -178,23 +170,10 @@ sb2_x.default <- function(x, i, drop = FALSE, ...) {
 #' @rdname sb_x
 #' @export
 sb2_x.array <- function(
-    x, idx = NULL, dims = NULL, i = NULL, drop = FALSE, ...
+    x, sub = NULL, dims = NULL, i = NULL, drop = FALSE, ...
 ) {
   
-  if(!is.null(i)) {
-    return(sb2_x.default(x, i, drop = drop, ...))
-  }
-  
-  if(length(dims) == 1L && !is.list(idx)) {
-    idx <- list(idx)
-  }
-  
-  if(is.null(names(x))) {
-    x <- .arr_x(x, idx, dims, abortcall = sys.call())
-  }
-  else {
-    x <- .internal_fix_names(x, \(x).arr_x(x, idx, dims, abortcall = sys.call()))
-  }
+  x <- .sb_x_array(x, sub, dims, i, sys.call())
   
   if(length(x) == 1 && drop) {
     return(x[[1]])
@@ -234,3 +213,33 @@ sb2_x.data.frame <- function(
   return(x)
 }
 
+
+
+#' @keywords internal
+#' @noRd
+.sb_x_array <- function(x, sub = NULL, dims = NULL, i = NULL, abortcall) {
+  
+  if(!is.null(i)) {
+    elements <- .indx_make_element.sb_x(i, x, is_list = FALSE, abortcall = sys.call())
+    return(x[elements])
+  }
+  
+  if(length(sub) == 0L && length(dims) == 0L) {
+    return(x)
+  }
+  
+  if(length(dims) == 1L && !is.list(sub)) {
+    sub <- list(sub)
+  }
+  
+  lst <- .arr_lst_brackets.sb_x(x, sub, dims, abortcall = sys.call())
+  
+  if(is.null(names(x))) {
+    x <- .arr_x(x, lst, abortcall = sys.call())
+  }
+  else {
+    x <- .internal_fix_names(x, \(x).arr_x(x, lst, abortcall = sys.call()))
+  }
+  
+  return(x)
+}

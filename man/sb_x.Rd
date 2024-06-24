@@ -18,7 +18,7 @@ sb_x(x, ...)
 
 \method{sb_x}{matrix}(x, row = NULL, col = NULL, i = NULL, ...)
 
-\method{sb_x}{array}(x, idx = NULL, dims = NULL, i = NULL, ...)
+\method{sb_x}{array}(x, sub = NULL, dims = NULL, i = NULL, ...)
 
 \method{sb_x}{factor}(x, i = NULL, lvl = NULL, drop = FALSE, ...)
 
@@ -26,16 +26,16 @@ sb2_x(x, ...)
 
 \method{sb2_x}{default}(x, i, drop = FALSE, ...)
 
-\method{sb2_x}{array}(x, idx = NULL, dims = NULL, i = NULL, drop = FALSE, ...)
+\method{sb2_x}{array}(x, sub = NULL, dims = NULL, i = NULL, drop = FALSE, ...)
 
 \method{sb2_x}{data.frame}(x, row = NULL, col = NULL, filter = NULL, vars = NULL, ...)
 }
 \arguments{
 \item{x}{see \link{squarebrackets_immutable_classes} and \link{squarebrackets_mutable_classes}.}
 
-\item{...}{further arguments passed to or from other methods.}
+\item{...}{see \link{squarebrackets_method_dispatch}.}
 
-\item{i, lvl, row, col, idx, dims, filter, vars}{See \link{squarebrackets_indx_args}. \cr
+\item{i, lvl, row, col, sub, dims, filter, vars}{See \link{squarebrackets_indx_args}. \cr
 Duplicates are allowed, resulting in duplicated indices. \cr
 An empty index selection results in an empty object of length 0. \cr}
 

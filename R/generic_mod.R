@@ -8,9 +8,9 @@
 #' For modifying subsets using R's default copy-on-modification semantics, see \link{idx}. \cr \cr
 #'
 #' @param x see \link{squarebrackets_immutable_classes} and \link{squarebrackets_mutable_classes}.
-#' @param i,lvl,row,col,idx,dims,filter,vars,inv See \link{squarebrackets_indx_args}. \cr
+#' @param i,lvl,row,col,sub,dims,filter,vars,inv See \link{squarebrackets_indx_args}. \cr
 #' An empty index selection returns the original object unchanged. \cr
-#' @param ... further arguments passed to or from other methods.
+#' @param ... see \link{squarebrackets_method_dispatch}.
 #' @param tf the transformation function.
 #' @param rp an object of somewhat the same type as the selected subset of \code{x},
 #' and the same same length as the selected subset of \code{x} or a length of 1. \cr
@@ -96,7 +96,7 @@ sb_mod.default <- function(
 ) {
   
   
-  if(!missing(rp) && !missing(tf)) stop("cannot specify both `rp` and `tf`")
+  .internal_check_rptf(rp, tf, sys.call())
   
   elements <- .indx_make_element(
     i, x, is_list = FALSE, chkdup = chkdup, inv = inv, abortcall = sys.call()
@@ -106,7 +106,6 @@ sb_mod.default <- function(
   if(n.i == 0) return(x)
   
   if(!missing(tf)) {
-    if(!is.function(tf)) stop("`tf` must be a function")
     rp <- tf(x[elements])
   }
   
@@ -124,21 +123,10 @@ sb_mod.matrix <- function(
 ) {
   
   
-  if(!missing(rp) && !missing(tf)) stop("cannot specify both `rp` and `tf`")
+  .internal_check_rptf(rp, tf, sys.call())
   
   if(!is.null(i)) {
-    elements <- .indx_make_element(
-      i, x, is_list = FALSE, chkdup = chkdup, inv = inv, abortcall = sys.call()
-    )
-    n.i <- length(elements)
-    if(n.i == 0) return(x)
-    if(!missing(tf)) {
-      if(!is.function(tf)) stop("`tf` must be a function")
-      rp <- tf(x[elements])
-    }
-    .check_rp_atomic(rp, n.i, abortcall = sys.call())
-    x[elements] <- rp
-    return(x)
+    return(sb_mod.default(x, i, inv, ..., rp = rp, tf = tf, chkdup = chkdup))
   }
   
   if(!is.null(row)) {
@@ -155,7 +143,6 @@ sb_mod.matrix <- function(
   if(is.null(row)) row <- collapse::seq_row(x)
   if(is.null(col)) col <- collapse::seq_col(x)
   if(!missing(tf)) {
-    if(!is.function(tf)) stop("`tf` must be a function")
     rp <- tf(x[row, col, drop = FALSE])
   }
   
@@ -169,37 +156,32 @@ sb_mod.matrix <- function(
 #' @rdname sb_mod
 #' @export
 sb_mod.array <- function(
-    x, idx = NULL, dims = NULL, i = NULL, inv = FALSE, ...,
+    x, sub = NULL, dims = NULL, i = NULL, inv = FALSE, ...,
     rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
+  .internal_check_rptf(rp, tf, sys.call())
   
   if(!is.null(i)) {
-    elements <- .indx_make_element(
-      i, x, is_list = FALSE, chkdup = chkdup, inv = inv, abortcall = sys.call()
-    )
-    n.i <- length(elements)
-    if(n.i == 0) return(x)
-    if(!missing(tf)) {
-      if(!is.function(tf)) stop("`tf` must be a function")
-      rp <- tf(x[elements])
-    }
-    .check_rp_atomic(rp, n.i, abortcall = sys.call())
-    x[elements] <- rp
-    return(x)
+    return(sb_mod.default(x, i, inv, ..., rp = rp, tf = tf, chkdup = chkdup))
   }
   
-  if(length(dims) == 1L && !is.list(idx)) {
-    idx <- list(idx)
+  if(length(dims) == 1L && !is.list(sub)) {
+    sub <- list(sub)
+  }
+  ndims <- length(dim(x))
+  .arr_check(x, sub, dims, ndims, abortcall = sys.call())
+  lst <- .arr_lst_brackets(x, sub, dims, chkdup, inv = inv, abortcall = sys.call())
+  if(.any_empty_indices(lst)) {
+    return(x)
   }
   
   if(!missing(rp)) {
     if(is.recursive(rp)) stop("`rp` must be non-recursive")
-    return(.arr_repl(x, idx, dims, inv, rp, chkdup = chkdup, abortcall = sys.call()))
+    return(.arr_repl(x, lst, rp, abortcall = sys.call()))
   }
   if(!missing(tf)) {
-    if(!is.function(tf)) stop("`tf` must be a function")
-    return(.arr_tf(x, idx, dims, inv, tf, chkdup = chkdup, abortcall = sys.call()))
+    return(.arr_tf(x, lst, tf, abortcall = sys.call()))
   }
 }
 
@@ -209,7 +191,6 @@ sb_mod.array <- function(
 sb_mod.factor <- function(
     x, i = NULL, lvl = NULL, inv = FALSE, ..., rp, chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
-  
   
   .check_args_factor(i, lvl, drop = FALSE, abortcall = sys.call())
   
@@ -252,8 +233,7 @@ sb2_mod.default <- function(
     rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE), .lapply = lapply
 ) {
   
-  
-  if(!missing(rp) && !missing(tf)) stop("cannot specify both `rp` and `tf`")
+  .internal_check_rptf(rp, tf, sys.call())
   
   elements <- .indx_make_element(
     i, x, is_list = TRUE, chkdup = chkdup, inv = inv, abortcall = sys.call()
@@ -266,7 +246,6 @@ sb2_mod.default <- function(
   }
   
   if(!missing(tf)) {
-    if(!is.function(tf)) stop("`tf` must be a function")
     rp <- .lapply(x[elements], tf)
   }
   
@@ -281,25 +260,33 @@ sb2_mod.default <- function(
 #' @rdname sb_mod
 #' @export
 sb2_mod.array <- function(
-    x, idx = NULL, dims = NULL, i = NULL, inv = FALSE, ...,
+    x, sub = NULL, dims = NULL, i = NULL, inv = FALSE, ...,
     rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE), .lapply = lapply
 ) {
+  
+  .internal_check_rptf(rp, tf, sys.call())
   
   if(!is.null(i)) {
     return(sb2_mod.default(x, i, inv = inv, ..., rp = rp, tf = tf, chkdup = chkdup))
   }
   
-  if(length(dims) == 1L && !is.list(idx)) {
-    idx <- list(idx)
+  if(length(dims) == 1L && !is.list(sub)) {
+    sub <- list(sub)
+  }
+  
+  ndims <- length(dim(x))
+  .arr_check(x, sub, dims, ndims, abortcall = sys.call())
+  lst <- .arr_lst_brackets(x, sub, dims, chkdup, inv = inv, abortcall = sys.call())
+  if(.any_empty_indices(lst)) {
+    return(x)
   }
   
   if(!missing(rp)) {
     if(!is.list(rp)) stop("`rp` must be a list")
-    return(.arr_repl_list(x, idx, dims, inv, rp, chkdup = chkdup, abortcall = sys.call()))
+    return(.arr_repl_list(x, lst, rp, abortcall = sys.call()))
   }
   if(!missing(tf)) {
-    if(!is.function(tf)) stop("`tf` must be a function")
-    return(.arr_tf_list(x, idx, dims, inv, tf, chkdup = chkdup, .lapply, abortcall = sys.call()))
+    return(.arr_tf_list(x, lst, tf, .lapply, abortcall = sys.call()))
   }
 }
 
@@ -310,6 +297,8 @@ sb2_mod.data.frame <- function(
     x, row = NULL, col = NULL, filter = NULL, vars = NULL, inv = FALSE, coe = FALSE, ...,
     rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE), .lapply = lapply
 ) {
+  
+  .internal_check_rptf(rp, tf, sys.call())
   
   # checks, errors, and transformations:
   .check_args_df(x, row, col, filter, vars, abortcall = sys.call())
@@ -364,9 +353,6 @@ sb2_mod.data.frame <- function(
 .sb_mod_data.frame_whole <- function(x, col, rp, tf, .lapply, abortcall) {
   
   if(!missing(tf)) {
-    if(!is.function(tf)) {
-      stop(simpleError("`tf` must be a function", call = abortcall))
-    }
     rp <- .lapply(collapse::ss(x, j = col, check = FALSE), tf)
   }
   
@@ -384,9 +370,6 @@ sb2_mod.data.frame <- function(
   row <- as.integer(row)
   
   if(!missing(tf)) {
-    if(!is.function(tf)) {
-      stop(simpleError("`tf` must be a function", call = abortcall))
-    }
     rp <- .lapply(collapse::ss(x, i = row, j = col, check = FALSE), tf)
   }
   
@@ -409,9 +392,6 @@ sb2_mod.data.frame <- function(
   }
   
   if(!missing(tf)) {
-    if(!is.function(tf)) {
-      stop(simpleError("`tf` must be a function", call = abortcall))
-    }
     rp <- .lapply(collapse::ss(extraction, i = row, check = FALSE), tf)
   }
   .check_rp_df(rp, abortcall = abortcall)

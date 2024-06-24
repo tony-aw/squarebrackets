@@ -133,23 +133,23 @@ if(requireNamespace("tidytable")) {
 for(i in 1:length(xlist)) {
   x <- xlist[[i]]
   expect_error(
-    sb_test(x, filter = "foo"),
+    sb_test(x, filter = "foo", rp = list(1)),
     pattern = "`filter` must be a formula"
   ) |> errorfun()
   expect_error(
-    sb_test(x, filter = ~ mean(a)),
+    sb_test(x, filter = ~ mean(a), rp = list(1)),
     pattern = "invalid formula given"
   ) |> errorfun()
   expect_error(
-    sb_test(x, vars = "is.numeric"),
+    sb_test(x, vars = "is.numeric", rp = list(1)),
     pattern = "`vars` must be a function"
   ) |> errorfun()
   expect_error(
-    sb_test(x, vars = "is.numeric"),
+    sb_test(x, vars = "is.numeric", rp = list(1)),
     pattern = "`vars` must be a function"
   ) |> errorfun()
   expect_error(
-    sb_test(x, vars = mean),
+    sb_test(x, vars = mean, rp = list(1)),
     pattern = "values must be type 'logical'"
   ) |> errorfun()
   enumerate <- enumerate + 5
@@ -159,7 +159,7 @@ for (i in 1:length(xlist)) {
   x <- xlist[[i]]
   colnames(x) <- c("a", "a")
   expect_error(
-    sb_test(x, col=1),
+    sb_test(x, col=1, rp = list(1)),
     pattern = "`x` does not have unique variable names for all columns; \n fix this before subsetting"
   ) |> errorfun()
   enumerate <- enumerate + 1

@@ -3,7 +3,7 @@
 in the generic methods of 'squarebrackets' to specify the indices to perform operations on:
 i: to specify flat (i.e. dimensionless) indices.
 row, col: to specify rows and/or columns in tabular objects.
-idx, dims: to specify indices of arbitrary dimensions in arrays.
+sub, dims: to specify indices of arbitrary dimensions in arrays.
 lvl: specify levels, for factors only.
 filter, vars: to specify rows and/or columns specifically in data.frame-like objects.
 margin, slice: to specify indices of one particular dimension.  
@@ -14,7 +14,7 @@ In this help page x refers to the object on which subset operations are performe
 in the generic methods of 'squarebrackets' to specify the indices to perform operations on:
 i: to specify flat (i.e. dimensionless) indices.
 row, col: to specify rows and/or columns in tabular objects.
-idx, dims: to specify indices of arbitrary dimensions in arrays.
+sub, dims: to specify indices of arbitrary dimensions in arrays.
 lvl: specify levels, for factors only.
 filter, vars: to specify rows and/or columns specifically in data.frame-like objects.
 margin, slice: to specify indices of one particular dimension.  
@@ -77,7 +77,7 @@ In this help page x refers to the object on which subset operations are performe
     <p>There are 6 types of arguments that can be used
 in the generic methods of 'squarebrackets' to specify the indices to perform operations on:</p><ul><li><p><code>i</code>: to specify flat (i.e. dimensionless) indices.</p></li>
 <li><p><code>row, col</code>: to specify rows and/or columns in tabular objects.</p></li>
-<li><p><code>idx, dims</code>: to specify indices of arbitrary dimensions in arrays.</p></li>
+<li><p><code>sub, dims</code>: to specify indices of arbitrary dimensions in arrays.</p></li>
 <li><p><code>lvl</code>: specify levels, for factors only.</p></li>
 <li><p><code>filter, vars</code>: to specify rows and/or columns specifically in data.frame-like objects.</p></li>
 <li><p><code>margin, slice</code>: to specify indices of one particular dimension. <br><br></p></li>
@@ -135,20 +135,33 @@ ALL the corresponding indices will be selected for the operation.</p></li>
 <span> </span></code></pre><p></p></div>
     </div>
     <div class="section level2">
-    <h2 id="argument-pair-idx-dims">Argument Pair idx, dims<a class="anchor" aria-label="anchor" href="#argument-pair-idx-dims"></a></h2>
+    <h2 id="argument-pair-sub-dims">Argument Pair sub, dims<a class="anchor" aria-label="anchor" href="#argument-pair-sub-dims"></a></h2>
     
 
-<p><img src="figures/class-atomic_array-blue.svg" alt="[class: atomic array]"><br><img src="figures/class-recursive_array-blue.svg" alt="[class: recursive array]"><br></p>
-<p><code>idx</code> must be a list of indices. <br><code>dims</code> must be an integer vector of the same length as <code>idx</code>,
-giving the dimensions to which the indices given in <code>idx</code> correspond to. <br>
-If <code>dims</code> is a single integer, <code>idx</code> can be given as a atomic vector instead of a single-element list. <br><br>
-The elements of <code>idx</code> follow the same rules as the rules for <code>row</code> and <code>col</code>,
-EXCEPT one should not fill in <code>NULL</code>. <br><br>
-To keep the syntax short,
-the user can use the <a href="nest.html">n</a> function instead of <code><a href="https://rdrr.io/r/base/list.html" class="external-link">list()</a></code> to specify <code>idx</code>. <br><br>
-Using the <code>idx, dims</code> arguments,
+<p><img src="figures/class-atomic_array-blue.svg" alt="[class: atomic array]"><br><img src="figures/class-recursive_array-blue.svg" alt="[class: recursive array]"><br>
+The <code>sub, dims</code> argument pair is inspired by the
+<code>abind::</code><a href="https://rdrr.io/pkg/abind/man/asub.html" class="external-link">asub</a> function from the 'abind' package (see reference below). <br><code>dims</code> must be an integer vector of the same length as <code>sub</code>,
+giving the dimensions over which to select indices
+(i.e. <code>dims</code> specifies the "non-missing" index margins). <br><code>sub</code> must be a list of subscripts, of the same length as <code>dims</code>.
+Each element of <code>sub</code> can be any of the following:</p><ul><li><p>a vector of length 0,
+in which case no indices are selected for the operation (i.e. empty selection).</p></li>
+<li><p>a <b>strictly positive integer</b> vector with dimension indices to select for the operation.</p></li>
+<li><p>a <b>logical</b> vector of the same length as the corresponding dimension size,
+giving the indices of this dimension to select for the operation.</p></li>
+<li><p>a <b>character</b> vector of index names. <br>
+If a dimension has multiple indices with the given name,
+ALL the corresponding indices will be selected for the operation. <br></p></li>
+</ul><p>Note also the following:</p><ul><li><p>If <code>dims</code> is a single integer,
+one can specify <code>sub</code> as an atomic vector of any of the above specified types,
+instead of as a list of length <code>1</code>.</p></li>
+<li><p>As stated, <code>dims</code> specifies which index margins are non-missing. <br>
+If <code>dims</code> - and thus also <code>sub</code> - is of length <code>0</code>,
+it is taken as "all index margins are missing". <br></p></li>
+</ul><p>To keep the syntax short,
+the user can use the <a href="nest.html">n</a> function instead of <code><a href="https://rdrr.io/r/base/list.html" class="external-link">list()</a></code> to specify <code>sub</code>. <br><br>
+Using the <code>sub, dims</code> arguments,
 corresponds to doing something like the following,
-here using an example of a 4-dimensional array:</p>
+here using an example of extracting subsets from a 4-dimensional array:</p>
 <p></p><div class="sourceCode r"><pre><code><span><span class="fu"><a href="../reference/sb_x.html">sb_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="../reference/nest.html">n</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="co"># ==&gt; x[1:10, , 1:5, , drop = FALSE]</span></span>
 <span></span></code></pre><p></p></div>
     </div>
@@ -194,8 +207,8 @@ giving the dimension indices to select for the operation.</p></li>
 If a dimension has multiple indices with the given name,
 ALL the corresponding indices will be selected for the operation. <br></p></li>
 </ul><p>One could also give a vector of length <code>0</code> for <code>slice</code>; <br>
-Argument <code>slice</code> is only used in method <code>idx</code>,
-and the result of <code>idx</code> are meant to be used inside the regular <code>[</code> and <code>[&lt;-</code> operators. <br>
+Argument <code>slice</code> is only used in method <code>sub</code>,
+and the result of <code>sub</code> are meant to be used inside the regular <code>[</code> and <code>[&lt;-</code> operators. <br>
 Thus the result of a zero-length index specification depends on the rule-set of
 <code>[.class(x)</code> and <code>[&lt;-.class(x)</code>. <br><br></p>
     </div>
@@ -209,16 +222,16 @@ and <a href="idx1.html">idx</a> methods. <br>
 By default, <code>inv = FALSE</code>, which translates the indices like normally. <br>
 When <code>inv = TRUE</code>, the inverse of the indices is taken. <br>
 Consider, for example, an atomic matrix <code>x</code>; <br>
-using <code>sb_mod(x, 1:2, 1:2, tf = tf)</code>
+using <code>sb_mod(x, col = 1:2, tf = tf)</code>
 corresponds to something like the following:</p>
 <p></p><div class="sourceCode r"><pre><code><span></span>
-<span><span class="va">x</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">tf</span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">x</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">tf</span><span class="op">(</span><span class="va">x</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="va">x</span></span>
 <span></span></code></pre><p></p></div>
-<p>and using <code>sb_mod(x, 1:2, 1:2, inv = TRUE, tf = tf)</code>
+<p>and using <code>sb_mod(x, col = 1:2, inv = TRUE, tf = tf)</code>
 corresponds to something like the following:</p>
 <p></p><div class="sourceCode r"><pre><code><span></span>
-<span><span class="va">x</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">:</span><span class="op">-</span><span class="fl">2</span>, <span class="op">-</span><span class="fl">1</span><span class="op">:</span><span class="op">-</span><span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">tf</span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">:</span><span class="op">-</span><span class="fl">2</span>, <span class="op">-</span><span class="fl">1</span><span class="op">:</span><span class="op">-</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">x</span><span class="op">[</span>, <span class="op">-</span><span class="fl">1</span><span class="op">:</span><span class="op">-</span><span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">tf</span><span class="op">(</span><span class="va">x</span><span class="op">[</span>, <span class="op">-</span><span class="fl">1</span><span class="op">:</span><span class="op">-</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="va">x</span></span>
 <span></span></code></pre><p></p></div>
 <p><b>NOTE</b> <br>
@@ -254,7 +267,7 @@ The arguments are  evaluated in the following order:</p><ol><li><p>Argument <cod
 it's either one or the other. <br>
 One cannot specify <code>col</code> and <code>vars</code> simultaneously;
 it's either one or the other. <br>
-One cannot specify the <code>idx, dims</code> pair and <code>slice, margin</code> pair simultaneously;
+One cannot specify the <code>sub, dims</code> pair and <code>slice, margin</code> pair simultaneously;
 it's either one pair or the other pair. <br>
 In the above cases it holds that if one set is specified, the other is set is ignored. <br><br></p>
     </div>
@@ -263,7 +276,7 @@ In the above cases it holds that if one set is specified, the other is set is ig
     
 
 <p>Sub-setting with the generic methods from the 'squarebrackets' R-package using dimensional arguments
-(<code>row, col, lyr, idx, dims, filter, vars</code>)
+(<code>row, col, lyr, sub, dims, filter, vars</code>)
 always use <code>drop = FALSE</code>. <br>
 To drop potentially redundant (i.e. single level) dimensions,
 use the <a href="https://rdrr.io/r/base/drop.html" class="external-link">drop</a> function, like so:</p>
@@ -286,6 +299,10 @@ To shuffle elements of indices, use the <a href="https://rdrr.io/r/base/sample.h
 <p>Integer indices and logical indices are the fastest. <br>
 Indexing through names or levels (i.e. character vectors) is the slowest. <br>
 Thus if performance is important, use integer or logical indices. <br><br></p>
+    </div>
+    <div class="section level2">
+    <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
+    <p>Plate T, Heiberger R (2016). <em>abind: Combine Multidimensional Arrays</em>. R package version 1.4-5, <a href="https://CRAN.R-project.org/package=abind" class="external-link">https://CRAN.R-project.org/package=abind</a>.</p>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

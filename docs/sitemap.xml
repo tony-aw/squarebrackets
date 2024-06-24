@@ -4,18 +4,6 @@
     <loc>https://tony-aw.github.io/squarebrackets/404.html</loc>
   </url>
   <url>
-    <loc>https://tony-aw.github.io/squarebrackets/articles/articles/a_benchmarks_x.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/articles/articles/b_benchmarks_tf.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/articles/articles/c_benchmarks_lst.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/articles/articles/Extra_Examples.html</loc>
-  </url>
-  <url>
     <loc>https://tony-aw.github.io/squarebrackets/articles/a_benchmarks_x.html</loc>
   </url>
   <url>
@@ -61,7 +49,10 @@
     <loc>https://tony-aw.github.io/squarebrackets/reference/aaa5_squarebrackets_PassByReference.html</loc>
   </url>
   <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/aaa6_squarebrackets_inconveniences.html</loc>
+    <loc>https://tony-aw.github.io/squarebrackets/reference/aaa6_squarebrackets_method_dispatch.html</loc>
+  </url>
+  <url>
+    <loc>https://tony-aw.github.io/squarebrackets/reference/aaa7_squarebrackets_inconveniences.html</loc>
   </url>
   <url>
     <loc>https://tony-aw.github.io/squarebrackets/reference/bind.html</loc>

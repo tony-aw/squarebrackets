@@ -139,6 +139,7 @@
   dimnames <- rep(list(NULL), length(dim(out)))
   dimnames[[along]] <- name_along
   data.table::setattr(out, "dimnames", dimnames)
+  return(invisible(NULL))
 }
 
 
@@ -156,6 +157,52 @@
   }
   out <- .internal_abind(out, along, TRUE, FALSE)
   return(as.character(out))
+}
+
+#' @keywords internal
+#' @noRd
+.bind_set_sharednames <- function(out, sel, arg.list, along) {
+  
+  if(along == 0) {
+    obj <- arg.list[[sel]]
+    obj.dimnames <- dimnames(obj)
+    out.dimnames <- dimnames(out)
+    if(is.null(out.dimnames)) {
+      out.dimnames <- rep(list(NULL), length(dim(out)))
+    }
+    if(!is.null(obj.dimnames)) {
+      data.table::setattr(out, "dimnames", c(out.dimnames[1], obj.dimnames))
+    }
+    return(invisible(NULL))
+  }
+  
+  N <- max(
+    1L,
+    vapply(arg.list, function(x) length(dim(x)), integer(1L))
+  )
+  if(along > N) {
+    obj <- arg.list[[sel]]
+    obj.dimnames <- dimnames(obj)
+    out.dimnames <- dimnames(out)
+    N <- length(out.dimnames)
+    if(!is.null(obj.dimnames)) {
+      data.table::setattr(out, "dimnames", c(obj.dimnames, out.dimnames[N]))
+    }
+    return(invisible(NULL))
+  }
+  
+  
+  obj <- arg.list[[sel]]
+  obj.dimnames <- dimnames(obj)
+  out.dimnames <- dimnames(out)
+  if(is.null(out.dimnames)) {
+    out.dimnames <- rep(list(NULL), length(dim(out)))
+  }
+  if(!is.null(obj.dimnames)) {
+    out.dimnames[-along] <- obj.dimnames[-along]
+    data.table::setattr(out, "dimnames", out.dimnames)
+  }
+  return(invisible(NULL))
 }
 
 

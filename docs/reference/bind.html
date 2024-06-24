@@ -7,9 +7,6 @@ The following implementations are available:
 bind_array() binds atomic arrays and matrices. 
 Returns a mutable_atomic array. 
 bind2_array() binds recursive arrays and matrices. 
-This is a modified version of the fantastic abind::abind function by Tony Plare and Richard Heiberger,
-such that it can handle recursive arrays
-(abind::abind would unlist everything to atomic). 
 Returns dimensional lists.
 bind2_dt() binds data.tables and other data.frame-like objects. 
 Returns a data.table. 
@@ -23,9 +20,6 @@ The following implementations are available:
 bind_array() binds atomic arrays and matrices. 
 Returns a mutable_atomic array. 
 bind2_array() binds recursive arrays and matrices. 
-This is a modified version of the fantastic abind::abind function by Tony Plare and Richard Heiberger,
-such that it can handle recursive arrays
-(abind::abind would unlist everything to atomic). 
 Returns dimensional lists.
 bind2_dt() binds data.tables and other data.frame-like objects. 
 Returns a data.table. 
@@ -89,9 +83,6 @@ When possible, the <code>bind_</code>/<code>bind2_</code> functions return <a hr
 The following implementations are available:</p><ul><li><p><code>bind_array()</code> binds atomic arrays and matrices. <br>
 Returns a <a href="class_mutable_atomic.html">mutable_atomic</a> array. <br></p></li>
 <li><p><code>bind2_array()</code> binds recursive arrays and matrices. <br>
-This is a modified version of the fantastic <code>abind::</code><a href="https://rdrr.io/pkg/abind/man/abind.html" class="external-link">abind</a> function by Tony Plare and Richard Heiberger,
-such that it can handle recursive arrays
-(<code>abind::</code><a href="https://rdrr.io/pkg/abind/man/abind.html" class="external-link">abind</a> would unlist everything to atomic). <br>
 Returns dimensional lists.</p></li>
 <li><p><code>bind2_dt()</code> binds data.tables and other data.frame-like objects. <br>
 Returns a <code>data.table</code>. <br>
@@ -100,9 +91,21 @@ Faster than <code>do.call(cbind, ...)</code> or <code>do.call(rbind, ...)</code>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">bind_array</span><span class="op">(</span><span class="va">arg.list</span>, <span class="va">along</span>, name_along <span class="op">=</span> <span class="cn">TRUE</span>, name_flat <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">bind_array</span><span class="op">(</span></span>
+<span>  <span class="va">arg.list</span>,</span>
+<span>  <span class="va">along</span>,</span>
+<span>  name_along <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  name_shared <span class="op">=</span> <span class="fl">1L</span>,</span>
+<span>  name_flat <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">bind2_array</span><span class="op">(</span><span class="va">arg.list</span>, <span class="va">along</span>, name_along <span class="op">=</span> <span class="cn">TRUE</span>, name_flat <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="fu">bind2_array</span><span class="op">(</span></span>
+<span>  <span class="va">arg.list</span>,</span>
+<span>  <span class="va">along</span>,</span>
+<span>  name_along <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  name_shared <span class="op">=</span> <span class="fl">1L</span>,</span>
+<span>  name_flat <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">bind2_dt</span><span class="op">(</span><span class="va">arg.list</span>, <span class="va">along</span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -110,20 +113,34 @@ Faster than <code>do.call(cbind, ...)</code> or <code>do.call(rbind, ...)</code>
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>arg.list</dt>
-<dd><p>a list of only the appropriate objects.
-Do not mix different types of objects. <br></p></dd>
+<dd><p>a list of only the appropriate objects. <br>
+Do not mix recursive and atomic objects in the same list,
+as that may result in unexpected results. <br></p></dd>
 
 
 <dt>along</dt>
 <dd><p>a single integer,
 indicating the dimension along which to bind the dimensions. <br>
-I.e. use <code>along = 1</code> for row-binding, <code>along = 2</code> for column-binding, etc.</p></dd>
+I.e. use <code>along = 1</code> for row-binding, <code>along = 2</code> for column-binding, etc. <br>
+For arrays, additional flexibility is available:</p><ul><li><p>Specifying <code>along = 0</code> will bind the arrays on a new dimension before the first,
+making <code>along</code> the new first dimension.</p></li>
+<li><p>Specifying <code>along = n+1</code>, with <code>n</code> being the last available dimension,
+will create an additional dimension (<code>n+1</code>) and bind the arrays along that new dimension.</p></li>
+</ul></dd>
 
 
 <dt>name_along</dt>
 <dd><p>Boolean, for <code>bind_array()</code> and <code>bind2_array()</code>. <br>
-Indicates if dimension <code>along</code> should be named. <br>
-Other dimensions will never be named.</p></dd>
+Indicates if dimension <code>along</code> should be named. <br></p></dd>
+
+
+<dt>name_shared</dt>
+<dd><p>integer or <code>NULL</code>, for <code>bind_array()</code> and <code>bind2_array()</code>. <br>
+Indicates which object in <code>arg.list</code> should be used for naming the shared dimension. <br>
+If <code>NULL</code>, no shared names will be given. <br>
+For example: <br>
+When binding columns of atomic matrices,
+<code>name_shared = 1</code> results in <code>bind_array()</code> using <code>rownames(arg.list[[1]])</code> for the row names of the output.</p></dd>
 
 
 <dt>name_flat</dt>
@@ -139,6 +156,16 @@ Note that setting this to <code>TRUE</code> will reduce performance considerably
 <p>The new object.</p>
     </div>
     <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p><code>bind_array()</code> and <code>bind2_array()</code> are modified versions of the fantastic
+<code>abind::</code><a href="https://rdrr.io/pkg/abind/man/abind.html" class="external-link">abind</a> function
+by Tony Plare and Richard Heiberger (see reference below). <br><code>bind_array()</code> has slightly better performance than <code>abind::</code><a href="https://rdrr.io/pkg/abind/man/abind.html" class="external-link">abind</a>,
+and has more streamlined naming options. <br><code>bind2_array()</code> also has the streamlined naming options,
+and additionally differs from <code>abind::</code><a href="https://rdrr.io/pkg/abind/man/abind.html" class="external-link">abind</a>
+in that it can handle recursive arrays properly
+(the original <code>abind::</code><a href="https://rdrr.io/pkg/abind/man/abind.html" class="external-link">abind</a> function would unlist everything to atomic arrays). <br><br></p>
+    </div>
+    <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
     <p>Plate T, Heiberger R (2016). <em>abind: Combine Multidimensional Arrays</em>. R package version 1.4-5, <a href="https://CRAN.R-project.org/package=abind" class="external-link">https://CRAN.R-project.org/package=abind</a>.</p>
     </div>
@@ -148,67 +175,92 @@ Note that setting this to <code>TRUE</code> will reduce performance considerably
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># atomic arrays ====</span></span></span>
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">12</span>,<span class="fl">3</span>,<span class="fl">4</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/dimnames.html" class="external-link">dimnames</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="nest.html">n</a></span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>, <span class="va">LETTERS</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">month.abb</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   A B C  D</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a 1 4 7 10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> b 2 5 8 11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> c 3 6 9 12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"names")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "Jan" "Feb" "Mar" "Apr" "May" "Jun" "Jul" "Aug" "Sep" "Oct" "Nov" "Dec"</span>
 <span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">x</span><span class="op">+</span><span class="fl">100</span></span></span>
 <span class="r-in"><span><span class="va">arg.list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y<span class="op">=</span><span class="va">y</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">bind_array</span><span class="op">(</span><span class="va">arg.list</span>, along<span class="op">=</span><span class="fl">0</span><span class="op">)</span> <span class="co"># binds on new dimension before first</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> , , 1</span>
+<span class="r-in"><span><span class="fu">bind_array</span><span class="op">(</span><span class="va">arg.list</span>, along<span class="op">=</span><span class="fl">0</span>, name_flat <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># binds on new dimension before first</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> , , A</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [,1] [,2] [,3]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> x    1    2    3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> y  101  102  103</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     a   b   c</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x   1   2   3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> y 101 102 103</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> , , 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> , , B</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [,1] [,2] [,3]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> x    4    5    6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> y  104  105  106</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     a   b   c</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x   4   5   6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> y 104 105 106</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> , , 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> , , C</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [,1] [,2] [,3]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> x    7    8    9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> y  107  108  109</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     a   b   c</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x   7   8   9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> y 107 108 109</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> , , 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> , , D</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [,1] [,2] [,3]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> x   10   11   12</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> y  110  111  112</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     a   b   c</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x  10  11  12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> y 110 111 112</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"names")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "Jan"  "y.1"  "Feb"  "y.2"  "Mar"  "y.3"  "Apr"  "y.4"  "May"  "y.5" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11] "Jun"  "y.6"  "Jul"  "y.7"  "Aug"  "y.8"  "Sep"  "y.9"  "Oct"  "y.10"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [21] "Nov"  "y.11" "Dec"  "y.12"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> mutable_atomic </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  double </span>
-<span class="r-in"><span><span class="fu">bind_array</span><span class="op">(</span><span class="va">arg.list</span>, along<span class="op">=</span><span class="fl">1</span><span class="op">)</span> <span class="co"># binds on first dimension</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     [,1] [,2] [,3] [,4]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> x.1    1    4    7   10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> x.2    2    5    8   11</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> x.3    3    6    9   12</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> y.1  101  104  107  110</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> y.2  102  105  108  111</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> y.3  103  106  109  112</span>
+<span class="r-in"><span><span class="fu">bind_array</span><span class="op">(</span><span class="va">arg.list</span>, along<span class="op">=</span><span class="fl">1</span>, name_flat <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># binds on first dimension</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     A   B   C   D</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a   1   4   7  10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> b   2   5   8  11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> c   3   6   9  12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a 101 104 107 110</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> b 102 105 108 111</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> c 103 106 109 112</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"names")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "Jan"  "Feb"  "Mar"  "y.1"  "y.2"  "y.3"  "Apr"  "May"  "Jun"  "y.4" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11] "y.5"  "y.6"  "Jul"  "Aug"  "Sep"  "y.7"  "y.8"  "y.9"  "Oct"  "Nov" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [21] "Dec"  "y.10" "y.11" "y.12"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> mutable_atomic </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  double </span>
-<span class="r-in"><span><span class="fu">bind_array</span><span class="op">(</span><span class="va">arg.list</span>, along<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      x.1 x.2 x.3 x.4 y.1 y.2 y.3 y.4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]   1   4   7  10 101 104 107 110</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]   2   5   8  11 102 105 108 111</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]   3   6   9  12 103 106 109 112</span>
+<span class="r-in"><span><span class="fu">bind_array</span><span class="op">(</span><span class="va">arg.list</span>, along<span class="op">=</span><span class="fl">2</span>, name_flat <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   A B C  D   A   B   C   D</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a 1 4 7 10 101 104 107 110</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> b 2 5 8 11 102 105 108 111</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> c 3 6 9 12 103 106 109 112</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"names")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "Jan"  "Feb"  "Mar"  "Apr"  "May"  "Jun"  "Jul"  "Aug"  "Sep"  "Oct" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11] "Nov"  "Dec"  "y.1"  "y.2"  "y.3"  "y.4"  "y.5"  "y.6"  "y.7"  "y.8" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [21] "y.9"  "y.10" "y.11" "y.12"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> mutable_atomic </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  double </span>
-<span class="r-in"><span><span class="fu">bind_array</span><span class="op">(</span><span class="va">arg.list</span>, along<span class="op">=</span><span class="fl">3</span><span class="op">)</span> <span class="co"># bind on new dimension after last</span></span></span>
+<span class="r-in"><span><span class="fu">bind_array</span><span class="op">(</span><span class="va">arg.list</span>, along<span class="op">=</span><span class="fl">3</span>, name_flat <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># bind on new dimension after last</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> , , x</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2] [,3] [,4]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    1    4    7   10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    2    5    8   11</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]    3    6    9   12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   A B C  D</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a 1 4 7 10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> b 2 5 8 11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> c 3 6 9 12</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> , , y</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2] [,3] [,4]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  101  104  107  110</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  102  105  108  111</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  103  106  109  112</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     A   B   C   D</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a 101 104 107 110</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> b 102 105 108 111</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> c 103 106 109 112</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"names")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "Jan"  "Feb"  "Mar"  "Apr"  "May"  "Jun"  "Jul"  "Aug"  "Sep"  "Oct" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11] "Nov"  "Dec"  "y.1"  "y.2"  "y.3"  "y.4"  "y.5"  "y.6"  "y.7"  "y.8" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [21] "y.9"  "y.10" "y.11" "y.12"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> mutable_atomic </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  double </span>
 <span class="r-in"><span></span></span>
@@ -218,62 +270,87 @@ Note that setting this to <code>TRUE</code> will reduce performance considerably
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># recursiv arrays ====</span></span></span>
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">12</span><span class="op">)</span>,<span class="fl">3</span>,<span class="fl">4</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/dimnames.html" class="external-link">dimnames</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="nest.html">n</a></span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>, <span class="va">LETTERS</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">month.abb</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   A B C D </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a 1 4 7 10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> b 2 5 8 11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> c 3 6 9 12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"names")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "Jan" "Feb" "Mar" "Apr" "May" "Jun" "Jul" "Aug" "Sep" "Oct" "Nov" "Dec"</span>
 <span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">x</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">+</span> <span class="fl">100</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">arg.list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y<span class="op">=</span><span class="va">y</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">bind2_array</span><span class="op">(</span><span class="va">arg.list</span>, along<span class="op">=</span><span class="fl">0</span><span class="op">)</span> <span class="co"># binds on new dimension before first</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> , , 1</span>
+<span class="r-in"><span><span class="fu">bind2_array</span><span class="op">(</span><span class="va">arg.list</span>, along<span class="op">=</span><span class="fl">0</span>, name_flat <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># binds on new dimension before first</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> , , A</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [,1] [,2] [,3]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> x 1    2    3   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> y 100  100  100 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   a   b   c  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x 1   2   3  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> y 100 100 100</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> , , 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> , , B</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [,1] [,2] [,3]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> x 4    5    6   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> y 100  100  100 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   a   b   c  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x 4   5   6  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> y 100 100 100</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> , , 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> , , C</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [,1] [,2] [,3]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> x 7    8    9   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> y 100  100  100 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   a   b   c  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x 7   8   9  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> y 100 100 100</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> , , 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> , , D</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   [,1] [,2] [,3]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> x 10   11   12  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> y 100  100  100 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   a   b   c  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x 10  11  12 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> y 100 100 100</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span><span class="fu">bind2_array</span><span class="op">(</span><span class="va">arg.list</span>, along<span class="op">=</span><span class="fl">1</span><span class="op">)</span> <span class="co"># binds on first dimension</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     [,1] [,2] [,3] [,4]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> x.1 1    4    7    10  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> x.2 2    5    8    11  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> x.3 3    6    9    12  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> y.1 100  100  100  100 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> y.2 100  100  100  100 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> y.3 100  100  100  100 </span>
-<span class="r-in"><span><span class="fu">bind2_array</span><span class="op">(</span><span class="va">arg.list</span>, along<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      x.1 x.2 x.3 x.4 y.1 y.2 y.3 y.4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 1   4   7   10  100 100 100 100</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 2   5   8   11  100 100 100 100</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 3   6   9   12  100 100 100 100</span>
-<span class="r-in"><span><span class="fu">bind2_array</span><span class="op">(</span><span class="va">arg.list</span>, along<span class="op">=</span><span class="fl">3</span><span class="op">)</span> <span class="co"># bind on new dimension after last</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"names")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "Jan"  "y.1"  "Feb"  "y.2"  "Mar"  "y.3"  "Apr"  "y.4"  "May"  "y.5" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11] "Jun"  "y.6"  "Jul"  "y.7"  "Aug"  "y.8"  "Sep"  "y.9"  "Oct"  "y.10"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [21] "Nov"  "y.11" "Dec"  "y.12"</span>
+<span class="r-in"><span><span class="fu">bind2_array</span><span class="op">(</span><span class="va">arg.list</span>, along<span class="op">=</span><span class="fl">1</span>, name_flat <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># binds on first dimension</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     A   B   C   D  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a   1   4   7   10 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> b   2   5   8   11 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> c   3   6   9   12 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> y.1 100 100 100 100</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> y.2 100 100 100 100</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> y.3 100 100 100 100</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"names")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "Jan"  "Feb"  "Mar"  "y.1"  "y.2"  "y.3"  "Apr"  "May"  "Jun"  "y.4" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11] "y.5"  "y.6"  "Jul"  "Aug"  "Sep"  "y.7"  "y.8"  "y.9"  "Oct"  "Nov" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [21] "Dec"  "y.10" "y.11" "y.12"</span>
+<span class="r-in"><span><span class="fu">bind2_array</span><span class="op">(</span><span class="va">arg.list</span>, along<span class="op">=</span><span class="fl">2</span>, name_flat <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   A B C D  y.1 y.2 y.3 y.4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a 1 4 7 10 100 100 100 100</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> b 2 5 8 11 100 100 100 100</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> c 3 6 9 12 100 100 100 100</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"names")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "Jan"  "Feb"  "Mar"  "Apr"  "May"  "Jun"  "Jul"  "Aug"  "Sep"  "Oct" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11] "Nov"  "Dec"  "y.1"  "y.2"  "y.3"  "y.4"  "y.5"  "y.6"  "y.7"  "y.8" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [21] "y.9"  "y.10" "y.11" "y.12"</span>
+<span class="r-in"><span><span class="fu">bind2_array</span><span class="op">(</span><span class="va">arg.list</span>, along<span class="op">=</span><span class="fl">3</span>, name_flat <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># bind on new dimension after last</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> , , x</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2] [,3] [,4]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 1    4    7    10  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 2    5    8    11  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 3    6    9    12  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   A B C D </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a 1 4 7 10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> b 2 5 8 11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> c 3 6 9 12</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> , , y</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2] [,3] [,4]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 100  100  100  100 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 100  100  100  100 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 100  100  100  100 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   A   B   C   D  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a 100 100 100 100</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> b 100 100 100 100</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> c 100 100 100 100</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"names")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "Jan"  "Feb"  "Mar"  "Apr"  "May"  "Jun"  "Jul"  "Aug"  "Sep"  "Oct" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11] "Nov"  "Dec"  "y.1"  "y.2"  "y.3"  "y.4"  "y.5"  "y.6"  "y.7"  "y.8" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [21] "y.9"  "y.10" "y.11" "y.12"</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

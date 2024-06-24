@@ -10,7 +10,7 @@ in the generic methods of 'squarebrackets' to specify the indices to perform ope
 \itemize{
 \item \code{i}: to specify flat (i.e. dimensionless) indices.
 \item \verb{row, col}: to specify rows and/or columns in tabular objects.
-\item \verb{idx, dims}: to specify indices of arbitrary dimensions in arrays.
+\item \verb{sub, dims}: to specify indices of arbitrary dimensions in arrays.
 \item \code{lvl}: specify levels, for factors only.
 \item \verb{filter, vars}: to specify rows and/or columns specifically in data.frame-like objects.
 \item \verb{margin, slice}: to specify indices of one particular dimension. \cr \cr
@@ -85,25 +85,44 @@ Using the \verb{row, col} arguments corresponds to doing something like the foll
 }\if{html}{\out{</div>}}
 }
 
-\section{Argument Pair idx, dims}{
+\section{Argument Pair sub, dims}{
 
 \ifelse{html}{\figure{class-atomic_array-blue.svg}{options: alt='[class: atomic array]'}}{\link[=squarebrackets_indx_args]{class: atomic array}} \cr
 \ifelse{html}{\figure{class-recursive_array-blue.svg}{options: alt='[class: recursive array]'}}{\link[=squarebrackets_indx_args]{class: recursive array}} \cr
+The \verb{sub, dims} argument pair is inspired by the
+\code{abind::}\link[abind]{asub} function from the 'abind' package (see reference below). \cr
+\code{dims} must be an integer vector of the same length as \code{sub},
+giving the dimensions over which to select indices
+(i.e. \code{dims} specifies the "non-missing" index margins). \cr
+\code{sub} must be a list of subscripts, of the same length as \code{dims}.
+Each element of \code{sub} can be any of the following:
+\itemize{
+\item a vector of length 0,
+in which case no indices are selected for the operation (i.e. empty selection).
+\item a \bold{strictly positive integer} vector with dimension indices to select for the operation.
+\item a \bold{logical} vector of the same length as the corresponding dimension size,
+giving the indices of this dimension to select for the operation.
+\item a \bold{character} vector of index names. \cr
+If a dimension has multiple indices with the given name,
+ALL the corresponding indices will be selected for the operation. \cr
+}
 
-\code{idx} must be a list of indices. \cr
-\code{dims} must be an integer vector of the same length as \code{idx},
-giving the dimensions to which the indices given in \code{idx} correspond to. \cr
-If \code{dims} is a single integer, \code{idx} can be given as a atomic vector instead of a single-element list. \cr
-\cr
-The elements of \code{idx} follow the same rules as the rules for \code{row} and \code{col},
-EXCEPT one should not fill in \code{NULL}. \cr
-\cr
+Note also the following:
+\itemize{
+\item If \code{dims} is a single integer,
+one can specify \code{sub} as an atomic vector of any of the above specified types,
+instead of as a list of length \code{1}.
+\item As stated, \code{dims} specifies which index margins are non-missing. \cr
+If \code{dims} - and thus also \code{sub} - is of length \code{0},
+it is taken as "all index margins are missing". \cr
+}
+
 To keep the syntax short,
-the user can use the \link{n} function instead of \code{list()} to specify \code{idx}. \cr
+the user can use the \link{n} function instead of \code{list()} to specify \code{sub}. \cr
 \cr
-Using the \verb{idx, dims} arguments,
+Using the \verb{sub, dims} arguments,
 corresponds to doing something like the following,
-here using an example of a 4-dimensional array:
+here using an example of extracting subsets from a 4-dimensional array:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{sb_x(x, n(1:10, 1:5), c(1, 3)) # ==> x[1:10, , 1:5, , drop = FALSE]
 
@@ -165,8 +184,8 @@ ALL the corresponding indices will be selected for the operation. \cr
 }
 
 One could also give a vector of length \code{0} for \code{slice}; \cr
-Argument \code{slice} is only used in method \code{idx},
-and the result of \code{idx} are meant to be used inside the regular \code{[} and \verb{[<-} operators. \cr
+Argument \code{slice} is only used in method \code{sub},
+and the result of \code{sub} are meant to be used inside the regular \code{[} and \verb{[<-} operators. \cr
 Thus the result of a zero-length index specification depends on the rule-set of
 \verb{[.class(x)} and \verb{[<-.class(x)}. \cr \cr
 }
@@ -180,20 +199,20 @@ and \link{idx} methods. \cr
 By default, \code{inv = FALSE}, which translates the indices like normally. \cr
 When \code{inv = TRUE}, the inverse of the indices is taken. \cr
 Consider, for example, an atomic matrix \code{x}; \cr
-using \code{sb_mod(x, 1:2, 1:2, tf = tf)}
+using \code{sb_mod(x, col = 1:2, tf = tf)}
 corresponds to something like the following:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{
-x[1:2, 1:2] <- tf(x[1:2, 1:2])
+x[, 1:2] <- tf(x[, 1:2])
 x
 
 }\if{html}{\out{</div>}}
 
-and using \code{sb_mod(x, 1:2, 1:2, inv = TRUE, tf = tf)}
+and using \code{sb_mod(x, col = 1:2, inv = TRUE, tf = tf)}
 corresponds to something like the following:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{
-x[-1:-2, -1:-2] <- tf(x[-1:-2, -1:-2])
+x[, -1:-2] <- tf(x[, -1:-2])
 x
 
 }\if{html}{\out{</div>}}
@@ -235,7 +254,7 @@ One cannot specify \code{row} and \code{filter} simultaneously;
 it's either one or the other. \cr
 One cannot specify \code{col} and \code{vars} simultaneously;
 it's either one or the other. \cr
-One cannot specify the \verb{idx, dims} pair and \verb{slice, margin} pair simultaneously;
+One cannot specify the \verb{sub, dims} pair and \verb{slice, margin} pair simultaneously;
 it's either one pair or the other pair. \cr
 In the above cases it holds that if one set is specified, the other is set is ignored. \cr
 \cr
@@ -244,7 +263,7 @@ In the above cases it holds that if one set is specified, the other is set is ig
 \section{Drop}{
 
 Sub-setting with the generic methods from the 'squarebrackets' R-package using dimensional arguments
-(\verb{row, col, lyr, idx, dims, filter, vars})
+(\verb{row, col, lyr, sub, dims, filter, vars})
 always use \code{drop = FALSE}. \cr
 To drop potentially redundant (i.e. single level) dimensions,
 use the \link[base]{drop} function, like so:
@@ -272,3 +291,6 @@ Indexing through names or levels (i.e. character vectors) is the slowest. \cr
 Thus if performance is important, use integer or logical indices. \cr \cr
 }
 
+\references{
+Plate T, Heiberger R (2016). \emph{abind: Combine Multidimensional Arrays}. R package version 1.4-5, \url{https://CRAN.R-project.org/package=abind}.
+}

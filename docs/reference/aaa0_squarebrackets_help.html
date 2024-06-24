@@ -67,7 +67,7 @@ flexible and comprehensive sub-setting functionality,
 provided by the square brackets operators (<code>[</code>, <code>[&lt;-</code>). <br>
 But in some situations the square brackets operators
 are occasionally less than optimally convenient <br>
-(see <a href="aaa6_squarebrackets_inconveniences.html">squarebrackets_inconveniences</a>). <br><br>
+(see <a href="aaa7_squarebrackets_inconveniences.html">squarebrackets_inconveniences</a>). <br><br>
 The Goal of the 'squarebrackets' package
 is not to replace the square-brackets operators,
 but to provide <b>alternative</b> sub-setting methods and functions,
@@ -112,7 +112,7 @@ Despite the many checks performed, the functions are kept reasonably speedy,
 through the use of the 'Rcpp', 'collapse', and 'data.table' R-packages. <br><br></p></li>
 </ul></div>
     <div class="section level2">
-    <h2 id="supported-classes">Supported  Classes<a class="anchor" aria-label="anchor" href="#supported-classes"></a></h2>
+    <h2 id="supported-classes">Supported Classes<a class="anchor" aria-label="anchor" href="#supported-classes"></a></h2>
     
 
 <p>'squarebrackets' only supports S3 classes,
@@ -136,14 +136,14 @@ are not supported. <br><br></p>
 
 <p><img src="figures/generic_methods-darkgreen.svg" alt="[GENERIC METHODS]"><br>
 The main focus of this package is on its generic methods
-and binding implementations. <br><br>
+and dimensional binding implementations. <br><br>
 Generic methods for non-recursive objects (atomic, factor, etc.)
 start with <code>sb_</code>. <br>
 Generic methods for recursive objects (list, data.frame, etc.)
 start with <code>sb2_</code>. <br>
-The binding implementations for non-recursive objects (atomic, factor, etc.)
+The binding implementations for non-recursive dimensional objects (atomic arrays)
 start with <code>bind_</code>. <br>
-The binding implementations for recursive objects (list, data.frame, etc.)
+The binding implementations for recursive dimensional objects (recursive arrays, data.frames)
 start with <code>bind2_</code>. <br>
 There is also the somewhat separate <a href="idx1.html">idx</a> method,
 which works on both recursive and non-recursive objects. <br><br>
@@ -166,7 +166,9 @@ using <a href="aaa5_squarebrackets_PassByReference.html">pass-by-reference seman
 for the purpose of copy-on-modify substitution. <br><br></p></li>
 </ul><p>So for example,
 use <code><a href="sb_rm.html">sb_rm()</a></code> to remove subsets from atomic arrays,
-and use <code><a href="sb_rm.html">sb2_rm()</a></code> to remove subsets from recursive arrays. <br><br></p>
+and use <code><a href="sb_rm.html">sb2_rm()</a></code> to remove subsets from recursive arrays. <br>
+See <a href="aaa6_squarebrackets_method_dispatch.html">squarebrackets_method_dispatch</a> for more information on how 'squarebrackets'
+uses its S3 Method dispatch. <br><br></p>
 <p><img src="figures/specialized_functions-darkred.svg" alt="[SPECIALIZED FUNCTIONS]"><br>
 Additional specialized sub-setting functions are provided:</p><ul><li><p><a href="lst.html">lst_untree</a>: unnest tree-like nested list,
 to make vectorized sub-setting on recursive subsets of the list easier.</p></li>

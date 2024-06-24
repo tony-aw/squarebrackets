@@ -6,7 +6,7 @@
 #' 
 #'  - `idx(x, i = i, ...)`
 #'  converts linear indices to a strictly positive integer vector of linear indices.
-#'  - `idx(x, idx = idx, dims = dims, ...)`
+#'  - `idx(x, sub = sub, dims = dims, ...)`
 #'  converts dimensional indices to a strictly positive integer vector of linear indices.
 #'  - `idx(x, slice = slice, margin = margin, ...)`
 #'  converts indices of one dimension to a strictly positive integer vector of
@@ -14,7 +14,7 @@
 #' 
 #' Vectors (both atomic and recursive) only have index argument `i`. \cr
 #' Data.frame-like objects only have the `slice, margin` index argument pair. \cr
-#' Arrays (both atomic and recursive) have the `idx, dims` index argument pair,
+#' Arrays (both atomic and recursive) have the `sub, dims` index argument pair,
 #' as well as the arguments `i` and `slice, margin`. \cr
 #' \cr
 #' The result of the `idx()` method
@@ -23,7 +23,7 @@
 #' 
 #' ```{r eval = FALSE, echo = TRUE}
 #' x <- array(...)
-#' my_indices <- idx(x, idx, dims)
+#' my_indices <- idx(x, sub, dims)
 #' x[my_indices] <- value
 #' 
 #' y <- data.frame(...)
@@ -42,20 +42,20 @@
 #' is particularly handy for replacing or coercively transforming shallow subsets
 #' of recursive objects,
 #' without having to return a copy of the entire object. \cr
-#' Thus combining `[<-` with `idx` is more efficient than \link{sb2_mod}
+#' Thus combining `[<-` with `sub` is more efficient than \link{sb2_mod}
 #' for recursive objects. \cr \cr
 #' 
 #' 
 #' @param x vector, matrix, array, or data.frame; both atomic and recursive objects are supported.
-#' @param i,idx,dims,margin,slice,inv See \link{squarebrackets_indx_args}. \cr
+#' @param i,sub,dims,margin,slice,inv See \link{squarebrackets_indx_args}. \cr
 #' Duplicates are not allowed.
 #' @param chkdup see \link{squarebrackets_options}. \cr
 #' `r .mybadge_performance_set2("FALSE")` \cr
-#' @param ... further arguments passed to or from other methods.
+#' @param ... see \link{squarebrackets_method_dispatch}.
 #'
 #'
 #' @returns
-#' For `idx(x, i = i, ...)` and `idx(x, idx = idx, dims = dims, ...)`: \cr
+#' For `idx(x, i = i, ...)` and `idx(x, sub = sub, dims = dims, ...)`: \cr
 #' A strictly positive integer vector of flat indices. \cr
 #' \cr
 #' For `idx(x, margin = margin, slice = slice, ...)`: \cr
@@ -94,20 +94,20 @@ idx.default <- function(
 #' @rdname idx1
 #' @export
 idx.array <- function(
-    x, idx = NULL, dims = NULL, slice = NULL, margin = NULL, i = NULL, inv = FALSE,
+    x, sub = NULL, dims = NULL, slice = NULL, margin = NULL, i = NULL, inv = FALSE,
     ...,
     chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
   check_args <- c(
-    !is.null(idx) && !is.null(dims),
+    !is.null(sub) && !is.null(dims),
     !is.null(slice) && !is.null(margin),
     !is.null(i)
   )
   if(sum(check_args)>1) {
     stop("incorrect combination of arguments given")
   }
-  check_args <- is.null(idx) == is.null(dims) && is.null(slice) == is.null(margin)
+  check_args <- is.null(sub) == is.null(dims) && is.null(slice) == is.null(margin)
   if(!check_args) {
     stop("incorrect combination of arguments given")
   }
@@ -125,9 +125,9 @@ idx.array <- function(
   
   x.dim <- dim(x)
   ndims <- length(x.dim)
-  .arr_check(x, idx, dims, ndims, abortcall = sys.call())
+  .arr_check(x, sub, dims, ndims, abortcall = sys.call())
   lst <- .arr_lst_brackets(
-    x, idx, dims, chkdup = chkdup, inv = inv, abortcall = sys.call()
+    x, sub, dims, chkdup = chkdup, inv = inv, abortcall = sys.call()
   )
   elements <- sub2ind(lst, x.dim, checks = FALSE)
   return(elements)
@@ -153,10 +153,10 @@ idx.data.frame <- function(
   if(is.null(dim(x))) {
     stop(simpleError("`x` has no dimensions", call = abortcall))
   }
-  obj <- stats::setNames(seq_len(dim(x)[margin]), dimnames(x)[[margin]])
   if(!is.atomic(slice)) {
     stop(simpleError("`slice` must be atomic", call = abortcall))
   }
+  obj <- stats::setNames(seq_len(dim(x)[margin]), dimnames(x)[[margin]])
   elements <- .indx_make_element(
     slice, obj, is_list = FALSE, chkdup = chkdup, inv = inv, abortcall = sys.call()
   )

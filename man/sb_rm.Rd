@@ -27,7 +27,7 @@ sb_rm(x, ...)
 
 \method{sb_rm}{array}(
   x,
-  idx = NULL,
+  sub = NULL,
   dims = NULL,
   i = NULL,
   ...,
@@ -55,7 +55,7 @@ sb2_rm(x, ...)
 
 \method{sb2_rm}{array}(
   x,
-  idx = NULL,
+  sub = NULL,
   dims = NULL,
   i = NULL,
   drop = FALSE,
@@ -76,9 +76,9 @@ sb2_rm(x, ...)
 \arguments{
 \item{x}{see \link{squarebrackets_immutable_classes} and \link{squarebrackets_mutable_classes}.}
 
-\item{...}{further arguments passed to or from other methods.}
+\item{...}{see \link{squarebrackets_method_dispatch}.}
 
-\item{i, lvl, row, col, idx, dims, filter, vars}{See \link{squarebrackets_indx_args}. \cr
+\item{i, lvl, row, col, sub, dims, filter, vars}{See \link{squarebrackets_indx_args}. \cr
 An empty index selection results in nothing being removed,
 and the entire object is returned. \cr}
 

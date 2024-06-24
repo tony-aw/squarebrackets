@@ -240,18 +240,22 @@ for(i in 1:length(xlist)) {
 # dimensions ==== 
 x <- as.mutable_atomic(array(1:27, c(3,3,3)))
 expect_error(
-  sb_test(x, idx = 1:10, dims = c(1,3)),
-  pattern = "`idx` must be a list, and `dims` must be a integer vector",
+  sb_test(x, sub = 1:10, dims = c(1,3)),
+  pattern = "`sub` must be a list, and `dims` must be a integer vector",
   fixed = TRUE
 )
 expect_error(
-  sb_test(x, idx = list(1:10), dims = c(1,3)),
-  pattern = "`length(idx) != length(dims)`",
+  sb_test(x, sub = list(1:10), dims = c(1,3)),
+  pattern = "`length(sub) != length(dims)`",
   fixed = TRUE
 )
-
 expect_error(
-  sb_test(x, idx = list(-1:-5), dim = 1),
+  sb_test(x, sub = list(1:3, 1:3), dims = c(1,6)),
+  pattern = "`dims` out of range",
+  fixed = TRUE
+)
+expect_error(
+  sb_test(x, sub = list(-1:-5), dim = 1),
   pattern = "integers must be >= 1 and <= bounds",
   fixed = TRUE
 )|> errorfun()
@@ -260,7 +264,7 @@ enumerate <- enumerate + 1
 
 
 expect_error(
-  sb_test(x, idx = list(0), dim = 1),
+  sb_test(x, sub = list(0), dim = 1),
   pattern = "integers must be >= 1 and <= bounds",
   fixed = TRUE
 )|> errorfun()

@@ -46,7 +46,7 @@
 #' @param skip_absent Skip items in old that are missing
 #' (i.e. absent) in `names(x)`. \cr
 #' Default `FALSE` halts with error if any are missing.
-#' @param ... further arguments passed to or from other methods. \cr \cr
+#' @param ... see \link{squarebrackets_method_dispatch}. \cr \cr
 #' 
 #' 
 #' @returns

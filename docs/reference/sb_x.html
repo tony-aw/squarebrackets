@@ -75,7 +75,7 @@ Use <code>sb2_x(x, ...)</code> if <code>x</code> is a recursive object (i.e. lis
 <span><span class="fu">sb_x</span><span class="op">(</span><span class="va">x</span>, row <span class="op">=</span> <span class="cn">NULL</span>, col <span class="op">=</span> <span class="cn">NULL</span>, i <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for array</span></span>
-<span><span class="fu">sb_x</span><span class="op">(</span><span class="va">x</span>, idx <span class="op">=</span> <span class="cn">NULL</span>, dims <span class="op">=</span> <span class="cn">NULL</span>, i <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">sb_x</span><span class="op">(</span><span class="va">x</span>, sub <span class="op">=</span> <span class="cn">NULL</span>, dims <span class="op">=</span> <span class="cn">NULL</span>, i <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for factor</span></span>
 <span><span class="fu">sb_x</span><span class="op">(</span><span class="va">x</span>, i <span class="op">=</span> <span class="cn">NULL</span>, lvl <span class="op">=</span> <span class="cn">NULL</span>, drop <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
@@ -86,7 +86,7 @@ Use <code>sb2_x(x, ...)</code> if <code>x</code> is a recursive object (i.e. lis
 <span><span class="fu">sb2_x</span><span class="op">(</span><span class="va">x</span>, <span class="va">i</span>, drop <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for array</span></span>
-<span><span class="fu">sb2_x</span><span class="op">(</span><span class="va">x</span>, idx <span class="op">=</span> <span class="cn">NULL</span>, dims <span class="op">=</span> <span class="cn">NULL</span>, i <span class="op">=</span> <span class="cn">NULL</span>, drop <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">sb2_x</span><span class="op">(</span><span class="va">x</span>, sub <span class="op">=</span> <span class="cn">NULL</span>, dims <span class="op">=</span> <span class="cn">NULL</span>, i <span class="op">=</span> <span class="cn">NULL</span>, drop <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for data.frame</span></span>
 <span><span class="fu">sb2_x</span><span class="op">(</span><span class="va">x</span>, row <span class="op">=</span> <span class="cn">NULL</span>, col <span class="op">=</span> <span class="cn">NULL</span>, filter <span class="op">=</span> <span class="cn">NULL</span>, vars <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
@@ -99,10 +99,10 @@ Use <code>sb2_x(x, ...)</code> if <code>x</code> is a recursive object (i.e. lis
 
 
 <dt>...</dt>
-<dd><p>further arguments passed to or from other methods.</p></dd>
+<dd><p>see <a href="aaa6_squarebrackets_method_dispatch.html">squarebrackets_method_dispatch</a>.</p></dd>
 
 
-<dt>i, lvl, row, col, idx, dims, filter, vars</dt>
+<dt>i, lvl, row, col, sub, dims, filter, vars</dt>
 <dd><p>See <a href="aaa3_squarebrackets_indx_args.html">squarebrackets_indx_args</a>. <br>
 Duplicates are allowed, resulting in duplicated indices. <br>
 An empty index selection results in an empty object of length 0. <br></p></dd>

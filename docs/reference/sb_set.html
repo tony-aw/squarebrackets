@@ -101,7 +101,7 @@ Use <code>sb2_set(x, ...)</code> if <code>x</code> is a recursive object (i.e. d
 <span><span class="co"># S3 method for array</span></span>
 <span><span class="fu">sb_set</span><span class="op">(</span></span>
 <span>  <span class="va">x</span>,</span>
-<span>  idx <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  sub <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  dims <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  i <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  inv <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -140,10 +140,10 @@ Use <code>sb2_set(x, ...)</code> if <code>x</code> is a recursive object (i.e. d
 
 
 <dt>...</dt>
-<dd><p>further arguments passed to or from other methods.</p></dd>
+<dd><p>see <a href="aaa6_squarebrackets_method_dispatch.html">squarebrackets_method_dispatch</a>.</p></dd>
 
 
-<dt>i, row, col, idx, dims, filter, vars, inv</dt>
+<dt>i, row, col, sub, dims, filter, vars, inv</dt>
 <dd><p>See <a href="aaa3_squarebrackets_indx_args.html">squarebrackets_indx_args</a>. <br>
 An empty index selection leaves the original object unchanged. <br></p></dd>
 

@@ -196,7 +196,7 @@
   
   if(n.indx == 0L) {
     if(!inv) return(integer(0L))
-    if(inv) return(NULL)
+    if(inv) return(seq_len(dim(x)[[dim.L]]))
   }
   
   if(is.numeric(indx)) {
@@ -319,12 +319,12 @@
 
 #' @keywords internal
 #' @noRd
-.check_args_array <- function(x, idx, dims, i, abortcall) {
+.check_args_array <- function(x, sub, dims, i, abortcall) {
   
-  present_dims <- !is.null(idx) || !is.null(dims)
+  present_dims <- !is.null(sub) || !is.null(dims)
   if(present_dims && !is.null(i)) {
     stop(simpleError(
-      "cannot specify both `idx`/`dims` and elements",
+      "cannot specify both `sub`/`dims` and elements",
       call = abortcall
     ))
   }
@@ -382,6 +382,22 @@
 
 #' @keywords internal
 #' @noRd
+.internal_check_rptf <- function(rp, tf, abortcall) {
+  if(!missing(rp) && !missing(tf)) {
+    stop(simpleError("cannot specify both `rp` and `tf`", call = abortcall))
+  }
+  if(missing(rp) && missing(tf)) {
+    stop(simpleError("must specify either `rp` or `tf`", call = abortcall))
+  }
+  if(!missing(tf)) {
+    if(!is.function(tf)) {
+      stop("`tf` must be a function")
+    }
+  }
+}
+
+#' @keywords internal
+#' @noRd
 .check_rp_atomic <- function(rp, sslength, abortcall) {
   n.rp <- length(rp)
   if(is.recursive(rp)) {
@@ -430,4 +446,11 @@
   return(out)
 }
 
+
+.internal_check_dots <- function(dots.list, abortcall) {
+  # this check will not take much performance
+  if(length(dots.list) > 0L) {
+    stop(simpleError("unknown arguments given"))
+  }
+}
 
