@@ -208,7 +208,13 @@ Can be set to <code>FALSE</code> for minor speed improvements. <br><img src="fig
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>The S3 classes in 'R' use the standard Linear Algebraic convention,
+    <p>Subscripts and coordinates only exist for dimensional objects
+(such as arrays). <br>
+Flat indices (or just "indices" for non-dimensional objects)
+exist for all objects
+(in data.frame-like objects, flat indices are actually equal to column indices). <br>
+Thus flat indices are the "default" indices. <br><br>
+The base S3 vector classes in 'R' use the standard Linear Algebraic convention,
 as in academic fields like Mathematics and Statistics,
 in the following sense: <br></p><ul><li><p>vectors are <b>column</b> vectors (i.e. vertically aligned vectors);</p></li>
 <li><p>index counting starts at <code>1</code>;</p></li>

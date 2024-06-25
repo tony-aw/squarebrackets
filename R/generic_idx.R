@@ -42,7 +42,7 @@
 #' is particularly handy for replacing or coercively transforming shallow subsets
 #' of recursive objects,
 #' without having to return a copy of the entire object. \cr
-#' Thus combining `[<-` with `sub` is more efficient than \link{sb2_mod}
+#' Thus combining `[<-` with `idx()` is more efficient than \link{sb2_mod}
 #' for recursive objects. \cr \cr
 #' 
 #' 

@@ -1582,18 +1582,34 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
+// rcpp_sub2coord
+IntegerMatrix rcpp_sub2coord(const List lst, const int nrow, const int ncol, const IntegerVector lens, const IntegerVector reps_each, const IntegerVector reps_whole);
+RcppExport SEXP _squarebrackets_rcpp_sub2coord(SEXP lstSEXP, SEXP nrowSEXP, SEXP ncolSEXP, SEXP lensSEXP, SEXP reps_eachSEXP, SEXP reps_wholeSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const List >::type lst(lstSEXP);
+    Rcpp::traits::input_parameter< const int >::type nrow(nrowSEXP);
+    Rcpp::traits::input_parameter< const int >::type ncol(ncolSEXP);
+    Rcpp::traits::input_parameter< const IntegerVector >::type lens(lensSEXP);
+    Rcpp::traits::input_parameter< const IntegerVector >::type reps_each(reps_eachSEXP);
+    Rcpp::traits::input_parameter< const IntegerVector >::type reps_whole(reps_wholeSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_sub2coord(lst, nrow, ncol, lens, reps_each, reps_whole));
+    return rcpp_result_gen;
+END_RCPP
+}
 // rcpp_sub2ind_general
-IntegerVector rcpp_sub2ind_general(List lst, int total, IntegerVector reps_each, IntegerVector reps_whole, IntegerVector xdim, IntegerVector dimcumprod);
+IntegerVector rcpp_sub2ind_general(const List lst, const int total, const IntegerVector reps_each, const IntegerVector reps_whole, const IntegerVector xdim, const IntegerVector dimcumprod);
 RcppExport SEXP _squarebrackets_rcpp_sub2ind_general(SEXP lstSEXP, SEXP totalSEXP, SEXP reps_eachSEXP, SEXP reps_wholeSEXP, SEXP xdimSEXP, SEXP dimcumprodSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< List >::type lst(lstSEXP);
-    Rcpp::traits::input_parameter< int >::type total(totalSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type reps_each(reps_eachSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type reps_whole(reps_wholeSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type xdim(xdimSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type dimcumprod(dimcumprodSEXP);
+    Rcpp::traits::input_parameter< const List >::type lst(lstSEXP);
+    Rcpp::traits::input_parameter< const int >::type total(totalSEXP);
+    Rcpp::traits::input_parameter< const IntegerVector >::type reps_each(reps_eachSEXP);
+    Rcpp::traits::input_parameter< const IntegerVector >::type reps_whole(reps_wholeSEXP);
+    Rcpp::traits::input_parameter< const IntegerVector >::type xdim(xdimSEXP);
+    Rcpp::traits::input_parameter< const IntegerVector >::type dimcumprod(dimcumprodSEXP);
     rcpp_result_gen = Rcpp::wrap(rcpp_sub2ind_general(lst, total, reps_each, reps_whole, xdim, dimcumprod));
     return rcpp_result_gen;
 END_RCPP
@@ -1720,6 +1736,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_squarebrackets_rcpp_recycle_seq_mlen", (DL_FUNC) &_squarebrackets_rcpp_recycle_seq_mlen, 2},
     {"_squarebrackets_rcpp_set_namepointer", (DL_FUNC) &_squarebrackets_rcpp_set_namepointer, 3},
     {"_squarebrackets_rcpp_setvind_Complex", (DL_FUNC) &_squarebrackets_rcpp_setvind_Complex, 3},
+    {"_squarebrackets_rcpp_sub2coord", (DL_FUNC) &_squarebrackets_rcpp_sub2coord, 6},
     {"_squarebrackets_rcpp_sub2ind_general", (DL_FUNC) &_squarebrackets_rcpp_sub2ind_general, 6},
     {"C_any_badindx", (DL_FUNC) &C_any_badindx, 2},
     {"C_any_nonpos",  (DL_FUNC) &C_any_nonpos,  2},

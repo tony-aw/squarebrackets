@@ -705,6 +705,12 @@
 
 #' @keywords internal
 #' @noRd
+.rcpp_sub2coord <- function(lst, nrow, ncol, lens, reps_each, reps_whole) {
+    .Call(`_squarebrackets_rcpp_sub2coord`, lst, nrow, ncol, lens, reps_each, reps_whole)
+}
+
+#' @keywords internal
+#' @noRd
 .rcpp_sub2ind_general <- function(lst, total, reps_each, reps_whole, xdim, dimcumprod) {
     .Call(`_squarebrackets_rcpp_sub2ind_general`, lst, total, reps_each, reps_whole, xdim, dimcumprod)
 }

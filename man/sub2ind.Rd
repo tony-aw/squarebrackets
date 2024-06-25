@@ -87,7 +87,14 @@ Note that the equivalent to the \code{sub2ind} function from 'MatLab'
 is actually the \code{coord2ind()} function here. \cr \cr
 }
 \details{
-The S3 classes in 'R' use the standard Linear Algebraic convention,
+Subscripts and coordinates only exist for dimensional objects
+(such as arrays). \cr
+Flat indices (or just "indices" for non-dimensional objects)
+exist for all objects
+(in data.frame-like objects, flat indices are actually equal to column indices). \cr
+Thus flat indices are the "default" indices. \cr
+\cr
+The base S3 vector classes in 'R' use the standard Linear Algebraic convention,
 as in academic fields like Mathematics and Statistics,
 in the following sense: \cr
 \itemize{

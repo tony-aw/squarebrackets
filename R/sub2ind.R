@@ -53,7 +53,14 @@
 #' 
 #' 
 #' @details
-#' The S3 classes in 'R' use the standard Linear Algebraic convention,
+#' Subscripts and coordinates only exist for dimensional objects
+#' (such as arrays). \cr
+#' Flat indices (or just "indices" for non-dimensional objects)
+#' exist for all objects
+#' (in data.frame-like objects, flat indices are actually equal to column indices). \cr
+#' Thus flat indices are the "default" indices. \cr
+#' \cr
+#' The base S3 vector classes in 'R' use the standard Linear Algebraic convention,
 #' as in academic fields like Mathematics and Statistics,
 #' in the following sense: \cr
 #'  * vectors are \bold{column} vectors (i.e. vertically aligned vectors);
@@ -101,16 +108,14 @@ NULL
 #' @export
 sub2coord <- function(sub, x.dim) {
   n <- length(x.dim)
-  if(length(sub) != n) {
+  if (length(sub) != n) {
     stop("`length(sub) != length(x.dim)`")
   }
-  
-  # using collapse::qM() to ensure integer columns instead of numeric columns, and to improve speed.
-  ind <- n:1
-  coord <- do.call(data.table::CJ, c(sub[ind], list(sorted = FALSE)))
-  data.table::setcolorder(coord, neworder = ind)
-  coord <- collapse::qM(coord)
-  colnames(coord) <- NULL
+  ns <- collapse::vlengths(sub)
+  total <- as.integer(prod(ns))
+  reps_each <- as.integer(cumprod(c(1, ns))[1:n])
+  reps_whole <- as.integer(total/(ns * reps_each))
+  coord <- .rcpp_sub2coord(sub, total, n, ns, reps_each, reps_whole)
   return(coord)
 }
 
@@ -153,7 +158,7 @@ coord2ind <- function(coord, x.dim, checks = TRUE) {
 #' @rdname sub2ind
 #' @export
 ind2coord <- function(ind, x.dim) {
-  return(arrayInd(ind, x.dim))
+  return(arrayInd(ind, x.dim, useNames = FALSE))
 }
 
 

@@ -93,7 +93,7 @@ The \code{idx()} method
 is particularly handy for replacing or coercively transforming shallow subsets
 of recursive objects,
 without having to return a copy of the entire object. \cr
-Thus combining \verb{[<-} with \code{sub} is more efficient than \link{sb2_mod}
+Thus combining \verb{[<-} with \code{idx()} is more efficient than \link{sb2_mod}
 for recursive objects. \cr \cr
 }
 \examples{

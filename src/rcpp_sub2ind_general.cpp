@@ -6,7 +6,7 @@ using namespace Rcpp;
 //' @noRd
 // [[Rcpp::export(.rcpp_sub2ind_general)]]
 IntegerVector rcpp_sub2ind_general(
-  List lst, int total, IntegerVector reps_each, IntegerVector reps_whole, IntegerVector xdim, IntegerVector dimcumprod
+  const List lst, const int total, const IntegerVector reps_each, const IntegerVector reps_whole, const IntegerVector xdim, const IntegerVector dimcumprod
 ) {
   int ndim = lst.length();
   Rcpp::IntegerVector out(total);

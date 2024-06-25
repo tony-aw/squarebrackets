@@ -122,10 +122,10 @@
 #' \cr
 #' The auto-coercion rules of Views of Lists,
 #' depends entirely on the object itself. \cr
-#' Thus if the list subset is a data.table,
-#'  mutable matrix, coercion rules of data.tables apply. \cr
-#' And if the list subset is a data.table,
-#' coercion rules of mutable matrices apply.,
+#' Thus if the View is a data.table,
+#' coercion rules of data.tables apply. \cr
+#' And if the View is a \link{mutable_atomic} matrix,
+#' coercion rules of \link{mutable_atomic} matrices apply,
 #' etc. \cr \cr
 #' 
 #' 

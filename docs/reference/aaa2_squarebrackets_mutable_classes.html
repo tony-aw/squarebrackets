@@ -176,10 +176,10 @@ since <code><a href="sb_set.html">sb_set()</a></code> requires <b>actual variabl
 similar to in-place functions in the style of <code>`myfun()&lt;-`</code>. <br><br>
 The auto-coercion rules of Views of Lists,
 depends entirely on the object itself. <br>
-Thus if the list subset is a data.table,
-mutable matrix, coercion rules of data.tables apply. <br>
-And if the list subset is a data.table,
-coercion rules of mutable matrices apply.,
+Thus if the View is a data.table,
+coercion rules of data.tables apply. <br>
+And if the View is a <a href="class_mutable_atomic.html">mutable_atomic</a> matrix,
+coercion rules of <a href="class_mutable_atomic.html">mutable_atomic</a> matrices apply,
 etc. <br><br></p>
     </div>
 
