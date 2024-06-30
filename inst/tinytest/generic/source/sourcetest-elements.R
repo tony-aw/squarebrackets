@@ -5,6 +5,8 @@ general_names <- combn(letters, 2) |> apply(2, paste, collapse = "")
 indx_general <- list(
   integer(0),
   1, 1:3, 3:1, c(2, 3, 1),
+  1 - 1i, 1:3 - 1i, 3:1 - 1i, c(2, 3, 1) - 1i,
+  1 + 1i, 1:3 + 1i, 3:1 + 1i, c(2, 3, 1) + 1i,
   c(rep(TRUE, 24), rep(FALSE, 24)),
   rep(TRUE, 48), rep(FALSE, 48),
   c(TRUE, rep(FALSE, 47)), c(FALSE, rep(TRUE, 47)),

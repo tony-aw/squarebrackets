@@ -18,6 +18,82 @@ in the generic methods of 'squarebrackets' to specify the indices to perform ope
 
 In this help page \code{x} refers to the object on which subset operations are performed. \cr
 \cr
+\cr
+Base 'R' supports indexing through \code{logical}, \code{integer}, and \code{character} vectors. \cr
+'squarebrackets' suppports these also (albeit with some improvements),
+but also supports some additional methods of indexing. \cr
+\cr
+\cr
+\bold{Integers} \cr
+Integers are the most basic form on index selection. \cr
+All forms of indexing in 'squarebrackets' are internally translated to integer indexing first,
+ensuring consistency. \cr
+Indexing through integers in 'squarebrackets' works the same as in 'squarebrackets',
+except that negative values are not allowed. \cr
+\cr
+\cr
+\bold{Logical} \cr
+Selecting indices with a logical vector in 'squarebrackets' works the same as in base 'R',
+except that recycling is not allowed. \cr
+Thus the logical vector must be of the correct length
+(i.e. \code{length(x)} or \code{dim(x)[L]}, depending on the situation). \cr
+\cr
+\cr
+\bold{Characters} \cr
+When selecting indices using a character vector,
+base 'R' only selects the first matches in the names. \cr
+'squarebrackets', however, selects ALL matches. \cr
+Character indices are internally translated to integer indices using
+\link{match_all}. \cr
+\cr
+\cr
+\bold{Complex Numbers} \cr
+Unlike base 'R',
+squarebrackets' includes support for indexing through \code{complex} vectors. \cr
+Indexing with complex numbers is a generalization of indexing with regular integers. \cr
+\cr
+It works as follows: \cr
+A complex vector is essentially structured as \code{Real + Imaginary}. \cr
+The Real part must be \bold{strictly positive integers}. \cr
+The Imaginary part must be \bold{constant}.
+\itemize{
+\item If \code{Imaginary} is positive or zero, it works the same as integer values.
+\item If \code{Imaginary} is negative, indexing counts backwards,
+where the integer indices are computed as \code{n - Real + 1L}.
+}
+
+Where \code{n} is the maximum possible integer
+(i.e. \code{length(x)}, or \code{dim(x)[L]}, depending on the situation). \cr
+\cr
+See the results of the following code as an example:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{
+x <- 1:30 # vector of 30 elements
+
+sb_x(x, 1:10 + 1i) # extract first 10 elements
+#>  [1]  1  2  3  4  5  6  7  8  9 10
+
+sb_x(x, 1:10 - 1i) # extract last 10 elements
+#>  [1] 30 29 28 27 26 25 24 23 22 21
+
+sb_x(x, 10:1 - 1i) # last 10 elements, in tail()-like order
+#>  [1] 21 22 23 24 25 26 27 28 29 30
+}\if{html}{\out{</div>}}
+
+\bold{Combined Range} \cr
+Atomic vectors can only be of one type. \cr
+So creating a range like \code{n:2} (where \code{n} is the maximum index)
+cannot be done with the given indexing types,
+as it requires combining complex with integer types. \cr
+\cr
+However, the \link{idx_rng} function
+allows creating a index range of any combination of types. \cr
+So \code{n:2} can be created using \link{idx_rng}\code{(x, 1 - 1i, 2, ...)}. \cr
+\cr
+\cr
+What follows are detailed descriptions of the common arguments
+in 'squarebrackets' used to select indices. \cr
+\cr
 }
 \section{Argument i}{
 
@@ -34,6 +110,7 @@ when specifying the other arguments
 in which case no indices are selected for the operation
 (i.e. empty selection).
 \item a \bold{strictly positive integer} vector with indices.
+\item a \bold{complex} vector, as explained at the start of this help page.
 \item a \bold{logical vector},
 of the same length as \code{x},
 giving the indices to select for the operation.
@@ -44,7 +121,8 @@ ALL the corresponding indices will be selected for the operation.
 and returns a logical vector,
 giving the element indices to select for the operation. \cr
 For atomic objects, \code{i} is interpreted as \code{i(x)}. \cr
-For lists, \code{i} is interpreted as \code{lapply(x, i)}. \cr
+For recursive objects, \code{i} is interpreted as \code{lapply(x, i)}. \cr
+\cr
 }
 
 Using the \code{i} arguments corresponds to doing something like the following:
@@ -69,6 +147,7 @@ Any of the following can be specified for the arguments \code{row} / \code{col}:
 \item a vector of length 0,
 in which case no indices are selected for the operation (i.e. empty selection).
 \item a \bold{strictly positive integer} vector with dimension indices to select for the operation.
+\item a \bold{complex} vector, as explained at the start of this help page.
 \item a \bold{logical} vector of the same length as the corresponding dimension size,
 giving the indices of this dimension to select for the operation.
 \item a \bold{character} vector of index names. \cr
@@ -100,6 +179,7 @@ Each element of \code{sub} can be any of the following:
 \item a vector of length 0,
 in which case no indices are selected for the operation (i.e. empty selection).
 \item a \bold{strictly positive integer} vector with dimension indices to select for the operation.
+\item a \bold{complex} vector, as explained at the start of this help page.
 \item a \bold{logical} vector of the same length as the corresponding dimension size,
 giving the indices of this dimension to select for the operation.
 \item a \bold{character} vector of index names. \cr
@@ -176,6 +256,7 @@ etc. \cr
 The \code{slice} argument can be any of the following:
 \itemize{
 \item a \bold{strictly positive integer} vector with dimension indices to select for the operation.
+\item a \bold{complex} vector, as explained at the start of this help page.
 \item a \bold{logical} vector of the same length as the corresponding dimension size,
 giving the dimension indices to select for the operation.
 \item a \bold{character} vector of index names. \cr
@@ -268,20 +349,9 @@ always use \code{drop = FALSE}. \cr
 To drop potentially redundant (i.e. single level) dimensions,
 use the \link[base]{drop} function, like so:
 
-\if{html}{\out{<div class="sourceCode">}}\preformatted{ sb_x(x, row = row, col = col) |> drop() # ==> x[row, col, drop = TRUE]
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{ sb_x(x, row = row, col = col) |> drop() # ==> x[row, col, drop = TRUE]
  
 }\if{html}{\out{</div>}}
-}
-
-\section{First, Last, and Shuffle}{
-
-The indices are counted forward. I.e. \code{1} is the first element, not the last. \cr
-One can use the \link[data.table]{last} function to get the last \code{N} indices. \cr
-\cr
-One can use the \link[data.table]{first} function to get the first \code{N} indices. \cr
-\cr
-To shuffle elements of indices, use the \link[base]{sample} function. \cr
-\cr
 }
 
 \section{Regarding Performance}{

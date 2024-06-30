@@ -50,10 +50,10 @@ reference:
   - '`n`'
   - '`sub2ind`'
   - '`match_all`'
+  - '`idx_rng`'
   - '`idx_by`'
   - '`idx_ord_v`'
   - '`seq_rec2`'
-  - '`seq_names`'
 - title: Misc
   contents:
   - '`indx_x`'

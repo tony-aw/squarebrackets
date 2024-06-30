@@ -1599,13 +1599,13 @@ BEGIN_RCPP
 END_RCPP
 }
 // rcpp_sub2ind_general
-IntegerVector rcpp_sub2ind_general(const List lst, const int total, const IntegerVector reps_each, const IntegerVector reps_whole, const IntegerVector xdim, const IntegerVector dimcumprod);
+IntegerVector rcpp_sub2ind_general(const List lst, const R_xlen_t total, const IntegerVector reps_each, const IntegerVector reps_whole, const IntegerVector xdim, const IntegerVector dimcumprod);
 RcppExport SEXP _squarebrackets_rcpp_sub2ind_general(SEXP lstSEXP, SEXP totalSEXP, SEXP reps_eachSEXP, SEXP reps_wholeSEXP, SEXP xdimSEXP, SEXP dimcumprodSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const List >::type lst(lstSEXP);
-    Rcpp::traits::input_parameter< const int >::type total(totalSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type total(totalSEXP);
     Rcpp::traits::input_parameter< const IntegerVector >::type reps_each(reps_eachSEXP);
     Rcpp::traits::input_parameter< const IntegerVector >::type reps_whole(reps_wholeSEXP);
     Rcpp::traits::input_parameter< const IntegerVector >::type xdim(xdimSEXP);

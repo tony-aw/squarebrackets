@@ -46,7 +46,7 @@
 #' @noRd
 .indx_stop <- function(abortcall) {
   stop(simpleError(
-    "indices must be a numeric, logical, or character vector",
+    "incorrect index type",
     call = abortcall
   ))
 }
@@ -81,6 +81,21 @@
   if(!inv) { return(indx) }
   if(inv) { return(seq_len(n)[-indx]) }
   
+}
+
+.indx_convert_complex <- function(indx, n, abortcall) {
+  unim <- Im(indx[1])
+  if(!collapse::allv(Im(indx), unim)) {
+    stop(simpleError(
+      "imaginary number in complex indices must be a constant", call = abortcall
+    ))
+  }
+  if(unim < 0) {
+    return(n - Re(indx) + 1L)
+  }
+  else {
+    return(Re(indx))
+  }
 }
 
 
@@ -158,6 +173,13 @@
     if(inv) return(seq_len(n))
   }
   
+  if(is.complex(indx)) {
+    n <- length(x)
+    indx <- .indx_convert_complex(indx, n)
+    .indx_check_int(indx, n, abortcall)
+    return(.indx_convert_int(indx, n, chkdup, inv, abortcall))
+  }
+  
   if(is.numeric(indx)) {
     n <- length(x)
     .indx_check_int(indx, n, abortcall)
@@ -196,11 +218,18 @@
   
   if(n.indx == 0L) {
     if(!inv) return(integer(0L))
-    if(inv) return(seq_len(dim(x)[[dim.L]]))
+    if(inv) return(seq_len(dim(x)[dim.L]))
+  }
+  
+  if(is.complex(indx)) {
+    n <- dim(x)[dim.L]
+    indx <- .indx_convert_complex(indx, n)
+    .indx_check_int(indx, n, abortcall)
+    return(.indx_convert_int(indx, n, chkdup, inv, abortcall))
   }
   
   if(is.numeric(indx)) {
-    dlength <- dim(x)[[dim.L]]
+    dlength <- dim(x)[dim.L]
     .indx_check_int(indx, dlength, abortcall)
     return(.indx_convert_int(indx, dlength, chkdup, inv, abortcall))
   }
@@ -213,7 +242,7 @@
   }
 
   if(is.logical(indx)) {
-    dlength <- dim(x)[[dim.L]]
+    dlength <- dim(x)[dim.L]
     .indx_check_logical(n.indx, dlength, abortcall)
 
     if(!inv){return(which(indx))}
@@ -236,15 +265,18 @@
   
   if(n.indx == 0L) {
     if(!inv) return(integer(0L))
-    if(inv){
-      if(dim.L == 1L) return(collapse::seq_row(x))
-      if(dim.L == 2L) return(collapse::seq_col(x))
-    }
+    if(inv) return(seq_len(dim(x)[dim.L]))
+  }
+  
+  if(is.complex(indx)) {
+    n <- dim(x)[dim.L]
+    indx <- .indx_convert_complex(indx, n)
+    .indx_check_int(indx, n, abortcall)
+    return(.indx_convert_int(indx, n, chkdup, inv, abortcall))
   }
   
   if(is.numeric(indx)) {
-    if(dim.L == 1L) dlength <- collapse::fnrow(x)
-    if(dim.L == 2L) dlength <- collapse::fncol(x)
+    dlength <- dim(x)[dim.L]
     .indx_check_int(indx, dlength, abortcall)
     return(.indx_convert_int(indx, dlength, chkdup, inv, abortcall))
   }
@@ -454,3 +486,8 @@
   }
 }
 
+
+.internal_is_formula <- function(form) {
+  check <- inherits(form, "formula") && is.call(form) && isTRUE(form[[1]] == "~")
+  return(check)
+}

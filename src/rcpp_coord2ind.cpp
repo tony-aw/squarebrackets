@@ -33,7 +33,7 @@ void rcpp_pre_coord2ind(IntegerVector ind, IntegerVector coord, int myprod) {
 IntegerVector rcpp_coord2ind(
   IntegerVector ind, IntegerMatrix coord, IntegerVector xdim
 ) {
-  R_xlen_t nc = coord.ncol();
+  int nc = coord.ncol();
   if(nc > 1) {
     IntegerVector temp;
     int myprod;

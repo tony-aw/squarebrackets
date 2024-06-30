@@ -41,16 +41,8 @@ temp.fun <- function(x, elements) {
 }
 
 
-indx_general <- list(
-  integer(0),
-  1, 1:2, 2:1,
-  c(rep(TRUE, 24), rep(FALSE, 24)),
-  rep(TRUE, 48), rep(FALSE, 48),
-  c(TRUE, rep(FALSE, 47)), c(FALSE, rep(TRUE, 47)),
-  function(x) x>5
-)
 
-indx_named <- c(indx_general, "ab")
+indx_named <- c("ab")
 
 sys.source(file.path(getwd(), "source", "sourcetest-elements.R"), envir = environment())
 

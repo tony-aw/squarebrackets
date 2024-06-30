@@ -20,5 +20,5 @@ void rcpp_setvind_Complex(ComplexVector x, IntegerVector ind, ComplexVector rp) 
       x[ind[i]] = rp[0];
     }
   }
-  else stop("vector recycling not allowed");
+  else stop("recycling not allowed");
 }

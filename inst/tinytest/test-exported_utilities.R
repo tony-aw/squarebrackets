@@ -65,6 +65,25 @@ expect_equal(
   seq_len(length(x))
 )
 
+
+expect_equal(
+  indx_x(1:2 - 1i, x, names(x), length(x)),
+  length(x) - 1:2 + 1L
+)
+expect_equal(
+  indx_x(2:3 - 1i, x, names(x), length(x)),
+  length(x) - 2:3 + 1L
+)
+
+expect_equal(
+  indx_x(1:2 + 1i, x, names(x), length(x)),
+  1:2
+)
+expect_equal(
+  indx_x(2:3 + 1i, x, names(x), length(x)),
+  2:3
+)
+
 expect_true(identical(indx_x(NULL, x, names(x), length(x)), base::quote(expr = )))
 expect_true(identical(indx_rm(NULL, x, names(x), length(x)), base::quote(expr = )))
 

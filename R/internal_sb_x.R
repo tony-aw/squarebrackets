@@ -37,6 +37,13 @@
     return(integer(0L))
   }
   
+  if(is.complex(indx)) {
+    n <- length(x)
+    indx <- .indx_convert_complex(indx, n, abortcall)
+    .indx_check_int(indx, n, abortcall)
+    return(indx)
+  }
+  
   if(is.numeric(indx)) {
     n <- length(x)
     .indx_check_int(indx, n, abortcall)
@@ -55,6 +62,7 @@
     .indx_check_logical(n.indx, n, abortcall)
     return(which(indx))
   }
+  
   
   .indx_stop(abortcall)
 }
@@ -87,8 +95,15 @@
     return(integer(0L))
   }
   
+  if(is.complex(indx)) {
+    n <- dim(x)[dim.L]
+    indx <- .indx_convert_complex(indx, n, abortcall)
+    .indx_check_int(indx, n, abortcall)
+    return(indx)
+  }
+  
   if(is.numeric(indx)) {
-    dlength <- dim(x)[[dim.L]]
+    dlength <- dim(x)[dim.L]
     .indx_check_int(indx, dlength, abortcall)
     return(indx)
   }
@@ -101,11 +116,11 @@
   }
   
   if(is.logical(indx)) {
-    dlength <- dim(x)[[dim.L]]
+    dlength <- dim(x)[dim.L]
     .indx_check_logical(n.indx, dlength, abortcall)
     return(which(indx))
   }
-
+  
   .indx_stop(abortcall)
 }
 
@@ -122,9 +137,15 @@
     return(integer(0L))
   }
   
+  if(is.complex(indx)) {
+    n <- dim(x)[dim.L]
+    indx <- .indx_convert_complex(indx, n, abortcall)
+    .indx_check_int(indx, n, abortcall)
+    return(indx)
+  }
+  
   if(is.numeric(indx)) {
-    if(dim.L == 1L) dlength <- collapse::fnrow(x)
-    if(dim.L == 2L) dlength <- collapse::fncol(x)
+    dlength <- dim(x)[dim.L]
     .indx_check_int(indx, dlength, abortcall)
     return(indx)
   }
@@ -144,6 +165,7 @@
     
     return(which(indx))
   }
+  
   
   .indx_stop(abortcall)
 }

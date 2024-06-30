@@ -13,6 +13,82 @@
 #' 
 #' In this help page `x` refers to the object on which subset operations are performed. \cr
 #' \cr
+#' \cr
+#' Base 'R' supports indexing through `logical`, `integer`, and `character` vectors. \cr
+#' 'squarebrackets' suppports these also (albeit with some improvements),
+#' but also supports some additional methods of indexing. \cr
+#' \cr
+#' \cr
+#' \bold{Integers} \cr
+#' Integers are the most basic form on index selection. \cr
+#' All forms of indexing in 'squarebrackets' are internally translated to integer indexing first,
+#' ensuring consistency. \cr
+#' Indexing through integers in 'squarebrackets' works the same as in 'squarebrackets',
+#' except that negative values are not allowed. \cr
+#' \cr
+#' \cr
+#' \bold{Logical} \cr
+#' Selecting indices with a logical vector in 'squarebrackets' works the same as in base 'R',
+#' except that recycling is not allowed. \cr
+#' Thus the logical vector must be of the correct length
+#' (i.e. `length(x)` or `dim(x)[L]`, depending on the situation). \cr
+#' \cr
+#' \cr
+#' \bold{Characters} \cr
+#' When selecting indices using a character vector,
+#' base 'R' only selects the first matches in the names. \cr
+#' 'squarebrackets', however, selects ALL matches. \cr
+#' Character indices are internally translated to integer indices using
+#' \link{match_all}. \cr
+#' \cr
+#' \cr
+#' \bold{Complex Numbers} \cr
+#' Unlike base 'R',
+#' squarebrackets' includes support for indexing through `complex` vectors. \cr
+#' Indexing with complex numbers is a generalization of indexing with regular integers. \cr
+#' \cr
+#' It works as follows: \cr
+#' A complex vector is essentially structured as `Real + Imaginary`. \cr
+#' The Real part must be \bold{strictly positive integers}. \cr
+#' The Imaginary part must be \bold{constant}.
+#' 
+#'  * If `Imaginary` is positive or zero, it works the same as integer values.
+#'  * If `Imaginary` is negative, indexing counts backwards,
+#'  where the integer indices are computed as `n - Real + 1L`.
+#' 
+#' Where `n` is the maximum possible integer
+#' (i.e. `length(x)`, or `dim(x)[L]`, depending on the situation). \cr
+#' \cr
+#' See the results of the following code as an example:
+#' 
+#' ```{r eval = TRUE, echo = TRUE}
+#' 
+#' x <- 1:30 # vector of 30 elements
+#' 
+#' sb_x(x, 1:10 + 1i) # extract first 10 elements
+#' 
+#' sb_x(x, 1:10 - 1i) # extract last 10 elements
+#' 
+#' sb_x(x, 10:1 - 1i) # last 10 elements, in tail()-like order
+#' 
+#' ```
+#' 
+#' \bold{Combined Range} \cr
+#' Atomic vectors can only be of one type. \cr
+#' So creating a range like `n:2` (where `n` is the maximum index)
+#' cannot be done with the given indexing types,
+#' as it requires combining complex with integer types. \cr
+#' \cr
+#' However, the \link{idx_rng} function
+#' allows creating a index range of any combination of types. \cr
+#' So `n:2` can be created using \link{idx_rng}\code{(x, 1 - 1i, 2, ...)}. \cr
+#' \cr
+#' \cr
+#' What follows are detailed descriptions of the common arguments
+#' in 'squarebrackets' used to select indices. \cr
+#' \cr
+#' 
+#' 
 #' 
 #' @section Argument i:
 #' `r .mybadge_class("atomic vector")` \cr
@@ -29,6 +105,7 @@
 #'  in which case no indices are selected for the operation
 #'  (i.e. empty selection).
 #'  * a \bold{strictly positive integer} vector with indices.
+#'  * a \bold{complex} vector, as explained at the start of this help page.
 #'  * a \bold{logical vector},
 #'  of the same length as `x`,
 #'  giving the indices to select for the operation.
@@ -39,7 +116,8 @@
 #'  and returns a logical vector,
 #'  giving the element indices to select for the operation. \cr
 #'  For atomic objects, `i` is interpreted as `i(x)`. \cr
-#'  For lists, `i` is interpreted as `lapply(x, i)`. \cr
+#'  For recursive objects, `i` is interpreted as `lapply(x, i)`. \cr
+#'  \cr
 #'
 #' 
 #' Using the `i` arguments corresponds to doing something like the following:
@@ -64,12 +142,13 @@
 #'  * a vector of length 0,
 #'  in which case no indices are selected for the operation (i.e. empty selection).
 #'  * a \bold{strictly positive integer} vector with dimension indices to select for the operation.
+#'  * a \bold{complex} vector, as explained at the start of this help page.
 #'  * a \bold{logical} vector of the same length as the corresponding dimension size,
 #'  giving the indices of this dimension to select for the operation.
 #'  * a \bold{character} vector of index names. \cr
 #'  If a dimension has multiple indices with the given name,
 #'  ALL the corresponding indices will be selected for the operation.
-#' 
+#'  
 #' NOTE: The arguments `row` and `col` will be ignored if `i` is specified.
 #' 
 #' Using the `row, col` arguments corresponds to doing something like the following:
@@ -93,12 +172,13 @@
 #'  * a vector of length 0,
 #'  in which case no indices are selected for the operation (i.e. empty selection).
 #'  * a \bold{strictly positive integer} vector with dimension indices to select for the operation.
+#'  * a \bold{complex} vector, as explained at the start of this help page.
 #'  * a \bold{logical} vector of the same length as the corresponding dimension size,
 #'  giving the indices of this dimension to select for the operation.
 #'  * a \bold{character} vector of index names. \cr
 #'  If a dimension has multiple indices with the given name,
 #'  ALL the corresponding indices will be selected for the operation. \cr
-#' 
+#'  
 #' Note also the following:
 #'  * If `dims` is a single integer,
 #'  one can specify `sub` as an atomic vector of any of the above specified types,
@@ -163,6 +243,7 @@
 #' The `slice` argument can be any of the following:
 #' 
 #'  * a \bold{strictly positive integer} vector with dimension indices to select for the operation.
+#'  * a \bold{complex} vector, as explained at the start of this help page.
 #'  * a \bold{logical} vector of the same length as the corresponding dimension size,
 #'  giving the dimension indices to select for the operation.
 #'  * a \bold{character} vector of index names. \cr
@@ -249,20 +330,10 @@
 #' To drop potentially redundant (i.e. single level) dimensions,
 #' use the \link[base]{drop} function, like so:
 #' 
-#' ```
+#' ```{r eval = FALSE, echo = TRUE}
 #'  sb_x(x, row = row, col = col) |> drop() # ==> x[row, col, drop = TRUE]
 #'  
 #' ```
-#' 
-#' 
-#' @section First, Last, and Shuffle:
-#' The indices are counted forward. I.e. `1` is the first element, not the last. \cr
-#' One can use the \link[data.table]{last} function to get the last `N` indices. \cr
-#' \cr
-#' One can use the \link[data.table]{first} function to get the first `N` indices. \cr
-#' \cr
-#' To shuffle elements of indices, use the \link[base]{sample} function. \cr
-#' \cr
 #' 
 #' 
 #' @section Regarding Performance:

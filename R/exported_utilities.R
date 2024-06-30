@@ -34,6 +34,15 @@ indx_x <- function(i, x, xnames, xsize) {
     return(out)
   }
   if(is.logical(i)) return(which(i))
+  if(is.complex(i)) {
+    unim <- Im(i[1])
+    if(unim < 0) {
+      return(xsize - Re(i) + 1L)
+    }
+    else {
+      return(Re(i))
+    }
+  }
   if(is.numeric(i)) return(i)
 }
 
@@ -48,5 +57,15 @@ indx_rm <- function(i, x, xnames, xsize) {
     return(which(!(xnames %in% i)))
   }
   if(is.logical(i)) return(which(!i))
+  
+  if(is.complex(i)) {
+    unim <- Im(i[1])
+    if(unim < 0) {
+      i <- xsize - Re(i) + 1L
+    }
+    else {
+      i <- Re(i)
+    }
+  }
   if(is.numeric(i)) return(seq_len(xsize)[-i])
 }

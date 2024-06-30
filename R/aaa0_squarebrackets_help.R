@@ -159,13 +159,12 @@
 #'  * \link{match_all}: Find all matches, of one vector in another,
 #'  taking into account the order and any duplicate values of both vectors.
 #'  * Computing indices: \cr
+#'  \link{idx_rng} to compute a heterogeneous index range. \cr
 #'  \link{idx_by} to compute grouped indices. \cr
-#'  \link[=idx_ord_v]{idx_ord_}-functions to compute ordered indices.
+#'  \link[=idx_ord_v]{idx_ord_}-functions to compute ordered indices. \cr
 #'  * Computing sequences: \cr
 #'  \link{seq_rec2} for the recursive sequence generator
-#'  (for example to generate a Fibonacci sequence). \cr
-#'  \link{seq_names} to create a range of indices from a specified starting and ending name. \cr
-#' 
+#'  (for example to generate a Fibonacci sequence). \cr 
 #' 
 #' @author \strong{Maintainer}: Tony Wilkes \email{tony_a_wilkes@outlook.com} (\href{https://orcid.org/0000-0001-9498-8379}{ORCID})
 #' 
