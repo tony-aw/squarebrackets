@@ -36,7 +36,7 @@
 #' @keywords internal
 #' @noRd
 .indx_check_int <- function(indx, dlength, abortcall) {
-  if(.C_any_badindx(as.integer(indx), as.integer(dlength))) {
+  if(.C_any_badindx(indx, dlength)) {
     stop(simpleError("integers must be >= 1 and <= bounds", call = abortcall))
   }
 }

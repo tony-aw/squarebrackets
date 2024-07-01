@@ -19,6 +19,10 @@ in the generic methods of 'squarebrackets' to specify the indices to perform ope
 In this help page \code{x} refers to the object on which subset operations are performed. \cr
 \cr
 \cr
+}
+\section{Fundamentals}{
+
+
 Base 'R' supports indexing through \code{logical}, \code{integer}, and \code{character} vectors. \cr
 'squarebrackets' suppports these also (albeit with some improvements),
 but also supports some additional methods of indexing. \cr
@@ -28,7 +32,7 @@ but also supports some additional methods of indexing. \cr
 Integers are the most basic form on index selection. \cr
 All forms of indexing in 'squarebrackets' are internally translated to integer indexing first,
 ensuring consistency. \cr
-Indexing through integers in 'squarebrackets' works the same as in 'squarebrackets',
+Indexing through integers in 'squarebrackets' works the same as in base 'R',
 except that negative values are not allowed. \cr
 \cr
 \cr
@@ -80,21 +84,27 @@ sb_x(x, 10:1 - 1i) # last 10 elements, in tail()-like order
 #>  [1] 21 22 23 24 25 26 27 28 29 30
 }\if{html}{\out{</div>}}
 
+Thus complex vectors allow the user to choose between counting from the beginning,
+like regular integers,
+or counting from the end. \cr
+\cr
+\cr
 \bold{Combined Range} \cr
 Atomic vectors can only be of one type. \cr
 So creating a range like \code{n:2} (where \code{n} is the maximum index)
 cannot be done with the given indexing types,
 as it requires combining complex with integer types. \cr
 \cr
-However, the \link{idx_rng} function
+However, the \link{idx_r} function
 allows creating a index range of any combination of types. \cr
-So \code{n:2} can be created using \link{idx_rng}\code{(x, 1 - 1i, 2, ...)}. \cr
+So \code{n:2} can be created using \link{idx_r}\code{(x, 1 - 1i, 2, ...)}. \cr
 \cr
 \cr
 What follows are detailed descriptions of the common arguments
 in 'squarebrackets' used to select indices. \cr
 \cr
 }
+
 \section{Argument i}{
 
 \ifelse{html}{\figure{class-atomic_vector-blue.svg}{options: alt='[class: atomic vector]'}}{\link[=squarebrackets_indx_args]{class: atomic vector}} \cr
@@ -130,10 +140,6 @@ Using the \code{i} arguments corresponds to doing something like the following:
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{ sb_x(x, i = i) # ==> x[i]
  
 }\if{html}{\out{</div>}}
-
-For a brief explanation of the relationship between flat indices (\code{i}),
-and the dimension indices (\code{row}, \code{col}, etc.),
-see the \code{Details} section in \link{sub2ind}. \cr
 }
 
 \section{Arguments row, col}{
@@ -207,6 +213,10 @@ here using an example of extracting subsets from a 4-dimensional array:
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{sb_x(x, n(1:10, 1:5), c(1, 3)) # ==> x[1:10, , 1:5, , drop = FALSE]
 
 }\if{html}{\out{</div>}}
+
+For a brief explanation of the relationship between flat indices (\code{i}),
+and dimensional subscripts (\code{sub}, \code{dims}),
+see the \code{Details} section in \link{sub2ind}. \cr \cr
 }
 
 \section{Argument lvl}{

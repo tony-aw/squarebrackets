@@ -50,7 +50,7 @@ reference:
   - '`n`'
   - '`sub2ind`'
   - '`match_all`'
-  - '`idx_rng`'
+  - '`idx_r`'
   - '`idx_by`'
   - '`idx_ord_v`'
   - '`seq_rec2`'

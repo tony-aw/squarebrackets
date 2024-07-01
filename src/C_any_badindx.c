@@ -5,12 +5,33 @@
 // Inspired by collapse::anyv, though this function works differently
 
 SEXP C_any_badindx ( SEXP x, SEXP val ) {
-  R_xlen_t n = xlength(x);
-  const int *px = INTEGER(x);
-  int v;
-  v = asInteger(val);
-  for(int i = 0; i != n; ++i) { 
-    if(px[i] < 1 || px[i] > v) return ScalarLogical(1);
-  }
-  return ScalarLogical(0);
+ R_xlen_t n = xlength(x);
+ switch(TYPEOF(x)) {
+  case INTSXP:
+    {
+      const int *px = INTEGER(x);
+      int v;
+      v = asInteger(val);
+      for(int i = 0; i != n; ++i) { 
+        if(px[i] < 1 || px[i] > v) return ScalarLogical(1);
+      }
+      return ScalarLogical(0);
+      break;
+    }
+  
+  
+  case REALSXP: 
+    {
+      const double *px = REAL(x);
+      double v;
+      v = asReal(val);
+      for(int i = 0; i != n; ++i) { 
+        if(px[i] < 1 || px[i] > v) return ScalarLogical(1);
+      }
+      return ScalarLogical(0);
+      break;
+    }
+  default: error("unsupported type");
+ }
+ return(R_NilValue);
 }

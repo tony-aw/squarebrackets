@@ -14,6 +14,9 @@
 #' In this help page `x` refers to the object on which subset operations are performed. \cr
 #' \cr
 #' \cr
+#' 
+#' @section Fundamentals:
+#' 
 #' Base 'R' supports indexing through `logical`, `integer`, and `character` vectors. \cr
 #' 'squarebrackets' suppports these also (albeit with some improvements),
 #' but also supports some additional methods of indexing. \cr
@@ -23,7 +26,7 @@
 #' Integers are the most basic form on index selection. \cr
 #' All forms of indexing in 'squarebrackets' are internally translated to integer indexing first,
 #' ensuring consistency. \cr
-#' Indexing through integers in 'squarebrackets' works the same as in 'squarebrackets',
+#' Indexing through integers in 'squarebrackets' works the same as in base 'R',
 #' except that negative values are not allowed. \cr
 #' \cr
 #' \cr
@@ -72,16 +75,20 @@
 #' sb_x(x, 10:1 - 1i) # last 10 elements, in tail()-like order
 #' 
 #' ```
-#' 
+#' Thus complex vectors allow the user to choose between counting from the beginning,
+#' like regular integers,
+#' or counting from the end. \cr
+#' \cr
+#' \cr
 #' \bold{Combined Range} \cr
 #' Atomic vectors can only be of one type. \cr
 #' So creating a range like `n:2` (where `n` is the maximum index)
 #' cannot be done with the given indexing types,
 #' as it requires combining complex with integer types. \cr
 #' \cr
-#' However, the \link{idx_rng} function
+#' However, the \link{idx_r} function
 #' allows creating a index range of any combination of types. \cr
-#' So `n:2` can be created using \link{idx_rng}\code{(x, 1 - 1i, 2, ...)}. \cr
+#' So `n:2` can be created using \link{idx_r}\code{(x, 1 - 1i, 2, ...)}. \cr
 #' \cr
 #' \cr
 #' What follows are detailed descriptions of the common arguments
@@ -127,9 +134,6 @@
 #'  
 #' ```
 #' 
-#' For a brief explanation of the relationship between flat indices (`i`),
-#' and the dimension indices (`row`, `col`, etc.),
-#' see the `Details` section in \link{sub2ind}. \cr
 #' 
 #' 
 #' @section Arguments row, col:
@@ -198,6 +202,12 @@
 #' sb_x(x, n(1:10, 1:5), c(1, 3)) # ==> x[1:10, , 1:5, , drop = FALSE]
 #' 
 #' ```
+#' 
+#' For a brief explanation of the relationship between flat indices (`i`),
+#' and dimensional subscripts (`sub`, `dims`),
+#' see the `Details` section in \link{sub2ind}. \cr \cr
+#' 
+#' 
 #' 
 #' @section Argument lvl:
 #' `r .mybadge_class("factor")` \cr

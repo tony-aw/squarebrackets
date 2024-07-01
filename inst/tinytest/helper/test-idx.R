@@ -6,16 +6,18 @@ enumerate <- 0
 # idx_by ====
 
 for(i in 1:10) {
-  r <- sample(1:20)
+  x <- sample(1:20)
+  r <- setNames(seq_along(x), names(x))
   grp <- factor(sample(letters[1:20]))
   expect_equal(
-    idx_by(head, r, grp) |> as.integer(),
-    tapply(r, grp, head) |> unlist(use.names = FALSE) |> as.integer()
+    idx_by(x, 0L, head, grp) |> as.integer(),
+    tapply(r, grp, head, simplify = FALSE) |> unlist(use.names = TRUE) |> as.integer()
   ) |> errorfun()
-  r <- sample(letters[1:20])
+  x <- letters[1:20]
+  r <- setNames(seq_along(x), names(x))
   expect_equal(
-    idx_by(head, r, grp) |> as.character(),
-    tapply(r, grp, head) |> unlist(use.names = FALSE) |> as.character()
+    idx_by(x, 0, head, grp),
+    tapply(r, grp, head, simplify = FALSE) |> unlist(use.names = TRUE)
   ) |> errorfun()
   enumerate <- enumerate + 2
 }

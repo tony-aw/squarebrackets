@@ -36,9 +36,9 @@ idx_ord_df(
 \item{decr}{see argument \code{decreasing} in \link[base]{order}}
 
 \item{margin}{the margin over which to cut the matrix/array into vectors. \cr
-I.e. \code{margin = 1} will cut \code{x} into individual rows,
+I.e. \code{margin = 1L} will cut \code{x} into individual rows,
 and apply the \link[base]{order} on those rows. \cr
-And \code{margin = 2} will cut \code{x} into columns, etc.}
+And \code{margin = 2L} will cut \code{x} into columns, etc.}
 }
 \value{
 See \link[base]{order}.

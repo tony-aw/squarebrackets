@@ -31,9 +31,9 @@
 #' 
 #' @param x a vector, data.frame, or array
 #' @param margin the margin over which to cut the matrix/array into vectors. \cr
-#' I.e. `margin = 1` will cut `x` into individual rows,
+#' I.e. `margin = 1L` will cut `x` into individual rows,
 #' and apply the \link[base]{order} on those rows. \cr
-#' And `margin = 2` will cut `x` into columns, etc.
+#' And `margin = 2L` will cut `x` into columns, etc.
 #' @param decr see argument `decreasing` in \link[base]{order}
 #' @param na.last,method see \link[base]{order} and \link[base]{sort}.
 #' 

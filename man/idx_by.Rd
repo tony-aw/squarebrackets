@@ -4,22 +4,22 @@
 \alias{idx_by}
 \title{Compute Grouped Indices}
 \usage{
-idx_by(f, r, grp, parallel = FALSE, mc.cores = 1L)
+idx_by(x, m, f, grp, parallel = FALSE, mc.cores = 1L)
 }
 \arguments{
-\item{f}{a subset function to be applied per group on \code{r}. \cr
-The function must accept a character or integer vector as input,
-and produce a character or integer vector as output. \cr
+\item{x}{the object from which to compute the indices.}
+
+\item{m}{a single non-negative integer giving the margin for which to compute indices. \cr
+For flat indices or for non-dimensional objects, use \code{m = 0L}. \cr}
+
+\item{f}{a subset function to be applied per group on \code{indices}. \cr
+If \code{m == 0L}, \code{indices} is here defined as \code{setNames(1:length(x), names(x))}. \cr
+If \code{m > 0L}, \code{indices} is here defined as \code{setNames(1:dim(x)[m], dimnames(x)[[m]])}. \cr
+The function must produce a character or integer vector as output. \cr
 For example, to subset the last element per group, specify: \cr
 \code{f = last}}
 
-\item{r}{an integer or character vector,
-giving the complete range of indices of an object. \cr
-For example: \code{colnames(x)}, \code{1:nrow(x)}, etc.}
-
-\item{grp}{a factor giving the groups.
-Make sure its order corresponds to \code{i} and \code{r},
-otherwise it makes no sense.}
+\item{grp}{a factor giving the groups.}
 
 \item{parallel, mc.cores}{see \link[collapse]{BY}.}
 }
@@ -30,12 +30,11 @@ A vector of indices of the same type as \code{r}.
 Given:
 \itemize{
 \item a sub-set function \code{f};
-\item the complete range of indices \code{r} of some object \code{x};
+\item an object \code{x} with it's margin \code{m};
 \item and a grouping factor \code{grp};
 }
 
-the \code{idx_by()} function takes indices \code{f(r)} \bold{per group} \code{grp}. \cr
-The result of \code{idx_by()} can be supplied to the indexing arguments
+the \code{idx_by()} function takes indices\verb{\\bold\{per group\}}grp\verb{. \\cr The result of }idx_by()` can be supplied to the indexing arguments
 (see \link{squarebrackets_indx_args})
 to perform \bold{grouped} subset operations. \cr
 \cr
@@ -48,7 +47,7 @@ to perform \bold{grouped} subset operations. \cr
 (grp <- factor(rep(letters[1:5], each = 4)))
 
 # get the last element of `a` for each group in `grp`:
-i <- idx_by(last, seq_along(a), grp)
+i <- idx_by(a, 0L, last, grp)
 sb_x(cbind(a, grp), row = i)
 
 
@@ -60,11 +59,11 @@ x <- data.frame(
 )
 print(x)
 # get the first row for each group in data.frame `x`:
-row <- idx_by(first, 1:nrow(x), x$group)
+row <- idx_by(x, 1, first, x$group)
 sb2_x(x, row)
 # get the first row for each group for which a > 10:
 x2 <- sb2_x(x, filter = ~ a > 10)
-row <- na.omit(idx_by(first, 1:nrow(x2), x2$group))
+row <- na.omit(idx_by(x2, 1, first, x2$group))
 sb2_x(x2, row)
  
 
