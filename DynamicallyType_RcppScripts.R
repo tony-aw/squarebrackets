@@ -19,7 +19,7 @@ void rcpp_set_all_RTYPE(RTYPEVector x, RTYPEVector rp) {
     R_xlen_t counter = 0;
     for(R_xlen_t i = 0; i < n; ++i) {
       x[i] = rp[counter];
-      counter++;
+      counter += 1;
     }
   }
   else if(rp.length() == 1) {
@@ -67,6 +67,113 @@ Rcpp::sourceCpp(
 fileConn <- file("src/dynamic_rcpp_set_all.cpp")
 writeLines(rcpp_code, fileConn)
 close(fileConn)
+
+
+################################################################################
+
+# set vind ====
+
+Rcpp::cppFunction(
+  "
+  bool rcpp_check_len(
+    NumericVector rp
+  ) {
+    R_xlen_t n_rp = rp.length();
+    bool out = n_rp == 1;
+    return out;
+  }
+  "
+)
+
+rcpp_check_len(rp)
+
+
+RTYPES <- c("Logical", "Integer", "Numeric", "Character", "Complex", "Raw")
+
+templatecode <- "
+
+//' @keywords internal
+//' @noRd
+// [[Rcpp::export(.rcpp_set_vind_64_RTYPE)]]
+void rcpp_set_vind_64_RTYPE(RTYPEVector x, const NumericVector ind, const RTYPEVector rp) {
+  R_xlen_t n = ind.length();
+  if(rp.length() == n) {
+    R_xlen_t counter = 0;
+    for(R_xlen_t i = 0; i < n; ++i) {
+      x[ind[i]] = rp[counter];
+      counter += 1;
+    }
+  }
+  else if(rp.length() == 1) {
+    for(R_xlen_t i = 0; i < n; ++i) {
+      x[ind[i]] = rp[0];
+    }
+  }
+  else stop(\"recycling not allowed\");
+}
+
+
+//' @keywords internal
+//' @noRd
+// [[Rcpp::export(.rcpp_set_vind_32_RTYPE)]]
+void rcpp_set_vind_32_RTYPE(RTYPEVector x, const IntegerVector ind, const RTYPEVector rp) {
+  R_xlen_t n = ind.length();
+  
+  if(rp.length() == n) {
+    R_xlen_t counter = 0;
+    for(R_xlen_t i = 0; i < n; ++i) {
+      x[ind[i]] = rp[counter];
+      counter += 1;
+    }
+  }
+  else if(rp.length() == 1) {
+    for(R_xlen_t i = 0; i < n; ++i) {
+      x[ind[i]] = rp[0];
+    }
+  }
+  else stop(\"recycling not allowed\");
+}
+
+"
+
+
+rcpp_scripts <- character(length(RTYPES))
+names(rcpp_scripts) <- RTYPES
+for(i in seq_along(RTYPES)) {
+  rcpp_scripts[[i]] <- stri_replace_all(
+    templatecode,
+    fixed = c("RTYPE"),
+    replacement = c(RTYPES[i]),
+    case_insensitive = FALSE,
+    vectorize_all = FALSE
+  )
+}
+
+
+headers <- "
+
+#include <Rcpp.h>
+
+using namespace Rcpp;
+
+
+
+
+"
+rcpp_code <- paste(c(headers, rcpp_scripts), collapse = "\n\n\n")
+cat(rcpp_code)
+
+Rcpp::sourceCpp(
+  code = rcpp_code # no errors, good
+)
+
+fileConn <- file("src/dynamic_rcpp_set_vind.cpp")
+writeLines(rcpp_code, fileConn)
+close(fileConn)
+
+
+################################################################################
+
 
 
 # set matrix scripts ====

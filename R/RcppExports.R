@@ -423,6 +423,78 @@
 
 #' @keywords internal
 #' @noRd
+.rcpp_set_vind_64_Logical <- function(x, ind, rp) {
+    invisible(.Call(`_squarebrackets_rcpp_set_vind_64_Logical`, x, ind, rp))
+}
+
+#' @keywords internal
+#' @noRd
+.rcpp_set_vind_32_Logical <- function(x, ind, rp) {
+    invisible(.Call(`_squarebrackets_rcpp_set_vind_32_Logical`, x, ind, rp))
+}
+
+#' @keywords internal
+#' @noRd
+.rcpp_set_vind_64_Integer <- function(x, ind, rp) {
+    invisible(.Call(`_squarebrackets_rcpp_set_vind_64_Integer`, x, ind, rp))
+}
+
+#' @keywords internal
+#' @noRd
+.rcpp_set_vind_32_Integer <- function(x, ind, rp) {
+    invisible(.Call(`_squarebrackets_rcpp_set_vind_32_Integer`, x, ind, rp))
+}
+
+#' @keywords internal
+#' @noRd
+.rcpp_set_vind_64_Numeric <- function(x, ind, rp) {
+    invisible(.Call(`_squarebrackets_rcpp_set_vind_64_Numeric`, x, ind, rp))
+}
+
+#' @keywords internal
+#' @noRd
+.rcpp_set_vind_32_Numeric <- function(x, ind, rp) {
+    invisible(.Call(`_squarebrackets_rcpp_set_vind_32_Numeric`, x, ind, rp))
+}
+
+#' @keywords internal
+#' @noRd
+.rcpp_set_vind_64_Character <- function(x, ind, rp) {
+    invisible(.Call(`_squarebrackets_rcpp_set_vind_64_Character`, x, ind, rp))
+}
+
+#' @keywords internal
+#' @noRd
+.rcpp_set_vind_32_Character <- function(x, ind, rp) {
+    invisible(.Call(`_squarebrackets_rcpp_set_vind_32_Character`, x, ind, rp))
+}
+
+#' @keywords internal
+#' @noRd
+.rcpp_set_vind_64_Complex <- function(x, ind, rp) {
+    invisible(.Call(`_squarebrackets_rcpp_set_vind_64_Complex`, x, ind, rp))
+}
+
+#' @keywords internal
+#' @noRd
+.rcpp_set_vind_32_Complex <- function(x, ind, rp) {
+    invisible(.Call(`_squarebrackets_rcpp_set_vind_32_Complex`, x, ind, rp))
+}
+
+#' @keywords internal
+#' @noRd
+.rcpp_set_vind_64_Raw <- function(x, ind, rp) {
+    invisible(.Call(`_squarebrackets_rcpp_set_vind_64_Raw`, x, ind, rp))
+}
+
+#' @keywords internal
+#' @noRd
+.rcpp_set_vind_32_Raw <- function(x, ind, rp) {
+    invisible(.Call(`_squarebrackets_rcpp_set_vind_32_Raw`, x, ind, rp))
+}
+
+#' @keywords internal
+#' @noRd
 .rcpp_setapply_row_Logical <- function(x, f) {
     invisible(.Call(`_squarebrackets_rcpp_setapply_col_Logical`, x, f))
 }
@@ -695,12 +767,6 @@
 #' @noRd
 .rcpp_set_namepointer <- function(nms, ind, rp) {
     invisible(.Call(`_squarebrackets_rcpp_set_namepointer`, nms, ind, rp))
-}
-
-#' @keywords internal
-#' @noRd
-.rcpp_setvind_Complex <- function(x, ind, rp) {
-    invisible(.Call(`_squarebrackets_rcpp_setvind_Complex`, x, ind, rp))
 }
 
 #' @keywords internal

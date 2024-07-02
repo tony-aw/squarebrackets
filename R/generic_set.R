@@ -236,14 +236,9 @@ sb2_set.data.table <- function(
   }
   
   .check_rp_atomic(rp, n.i, abortcall)
-  if(!is.complex(x)) {
-    collapse::setv(x, v = as.integer(elements), R = rp, vind1 = TRUE)
-    return(invisible(NULL))
-  }
-  if(is.complex(x)) {
-    .rcpp_setvind_Complex(x, as.integer(elements - 1L), as.complex(rp))
-    return(invisible(NULL))
-  }
+  
+  .rcpp_set_vind(x, elements, rp, abortcall)
+  return(invisible(NULL))
   
 }
 

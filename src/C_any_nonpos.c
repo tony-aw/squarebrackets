@@ -10,7 +10,7 @@ switch(TYPEOF(x)) {
   case INTSXP:
     {
       const int *px = INTEGER(x);
-      for(int i = 0; i != n; ++i) { 
+      for(R_xlen_t i = 0; i != n; ++i) { 
         if(px[i] < 1) return ScalarLogical(1);
       }
       return ScalarLogical(0);
@@ -21,7 +21,7 @@ switch(TYPEOF(x)) {
   case REALSXP: 
     {
       const double *px = REAL(x);
-      for(int i = 0; i != n; ++i) { 
+      for(R_xlen_t i = 0; i != n; ++i) { 
         if(px[i] < 1) return ScalarLogical(1);
       }
       return ScalarLogical(0);

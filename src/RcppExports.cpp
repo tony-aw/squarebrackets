@@ -998,6 +998,150 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
+// rcpp_set_vind_64_Logical
+void rcpp_set_vind_64_Logical(LogicalVector x, const NumericVector ind, const LogicalVector rp);
+RcppExport SEXP _squarebrackets_rcpp_set_vind_64_Logical(SEXP xSEXP, SEXP indSEXP, SEXP rpSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< LogicalVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const NumericVector >::type ind(indSEXP);
+    Rcpp::traits::input_parameter< const LogicalVector >::type rp(rpSEXP);
+    rcpp_set_vind_64_Logical(x, ind, rp);
+    return R_NilValue;
+END_RCPP
+}
+// rcpp_set_vind_32_Logical
+void rcpp_set_vind_32_Logical(LogicalVector x, const IntegerVector ind, const LogicalVector rp);
+RcppExport SEXP _squarebrackets_rcpp_set_vind_32_Logical(SEXP xSEXP, SEXP indSEXP, SEXP rpSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< LogicalVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const IntegerVector >::type ind(indSEXP);
+    Rcpp::traits::input_parameter< const LogicalVector >::type rp(rpSEXP);
+    rcpp_set_vind_32_Logical(x, ind, rp);
+    return R_NilValue;
+END_RCPP
+}
+// rcpp_set_vind_64_Integer
+void rcpp_set_vind_64_Integer(IntegerVector x, const NumericVector ind, const IntegerVector rp);
+RcppExport SEXP _squarebrackets_rcpp_set_vind_64_Integer(SEXP xSEXP, SEXP indSEXP, SEXP rpSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const NumericVector >::type ind(indSEXP);
+    Rcpp::traits::input_parameter< const IntegerVector >::type rp(rpSEXP);
+    rcpp_set_vind_64_Integer(x, ind, rp);
+    return R_NilValue;
+END_RCPP
+}
+// rcpp_set_vind_32_Integer
+void rcpp_set_vind_32_Integer(IntegerVector x, const IntegerVector ind, const IntegerVector rp);
+RcppExport SEXP _squarebrackets_rcpp_set_vind_32_Integer(SEXP xSEXP, SEXP indSEXP, SEXP rpSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const IntegerVector >::type ind(indSEXP);
+    Rcpp::traits::input_parameter< const IntegerVector >::type rp(rpSEXP);
+    rcpp_set_vind_32_Integer(x, ind, rp);
+    return R_NilValue;
+END_RCPP
+}
+// rcpp_set_vind_64_Numeric
+void rcpp_set_vind_64_Numeric(NumericVector x, const NumericVector ind, const NumericVector rp);
+RcppExport SEXP _squarebrackets_rcpp_set_vind_64_Numeric(SEXP xSEXP, SEXP indSEXP, SEXP rpSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const NumericVector >::type ind(indSEXP);
+    Rcpp::traits::input_parameter< const NumericVector >::type rp(rpSEXP);
+    rcpp_set_vind_64_Numeric(x, ind, rp);
+    return R_NilValue;
+END_RCPP
+}
+// rcpp_set_vind_32_Numeric
+void rcpp_set_vind_32_Numeric(NumericVector x, const IntegerVector ind, const NumericVector rp);
+RcppExport SEXP _squarebrackets_rcpp_set_vind_32_Numeric(SEXP xSEXP, SEXP indSEXP, SEXP rpSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const IntegerVector >::type ind(indSEXP);
+    Rcpp::traits::input_parameter< const NumericVector >::type rp(rpSEXP);
+    rcpp_set_vind_32_Numeric(x, ind, rp);
+    return R_NilValue;
+END_RCPP
+}
+// rcpp_set_vind_64_Character
+void rcpp_set_vind_64_Character(CharacterVector x, const NumericVector ind, const CharacterVector rp);
+RcppExport SEXP _squarebrackets_rcpp_set_vind_64_Character(SEXP xSEXP, SEXP indSEXP, SEXP rpSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< CharacterVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const NumericVector >::type ind(indSEXP);
+    Rcpp::traits::input_parameter< const CharacterVector >::type rp(rpSEXP);
+    rcpp_set_vind_64_Character(x, ind, rp);
+    return R_NilValue;
+END_RCPP
+}
+// rcpp_set_vind_32_Character
+void rcpp_set_vind_32_Character(CharacterVector x, const IntegerVector ind, const CharacterVector rp);
+RcppExport SEXP _squarebrackets_rcpp_set_vind_32_Character(SEXP xSEXP, SEXP indSEXP, SEXP rpSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< CharacterVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const IntegerVector >::type ind(indSEXP);
+    Rcpp::traits::input_parameter< const CharacterVector >::type rp(rpSEXP);
+    rcpp_set_vind_32_Character(x, ind, rp);
+    return R_NilValue;
+END_RCPP
+}
+// rcpp_set_vind_64_Complex
+void rcpp_set_vind_64_Complex(ComplexVector x, const NumericVector ind, const ComplexVector rp);
+RcppExport SEXP _squarebrackets_rcpp_set_vind_64_Complex(SEXP xSEXP, SEXP indSEXP, SEXP rpSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< ComplexVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const NumericVector >::type ind(indSEXP);
+    Rcpp::traits::input_parameter< const ComplexVector >::type rp(rpSEXP);
+    rcpp_set_vind_64_Complex(x, ind, rp);
+    return R_NilValue;
+END_RCPP
+}
+// rcpp_set_vind_32_Complex
+void rcpp_set_vind_32_Complex(ComplexVector x, const IntegerVector ind, const ComplexVector rp);
+RcppExport SEXP _squarebrackets_rcpp_set_vind_32_Complex(SEXP xSEXP, SEXP indSEXP, SEXP rpSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< ComplexVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const IntegerVector >::type ind(indSEXP);
+    Rcpp::traits::input_parameter< const ComplexVector >::type rp(rpSEXP);
+    rcpp_set_vind_32_Complex(x, ind, rp);
+    return R_NilValue;
+END_RCPP
+}
+// rcpp_set_vind_64_Raw
+void rcpp_set_vind_64_Raw(RawVector x, const NumericVector ind, const RawVector rp);
+RcppExport SEXP _squarebrackets_rcpp_set_vind_64_Raw(SEXP xSEXP, SEXP indSEXP, SEXP rpSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< RawVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const NumericVector >::type ind(indSEXP);
+    Rcpp::traits::input_parameter< const RawVector >::type rp(rpSEXP);
+    rcpp_set_vind_64_Raw(x, ind, rp);
+    return R_NilValue;
+END_RCPP
+}
+// rcpp_set_vind_32_Raw
+void rcpp_set_vind_32_Raw(RawVector x, const IntegerVector ind, const RawVector rp);
+RcppExport SEXP _squarebrackets_rcpp_set_vind_32_Raw(SEXP xSEXP, SEXP indSEXP, SEXP rpSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< RawVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const IntegerVector >::type ind(indSEXP);
+    Rcpp::traits::input_parameter< const RawVector >::type rp(rpSEXP);
+    rcpp_set_vind_32_Raw(x, ind, rp);
+    return R_NilValue;
+END_RCPP
+}
 // rcpp_setapply_col_Logical
 void rcpp_setapply_col_Logical(LogicalMatrix x, Function f);
 RcppExport SEXP _squarebrackets_rcpp_setapply_col_Logical(SEXP xSEXP, SEXP fSEXP) {
@@ -1570,18 +1714,6 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
-// rcpp_setvind_Complex
-void rcpp_setvind_Complex(ComplexVector x, IntegerVector ind, ComplexVector rp);
-RcppExport SEXP _squarebrackets_rcpp_setvind_Complex(SEXP xSEXP, SEXP indSEXP, SEXP rpSEXP) {
-BEGIN_RCPP
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< ComplexVector >::type x(xSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type ind(indSEXP);
-    Rcpp::traits::input_parameter< ComplexVector >::type rp(rpSEXP);
-    rcpp_setvind_Complex(x, ind, rp);
-    return R_NilValue;
-END_RCPP
-}
 // rcpp_sub2coord
 IntegerMatrix rcpp_sub2coord(const List lst, const int nrow, const int ncol, const IntegerVector lens, const IntegerVector reps_each, const IntegerVector reps_whole);
 RcppExport SEXP _squarebrackets_rcpp_sub2coord(SEXP lstSEXP, SEXP nrowSEXP, SEXP ncolSEXP, SEXP lensSEXP, SEXP reps_eachSEXP, SEXP reps_wholeSEXP) {
@@ -1689,6 +1821,18 @@ static const R_CallMethodDef CallEntries[] = {
     {"_squarebrackets_rcpp_set_matrix_row_Raw", (DL_FUNC) &_squarebrackets_rcpp_set_matrix_row_Raw, 3},
     {"_squarebrackets_rcpp_set_matrix_col_Raw", (DL_FUNC) &_squarebrackets_rcpp_set_matrix_col_Raw, 3},
     {"_squarebrackets_rcpp_set_matrix_Raw", (DL_FUNC) &_squarebrackets_rcpp_set_matrix_Raw, 4},
+    {"_squarebrackets_rcpp_set_vind_64_Logical", (DL_FUNC) &_squarebrackets_rcpp_set_vind_64_Logical, 3},
+    {"_squarebrackets_rcpp_set_vind_32_Logical", (DL_FUNC) &_squarebrackets_rcpp_set_vind_32_Logical, 3},
+    {"_squarebrackets_rcpp_set_vind_64_Integer", (DL_FUNC) &_squarebrackets_rcpp_set_vind_64_Integer, 3},
+    {"_squarebrackets_rcpp_set_vind_32_Integer", (DL_FUNC) &_squarebrackets_rcpp_set_vind_32_Integer, 3},
+    {"_squarebrackets_rcpp_set_vind_64_Numeric", (DL_FUNC) &_squarebrackets_rcpp_set_vind_64_Numeric, 3},
+    {"_squarebrackets_rcpp_set_vind_32_Numeric", (DL_FUNC) &_squarebrackets_rcpp_set_vind_32_Numeric, 3},
+    {"_squarebrackets_rcpp_set_vind_64_Character", (DL_FUNC) &_squarebrackets_rcpp_set_vind_64_Character, 3},
+    {"_squarebrackets_rcpp_set_vind_32_Character", (DL_FUNC) &_squarebrackets_rcpp_set_vind_32_Character, 3},
+    {"_squarebrackets_rcpp_set_vind_64_Complex", (DL_FUNC) &_squarebrackets_rcpp_set_vind_64_Complex, 3},
+    {"_squarebrackets_rcpp_set_vind_32_Complex", (DL_FUNC) &_squarebrackets_rcpp_set_vind_32_Complex, 3},
+    {"_squarebrackets_rcpp_set_vind_64_Raw", (DL_FUNC) &_squarebrackets_rcpp_set_vind_64_Raw, 3},
+    {"_squarebrackets_rcpp_set_vind_32_Raw", (DL_FUNC) &_squarebrackets_rcpp_set_vind_32_Raw, 3},
     {"_squarebrackets_rcpp_setapply_col_Logical", (DL_FUNC) &_squarebrackets_rcpp_setapply_col_Logical, 2},
     {"_squarebrackets_rcpp_setapply_row_Logical", (DL_FUNC) &_squarebrackets_rcpp_setapply_row_Logical, 2},
     {"_squarebrackets_rcpp_setapply_col_Integer", (DL_FUNC) &_squarebrackets_rcpp_setapply_col_Integer, 2},
@@ -1735,7 +1879,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_squarebrackets_rcpp_seq_mlen", (DL_FUNC) &_squarebrackets_rcpp_seq_mlen, 1},
     {"_squarebrackets_rcpp_recycle_seq_mlen", (DL_FUNC) &_squarebrackets_rcpp_recycle_seq_mlen, 2},
     {"_squarebrackets_rcpp_set_namepointer", (DL_FUNC) &_squarebrackets_rcpp_set_namepointer, 3},
-    {"_squarebrackets_rcpp_setvind_Complex", (DL_FUNC) &_squarebrackets_rcpp_setvind_Complex, 3},
     {"_squarebrackets_rcpp_sub2coord", (DL_FUNC) &_squarebrackets_rcpp_sub2coord, 6},
     {"_squarebrackets_rcpp_sub2ind_general", (DL_FUNC) &_squarebrackets_rcpp_sub2ind_general, 6},
     {"C_any_badindx", (DL_FUNC) &C_any_badindx, 2},

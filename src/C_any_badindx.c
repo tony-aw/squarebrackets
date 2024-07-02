@@ -12,7 +12,7 @@ SEXP C_any_badindx ( SEXP x, SEXP val ) {
       const int *px = INTEGER(x);
       int v;
       v = asInteger(val);
-      for(int i = 0; i != n; ++i) { 
+      for(R_xlen_t i = 0; i != n; ++i) { 
         if(px[i] < 1 || px[i] > v) return ScalarLogical(1);
       }
       return ScalarLogical(0);
@@ -25,7 +25,7 @@ SEXP C_any_badindx ( SEXP x, SEXP val ) {
       const double *px = REAL(x);
       double v;
       v = asReal(val);
-      for(int i = 0; i != n; ++i) { 
+      for(R_xlen_t i = 0; i != n; ++i) { 
         if(px[i] < 1 || px[i] > v) return ScalarLogical(1);
       }
       return ScalarLogical(0);
