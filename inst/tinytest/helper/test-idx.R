@@ -68,4 +68,3 @@ for(i_na.last in c(TRUE, FALSE)) {
     }
   }
 }
-

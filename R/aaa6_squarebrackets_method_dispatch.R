@@ -25,8 +25,8 @@
 #'  (logical, integer, double, character, complex, raw). \cr
 #'  In contract, recursive objects are heterogeneous,
 #'  as they can have any combination of data-types.
-#'  - **vectorization**: vectorized operations work on atomic objects,
-#'  whereas recursive objects require loops or apply-like functions. \cr
+#'  - **vectorization**: vectorized operations generally work on atomic objects,
+#'  whereas recursive objects generally require loops or apply-like functions. \cr
 #'  This is especially relevant for transforming subsets.
 #'  - **recursive subsets**: Recursive objects distinguish between "regular" subset operations
 #'  (in base R using `[`, `[<-`),
@@ -36,7 +36,7 @@
 #'  these 2 subset operations are significantly different.
 #'  - **views**: Recursive objects are weird in that they are *pointers* to other objects. \cr
 #'  As such they allow their extracted subsets to be *views* of these pointers
-#'  (see \link{squarebrackets_PassByReference}
+#'  (see \link{squarebrackets_mutable_classes}
 #'  for more information on how to use "views" of recursive objects). \cr
 #'  Atomic objects do now allow for subset views. \cr
 #' 

@@ -178,7 +178,7 @@ and vice-versa.
 \item \link{match_all}: Find all matches, of one vector in another,
 taking into account the order and any duplicate values of both vectors.
 \item Computing indices: \cr
-\link{idx_r} to compute a heterogeneous index range. \cr
+\link{idx_r} to compute an integer index range. \cr
 \link{idx_by} to compute grouped indices. \cr
 \link[=idx_ord_v]{idx_ord_}-functions to compute ordered indices. \cr
 \item Computing sequences: \cr

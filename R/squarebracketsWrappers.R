@@ -7,6 +7,18 @@
 
 #' @keywords Internal
 #' @noRd
-.C_any_nonpos <- function(x, val) {
-  .Call("C_any_nonpos", x = x, val = val)
+.C_any_badmargin <- function(x, val) {
+  .Call("C_any_badmargin", x = x, val = val)
+}
+
+#' @keywords Internal
+#' @noRd
+.C_any_nonpos <- function(x) {
+  .Call("C_any_nonpos", x = x)
+}
+
+#' @keywords Internal
+#' @noRd
+.C_any_neg <- function(x) {
+  .Call("C_any_neg", x = x)
 }

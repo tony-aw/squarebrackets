@@ -33,6 +33,7 @@
   
   n.indx <- length(indx)
   
+  
   if(n.indx == 0L) {
     return(integer(0L))
   }

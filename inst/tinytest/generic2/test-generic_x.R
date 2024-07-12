@@ -18,7 +18,7 @@ test_sb <- function(x, i) {
 temp.fun <- function(x, elements) {
   for (i in 1:length(elements)) {
     expect_equal(
-      sb2_x(x, i = elements[[i]], .attr = NULL),
+      sb2_x(x, i = elements[[i]]),
       test_sb(x, i = elements[[i]])
     ) |> errorfun()
     assign("enumerate", enumerate + 1, envir = parent.frame(n = 1))

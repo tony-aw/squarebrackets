@@ -95,6 +95,7 @@ sb_mod.default <- function(
     rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
+  .internal_check_dots(list(...), sys.call())
   
   .internal_check_rptf(rp, tf, sys.call())
   
@@ -122,6 +123,7 @@ sb_mod.matrix <- function(
     rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
+  .internal_check_dots(list(...), sys.call())
   
   .internal_check_rptf(rp, tf, sys.call())
   
@@ -160,6 +162,8 @@ sb_mod.array <- function(
     rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
+  .internal_check_dots(list(...), sys.call())
+  
   .internal_check_rptf(rp, tf, sys.call())
   
   if(!is.null(i)) {
@@ -191,6 +195,8 @@ sb_mod.array <- function(
 sb_mod.factor <- function(
     x, i = NULL, lvl = NULL, inv = FALSE, ..., rp, chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
+  
+  .internal_check_dots(list(...), sys.call())
   
   .check_args_factor(i, lvl, drop = FALSE, abortcall = sys.call())
   
@@ -233,6 +239,8 @@ sb2_mod.default <- function(
     rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE), .lapply = lapply
 ) {
   
+  .internal_check_dots(list(...), sys.call())
+  
   .internal_check_rptf(rp, tf, sys.call())
   
   elements <- .indx_make_element(
@@ -263,6 +271,8 @@ sb2_mod.array <- function(
     x, sub = NULL, dims = NULL, i = NULL, inv = FALSE, ...,
     rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE), .lapply = lapply
 ) {
+  
+  .internal_check_dots(list(...), sys.call())
   
   .internal_check_rptf(rp, tf, sys.call())
   
@@ -297,6 +307,8 @@ sb2_mod.data.frame <- function(
     x, row = NULL, col = NULL, filter = NULL, vars = NULL, inv = FALSE, coe = FALSE, ...,
     rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE), .lapply = lapply
 ) {
+  
+  .internal_check_dots(list(...), sys.call())
   
   .internal_check_rptf(rp, tf, sys.call())
   

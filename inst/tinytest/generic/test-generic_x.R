@@ -18,7 +18,7 @@ test_sb <- function(x, i) {
 temp.fun <- function(x, elements) {
   for (i in 1:length(elements)) {
     expect_equal(
-      sb_x(x, i = elements[[i]], .attr = NULL),
+      sb_x(x, i = elements[[i]]),
       test_sb(x, i = elements[[i]])
     ) |> errorfun()
     assign("enumerate", enumerate + 1, envir = parent.frame(n = 1))
@@ -34,7 +34,7 @@ sys.source(file.path(getwd(), "source", "sourcetest-elements.R"), envir = enviro
 temp.fun <- function(x, elements) {
   for (i in 1:length(elements)) {
     expect_equal(
-      sb_x(x, i = elements[[i]], .attr = NULL),
+      sb_x(x, i = elements[[i]]),
       test_sb(x, i = elements[[i]])
     ) |> errorfun()
     expect_equal(

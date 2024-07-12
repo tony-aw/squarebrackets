@@ -741,6 +741,12 @@
 
 #' @keywords internal
 #' @noRd
+.rcpp_indx_convert_cplx_multi <- function(re, im, lens) {
+    .Call(`_squarebrackets_rcpp_indx_convert_cplx_multi`, re, im, lens)
+}
+
+#' @keywords internal
+#' @noRd
 .rcpp_sb_str <- function(x, ind) {
     .Call(`_squarebrackets_rcpp_sb_str`, x, ind)
 }

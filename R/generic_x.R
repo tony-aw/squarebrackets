@@ -36,10 +36,6 @@ sb_x <- function(x, ...) {
   if(is.recursive(x)) {
     stop("Use the `sb2_` methods for recursive objects")
   }
-  lst <- list(...)
-  if(any(c("inv", "rp", "tf") %in% names(lst))) {
-    stop("unknown arguments given")
-  }
   
   UseMethod("sb_x", x)
 }
@@ -48,6 +44,9 @@ sb_x <- function(x, ...) {
 #' @rdname sb_x
 #' @export
 sb_x.default <- function(x, i, ...) {
+  
+  .internal_check_dots(list(...), sys.call())
+  
   elements <- .indx_make_element.sb_x(i, x, is_list = FALSE, abortcall = sys.call())
   return(x[elements])
 }
@@ -58,6 +57,8 @@ sb_x.default <- function(x, i, ...) {
 sb_x.matrix <- function(
     x, row = NULL, col = NULL, i = NULL, ...
 ) {
+  
+  .internal_check_dots(list(...), sys.call())
   
   if(!is.null(i)) {
     elements <- .indx_make_element.sb_x(i, x, is_list = FALSE, abortcall = sys.call())
@@ -108,6 +109,8 @@ sb_x.array <- function(
     x, sub = NULL, dims = NULL, i = NULL, ...
 ) {
   
+  .internal_check_dots(list(...), sys.call())
+  
   return(.sb_x_array(x, sub, dims, i, sys.call()))
   
 }
@@ -115,6 +118,8 @@ sb_x.array <- function(
 #' @rdname sb_x
 #' @export
 sb_x.factor <- function(x, i = NULL, lvl = NULL, drop = FALSE, ...) {
+  
+  .internal_check_dots(list(...), sys.call())
   
   .check_args_factor(i, lvl, drop, abortcall = sys.call())
   
@@ -138,11 +143,6 @@ sb2_x <- function(x, ...) {
     stop("Use the `sb_` methods for non-recursive objects")
   }
   
-  lst <- list(...)
-  if(any(c("inv", "rp", "tf") %in% names(lst))) {
-    stop("unknown arguments given")
-  }
-  
   UseMethod("sb2_x", x)
 }
 
@@ -150,6 +150,8 @@ sb2_x <- function(x, ...) {
 #' @rdname sb_x
 #' @export
 sb2_x.default <- function(x, i, drop = FALSE, ...) {
+  
+  .internal_check_dots(list(...), sys.call())
   
   if(!isTRUE(drop) && !isFALSE(drop)) {
     stop("`drop` must be either `TRUE` or `FALSE`")
@@ -173,6 +175,12 @@ sb2_x.array <- function(
     x, sub = NULL, dims = NULL, i = NULL, drop = FALSE, ...
 ) {
   
+  .internal_check_dots(list(...), sys.call())
+  
+  if(!isTRUE(drop) && !isFALSE(drop)) {
+    stop("`drop` must be either `TRUE` or `FALSE`")
+  }
+  
   x <- .sb_x_array(x, sub, dims, i, sys.call())
   
   if(length(x) == 1 && drop) {
@@ -187,6 +195,8 @@ sb2_x.array <- function(
 sb2_x.data.frame <- function(
     x, row = NULL, col = NULL, filter = NULL, vars = NULL, ...
 ) {
+  
+  .internal_check_dots(list(...), sys.call())
   
   .check_args_df(x, row, col, filter, vars, abortcall = sys.call())
   

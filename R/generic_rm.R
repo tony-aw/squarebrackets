@@ -47,6 +47,8 @@ sb_rm.default <- function(
     chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
+  .internal_check_dots(list(...), sys.call())
+  
   elements <- .indx_make_element(
     i, x, is_list = FALSE, chkdup = chkdup, inv = TRUE, abortcall = sys.call()
   )
@@ -60,6 +62,8 @@ sb_rm.matrix <- function(
     x, row = NULL, col = NULL, i = NULL, ...,
     chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
+  
+  .internal_check_dots(list(...), sys.call())
   
   if(!is.null(i)) {
     elements <- .indx_make_element(i, x, is_list = FALSE, chkdup = chkdup, inv = TRUE, abortcall = sys.call())
@@ -111,6 +115,8 @@ sb_rm.array <- function(
     chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
+  .internal_check_dots(list(...), sys.call())
+  
   return(.sb_rm_array(x, sub, dims, i, chkdup, sys.call()))
 }
 
@@ -122,7 +128,8 @@ sb_rm.factor <- function(
     chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
- 
+  .internal_check_dots(list(...), sys.call())
+  
   .check_args_factor(i, lvl, drop, abortcall = sys.call())
   
   if(!is.null(i)) {
@@ -155,6 +162,7 @@ sb2_rm.default <- function(
     chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
+  .internal_check_dots(list(...), sys.call())
   
   elements <- .indx_make_element(i, x, is_list = TRUE, chkdup = chkdup, inv = TRUE, abortcall = sys.call())
   n.i <- length(elements)
@@ -174,6 +182,8 @@ sb2_rm.array <- function(
     chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
+  .internal_check_dots(list(...), sys.call())
+  
   x <- .sb_rm_array(x, sub, dims, i, chkdup, sys.call())
   
   if(length(x) == 1 && drop) {
@@ -190,6 +200,8 @@ sb2_rm.data.frame <- function(
     x, row = NULL, col = NULL, filter = NULL, vars = NULL, ...,
     chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
+  
+  .internal_check_dots(list(...), sys.call())
   
   .check_args_df(x, row, col, filter, vars, abortcall = sys.call())
   

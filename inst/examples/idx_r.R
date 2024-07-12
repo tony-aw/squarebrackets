@@ -4,5 +4,13 @@ x <- data.frame(
 )
 print(x)
 ind1 <- idx_r(x, 1, 2, 2-1i) # rows 2:(n-1)
-ind2 <- idx_r(x, 2, "d", 2) # columns d:2
-sb2_x(x, ind1, ind2)
+sb2_x(x, ind1) # extract the row range
+
+x <- array(1:125, c(5,5,5))
+dims <- 1:3
+sub <- idx_r(x, dims, 2, 2-1i) # 2:(n-1) for every dimension
+sb_x(x, sub, dims) # same as x[ 2:4, 2:4, 2:4, drop = FALSE]
+
+x <- letters
+x[idx_r(x, 0, 2, 2-1i)]
+

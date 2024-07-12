@@ -2,40 +2,60 @@
 % Please edit documentation in R/idx_r.R
 \name{idx_r}
 \alias{idx_r}
-\title{Compute Heterogeneous Index Range}
+\title{Compute Integer Index Range}
 \usage{
-idx_r(x, m, start, end, by = 1L)
+idx_r(x, m = 0L, start = NULL, end = NULL, by = 1L)
 }
 \arguments{
-\item{x}{the object from which to compute the indices.}
+\item{x}{the object to index.}
 
-\item{m}{a single non-negative integer giving the margin for which to compute indices. \cr
-For flat indices or for non-dimensional objects, use \code{m = 0L}. \cr}
+\item{m}{integer, giving the margin. \cr
+For non-dimensional objects or for flat indices, specify \code{m = 0L}.}
 
-\item{start, end}{the start and end of the range. \cr
-Can be any combination of any of the following: \cr
-\itemize{
-\item A strictly positive integer.
-\item A complex number (see explanation in \link{squarebrackets_indx_args}).
-\item A string to refer to a name. \cr
-In case of \code{start}, the first  match will be used. \cr
-In case of \code{end}, the last match will be used. \cr
-\item a Boolean-returning function to be applied on \code{indices}. \cr
-If \code{m == 0L}, \code{indices} is here defined as \code{setNames(1:length(x), names(x))}. \cr
-If \code{m > 0L}, \code{indices} is here defined as \code{setNames(1:dim(x)[m], dimnames(x)[[m]])}. \cr
-For \code{start}, the first \code{TRUE} match will be used. \cr
-For \code{end}, the last \code{TRUE} match will be used. \cr
-}}
+\item{start}{integer or complex, of the same length as \code{m} or of length 1,
+specifying the start point.}
 
-\item{by}{an optional single integer, giving the step size. \cr
-\code{idx_r()} will automatically make sure the sign of \code{by} is set correctly.}
+\item{end}{integer or complex, , of the same length as \code{m} or of length 1,
+specifying the end point.}
+
+\item{by}{integer scalar, of the same length as \code{m} or of length 1,
+specifying the step size. \cr}
 }
 \value{
-A vector of integer indices.
+If \code{length(m) == 1L}: an integer vector of indices. \cr
+\cr
+If \code{length(m) > 1L}: a list of the same length as \code{m},
+containing integer vectors of indices. \cr
 }
 \description{
-The \code{idx_r()} function computes an index range,
-where one can combine different types for the start and end point. \cr \cr
+\code{idx_r()} computes integer index range(s). \cr \cr
+}
+\details{
+\bold{start, stop, by} \cr
+If \verb{start, stop} are not specified,
+using \code{by} will construct the following sequence: \cr
+If \code{by} is positive, \code{seq.int(1L, n, by)}. \cr
+If \code{by} is negative, \code{seq.int(n, 1L, by)}. \cr
+Where \code{n} is the maximum index
+(i.e. \code{length(x)} or \code{dim(x)[m]}, depending on the situation). \cr
+\cr
+If \verb{start, stop, by} are all specified,
+\code{by} is stored as \code{abs(by)},
+and the sign  of \code{by} is automatically adjusted to ensure a sensible sequence is created. \cr
+\cr
+So, for example,
+to specify something like \code{n:1}, one can simply call \code{idx_r(x, m, by = -1L)}. \cr \cr
+
+\bold{Heterogeneous Complex input} \cr
+The user can specify complex vectors with varying imaginary parts for
+\code{start} and \code{end}. \cr
+Except for this difference,
+the complex vectors are translated to integer vectors as explained in
+\link{squarebrackets_indx_args}. \cr \cr
+
+\bold{Multiple indices at once} \cr
+The \code{idx_r()} function can compute indices for multiple dimensions at once,
+by specifying a vector for \code{m}. \cr \cr
 }
 \examples{
 
@@ -44,6 +64,14 @@ x <- data.frame(
 )
 print(x)
 ind1 <- idx_r(x, 1, 2, 2-1i) # rows 2:(n-1)
-ind2 <- idx_r(x, 2, "d", 2) # columns d:2
-sb2_x(x, ind1, ind2)
+sb2_x(x, ind1) # extract the row range
+
+x <- array(1:125, c(5,5,5))
+dims <- 1:3
+sub <- idx_r(x, dims, 2, 2-1i) # 2:(n-1) for every dimension
+sb_x(x, sub, dims) # same as x[ 2:4, 2:4, 2:4, drop = FALSE]
+
+x <- letters
+x[idx_r(x, 0, 2, 2-1i)]
+
 }

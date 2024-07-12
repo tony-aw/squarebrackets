@@ -7,7 +7,7 @@
 #'  * an object `x` with it's margin `m`;
 #'  * and a grouping factor `grp`;
 #' 
-#' the `idx_by()` function takes indices` \bold{per group} `grp`. \cr
+#' the `idx_by()` function takes `indices` \bold{per group} `grp`. \cr
 #' The result of `idx_by()` can be supplied to the indexing arguments
 #' (see \link{squarebrackets_indx_args})
 #' to perform \bold{grouped} subset operations. \cr

@@ -1653,6 +1653,19 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// rcpp_indx_convert_cplx_multi
+IntegerVector rcpp_indx_convert_cplx_multi(IntegerVector re, IntegerVector im, IntegerVector lens);
+RcppExport SEXP _squarebrackets_rcpp_indx_convert_cplx_multi(SEXP reSEXP, SEXP imSEXP, SEXP lensSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type re(reSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type im(imSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type lens(lensSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_indx_convert_cplx_multi(re, im, lens));
+    return rcpp_result_gen;
+END_RCPP
+}
 // rcpp_sb_str
 String rcpp_sb_str(std::string x, IntegerVector ind);
 RcppExport SEXP _squarebrackets_rcpp_sb_str(SEXP xSEXP, SEXP indSEXP) {
@@ -1748,7 +1761,9 @@ END_RCPP
 }
 
 RcppExport SEXP C_any_badindx(SEXP, SEXP);
-RcppExport SEXP C_any_nonpos(SEXP, SEXP);
+RcppExport SEXP C_any_badmargin(SEXP, SEXP);
+RcppExport SEXP C_any_neg(SEXP);
+RcppExport SEXP C_any_nonpos(SEXP);
 
 static const R_CallMethodDef CallEntries[] = {
     {"_squarebrackets_rcpp_seq_rec2_plus", (DL_FUNC) &_squarebrackets_rcpp_seq_rec2_plus, 6},
@@ -1874,6 +1889,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_squarebrackets_rcpp_prod_int", (DL_FUNC) &_squarebrackets_rcpp_prod_int, 1},
     {"_squarebrackets_rcpp_pre_coord2ind", (DL_FUNC) &_squarebrackets_rcpp_pre_coord2ind, 3},
     {"_squarebrackets_rcpp_coord2ind", (DL_FUNC) &_squarebrackets_rcpp_coord2ind, 3},
+    {"_squarebrackets_rcpp_indx_convert_cplx_multi", (DL_FUNC) &_squarebrackets_rcpp_indx_convert_cplx_multi, 3},
     {"_squarebrackets_rcpp_sb_str", (DL_FUNC) &_squarebrackets_rcpp_sb_str, 2},
     {"_squarebrackets_rcpp_sb_str_rp", (DL_FUNC) &_squarebrackets_rcpp_sb_str_rp, 4},
     {"_squarebrackets_rcpp_seq_mlen", (DL_FUNC) &_squarebrackets_rcpp_seq_mlen, 1},
@@ -1881,8 +1897,10 @@ static const R_CallMethodDef CallEntries[] = {
     {"_squarebrackets_rcpp_set_namepointer", (DL_FUNC) &_squarebrackets_rcpp_set_namepointer, 3},
     {"_squarebrackets_rcpp_sub2coord", (DL_FUNC) &_squarebrackets_rcpp_sub2coord, 6},
     {"_squarebrackets_rcpp_sub2ind_general", (DL_FUNC) &_squarebrackets_rcpp_sub2ind_general, 6},
-    {"C_any_badindx", (DL_FUNC) &C_any_badindx, 2},
-    {"C_any_nonpos",  (DL_FUNC) &C_any_nonpos,  2},
+    {"C_any_badindx",   (DL_FUNC) &C_any_badindx,   2},
+    {"C_any_badmargin", (DL_FUNC) &C_any_badmargin, 2},
+    {"C_any_neg",       (DL_FUNC) &C_any_neg,       1},
+    {"C_any_nonpos",    (DL_FUNC) &C_any_nonpos,    1},
     {NULL, NULL, 0}
 };
 

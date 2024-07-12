@@ -64,6 +64,7 @@ sb_set.default <- function(
 ) {
   
   # error checks:
+  .internal_check_dots(list(...), sys.call())
   if(!is.mutable_atomic(x)){
     stop("`x` is not a (supported) mutable object")
   }
@@ -85,6 +86,7 @@ sb_set.default <- function(
 sb_set.matrix <- function(x, row = NULL, col = NULL, i = NULL, inv = FALSE, ...,  rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)) {
   
   # error checks:
+  .internal_check_dots(list(...), sys.call())
   if(!is.mutable_atomic(x)){
     stop("`x` is not a (supported) mutable object")
   }
@@ -127,6 +129,7 @@ sb_set.array <- function(
 ) {
   
   # error checks:
+  .internal_check_dots(list(...), sys.call())
   if(!is.mutable_atomic(x)){
     stop("`x` is not a (supported) mutable object")
   }
@@ -169,6 +172,8 @@ sb2_set.data.table <- function(
     x, row = NULL, col = NULL, filter = NULL, vars = NULL, inv = FALSE,
     ..., rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE), .lapply = lapply
 ) {
+  
+  .internal_check_dots(list(...), sys.call())
   
   if(!data.table::is.data.table(x)) {
     stop("`x` is not a (supported) mutable object")

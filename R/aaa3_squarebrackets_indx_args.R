@@ -80,17 +80,6 @@
 #' or counting from the end. \cr
 #' \cr
 #' \cr
-#' \bold{Combined Range} \cr
-#' Atomic vectors can only be of one type. \cr
-#' So creating a range like `n:2` (where `n` is the maximum index)
-#' cannot be done with the given indexing types,
-#' as it requires combining complex with integer types. \cr
-#' \cr
-#' However, the \link{idx_r} function
-#' allows creating a index range of any combination of types. \cr
-#' So `n:2` can be created using \link{idx_r}\code{(x, 1 - 1i, 2, ...)}. \cr
-#' \cr
-#' \cr
 #' What follows are detailed descriptions of the common arguments
 #' in 'squarebrackets' used to select indices. \cr
 #' \cr

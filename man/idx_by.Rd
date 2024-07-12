@@ -34,7 +34,8 @@ Given:
 \item and a grouping factor \code{grp};
 }
 
-the \code{idx_by()} function takes indices\verb{\\bold\{per group\}}grp\verb{. \\cr The result of }idx_by()` can be supplied to the indexing arguments
+the \code{idx_by()} function takes \code{indices} \bold{per group} \code{grp}. \cr
+The result of \code{idx_by()} can be supplied to the indexing arguments
 (see \link{squarebrackets_indx_args})
 to perform \bold{grouped} subset operations. \cr
 \cr

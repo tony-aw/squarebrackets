@@ -98,6 +98,13 @@
   }
 }
 
+.indx_convert_complex_multi <- function(indx, n, abortcall) {
+  im <- as.integer(Im(indx))
+  re <- as.integer(Re(indx))
+  out <- .rcpp_indx_convert_cplx_multi(re, im, as.integer(n))
+  return(out)
+}
+
 
 #' @keywords internal
 #' @noRd
@@ -165,7 +172,6 @@
   }
   
   n.indx <- length(indx)
-
   
   if(n.indx == 0L) {
     n <- length(x)
@@ -216,6 +222,7 @@
 
   n.indx <- length(indx)
   
+  
   if(n.indx == 0L) {
     if(!inv) return(integer(0L))
     if(inv) return(seq_len(dim(x)[dim.L]))
@@ -262,6 +269,7 @@
 
   
   n.indx <- length(indx)
+  
   
   if(n.indx == 0L) {
     if(!inv) return(integer(0L))
@@ -482,7 +490,12 @@
 .internal_check_dots <- function(dots.list, abortcall) {
   # this check will not take much performance
   if(length(dots.list) > 0L) {
-    stop(simpleError("unknown arguments given"))
+    error.txt <- paste0(
+      "unknown arguments given:",
+      "\n",
+      paste(names(dots.list), collapse = ", ")
+    )
+    stop(simpleError(error.txt, call = abortcall))
   }
 }
 

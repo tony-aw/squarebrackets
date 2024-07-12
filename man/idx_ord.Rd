@@ -67,8 +67,9 @@ For a matrix (or array) \code{x} with \code{p} columns, \cr
 \code{idx_ord_m(x, margin = 2)} is equivalent to \cr
 \code{order(x[, 1], ..., x[, p], ...)}. \cr
 \cr
-Note that these are merely a convenience functions,
-and that these are actually slightly slower than \link[base]{order} (except for \code{idx_ord_v()}),
+Note that these are merely convenience functions,
+and that these are actually slightly slower than \link[base]{order}
+(except for \code{idx_ord_v()}),
 due to the additional functionality. \cr \cr
 }
 \examples{

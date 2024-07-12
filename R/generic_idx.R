@@ -84,6 +84,9 @@ idx.default <- function(
     ...,
     chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
+  
+  .internal_check_dots(list(...), sys.call())
+  
   elements <- .indx_make_element(
     i, x, is_list = is.list(x), chkdup = chkdup, inv = inv, abortcall = sys.call()
   )
@@ -98,6 +101,8 @@ idx.array <- function(
     ...,
     chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
+  
+  .internal_check_dots(list(...), sys.call())
   
   check_args <- c(
     !is.null(sub) && !is.null(dims),
@@ -139,7 +144,10 @@ idx.array <- function(
 idx.data.frame <- function(
     x, slice, margin, inv = FALSE,
     ...,
-    chkdup = getOption("squarebrackets.chkdup", FALSE)) {
+    chkdup = getOption("squarebrackets.chkdup", FALSE)
+) {
+  
+  .internal_check_dots(list(...), sys.call())
   
   return(.idx_slicemargin(
     x, slice, margin, inv, chkdup, abortcall = sys.call()

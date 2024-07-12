@@ -190,7 +190,6 @@ etc. <br><br></p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="class_mutable_atomic.html">as.mutable_atomic</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">16</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="sb_set.html">sb_set</a></span><span class="op">(</span><span class="va">x</span>, i <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">6</span>, rp <span class="op">=</span> <span class="fl">8.5</span><span class="op">)</span> <span class="co"># 8.5 coerced to 8, because `x` is of type `integer`</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Type of R (double) is larger than X (integer) and thus coerced. This incurs loss of information, such as digits of real numbers being truncated upon coercion to integer. To avoid this, make sure X has a larger type than R: character &gt; double &gt; integer &gt; logical.</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  8  8  8  8  8  8  7  8  9 10 11 12 13 14 15 16</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> mutable_atomic </span>

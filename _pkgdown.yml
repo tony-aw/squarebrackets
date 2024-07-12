@@ -46,8 +46,8 @@ reference:
   - '`sb_special`'
 - title: Helper Functions
   contents:
-  - '`currentBindings`'
   - '`n`'
+  - '`currentBindings`'
   - '`sub2ind`'
   - '`match_all`'
   - '`idx_r`'

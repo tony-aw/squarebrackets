@@ -77,8 +77,8 @@ in that they can only contain one data-type
 (logical, integer, double, character, complex, raw). <br>
 In contract, recursive objects are heterogeneous,
 as they can have any combination of data-types.</p></li>
-<li><p><strong>vectorization</strong>: vectorized operations work on atomic objects,
-whereas recursive objects require loops or apply-like functions. <br>
+<li><p><strong>vectorization</strong>: vectorized operations generally work on atomic objects,
+whereas recursive objects generally require loops or apply-like functions. <br>
 This is especially relevant for transforming subsets.</p></li>
 <li><p><strong>recursive subsets</strong>: Recursive objects distinguish between "regular" subset operations
 (in base R using <code>[</code>, <code>[&lt;-</code>),
@@ -88,7 +88,7 @@ But for recursive objects,
 these 2 subset operations are significantly different.</p></li>
 <li><p><strong>views</strong>: Recursive objects are weird in that they are <em>pointers</em> to other objects. <br>
 As such they allow their extracted subsets to be <em>views</em> of these pointers
-(see <a href="aaa5_squarebrackets_PassByReference.html">squarebrackets_PassByReference</a>
+(see <a href="aaa2_squarebrackets_mutable_classes.html">squarebrackets_mutable_classes</a>
 for more information on how to use "views" of recursive objects). <br>
 Atomic objects do now allow for subset views. <br></p></li>
 </ul><p>The S3 method dispatch system does not have a built-in method to have separate dispatches for recursive and atomic objects. <br>
