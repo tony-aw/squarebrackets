@@ -60,7 +60,7 @@ sb_set <- function(x, ...) {
 #' @rdname sb_set
 #' @export
 sb_set.default <- function(
-    x, i, inv = FALSE, ...,  rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
+    x, i = NULL, inv = FALSE, ...,  rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
   # error checks:
@@ -71,7 +71,13 @@ sb_set.default <- function(
   .internal_check_rptf(rp, tf, sys.call())
   .check_bindingIsLocked(substitute(x), parent.frame(n = 1), abortcall = sys.call())
   
+  
   # function:
+  if(is.null(i)) {
+    .rcpp_set_all(x, rp, tf, abortcall = sys.call())
+    return(invisible(NULL))
+  }
+  
   elements <- .indx_make_element(
     i, x, is_list = FALSE, chkdup = chkdup, inv = inv, abortcall = sys.call()
   )
@@ -95,6 +101,11 @@ sb_set.matrix <- function(x, row = NULL, col = NULL, i = NULL, inv = FALSE, ...,
   
   
   # function:
+  if(.all_NULL_indices(list(row, col, i))) {
+    .rcpp_set_all(x, rp, tf, abortcall = sys.call())
+    return(invisible(NULL))
+  }
+  
   if(!is.null(i)) {
     elements <- .indx_make_element(
       i, x, is_list = FALSE, chkdup = chkdup, inv = inv, abortcall = sys.call()
@@ -137,6 +148,11 @@ sb_set.array <- function(
   .check_bindingIsLocked(substitute(x), parent.frame(n = 1), abortcall = sys.call())
   
   # function:
+  if(.all_NULL_indices(list(row, col, i))) {
+    .rcpp_set_all(x, rp, tf, abortcall = sys.call())
+    return(invisible(NULL))
+  }
+  
   if(!is.null(i)) {
     elements <- .indx_make_element(
       i, x, is_list = is.list(x), chkdup = chkdup, inv = inv, abortcall = sys.call()
@@ -145,9 +161,11 @@ sb_set.array <- function(
     return(invisible(NULL))
   }
   
-  if(length(dims) == 1L && !is.list(sub)) {
-    sub <- list(sub)
+  if(length(sub) == 0 && length(dims) == 0) {
+    .rcpp_set_all(x, rp, tf, abortcall = sys.call())
+    return(invisible(NULL))
   }
+  
   
   .arr_set(x, sub, dims, chkdup, inv, rp, tf, abortcall = sys.call())
   return(invisible(NULL))
@@ -173,16 +191,17 @@ sb2_set.data.table <- function(
     ..., rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE), .lapply = lapply
 ) {
   
+  # error checks:
   .internal_check_dots(list(...), sys.call())
-  
   if(!data.table::is.data.table(x)) {
     stop("`x` is not a (supported) mutable object")
   }
-  
   .internal_check_rptf(rp, tf, sys.call())
   .check_args_df(x, row, col, filter, vars, abortcall = sys.call())
   .check_bindingIsLocked(substitute(x), parent.frame(n = 1), abortcall = sys.call())
   
+  
+  # function:
   if(!is.null(row)) { row <- .indx_make_tableind(
     row, x,  1, chkdup = chkdup, inv = inv, abortcall = sys.call()
   )}

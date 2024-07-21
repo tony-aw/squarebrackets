@@ -12,13 +12,17 @@ test_PassByReference <- TRUE
 sb_set2 <- function(x, ...) {
   x <- data.table::copy(x)
   if(is.atomic(x)) x <- as.mutable_atomic(x)
+  x2 <- x
   sb_set(x, ...)
+  expect_equal(x, x2) |> errorfun()
   return(x)
 }
 sb_set2.array <- function(x, ...) {
   x <- data.table::copy(x)
   if(is.atomic(x)) x <- as.mutable_atomic(x)
+  x2 <- x
   sb_set.array(x, ...)
+  expect_equal(x, x2) |> errorfun()
   return(x)
 }
 
@@ -151,7 +155,9 @@ sys.source(file.path(getwd(), "source", "sourcetest-dims.R"), envir = environmen
 # test errors ====
 sb_test <- function(x, ...) {
   x <- data.table::copy(x)
+  x2 <- x
   sb_set(x, ..., tf = \(x)x[1])
+  expect_equal(x, x2) |> errorfun()
   return(x)
 }
 sys.source(file.path(getwd(), "source", "sourcetest-errors.R"), envir = environment())
@@ -162,8 +168,9 @@ expect_error(
   pattern = "`tf` must be a function"
 )
 
+enumerate <- enumerate + 1
 
 # report number of tests
-
+enumerate <- enumerate * 2 # pass-by-reference mechanism was also tested simultaneously
 print(enumerate)
 

@@ -33,6 +33,11 @@
   # but the maximum total number of elements remains the same
   # the maximum of each dimension reduces.
   # Thus, creating sequences here is not so expensive.
+  
+  if(length(dims) == 1L && !is.list(sub)) {
+    sub <- list(sub)
+  }
+  
   .arr_check(x, sub, dims, length(dim(x)), abortcall)
   lst <- .rcpp_seq_mlen(as.integer(dim(x)))
   if(length(dims) > 0L) {
@@ -50,6 +55,9 @@
 #' @noRd
 .arr_lst_brackets.sb_x <- function(x, sub, dims, abortcall) {
   
+  if(length(dims) == 1L && !is.list(sub)) {
+    sub <- list(sub)
+  }
   
   .arr_check(x, sub, dims, length(dim(x)), abortcall)
   lst <- .rcpp_seq_mlen(as.integer(dim(x)))
@@ -147,19 +155,15 @@
 .arr_set <- function(x, sub, dims, chkdup, inv, rp, tf, abortcall) {
   
   # Prep:
+  if(length(dims) == 1L && !is.list(sub)) {
+    sub <- list(sub)
+  }
   x.dim <- dim(x)
   ndims <- length(x.dim)
   .arr_check(x, sub, dims, ndims, abortcall = abortcall)
   
   
-  # CASE 1: all subscripts are missing arguments, thus everything needs to change
-  # (regardless if inv = TRUE or not)
-  if(length(sub) == 0 && length(dims) == 0) {
-    .rcpp_set_all(x, rp, tf, abortcall = sys.call())
-    return(invisible(NULL))
-  }
-  
-  # CASE 2: `x` is a vector / 1d array, so subscript translation is waste of computation
+  # CASE 1: `x` is a vector / 1d array, so subscript translation is waste of computation
   if(ndims == 1L) {
     elements <- .indx_make_element(
       sub[[1]], x, is_list = FALSE, chkdup = chkdup, inv = inv, abortcall = abortcall
@@ -172,12 +176,12 @@
     x, sub, dims, chkdup = chkdup, inv = inv, abortcall = abortcall
   )
   
-  # CASE 3: all list elements are integer(0), so nothing to change
+  # CASE 2: all list elements are integer(0), so nothing to change
   if(.any_empty_indices(lst)) {
     return(invisible(NULL))
   }
   
-  # CASE 4: `x` has between 2 and 6 dimensions, and neither all nor empty selection
+  # CASE 3: `x` has between 2 and 6 dimensions, and neither all nor empty selection
   if(ndims <= 6L) {
     if(!missing(tf)) {
       if(!is.function(tf)) stop(simpleError("`tf` must be a function", call = abortcall))
@@ -187,7 +191,7 @@
     return(invisible(NULL))
   }
   
-  # CASE 5: `x` has more than 6 dimension
+  # CASE 4: `x` has more than 6 dimension
   # so default to translating subscripts to flat indices,
   # and treat as vector with the flattened indices.
   elements <- .sub2ind_general(lst, x.dim)

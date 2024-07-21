@@ -91,13 +91,17 @@ sb_mod <- function(x, ...) {
 #' @rdname sb_mod
 #' @export
 sb_mod.default <- function(
-    x, i, inv = FALSE, ...,
+    x, i = NULL, inv = FALSE, ...,
     rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
   .internal_check_dots(list(...), sys.call())
   
   .internal_check_rptf(rp, tf, sys.call())
+  
+  if(is.null(i)) {
+    return(.sb_mod_all(x, rp, tf, NULL, sys.call()))
+  }
   
   elements <- .indx_make_element(
     i, x, is_list = FALSE, chkdup = chkdup, inv = inv, abortcall = sys.call()
@@ -126,6 +130,10 @@ sb_mod.matrix <- function(
   .internal_check_dots(list(...), sys.call())
   
   .internal_check_rptf(rp, tf, sys.call())
+  
+  if(.all_NULL_indices(list(row, col, i))) {
+    return(.sb_mod_all(x, rp, tf, NULL, sys.call()))
+  }
   
   if(!is.null(i)) {
     return(sb_mod.default(x, i, inv, ..., rp = rp, tf = tf, chkdup = chkdup))
@@ -166,15 +174,18 @@ sb_mod.array <- function(
   
   .internal_check_rptf(rp, tf, sys.call())
   
+  if(.all_NULL_indices(list(sub, dims, i))) {
+    return(.sb_mod_all(x, rp, tf, NULL, sys.call()))
+  }
+  
   if(!is.null(i)) {
     return(sb_mod.default(x, i, inv, ..., rp = rp, tf = tf, chkdup = chkdup))
   }
   
-  if(length(dims) == 1L && !is.list(sub)) {
-    sub <- list(sub)
+  if(length(sub) == 0 && length(dims) == 0) {
+    return(.sb_mod_all(x, rp, tf, NULL, sys.call()))
   }
-  ndims <- length(dim(x))
-  .arr_check(x, sub, dims, ndims, abortcall = sys.call())
+  
   lst <- .arr_lst_brackets(x, sub, dims, chkdup, inv = inv, abortcall = sys.call())
   if(.any_empty_indices(lst)) {
     return(x)
@@ -199,6 +210,10 @@ sb_mod.factor <- function(
   .internal_check_dots(list(...), sys.call())
   
   .check_args_factor(i, lvl, drop = FALSE, abortcall = sys.call())
+  
+  if(.all_NULL_indices(list(i, lvl))) {
+    return(.sb_mod_all(x, rp, NULL, NULL, sys.call()))
+  }
   
   if(!is.null(i)) {
     elements <- .indx_make_element(
@@ -235,13 +250,18 @@ sb2_mod <- function(x, ...) {
 #' @rdname sb_mod
 #' @export
 sb2_mod.default <- function(
-    x, i, inv = FALSE, ...,
+    x, i = NULL, inv = FALSE, ...,
     rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE), .lapply = lapply
 ) {
   
   .internal_check_dots(list(...), sys.call())
   
   .internal_check_rptf(rp, tf, sys.call())
+  
+  
+  if(is.null(i)) {
+    return(.sb_mod_all(x, rp, tf, .lapply, sys.call()))
+  }
   
   elements <- .indx_make_element(
     i, x, is_list = TRUE, chkdup = chkdup, inv = inv, abortcall = sys.call()
@@ -276,16 +296,18 @@ sb2_mod.array <- function(
   
   .internal_check_rptf(rp, tf, sys.call())
   
+  if(.all_NULL_indices(list(sub, dims, i))) {
+    return(.sb_mod_all(x, rp, tf, .lapply, sys.call()))
+  }
+  
   if(!is.null(i)) {
     return(sb2_mod.default(x, i, inv = inv, ..., rp = rp, tf = tf, chkdup = chkdup))
   }
   
-  if(length(dims) == 1L && !is.list(sub)) {
-    sub <- list(sub)
+  if(length(sub) == 0 && length(dims) == 0) {
+    return(.sb_mod_all(x, rp, tf, .lapply, sys.call()))
   }
   
-  ndims <- length(dim(x))
-  .arr_check(x, sub, dims, ndims, abortcall = sys.call())
   lst <- .arr_lst_brackets(x, sub, dims, chkdup, inv = inv, abortcall = sys.call())
   if(.any_empty_indices(lst)) {
     return(x)
@@ -415,3 +437,23 @@ sb2_mod.data.frame <- function(
   return(x)
 }
 
+
+.sb_mod_all <- function(x, rp, tf, .lapply, abortcall) {
+  
+  if(is.list(x)) {
+    if(!missing(tf) && !is.null(tf)) {
+      rp <- .lapply(x, tf)
+    }
+    
+    .check_rp_list(rp, length(x), abortcall = sys.call())
+    x[] <- rp
+    return(x)
+  }
+  
+  if(!missing(tf) && !is.null(tf)) {
+    rp <- tf(x)
+  }
+  .check_rp_atomic(rp, length(x), abortcall = sys.call())
+  x[] <- rp
+  return(x)
+}

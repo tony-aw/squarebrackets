@@ -369,3 +369,59 @@ if(!test_allow_duplicates) {
   
 }
 
+
+# generic dots ====
+if(test_allow_duplicates) {
+  x <- 1:10
+  expect_error(
+    sb_test(x, inv = TRUE),
+    pattern = "unknown arguments given"
+  )
+  
+  x <- matrix(1:20, nrow = 5)
+  expect_error(
+    sb_test(x, inv = TRUE),
+    pattern = "unknown arguments given"
+  )
+  
+  x <- array(1:27, c(3,3,3))
+  expect_error(
+    sb_test(x, inv = TRUE),
+    pattern = "unknown arguments given"
+  )
+  
+  x <- factor(letters)
+  expect_error(
+    sb_test(x, inv = TRUE),
+    pattern = "unknown arguments given"
+  )
+  
+}
+
+x <- mutable_atomic(1:10)
+expect_error(
+  sb_test(x, foo = TRUE),
+  pattern = "unknown arguments given"
+)
+
+x <- mutable_atomic(1:20, dim = c(4,5))
+expect_error(
+  sb_test(x, foo = TRUE),
+  pattern = "unknown arguments given"
+)
+
+x <- mutable_atomic(1:27, dim = c(3,3,3))
+expect_error(
+  sb_test(x, foo = TRUE),
+  pattern = "unknown arguments given"
+)
+
+if(test_use_factors) {
+  x <- factor(letters)
+  expect_error(
+    sb_test(x, foo = TRUE),
+    pattern = "unknown arguments given"
+  )
+}
+
+

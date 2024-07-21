@@ -24,13 +24,13 @@ For example, to subset the last element per group, specify: \cr
 \item{parallel, mc.cores}{see \link[collapse]{BY}.}
 }
 \value{
-A vector of indices of the same type as \code{r}.
+A vector of indices.
 }
 \description{
 Given:
 \itemize{
 \item a sub-set function \code{f};
-\item an object \code{x} with it's margin \code{m};
+\item an object \code{x} with its margin \code{m};
 \item and a grouping factor \code{grp};
 }
 

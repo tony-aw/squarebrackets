@@ -20,8 +20,7 @@ expect_equal(
 )
 
 
-# atomic array ====
-
+# atomic 3d array ====
 dims <- c(4,4,4)
 x <- array(1:prod(dims), dim =dims)
 nms <- c("a", "b", 'c', "d")
@@ -37,6 +36,26 @@ expect_equal(
 )
 expect_equal(
   sb_rm(x, list(3:4, 3:4, 3:4), 1:3),
+  x2
+)
+
+
+# atomic 7d array ====
+dims <- rep(4, 7)
+x <- array(1:prod(dims), dim =dims)
+nms <- c("a", "b", 'c', "d")
+dimnames(x) <- rep(list(nms), 7)
+x.names <- array(sample(letters, length(x), TRUE), rep(4, 7))
+names(x) <- x.names
+x2 <- x[1:2, 1:2, 1:2, 1:2, 1:2, 1:2, 1:2]
+names(x2) <- x.names[1:2, 1:2, 1:2, 1:2, 1:2, 1:2, 1:2]
+
+expect_equal(
+  sb_x(x, rep(list(1:2), 7), 1:7),
+  x2
+)
+expect_equal(
+  sb_rm(x, rep(list(3:4), 7), 1:7),
   x2
 )
 
@@ -61,5 +80,4 @@ expect_equal(
   x2
 )
 
-enumerate <- 6
-
+enumerate <- 8

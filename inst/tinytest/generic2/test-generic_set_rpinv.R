@@ -12,7 +12,9 @@ test_PassByReference <- TRUE
 sb2_set2 <- function(x, ...) {
   x <- data.table::copy(x)
   if(is.atomic(x)) x <- as.mutable_atomic(x)
+  x2 <- x
   sb2_set(x, ..., inv = TRUE)
+  expect_equal(x, x2) |> errorfun()
   return(x)
 }
 
@@ -113,7 +115,9 @@ sys.source(file.path(getwd(), "source", "sourcetest-datasets.R"), envir = enviro
 sb_test <- function(x, ...) {
   x <- data.table::copy(x)
   if(is.atomic(x)) x <- as.mutable_atomic(x)
+  x2 <- x
   sb2_set(x, ..., inv = TRUE)
+  expect_equal(x, x2) |> errorfun()
   return(x)
 }
 
@@ -176,6 +180,7 @@ enumerate <- enumerate + 2
 
 
 # report number of tests
+enumerate <- enumerate * 2 # pass-by-reference mechanism was also tested simultaneously
 
 print(enumerate)
 

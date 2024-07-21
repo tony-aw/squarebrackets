@@ -11,13 +11,17 @@ test_PassByReference <- TRUE
 sb_set2 <- function(x, ...) {
   x <- data.table::copy(x)
   if(is.atomic(x)) x <- as.mutable_atomic(x)
+  x2 <- x
   sb_set(x, ..., inv = TRUE)
+  expect_equal(x, x2) |> errorfun()
   return(x)
 }
 sb_set2.array <- function(x, ...) {
   x <- data.table::copy(x)
   if(is.atomic(x)) x <- as.mutable_atomic(x)
+  x2 <- x
   sb_set.array(x, ..., inv = TRUE)
+  expect_equal(x, x2) |> errorfun()
   return(x)
 }
 
@@ -187,8 +191,10 @@ temp.fun.2d <- function(x, row, col) {
 
 sb_test <- function(x, ...) {
   x <- as.mutable_atomic(x)
+  x2 <- x
   rp <- sb_rm.array(x, sub, dims) * -1
   sb_set.array(x, ..., inv = TRUE, rp = rp)
+  expect_equal(x, x2) |> errorfun()
   return(x)
 }
 
@@ -272,7 +278,9 @@ enumerate <- enumerate + 6
 sb_set2 <- function(x, ...) {
   x <- data.table::copy(x)
   if(is.atomic(x)) x <- as.mutable_atomic(x)
+  x2 <- x
   sb_set(x, ...)
+  expect_equal(x, x2) |> errorfun()
   return(x)
 }
 
@@ -322,6 +330,8 @@ enumerate <- enumerate + 5
 
 
 # report number of tests
+
+enumerate <- enumerate * 2 # pass-by-reference mechanism was also tested simultaneously
 
 print(enumerate)
 

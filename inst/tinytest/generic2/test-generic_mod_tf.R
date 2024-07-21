@@ -5,8 +5,25 @@ enumerate <- 0 # to count number of tests in loops
 source(file.path(getwd(), "source", "functions4testing.R"))
 
 test_allow_duplicates <- FALSE
-test_use_factors <- FALSE
 test_PassByReference <- FALSE
+
+
+# test missing arguments (NULL) ====
+
+temp.fun <- function(x) {
+  tempfun <- function(x) {
+    x[] <- -1
+    return(x)
+  }
+  expect_equal(
+    sb2_mod(x, tf = \(x) return(-1)),
+    tempfun(x)
+  ) |> errorfun()
+}
+
+sys.source(file.path(getwd(), "source", "sourcetest-missingargs.R"), envir = environment())
+
+
 
 
 # test elements ====

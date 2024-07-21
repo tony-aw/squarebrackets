@@ -65,7 +65,7 @@ Use sb2_set(x, ...) if x is a recursive object (i.e. data.table).  "><!-- mathja
     <p>This is an S3 Method to replace or transform a subset of a
 <a href="aaa2_squarebrackets_mutable_classes.html">supported mutable object</a>
 using
-<a href="aaa5_squarebrackets_PassByReference.html">pass-by-reference semantics</a> <br>
+<a href="aaa6_squarebrackets_PassByReference.html">pass-by-reference semantics</a> <br>
 Use <code>sb_set(x, ...)</code> if <code>x</code> is a non-recursive object (i.e. <a href="class_mutable_atomic.html">mutable_atomic</a>). <br>
 Use <code>sb2_set(x, ...)</code> if <code>x</code> is a recursive object (i.e. data.table). <br><br></p>
     </div>
@@ -77,7 +77,7 @@ Use <code>sb2_set(x, ...)</code> if <code>x</code> is a recursive object (i.e. d
 <span><span class="co"># S3 method for default</span></span>
 <span><span class="fu">sb_set</span><span class="op">(</span></span>
 <span>  <span class="va">x</span>,</span>
-<span>  <span class="va">i</span>,</span>
+<span>  i <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  inv <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  <span class="va">...</span>,</span>
 <span>  <span class="va">rp</span>,</span>
@@ -140,7 +140,7 @@ Use <code>sb2_set(x, ...)</code> if <code>x</code> is a recursive object (i.e. d
 
 
 <dt>...</dt>
-<dd><p>see <a href="aaa6_squarebrackets_method_dispatch.html">squarebrackets_method_dispatch</a>.</p></dd>
+<dd><p>see <a href="aaa5_squarebrackets_method_dispatch.html">squarebrackets_method_dispatch</a>.</p></dd>
 
 
 <dt>i, row, col, sub, dims, filter, vars, inv</dt>

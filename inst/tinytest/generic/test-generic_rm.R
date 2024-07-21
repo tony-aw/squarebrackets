@@ -8,6 +8,21 @@ test_allow_duplicates <- FALSE
 test_use_factors <- TRUE
 test_PassByReference <- FALSE
 
+
+# test missing arguments (NULL) ====
+
+temp.fun <- function(x) {
+  expect_equal(
+    sb_rm(x),
+    x
+  ) |> errorfun()
+}
+
+sys.source(file.path(getwd(), "source", "sourcetest-missingargs.R"), envir = environment())
+
+
+
+
 # test elements ====
 
 

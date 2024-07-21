@@ -43,11 +43,15 @@ sb_rm <- function(x, ...) {
 #' @rdname sb_rm
 #' @export
 sb_rm.default <- function(
-    x, i, ...,
+    x, i = NULL, ...,
     chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
   .internal_check_dots(list(...), sys.call())
+  
+  if(is.null(i)){
+    return(x)
+  }
   
   elements <- .indx_make_element(
     i, x, is_list = FALSE, chkdup = chkdup, inv = TRUE, abortcall = sys.call()
@@ -64,6 +68,9 @@ sb_rm.matrix <- function(
 ) {
   
   .internal_check_dots(list(...), sys.call())
+  if(.all_NULL_indices(list(row, col, i))) {
+    return(x)
+  }
   
   if(!is.null(i)) {
     elements <- .indx_make_element(i, x, is_list = FALSE, chkdup = chkdup, inv = TRUE, abortcall = sys.call())
@@ -129,8 +136,10 @@ sb_rm.factor <- function(
 ) {
   
   .internal_check_dots(list(...), sys.call())
-  
   .check_args_factor(i, lvl, drop, abortcall = sys.call())
+  if(.all_NULL_indices(list(i, lvl))) {
+    return(x)
+  }
   
   if(!is.null(i)) {
     elements <- .indx_make_element(i, x, is_list = FALSE, chkdup = chkdup, inv = TRUE, abortcall = sys.call())
@@ -158,11 +167,20 @@ sb2_rm <- function(x, ...) {
 #' @rdname sb_rm
 #' @export
 sb2_rm.default <- function(
-    x, i, drop = FALSE, ...,
+    x, i = NULL, drop = FALSE, ...,
     chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
   .internal_check_dots(list(...), sys.call())
+  
+  if(is.null(i)) {
+    if(length(x) == 1L && drop) {
+      return(x[[1]])
+    }
+    else {
+      return(x)
+    }
+  }
   
   elements <- .indx_make_element(i, x, is_list = TRUE, chkdup = chkdup, inv = TRUE, abortcall = sys.call())
   n.i <- length(elements)
@@ -202,8 +220,12 @@ sb2_rm.data.frame <- function(
 ) {
   
   .internal_check_dots(list(...), sys.call())
-  
   .check_args_df(x, row, col, filter, vars, abortcall = sys.call())
+  
+  if(.all_NULL_indices(list(row, col, filter, vars))) {
+    return(x)
+  }
+  
   
   if(!is.null(row)) { row <- .indx_make_tableind(
     row, x,  1, chkdup = chkdup, inv = TRUE, abortcall = sys.call()
@@ -234,6 +256,10 @@ sb2_rm.data.frame <- function(
 #' @noRd
 .sb_rm_array <- function(x, sub, dims, i, chkdup, abortcall) {
   
+  if(.all_NULL_indices(list(sub, dims, i))) {
+    return(x)
+  }
+  
   if(!is.null(i)) {
     elements <- .indx_make_element(
       i, x, is_list = FALSE, chkdup = chkdup, inv = TRUE, abortcall = abortcall
@@ -243,10 +269,6 @@ sb2_rm.data.frame <- function(
   
   if(length(sub) == 0L && length(dims) == 0L) {
     return(x)
-  }
-  
-  if(length(dims) == 1L && !is.list(sub)) {
-    sub <- list(sub)
   }
   
   lst <- .arr_lst_brackets(x, sub, dims, chkdup, inv = TRUE, abortcall = abortcall)

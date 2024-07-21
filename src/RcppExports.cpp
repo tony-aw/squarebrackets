@@ -1654,14 +1654,14 @@ BEGIN_RCPP
 END_RCPP
 }
 // rcpp_indx_convert_cplx_multi
-IntegerVector rcpp_indx_convert_cplx_multi(IntegerVector re, IntegerVector im, IntegerVector lens);
+IntegerVector rcpp_indx_convert_cplx_multi(const IntegerVector re, const IntegerVector im, const IntegerVector lens);
 RcppExport SEXP _squarebrackets_rcpp_indx_convert_cplx_multi(SEXP reSEXP, SEXP imSEXP, SEXP lensSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< IntegerVector >::type re(reSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type im(imSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type lens(lensSEXP);
+    Rcpp::traits::input_parameter< const IntegerVector >::type re(reSEXP);
+    Rcpp::traits::input_parameter< const IntegerVector >::type im(imSEXP);
+    Rcpp::traits::input_parameter< const IntegerVector >::type lens(lensSEXP);
     rcpp_result_gen = Rcpp::wrap(rcpp_indx_convert_cplx_multi(re, im, lens));
     return rcpp_result_gen;
 END_RCPP

@@ -12,13 +12,17 @@ test_PassByReference <- TRUE
 sb_set2 <- function(x, ...) {
   x <- data.table::copy(x)
   if(is.atomic(x)) x <- as.mutable_atomic(x)
+  x2 <- x
   sb_set(x, ..., inv = TRUE)
+  expect_equal(x, x2) |> errorfun()
   return(x)
 }
 sb_set2.array <- function(x, ...) {
   x <- data.table::copy(x)
   if(is.atomic(x)) x <- as.mutable_atomic(x)
+  x2 <- x
   sb_set.array(x, ..., inv = TRUE)
+  expect_equal(x, x2) |> errorfun()
   return(x)
 }
 
@@ -203,8 +207,11 @@ expect_error(
   pattern = "`tf` must be a function"
 )
 
+enumerate <- enumerate + 1
+
 
 # report number of tests
+enumerate <- enumerate * 2 # pass-by-reference mechanism was also tested simultaneously
 
 print(enumerate)
 

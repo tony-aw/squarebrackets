@@ -370,3 +370,68 @@ if(!test_allow_duplicates) {
   
 }
 
+
+
+
+# generic dots ====
+if(test_allow_duplicates) {
+  x <- as.list(1:10)
+  expect_error(
+    sb_test(x, inv = TRUE),
+    pattern = "unknown arguments given"
+  )
+  
+  x <- matrix(as.list(1:20), nrow = 5)
+  expect_error(
+    sb_test(x, inv = TRUE),
+    pattern = "unknown arguments given"
+  )
+  
+  x <- array(as.list(1:27), c(3,3,3))
+  expect_error(
+    sb_test(x, inv = TRUE),
+    pattern = "unknown arguments given"
+  )
+  
+  x <- data.frame(a = letters[1:10], b = 1:10)
+  expect_error(
+    sb_test(x, inv = TRUE),
+    pattern = "unknown arguments given"
+  )
+  
+}
+
+
+if(!test_PassByReference) {
+  x <- as.list(1:10)
+  expect_error(
+    sb_test(x, foo = TRUE),
+    pattern = "unknown arguments given"
+  )
+  
+  x <- matrix(as.list(1:20), nrow = 5)
+  expect_error(
+    sb_test(x, foo = TRUE),
+    pattern = "unknown arguments given"
+  )
+  
+  x <- array(as.list(1:27), c(3,3,3))
+  expect_error(
+    sb_test(x, foo = TRUE),
+    pattern = "unknown arguments given"
+  )
+  
+  x <- data.frame(a = letters[1:10], b = 1:10)
+  expect_error(
+    sb_test(x, foo = TRUE),
+    pattern = "unknown arguments given"
+  )
+}
+
+if(test_PassByReference) {
+  x <- data.table::data.table(a = letters[1:10], b = 1:10)
+  expect_error(
+    sb_test(x, foo = TRUE),
+    pattern = "unknown arguments given"
+  )
+}

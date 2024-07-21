@@ -16,7 +16,7 @@ sb_mod(x, ...)
 
 \method{sb_mod}{default}(
   x,
-  i,
+  i = NULL,
   inv = FALSE,
   ...,
   rp,
@@ -62,7 +62,7 @@ sb2_mod(x, ...)
 
 \method{sb2_mod}{default}(
   x,
-  i,
+  i = NULL,
   inv = FALSE,
   ...,
   rp,

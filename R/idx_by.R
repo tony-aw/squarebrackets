@@ -4,7 +4,7 @@
 #' Given:
 #' 
 #'  * a sub-set function `f`;
-#'  * an object `x` with it's margin `m`;
+#'  * an object `x` with its margin `m`;
 #'  * and a grouping factor `grp`;
 #' 
 #' the `idx_by()` function takes `indices` \bold{per group} `grp`. \cr
@@ -26,7 +26,7 @@
 #' @param parallel,mc.cores see \link[collapse]{BY}.
 #'
 #' @returns
-#' A vector of indices of the same type as `r`.
+#' A vector of indices.
 #'
 #'
 #'

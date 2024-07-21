@@ -14,7 +14,7 @@
 \usage{
 sb_rm(x, ...)
 
-\method{sb_rm}{default}(x, i, ..., chkdup = getOption("squarebrackets.chkdup", FALSE))
+\method{sb_rm}{default}(x, i = NULL, ..., chkdup = getOption("squarebrackets.chkdup", FALSE))
 
 \method{sb_rm}{matrix}(
   x,
@@ -47,7 +47,7 @@ sb2_rm(x, ...)
 
 \method{sb2_rm}{default}(
   x,
-  i,
+  i = NULL,
   drop = FALSE,
   ...,
   chkdup = getOption("squarebrackets.chkdup", FALSE)

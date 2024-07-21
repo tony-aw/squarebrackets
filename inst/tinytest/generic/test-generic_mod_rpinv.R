@@ -9,6 +9,24 @@ test_use_factors <- FALSE
 test_PassByReference <- FALSE
 
 
+# test missing arguments (NULL) ====
+
+temp.fun <- function(x) {
+  tempfun <- function(x) {
+    x[] <- x[1]
+    return(x)
+  }
+  expect_equal(
+    sb_mod(x, rp = x[1], inv = TRUE),
+    tempfun(x)
+  ) |> errorfun()
+}
+
+sys.source(file.path(getwd(), "source", "sourcetest-missingargs.R"), envir = environment())
+
+
+
+
 # test elements ====
 
 test_sb <- function(x, i, rp) {

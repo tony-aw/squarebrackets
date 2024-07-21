@@ -151,7 +151,7 @@ The available generic methods are the following:</p><ul><li><p><a href="sb_x.htm
 <li><p><a href="sb_rm.html">sb_rm</a>,  <a href="sb_rm.html">sb2_rm</a>: un-select/remove subsets.</p></li>
 <li><p><a href="sb_set.html">sb_set</a>, <a href="sb_set.html">sb2_set</a>: modify (transform or replace)
 subsets of a <a href="aaa2_squarebrackets_mutable_classes.html">mutable object</a>
-using <a href="aaa5_squarebrackets_PassByReference.html">pass-by-reference semantics</a>.</p></li>
+using <a href="aaa6_squarebrackets_PassByReference.html">pass-by-reference semantics</a>.</p></li>
 <li><p><a href="sb_mod.html">sb_mod</a>, <a href="sb_mod.html">sb2_mod</a>: return a <b>copy</b>
 of an object with modified
 (transformed or replaced) subsets.</p></li>
@@ -160,14 +160,14 @@ of an object with modified
 through R's default Copy-On-Modify semantics.</p></li>
 <li><p><a href="sb_setRename.html">sb_setRename</a>, <a href="sb_setRename.html">sb2_setRename</a>: change the names of
 a <a href="aaa2_squarebrackets_mutable_classes.html">mutable object</a>
-using <a href="aaa5_squarebrackets_PassByReference.html">pass-by-reference semantics</a>.</p></li>
+using <a href="aaa6_squarebrackets_PassByReference.html">pass-by-reference semantics</a>.</p></li>
 <li><p><a href="bind.html">bind_</a>, <a href="bind.html">bind2_</a>:  implementations for binding dimensional objects.</p></li>
 <li><p><a href="idx1.html">idx</a>: translate given indices/subscripts,
 for the purpose of copy-on-modify substitution. <br><br></p></li>
 </ul><p>So for example,
 use <code><a href="sb_rm.html">sb_rm()</a></code> to remove subsets from atomic arrays,
 and use <code><a href="sb_rm.html">sb2_rm()</a></code> to remove subsets from recursive arrays. <br>
-See <a href="aaa6_squarebrackets_method_dispatch.html">squarebrackets_method_dispatch</a> for more information on how 'squarebrackets'
+See <a href="aaa5_squarebrackets_method_dispatch.html">squarebrackets_method_dispatch</a> for more information on how 'squarebrackets'
 uses its S3 Method dispatch. <br><br></p>
 <p><img src="figures/specialized_functions-darkred.svg" alt="[SPECIALIZED FUNCTIONS]"><br>
 Additional specialized sub-setting functions are provided:</p><ul><li><p><a href="lst.html">lst_untree</a>: unnest tree-like nested list,
@@ -176,9 +176,9 @@ to make vectorized sub-setting on recursive subsets of the list easier.</p></li>
 to programmatically perform <code>data.table</code>-specific <code>[</code>-operations,
 with the security measures provided by the 'squarebrackets' package.</p></li>
 <li><p><a href="setapply.html">setapply</a>: apply functions over mutable matrix margins
-using <a href="aaa5_squarebrackets_PassByReference.html">pass-by-reference semantics</a>.</p></li>
+using <a href="aaa6_squarebrackets_PassByReference.html">pass-by-reference semantics</a>.</p></li>
 <li><p><a href="ma_setv.html">ma_setv</a>: Find &amp; Replace values in <a href="class_mutable_atomic.html">mutable_atomic</a> objects
-using <a href="aaa5_squarebrackets_PassByReference.html">pass-by-reference semantics</a>. <br>
+using <a href="aaa6_squarebrackets_PassByReference.html">pass-by-reference semantics</a>. <br>
 This is considerably faster and more memory efficient than using <a href="sb_set.html">sb_set</a> for this.</p></li>
 <li><p><a href="sb_special.html">sb_str</a>: extract or replace a subset of characters of a single string
 (each single character is treated as a single element).</p></li>

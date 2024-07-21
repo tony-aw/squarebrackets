@@ -396,6 +396,16 @@
 }
 
 
+#' @keywords internal
+#' @noRd
+.all_NULL_indices <- function(lst) {
+  check <- vapply(lst, \(x) is.null(x), FUN.VALUE = logical(1L))
+  if(all(check)) {
+    return(TRUE)
+  } else {
+    return(FALSE)
+  }
+}
 
 #' @keywords internal
 #' @noRd

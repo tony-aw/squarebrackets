@@ -2,7 +2,7 @@
 library(squarebrackets)
 library(tinytest)
 
-# set working directory to source file location ====
+# set working directory to source file location
 SourceFileLocation <- function() {
   # BATCH way:
   path <- funr::get_script_path()
@@ -23,6 +23,8 @@ SourceFileLocation <- function() {
 enumerate_total <- 0
 
 
+# root folder tests ====
+
 wd <- SourceFileLocation()
 setwd(wd)
 setwd("..")
@@ -30,7 +32,6 @@ getwd()
 files <- list.files(normalizePath(getwd()), pattern = ".R", full.names = TRUE)
 max.width <- max(stringi::stri_width(basename(files))) + 8
 for(iFile in files) {
-  print(iFile)
   capture.output(source(normalizePath(iFile)), file = nullfile()) |> suppressMessages()
   cat(stringi::stri_pad_right(basename(iFile), max.width), " -> ", enumerate,  "\n")
   enumerate_total <- enumerate_total + enumerate
@@ -39,125 +40,33 @@ rem <-  setdiff(ls(), c("SourceFileLocation", "enumerate", "enumerate_total"))
 rm(list = rem)
 
 
-wd <- SourceFileLocation()
-setwd(wd)
-setwd("..")
-setwd("./generic")
-getwd()
-files <- list.files(normalizePath(getwd()), pattern = ".R", full.names = TRUE)
-max.width <- max(stringi::stri_width(basename(files))) + 8
-for(iFile in files) {
-  print(iFile)
-  capture.output(source(normalizePath(iFile)), file = nullfile()) |> suppressMessages()
-  cat(stringi::stri_pad_right(basename(iFile), max.width), " -> ", enumerate,  "\n")
-  enumerate_total <- enumerate_total + enumerate
+# sub folder tests ====
+
+subfolders <- c(
+  "generic", "generic2", "generic_idx", "generic_bind",
+  "helper", "special", "rcpp_related"
+)
+
+for(iSubFolder in subfolders) {
+  
+  wd <- SourceFileLocation()
+  setwd(wd)
+  setwd("..")
+  setwd(normalizePath(iSubFolder))
+  getwd()
+  files <- list.files(normalizePath(getwd()), pattern = ".R", full.names = TRUE)
+  max.width <- max(stringi::stri_width(basename(files))) + 8
+  print(iSubFolder)
+  for(iFile in files) {
+    capture.output(source(normalizePath(iFile)), file = nullfile()) |> suppressMessages()
+    cat(stringi::stri_pad_right(basename(iFile), max.width), " -> ", enumerate,  "\n")
+    enumerate_total <- enumerate_total + enumerate
+  }
+  rem <-  setdiff(ls(), c("SourceFileLocation", "enumerate", "enumerate_total"))
+  rm(list = rem)
+  cat("\n")
+  
 }
-rem <-  setdiff(ls(), c("SourceFileLocation", "enumerate", "enumerate_total"))
-rm(list = rem)
-
-
-wd <- SourceFileLocation()
-setwd(wd)
-setwd("..")
-setwd("./generic2")
-getwd()
-files <- list.files(normalizePath(getwd()), pattern = ".R", full.names = TRUE)
-max.width <- max(stringi::stri_width(basename(files))) + 8
-for(iFile in files) {
-  print(iFile)
-  capture.output(source(normalizePath(iFile)), file = nullfile())
-  cat(stringi::stri_pad_right(basename(iFile), max.width), " -> ", enumerate,  "\n")
-  enumerate_total <- enumerate_total + enumerate
-}
-rem <-  setdiff(ls(), c("SourceFileLocation", "enumerate", "enumerate_total"))
-rm(list = rem)
-
-
-wd <- SourceFileLocation()
-setwd(wd)
-setwd("..")
-setwd("./generic_idx")
-getwd()
-files <- list.files(normalizePath(getwd()), pattern = ".R", full.names = TRUE)
-max.width <- max(stringi::stri_width(basename(files))) + 8
-for(iFile in files) {
-  print(iFile)
-  capture.output(source(normalizePath(iFile)), file = nullfile())
-  cat(stringi::stri_pad_right(basename(iFile), max.width), " -> ", enumerate,  "\n")
-  enumerate_total <- enumerate_total + enumerate
-}
-rem <-  setdiff(ls(), c("SourceFileLocation", "enumerate", "enumerate_total"))
-rm(list = rem)
-
-
-
-wd <- SourceFileLocation()
-setwd(wd)
-setwd("..")
-setwd("./generic_bind")
-getwd()
-files <- list.files(normalizePath(getwd()), pattern = ".R", full.names = TRUE)
-max.width <- max(stringi::stri_width(basename(files))) + 8
-for(iFile in files) {
-  print(iFile)
-  capture.output(source(normalizePath(iFile)), file = nullfile())
-  cat(stringi::stri_pad_right(basename(iFile), max.width), " -> ", enumerate,  "\n")
-  enumerate_total <- enumerate_total + enumerate
-}
-rem <-  setdiff(ls(), c("SourceFileLocation", "enumerate", "enumerate_total"))
-rm(list = rem)
-
-
-wd <- SourceFileLocation()
-setwd(wd)
-setwd("..")
-setwd("./special")
-getwd()
-files <- list.files(normalizePath(getwd()), pattern = ".R", full.names = TRUE)
-max.width <- max(stringi::stri_width(basename(files))) + 8
-for(iFile in files) {
-  print(iFile)
-  capture.output(source(normalizePath(iFile)), file = nullfile()) |> suppressMessages()
-  cat(stringi::stri_pad_right(basename(iFile), max.width), " -> ", enumerate,  "\n")
-  enumerate_total <- enumerate_total + enumerate
-}
-rem <-  setdiff(ls(), c("SourceFileLocation", "enumerate", "enumerate_total"))
-rm(list = rem)
-
-
-
-wd <- SourceFileLocation()
-setwd(wd)
-setwd("..")
-setwd("./helper")
-getwd()
-files <- list.files(normalizePath(getwd()), pattern = ".R", full.names = TRUE)
-max.width <- max(stringi::stri_width(basename(files))) + 8
-for(iFile in files) {
-  print(iFile)
-  capture.output(source(normalizePath(iFile)), file = nullfile()) |> suppressMessages()
-  cat(stringi::stri_pad_right(basename(iFile), max.width), " -> ", enumerate,  "\n")
-  enumerate_total <- enumerate_total + enumerate
-}
-rem <-  setdiff(ls(), c("SourceFileLocation", "enumerate", "enumerate_total"))
-rm(list = rem)
-
-
-wd <- SourceFileLocation()
-setwd(wd)
-setwd("..")
-setwd("./rcpp_related")
-getwd()
-files <- list.files(normalizePath(getwd()), pattern = ".R", full.names = TRUE)
-max.width <- max(stringi::stri_width(basename(files))) + 8
-for(iFile in files) {
-  print(iFile)
-  capture.output(source(normalizePath(iFile)), file = nullfile()) |> suppressMessages()
-  cat(stringi::stri_pad_right(basename(iFile), max.width), " -> ", enumerate,  "\n")
-  enumerate_total <- enumerate_total + enumerate
-}
-rem <-  setdiff(ls(), c("SourceFileLocation", "enumerate", "enumerate_total"))
-rm(list = rem)
 
 
 print(enumerate_total)

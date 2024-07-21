@@ -102,9 +102,7 @@ in 'squarebrackets' used to select indices. \cr
 
 Any of the following can be specified for argument \code{i}:
 \itemize{
-\item \code{NULL}, only for multi-dimensional objects or factors,
-when specifying the other arguments
-(i.e. dimensional indices or factor levels.)
+\item \code{NULL}, corresponds to missing argument.
 \item a vector of length 0,
 in which case no indices are selected for the operation
 (i.e. empty selection).
@@ -305,6 +303,31 @@ Therefore, when replacing multiple values where the order of the replacement mat
 it is better to keep \code{inv = FALSE}, which is the default. \cr
 For replacement with a single value or with a transformation function,
 \code{inv = TRUE} can be used without considering the ordering. \cr \cr
+}
+
+\section{All NULL indices}{
+
+\code{NULL} in the indexing arguments corresponds to a missing argument. \cr
+Thus, for \bold{both} \link{sb_x} and \link{sb_rm},
+using \code{NULL} for all indexing arguments corresponds to something like the following:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{
+x[]
+
+}\if{html}{\out{</div>}}
+
+Similarly, for \link{sb_mod} and \link{sb_set},
+using \code{NULL} corresponds to something like the following:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{
+x[] <- rp # for replacement
+x[] <- tf(x) # for transformation
+
+}\if{html}{\out{</div>}}
+
+The above is true \bold{even if} \code{inv = TRUE}: \cr
+\code{NULL} corresponds to a missing index arguments,
+and missing arguments cannot be inversed. \cr \cr
 }
 
 \section{Out-of-Bounds Integers, Non-Existing Names/Levels, and NAs}{

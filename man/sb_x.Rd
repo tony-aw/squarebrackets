@@ -14,7 +14,7 @@
 \usage{
 sb_x(x, ...)
 
-\method{sb_x}{default}(x, i, ...)
+\method{sb_x}{default}(x, i = NULL, ...)
 
 \method{sb_x}{matrix}(x, row = NULL, col = NULL, i = NULL, ...)
 
@@ -24,7 +24,7 @@ sb_x(x, ...)
 
 sb2_x(x, ...)
 
-\method{sb2_x}{default}(x, i, drop = FALSE, ...)
+\method{sb2_x}{default}(x, i = NULL, drop = FALSE, ...)
 
 \method{sb2_x}{array}(x, sub = NULL, dims = NULL, i = NULL, drop = FALSE, ...)
 

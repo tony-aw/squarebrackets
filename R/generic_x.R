@@ -43,9 +43,12 @@ sb_x <- function(x, ...) {
 
 #' @rdname sb_x
 #' @export
-sb_x.default <- function(x, i, ...) {
+sb_x.default <- function(x, i = NULL, ...) {
   
   .internal_check_dots(list(...), sys.call())
+  if(is.null(i)){
+    return(x)
+  }
   
   elements <- .indx_make_element.sb_x(i, x, is_list = FALSE, abortcall = sys.call())
   return(x[elements])
@@ -59,6 +62,9 @@ sb_x.matrix <- function(
 ) {
   
   .internal_check_dots(list(...), sys.call())
+  if(.all_NULL_indices(list(row, col, i))) {
+    return(x)
+  }
   
   if(!is.null(i)) {
     elements <- .indx_make_element.sb_x(i, x, is_list = FALSE, abortcall = sys.call())
@@ -72,9 +78,7 @@ sb_x.matrix <- function(
     col <- .indx_make_dim.sb_x(col, x,  2, abortcall = sys.call())
   }
   
-  if(is.null(row) && is.null(col)) {
-    return(x)
-  }
+  
   if(is.null(row)) {
     if(is.null(names(x))) {
       x <- x[, col, drop = FALSE]
@@ -120,8 +124,11 @@ sb_x.array <- function(
 sb_x.factor <- function(x, i = NULL, lvl = NULL, drop = FALSE, ...) {
   
   .internal_check_dots(list(...), sys.call())
-  
   .check_args_factor(i, lvl, drop, abortcall = sys.call())
+  if(.all_NULL_indices(list(i, lvl))) {
+    return(x)
+  }
+  
   
   if(!is.null(i)) {
     elements <- .indx_make_element.sb_x(i, x, is_list = FALSE, abortcall = sys.call())
@@ -149,12 +156,20 @@ sb2_x <- function(x, ...) {
 
 #' @rdname sb_x
 #' @export
-sb2_x.default <- function(x, i, drop = FALSE, ...) {
+sb2_x.default <- function(x, i = NULL, drop = FALSE, ...) {
   
   .internal_check_dots(list(...), sys.call())
   
   if(!isTRUE(drop) && !isFALSE(drop)) {
     stop("`drop` must be either `TRUE` or `FALSE`")
+  }
+  if(is.null(i)) {
+    if(length(x) == 1L && drop) {
+      return(x[[1]])
+    }
+    else {
+      return(x)
+    }
   }
   
   elements <- .indx_make_element.sb_x(i, x, is_list = TRUE, abortcall = sys.call())
@@ -197,8 +212,11 @@ sb2_x.data.frame <- function(
 ) {
   
   .internal_check_dots(list(...), sys.call())
-  
   .check_args_df(x, row, col, filter, vars, abortcall = sys.call())
+  
+  if(.all_NULL_indices(list(row, col, filter, vars))) {
+    return(x)
+  }
   
   if(!is.null(row)) { row <- .indx_make_tableind.sb_x(
     row, x,  1, abortcall = sys.call()
@@ -229,6 +247,10 @@ sb2_x.data.frame <- function(
 #' @noRd
 .sb_x_array <- function(x, sub = NULL, dims = NULL, i = NULL, abortcall) {
   
+  if(.all_NULL_indices(list(sub, dims, i))) {
+    return(x)
+  }
+  
   if(!is.null(i)) {
     elements <- .indx_make_element.sb_x(i, x, is_list = FALSE, abortcall = sys.call())
     return(x[elements])
@@ -238,9 +260,6 @@ sb2_x.data.frame <- function(
     return(x)
   }
   
-  if(length(dims) == 1L && !is.list(sub)) {
-    sub <- list(sub)
-  }
   
   lst <- .arr_lst_brackets.sb_x(x, sub, dims, abortcall = sys.call())
   

@@ -14,7 +14,7 @@ sb_set(x, ...)
 
 \method{sb_set}{default}(
   x,
-  i,
+  i = NULL,
   inv = FALSE,
   ...,
   rp,

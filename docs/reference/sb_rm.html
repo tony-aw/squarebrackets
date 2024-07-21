@@ -66,7 +66,7 @@ Use <code>sb2_rm(x, ...)</code> if <code>x</code> is a recursive object (i.e. li
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">sb_rm</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for default</span></span>
-<span><span class="fu">sb_rm</span><span class="op">(</span><span class="va">x</span>, <span class="va">i</span>, <span class="va">...</span>, chkdup <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"squarebrackets.chkdup"</span>, <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu">sb_rm</span><span class="op">(</span><span class="va">x</span>, i <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span>, chkdup <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"squarebrackets.chkdup"</span>, <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for matrix</span></span>
 <span><span class="fu">sb_rm</span><span class="op">(</span></span>
@@ -103,7 +103,7 @@ Use <code>sb2_rm(x, ...)</code> if <code>x</code> is a recursive object (i.e. li
 <span><span class="co"># S3 method for default</span></span>
 <span><span class="fu">sb2_rm</span><span class="op">(</span></span>
 <span>  <span class="va">x</span>,</span>
-<span>  <span class="va">i</span>,</span>
+<span>  i <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  drop <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  <span class="va">...</span>,</span>
 <span>  chkdup <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"squarebrackets.chkdup"</span>, <span class="cn">FALSE</span><span class="op">)</span></span>
@@ -139,7 +139,7 @@ Use <code>sb2_rm(x, ...)</code> if <code>x</code> is a recursive object (i.e. li
 
 
 <dt>...</dt>
-<dd><p>see <a href="aaa6_squarebrackets_method_dispatch.html">squarebrackets_method_dispatch</a>.</p></dd>
+<dd><p>see <a href="aaa5_squarebrackets_method_dispatch.html">squarebrackets_method_dispatch</a>.</p></dd>
 
 
 <dt>i, lvl, row, col, sub, dims, filter, vars</dt>
