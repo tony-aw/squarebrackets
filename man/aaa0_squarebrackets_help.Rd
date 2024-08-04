@@ -162,8 +162,7 @@ This is considerably faster and more memory efficient than using \link{sb_set} f
 }
 
 \ifelse{html}{\figure{helper_functions-lightblue.svg}{options: alt='[HELPER FUNCTIONS]'}}{\link[=squarebrackets_help]{HELPER FUNCTIONS}} \cr
-And finally,
-a couple of helper functions for creating ranges, sequences, and indices
+A couple of helper functions for creating ranges, sequences, and indices
 (often needed in sub-setting)
 are provided:
 \itemize{
@@ -184,6 +183,18 @@ taking into account the order and any duplicate values of both vectors.
 \item Computing sequences: \cr
 \link{seq_rec2} for the recursive sequence generator
 (for example to generate a Fibonacci sequence). \cr
+}
+
+\ifelse{html}{\figure{developer_functions-pink.svg}{options: alt='[DEVELOPER FUNCTIONS]'}}{\link[=squarebrackets_help]{DEVELOPER FUNCTIONS}} \cr
+
+And finally some developer functions for constructing indices. \cr
+These are also used internally by 'squarebrackets',
+and package authors can use these to create additional sb_/sb2_ S3 methods,
+or even entirely new subset-related functions.
+\itemize{
+\item \link[=tci_bool]{tci_} functions, for type-casting indices.
+\item \link[=ci_flat]{ci_} functions, for constructing indices.
+\item \link{indx_x} and \link{indx_rm}, for testing methods.
 }
 }
 

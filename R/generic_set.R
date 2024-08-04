@@ -78,8 +78,8 @@ sb_set.default <- function(
     return(invisible(NULL))
   }
   
-  elements <- .indx_make_element(
-    i, x, is_list = FALSE, chkdup = chkdup, inv = inv, abortcall = sys.call()
+  elements <- ci_flat(
+    x, i, inv, chkdup, .abortcall = sys.call()
   )
   .sb_set_atomic(x, elements, rp = rp, tf = tf, abortcall = sys.call())
   return(invisible(NULL))
@@ -107,8 +107,8 @@ sb_set.matrix <- function(x, row = NULL, col = NULL, i = NULL, inv = FALSE, ...,
   }
   
   if(!is.null(i)) {
-    elements <- .indx_make_element(
-      i, x, is_list = FALSE, chkdup = chkdup, inv = inv, abortcall = sys.call()
+    elements <- ci_flat(
+      x, i, inv, chkdup, .abortcall = sys.call()
     )
     return(.sb_set_atomic(x, elements, rp = rp, tf = tf, abortcall = sys.call()))
     
@@ -116,10 +116,10 @@ sb_set.matrix <- function(x, row = NULL, col = NULL, i = NULL, inv = FALSE, ...,
 
 
   if(!is.null(row)) {
-    row <- .indx_make_dim(row, x,  1, chkdup = chkdup, inv = inv, abortcall = sys.call())
+    row <- ci_margin(x, row, 1L, inv, chkdup, .abortcall = sys.call())
   }
   if(!is.null(col)) {
-    col <- .indx_make_dim(col, x,  2, chkdup = chkdup, inv = inv, abortcall = sys.call())
+    col <- ci_margin(x, col, 2L, inv, chkdup, .abortcall = sys.call())
   }
   
   if(.any_empty_indices(n(row, col))) {
@@ -154,8 +154,8 @@ sb_set.array <- function(
   }
   
   if(!is.null(i)) {
-    elements <- .indx_make_element(
-      i, x, is_list = is.list(x), chkdup = chkdup, inv = inv, abortcall = sys.call()
+    elements <- ci_flat(
+      x, i, inv, chkdup, .abortcall = sys.call()
     )
     .sb_set_atomic(x, elements, rp = rp, tf = tf, abortcall = sys.call())
     return(invisible(NULL))
@@ -202,11 +202,11 @@ sb2_set.data.table <- function(
   
   
   # function:
-  if(!is.null(row)) { row <- .indx_make_tableind(
-    row, x,  1, chkdup = chkdup, inv = inv, abortcall = sys.call()
+  if(!is.null(row)) { row <- ci_df(
+    x,  row, 1L, inv, chkdup, .abortcall = sys.call()
   )}
-  if(!is.null(col)) { col <- .indx_make_tableind(
-    col, x,  2, chkdup = chkdup, inv = inv, abortcall = sys.call()
+  if(!is.null(col)) { col <- ci_df(
+    x, col, 2L, inv, chkdup, .abortcall = sys.call()
   )}
   
   if(!is.null(filter)) {

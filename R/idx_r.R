@@ -197,3 +197,12 @@ idx_r <- function(x, m = 0L, start = NULL, end = NULL, by = 1L) {
   }
   return(x)
 }
+
+#' @keywords internal
+#' @noRd
+.indx_convert_complex_multi <- function(indx, n, abortcall) {
+  im <- Im(indx)
+  re <- Re(indx)
+  out <- .rcpp_indx_convert_cplx_multi(re, im, n)
+  return(out)
+}

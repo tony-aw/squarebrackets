@@ -106,6 +106,7 @@ sys.source(file.path(getwd(), "source", "sourcetest-datasets.R"), envir = enviro
 
 
 # test errors ====
+
 sb_test <- function(x, ...) {
   x <- data.table::copy(x)
   x2 <- x
@@ -113,6 +114,8 @@ sb_test <- function(x, ...) {
   expect_equal(x, x2) |> errorfun()
   return(x)
 }
+sys.source(file.path(getwd(), "source", "sourcetest-errors.R"), envir = environment())
+
 
 
 if(requireNamespace("tidytable")) {

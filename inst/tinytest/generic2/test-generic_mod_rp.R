@@ -310,6 +310,10 @@ sys.source(file.path(getwd(), "source", "sourcetest-datasets.R"), envir = enviro
 
 # test errors ====
 
+sb_test <- function(x, ...)sb2_mod(x, ..., rp = x[1])
+sys.source(file.path(getwd(), "source", "sourcetest-errors.R"), envir = environment())
+
+
 x <- as.list(1:10)
 expect_error(
   sb2_mod(x, i = 1:5, rp = 1:10),

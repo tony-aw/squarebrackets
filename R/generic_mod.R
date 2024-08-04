@@ -103,8 +103,8 @@ sb_mod.default <- function(
     return(.sb_mod_all(x, rp, tf, NULL, sys.call()))
   }
   
-  elements <- .indx_make_element(
-    i, x, is_list = FALSE, chkdup = chkdup, inv = inv, abortcall = sys.call()
+  elements <- ci_flat(
+    x, i, inv, chkdup, .abortcall = sys.call()
   )
   
   n.i <- length(elements)
@@ -140,10 +140,10 @@ sb_mod.matrix <- function(
   }
   
   if(!is.null(row)) {
-    row <- .indx_make_dim(row, x,  1, chkdup = chkdup, inv = inv, abortcall = sys.call())
+    row <- ci_margin(x, row, 1L, inv, chkdup, .abortcall = sys.call())
   }
   if(!is.null(col)) {
-    col <- .indx_make_dim(col, x,  2, chkdup = chkdup, inv = inv, abortcall = sys.call())
+    col <- ci_margin(x, col, 2L, inv, chkdup, .abortcall = sys.call())
   }
   
   if(.any_empty_indices(n(row, col))) {
@@ -186,7 +186,7 @@ sb_mod.array <- function(
     return(.sb_mod_all(x, rp, tf, NULL, sys.call()))
   }
   
-  lst <- .arr_lst_brackets(x, sub, dims, chkdup, inv = inv, abortcall = sys.call())
+  lst <- ci_sub(x, sub, dims, inv, chkdup, .abortcall = sys.call())
   if(.any_empty_indices(lst)) {
     return(x)
   }
@@ -216,8 +216,8 @@ sb_mod.factor <- function(
   }
   
   if(!is.null(i)) {
-    elements <- .indx_make_element(
-      i, x, is_list = FALSE, chkdup = chkdup, inv = inv, abortcall = sys.call()
+    elements <- ci_flat(
+      x, i, inv, chkdup, .abortcall = sys.call()
     )
     n.i <- length(elements)
     if(n.i == 0) return(x)
@@ -263,8 +263,8 @@ sb2_mod.default <- function(
     return(.sb_mod_all(x, rp, tf, .lapply, sys.call()))
   }
   
-  elements <- .indx_make_element(
-    i, x, is_list = TRUE, chkdup = chkdup, inv = inv, abortcall = sys.call()
+  elements <- ci_flat(
+    x, i, inv, chkdup, .abortcall = sys.call()
   )
   
   n.i <- length(elements)
@@ -308,7 +308,7 @@ sb2_mod.array <- function(
     return(.sb_mod_all(x, rp, tf, .lapply, sys.call()))
   }
   
-  lst <- .arr_lst_brackets(x, sub, dims, chkdup, inv = inv, abortcall = sys.call())
+  lst <- ci_sub(x, sub, dims, inv, chkdup, .abortcall = sys.call())
   if(.any_empty_indices(lst)) {
     return(x)
   }
@@ -337,11 +337,11 @@ sb2_mod.data.frame <- function(
   # checks, errors, and transformations:
   .check_args_df(x, row, col, filter, vars, abortcall = sys.call())
   
-  if(!is.null(row)) { row <- .indx_make_tableind(
-    row, x,  1, chkdup = chkdup, inv = inv, abortcall = sys.call()
+  if(!is.null(row)) { row <- ci_df(
+    x, row, 1L, inv, chkdup, .abortcall = sys.call()
   )}
-  if(!is.null(col)) { col <- .indx_make_tableind(
-    col, x,  2, chkdup = chkdup, inv = inv, abortcall = sys.call()
+  if(!is.null(col)) { col <- ci_df(
+    x, col, 2L, inv, chkdup, .abortcall = sys.call()
   )}
   
   if(!is.null(filter)) {

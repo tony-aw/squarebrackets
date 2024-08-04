@@ -87,8 +87,8 @@ idx.default <- function(
   
   .internal_check_dots(list(...), sys.call())
   
-  elements <- .indx_make_element(
-    i, x, is_list = is.list(x), chkdup = chkdup, inv = inv, abortcall = sys.call()
+  elements <- ci_flat(
+    x, i, inv, chkdup, .abortcall = sys.call()
   )
   return(elements)
 }
@@ -109,7 +109,7 @@ idx.array <- function(
     !is.null(slice) && !is.null(margin),
     !is.null(i)
   )
-  if(sum(check_args)>1) {
+  if(sum(check_args) > 1L) {
     stop("incorrect combination of arguments given")
   }
   check_args <- is.null(sub) == is.null(dims) && is.null(slice) == is.null(margin)
@@ -118,21 +118,19 @@ idx.array <- function(
   }
   
   if(!is.null(i)) {
-    elements <- .indx_make_element(
-      i, x, is_list = is.list(x), chkdup = chkdup, inv = inv, abortcall = sys.call()
+    elements <- elements <- ci_flat(
+      x, i, inv, chkdup, .abortcall = sys.call()
     )
     return(elements)
   }
   
   if(!is.null(slice) && !is.null(margin)) {
-    .idx_slicemargin(x, slice, margin, inv, chkdup)
+    return(ci_margin(x, slice, margin, inv, chkdup, .abortcall = sys.call()))
   }
   
   x.dim <- dim(x)
-  ndims <- length(x.dim)
-  .arr_check(x, sub, dims, ndims, abortcall = sys.call())
-  lst <- .arr_lst_brackets(
-    x, sub, dims, chkdup = chkdup, inv = inv, abortcall = sys.call()
+  lst <- ci_sub(
+    x, sub, dims, inv, chkdup, .abortcall = sys.call()
   )
   elements <- sub2ind(lst, x.dim, checks = FALSE)
   return(elements)
@@ -149,24 +147,9 @@ idx.data.frame <- function(
   
   .internal_check_dots(list(...), sys.call())
   
-  return(.idx_slicemargin(
-    x, slice, margin, inv, chkdup, abortcall = sys.call()
+  return(ci_df(
+    x, slice, margin, inv, chkdup, .abortcall = sys.call()
   ))
   
 }
 
-#' @keywords internal
-#' @noRd
-.idx_slicemargin <- function(x, slice, margin, inv, chkdup, abortcall) {
-  if(is.null(dim(x))) {
-    stop(simpleError("`x` has no dimensions", call = abortcall))
-  }
-  if(!is.atomic(slice)) {
-    stop(simpleError("`slice` must be atomic", call = abortcall))
-  }
-  obj <- stats::setNames(seq_len(dim(x)[margin]), dimnames(x)[[margin]])
-  elements <- .indx_make_element(
-    slice, obj, is_list = FALSE, chkdup = chkdup, inv = inv, abortcall = sys.call()
-  )
-  return(elements)
-}

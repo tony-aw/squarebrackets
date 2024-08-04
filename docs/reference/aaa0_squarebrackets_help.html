@@ -184,8 +184,7 @@ This is considerably faster and more memory efficient than using <a href="sb_set
 (each single character is treated as a single element).</p></li>
 <li><p><a href="sb_special.html">sb_a</a>: extract multiple attributes from an object. <br><br></p></li>
 </ul><p><img src="figures/helper_functions-lightblue.svg" alt="[HELPER FUNCTIONS]"><br>
-And finally,
-a couple of helper functions for creating ranges, sequences, and indices
+A couple of helper functions for creating ranges, sequences, and indices
 (often needed in sub-setting)
 are provided:</p><ul><li><p><a href="currentBindings.html">currentBindings</a>: list or lock all currently existing bindings
 that share the share the same address as the input variable.</p></li>
@@ -200,6 +199,13 @@ taking into account the order and any duplicate values of both vectors.</p></li>
 <li><p>Computing indices: <br><a href="idx_r.html">idx_r</a> to compute an integer index range. <br><a href="idx_by.html">idx_by</a> to compute grouped indices. <br><a href="idx_ord.html">idx_ord_</a>-functions to compute ordered indices. <br></p></li>
 <li><p>Computing sequences: <br><a href="seq_rec2.html">seq_rec2</a> for the recursive sequence generator
 (for example to generate a Fibonacci sequence). <br></p></li>
+</ul><p><img src="figures/developer_functions-pink.svg" alt="[DEVELOPER FUNCTIONS]"><br></p>
+<p>And finally some developer functions for constructing indices. <br>
+These are also used internally by 'squarebrackets',
+and package authors can use these to create additional sb_/sb2_ S3 methods,
+or even entirely new subset-related functions.</p><ul><li><p><a href="tci.html">tci_</a> functions, for type-casting indices.</p></li>
+<li><p><a href="ci.html">ci_</a> functions, for constructing indices.</p></li>
+<li><p><a href="exported_uilities.html">indx_x</a> and <a href="exported_uilities.html">indx_rm</a>, for testing methods.</p></li>
 </ul></div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>

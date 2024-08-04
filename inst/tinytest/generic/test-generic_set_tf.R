@@ -26,6 +26,27 @@ sb_set2.array <- function(x, ...) {
   return(x)
 }
 
+
+
+# test missing arguments (NULL) ====
+
+temp.fun <- function(x) {
+  tempfun <- function(x) {
+    x <- as.mutable_atomic(x)
+    x[] <- x[1]
+    return(x)
+  }
+  expect_equal(
+    sb_set2(x, tf = \(x)x[1]),
+    tempfun(x)
+  ) |> errorfun()
+}
+
+sys.source(file.path(getwd(), "source", "sourcetest-missingargs.R"), envir = environment())
+
+
+
+
 # test elements ====
 
 test_sb <- function(x, i) {
@@ -153,6 +174,17 @@ sys.source(file.path(getwd(), "source", "sourcetest-dims.R"), envir = environmen
 
 
 # test errors ====
+
+
+sb_test <- function(x, ...) {
+  x <- as.mutable_atomic(x)
+  sb_set(x, ..., tf = \(x)x[1])
+  return(x)
+}
+sys.source(file.path(getwd(), "source", "sourcetest-errors.R"), envir = environment())
+
+
+
 sb_test <- function(x, ...) {
   x <- data.table::copy(x)
   x2 <- x

@@ -143,8 +143,7 @@
 #'  * \link{sb_a}: extract multiple attributes from an object. \cr \cr
 #' 
 #' `r .mybadge_intro_section("HELPER FUNCTIONS", "lightblue")` \cr
-#' And finally,
-#' a couple of helper functions for creating ranges, sequences, and indices
+#' A couple of helper functions for creating ranges, sequences, and indices
 #' (often needed in sub-setting)
 #' are provided:
 #' 
@@ -165,6 +164,19 @@
 #'  * Computing sequences: \cr
 #'  \link{seq_rec2} for the recursive sequence generator
 #'  (for example to generate a Fibonacci sequence). \cr 
+#' 
+#' 
+#' `r .mybadge_intro_section("DEVELOPER FUNCTIONS", "pink")` \cr
+#' 
+#' And finally some developer functions for constructing indices. \cr
+#' These are also used internally by 'squarebrackets',
+#' and package authors can use these to create additional sb_/sb2_ S3 methods,
+#' or even entirely new subset-related functions.
+#' 
+#'  * \link[=tci_bool]{tci_} functions, for type-casting indices.
+#'  * \link[=ci_flat]{ci_} functions, for constructing indices.
+#'  * \link{indx_x} and \link{indx_rm}, for testing methods.
+#' 
 #' 
 #' @author \strong{Maintainer}: Tony Wilkes \email{tony_a_wilkes@outlook.com} (\href{https://orcid.org/0000-0001-9498-8379}{ORCID})
 #' 

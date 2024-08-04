@@ -183,19 +183,19 @@ sub2ind <- function(sub, x.dim, checks = TRUE) {
   }
   else if(n == 2) {
     dimcumprod <- as.integer(cumprod(x.dim))
-    return(.rcpp_sub2ind_2d(
+    return(.C_sub2ind_2d(
       as.integer(sub[[1]]), as.integer(sub[[2]]), dimcumprod
     ))
   }
   else if(n == 3) {
     dimcumprod <- as.integer(cumprod(x.dim))
-    return(.rcpp_sub2ind_3d(
+    return(.C_sub2ind_3d(
       as.integer(sub[[1]]), as.integer(sub[[2]]), as.integer(sub[[3]]), dimcumprod
     ))
   }
   else if(n == 4) {
     dimcumprod <- as.integer(cumprod(x.dim))
-    return(.rcpp_sub2ind_4d(
+    return(.C_sub2ind_4d(
       as.integer(sub[[1]]),
       as.integer(sub[[2]]),
       as.integer(sub[[3]]),
@@ -205,7 +205,7 @@ sub2ind <- function(sub, x.dim, checks = TRUE) {
   }
   else if(n == 5) {
     dimcumprod <- as.integer(cumprod(x.dim))
-    return(.rcpp_sub2ind_5d(
+    return(.C_sub2ind_5d(
       as.integer(sub[[1]]),
       as.integer(sub[[2]]),
       as.integer(sub[[3]]),
@@ -216,7 +216,7 @@ sub2ind <- function(sub, x.dim, checks = TRUE) {
   }
   else if(n == 6) {
     dimcumprod <- as.integer(cumprod(x.dim))
-    return(.rcpp_sub2ind_6d(
+    return(.C_sub2ind_6d(
       as.integer(sub[[1]]),
       as.integer(sub[[2]]),
       as.integer(sub[[3]]),

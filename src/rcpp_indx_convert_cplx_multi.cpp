@@ -6,7 +6,7 @@ using namespace Rcpp;
 //' @noRd
 // [[Rcpp::export(.rcpp_indx_convert_cplx_multi)]]
 IntegerVector rcpp_indx_convert_cplx_multi(
-  const IntegerVector re, const IntegerVector im, const IntegerVector lens
+  const NumericVector re, const NumericVector im, const NumericVector lens
 ) {
   int n = lens.length();
   IntegerVector out(n);

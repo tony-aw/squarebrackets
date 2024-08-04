@@ -16,34 +16,6 @@
 
 #' @keywords internal
 #' @noRd
-.indx_check_names <- function(dnames, abortcall) {
-  
-  if(length(dnames) == 0L) {
-    stop(simpleError("`x` has no names; fix this before subsetting", call = abortcall))
-  }
-}
-
-
-#' @keywords internal
-#' @noRd
-.indx_check_logical <- function(n.indx, dlength, abortcall) {
-  if(n.indx != dlength) {
-    stop(simpleError("incorrect length of logical indices", call = abortcall))
-  }
-}
-
-
-#' @keywords internal
-#' @noRd
-.indx_check_int <- function(indx, dlength, abortcall) {
-  if(.C_any_badindx(indx, dlength)) {
-    stop(simpleError("integers must be >= 1 and <= bounds", call = abortcall))
-  }
-}
-
-
-#' @keywords internal
-#' @noRd
 .indx_stop <- function(abortcall) {
   stop(simpleError(
     "incorrect index type",
@@ -52,58 +24,20 @@
 }
 
 
-#' @keywords internal
-#' @noRd
-.indx_convert_chr <- function(indx, dnames, chkdup, inv, abortcall) {
-  
-  if(chkdup) {
-    if(collapse::any_duplicated(indx)) {
-      stop(simpleError("duplicate integers or names not allowed", call = abortcall))
-    }
-  }
-  
-  if(!inv) { return(match_all(indx, dnames)) }
-  if(inv){ return(collapse::`%!iin%`(dnames, indx)) }
-  
-}
-
 
 
 #' @keywords internal
 #' @noRd
-.indx_convert_int <- function(indx, n, chkdup, inv, abortcall) {
+.lvl2indx.sb_x <- function(indx, x, abortcall) {
   
-  if(chkdup) {
-    if(anyDuplicated(indx)) { # base::anyDuplicated faster for numeric
-      stop(simpleError("duplicate integers or names not allowed", call = abortcall))
-    }
+  
+  if(length(indx) == 0L) {
+    return(integer(0L))
   }
-  if(!inv) { return(indx) }
-  if(inv) { return(seq_len(n)[-indx]) }
   
+  return(match_all(indx, x))
 }
 
-.indx_convert_complex <- function(indx, n, abortcall) {
-  unim <- Im(indx[1])
-  if(!collapse::allv(Im(indx), unim)) {
-    stop(simpleError(
-      "imaginary number in complex indices must be a constant", call = abortcall
-    ))
-  }
-  if(unim < 0) {
-    return(n - Re(indx) + 1L)
-  }
-  else {
-    return(Re(indx))
-  }
-}
-
-.indx_convert_complex_multi <- function(indx, n, abortcall) {
-  im <- as.integer(Im(indx))
-  re <- as.integer(Re(indx))
-  out <- .rcpp_indx_convert_cplx_multi(re, im, as.integer(n))
-  return(out)
-}
 
 
 #' @keywords internal
@@ -149,164 +83,6 @@
     stop(simpleError(error.txt, call = abortcall))
   }
 
-}
-
-
-#' @keywords internal
-#' @noRd
-.indx_make_element <- function(indx, x, is_list, chkdup, inv, abortcall) {
-  
-  if(is.function(indx)) {
-    if(is_list){
-      indx <- vapply(x, indx, FUN.VALUE = logical(1L), USE.NAMES = FALSE) |> unlist()
-    } else {indx <- indx(x)}
-    
-    if(!is.logical(indx) || length(indx) != length(x)) {
-      stop(simpleError(
-        "if elements are given through a function, the function must return a logical vector",
-        call = abortcall
-      ))
-    }
-    if(!inv) return(which(indx))
-    if(inv) return(which(!indx))
-  }
-  
-  n.indx <- length(indx)
-  
-  if(n.indx == 0L) {
-    n <- length(x)
-    if(!inv) return(integer(0L))
-    if(inv) return(seq_len(n))
-  }
-  
-  if(is.complex(indx)) {
-    n <- length(x)
-    indx <- .indx_convert_complex(indx, n)
-    .indx_check_int(indx, n, abortcall)
-    return(.indx_convert_int(indx, n, chkdup, inv, abortcall))
-  }
-  
-  if(is.numeric(indx)) {
-    n <- length(x)
-    .indx_check_int(indx, n, abortcall)
-    return(.indx_convert_int(indx, n, chkdup, inv, abortcall))
-  }
-  
-  if(is.character(indx)) {
-    nms <- names(x)
-    .indx_check_names(nms, abortcall)
-    return(.indx_convert_chr(indx, nms, chkdup, inv, abortcall))
-    
-  }
-  
-  if(is.logical(indx)) {
-    n <- length(x)
-    .indx_check_logical(n.indx, n, abortcall)
-    
-    if(!inv){return(which(indx))}
-    if(inv){return(which(!indx))}
-    
-  }
-  
-  
-  .indx_stop(abortcall)
-}
-
-
-#' @keywords internal
-#' @noRd
-.indx_make_dim <- function(
-    indx, x, dim.L, chkdup, inv, abortcall # removed =1L from dim.L argument spec
-) {
-  
-
-  n.indx <- length(indx)
-  
-  
-  if(n.indx == 0L) {
-    if(!inv) return(integer(0L))
-    if(inv) return(seq_len(dim(x)[dim.L]))
-  }
-  
-  if(is.complex(indx)) {
-    n <- dim(x)[dim.L]
-    indx <- .indx_convert_complex(indx, n)
-    .indx_check_int(indx, n, abortcall)
-    return(.indx_convert_int(indx, n, chkdup, inv, abortcall))
-  }
-  
-  if(is.numeric(indx)) {
-    dlength <- dim(x)[dim.L]
-    .indx_check_int(indx, dlength, abortcall)
-    return(.indx_convert_int(indx, dlength, chkdup, inv, abortcall))
-  }
-  
-  if(is.character(indx)) {
-    dnames <- dimnames(x)[[dim.L]]
-    .indx_check_names(dnames, abortcall)
-    return(.indx_convert_chr(indx, dnames, chkdup, inv, abortcall))
-    
-  }
-
-  if(is.logical(indx)) {
-    dlength <- dim(x)[dim.L]
-    .indx_check_logical(n.indx, dlength, abortcall)
-
-    if(!inv){return(which(indx))}
-    if(inv){return(which(!indx))}
-    
-  }
-
-  .indx_stop(abortcall)
-}
-
-
-#' @keywords internal
-#' @noRd
-.indx_make_tableind <- function(
-    indx, x, dim.L, chkdup, inv, abortcall
-) {
-
-  
-  n.indx <- length(indx)
-  
-  
-  if(n.indx == 0L) {
-    if(!inv) return(integer(0L))
-    if(inv) return(seq_len(dim(x)[dim.L]))
-  }
-  
-  if(is.complex(indx)) {
-    n <- dim(x)[dim.L]
-    indx <- .indx_convert_complex(indx, n)
-    .indx_check_int(indx, n, abortcall)
-    return(.indx_convert_int(indx, n, chkdup, inv, abortcall))
-  }
-  
-  if(is.numeric(indx)) {
-    dlength <- dim(x)[dim.L]
-    .indx_check_int(indx, dlength, abortcall)
-    return(.indx_convert_int(indx, dlength, chkdup, inv, abortcall))
-  }
-  
-  if(is.character(indx)) {
-    if(dim.L == 1L) dnames <- rownames(x)
-    if(dim.L == 2L) dnames <- names(x)
-
-    .indx_check_names(dnames, abortcall)
-    return(.indx_convert_chr(indx, dnames, chkdup, inv, abortcall))
-  }
-  
-  if(is.logical(indx)) {
-    if(dim.L == 1L) dlength <- collapse::fnrow(x)
-    if(dim.L == 2L) dlength <- collapse::fncol(x)
-    .indx_check_logical(n.indx, dlength, abortcall)
-    
-    if(!inv){return(which(indx))}
-    if(inv){return(which(!indx))}
-  }
-  
-  .indx_stop(abortcall)
 }
 
 

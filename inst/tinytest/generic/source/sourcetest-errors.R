@@ -84,7 +84,7 @@ if(test_PassByReference) {
 for(i in 1:length(xlist)) {
   expect_error(
     sb_test(xlist[[i]], i = "a"),
-    pattern = "`x` has no names; fix this before subsetting",
+    pattern = "no names present",
     fixed = TRUE
   )|> errorfun()
   enumerate <- enumerate + 1
@@ -168,7 +168,7 @@ xlist <- list(
 for(i in 1:length(xlist)) {
   expect_error(
     sb_test(xlist[[i]], row = "a"),
-    pattern = "`x` has no names; fix this before subsetting",
+    pattern = "no names present",
     fixed = TRUE
   )|> errorfun()
   enumerate <- enumerate + 1
@@ -231,7 +231,7 @@ xlist <- list(
 for(i in 1:length(xlist)) {
   expect_error(
     sb_test(xlist[[i]], col = "a"),
-    pattern =  "`x` has no names; fix this before subsetting",
+    pattern =  "no names present",
     fixed = TRUE
   )|> errorfun()
   enumerate <- enumerate + 1
@@ -299,7 +299,7 @@ enumerate <- enumerate + 1
 
 expect_error(
   sb_test(x, list("a"), dim = 1),
-  pattern = "`x` has no names; fix this before subsetting",
+  pattern = "no names present",
   fixed = TRUE
 )|> errorfun()
 enumerate <- enumerate + 1

@@ -272,7 +272,7 @@ sys.source(file.path(getwd(), "source", "sourcetest-datasets.R"), envir = enviro
 
 
 # test errors ====
-sb_test <- function(...)sb2_mod(..., tf = \(x)x[1])
+sb_test <- function(...)sb2_mod(..., inv = TRUE, tf = \(x)x[1])
 sys.source(file.path(getwd(), "source", "sourcetest-errors.R"), envir = environment())
 
 expect_error(

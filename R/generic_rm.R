@@ -53,9 +53,7 @@ sb_rm.default <- function(
     return(x)
   }
   
-  elements <- .indx_make_element(
-    i, x, is_list = FALSE, chkdup = chkdup, inv = TRUE, abortcall = sys.call()
-  )
+  elements <- ci_flat(x, i, inv = TRUE, chkdup = chkdup, .abortcall = sys.call())
   return(x[elements])
 }
 
@@ -73,15 +71,15 @@ sb_rm.matrix <- function(
   }
   
   if(!is.null(i)) {
-    elements <- .indx_make_element(i, x, is_list = FALSE, chkdup = chkdup, inv = TRUE, abortcall = sys.call())
+    elements <- ci_flat(x, i, inv = TRUE, chkdup = chkdup, .abortcall = sys.call())
     return(x[elements])
   }
   
   if(!is.null(row)) {
-    row <- .indx_make_dim(row, x,  1, chkdup = chkdup, inv = TRUE, abortcall = sys.call())
+    row <- ci_margin(x, row, 1L, inv = TRUE, chkdup = chkdup, .abortcall = sys.call())
   }
   if(!is.null(col)) {
-    col <- .indx_make_dim(col, x,  2, chkdup = chkdup, inv = TRUE, abortcall = sys.call())
+    col <- ci_margin(x, col, 2L, inv = TRUE, chkdup = chkdup, .abortcall = sys.call())
   }
   
   if(is.null(row) && is.null(col)) {
@@ -142,7 +140,7 @@ sb_rm.factor <- function(
   }
   
   if(!is.null(i)) {
-    elements <- .indx_make_element(i, x, is_list = FALSE, chkdup = chkdup, inv = TRUE, abortcall = sys.call())
+    elements <- ci_flat(x, i, inv = TRUE, chkdup = chkdup, .abortcall = sys.call())
     return(x[elements, drop = drop])
   }
   if(!is.null(lvl)) {
@@ -182,7 +180,7 @@ sb2_rm.default <- function(
     }
   }
   
-  elements <- .indx_make_element(i, x, is_list = TRUE, chkdup = chkdup, inv = TRUE, abortcall = sys.call())
+  elements <- ci_flat(x, i, inv = TRUE, chkdup = chkdup, .abortcall = sys.call())
   n.i <- length(elements)
   if(n.i == 1 && drop) {
     return(x[[elements]])
@@ -227,11 +225,11 @@ sb2_rm.data.frame <- function(
   }
   
   
-  if(!is.null(row)) { row <- .indx_make_tableind(
-    row, x,  1, chkdup = chkdup, inv = TRUE, abortcall = sys.call()
+  if(!is.null(row)) { row <- ci_df(
+    x, row, 1L, inv = TRUE, chkdup = chkdup, .abortcall = sys.call()
   )}
-  if(!is.null(col)) { col <- .indx_make_tableind(
-    col, x,  2, chkdup = chkdup, inv = TRUE, abortcall = sys.call()
+  if(!is.null(col)) { col <- ci_df(
+    x, col, 2L, inv = TRUE, chkdup = chkdup, .abortcall = sys.call()
   )}
   
   if(!is.null(filter)) {
@@ -261,9 +259,7 @@ sb2_rm.data.frame <- function(
   }
   
   if(!is.null(i)) {
-    elements <- .indx_make_element(
-      i, x, is_list = FALSE, chkdup = chkdup, inv = TRUE, abortcall = abortcall
-    )
+    elements <- ci_flat(x, i, inv = TRUE, chkdup = chkdup, .abortcall = sys.call())
     return(x[elements])
   }
   
@@ -271,7 +267,7 @@ sb2_rm.data.frame <- function(
     return(x)
   }
   
-  lst <- .arr_lst_brackets(x, sub, dims, chkdup, inv = TRUE, abortcall = abortcall)
+  lst <- ci_sub(x, sub, dims, inv = TRUE, chkdup = chkdup, .abortcall = sys.call())
   
   if(is.null(names(x))) {
     x <- .arr_x(x, lst, abortcall = abortcall)

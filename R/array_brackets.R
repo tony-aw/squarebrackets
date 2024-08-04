@@ -9,69 +9,6 @@
   return(prod(spec.dimsize, unspec.dimsize))
 }
 
-
-#' @keywords internal
-#' @noRd
-.arr_check <- function(x, sub, dims, ndims, abortcall) {
-  if(!is.list(sub) || !is.numeric(dims)) {
-    stop(simpleError("`sub` must be a list, and `dims` must be a integer vector", call = abortcall))
-  }
-  if(length(sub) != length(dims)) {
-    stop(simpleError("`length(sub) != length(dims)`", call = abortcall))
-  }
-  if(.C_any_badindx(as.integer(dims), ndims)) {
-    stop(simpleError("`dims` out of range", call = abortcall))
-  }
-}
-
-
-#' @keywords internal
-#' @noRd
-.arr_lst_brackets <- function(x, sub, dims, chkdup, inv, abortcall) {
-  
-  # Note: since arrays have many dimensions,
-  # but the maximum total number of elements remains the same
-  # the maximum of each dimension reduces.
-  # Thus, creating sequences here is not so expensive.
-  
-  if(length(dims) == 1L && !is.list(sub)) {
-    sub <- list(sub)
-  }
-  
-  .arr_check(x, sub, dims, length(dim(x)), abortcall)
-  lst <- .rcpp_seq_mlen(as.integer(dim(x)))
-  if(length(dims) > 0L) {
-    for(i in seq_along(dims)) {
-      lst[[dims[i]]] <- .indx_make_dim(
-        sub[[i]], x, dim.L = dims[i], chkdup = chkdup, inv = inv, abortcall
-      )
-    }
-  }
-  return(lst)
-}
-
-
-#' @keywords internal
-#' @noRd
-.arr_lst_brackets.sb_x <- function(x, sub, dims, abortcall) {
-  
-  if(length(dims) == 1L && !is.list(sub)) {
-    sub <- list(sub)
-  }
-  
-  .arr_check(x, sub, dims, length(dim(x)), abortcall)
-  lst <- .rcpp_seq_mlen(as.integer(dim(x)))
-  if(length(dims) > 0L) {
-    for(i in seq_along(dims)) {
-      lst[[dims[i]]] <- .indx_make_dim.sb_x(
-        sub[[i]], x, dim.L = dims[i], abortcall
-      )
-    }
-  }
-  return(lst)
-}
-
-
 #' @keywords internal
 #' @noRd
 .arr_x <- function(x, lst, abortcall) {
@@ -160,20 +97,20 @@
   }
   x.dim <- dim(x)
   ndims <- length(x.dim)
-  .arr_check(x, sub, dims, ndims, abortcall = abortcall)
+  .arr_check(x, sub, dims, ndims, .abortcall = abortcall)
   
   
   # CASE 1: `x` is a vector / 1d array, so subscript translation is waste of computation
   if(ndims == 1L) {
-    elements <- .indx_make_element(
-      sub[[1]], x, is_list = FALSE, chkdup = chkdup, inv = inv, abortcall = abortcall
+    elements <- ci_flat(
+      x, sub[[1]], inv, chkdup, .abortcall = sys.call()
     )
     .sb_set_atomic(x, elements, rp = rp, tf = tf, abortcall = abortcall)
     return(invisible(NULL))
   }
   
-  lst <- .arr_lst_brackets(
-    x, sub, dims, chkdup = chkdup, inv = inv, abortcall = abortcall
+  lst <- ci_sub(
+    x, sub, dims, inv, chkdup, .abortcall = abortcall
   )
   
   # CASE 2: all list elements are integer(0), so nothing to change

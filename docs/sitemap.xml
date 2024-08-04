@@ -76,6 +76,9 @@
     <loc>https://tony-aw.github.io/squarebrackets/reference/bind.html</loc>
   </url>
   <url>
+    <loc>https://tony-aw.github.io/squarebrackets/reference/ci.html</loc>
+  </url>
+  <url>
     <loc>https://tony-aw.github.io/squarebrackets/reference/class_mutable_atomic.html</loc>
   </url>
   <url>
@@ -152,5 +155,8 @@
   </url>
   <url>
     <loc>https://tony-aw.github.io/squarebrackets/reference/sub2ind.html</loc>
+  </url>
+  <url>
+    <loc>https://tony-aw.github.io/squarebrackets/reference/tci.html</loc>
   </url>
 </urlset>

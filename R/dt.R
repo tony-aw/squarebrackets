@@ -110,8 +110,8 @@ dt_setcoe <- function(
   .check_bindingIsLocked(substitute(x), parent.frame(n = 1), abortcall = sys.call())
   
   if(!is.null(col)) {
-    col <- .indx_make_tableind(
-      col, x,  2, chkdup = chkdup, inv = FALSE, abortcall = sys.call()
+    col <- ci_df(
+      x, col, 2L, inv = FALSE, chkdup = chkdup
     )
     col <- names(x)[col]
   }
@@ -142,8 +142,8 @@ dt_setrm <- function(x, col = NULL, vars = NULL, chkdup = getOption("squarebrack
   .check_bindingIsLocked(substitute(x), parent.frame(n = 1), abortcall = sys.call())
   
   if(!is.null(col)) {
-    col <- .indx_make_tableind(
-      col, x,  2, chkdup = chkdup, inv = FALSE, abortcall = sys.call()
+    col <- ci_df(
+      x, col, 2L, inv = FALSE, chkdup
     )
     col <- names(x)[col]
   }

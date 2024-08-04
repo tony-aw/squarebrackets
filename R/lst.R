@@ -128,7 +128,7 @@ lst_untree <- function(x, margin, use.names = FALSE) {
   if(margin == 1) {
     
     dim(out) <- c(length(input), maxlen)
-    dimcumprod <- cumprod(dim(out))
+    dimcumprod <- as.integer(cumprod(dim(out)))
     
     if(use.names) {
       
@@ -136,7 +136,7 @@ lst_untree <- function(x, margin, use.names = FALSE) {
       
       for(i in seq_along(input)) {
         mypointer <- input[[i]]
-        indx <- .rcpp_sub2ind_2d(i, seq_along(mypointer), dimcumprod)
+        indx <- .C_sub2ind_2d(i, seq_along(mypointer), dimcumprod)
         out[indx] <- mypointer
         if(!is.null(names(mypointer))) {
           names(out)[indx] <- names(mypointer)
@@ -156,14 +156,14 @@ lst_untree <- function(x, margin, use.names = FALSE) {
   if(margin == 2) {
     
     dim(out) <- c(maxlen, length(input))
-    dimcumprod <- cumprod(dim(out))
+    dimcumprod <- as.integer(cumprod(dim(out)))
     
     if(use.names) {
       names(out) <- character(length(out))
       
       for(i in seq_along(input)) {
         mypointer <- input[[i]]
-        indx <- .rcpp_sub2ind_2d(seq_along(mypointer), i, dimcumprod)
+        indx <- .C_sub2ind_2d(seq_along(mypointer), i, dimcumprod)
         out[indx] <- mypointer
         if(!is.null(names(mypointer))) {
           names(out)[indx] <- names(mypointer)

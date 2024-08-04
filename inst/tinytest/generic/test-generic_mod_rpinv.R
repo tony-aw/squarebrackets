@@ -252,6 +252,10 @@ enumerate <- enumerate + 3
 
 # test errors ====
 
+sb_test <- function(x, ...)sb_mod(x, ..., inv = TRUE, rp = x[1])
+sys.source(file.path(getwd(), "source", "sourcetest-errors.R"), envir = environment())
+
+
 x <- 1:10
 expect_error(
   sb_mod(x, i = 1:5, rp = 1:6, inv = TRUE),

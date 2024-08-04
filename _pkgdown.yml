@@ -54,6 +54,8 @@ reference:
   - '`idx_by`'
   - '`idx_ord_v`'
   - '`seq_rec2`'
-- title: Misc
+- title: Developer Functions
   contents:
+  - '`ci_flat`'
+  - '`tci_chr`'
   - '`indx_x`'

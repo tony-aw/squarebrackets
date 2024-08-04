@@ -50,7 +50,7 @@ sb_x.default <- function(x, i = NULL, ...) {
     return(x)
   }
   
-  elements <- .indx_make_element.sb_x(i, x, is_list = FALSE, abortcall = sys.call())
+  elements <- ci_flat(x, i, .abortcall = sys.call())
   return(x[elements])
 }
 
@@ -67,15 +67,15 @@ sb_x.matrix <- function(
   }
   
   if(!is.null(i)) {
-    elements <- .indx_make_element.sb_x(i, x, is_list = FALSE, abortcall = sys.call())
+    elements <- ci_flat(x, i, .abortcall = sys.call())
     return(x[elements])
   }
   
   if(!is.null(row)) {
-    row <- .indx_make_dim.sb_x(row, x,  1, abortcall = sys.call())
+    row <- ci_margin(x, row, 1L, .abortcall = sys.call())
   }
   if(!is.null(col)) {
-    col <- .indx_make_dim.sb_x(col, x,  2, abortcall = sys.call())
+    col <- ci_margin(x, col, 2L, .abortcall = sys.call())
   }
   
   
@@ -131,7 +131,7 @@ sb_x.factor <- function(x, i = NULL, lvl = NULL, drop = FALSE, ...) {
   
   
   if(!is.null(i)) {
-    elements <- .indx_make_element.sb_x(i, x, is_list = FALSE, abortcall = sys.call())
+    elements <- ci_flat(x, i, .abortcall = sys.call())
     return(x[elements, drop = drop])
   }
   if(!is.null(lvl)) {
@@ -172,7 +172,7 @@ sb2_x.default <- function(x, i = NULL, drop = FALSE, ...) {
     }
   }
   
-  elements <- .indx_make_element.sb_x(i, x, is_list = TRUE, abortcall = sys.call())
+  elements <- ci_flat(x, i, .abortcall = sys.call())
   
   n.i <- length(elements)
   
@@ -218,11 +218,11 @@ sb2_x.data.frame <- function(
     return(x)
   }
   
-  if(!is.null(row)) { row <- .indx_make_tableind.sb_x(
-    row, x,  1, abortcall = sys.call()
+  if(!is.null(row)) { row <- ci_df(
+    x, row, 1L, .abortcall = sys.call()
   )}
-  if(!is.null(col)) { col <- .indx_make_tableind.sb_x(
-    col, x,  2, abortcall = sys.call()
+  if(!is.null(col)) { col <- ci_df(
+    x, col, 2L, uniquely_named = TRUE, .abortcall = sys.call()
   )}
   
   if(!is.null(filter)) {
@@ -252,7 +252,7 @@ sb2_x.data.frame <- function(
   }
   
   if(!is.null(i)) {
-    elements <- .indx_make_element.sb_x(i, x, is_list = FALSE, abortcall = sys.call())
+    elements <- ci_flat(x, i, .abortcall = sys.call())
     return(x[elements])
   }
   
@@ -261,7 +261,7 @@ sb2_x.data.frame <- function(
   }
   
   
-  lst <- .arr_lst_brackets.sb_x(x, sub, dims, abortcall = sys.call())
+  lst <- ci_sub(x, sub, dims, .abortcall = sys.call())
   
   if(is.null(names(x))) {
     x <- .arr_x(x, lst, abortcall = sys.call())

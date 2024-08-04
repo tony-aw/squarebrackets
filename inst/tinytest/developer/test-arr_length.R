@@ -1,6 +1,5 @@
 
 .arr_length <- squarebrackets:::.arr_length
-.indx_make_dim.sb_x <- squarebrackets:::.indx_make_dim.sb_x
 
 
 
@@ -15,8 +14,8 @@ length(foo)
 ndims <- length(dim(x))
 lst <- rep(list(base::quote(expr = )), ndims)
 for(i in seq_along(dims)) {
-  lst[[dims[i]]] <- .indx_make_dim.sb_x(
-    sub[[i]], x, dim.L= dims[i], abortcall
+  lst[[dims[i]]] <- ci_margin(
+    x, sub[[i]], dims[i]
   )
 }
 expect_equal(
@@ -36,8 +35,8 @@ length(foo)
 ndims <- length(dim(x))
 lst <- rep(list(base::quote(expr = )), ndims)
 for(i in seq_along(dims)) {
-  lst[[dims[i]]] <- .indx_make_dim.sb_x(
-    sub[[i]], x, dim.L = dims[i], abortcall
+  lst[[dims[i]]] <- ci_margin(
+    x, sub[[i]], dims[i]
   )
 }
 expect_equal(
@@ -55,8 +54,8 @@ length(foo)
 ndims <- length(dim(x))
 lst <- rep(list(base::quote(expr = )), ndims)
 for(i in seq_along(dims)) {
-  lst[[dims[i]]] <- .indx_make_dim.sb_x(
-    sub[[i]], x, dim.L=dims[i], abortcall
+  lst[[dims[i]]] <- ci_margin(
+    x, sub[[i]], dims[i]
   )
 }
 expect_equal(
@@ -75,8 +74,8 @@ length(foo)
 ndims <- length(dim(x))
 lst <- rep(list(base::quote(expr = )), ndims)
 for(i in seq_along(dims)) {
-  lst[[dims[i]]] <- .indx_make_dim.sb_x(
-    sub[[i]], x, dim.L=dims[i], abortcall
+  lst[[dims[i]]] <- ci_margin(
+    x, sub[[i]], dims[i]
   )
 }
 expect_equal(

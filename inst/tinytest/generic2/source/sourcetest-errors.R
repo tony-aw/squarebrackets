@@ -1,74 +1,77 @@
 
 # i ====
 
-xlist <- list(
-  as.list(1:10),
-  array(as.list(1:27), dim = c(3,3,3))
-)
-
-
-
-
-for(i in 1:length(xlist)) {
-  expect_error(
-    sb_test(xlist[[i]], i = -1:-10),
-    pattern = "integers must be >= 1 and <= bounds",
-    fixed = TRUE
-  )|> errorfun()
-  enumerate <- enumerate + 1
+if(!test_PassByReference) {
+  
+  xlist <- list(
+    as.list(1:10),
+    array(as.list(1:27), dim = c(3,3,3))
+  )
+  
+  for(i in 1:length(xlist)) {
+    expect_error(
+      sb_test(xlist[[i]], i = -1:-10),
+      pattern = "integers must be >= 1 and <= bounds",
+      fixed = TRUE
+    )|> errorfun()
+    enumerate <- enumerate + 1
+  }
+  
+  for(i in 1:length(xlist)) {
+    expect_error(
+      sb_test(xlist[[i]], i = 0),
+      pattern = "integers must be >= 1 and <= bounds",
+      fixed = TRUE
+    )|> errorfun()
+    enumerate <- enumerate + 1
+  }
+  
+  for(i in 1:length(xlist)) {
+    expect_error(
+      sb_test(xlist[[i]], i = 1000),
+      pattern = "integers must be >= 1 and <= bounds",
+      fixed = TRUE
+    )|> errorfun()
+    enumerate <- enumerate + 1
+  }
+  
+  for(i in 1:length(xlist)) {
+    expect_error(
+      sb_test(xlist[[i]], i = sample(c(TRUE, FALSE), size = length(xlist[[i]]) - 1, replace = TRUE)),
+      pattern = "incorrect length of logical indices",
+      fixed = TRUE
+    )|> errorfun()
+    enumerate <- enumerate + 1
+  }
+  
+  for(i in 1:length(xlist)) {
+    expect_error(
+      sb_test(xlist[[i]], i = sample(c(TRUE, FALSE), size = length(xlist[[i]]) + 1, replace = TRUE)),
+      pattern = "incorrect length of logical indices",
+      fixed = TRUE
+    )|> errorfun()
+    enumerate <- enumerate + 1
+  }
+  
+  
+  xlist <- list(
+    as.list(1:10),
+    array(as.list(1:27), dim = c(3,3,3))
+  )
+  
+  
+  for(i in 1:length(xlist)) {
+    expect_error(
+      sb_test(xlist[[i]], i = "a"),
+      pattern = "no names present",
+      fixed = TRUE
+    )|> errorfun()
+    enumerate <- enumerate + 1
+  }
+  
 }
 
-for(i in 1:length(xlist)) {
-  expect_error(
-    sb_test(xlist[[i]], i = 0),
-    pattern = "integers must be >= 1 and <= bounds",
-    fixed = TRUE
-  )|> errorfun()
-  enumerate <- enumerate + 1
-}
 
-for(i in 1:length(xlist)) {
-  expect_error(
-    sb_test(xlist[[i]], i = 1000),
-    pattern = "integers must be >= 1 and <= bounds",
-    fixed = TRUE
-  )|> errorfun()
-  enumerate <- enumerate + 1
-}
-
-for(i in 1:length(xlist)) {
-  expect_error(
-    sb_test(xlist[[i]], i = sample(c(TRUE, FALSE), size = length(xlist[[i]]) - 1, replace = TRUE)),
-    pattern = "incorrect length of logical indices",
-    fixed = TRUE
-  )|> errorfun()
-  enumerate <- enumerate + 1
-}
-
-for(i in 1:length(xlist)) {
-  expect_error(
-    sb_test(xlist[[i]], i = sample(c(TRUE, FALSE), size = length(xlist[[i]]) + 1, replace = TRUE)),
-    pattern = "incorrect length of logical indices",
-    fixed = TRUE
-  )|> errorfun()
-  enumerate <- enumerate + 1
-}
-
-
-xlist <- list(
-  as.list(1:10),
-  array(as.list(1:27), dim = c(3,3,3))
-)
-
-
-for(i in 1:length(xlist)) {
-  expect_error(
-    sb_test(xlist[[i]], i = "a"),
-    pattern = "`x` has no names; fix this before subsetting",
-    fixed = TRUE
-  )|> errorfun()
-  enumerate <- enumerate + 1
-}
 
 
 # row ====
@@ -172,68 +175,72 @@ for(i in 1:length(xlist)) {
   enumerate <- enumerate + 1
 }
 
+
 # dimensions ==== 
-x <- array(as.list(1:27), c(3,3,3))
-expect_error(
-  sb_test(x, sub = 1:10, dims = c(1,3)),
-  pattern = "`sub` must be a list, and `dims` must be a integer vector",
-  fixed = TRUE
-)
-expect_error(
-  sb_test(x, sub = list(1:10), dims = c(1,3)),
-  pattern = "`length(sub) != length(dims)`",
-  fixed = TRUE
-)
-
-expect_error(
-  sb_test(x, sub = list(-1:-5), dim = 1),
-  pattern = "integers must be >= 1 and <= bounds",
-  fixed = TRUE
-)|> errorfun()
-enumerate <- enumerate + 1
-
-
-
-expect_error(
-  sb_test(x, sub = list(0), dim = 1),
-  pattern = "integers must be >= 1 and <= bounds",
-  fixed = TRUE
-)|> errorfun()
-enumerate <- enumerate + 1
-
-
-expect_error(
-  sb_test(x, list(1000), dim = 1),
-  pattern = "integers must be >= 1 and <= bounds",
-  fixed = TRUE
-)|> errorfun()
-enumerate <- enumerate + 1
-
-
-
-expect_error(
-  sb_test(x, list(sample(c(TRUE, FALSE), size = nrow(x) - 1, replace = TRUE)), dim = 1),
-  pattern = "incorrect length of logical indices",
-  fixed = TRUE
-)|> errorfun()
-enumerate <- enumerate + 1
-
-
-
-expect_error(
-  sb_test(x,list(sample(c(TRUE, FALSE), size = nrow(x) + 1, replace = TRUE)), dim = 1),
-  pattern = "incorrect length of logical indices",
-  fixed = TRUE
-)|> errorfun()
-enumerate <- enumerate + 1
-
-
-expect_error(
-  sb_test(x, list("a"), dim = 1),
-  pattern = "`x` has no names; fix this before subsetting",
-  fixed = TRUE
-)|> errorfun()
-enumerate <- enumerate + 1
+if(!test_PassByReference) {
+  x <- array(as.list(1:27), c(3,3,3))
+  expect_error(
+    sb_test(x, sub = 1:10, dims = c(1,3)),
+    pattern = "`sub` must be a list, and `dims` must be a integer vector",
+    fixed = TRUE
+  )
+  expect_error(
+    sb_test(x, sub = list(1:10), dims = c(1,3)),
+    pattern = "`length(sub) != length(dims)`",
+    fixed = TRUE
+  )
+  
+  expect_error(
+    sb_test(x, sub = list(-1:-5), dim = 1),
+    pattern = "integers must be >= 1 and <= bounds",
+    fixed = TRUE
+  )|> errorfun()
+  enumerate <- enumerate + 1
+  
+  
+  
+  expect_error(
+    sb_test(x, sub = list(0), dim = 1),
+    pattern = "integers must be >= 1 and <= bounds",
+    fixed = TRUE
+  )|> errorfun()
+  enumerate <- enumerate + 1
+  
+  
+  expect_error(
+    sb_test(x, list(1000), dim = 1),
+    pattern = "integers must be >= 1 and <= bounds",
+    fixed = TRUE
+  )|> errorfun()
+  enumerate <- enumerate + 1
+  
+  
+  
+  expect_error(
+    sb_test(x, list(sample(c(TRUE, FALSE), size = nrow(x) - 1, replace = TRUE)), dim = 1),
+    pattern = "incorrect length of logical indices",
+    fixed = TRUE
+  )|> errorfun()
+  enumerate <- enumerate + 1
+  
+  
+  
+  expect_error(
+    sb_test(x,list(sample(c(TRUE, FALSE), size = nrow(x) + 1, replace = TRUE)), dim = 1),
+    pattern = "incorrect length of logical indices",
+    fixed = TRUE
+  )|> errorfun()
+  enumerate <- enumerate + 1
+  
+  
+  expect_error(
+    sb_test(x, list("a"), dim = 1),
+    pattern = "no names present",
+    fixed = TRUE
+  )|> errorfun()
+  enumerate <- enumerate + 1
+  
+}
 
 
 
@@ -334,7 +341,7 @@ for(i in 1:length(xlist)) {
 }
 
 # duplicates ====
-if(!test_allow_duplicates) {
+if(!test_allow_duplicates && !test_PassByReference) {
   x <- as.list(1:10)
   names(x) <- letters[1:10]
   expect_error(

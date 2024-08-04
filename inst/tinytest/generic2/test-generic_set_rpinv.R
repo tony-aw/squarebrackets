@@ -116,10 +116,13 @@ sb_test <- function(x, ...) {
   x <- data.table::copy(x)
   if(is.atomic(x)) x <- as.mutable_atomic(x)
   x2 <- x
-  sb2_set(x, ..., inv = TRUE)
+  sb2_set(x, ..., inv = TRUE, rp = x[1])
   expect_equal(x, x2) |> errorfun()
   return(x)
 }
+
+sys.source(file.path(getwd(), "source", "sourcetest-errors.R"), envir = environment())
+
 
 
 if(requireNamespace("tidytable")) {
@@ -137,23 +140,23 @@ if(requireNamespace("tidytable")) {
 for(i in 1:length(xlist)) {
   x <- xlist[[i]]
   expect_error(
-    sb_test(x, filter = "foo", rp = list(1)),
+    sb_test(x, filter = "foo"),
     pattern = "`filter` must be a formula"
   ) |> errorfun()
   expect_error(
-    sb_test(x, filter = ~ mean(a), rp = list(1)),
+    sb_test(x, filter = ~ mean(a)),
     pattern = "invalid formula given"
   ) |> errorfun()
   expect_error(
-    sb_test(x, vars = "is.numeric", rp = list(1)),
+    sb_test(x, vars = "is.numeric"),
     pattern = "`vars` must be a function"
   ) |> errorfun()
   expect_error(
-    sb_test(x, vars = "is.numeric", rp = list(1)),
+    sb_test(x, vars = "is.numeric"),
     pattern = "`vars` must be a function"
   ) |> errorfun()
   expect_error(
-    sb_test(x, vars = mean, rp = list(1)),
+    sb_test(x, vars = mean),
     pattern = "values must be type 'logical'"
   ) |> errorfun()
   enumerate <- enumerate + 5
@@ -163,7 +166,7 @@ for (i in 1:length(xlist)) {
   x <- xlist[[i]]
   colnames(x) <- c("a", "a")
   expect_error(
-    sb_test(x, col=1, rp = list(1)),
+    sb_test(x, col=1),
     pattern = "`x` does not have unique variable names for all columns; \n fix this before subsetting"
   ) |> errorfun()
   enumerate <- enumerate + 1

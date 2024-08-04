@@ -1430,81 +1430,6 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
-// rcpp_sub2ind_2d
-IntegerVector rcpp_sub2ind_2d(IntegerVector ind1, IntegerVector ind2, IntegerVector dimcumprod);
-RcppExport SEXP _squarebrackets_rcpp_sub2ind_2d(SEXP ind1SEXP, SEXP ind2SEXP, SEXP dimcumprodSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< IntegerVector >::type ind1(ind1SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type ind2(ind2SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type dimcumprod(dimcumprodSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_sub2ind_2d(ind1, ind2, dimcumprod));
-    return rcpp_result_gen;
-END_RCPP
-}
-// rcpp_sub2ind_3d
-IntegerVector rcpp_sub2ind_3d(IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, IntegerVector dimcumprod);
-RcppExport SEXP _squarebrackets_rcpp_sub2ind_3d(SEXP ind1SEXP, SEXP ind2SEXP, SEXP ind3SEXP, SEXP dimcumprodSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< IntegerVector >::type ind1(ind1SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type ind2(ind2SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type ind3(ind3SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type dimcumprod(dimcumprodSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_sub2ind_3d(ind1, ind2, ind3, dimcumprod));
-    return rcpp_result_gen;
-END_RCPP
-}
-// rcpp_sub2ind_4d
-IntegerVector rcpp_sub2ind_4d(IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, IntegerVector ind4, IntegerVector dimcumprod);
-RcppExport SEXP _squarebrackets_rcpp_sub2ind_4d(SEXP ind1SEXP, SEXP ind2SEXP, SEXP ind3SEXP, SEXP ind4SEXP, SEXP dimcumprodSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< IntegerVector >::type ind1(ind1SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type ind2(ind2SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type ind3(ind3SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type ind4(ind4SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type dimcumprod(dimcumprodSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_sub2ind_4d(ind1, ind2, ind3, ind4, dimcumprod));
-    return rcpp_result_gen;
-END_RCPP
-}
-// rcpp_sub2ind_5d
-IntegerVector rcpp_sub2ind_5d(IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, IntegerVector ind4, IntegerVector ind5, IntegerVector dimcumprod);
-RcppExport SEXP _squarebrackets_rcpp_sub2ind_5d(SEXP ind1SEXP, SEXP ind2SEXP, SEXP ind3SEXP, SEXP ind4SEXP, SEXP ind5SEXP, SEXP dimcumprodSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< IntegerVector >::type ind1(ind1SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type ind2(ind2SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type ind3(ind3SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type ind4(ind4SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type ind5(ind5SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type dimcumprod(dimcumprodSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_sub2ind_5d(ind1, ind2, ind3, ind4, ind5, dimcumprod));
-    return rcpp_result_gen;
-END_RCPP
-}
-// rcpp_sub2ind_6d
-IntegerVector rcpp_sub2ind_6d(IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, IntegerVector ind4, IntegerVector ind5, IntegerVector ind6, IntegerVector dimcumprod);
-RcppExport SEXP _squarebrackets_rcpp_sub2ind_6d(SEXP ind1SEXP, SEXP ind2SEXP, SEXP ind3SEXP, SEXP ind4SEXP, SEXP ind5SEXP, SEXP ind6SEXP, SEXP dimcumprodSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< IntegerVector >::type ind1(ind1SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type ind2(ind2SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type ind3(ind3SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type ind4(ind4SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type ind5(ind5SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type ind6(ind6SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type dimcumprod(dimcumprodSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_sub2ind_6d(ind1, ind2, ind3, ind4, ind5, ind6, dimcumprod));
-    return rcpp_result_gen;
-END_RCPP
-}
 // rcpp_abind_all_conform_dims
 bool rcpp_abind_all_conform_dims(IntegerVector conform_dim, IntegerMatrix arg_dim, int n, int along);
 RcppExport SEXP _squarebrackets_rcpp_abind_all_conform_dims(SEXP conform_dimSEXP, SEXP arg_dimSEXP, SEXP nSEXP, SEXP alongSEXP) {
@@ -1654,14 +1579,14 @@ BEGIN_RCPP
 END_RCPP
 }
 // rcpp_indx_convert_cplx_multi
-IntegerVector rcpp_indx_convert_cplx_multi(const IntegerVector re, const IntegerVector im, const IntegerVector lens);
+IntegerVector rcpp_indx_convert_cplx_multi(const NumericVector re, const NumericVector im, const NumericVector lens);
 RcppExport SEXP _squarebrackets_rcpp_indx_convert_cplx_multi(SEXP reSEXP, SEXP imSEXP, SEXP lensSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const IntegerVector >::type re(reSEXP);
-    Rcpp::traits::input_parameter< const IntegerVector >::type im(imSEXP);
-    Rcpp::traits::input_parameter< const IntegerVector >::type lens(lensSEXP);
+    Rcpp::traits::input_parameter< const NumericVector >::type re(reSEXP);
+    Rcpp::traits::input_parameter< const NumericVector >::type im(imSEXP);
+    Rcpp::traits::input_parameter< const NumericVector >::type lens(lensSEXP);
     rcpp_result_gen = Rcpp::wrap(rcpp_indx_convert_cplx_multi(re, im, lens));
     return rcpp_result_gen;
 END_RCPP
@@ -1764,6 +1689,11 @@ RcppExport SEXP C_any_badindx(SEXP, SEXP);
 RcppExport SEXP C_any_badmargin(SEXP, SEXP);
 RcppExport SEXP C_any_neg(SEXP);
 RcppExport SEXP C_any_nonpos(SEXP);
+RcppExport SEXP C_sub2ind_2d(SEXP, SEXP, SEXP);
+RcppExport SEXP C_sub2ind_3d(SEXP, SEXP, SEXP, SEXP);
+RcppExport SEXP C_sub2ind_4d(SEXP, SEXP, SEXP, SEXP, SEXP);
+RcppExport SEXP C_sub2ind_5d(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
+RcppExport SEXP C_sub2ind_6d(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 
 static const R_CallMethodDef CallEntries[] = {
     {"_squarebrackets_rcpp_seq_rec2_plus", (DL_FUNC) &_squarebrackets_rcpp_seq_rec2_plus, 6},
@@ -1872,11 +1802,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_squarebrackets_rcpp_setrv_fast_Character", (DL_FUNC) &_squarebrackets_rcpp_setrv_fast_Character, 4},
     {"_squarebrackets_rcpp_setrv_safe_Raw", (DL_FUNC) &_squarebrackets_rcpp_setrv_safe_Raw, 4},
     {"_squarebrackets_rcpp_setrv_fast_Raw", (DL_FUNC) &_squarebrackets_rcpp_setrv_fast_Raw, 4},
-    {"_squarebrackets_rcpp_sub2ind_2d", (DL_FUNC) &_squarebrackets_rcpp_sub2ind_2d, 3},
-    {"_squarebrackets_rcpp_sub2ind_3d", (DL_FUNC) &_squarebrackets_rcpp_sub2ind_3d, 4},
-    {"_squarebrackets_rcpp_sub2ind_4d", (DL_FUNC) &_squarebrackets_rcpp_sub2ind_4d, 5},
-    {"_squarebrackets_rcpp_sub2ind_5d", (DL_FUNC) &_squarebrackets_rcpp_sub2ind_5d, 6},
-    {"_squarebrackets_rcpp_sub2ind_6d", (DL_FUNC) &_squarebrackets_rcpp_sub2ind_6d, 7},
     {"_squarebrackets_rcpp_abind_all_conform_dims", (DL_FUNC) &_squarebrackets_rcpp_abind_all_conform_dims, 4},
     {"_squarebrackets_rcpp_abind_get_maxdims", (DL_FUNC) &_squarebrackets_rcpp_abind_get_maxdims, 1},
     {"_squarebrackets_rcpp_abind_check_conform_dims", (DL_FUNC) &_squarebrackets_rcpp_abind_check_conform_dims, 4},
@@ -1901,6 +1826,11 @@ static const R_CallMethodDef CallEntries[] = {
     {"C_any_badmargin", (DL_FUNC) &C_any_badmargin, 2},
     {"C_any_neg",       (DL_FUNC) &C_any_neg,       1},
     {"C_any_nonpos",    (DL_FUNC) &C_any_nonpos,    1},
+    {"C_sub2ind_2d",    (DL_FUNC) &C_sub2ind_2d,    3},
+    {"C_sub2ind_3d",    (DL_FUNC) &C_sub2ind_3d,    4},
+    {"C_sub2ind_4d",    (DL_FUNC) &C_sub2ind_4d,    5},
+    {"C_sub2ind_5d",    (DL_FUNC) &C_sub2ind_5d,    6},
+    {"C_sub2ind_6d",    (DL_FUNC) &C_sub2ind_6d,    7},
     {NULL, NULL, 0}
 };
 
