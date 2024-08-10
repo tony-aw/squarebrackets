@@ -1579,7 +1579,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // rcpp_indx_convert_cplx_multi
-IntegerVector rcpp_indx_convert_cplx_multi(const NumericVector re, const NumericVector im, const NumericVector lens);
+NumericVector rcpp_indx_convert_cplx_multi(const NumericVector re, const NumericVector im, const NumericVector lens);
 RcppExport SEXP _squarebrackets_rcpp_indx_convert_cplx_multi(SEXP reSEXP, SEXP imSEXP, SEXP lensSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;

@@ -92,7 +92,10 @@ pre_subset_mat <- function(x, row = NULL, col = NULL) {
   return(x[row, col])
 }
 
-subset_mat <- function(x, row = NULL, col = NULL, rp) {
+
+f_expect.matrix <- f_expect.2d <- function(x, row = NULL, col = NULL) {
+  
+  rp <- parent.frame()$rp
   
   if(is.atomic(x)) x <- as.mutable_atomic(x)
   
@@ -110,34 +113,29 @@ subset_mat <- function(x, row = NULL, col = NULL, rp) {
   return(x)
 }
 
+f_out.matrix <- function(x, row, col) {
+  
+  rp <- parent.frame()$rp
+  
+  return(sb_set2(x, row = row, col = col, rp = rp))
+}
 
-temp.fun.matrix <- function(x, row, col) {
-  for(i in 1:length(row)) {
-    for(j in 1:length(col)) {
-      len <- length(pre_subset_mat(x, row[[i]], col[[j]]))
-      rp <- sample(c(seq_len(len), NA), size = len)
-      expect_equal(
-        sb_set2(x, row = row[[i]], col = col[[j]], rp = rp),
-        subset_mat(x, row[[i]], col[[j]], rp = rp)
-      ) |> errorfun()
-      expect_true(sb_set2(x, row = row[[i]], col = col[[j]], rp = rp) |>
-                    is.matrix()) |> errorfun()
-      
-      rp <- NA
-      expect_equal(
-        sb_set2(x, row = row[[i]], col = col[[j]], rp = rp),
-        subset_mat(x, row[[i]], col[[j]], rp = rp)
-      ) |> errorfun()
-      expect_true(sb_set2(x, row = row[[i]], col = col[[j]], rp = rp) |>
-                    is.matrix()) |> errorfun()
-      
-      assign("enumerate", enumerate + 4, envir = parent.frame(n = 1))
-    }
-  }
+f_out.2d <- function(x, sub, dims) {
+  
+  rp <- parent.frame()$rp
+  
+  return(sb_set2.array(x, sub, dims, rp = rp))
 }
 
 
-subset_1d <- function(x, i, rp) {
+pre_subset_1d <- function(x, i) {
+  return(indx_rm(i, x, names(x), length(x)))
+}
+
+f_expect.1d <- function(x, i) {
+  
+  rp <- parent.frame()$rp
+  
   if(is.atomic(x)) x <- as.mutable_atomic(x)
   i <- indx_rm(i, x, dimnames(x)[[1]], length(x))
   
@@ -149,75 +147,22 @@ subset_1d <- function(x, i, rp) {
   return(x)
 }
 
-temp.fun.1d <- function(x, row) {
-  for(i in 1:length(row)) {
-    rp <- seq_along(indx_rm(row[[i]], x, dimnames(x)[[1]], length(x)))
-    
-    expect_equal(
-      sb_set2(x, row[[i]], 1, rp = rp),
-      subset_1d(x, row[[i]], rp = rp)
-    ) |> errorfun()
-    expect_true(sb_set2(x, row[[i]], 1, rp = rp) |>
-                  is.array()) |> errorfun()
-    
-    rp <- NA
-    expect_equal(
-      sb_set2(x, row[[i]], 1, rp = rp),
-      subset_1d(x, row[[i]], rp = rp)
-    ) |> errorfun()
-    expect_true(sb_set2(x, row[[i]], 1, rp = rp) |>
-                  is.array()) |> errorfun()
-    
-    assign("enumerate", enumerate + 4, envir = parent.frame(n = 1))
-  }
-}
-
-temp.fun.2d <- function(x, row, col) {
-  for(i in 1:length(row)) {
-    for(j in 1:length(col)) {
-      
-      len <- length(pre_subset_mat(x, row[[i]], col[[j]]))
-      rp <- sample(c(seq_len(len), NA), size = len)
-      
-      sub <- n(row[[i]], col[[j]])
-      dims <- 1:2
-      rem <- which(vapply(sub, is.null, logical(1L)))
-      if(length(rem) > 0L) {
-        sub <- sub[-rem]
-        dims <- dims[-rem]
-      }
-      
-      expect_equal(
-        sb_set2.array(x, sub, dims, rp = rp),
-        subset_mat(x, row[[i]], col[[j]], rp = rp)
-      ) |> errorfun()
-      expect_true(sb_set2.array(x, sub, dims, rp = rp) |>
-                    is.array()) |> errorfun()
-      
-      rp <- NA
-      expect_equal(
-        sb_set2.array(x, sub, dims, rp = rp),
-        subset_mat(x, row[[i]], col[[j]], rp = rp)
-      ) |> errorfun()
-      expect_true(sb_set2.array(x, sub, dims, rp = rp) |>
-                    is.array()) |> errorfun()
-      
-      assign("enumerate", enumerate + 4, envir = parent.frame(n = 1))
-    }
-  }
+f_out.1d <- function(x, sub, dims) {
+  
+  rp <- parent.frame()$rp
+  
+  return(sb_set2(x, sub, dims, rp = rp))
 }
 
 
 sb_test <- function(x, ...) {
   x <- as.mutable_atomic(x)
-  x2 <- x
-  rp <- sb_rm.array(x, sub, dims) * -1
+  rp <- sb_rm.array(x, ...) * -1
   sb_set.array(x, ..., inv = TRUE, rp = rp)
-  expect_equal(x, x2) |> errorfun()
   return(x)
 }
 
-temp.fun.arbitrary <- function(x, i, j, l) {
+f_expect.arbitrary <- function(x, i, j, l) {
   if(is.atomic(x)) x <- as.mutable_atomic(x)
   tf <- mean
   i <- indx_rm(i, x, rownames(x), nrow(x))

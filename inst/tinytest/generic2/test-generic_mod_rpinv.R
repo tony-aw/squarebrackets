@@ -69,6 +69,9 @@ sys.source(file.path(getwd(), "source", "sourcetest-elements.R"), envir = enviro
 
 # test matrix & array ====
 
+rep3.bind <- function(x, dim) {
+  return(abind::abind(x, x, x, along = dim))
+}
 
 pre_subset_mat <- function(x, row = NULL, col = NULL) {
   
@@ -79,12 +82,15 @@ pre_subset_mat <- function(x, row = NULL, col = NULL) {
     return(x)
   }
   
-  if(is.null(row)) row <- base::quote(expr = )
-  if(is.null(col)) col <- base::quote(expr = )
+  if(is.null(row)) row <- seq_len(nrow(x))
+  if(is.null(col)) col <- seq_len(ncol(x))
   return(x[row, col])
 }
 
-subset_mat <- function(x, row = NULL, col = NULL, rp) {
+
+f_expect.matrix <- f_expect.2d <- function(x, row = NULL, col = NULL) {
+  
+  rp <- parent.frame()$rp
   
   if(!is.null(row)) row <- indx_rm(row, x, rownames(x), nrow(x))
   if(!is.null(col)) col <- indx_rm(col, x, colnames(x), ncol(x))
@@ -93,98 +99,192 @@ subset_mat <- function(x, row = NULL, col = NULL, rp) {
     return(x)
   }
   
-  if(is.null(row)) row <- base::quote(expr = )
-  if(is.null(col)) col <- base::quote(expr = )
+  if(is.null(row)) row <- seq_len(nrow(x))
+  if(is.null(col)) col <- seq_len(ncol(x))
   x[row, col] <- rp
   
   return(x)
 }
 
-temp.fun.matrix <- function(x, row, col) {
-  for(i in 1:length(row)) {
-    for(j in 1:length(col)) {
-      len <- length(pre_subset_mat(x, row[[i]], col[[j]]))
-      rp <- as.list(seq_len(len))
-      expect_equal(
-        sb2_mod(x, row = row[[i]], col = col[[j]], inv = TRUE, rp = rp),
-        subset_mat(x, row[[i]], col[[j]], rp = rp)
-      ) |> errorfun()
-      expect_true(sb2_mod(x, row = row[[i]], col = col[[j]], inv = TRUE, rp = rp) |>
-                    is.matrix()) |> errorfun()
-      assign("enumerate", enumerate + 2, envir = parent.frame(n = 1))
-    }
-  }
+f_out.matrix <- function(x, row, col) {
+  
+  rp <- parent.frame()$rp
+  
+  return(sb2_mod(x, row = row, col = col, inv = TRUE, rp = rp))
+}
+
+f_out.2d <- function(x, sub, dims) {
+  
+  rp <- parent.frame()$rp
+  
+  return(sb2_mod.array(x, sub, dims, inv = TRUE, rp = rp))
 }
 
 
-subset_1d <- function(x, i, rp) {
+pre_subset_1d <- function(x, i) {
+  return(indx_rm(i, x, names(x), length(x)))
+}
+
+f_expect.1d <- function(x, i) {
+  
+  rp <- parent.frame()$rp
+  
   i <- indx_rm(i, x, dimnames(x)[[1]], length(x))
+  
   if(any_empty_indices(i)) {
     return(x)
   }
+  
   x[i] <- rp
   return(x)
 }
 
-temp.fun.1d <- function(x, row) {
-  for(i in 1:length(row)) {
-    rp <- as.list(seq_along(indx_rm(row[[i]], x, dimnames(x)[[1]], length(x))))
-    expect_equal(
-      sb2_mod(x, row[[i]], 1, inv = TRUE, rp = rp),
-      subset_1d(x, row[[i]], rp = rp)
-    ) |> errorfun()
-    expect_true(sb2_mod(x, row[[i]], 1, inv = TRUE, rp = rp) |>
-                  is.array()) |> errorfun()
-    assign("enumerate", enumerate + 2, envir = parent.frame(n = 1))
-  }
-}
-
-temp.fun.2d <- function(x, row, col) {
-  for(i in 1:length(row)) {
-    for(j in 1:length(col)) {
-      
-      len <- length(pre_subset_mat(x, row[[i]], col[[j]]))
-      rp <- as.list(seq_len(len))
-      
-      sub <- n(row[[i]], col[[j]])
-      dims <- 1:2
-      rem <- which(vapply(sub, is.null, logical(1L)))
-      if(length(rem) > 0L) {
-        sub <- sub[-rem]
-        dims <- dims[-rem]
-      }
-      
-      expect_equal(
-        sb2_mod.array(x, sub, dims, inv = TRUE, rp = rp),
-        subset_mat(x, row[[i]], col[[j]], rp = rp)
-      ) |> errorfun()
-      expect_true(sb2_mod.array(x, sub, dims, inv = TRUE, rp = rp) |>
-                    is.array()) |> errorfun()
-      assign("enumerate", enumerate + 2, envir = parent.frame(n = 1))
-    }
-  }
+f_out.1d <- function(x, sub, dims) {
+  
+  rp <- parent.frame()$rp
+  
+  return(sb2_mod(x, sub, dims, inv = TRUE, rp = rp))
 }
 
 
-sb_test <- function(...) {
-  rp <- lapply(sb2_rm.array(...), \(x) x* - 1)
-  sb2_mod.array(..., inv = TRUE, rp = rp)
+sb_test <- function(x, ...) {
+  rp <- lapply(sb2_rm.array(x, ...), \(x) x * -1)
+  return(sb2_mod.array(x, ..., inv = TRUE, rp = rp))
 }
 
-temp.fun.arbitrary <- function(x, i, j, l) {
+f_expect.arbitrary <- function(x, i, j, l) {
+  tf <- mean
   i <- indx_rm(i, x, rownames(x), nrow(x))
   j <- indx_rm(j, x, colnames(x), ncol(x))
   l <- indx_rm(l, x, dimnames(x)[4], dim(x)[4])
-  if(any_empty_indices(i, j, l)) {
-    return(x)
-  }
-  rp <- lapply(x[i, j, , l], \(x)x * -1)
+  rp <- lapply(x[i, j, , l], \(x) x * -1)
   x[i, j, , l] <- rp
   return(x)
 }
 
 sys.source(file.path(getwd(), "source", "sourcetest-dims.R"), envir = environment())
 
+
+
+# 
+# # test matrix & array ====
+# 
+# 
+# pre_subset_mat <- function(x, row = NULL, col = NULL) {
+#   
+#   if(!is.null(row)) row <- indx_rm(row, x, rownames(x), nrow(x))
+#   if(!is.null(col)) col <- indx_rm(col, x, colnames(x), ncol(x))
+#   
+#   if(any_empty_indices(row, col)) {
+#     return(x)
+#   }
+#   
+#   if(is.null(row)) row <- base::quote(expr = )
+#   if(is.null(col)) col <- base::quote(expr = )
+#   return(x[row, col])
+# }
+# 
+# subset_mat <- function(x, row = NULL, col = NULL, rp) {
+#   
+#   if(!is.null(row)) row <- indx_rm(row, x, rownames(x), nrow(x))
+#   if(!is.null(col)) col <- indx_rm(col, x, colnames(x), ncol(x))
+#   
+#   if(any_empty_indices(row, col)) {
+#     return(x)
+#   }
+#   
+#   if(is.null(row)) row <- base::quote(expr = )
+#   if(is.null(col)) col <- base::quote(expr = )
+#   x[row, col] <- rp
+#   
+#   return(x)
+# }
+# 
+# temp.fun.matrix <- function(x, row, col) {
+#   for(i in 1:length(row)) {
+#     for(j in 1:length(col)) {
+#       len <- length(pre_subset_mat(x, row[[i]], col[[j]]))
+#       rp <- as.list(seq_len(len))
+#       expect_equal(
+#         sb2_mod(x, row = row[[i]], col = col[[j]], inv = TRUE, rp = rp),
+#         subset_mat(x, row[[i]], col[[j]], rp = rp)
+#       ) |> errorfun()
+#       expect_true(sb2_mod(x, row = row[[i]], col = col[[j]], inv = TRUE, rp = rp) |>
+#                     is.matrix()) |> errorfun()
+#       assign("enumerate", enumerate + 2, envir = parent.frame(n = 1))
+#     }
+#   }
+# }
+# 
+# 
+# subset_1d <- function(x, i, rp) {
+#   i <- indx_rm(i, x, dimnames(x)[[1]], length(x))
+#   if(any_empty_indices(i)) {
+#     return(x)
+#   }
+#   x[i] <- rp
+#   return(x)
+# }
+# 
+# temp.fun.1d <- function(x, row) {
+#   for(i in 1:length(row)) {
+#     rp <- as.list(seq_along(indx_rm(row[[i]], x, dimnames(x)[[1]], length(x))))
+#     expect_equal(
+#       sb2_mod(x, row[[i]], 1, inv = TRUE, rp = rp),
+#       subset_1d(x, row[[i]], rp = rp)
+#     ) |> errorfun()
+#     expect_true(sb2_mod(x, row[[i]], 1, inv = TRUE, rp = rp) |>
+#                   is.array()) |> errorfun()
+#     assign("enumerate", enumerate + 2, envir = parent.frame(n = 1))
+#   }
+# }
+# 
+# temp.fun.2d <- function(x, row, col) {
+#   for(i in 1:length(row)) {
+#     for(j in 1:length(col)) {
+#       
+#       len <- length(pre_subset_mat(x, row[[i]], col[[j]]))
+#       rp <- as.list(seq_len(len))
+#       
+#       sub <- n(row[[i]], col[[j]])
+#       dims <- 1:2
+#       rem <- which(vapply(sub, is.null, logical(1L)))
+#       if(length(rem) > 0L) {
+#         sub <- sub[-rem]
+#         dims <- dims[-rem]
+#       }
+#       
+#       expect_equal(
+#         sb2_mod.array(x, sub, dims, inv = TRUE, rp = rp),
+#         subset_mat(x, row[[i]], col[[j]], rp = rp)
+#       ) |> errorfun()
+#       expect_true(sb2_mod.array(x, sub, dims, inv = TRUE, rp = rp) |>
+#                     is.array()) |> errorfun()
+#       assign("enumerate", enumerate + 2, envir = parent.frame(n = 1))
+#     }
+#   }
+# }
+# 
+# 
+# sb_test <- function(...) {
+#   rp <- lapply(sb2_rm.array(...), \(x) x* - 1)
+#   sb2_mod.array(..., inv = TRUE, rp = rp)
+# }
+# 
+# temp.fun.arbitrary <- function(x, i, j, l) {
+#   i <- indx_rm(i, x, rownames(x), nrow(x))
+#   j <- indx_rm(j, x, colnames(x), ncol(x))
+#   l <- indx_rm(l, x, dimnames(x)[4], dim(x)[4])
+#   if(any_empty_indices(i, j, l)) {
+#     return(x)
+#   }
+#   rp <- lapply(x[i, j, , l], \(x)x * -1)
+#   x[i, j, , l] <- rp
+#   return(x)
+# }
+# 
+# sys.source(file.path(getwd(), "source", "sourcetest-dims.R"), envir = environment())
+# 
 
 # test datasets ====
 

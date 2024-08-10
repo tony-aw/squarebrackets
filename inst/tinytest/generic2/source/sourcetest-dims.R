@@ -1,4 +1,6 @@
 
+# set-up ====
+
 af <- function(x) {
   return(as.list(as.double(x)))
 }
@@ -39,6 +41,52 @@ indx_named <- function(x, dim.i) {
 }
 
 
+temp.fun.2d <- function(x, row, col, f_expect, f_out) {
+  out <- expected <- vector("list", length(row) * length(col))
+  k <- 1
+  for(i in 1:length(row)) {
+    for(j in 1:length(col)) {
+      
+      len <- length(pre_subset_mat(x, row[[i]], col[[j]]))
+      rp <- af(sample(c(seq_len(len), NA), size = len))
+      
+      sub <- n(row[[i]], col[[j]])
+      dims <- 1:2
+      rem <- which(vapply(sub, is.null, logical(1L)))
+      if(length(rem) > 0L) {
+        sub <- sub[-rem]
+        dims <- dims[-rem]
+      }
+      
+      expected[[k]] <- f_expect(x, row[[i]], col[[j]])
+      out[[k]] <- f_out(x, sub, dims)
+      assign("enumerate", enumerate + 2, envir = parent.frame(n = 1))
+      k <- k + 1
+    }
+  }
+  expect_equal(expected, out) |> errorfun()
+  expect_true(all(sapply(out, is.array))) |> errorfun()
+}
+
+
+temp.fun.1d <- function(x, row, f_expect, f_out) {
+  out <- expected <- vector("list", length(row))
+  
+  for(i in 1:length(row)) {
+    
+    len <- length(pre_subset_1d(x, row[[i]]))
+    rp <- af(sample(c(seq_len(len), NA), size = len))
+    
+    expected[[i]] <- f_expect(x, row[[i]])
+    out[[i]] <- f_out(x, row[[i]], 1)
+    assign("enumerate", enumerate + 2, envir = parent.frame(n = 1))
+  }
+  expect_equal(expected, out) |> errorfun()
+  expect_true(all(sapply(out, is.array))) |> errorfun()
+}
+
+
+
 # uniquely named matrix ====
 x <- matrix(af(-sample.int(20)), nrow = 5, ncol=4)
 rownames(x) <- letters[1:5]
@@ -46,7 +94,7 @@ colnames(x) <- letters[1:4]
 row <- indx_named(x, 1)
 col <- indx_named(x, 2)
 # temp.fun.matrix(x, row, col)
-temp.fun.2d(x, row, col)
+temp.fun.2d(x, row, col, f_expect.2d, f_out.2d)
 
 
 # unnamed matrix ====
@@ -54,7 +102,7 @@ x <- matrix(af(-sample.int(20)), nrow = 5, ncol=4)
 row <- indx_general(x, 1)
 col <- indx_general(x, 2)
 # temp.fun.matrix(x, row, col)
-temp.fun.2d(x, row, col)
+temp.fun.2d(x, row, col, f_expect.2d, f_out.2d)
 
 
 # non-uniquely named matrix ====
@@ -64,7 +112,7 @@ colnames(x) <- c("a", "a", "", NA)
 row <- indx_named(x, 1)
 col <- indx_named(x, 2)
 # temp.fun.matrix(x, row, col)
-temp.fun.2d(x, row, col)
+temp.fun.2d(x, row, col, f_expect.2d, f_out.2d)
 if(isTRUE(test_allow_duplicates)) {
   expect_equal(
     sb2_x.array(x, c("a", "a", "a"), 1),
@@ -106,20 +154,20 @@ indx_named <- function(x, dim.i) {
 x <- array(af(-sample.int(20)), 20)
 dimnames(x) <- list(letters[1:20])
 row <- indx_named(x, 1)
-temp.fun.1d(x, row)
+temp.fun.1d(x, row, f_expect.1d, f_out.1d)
 
 
 # unnamed 1d array ====
 x <- array(af(-sample.int(20)), 20)
 row <- indx_general(x, 1)
-temp.fun.1d(x, row)
+temp.fun.1d(x, row, f_expect.1d, f_out.1d)
 
 
 # non-uniquely named 1d array ====
 x <- array(af(-sample.int(20)), 20)
 dimnames(x) <- list(c("a", letters[1:17], "", NA))
 row <- indx_named(x, 1)
-temp.fun.1d(x, row)
+temp.fun.1d(x, row, f_expect.1d, f_out.1d)
 if(isTRUE(test_allow_duplicates)) {
   expect_equal(
     sb2_x(x, c("a", "a", "a"), 1),
@@ -137,21 +185,21 @@ sub <- list(c("a", "b"), 1:3, c(rep(TRUE, 5), rep(FALSE, 5)))
 dims <- c(1,2,4)
 expect_equal(
   sb_test(x, sub, dims),
-  temp.fun.arbitrary(x, sub[[1]], sub[[2]], sub[[3]])
+  f_expect.arbitrary(x, sub[[1]], sub[[2]], sub[[3]])
 ) |> errorfun()
 
 sub <- list(c("a", "b"), logical(0), c(rep(TRUE, 5), rep(FALSE, 5)))
 dims <- c(1,2,4)
 expect_equal(
   sb_test(x, sub, dims),
-  temp.fun.arbitrary(x, sub[[1]], sub[[2]], sub[[3]])
+  f_expect.arbitrary(x, sub[[1]], sub[[2]], sub[[3]])
 ) |> errorfun()
 
 sub <- list(c("a", "b"), 1:4, rep(FALSE, 10))
 dims <- c(1,2,4)
 expect_equal(
   sb_test(x, sub, dims),
-  temp.fun.arbitrary(x, sub[[1]], sub[[2]], sub[[3]])
+  f_expect.arbitrary(x, sub[[1]], sub[[2]], sub[[3]])
 ) |> errorfun()
 enumerate <- enumerate + 3
 
@@ -161,21 +209,21 @@ if(isTRUE(test_allow_duplicates)) {
   dims <- c(1,2,4)
   expect_equal(
     sb_test(x, sub, dims),
-    temp.fun.arbitrary(x, sub[[1]], sub[[2]], sub[[3]])
+    f_expect.arbitrary(x, sub[[1]], sub[[2]], sub[[3]])
   ) |> errorfun()
   
   sub <- list(c("a", "a"), logical(0), c(rep(TRUE, 5), rep(FALSE, 5)))
   dims <- c(1,2,4)
   expect_equal(
     sb_test(x, sub, dims),
-    temp.fun.arbitrary(x, sub[[1]], sub[[2]], sub[[3]])
+    f_expect.arbitrary(x, sub[[1]], sub[[2]], sub[[3]])
   ) |> errorfun()
   
   sub <- list(c("a", "a"), c(1, 1:4), rep(FALSE, 10))
   dims <- c(1,2,4)
   expect_equal(
     sb_test(x, sub, dims),
-    temp.fun.arbitrary(x, sub[[1]], sub[[2]], sub[[3]])
+    f_expect.arbitrary(x, sub[[1]], sub[[2]], sub[[3]])
   ) |> errorfun()
 }
 enumerate <- enumerate + 3

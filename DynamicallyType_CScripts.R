@@ -8,8 +8,8 @@ library(stringi)
 # sub2ind dims ====
 
 DTYPES <- 2:6
-all_args <- stri_c("SEXP ind", 1:6)
-setlengths <- c("int ni = Rf_length(ind1);",
+all_args <- stri_c("const SEXP ind", 1:6)
+set_lengths <- c("int ni = Rf_length(ind1);",
                 "int nj = Rf_length(ind2);",
                 "int nk = Rf_length(ind3);",
                 "int nl = Rf_length(ind4);",
@@ -27,14 +27,15 @@ all_for <- rev(c(
 
 all_parts <- c(
   "pi[i]",
-  "pdim[0] * (pj[j] - 1)",
-  "pdim[1] * (pk[k] - 1)",
-  "pdim[2] * (pl[l] - 1)",
-  "pdim[3] * (pm[m] - 1)",
-  "pdim[4] * (pn[n] - 1)"
+  "pdim1 * (pj[j] - 1)",
+  "pdim2 * (pk[k] - 1)",
+  "pdim3 * (pl[l] - 1)",
+  "pdim4 * (pm[m] - 1)",
+  "pdim5 * (pn[n] - 1)"
 )
 
 set_pointers <- sprintf("int *p%s; \n p%s = INTEGER(ind%d);", letters[9:14], letters[9:14], 1:6)
+set_dimcumprod <- sprintf("int pdim%d = INTEGER(dimcumprod)[%d]; \n", 1:5, 0:4)
 
 templatecode <- "
 
@@ -46,18 +47,17 @@ SEXP C_sub2ind_DTYPEd(
   <args>, const SEXP dimcumprod
 ) {
 
-<setlengths>
+<set_lengths>
 
 R_xlen_t counter = 0;
 int temp = 0;
 
-<setpointers>
+<set_pointers>
+<set_dimcumprod>
 
-int *pdim;
-pdim = INTEGER(dimcumprod);
 
 int *pout;
-SEXP out = PROTECT(allocVector(INTSXP, <setlength_mult>));
+SEXP out = PROTECT(allocVector(INTSXP, <set_length_mult>));
 pout = INTEGER(out);
   
 <startfor>
@@ -81,9 +81,10 @@ names(C_scripts) <- DTYPES
 for(i in DTYPES) {
 
   current_args <- stri_c(all_args[1:i], collapse = ", ")
-  current_setlengths <- stri_c(setlengths[1:i], collapse = "\n")
+  current_setlengths <- stri_c(set_lengths[1:i], collapse = "\n")
   current_setlength_mult <- stri_c(all_lengths[1:i], collapse = " * ")
   current_pointers <- stri_c(set_pointers[1:i], collapse = "\n")
+  current_dimcumprod <- stri_c(set_dimcumprod[1:(i-1)], collapse = "\n")
   current_for <- stri_c(all_for[i:1], collapse = "\n")
   current_main <- stri_c(all_parts[1:i], collapse = " + ")
   current_end <- stri_c(rep("\t }", i), collapse = "\n")
@@ -91,9 +92,10 @@ for(i in DTYPES) {
   current_fixed <- c(
     "DTYPE",
     "<args>",
-    "<setlengths>",
-    "<setlength_mult>",
-    "<setpointers>",
+    "<set_lengths>",
+    "<set_length_mult>",
+    "<set_pointers>",
+    "<set_dimcumprod>",
     "<startfor>",
     "<main>",
     "<endfor>"
@@ -104,6 +106,7 @@ for(i in DTYPES) {
     current_setlengths,
     current_setlength_mult,
     current_pointers,
+    current_dimcumprod,
     current_for,
     current_main,
     current_end

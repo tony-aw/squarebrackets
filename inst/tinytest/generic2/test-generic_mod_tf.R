@@ -70,16 +70,13 @@ sys.source(file.path(getwd(), "source", "sourcetest-elements.R"), envir = enviro
 
 
 
-# test arbitrary dimensions ====
-
+# test matrix & array ====
 
 rep3.bind <- function(x, dim) {
   return(abind::abind(x, x, x, along = dim))
 }
 
-subset_mat <- function(x, row = NULL, col = NULL) {
-  
-  tf <- mean
+pre_subset_mat <- function(x, row = NULL, col = NULL) {
   
   if(!is.null(row)) row <- indx_x(row, x, rownames(x), nrow(x))
   if(!is.null(col)) col <- indx_x(col, x, colnames(x), ncol(x))
@@ -88,65 +85,68 @@ subset_mat <- function(x, row = NULL, col = NULL) {
     return(x)
   }
   
-  if(is.null(row)) row <- base::quote(expr = )
-  if(is.null(col)) col <- base::quote(expr = )
+  if(is.null(row)) row <- seq_len(nrow(x))
+  if(is.null(col)) col <- seq_len(ncol(x))
+  return(x[row, col])
+}
+
+
+f_expect.matrix <- f_expect.2d <- function(x, row = NULL, col = NULL) {
+  
+  if(!is.null(row)) row <- indx_x(row, x, rownames(x), nrow(x))
+  if(!is.null(col)) col <- indx_x(col, x, colnames(x), ncol(x))
+  
+  if(any_empty_indices(row, col)) {
+    return(x)
+  }
+  
+  if(is.null(row)) row <- seq_len(nrow(x))
+  if(is.null(col)) col <- seq_len(ncol(x))
+  
+  tf <- mean
   x[row, col] <- lapply(x[row, col], tf)
   
   return(x)
 }
 
+f_out.matrix <- function(x, row, col) {
+  
+  return(sb2_mod(x, row = row, col = col, tf = mean))
+}
 
-subset_1d <- function(x, i) {
-  tf <- mean
+f_out.2d <- function(x, sub, dims) {
+  
+  return(sb2_mod.array(x, sub, dims, tf = mean))
+}
+
+
+pre_subset_1d <- function(x, i) {
+  return(indx_x(i, x, names(x), length(x)))
+}
+
+f_expect.1d <- function(x, i) {
   i <- indx_x(i, x, dimnames(x)[[1]], length(x))
   
   if(any_empty_indices(i)) {
     return(x)
   }
   
+  tf <- mean
   x[i] <- lapply(x[i], tf)
   return(x)
 }
 
-temp.fun.1d <- function(x, row) {
-  for(i in 1:length(row)) {
-    expect_equal(
-      sb2_mod(x, row[[i]], 1, tf = mean),
-      subset_1d(x, row[[i]])
-    ) |> errorfun()
-    expect_true(sb2_mod(x, row[[i]], 1, tf = mean) |>
-                  is.array()) |> errorfun()
-    assign("enumerate", enumerate + 2, envir = parent.frame(n = 1))
-  }
-}
-
-temp.fun.2d <- function(x, row, col) {
-  for(i in 1:length(row)) {
-    for(j in 1:length(col)) {
-      
-      sub <- n(row[[i]], col[[j]])
-      dims <- 1:2
-      rem <- which(vapply(sub, is.null, logical(1L)))
-      if(length(rem) > 0L) {
-        sub <- sub[-rem]
-        dims <- dims[-rem]
-      }
-      
-      expect_equal(
-        sb2_mod.array(x, sub, dims, tf = mean),
-        subset_mat(x, row[[i]], col[[j]])
-      ) |> errorfun()
-      expect_true(sb2_mod.array(x, sub, dims, tf = mean) |>
-                    is.array()) |> errorfun()
-      assign("enumerate", enumerate + 2, envir = parent.frame(n = 1))
-    }
-  }
+f_out.1d <- function(x, sub, dims) {
+  
+  return(sb2_mod(x, sub, dims, tf = mean))
 }
 
 
-sb_test <- function(...) sb2_mod.array(..., tf = mean)
+sb_test <- function(x, ...) {
+  return(sb2_mod.array(x, ..., tf = mean))
+}
 
-temp.fun.arbitrary <- function(x, i, j, l) {
+f_expect.arbitrary <- function(x, i, j, l) {
   tf <- mean
   i <- indx_x(i, x, rownames(x), nrow(x))
   j <- indx_x(j, x, colnames(x), ncol(x))

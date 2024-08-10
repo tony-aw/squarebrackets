@@ -5,11 +5,11 @@ using namespace Rcpp;
 //' @keywords internal
 //' @noRd
 // [[Rcpp::export(.rcpp_indx_convert_cplx_multi)]]
-IntegerVector rcpp_indx_convert_cplx_multi(
+NumericVector rcpp_indx_convert_cplx_multi(
   const NumericVector re, const NumericVector im, const NumericVector lens
 ) {
   int n = lens.length();
-  IntegerVector out(n);
+  NumericVector out(n);
   for(int i = 0; i < n; ++i) {
     if(im[i] < 0) {
       out[i] = lens[i] - re[i] + 1;

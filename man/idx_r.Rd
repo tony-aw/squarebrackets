@@ -22,10 +22,10 @@ specifying the end point.}
 specifying the step size. \cr}
 }
 \value{
-If \code{length(m) == 1L}: an integer vector of indices. \cr
+If \code{length(m) == 1L}: a vector of numeric indices. \cr
 \cr
 If \code{length(m) > 1L}: a list of the same length as \code{m},
-containing integer vectors of indices. \cr
+containing numeric vectors of indices. \cr
 }
 \description{
 \code{idx_r()} computes integer index range(s). \cr \cr

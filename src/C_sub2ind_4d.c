@@ -5,7 +5,7 @@
 #include <R_ext/Error.h>
 
 SEXP C_sub2ind_4d(
-  SEXP ind1, SEXP ind2, SEXP ind3, SEXP ind4, const SEXP dimcumprod
+  const SEXP ind1, const SEXP ind2, const SEXP ind3, const SEXP ind4, const SEXP dimcumprod
 ) {
 
 int ni = Rf_length(ind1);
@@ -24,9 +24,13 @@ int *pk;
  pk = INTEGER(ind3);
 int *pl; 
  pl = INTEGER(ind4);
+int pdim1 = INTEGER(dimcumprod)[0]; 
 
-int *pdim;
-pdim = INTEGER(dimcumprod);
+int pdim2 = INTEGER(dimcumprod)[1]; 
+
+int pdim3 = INTEGER(dimcumprod)[2]; 
+
+
 
 int *pout;
 SEXP out = PROTECT(allocVector(INTSXP, ni * nj * nk * nl));
@@ -36,7 +40,7 @@ pout = INTEGER(out);
 	 for(int k = 0; k < nk; ++k) {
 	 for(int j = 0; j < nj; ++j) {
 	 for(int i = 0; i < ni; ++i) {
-      temp = pi[i] + pdim[0] * (pj[j] - 1) + pdim[1] * (pk[k] - 1) + pdim[2] * (pl[l] - 1);
+      temp = pi[i] + pdim1 * (pj[j] - 1) + pdim2 * (pk[k] - 1) + pdim3 * (pl[l] - 1);
       pout[counter] = temp;
       counter++;
     

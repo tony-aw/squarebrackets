@@ -45,10 +45,10 @@
 #' 
 #'
 #' @returns
-#' If `length(m) == 1L`: an integer vector of indices. \cr
+#' If `length(m) == 1L`: a vector of numeric indices. \cr
 #' \cr
 #' If `length(m) > 1L`: a list of the same length as `m`,
-#' containing integer vectors of indices. \cr
+#' containing numeric vectors of indices. \cr
 #' 
 #' @example inst/examples/idx_r.R
 #

@@ -94,12 +94,15 @@ pre_subset_mat <- function(x, row = NULL, col = NULL) {
     return(x)
   }
   
-  if(is.null(row)) row <- base::quote(expr = )
-  if(is.null(col)) col <- base::quote(expr = )
+  if(is.null(row)) row <- seq_len(nrow(x))
+  if(is.null(col)) col <- seq_len(ncol(x))
   return(x[row, col])
 }
 
-subset_mat <- function(x, row = NULL, col = NULL, rp) {
+
+f_expect.matrix <- f_expect.2d <- function(x, row = NULL, col = NULL) {
+  
+  rp <- parent.frame()$rp
   
   if(!is.null(row)) row <- indx_x(row, x, rownames(x), nrow(x))
   if(!is.null(col)) col <- indx_x(col, x, colnames(x), ncol(x))
@@ -108,99 +111,70 @@ subset_mat <- function(x, row = NULL, col = NULL, rp) {
     return(x)
   }
   
-  if(is.null(row)) row <- base::quote(expr = )
-  if(is.null(col)) col <- base::quote(expr = )
+  if(is.null(row)) row <- seq_len(nrow(x))
+  if(is.null(col)) col <- seq_len(ncol(x))
   x[row, col] <- rp
   
   return(x)
 }
 
-temp.fun.matrix <- function(x, row, col) {
-  for(i in 1:length(row)) {
-    for(j in 1:length(col)) {
-        len <- length(pre_subset_mat(x, row[[i]], col[[j]]))
-        rp <- seq_len(len)
-        expect_equal(
-          sb_mod(x, row = row[[i]], col = col[[j]], rp = rp),
-          subset_mat(x, row[[i]], col[[j]], rp = rp)
-        ) |> errorfun()
-        expect_true(sb_mod(x, row = row[[i]], col = col[[j]], rp = rp) |>
-                      is.matrix()) |> errorfun()
-        assign("enumerate", enumerate + 2, envir = parent.frame(n = 1))
-    }
-  }
+f_out.matrix <- function(x, row, col) {
+  
+  rp <- parent.frame()$rp
+  
+  return(sb_mod(x, row = row, col = col, rp = rp))
+}
+
+f_out.2d <- function(x, sub, dims) {
+  
+  rp <- parent.frame()$rp
+  
+  return(sb_mod.array(x, sub, dims, rp = rp))
 }
 
 
-subset_1d <- function(x, i, rp) {
+pre_subset_1d <- function(x, i) {
+  return(indx_x(i, x, names(x), length(x)))
+}
+
+f_expect.1d <- function(x, i) {
+  
+  rp <- parent.frame()$rp
+  
   i <- indx_x(i, x, dimnames(x)[[1]], length(x))
+  
   if(any_empty_indices(i)) {
     return(x)
   }
+  
   x[i] <- rp
   return(x)
 }
 
-temp.fun.1d <- function(x, row) {
-  for(i in 1:length(row)) {
-    rp <- seq_along(indx_x(row[[i]], x, dimnames(x)[[1]], length(x)))
-    expect_equal(
-      sb_mod(x, row[[i]], 1, rp = rp),
-      subset_1d(x, row[[i]], rp = rp)
-    ) |> errorfun()
-    expect_true(sb_mod(x, row[[i]], 1, rp = rp) |>
-                  is.array()) |> errorfun()
-    assign("enumerate", enumerate + 2, envir = parent.frame(n = 1))
-  }
-}
-
-temp.fun.2d <- function(x, row, col) {
-  for(i in 1:length(row)) {
-    for(j in 1:length(col)) {
-      
-      len <- length(pre_subset_mat(x, row[[i]], col[[j]]))
-      rp <- seq_len(len)
-      
-      sub <- n(row[[i]], col[[j]])
-      dims <- 1:2
-      rem <- which(vapply(sub, is.null, logical(1L)))
-      if(length(rem) > 0L) {
-        sub <- sub[-rem]
-        dims <- dims[-rem]
-      }
-      
-      expect_equal(
-        sb_mod.array(x, sub, dims, rp = rp),
-        subset_mat(x, row[[i]], col[[j]], rp = rp)
-      ) |> errorfun()
-      expect_true(sb_mod.array(x, sub, dims, rp = rp) |>
-                    is.array()) |> errorfun()
-      assign("enumerate", enumerate + 2, envir = parent.frame(n = 1))
-    }
-  }
+f_out.1d <- function(x, sub, dims) {
+  
+  rp <- parent.frame()$rp
+  
+  return(sb_mod(x, sub, dims, rp = rp))
 }
 
 
-sb_test <- function(...) {
-  rp <- sb_x.array(...) * - 1
-  sb_mod.array(..., rp = rp)
+sb_test <- function(x, ...) {
+  rp <- sb_x.array(x, ...) * -1
+  return(sb_mod.array(x, ..., rp = rp))
 }
 
-temp.fun.arbitrary <- function(x, i, j, l) {
+f_expect.arbitrary <- function(x, i, j, l) {
+  tf <- mean
   i <- indx_x(i, x, rownames(x), nrow(x))
   j <- indx_x(j, x, colnames(x), ncol(x))
   l <- indx_x(l, x, dimnames(x)[4], dim(x)[4])
-  if(any_empty_indices(i, j, l)) {
-    return(x)
-  }
   rp <- x[i, j, , l] * -1
   x[i, j, , l] <- rp
   return(x)
 }
 
 sys.source(file.path(getwd(), "source", "sourcetest-dims.R"), envir = environment())
-
-
 
 
 # test errors ====
