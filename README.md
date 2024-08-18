@@ -132,7 +132,7 @@ tinycodet::import_LL("squarebrackets", selection = ... )
   Added the `options` help page.
 - 30 June 2024: Re-written internal code for arrays. Added support for
   backward indexing via Complex Vector indices. Added more tests.
-  Replaced `seq_names()` with the new and far more flexible `idx_rng()`
+  Replaced `seq_names()` with the new and far more flexible `idx_r()`
   function.
 
  

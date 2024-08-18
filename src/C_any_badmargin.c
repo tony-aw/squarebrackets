@@ -2,11 +2,10 @@
 #include <Rdefines.h>
 #include <R_ext/Error.h>
 
-// Inspired by collapse::anyv, though this function works differently
-
 SEXP C_any_badmargin ( SEXP x, SEXP val ) {
  R_xlen_t n = xlength(x);
- switch(TYPEOF(x)) {
+ 
+switch(TYPEOF(val)) {
   case INTSXP:
     {
       const int *px = INTEGER(x);
@@ -18,8 +17,7 @@ SEXP C_any_badmargin ( SEXP x, SEXP val ) {
       return ScalarLogical(0);
       break;
     }
-  
-  
+
   case REALSXP: 
     {
       const double *px = REAL(x);
@@ -31,7 +29,9 @@ SEXP C_any_badmargin ( SEXP x, SEXP val ) {
       return ScalarLogical(0);
       break;
     }
+
   default: error("unsupported type");
  }
+
  return(R_NilValue);
 }

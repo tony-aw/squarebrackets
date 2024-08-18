@@ -639,6 +639,36 @@
 
 #' @keywords internal
 #' @noRd
+.rcpp_sub2ind_2d <- function(ind1, ind2, dimcumprod) {
+    .Call(`_squarebrackets_rcpp_sub2ind_2d`, ind1, ind2, dimcumprod)
+}
+
+#' @keywords internal
+#' @noRd
+.rcpp_sub2ind_3d <- function(ind1, ind2, ind3, dimcumprod) {
+    .Call(`_squarebrackets_rcpp_sub2ind_3d`, ind1, ind2, ind3, dimcumprod)
+}
+
+#' @keywords internal
+#' @noRd
+.rcpp_sub2ind_4d <- function(ind1, ind2, ind3, ind4, dimcumprod) {
+    .Call(`_squarebrackets_rcpp_sub2ind_4d`, ind1, ind2, ind3, ind4, dimcumprod)
+}
+
+#' @keywords internal
+#' @noRd
+.rcpp_sub2ind_5d <- function(ind1, ind2, ind3, ind4, ind5, dimcumprod) {
+    .Call(`_squarebrackets_rcpp_sub2ind_5d`, ind1, ind2, ind3, ind4, ind5, dimcumprod)
+}
+
+#' @keywords internal
+#' @noRd
+.rcpp_sub2ind_6d <- function(ind1, ind2, ind3, ind4, ind5, ind6, dimcumprod) {
+    .Call(`_squarebrackets_rcpp_sub2ind_6d`, ind1, ind2, ind3, ind4, ind5, ind6, dimcumprod)
+}
+
+#' @keywords internal
+#' @noRd
 .rcpp_abind_all_conform_dims <- function(conform_dim, arg_dim, n, along) {
     .Call(`_squarebrackets_rcpp_abind_all_conform_dims`, conform_dim, arg_dim, n, along)
 }
@@ -687,8 +717,8 @@
 
 #' @keywords internal
 #' @noRd
-.rcpp_anybad <- function(indx, value) {
-    .Call(`_squarebrackets_rcpp_anybad`, indx, value)
+.rcpp_any_badindx <- function(indx, value) {
+    .Call(`_squarebrackets_rcpp_any_badindx`, indx, value)
 }
 
 #' @keywords internal
@@ -749,6 +779,12 @@
 #' @noRd
 .rcpp_sub2coord <- function(lst, nrow, ncol, lens, reps_each, reps_whole) {
     .Call(`_squarebrackets_rcpp_sub2coord`, lst, nrow, ncol, lens, reps_each, reps_whole)
+}
+
+#' @keywords internal
+#' @noRd
+.rcpp_sub2ind_setrange <- function(out, start, end, each, myprod, rp) {
+    invisible(.Call(`_squarebrackets_rcpp_sub2ind_setrange`, out, start, end, each, myprod, rp))
 }
 
 #' @keywords internal

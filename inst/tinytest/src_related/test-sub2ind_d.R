@@ -3,132 +3,48 @@
 
 sys.source(file.path(getwd(), "source", "functions4testing.R"), envir = environment())
 enumerate <- 0
-temp.fun <- function(x, ...) {
-  return(x[...])
+temp.fun <- function(x, lst) {
+  squarebrackets:::.arr_x(x, lst, sys.call())
 }
 
 # NOTE:
 # sb_set.array uses Rcpp code generated from the same string as the Rcpp code for sub2ind.
 # Thus these tests also function as tests for arrays.
 
-# 6D array ====
-dims <- rep(10, 6)
-len <- prod(dims)
-
-for(i in 1:10) {
-  x <- array(sample(seq_len(len*10), len, FALSE), dims)
-  ind1 <- sample(1:10, 4, FALSE)
-  ind2 <- sample(1:10, 4, FALSE)
-  ind3 <- sample(1:10, 4, FALSE)
-  ind4 <- sample(1:10, 4, FALSE)
-  ind5 <- sample(1:10, 4, FALSE)
-  ind6 <- sample(1:10, 4, FALSE)
-  subs <- list(ind1, ind2, ind3, ind4, ind5, ind6)
-  ind <- sub2ind(subs, dims)
-  
-  expect_equal(
-    x[ind], as.vector(x[ind1, ind2, ind3, ind4, ind5, ind6])
-  ) |> errorfun()
+generate_data <- function(x.len) {
+  list(
+    sample(c(TRUE, FALSE, NA), x.len, TRUE),
+    as.integer(sample(c(1:x.len - 1, NA))),
+    sample(c(rnorm(x.len), NA, NaN, Inf, -Inf), x.len),
+    sample(c(stringi::stri_rand_strings(x.len, 26), NA)),
+    as.complex(sample(c(rnorm(x.len - 1), NA))),
+    as.raw(sample(1:100, x.len, TRUE))
+  )
 }
-enumerate <- enumerate + 1
 
 
-# 5D array ====
-dims <- rep(10, 5)
-len <- prod(dims)
-
-for(i in 1:10) {
-  x <- array(sample(seq_len(len*10), len, FALSE), dims)
-  ind1 <- sample(1:10, 4, FALSE)
-  ind2 <- sample(1:10, 4, FALSE)
-  ind3 <- sample(1:10, 4, FALSE)
-  ind4 <- sample(1:10, 4, FALSE)
-  ind5 <- sample(1:10, 4, FALSE)
-  subs <- list(ind1, ind2, ind3, ind4, ind5)
-  ind <- sub2ind(subs, dims)
-  
-  expect_equal(
-    x[ind], as.vector(x[ind1, ind2, ind3, ind4, ind5])
-  ) |> errorfun()
+for(iSample in 1:10) {
+  for(iDim in 2:6) {
+    x.dim <- sample(1:6, size = iDim, replace = TRUE)
+    x.len <- prod(x.dim)
+    x.data <- generate_data(x.len)
+    for(iType in seq_along(x.data)) {
+      x <- as.mutable_atomic(array(x.data[[iType]], x.dim))
+      sub <- lapply(x.dim, \(x) sample(1:x, max(c(1, x)), FALSE))
+      dims <- 1:length(x.dim)
+      
+      ind <- sub2ind(sub, x.dim)
+      
+      expect <- temp.fun(x, sub) |> as.vector() |> as.mutable_atomic()
+      
+      expect_equal(
+        x[ind], expect
+      ) |> errorfun()
+      
+      enumerate <- enumerate + 2
+    }
+  }
 }
-enumerate <- enumerate + 1
-
-
-
-# 4D array ====
-dims <- rep(10, 4)
-len <- prod(dims)
-
-for(i in 1:10) {
-  x <- array(sample(seq_len(len*10), len, FALSE), dims)
-  ind1 <- sample(1:10, 4, FALSE)
-  ind2 <- sample(1:10, 4, FALSE)
-  ind3 <- sample(1:10, 4, FALSE)
-  ind4 <- sample(1:10, 4, FALSE)
-  subs <- list(ind1, ind2, ind3, ind4)
-  ind <- sub2ind(subs, dims)
-  
-  expect_equal(
-    x[ind], as.vector(x[ind1, ind2, ind3, ind4])
-  ) |> errorfun()
-}
-enumerate <- enumerate + 1
-
-
-# 3D array ====
-dims <- rep(10, 3)
-len <- prod(dims)
-
-for(i in 1:10) {
-  x <- array(sample(seq_len(len*10), len, FALSE), dims)
-  ind1 <- sample(1:10, 4, FALSE)
-  ind2 <- sample(1:10, 4, FALSE)
-  ind3 <- sample(1:10, 4, FALSE)
-  subs <- list(ind1, ind2, ind3)
-  ind <- sub2ind(subs, dims)
-  
-  expect_equal(
-    x[ind], as.vector(x[ind1, ind2, ind3])
-  ) |> errorfun()
-}
-enumerate <- enumerate + 1
-
-
-# 2D array ====
-dims <- rep(10, 2)
-len <- prod(dims)
-
-for(i in 1:10) {
-  x <- array(sample(seq_len(len*10), len, FALSE), dims)
-  ind1 <- sample(1:10, 4, FALSE)
-  ind2 <- sample(1:10, 4, FALSE)
-  subs <- list(ind1, ind2)
-  ind <- sub2ind(subs, dims)
-  
-  expect_equal(
-    x[ind], as.vector(x[ind1, ind2])
-  ) |> errorfun()
-}
-enumerate <- enumerate + 1
-
-
-
-# 1D array ====
-dims <- rep(10, 1)
-len <- prod(dims)
-
-for(i in 1:10) {
-  x <- array(sample(seq_len(len*10), len, FALSE), dims)
-  ind1 <- sample(1:10, 4, FALSE)
-  subs <- list(ind1)
-  ind <- sub2ind(subs, dims)
-  
-  expect_equal(
-    as.vector(x[ind]), as.vector(x[ind1])
-  ) |> errorfun()
-}
-enumerate <- enumerate + 1
-
 
 # error checks ====
 
@@ -137,6 +53,7 @@ expect_error(
   pattern = "`length(x.dim) == 0`",
   fixed = TRUE
 )
+ind1 <- sample(1:10, 4, FALSE)
 expect_error(
   sub2ind(list(ind1), integer(2)),
   pattern = "`length(sub) != length(x.dim)`",

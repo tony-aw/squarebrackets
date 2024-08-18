@@ -103,20 +103,7 @@ sb_mod.default <- function(
     return(.sb_mod_all(x, rp, tf, NULL, sys.call()))
   }
   
-  elements <- ci_flat(
-    x, i, inv, chkdup, .abortcall = sys.call()
-  )
-  
-  n.i <- length(elements)
-  if(n.i == 0) return(x)
-  
-  if(!missing(tf)) {
-    rp <- tf(x[elements])
-  }
-  
-  .check_rp_atomic(rp, n.i, abortcall = sys.call())
-  x[elements] <- rp
-  return(x)
+  return(.flat_mod_atomic(x, i, inv, rp, tf, chkdup, sys.call()))
 }
 
 
@@ -136,7 +123,7 @@ sb_mod.matrix <- function(
   }
   
   if(!is.null(i)) {
-    return(sb_mod.default(x, i, inv, ..., rp = rp, tf = tf, chkdup = chkdup))
+    return(.flat_mod_atomic(x, i, inv, rp, tf, chkdup, sys.call()))
   }
   
   if(!is.null(row)) {
@@ -179,7 +166,7 @@ sb_mod.array <- function(
   }
   
   if(!is.null(i)) {
-    return(sb_mod.default(x, i, inv, ..., rp = rp, tf = tf, chkdup = chkdup))
+    return(.flat_mod_atomic(x, i, inv, rp, tf, chkdup, sys.call()))
   }
   
   if(length(sub) == 0 && length(dims) == 0) {
@@ -263,24 +250,7 @@ sb2_mod.default <- function(
     return(.sb_mod_all(x, rp, tf, .lapply, sys.call()))
   }
   
-  elements <- ci_flat(
-    x, i, inv, chkdup, .abortcall = sys.call()
-  )
-  
-  n.i <- length(elements)
-  
-  if(n.i == 0) {
-    return(x)
-  }
-  
-  if(!missing(tf)) {
-    rp <- .lapply(x[elements], tf)
-  }
-  
-  .check_rp_list(rp, n.i, abortcall = sys.call())
-  x[elements] <- rp
-  
-  return(x)
+  return(.flat_mod_list(x, i, inv, rp, tf, chkdup, .lapply, sys.call()))
 }
 
 
@@ -301,7 +271,7 @@ sb2_mod.array <- function(
   }
   
   if(!is.null(i)) {
-    return(sb2_mod.default(x, i, inv = inv, ..., rp = rp, tf = tf, chkdup = chkdup))
+    return(.flat_mod_list(x, i, inv, rp, tf, chkdup, .lapply, sys.call()))
   }
   
   if(length(sub) == 0 && length(dims) == 0) {
@@ -438,6 +408,8 @@ sb2_mod.data.frame <- function(
 }
 
 
+#' @keywords internal
+#' @noRd
 .sb_mod_all <- function(x, rp, tf, .lapply, abortcall) {
   
   if(is.list(x)) {

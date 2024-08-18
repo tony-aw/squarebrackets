@@ -13,7 +13,7 @@ int nj = Rf_length(ind2);
 int nk = Rf_length(ind3);
 
 R_xlen_t counter = 0;
-int temp = 0;
+double temp = 0.0;
 
 int *pi; 
  pi = INTEGER(ind1);
@@ -21,15 +21,15 @@ int *pj;
  pj = INTEGER(ind2);
 int *pk; 
  pk = INTEGER(ind3);
-int pdim1 = INTEGER(dimcumprod)[0]; 
+double pdim1 = REAL(dimcumprod)[0]; 
 
-int pdim2 = INTEGER(dimcumprod)[1]; 
+double pdim2 = REAL(dimcumprod)[1]; 
 
 
 
-int *pout;
-SEXP out = PROTECT(allocVector(INTSXP, ni * nj * nk));
-pout = INTEGER(out);
+double *pout;
+SEXP out = PROTECT(allocVector(REALSXP, ni * nj * nk));
+pout = REAL(out);
   
 	 for(int k = 0; k < nk; ++k) {
 	 for(int j = 0; j < nj; ++j) {

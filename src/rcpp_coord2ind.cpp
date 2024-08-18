@@ -19,7 +19,7 @@ int rcpp_prod_int(IntegerVector x) {
 //' @keywords internal
 //' @noRd
 // [[Rcpp::export(.rcpp_pre_coord2ind)]]
-void rcpp_pre_coord2ind(IntegerVector ind, IntegerVector coord, int myprod) {
+void rcpp_pre_coord2ind(NumericVector ind, IntegerVector coord, int myprod) {
   R_xlen_t n = ind.length();
   for(R_xlen_t i = 0; i < n; ++i) {
     ind[i] = ind[i] + myprod * (coord[i] - 1);
@@ -30,8 +30,8 @@ void rcpp_pre_coord2ind(IntegerVector ind, IntegerVector coord, int myprod) {
 //' @keywords internal
 //' @noRd
 // [[Rcpp::export(.rcpp_coord2ind)]]
-IntegerVector rcpp_coord2ind(
-  IntegerVector ind, IntegerMatrix coord, IntegerVector xdim
+NumericVector rcpp_coord2ind(
+  NumericVector ind, IntegerMatrix coord, IntegerVector xdim
 ) {
   int nc = coord.ncol();
   if(nc > 1) {

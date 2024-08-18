@@ -35,7 +35,7 @@ all_parts <- c(
 )
 
 set_pointers <- sprintf("int *p%s; \n p%s = INTEGER(ind%d);", letters[9:14], letters[9:14], 1:6)
-set_dimcumprod <- sprintf("int pdim%d = INTEGER(dimcumprod)[%d]; \n", 1:5, 0:4)
+set_dimcumprod <- sprintf("double pdim%d = REAL(dimcumprod)[%d]; \n", 1:5, 0:4)
 
 templatecode <- "
 
@@ -50,15 +50,15 @@ SEXP C_sub2ind_DTYPEd(
 <set_lengths>
 
 R_xlen_t counter = 0;
-int temp = 0;
+double temp = 0.0;
 
 <set_pointers>
 <set_dimcumprod>
 
 
-int *pout;
-SEXP out = PROTECT(allocVector(INTSXP, <set_length_mult>));
-pout = INTEGER(out);
+double *pout;
+SEXP out = PROTECT(allocVector(REALSXP, <set_length_mult>));
+pout = REAL(out);
   
 <startfor>
       temp = <main>;
@@ -132,7 +132,7 @@ for(i in DTYPES) {
 wrapper_codes <- character(length(DTYPES))
 names(wrapper_codes) <- DTYPES
 args <- sprintf("ind%d", 1:6)
-args_assigned <- sprintf("ind%d = ind%d", 1:6, 1:6)
+args_assigned <- sprintf("ind%d = as.integer(ind%d)", 1:6, 1:6)
 
 templatecode <- "
 #' @keywords Internal
@@ -140,7 +140,11 @@ templatecode <- "
 .C_sub2ind_DTYPEd <- function(
   <args>, dimcumprod
 ) {
-  .Call(\"C_sub2ind_DTYPEd\", <args assigned>, dimcumprod = dimcumprod)
+  .Call(
+    \"C_sub2ind_DTYPEd\",
+    <args assigned>,
+    dimcumprod = as.double(dimcumprod)
+  )
 }
 "
 for(i in DTYPES) {

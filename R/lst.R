@@ -128,7 +128,7 @@ lst_untree <- function(x, margin, use.names = FALSE) {
   if(margin == 1) {
     
     dim(out) <- c(length(input), maxlen)
-    dimcumprod <- as.integer(cumprod(dim(out)))
+    dimcumprod <- cumprod(dim(out))
     
     if(use.names) {
       
@@ -156,7 +156,7 @@ lst_untree <- function(x, margin, use.names = FALSE) {
   if(margin == 2) {
     
     dim(out) <- c(maxlen, length(input))
-    dimcumprod <- as.integer(cumprod(dim(out)))
+    dimcumprod <- cumprod(dim(out))
     
     if(use.names) {
       names(out) <- character(length(out))

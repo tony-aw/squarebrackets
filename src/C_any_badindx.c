@@ -6,7 +6,8 @@
 
 SEXP C_any_badindx ( SEXP x, SEXP val ) {
  R_xlen_t n = xlength(x);
- switch(TYPEOF(x)) {
+
+ switch(TYPEOF(val)) {
   case INTSXP:
     {
       const int *px = INTEGER(x);
@@ -19,7 +20,6 @@ SEXP C_any_badindx ( SEXP x, SEXP val ) {
       break;
     }
   
-  
   case REALSXP: 
     {
       const double *px = REAL(x);
@@ -31,7 +31,10 @@ SEXP C_any_badindx ( SEXP x, SEXP val ) {
       return ScalarLogical(0);
       break;
     }
+
   default: error("unsupported type");
  }
+
+
  return(R_NilValue);
 }

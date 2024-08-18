@@ -44,7 +44,7 @@ rm(list = rem)
 
 subfolders <- c(
   "generic", "generic2", "generic_idx", "generic_bind",
-  "helper", "developer", "special", "rcpp_related"
+  "helper", "developer", "special", "src_related"
 )
 
 for(iSubFolder in subfolders) {

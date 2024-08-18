@@ -17,7 +17,6 @@ switch(TYPEOF(x)) {
       break;
     }
   
-  
   case REALSXP: 
     {
       const double *px = REAL(x);
@@ -27,8 +26,10 @@ switch(TYPEOF(x)) {
       return ScalarLogical(0);
       break;
     }
+
   default: error("unsupported type");
 }
+
 return(R_NilValue);
 
 }

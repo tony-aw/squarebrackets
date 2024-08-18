@@ -141,21 +141,21 @@ BEGIN_RCPP
 END_RCPP
 }
 // rcpp_set_array_2d_Logical
-void rcpp_set_array_2d_Logical(LogicalVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector dimcumprod, LogicalVector rp);
+void rcpp_set_array_2d_Logical(LogicalVector x, IntegerVector ind1, IntegerVector ind2, NumericVector dimcumprod, LogicalVector rp);
 RcppExport SEXP _squarebrackets_rcpp_set_array_2d_Logical(SEXP xSEXP, SEXP ind1SEXP, SEXP ind2SEXP, SEXP dimcumprodSEXP, SEXP rpSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< LogicalVector >::type x(xSEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind1(ind1SEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind2(ind2SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type dimcumprod(dimcumprodSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type dimcumprod(dimcumprodSEXP);
     Rcpp::traits::input_parameter< LogicalVector >::type rp(rpSEXP);
     rcpp_set_array_2d_Logical(x, ind1, ind2, dimcumprod, rp);
     return R_NilValue;
 END_RCPP
 }
 // rcpp_set_array_3d_Logical
-void rcpp_set_array_3d_Logical(LogicalVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, IntegerVector dimcumprod, LogicalVector rp);
+void rcpp_set_array_3d_Logical(LogicalVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, NumericVector dimcumprod, LogicalVector rp);
 RcppExport SEXP _squarebrackets_rcpp_set_array_3d_Logical(SEXP xSEXP, SEXP ind1SEXP, SEXP ind2SEXP, SEXP ind3SEXP, SEXP dimcumprodSEXP, SEXP rpSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -163,14 +163,14 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< IntegerVector >::type ind1(ind1SEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind2(ind2SEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind3(ind3SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type dimcumprod(dimcumprodSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type dimcumprod(dimcumprodSEXP);
     Rcpp::traits::input_parameter< LogicalVector >::type rp(rpSEXP);
     rcpp_set_array_3d_Logical(x, ind1, ind2, ind3, dimcumprod, rp);
     return R_NilValue;
 END_RCPP
 }
 // rcpp_set_array_4d_Logical
-void rcpp_set_array_4d_Logical(LogicalVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, IntegerVector ind4, IntegerVector dimcumprod, LogicalVector rp);
+void rcpp_set_array_4d_Logical(LogicalVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, IntegerVector ind4, NumericVector dimcumprod, LogicalVector rp);
 RcppExport SEXP _squarebrackets_rcpp_set_array_4d_Logical(SEXP xSEXP, SEXP ind1SEXP, SEXP ind2SEXP, SEXP ind3SEXP, SEXP ind4SEXP, SEXP dimcumprodSEXP, SEXP rpSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -179,14 +179,14 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< IntegerVector >::type ind2(ind2SEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind3(ind3SEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind4(ind4SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type dimcumprod(dimcumprodSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type dimcumprod(dimcumprodSEXP);
     Rcpp::traits::input_parameter< LogicalVector >::type rp(rpSEXP);
     rcpp_set_array_4d_Logical(x, ind1, ind2, ind3, ind4, dimcumprod, rp);
     return R_NilValue;
 END_RCPP
 }
 // rcpp_set_array_5d_Logical
-void rcpp_set_array_5d_Logical(LogicalVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, IntegerVector ind4, IntegerVector ind5, IntegerVector dimcumprod, LogicalVector rp);
+void rcpp_set_array_5d_Logical(LogicalVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, IntegerVector ind4, IntegerVector ind5, NumericVector dimcumprod, LogicalVector rp);
 RcppExport SEXP _squarebrackets_rcpp_set_array_5d_Logical(SEXP xSEXP, SEXP ind1SEXP, SEXP ind2SEXP, SEXP ind3SEXP, SEXP ind4SEXP, SEXP ind5SEXP, SEXP dimcumprodSEXP, SEXP rpSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -196,14 +196,14 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< IntegerVector >::type ind3(ind3SEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind4(ind4SEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind5(ind5SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type dimcumprod(dimcumprodSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type dimcumprod(dimcumprodSEXP);
     Rcpp::traits::input_parameter< LogicalVector >::type rp(rpSEXP);
     rcpp_set_array_5d_Logical(x, ind1, ind2, ind3, ind4, ind5, dimcumprod, rp);
     return R_NilValue;
 END_RCPP
 }
 // rcpp_set_array_6d_Logical
-void rcpp_set_array_6d_Logical(LogicalVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, IntegerVector ind4, IntegerVector ind5, IntegerVector ind6, IntegerVector dimcumprod, LogicalVector rp);
+void rcpp_set_array_6d_Logical(LogicalVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, IntegerVector ind4, IntegerVector ind5, IntegerVector ind6, NumericVector dimcumprod, LogicalVector rp);
 RcppExport SEXP _squarebrackets_rcpp_set_array_6d_Logical(SEXP xSEXP, SEXP ind1SEXP, SEXP ind2SEXP, SEXP ind3SEXP, SEXP ind4SEXP, SEXP ind5SEXP, SEXP ind6SEXP, SEXP dimcumprodSEXP, SEXP rpSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -214,28 +214,28 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< IntegerVector >::type ind4(ind4SEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind5(ind5SEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind6(ind6SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type dimcumprod(dimcumprodSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type dimcumprod(dimcumprodSEXP);
     Rcpp::traits::input_parameter< LogicalVector >::type rp(rpSEXP);
     rcpp_set_array_6d_Logical(x, ind1, ind2, ind3, ind4, ind5, ind6, dimcumprod, rp);
     return R_NilValue;
 END_RCPP
 }
 // rcpp_set_array_2d_Integer
-void rcpp_set_array_2d_Integer(IntegerVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector dimcumprod, IntegerVector rp);
+void rcpp_set_array_2d_Integer(IntegerVector x, IntegerVector ind1, IntegerVector ind2, NumericVector dimcumprod, IntegerVector rp);
 RcppExport SEXP _squarebrackets_rcpp_set_array_2d_Integer(SEXP xSEXP, SEXP ind1SEXP, SEXP ind2SEXP, SEXP dimcumprodSEXP, SEXP rpSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< IntegerVector >::type x(xSEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind1(ind1SEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind2(ind2SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type dimcumprod(dimcumprodSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type dimcumprod(dimcumprodSEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type rp(rpSEXP);
     rcpp_set_array_2d_Integer(x, ind1, ind2, dimcumprod, rp);
     return R_NilValue;
 END_RCPP
 }
 // rcpp_set_array_3d_Integer
-void rcpp_set_array_3d_Integer(IntegerVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, IntegerVector dimcumprod, IntegerVector rp);
+void rcpp_set_array_3d_Integer(IntegerVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, NumericVector dimcumprod, IntegerVector rp);
 RcppExport SEXP _squarebrackets_rcpp_set_array_3d_Integer(SEXP xSEXP, SEXP ind1SEXP, SEXP ind2SEXP, SEXP ind3SEXP, SEXP dimcumprodSEXP, SEXP rpSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -243,14 +243,14 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< IntegerVector >::type ind1(ind1SEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind2(ind2SEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind3(ind3SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type dimcumprod(dimcumprodSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type dimcumprod(dimcumprodSEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type rp(rpSEXP);
     rcpp_set_array_3d_Integer(x, ind1, ind2, ind3, dimcumprod, rp);
     return R_NilValue;
 END_RCPP
 }
 // rcpp_set_array_4d_Integer
-void rcpp_set_array_4d_Integer(IntegerVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, IntegerVector ind4, IntegerVector dimcumprod, IntegerVector rp);
+void rcpp_set_array_4d_Integer(IntegerVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, IntegerVector ind4, NumericVector dimcumprod, IntegerVector rp);
 RcppExport SEXP _squarebrackets_rcpp_set_array_4d_Integer(SEXP xSEXP, SEXP ind1SEXP, SEXP ind2SEXP, SEXP ind3SEXP, SEXP ind4SEXP, SEXP dimcumprodSEXP, SEXP rpSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -259,14 +259,14 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< IntegerVector >::type ind2(ind2SEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind3(ind3SEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind4(ind4SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type dimcumprod(dimcumprodSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type dimcumprod(dimcumprodSEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type rp(rpSEXP);
     rcpp_set_array_4d_Integer(x, ind1, ind2, ind3, ind4, dimcumprod, rp);
     return R_NilValue;
 END_RCPP
 }
 // rcpp_set_array_5d_Integer
-void rcpp_set_array_5d_Integer(IntegerVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, IntegerVector ind4, IntegerVector ind5, IntegerVector dimcumprod, IntegerVector rp);
+void rcpp_set_array_5d_Integer(IntegerVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, IntegerVector ind4, IntegerVector ind5, NumericVector dimcumprod, IntegerVector rp);
 RcppExport SEXP _squarebrackets_rcpp_set_array_5d_Integer(SEXP xSEXP, SEXP ind1SEXP, SEXP ind2SEXP, SEXP ind3SEXP, SEXP ind4SEXP, SEXP ind5SEXP, SEXP dimcumprodSEXP, SEXP rpSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -276,14 +276,14 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< IntegerVector >::type ind3(ind3SEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind4(ind4SEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind5(ind5SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type dimcumprod(dimcumprodSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type dimcumprod(dimcumprodSEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type rp(rpSEXP);
     rcpp_set_array_5d_Integer(x, ind1, ind2, ind3, ind4, ind5, dimcumprod, rp);
     return R_NilValue;
 END_RCPP
 }
 // rcpp_set_array_6d_Integer
-void rcpp_set_array_6d_Integer(IntegerVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, IntegerVector ind4, IntegerVector ind5, IntegerVector ind6, IntegerVector dimcumprod, IntegerVector rp);
+void rcpp_set_array_6d_Integer(IntegerVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, IntegerVector ind4, IntegerVector ind5, IntegerVector ind6, NumericVector dimcumprod, IntegerVector rp);
 RcppExport SEXP _squarebrackets_rcpp_set_array_6d_Integer(SEXP xSEXP, SEXP ind1SEXP, SEXP ind2SEXP, SEXP ind3SEXP, SEXP ind4SEXP, SEXP ind5SEXP, SEXP ind6SEXP, SEXP dimcumprodSEXP, SEXP rpSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -294,28 +294,28 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< IntegerVector >::type ind4(ind4SEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind5(ind5SEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind6(ind6SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type dimcumprod(dimcumprodSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type dimcumprod(dimcumprodSEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type rp(rpSEXP);
     rcpp_set_array_6d_Integer(x, ind1, ind2, ind3, ind4, ind5, ind6, dimcumprod, rp);
     return R_NilValue;
 END_RCPP
 }
 // rcpp_set_array_2d_Numeric
-void rcpp_set_array_2d_Numeric(NumericVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector dimcumprod, NumericVector rp);
+void rcpp_set_array_2d_Numeric(NumericVector x, IntegerVector ind1, IntegerVector ind2, NumericVector dimcumprod, NumericVector rp);
 RcppExport SEXP _squarebrackets_rcpp_set_array_2d_Numeric(SEXP xSEXP, SEXP ind1SEXP, SEXP ind2SEXP, SEXP dimcumprodSEXP, SEXP rpSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind1(ind1SEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind2(ind2SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type dimcumprod(dimcumprodSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type dimcumprod(dimcumprodSEXP);
     Rcpp::traits::input_parameter< NumericVector >::type rp(rpSEXP);
     rcpp_set_array_2d_Numeric(x, ind1, ind2, dimcumprod, rp);
     return R_NilValue;
 END_RCPP
 }
 // rcpp_set_array_3d_Numeric
-void rcpp_set_array_3d_Numeric(NumericVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, IntegerVector dimcumprod, NumericVector rp);
+void rcpp_set_array_3d_Numeric(NumericVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, NumericVector dimcumprod, NumericVector rp);
 RcppExport SEXP _squarebrackets_rcpp_set_array_3d_Numeric(SEXP xSEXP, SEXP ind1SEXP, SEXP ind2SEXP, SEXP ind3SEXP, SEXP dimcumprodSEXP, SEXP rpSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -323,14 +323,14 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< IntegerVector >::type ind1(ind1SEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind2(ind2SEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind3(ind3SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type dimcumprod(dimcumprodSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type dimcumprod(dimcumprodSEXP);
     Rcpp::traits::input_parameter< NumericVector >::type rp(rpSEXP);
     rcpp_set_array_3d_Numeric(x, ind1, ind2, ind3, dimcumprod, rp);
     return R_NilValue;
 END_RCPP
 }
 // rcpp_set_array_4d_Numeric
-void rcpp_set_array_4d_Numeric(NumericVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, IntegerVector ind4, IntegerVector dimcumprod, NumericVector rp);
+void rcpp_set_array_4d_Numeric(NumericVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, IntegerVector ind4, NumericVector dimcumprod, NumericVector rp);
 RcppExport SEXP _squarebrackets_rcpp_set_array_4d_Numeric(SEXP xSEXP, SEXP ind1SEXP, SEXP ind2SEXP, SEXP ind3SEXP, SEXP ind4SEXP, SEXP dimcumprodSEXP, SEXP rpSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -339,14 +339,14 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< IntegerVector >::type ind2(ind2SEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind3(ind3SEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind4(ind4SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type dimcumprod(dimcumprodSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type dimcumprod(dimcumprodSEXP);
     Rcpp::traits::input_parameter< NumericVector >::type rp(rpSEXP);
     rcpp_set_array_4d_Numeric(x, ind1, ind2, ind3, ind4, dimcumprod, rp);
     return R_NilValue;
 END_RCPP
 }
 // rcpp_set_array_5d_Numeric
-void rcpp_set_array_5d_Numeric(NumericVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, IntegerVector ind4, IntegerVector ind5, IntegerVector dimcumprod, NumericVector rp);
+void rcpp_set_array_5d_Numeric(NumericVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, IntegerVector ind4, IntegerVector ind5, NumericVector dimcumprod, NumericVector rp);
 RcppExport SEXP _squarebrackets_rcpp_set_array_5d_Numeric(SEXP xSEXP, SEXP ind1SEXP, SEXP ind2SEXP, SEXP ind3SEXP, SEXP ind4SEXP, SEXP ind5SEXP, SEXP dimcumprodSEXP, SEXP rpSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -356,14 +356,14 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< IntegerVector >::type ind3(ind3SEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind4(ind4SEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind5(ind5SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type dimcumprod(dimcumprodSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type dimcumprod(dimcumprodSEXP);
     Rcpp::traits::input_parameter< NumericVector >::type rp(rpSEXP);
     rcpp_set_array_5d_Numeric(x, ind1, ind2, ind3, ind4, ind5, dimcumprod, rp);
     return R_NilValue;
 END_RCPP
 }
 // rcpp_set_array_6d_Numeric
-void rcpp_set_array_6d_Numeric(NumericVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, IntegerVector ind4, IntegerVector ind5, IntegerVector ind6, IntegerVector dimcumprod, NumericVector rp);
+void rcpp_set_array_6d_Numeric(NumericVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, IntegerVector ind4, IntegerVector ind5, IntegerVector ind6, NumericVector dimcumprod, NumericVector rp);
 RcppExport SEXP _squarebrackets_rcpp_set_array_6d_Numeric(SEXP xSEXP, SEXP ind1SEXP, SEXP ind2SEXP, SEXP ind3SEXP, SEXP ind4SEXP, SEXP ind5SEXP, SEXP ind6SEXP, SEXP dimcumprodSEXP, SEXP rpSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -374,28 +374,28 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< IntegerVector >::type ind4(ind4SEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind5(ind5SEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind6(ind6SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type dimcumprod(dimcumprodSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type dimcumprod(dimcumprodSEXP);
     Rcpp::traits::input_parameter< NumericVector >::type rp(rpSEXP);
     rcpp_set_array_6d_Numeric(x, ind1, ind2, ind3, ind4, ind5, ind6, dimcumprod, rp);
     return R_NilValue;
 END_RCPP
 }
 // rcpp_set_array_2d_Character
-void rcpp_set_array_2d_Character(CharacterVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector dimcumprod, CharacterVector rp);
+void rcpp_set_array_2d_Character(CharacterVector x, IntegerVector ind1, IntegerVector ind2, NumericVector dimcumprod, CharacterVector rp);
 RcppExport SEXP _squarebrackets_rcpp_set_array_2d_Character(SEXP xSEXP, SEXP ind1SEXP, SEXP ind2SEXP, SEXP dimcumprodSEXP, SEXP rpSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< CharacterVector >::type x(xSEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind1(ind1SEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind2(ind2SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type dimcumprod(dimcumprodSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type dimcumprod(dimcumprodSEXP);
     Rcpp::traits::input_parameter< CharacterVector >::type rp(rpSEXP);
     rcpp_set_array_2d_Character(x, ind1, ind2, dimcumprod, rp);
     return R_NilValue;
 END_RCPP
 }
 // rcpp_set_array_3d_Character
-void rcpp_set_array_3d_Character(CharacterVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, IntegerVector dimcumprod, CharacterVector rp);
+void rcpp_set_array_3d_Character(CharacterVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, NumericVector dimcumprod, CharacterVector rp);
 RcppExport SEXP _squarebrackets_rcpp_set_array_3d_Character(SEXP xSEXP, SEXP ind1SEXP, SEXP ind2SEXP, SEXP ind3SEXP, SEXP dimcumprodSEXP, SEXP rpSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -403,14 +403,14 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< IntegerVector >::type ind1(ind1SEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind2(ind2SEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind3(ind3SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type dimcumprod(dimcumprodSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type dimcumprod(dimcumprodSEXP);
     Rcpp::traits::input_parameter< CharacterVector >::type rp(rpSEXP);
     rcpp_set_array_3d_Character(x, ind1, ind2, ind3, dimcumprod, rp);
     return R_NilValue;
 END_RCPP
 }
 // rcpp_set_array_4d_Character
-void rcpp_set_array_4d_Character(CharacterVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, IntegerVector ind4, IntegerVector dimcumprod, CharacterVector rp);
+void rcpp_set_array_4d_Character(CharacterVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, IntegerVector ind4, NumericVector dimcumprod, CharacterVector rp);
 RcppExport SEXP _squarebrackets_rcpp_set_array_4d_Character(SEXP xSEXP, SEXP ind1SEXP, SEXP ind2SEXP, SEXP ind3SEXP, SEXP ind4SEXP, SEXP dimcumprodSEXP, SEXP rpSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -419,14 +419,14 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< IntegerVector >::type ind2(ind2SEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind3(ind3SEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind4(ind4SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type dimcumprod(dimcumprodSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type dimcumprod(dimcumprodSEXP);
     Rcpp::traits::input_parameter< CharacterVector >::type rp(rpSEXP);
     rcpp_set_array_4d_Character(x, ind1, ind2, ind3, ind4, dimcumprod, rp);
     return R_NilValue;
 END_RCPP
 }
 // rcpp_set_array_5d_Character
-void rcpp_set_array_5d_Character(CharacterVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, IntegerVector ind4, IntegerVector ind5, IntegerVector dimcumprod, CharacterVector rp);
+void rcpp_set_array_5d_Character(CharacterVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, IntegerVector ind4, IntegerVector ind5, NumericVector dimcumprod, CharacterVector rp);
 RcppExport SEXP _squarebrackets_rcpp_set_array_5d_Character(SEXP xSEXP, SEXP ind1SEXP, SEXP ind2SEXP, SEXP ind3SEXP, SEXP ind4SEXP, SEXP ind5SEXP, SEXP dimcumprodSEXP, SEXP rpSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -436,14 +436,14 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< IntegerVector >::type ind3(ind3SEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind4(ind4SEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind5(ind5SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type dimcumprod(dimcumprodSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type dimcumprod(dimcumprodSEXP);
     Rcpp::traits::input_parameter< CharacterVector >::type rp(rpSEXP);
     rcpp_set_array_5d_Character(x, ind1, ind2, ind3, ind4, ind5, dimcumprod, rp);
     return R_NilValue;
 END_RCPP
 }
 // rcpp_set_array_6d_Character
-void rcpp_set_array_6d_Character(CharacterVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, IntegerVector ind4, IntegerVector ind5, IntegerVector ind6, IntegerVector dimcumprod, CharacterVector rp);
+void rcpp_set_array_6d_Character(CharacterVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, IntegerVector ind4, IntegerVector ind5, IntegerVector ind6, NumericVector dimcumprod, CharacterVector rp);
 RcppExport SEXP _squarebrackets_rcpp_set_array_6d_Character(SEXP xSEXP, SEXP ind1SEXP, SEXP ind2SEXP, SEXP ind3SEXP, SEXP ind4SEXP, SEXP ind5SEXP, SEXP ind6SEXP, SEXP dimcumprodSEXP, SEXP rpSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -454,28 +454,28 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< IntegerVector >::type ind4(ind4SEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind5(ind5SEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind6(ind6SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type dimcumprod(dimcumprodSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type dimcumprod(dimcumprodSEXP);
     Rcpp::traits::input_parameter< CharacterVector >::type rp(rpSEXP);
     rcpp_set_array_6d_Character(x, ind1, ind2, ind3, ind4, ind5, ind6, dimcumprod, rp);
     return R_NilValue;
 END_RCPP
 }
 // rcpp_set_array_2d_Complex
-void rcpp_set_array_2d_Complex(ComplexVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector dimcumprod, ComplexVector rp);
+void rcpp_set_array_2d_Complex(ComplexVector x, IntegerVector ind1, IntegerVector ind2, NumericVector dimcumprod, ComplexVector rp);
 RcppExport SEXP _squarebrackets_rcpp_set_array_2d_Complex(SEXP xSEXP, SEXP ind1SEXP, SEXP ind2SEXP, SEXP dimcumprodSEXP, SEXP rpSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< ComplexVector >::type x(xSEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind1(ind1SEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind2(ind2SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type dimcumprod(dimcumprodSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type dimcumprod(dimcumprodSEXP);
     Rcpp::traits::input_parameter< ComplexVector >::type rp(rpSEXP);
     rcpp_set_array_2d_Complex(x, ind1, ind2, dimcumprod, rp);
     return R_NilValue;
 END_RCPP
 }
 // rcpp_set_array_3d_Complex
-void rcpp_set_array_3d_Complex(ComplexVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, IntegerVector dimcumprod, ComplexVector rp);
+void rcpp_set_array_3d_Complex(ComplexVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, NumericVector dimcumprod, ComplexVector rp);
 RcppExport SEXP _squarebrackets_rcpp_set_array_3d_Complex(SEXP xSEXP, SEXP ind1SEXP, SEXP ind2SEXP, SEXP ind3SEXP, SEXP dimcumprodSEXP, SEXP rpSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -483,14 +483,14 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< IntegerVector >::type ind1(ind1SEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind2(ind2SEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind3(ind3SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type dimcumprod(dimcumprodSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type dimcumprod(dimcumprodSEXP);
     Rcpp::traits::input_parameter< ComplexVector >::type rp(rpSEXP);
     rcpp_set_array_3d_Complex(x, ind1, ind2, ind3, dimcumprod, rp);
     return R_NilValue;
 END_RCPP
 }
 // rcpp_set_array_4d_Complex
-void rcpp_set_array_4d_Complex(ComplexVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, IntegerVector ind4, IntegerVector dimcumprod, ComplexVector rp);
+void rcpp_set_array_4d_Complex(ComplexVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, IntegerVector ind4, NumericVector dimcumprod, ComplexVector rp);
 RcppExport SEXP _squarebrackets_rcpp_set_array_4d_Complex(SEXP xSEXP, SEXP ind1SEXP, SEXP ind2SEXP, SEXP ind3SEXP, SEXP ind4SEXP, SEXP dimcumprodSEXP, SEXP rpSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -499,14 +499,14 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< IntegerVector >::type ind2(ind2SEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind3(ind3SEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind4(ind4SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type dimcumprod(dimcumprodSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type dimcumprod(dimcumprodSEXP);
     Rcpp::traits::input_parameter< ComplexVector >::type rp(rpSEXP);
     rcpp_set_array_4d_Complex(x, ind1, ind2, ind3, ind4, dimcumprod, rp);
     return R_NilValue;
 END_RCPP
 }
 // rcpp_set_array_5d_Complex
-void rcpp_set_array_5d_Complex(ComplexVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, IntegerVector ind4, IntegerVector ind5, IntegerVector dimcumprod, ComplexVector rp);
+void rcpp_set_array_5d_Complex(ComplexVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, IntegerVector ind4, IntegerVector ind5, NumericVector dimcumprod, ComplexVector rp);
 RcppExport SEXP _squarebrackets_rcpp_set_array_5d_Complex(SEXP xSEXP, SEXP ind1SEXP, SEXP ind2SEXP, SEXP ind3SEXP, SEXP ind4SEXP, SEXP ind5SEXP, SEXP dimcumprodSEXP, SEXP rpSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -516,14 +516,14 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< IntegerVector >::type ind3(ind3SEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind4(ind4SEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind5(ind5SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type dimcumprod(dimcumprodSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type dimcumprod(dimcumprodSEXP);
     Rcpp::traits::input_parameter< ComplexVector >::type rp(rpSEXP);
     rcpp_set_array_5d_Complex(x, ind1, ind2, ind3, ind4, ind5, dimcumprod, rp);
     return R_NilValue;
 END_RCPP
 }
 // rcpp_set_array_6d_Complex
-void rcpp_set_array_6d_Complex(ComplexVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, IntegerVector ind4, IntegerVector ind5, IntegerVector ind6, IntegerVector dimcumprod, ComplexVector rp);
+void rcpp_set_array_6d_Complex(ComplexVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, IntegerVector ind4, IntegerVector ind5, IntegerVector ind6, NumericVector dimcumprod, ComplexVector rp);
 RcppExport SEXP _squarebrackets_rcpp_set_array_6d_Complex(SEXP xSEXP, SEXP ind1SEXP, SEXP ind2SEXP, SEXP ind3SEXP, SEXP ind4SEXP, SEXP ind5SEXP, SEXP ind6SEXP, SEXP dimcumprodSEXP, SEXP rpSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -534,28 +534,28 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< IntegerVector >::type ind4(ind4SEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind5(ind5SEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind6(ind6SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type dimcumprod(dimcumprodSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type dimcumprod(dimcumprodSEXP);
     Rcpp::traits::input_parameter< ComplexVector >::type rp(rpSEXP);
     rcpp_set_array_6d_Complex(x, ind1, ind2, ind3, ind4, ind5, ind6, dimcumprod, rp);
     return R_NilValue;
 END_RCPP
 }
 // rcpp_set_array_2d_Raw
-void rcpp_set_array_2d_Raw(RawVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector dimcumprod, RawVector rp);
+void rcpp_set_array_2d_Raw(RawVector x, IntegerVector ind1, IntegerVector ind2, NumericVector dimcumprod, RawVector rp);
 RcppExport SEXP _squarebrackets_rcpp_set_array_2d_Raw(SEXP xSEXP, SEXP ind1SEXP, SEXP ind2SEXP, SEXP dimcumprodSEXP, SEXP rpSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< RawVector >::type x(xSEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind1(ind1SEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind2(ind2SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type dimcumprod(dimcumprodSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type dimcumprod(dimcumprodSEXP);
     Rcpp::traits::input_parameter< RawVector >::type rp(rpSEXP);
     rcpp_set_array_2d_Raw(x, ind1, ind2, dimcumprod, rp);
     return R_NilValue;
 END_RCPP
 }
 // rcpp_set_array_3d_Raw
-void rcpp_set_array_3d_Raw(RawVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, IntegerVector dimcumprod, RawVector rp);
+void rcpp_set_array_3d_Raw(RawVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, NumericVector dimcumprod, RawVector rp);
 RcppExport SEXP _squarebrackets_rcpp_set_array_3d_Raw(SEXP xSEXP, SEXP ind1SEXP, SEXP ind2SEXP, SEXP ind3SEXP, SEXP dimcumprodSEXP, SEXP rpSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -563,14 +563,14 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< IntegerVector >::type ind1(ind1SEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind2(ind2SEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind3(ind3SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type dimcumprod(dimcumprodSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type dimcumprod(dimcumprodSEXP);
     Rcpp::traits::input_parameter< RawVector >::type rp(rpSEXP);
     rcpp_set_array_3d_Raw(x, ind1, ind2, ind3, dimcumprod, rp);
     return R_NilValue;
 END_RCPP
 }
 // rcpp_set_array_4d_Raw
-void rcpp_set_array_4d_Raw(RawVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, IntegerVector ind4, IntegerVector dimcumprod, RawVector rp);
+void rcpp_set_array_4d_Raw(RawVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, IntegerVector ind4, NumericVector dimcumprod, RawVector rp);
 RcppExport SEXP _squarebrackets_rcpp_set_array_4d_Raw(SEXP xSEXP, SEXP ind1SEXP, SEXP ind2SEXP, SEXP ind3SEXP, SEXP ind4SEXP, SEXP dimcumprodSEXP, SEXP rpSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -579,14 +579,14 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< IntegerVector >::type ind2(ind2SEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind3(ind3SEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind4(ind4SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type dimcumprod(dimcumprodSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type dimcumprod(dimcumprodSEXP);
     Rcpp::traits::input_parameter< RawVector >::type rp(rpSEXP);
     rcpp_set_array_4d_Raw(x, ind1, ind2, ind3, ind4, dimcumprod, rp);
     return R_NilValue;
 END_RCPP
 }
 // rcpp_set_array_5d_Raw
-void rcpp_set_array_5d_Raw(RawVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, IntegerVector ind4, IntegerVector ind5, IntegerVector dimcumprod, RawVector rp);
+void rcpp_set_array_5d_Raw(RawVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, IntegerVector ind4, IntegerVector ind5, NumericVector dimcumprod, RawVector rp);
 RcppExport SEXP _squarebrackets_rcpp_set_array_5d_Raw(SEXP xSEXP, SEXP ind1SEXP, SEXP ind2SEXP, SEXP ind3SEXP, SEXP ind4SEXP, SEXP ind5SEXP, SEXP dimcumprodSEXP, SEXP rpSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -596,14 +596,14 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< IntegerVector >::type ind3(ind3SEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind4(ind4SEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind5(ind5SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type dimcumprod(dimcumprodSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type dimcumprod(dimcumprodSEXP);
     Rcpp::traits::input_parameter< RawVector >::type rp(rpSEXP);
     rcpp_set_array_5d_Raw(x, ind1, ind2, ind3, ind4, ind5, dimcumprod, rp);
     return R_NilValue;
 END_RCPP
 }
 // rcpp_set_array_6d_Raw
-void rcpp_set_array_6d_Raw(RawVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, IntegerVector ind4, IntegerVector ind5, IntegerVector ind6, IntegerVector dimcumprod, RawVector rp);
+void rcpp_set_array_6d_Raw(RawVector x, IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, IntegerVector ind4, IntegerVector ind5, IntegerVector ind6, NumericVector dimcumprod, RawVector rp);
 RcppExport SEXP _squarebrackets_rcpp_set_array_6d_Raw(SEXP xSEXP, SEXP ind1SEXP, SEXP ind2SEXP, SEXP ind3SEXP, SEXP ind4SEXP, SEXP ind5SEXP, SEXP ind6SEXP, SEXP dimcumprodSEXP, SEXP rpSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -614,85 +614,85 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< IntegerVector >::type ind4(ind4SEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind5(ind5SEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type ind6(ind6SEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type dimcumprod(dimcumprodSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type dimcumprod(dimcumprodSEXP);
     Rcpp::traits::input_parameter< RawVector >::type rp(rpSEXP);
     rcpp_set_array_6d_Raw(x, ind1, ind2, ind3, ind4, ind5, ind6, dimcumprod, rp);
     return R_NilValue;
 END_RCPP
 }
 // rcpp_set_array_2d_6d_Logical
-void rcpp_set_array_2d_6d_Logical(LogicalVector x, List out, IntegerVector dimcumprod, LogicalVector rp);
+void rcpp_set_array_2d_6d_Logical(LogicalVector x, List out, NumericVector dimcumprod, LogicalVector rp);
 RcppExport SEXP _squarebrackets_rcpp_set_array_2d_6d_Logical(SEXP xSEXP, SEXP outSEXP, SEXP dimcumprodSEXP, SEXP rpSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< LogicalVector >::type x(xSEXP);
     Rcpp::traits::input_parameter< List >::type out(outSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type dimcumprod(dimcumprodSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type dimcumprod(dimcumprodSEXP);
     Rcpp::traits::input_parameter< LogicalVector >::type rp(rpSEXP);
     rcpp_set_array_2d_6d_Logical(x, out, dimcumprod, rp);
     return R_NilValue;
 END_RCPP
 }
 // rcpp_set_array_2d_6d_Integer
-void rcpp_set_array_2d_6d_Integer(IntegerVector x, List out, IntegerVector dimcumprod, IntegerVector rp);
+void rcpp_set_array_2d_6d_Integer(IntegerVector x, List out, NumericVector dimcumprod, IntegerVector rp);
 RcppExport SEXP _squarebrackets_rcpp_set_array_2d_6d_Integer(SEXP xSEXP, SEXP outSEXP, SEXP dimcumprodSEXP, SEXP rpSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< IntegerVector >::type x(xSEXP);
     Rcpp::traits::input_parameter< List >::type out(outSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type dimcumprod(dimcumprodSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type dimcumprod(dimcumprodSEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type rp(rpSEXP);
     rcpp_set_array_2d_6d_Integer(x, out, dimcumprod, rp);
     return R_NilValue;
 END_RCPP
 }
 // rcpp_set_array_2d_6d_Numeric
-void rcpp_set_array_2d_6d_Numeric(NumericVector x, List out, IntegerVector dimcumprod, NumericVector rp);
+void rcpp_set_array_2d_6d_Numeric(NumericVector x, List out, NumericVector dimcumprod, NumericVector rp);
 RcppExport SEXP _squarebrackets_rcpp_set_array_2d_6d_Numeric(SEXP xSEXP, SEXP outSEXP, SEXP dimcumprodSEXP, SEXP rpSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
     Rcpp::traits::input_parameter< List >::type out(outSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type dimcumprod(dimcumprodSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type dimcumprod(dimcumprodSEXP);
     Rcpp::traits::input_parameter< NumericVector >::type rp(rpSEXP);
     rcpp_set_array_2d_6d_Numeric(x, out, dimcumprod, rp);
     return R_NilValue;
 END_RCPP
 }
 // rcpp_set_array_2d_6d_Character
-void rcpp_set_array_2d_6d_Character(CharacterVector x, List out, IntegerVector dimcumprod, CharacterVector rp);
+void rcpp_set_array_2d_6d_Character(CharacterVector x, List out, NumericVector dimcumprod, CharacterVector rp);
 RcppExport SEXP _squarebrackets_rcpp_set_array_2d_6d_Character(SEXP xSEXP, SEXP outSEXP, SEXP dimcumprodSEXP, SEXP rpSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< CharacterVector >::type x(xSEXP);
     Rcpp::traits::input_parameter< List >::type out(outSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type dimcumprod(dimcumprodSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type dimcumprod(dimcumprodSEXP);
     Rcpp::traits::input_parameter< CharacterVector >::type rp(rpSEXP);
     rcpp_set_array_2d_6d_Character(x, out, dimcumprod, rp);
     return R_NilValue;
 END_RCPP
 }
 // rcpp_set_array_2d_6d_Complex
-void rcpp_set_array_2d_6d_Complex(ComplexVector x, List out, IntegerVector dimcumprod, ComplexVector rp);
+void rcpp_set_array_2d_6d_Complex(ComplexVector x, List out, NumericVector dimcumprod, ComplexVector rp);
 RcppExport SEXP _squarebrackets_rcpp_set_array_2d_6d_Complex(SEXP xSEXP, SEXP outSEXP, SEXP dimcumprodSEXP, SEXP rpSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< ComplexVector >::type x(xSEXP);
     Rcpp::traits::input_parameter< List >::type out(outSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type dimcumprod(dimcumprodSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type dimcumprod(dimcumprodSEXP);
     Rcpp::traits::input_parameter< ComplexVector >::type rp(rpSEXP);
     rcpp_set_array_2d_6d_Complex(x, out, dimcumprod, rp);
     return R_NilValue;
 END_RCPP
 }
 // rcpp_set_array_2d_6d_Raw
-void rcpp_set_array_2d_6d_Raw(RawVector x, List out, IntegerVector dimcumprod, RawVector rp);
+void rcpp_set_array_2d_6d_Raw(RawVector x, List out, NumericVector dimcumprod, RawVector rp);
 RcppExport SEXP _squarebrackets_rcpp_set_array_2d_6d_Raw(SEXP xSEXP, SEXP outSEXP, SEXP dimcumprodSEXP, SEXP rpSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< RawVector >::type x(xSEXP);
     Rcpp::traits::input_parameter< List >::type out(outSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type dimcumprod(dimcumprodSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type dimcumprod(dimcumprodSEXP);
     Rcpp::traits::input_parameter< RawVector >::type rp(rpSEXP);
     rcpp_set_array_2d_6d_Raw(x, out, dimcumprod, rp);
     return R_NilValue;
@@ -1430,6 +1430,81 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
+// rcpp_sub2ind_2d
+NumericVector rcpp_sub2ind_2d(IntegerVector ind1, IntegerVector ind2, NumericVector dimcumprod);
+RcppExport SEXP _squarebrackets_rcpp_sub2ind_2d(SEXP ind1SEXP, SEXP ind2SEXP, SEXP dimcumprodSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type ind1(ind1SEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type ind2(ind2SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type dimcumprod(dimcumprodSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_sub2ind_2d(ind1, ind2, dimcumprod));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_sub2ind_3d
+NumericVector rcpp_sub2ind_3d(IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, NumericVector dimcumprod);
+RcppExport SEXP _squarebrackets_rcpp_sub2ind_3d(SEXP ind1SEXP, SEXP ind2SEXP, SEXP ind3SEXP, SEXP dimcumprodSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type ind1(ind1SEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type ind2(ind2SEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type ind3(ind3SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type dimcumprod(dimcumprodSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_sub2ind_3d(ind1, ind2, ind3, dimcumprod));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_sub2ind_4d
+NumericVector rcpp_sub2ind_4d(IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, IntegerVector ind4, NumericVector dimcumprod);
+RcppExport SEXP _squarebrackets_rcpp_sub2ind_4d(SEXP ind1SEXP, SEXP ind2SEXP, SEXP ind3SEXP, SEXP ind4SEXP, SEXP dimcumprodSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type ind1(ind1SEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type ind2(ind2SEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type ind3(ind3SEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type ind4(ind4SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type dimcumprod(dimcumprodSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_sub2ind_4d(ind1, ind2, ind3, ind4, dimcumprod));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_sub2ind_5d
+NumericVector rcpp_sub2ind_5d(IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, IntegerVector ind4, IntegerVector ind5, NumericVector dimcumprod);
+RcppExport SEXP _squarebrackets_rcpp_sub2ind_5d(SEXP ind1SEXP, SEXP ind2SEXP, SEXP ind3SEXP, SEXP ind4SEXP, SEXP ind5SEXP, SEXP dimcumprodSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type ind1(ind1SEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type ind2(ind2SEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type ind3(ind3SEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type ind4(ind4SEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type ind5(ind5SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type dimcumprod(dimcumprodSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_sub2ind_5d(ind1, ind2, ind3, ind4, ind5, dimcumprod));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_sub2ind_6d
+NumericVector rcpp_sub2ind_6d(IntegerVector ind1, IntegerVector ind2, IntegerVector ind3, IntegerVector ind4, IntegerVector ind5, IntegerVector ind6, NumericVector dimcumprod);
+RcppExport SEXP _squarebrackets_rcpp_sub2ind_6d(SEXP ind1SEXP, SEXP ind2SEXP, SEXP ind3SEXP, SEXP ind4SEXP, SEXP ind5SEXP, SEXP ind6SEXP, SEXP dimcumprodSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type ind1(ind1SEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type ind2(ind2SEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type ind3(ind3SEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type ind4(ind4SEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type ind5(ind5SEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type ind6(ind6SEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type dimcumprod(dimcumprodSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_sub2ind_6d(ind1, ind2, ind3, ind4, ind5, ind6, dimcumprod));
+    return rcpp_result_gen;
+END_RCPP
+}
 // rcpp_abind_all_conform_dims
 bool rcpp_abind_all_conform_dims(IntegerVector conform_dim, IntegerMatrix arg_dim, int n, int along);
 RcppExport SEXP _squarebrackets_rcpp_abind_all_conform_dims(SEXP conform_dimSEXP, SEXP arg_dimSEXP, SEXP nSEXP, SEXP alongSEXP) {
@@ -1530,15 +1605,15 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// rcpp_anybad
-bool rcpp_anybad(IntegerVector indx, int value);
-RcppExport SEXP _squarebrackets_rcpp_anybad(SEXP indxSEXP, SEXP valueSEXP) {
+// rcpp_any_badindx
+bool rcpp_any_badindx(IntegerVector indx, int value);
+RcppExport SEXP _squarebrackets_rcpp_any_badindx(SEXP indxSEXP, SEXP valueSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< IntegerVector >::type indx(indxSEXP);
     Rcpp::traits::input_parameter< int >::type value(valueSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_anybad(indx, value));
+    rcpp_result_gen = Rcpp::wrap(rcpp_any_badindx(indx, value));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -1554,11 +1629,11 @@ BEGIN_RCPP
 END_RCPP
 }
 // rcpp_pre_coord2ind
-void rcpp_pre_coord2ind(IntegerVector ind, IntegerVector coord, int myprod);
+void rcpp_pre_coord2ind(NumericVector ind, IntegerVector coord, int myprod);
 RcppExport SEXP _squarebrackets_rcpp_pre_coord2ind(SEXP indSEXP, SEXP coordSEXP, SEXP myprodSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< IntegerVector >::type ind(indSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type ind(indSEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type coord(coordSEXP);
     Rcpp::traits::input_parameter< int >::type myprod(myprodSEXP);
     rcpp_pre_coord2ind(ind, coord, myprod);
@@ -1566,12 +1641,12 @@ BEGIN_RCPP
 END_RCPP
 }
 // rcpp_coord2ind
-IntegerVector rcpp_coord2ind(IntegerVector ind, IntegerMatrix coord, IntegerVector xdim);
+NumericVector rcpp_coord2ind(NumericVector ind, IntegerMatrix coord, IntegerVector xdim);
 RcppExport SEXP _squarebrackets_rcpp_coord2ind(SEXP indSEXP, SEXP coordSEXP, SEXP xdimSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< IntegerVector >::type ind(indSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type ind(indSEXP);
     Rcpp::traits::input_parameter< IntegerMatrix >::type coord(coordSEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type xdim(xdimSEXP);
     rcpp_result_gen = Rcpp::wrap(rcpp_coord2ind(ind, coord, xdim));
@@ -1653,33 +1728,48 @@ BEGIN_RCPP
 END_RCPP
 }
 // rcpp_sub2coord
-IntegerMatrix rcpp_sub2coord(const List lst, const int nrow, const int ncol, const IntegerVector lens, const IntegerVector reps_each, const IntegerVector reps_whole);
+IntegerMatrix rcpp_sub2coord(const List lst, const double nrow, const int ncol, const NumericVector lens, const NumericVector reps_each, const NumericVector reps_whole);
 RcppExport SEXP _squarebrackets_rcpp_sub2coord(SEXP lstSEXP, SEXP nrowSEXP, SEXP ncolSEXP, SEXP lensSEXP, SEXP reps_eachSEXP, SEXP reps_wholeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const List >::type lst(lstSEXP);
-    Rcpp::traits::input_parameter< const int >::type nrow(nrowSEXP);
+    Rcpp::traits::input_parameter< const double >::type nrow(nrowSEXP);
     Rcpp::traits::input_parameter< const int >::type ncol(ncolSEXP);
-    Rcpp::traits::input_parameter< const IntegerVector >::type lens(lensSEXP);
-    Rcpp::traits::input_parameter< const IntegerVector >::type reps_each(reps_eachSEXP);
-    Rcpp::traits::input_parameter< const IntegerVector >::type reps_whole(reps_wholeSEXP);
+    Rcpp::traits::input_parameter< const NumericVector >::type lens(lensSEXP);
+    Rcpp::traits::input_parameter< const NumericVector >::type reps_each(reps_eachSEXP);
+    Rcpp::traits::input_parameter< const NumericVector >::type reps_whole(reps_wholeSEXP);
     rcpp_result_gen = Rcpp::wrap(rcpp_sub2coord(lst, nrow, ncol, lens, reps_each, reps_whole));
     return rcpp_result_gen;
 END_RCPP
 }
+// rcpp_sub2ind_setrange
+void rcpp_sub2ind_setrange(NumericVector out, const R_xlen_t start, const R_xlen_t end, const R_xlen_t each, const double myprod, IntegerVector rp);
+RcppExport SEXP _squarebrackets_rcpp_sub2ind_setrange(SEXP outSEXP, SEXP startSEXP, SEXP endSEXP, SEXP eachSEXP, SEXP myprodSEXP, SEXP rpSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type out(outSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type each(eachSEXP);
+    Rcpp::traits::input_parameter< const double >::type myprod(myprodSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type rp(rpSEXP);
+    rcpp_sub2ind_setrange(out, start, end, each, myprod, rp);
+    return R_NilValue;
+END_RCPP
+}
 // rcpp_sub2ind_general
-IntegerVector rcpp_sub2ind_general(const List lst, const R_xlen_t total, const IntegerVector reps_each, const IntegerVector reps_whole, const IntegerVector xdim, const IntegerVector dimcumprod);
+NumericVector rcpp_sub2ind_general(const List lst, const R_xlen_t total, const NumericVector reps_each, const NumericVector reps_whole, const NumericVector xdim, const NumericVector dimcumprod);
 RcppExport SEXP _squarebrackets_rcpp_sub2ind_general(SEXP lstSEXP, SEXP totalSEXP, SEXP reps_eachSEXP, SEXP reps_wholeSEXP, SEXP xdimSEXP, SEXP dimcumprodSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const List >::type lst(lstSEXP);
     Rcpp::traits::input_parameter< const R_xlen_t >::type total(totalSEXP);
-    Rcpp::traits::input_parameter< const IntegerVector >::type reps_each(reps_eachSEXP);
-    Rcpp::traits::input_parameter< const IntegerVector >::type reps_whole(reps_wholeSEXP);
-    Rcpp::traits::input_parameter< const IntegerVector >::type xdim(xdimSEXP);
-    Rcpp::traits::input_parameter< const IntegerVector >::type dimcumprod(dimcumprodSEXP);
+    Rcpp::traits::input_parameter< const NumericVector >::type reps_each(reps_eachSEXP);
+    Rcpp::traits::input_parameter< const NumericVector >::type reps_whole(reps_wholeSEXP);
+    Rcpp::traits::input_parameter< const NumericVector >::type xdim(xdimSEXP);
+    Rcpp::traits::input_parameter< const NumericVector >::type dimcumprod(dimcumprodSEXP);
     rcpp_result_gen = Rcpp::wrap(rcpp_sub2ind_general(lst, total, reps_each, reps_whole, xdim, dimcumprod));
     return rcpp_result_gen;
 END_RCPP
@@ -1802,6 +1892,11 @@ static const R_CallMethodDef CallEntries[] = {
     {"_squarebrackets_rcpp_setrv_fast_Character", (DL_FUNC) &_squarebrackets_rcpp_setrv_fast_Character, 4},
     {"_squarebrackets_rcpp_setrv_safe_Raw", (DL_FUNC) &_squarebrackets_rcpp_setrv_safe_Raw, 4},
     {"_squarebrackets_rcpp_setrv_fast_Raw", (DL_FUNC) &_squarebrackets_rcpp_setrv_fast_Raw, 4},
+    {"_squarebrackets_rcpp_sub2ind_2d", (DL_FUNC) &_squarebrackets_rcpp_sub2ind_2d, 3},
+    {"_squarebrackets_rcpp_sub2ind_3d", (DL_FUNC) &_squarebrackets_rcpp_sub2ind_3d, 4},
+    {"_squarebrackets_rcpp_sub2ind_4d", (DL_FUNC) &_squarebrackets_rcpp_sub2ind_4d, 5},
+    {"_squarebrackets_rcpp_sub2ind_5d", (DL_FUNC) &_squarebrackets_rcpp_sub2ind_5d, 6},
+    {"_squarebrackets_rcpp_sub2ind_6d", (DL_FUNC) &_squarebrackets_rcpp_sub2ind_6d, 7},
     {"_squarebrackets_rcpp_abind_all_conform_dims", (DL_FUNC) &_squarebrackets_rcpp_abind_all_conform_dims, 4},
     {"_squarebrackets_rcpp_abind_get_maxdims", (DL_FUNC) &_squarebrackets_rcpp_abind_get_maxdims, 1},
     {"_squarebrackets_rcpp_abind_check_conform_dims", (DL_FUNC) &_squarebrackets_rcpp_abind_check_conform_dims, 4},
@@ -1810,7 +1905,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_squarebrackets_rcpp_list_bindings", (DL_FUNC) &_squarebrackets_rcpp_list_bindings, 3},
     {"_squarebrackets_rcpp_all_addresses", (DL_FUNC) &_squarebrackets_rcpp_all_addresses, 2},
     {"_squarebrackets_rcpp_address_in_env", (DL_FUNC) &_squarebrackets_rcpp_address_in_env, 3},
-    {"_squarebrackets_rcpp_anybad", (DL_FUNC) &_squarebrackets_rcpp_anybad, 2},
+    {"_squarebrackets_rcpp_any_badindx", (DL_FUNC) &_squarebrackets_rcpp_any_badindx, 2},
     {"_squarebrackets_rcpp_prod_int", (DL_FUNC) &_squarebrackets_rcpp_prod_int, 1},
     {"_squarebrackets_rcpp_pre_coord2ind", (DL_FUNC) &_squarebrackets_rcpp_pre_coord2ind, 3},
     {"_squarebrackets_rcpp_coord2ind", (DL_FUNC) &_squarebrackets_rcpp_coord2ind, 3},
@@ -1821,6 +1916,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_squarebrackets_rcpp_recycle_seq_mlen", (DL_FUNC) &_squarebrackets_rcpp_recycle_seq_mlen, 2},
     {"_squarebrackets_rcpp_set_namepointer", (DL_FUNC) &_squarebrackets_rcpp_set_namepointer, 3},
     {"_squarebrackets_rcpp_sub2coord", (DL_FUNC) &_squarebrackets_rcpp_sub2coord, 6},
+    {"_squarebrackets_rcpp_sub2ind_setrange", (DL_FUNC) &_squarebrackets_rcpp_sub2ind_setrange, 6},
     {"_squarebrackets_rcpp_sub2ind_general", (DL_FUNC) &_squarebrackets_rcpp_sub2ind_general, 6},
     {"C_any_badindx",   (DL_FUNC) &C_any_badindx,   2},
     {"C_any_badmargin", (DL_FUNC) &C_any_badmargin, 2},
