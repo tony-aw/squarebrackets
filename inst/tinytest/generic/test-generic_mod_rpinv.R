@@ -62,28 +62,6 @@ temp.fun <- function(x, elements) {
 sys.source(file.path(getwd(), "source", "sourcetest-elements.R"), envir = environment())
 
 
-# test factor ====
-x <- factor(rep(c("Male", "Female", "Other", "Unknown"), 4))
-names(x) <- c(letters[1:13], "a", "a", NA)
-x2 <- x
-levels(x2) <- c("F", "M", "Other", "Unknown")
-expect_equal(sb_mod(x, lvl = c("Female", "Male"), rp = c("F", "M"), inv = TRUE), x2)
-
-x <- factor(rep(c("Male", "Female", "Other", "Unknown"), 4))
-names(x) <- c(letters[1:13], "a", "a", NA)
-x2 <- x
-x2[-1:-2] <-  c("Other")
-expect_equal(sb_mod(x, i = 1:2, rp = "Other", inv = TRUE), x2)
-expect_equal(sb_mod(x, i = c(TRUE, TRUE, rep(FALSE, 14)), rp = "Other", inv = TRUE), x2)
-
-x <- factor(rep(c("Male", "Female", "Other", "Unknown"), 4))
-names(x) <- c(letters[1:13], "a", "a", NA)
-x2 <- x
-x2[indx_rm("a",x, names(x), length(x))] <- "Male"
-expect_equal(sb_mod(x, i = "a", rp = "Male", inv = TRUE), x2)
-
-
-
 # test matrix & array ====
 
 rep3.bind <- function(x, dim) {

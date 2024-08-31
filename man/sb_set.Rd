@@ -111,7 +111,6 @@ Use \code{sb2_set(x, ...)} if \code{x} is a recursive object (i.e. \link{data.ta
 Specifying argument \code{tf} will transform the subset.
 Specifying \code{rp} will replace the subset.
 One cannot specify both \code{tf} and \code{rp}. It's either one set or the other. \cr
-Note that there is no \code{sb_set()} method for factors: this is intentional. \cr
 \cr
 }
 \examples{

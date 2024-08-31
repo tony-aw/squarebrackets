@@ -83,12 +83,12 @@ and only those that primarily use square brackets for sub-setting
 (hence the name of the package). \cr
 \cr
 Supported \link[=squarebrackets_immutable_classes]{immutable classes}: \cr
-\code{atomic}, \code{factor}, \code{list}, \code{data.frame}
-(including \code{tibble} and \code{sf-data.frame}). \cr
+\code{atomic}, \code{list}, \code{data.frame}
+(including \code{tibble}, \code{sf-data.frame}, and \code{sf-tibble}). \cr
 \cr
 Supported  \link[=squarebrackets_mutable_classes]{mutable classes}: \cr
 \link{mutable_atomic}, \code{data.table}
-(including \code{tidytable} and \code{sf-data.table}). \cr
+(including \code{tidytable}, \code{sf-data.table}, and \code{sf-tidytable}). \cr
 \cr
 There are, of course, a lot of classes which are not supported by 'squarebrackets'. \cr
 Most notably, key-value stores,
@@ -105,7 +105,7 @@ are not supported. \cr \cr
 The main focus of this package is on its generic methods
 and dimensional binding implementations. \cr
 \cr
-Generic methods for non-recursive objects (atomic, factor, etc.)
+Generic methods for atomic objects
 start with \code{sb_}. \cr
 Generic methods for recursive objects (list, data.frame, etc.)
 start with \code{sb2_}. \cr

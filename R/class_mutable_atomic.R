@@ -32,7 +32,7 @@
 #' 
 #' @section Warning: 
 #' 
-#' Always use `mutable_atomic()` or `as.mutable_atomic` to create a mutable object,
+#' Always use `mutable_atomic()` or `as.mutable_atomic()` to create a mutable object,
 #' as they make necessary checks. \cr
 #' Circumventing these checks may break things. \cr \cr
 #' 
@@ -51,7 +51,7 @@
 #' the class `"mutable_atomic"`,
 #' has the correctly set attribute `"typeof"`,
 #' \bold{and} has an address that does not overlap with the addresses of base objects. \cr
-#' `is.mutable_atomic` returns `FALSE` otherwise. \cr
+#' `is.mutable_atomic()` returns `FALSE` otherwise. \cr
 #' \cr
 #' For `couldb.mutable_atomic()`: \cr
 #' Returns `TRUE` if the object is one of the following types: \cr

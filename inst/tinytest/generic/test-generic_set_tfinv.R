@@ -14,7 +14,7 @@ sb_set2 <- function(x, ...) {
   if(is.atomic(x)) x <- as.mutable_atomic(x)
   x2 <- x
   sb_set(x, ..., inv = TRUE)
-  expect_equal(x, x2) |> errorfun()
+  if(!identical(x, x2)) { stop("PassByReference fail")}
   return(x)
 }
 sb_set2.array <- function(x, ...) {
@@ -22,7 +22,7 @@ sb_set2.array <- function(x, ...) {
   if(is.atomic(x)) x <- as.mutable_atomic(x)
   x2 <- x
   sb_set.array(x, ..., inv = TRUE)
-  expect_equal(x, x2) |> errorfun()
+  if(!identical(x, x2)) { stop("PassByReference fail")}
   return(x)
 }
 

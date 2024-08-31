@@ -6,7 +6,7 @@ using namespace Rcpp;
 //' @noRd
 // [[Rcpp::export(.rcpp_sub2ind_setrange)]]
 void rcpp_sub2ind_setrange(
-  NumericVector out, const R_xlen_t start, const R_xlen_t end, const R_xlen_t each, const double myprod, IntegerVector rp
+  NumericVector out, const R_xlen_t start, const R_xlen_t end, const R_xlen_t each, const double myprod, const IntegerVector rp
 ) {
   
   R_xlen_t counter_each = 0;
@@ -47,3 +47,4 @@ NumericVector rcpp_sub2ind_general(
   }
   return(out);
 }
+

@@ -9,7 +9,6 @@ The \code{sb_} generic methods support the following immutable S3 classes: \cr
 \itemize{
 \item base \code{atomic} vector classes \cr
 (atomic vectors, matrices, and arrays);
-\item \link[base]{factor};
 \item base \code{recursive} vector classes/lists \cr
 (recursive vectors, matrices, and arrays) \cr
 (note that lists are merely pointers to other objects,

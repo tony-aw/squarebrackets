@@ -5,7 +5,6 @@
 \alias{sb_mod.default}
 \alias{sb_mod.matrix}
 \alias{sb_mod.array}
-\alias{sb_mod.factor}
 \alias{sb2_mod}
 \alias{sb2_mod.default}
 \alias{sb2_mod.array}
@@ -45,16 +44,6 @@ sb_mod(x, ...)
   ...,
   rp,
   tf,
-  chkdup = getOption("squarebrackets.chkdup", FALSE)
-)
-
-\method{sb_mod}{factor}(
-  x,
-  i = NULL,
-  lvl = NULL,
-  inv = FALSE,
-  ...,
-  rp,
   chkdup = getOption("squarebrackets.chkdup", FALSE)
 )
 
@@ -104,7 +93,7 @@ sb2_mod(x, ...)
 
 \item{...}{see \link{squarebrackets_method_dispatch}.}
 
-\item{i, lvl, row, col, sub, dims, filter, vars, inv}{See \link{squarebrackets_indx_args}. \cr
+\item{i, row, col, sub, dims, filter, vars, inv}{See \link{squarebrackets_indx_args}. \cr
 An empty index selection returns the original object unchanged. \cr}
 
 \item{rp}{an object of somewhat the same type as the selected subset of \code{x},
@@ -138,7 +127,7 @@ A copy of the object with replaced/transformed values. \cr \cr
 }
 \description{
 This is an S3 Method to return a copy of an object with modified subsets. \cr
-Use \code{sb_mod(x, ...)} if \code{x} is a non-recursive object (i.e. atomic or factor). \cr
+Use \code{sb_mod(x, ...)} if \code{x} is a non-recursive object (i.e. atomic). \cr
 Use \code{sb2_mod(x, ...)} if \code{x} is a recursive object (i.e. list or data.frame-like). \cr
 \cr
 For modifying subsets using R's default copy-on-modification semantics, see \link{idx}. \cr \cr
@@ -148,7 +137,6 @@ For modifying subsets using R's default copy-on-modification semantics, see \lin
 Specifying argument \code{tf} will transform the subset. \cr
 Specifying \code{rp} will replace the subset. \cr
 One cannot specify both \code{tf} and \code{rp}. It's either one set or the other. \cr
-Note that the \code{tf} argument is not available for factors: this is intentional. \cr
 \cr
 \bold{Argument \code{coe}} \cr
 For data.frame-like objects,

@@ -2,18 +2,17 @@
 #'
 #' @description
 #' This is an S3 Method to un-select/remove subsets from an object. \cr
-#' Use `sb_rm(x, ...)` if `x` is a non-recursive object (i.e. atomic or factor). \cr
+#' Use `sb_rm(x, ...)` if `x` is a non-recursive object (i.e. atomic). \cr
 #' Use `sb2_rm(x, ...)` if `x` is a recursive object (i.e. list or data.frame-like). \cr \cr
 #'
 #' @param x see \link{squarebrackets_immutable_classes} and \link{squarebrackets_mutable_classes}.
-#' @param i,lvl,row,col,sub,dims,filter,vars See \link{squarebrackets_indx_args}. \cr
+#' @param i,row,col,sub,dims,filter,vars See \link{squarebrackets_indx_args}. \cr
 #' An empty index selection results in nothing being removed,
 #' and the entire object is returned. \cr
-#' @param drop Boolean.
-#'  * For factors: If `drop = TRUE`, unused levels are dropped, if `drop = FALSE` they are not dropped.
-#'  * For lists: if `drop = TRUE`, selecting a single element will give the simplified result,
-#'  like using `[[]]`.
-#'  If `drop = FALSE`, a list is always returned regardless of the number of elements.
+#' @param drop Boolean, for list only. \cr
+#' I f `drop = TRUE`, selecting a single element will give the simplified result,
+#' like using `[[]]`. \cr
+#' If `drop = FALSE`, a list is always returned regardless of the number of elements.
 #' @param chkdup see \link{squarebrackets_options}. \cr
 #' `r .mybadge_performance_set2("FALSE")` \cr
 #' @param ... see \link{squarebrackets_method_dispatch}.
@@ -123,30 +122,6 @@ sb_rm.array <- function(
   .internal_check_dots(list(...), sys.call())
   
   return(.sb_rm_array(x, sub, dims, i, chkdup, sys.call()))
-}
-
-
-#' @rdname sb_rm
-#' @export
-sb_rm.factor <- function(
-    x, i = NULL, lvl = NULL, drop = FALSE, ...,
-    chkdup = getOption("squarebrackets.chkdup", FALSE)
-) {
-  
-  .internal_check_dots(list(...), sys.call())
-  .check_args_factor(i, lvl, drop, abortcall = sys.call())
-  if(.all_NULL_indices(list(i, lvl))) {
-    return(x)
-  }
-  
-  if(!is.null(i)) {
-    elements <- ci_flat(x, i, inv = TRUE, chkdup = chkdup, .abortcall = sys.call())
-    return(x[elements, drop = drop])
-  }
-  if(!is.null(lvl)) {
-    indx <- .lvl2indx(lvl, x, chkdup = chkdup, inv = TRUE, abortcall = sys.call())
-    return(x[indx, drop = drop])
-  }
 }
 
 

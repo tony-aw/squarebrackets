@@ -90,6 +90,7 @@ bind_array <- function(
   return(out)
 }
 
+
 #' @rdname bind
 #' @export
 bind2_array <- function(
@@ -105,6 +106,7 @@ bind2_array <- function(
   }
   return(out)
 }
+
 
 #' @rdname bind
 #' @export

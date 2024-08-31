@@ -53,7 +53,7 @@ Returns \code{TRUE} if the object is atomic, has
 the class \code{"mutable_atomic"},
 has the correctly set attribute \code{"typeof"},
 \bold{and} has an address that does not overlap with the addresses of base objects. \cr
-\code{is.mutable_atomic} returns \code{FALSE} otherwise. \cr
+\code{is.mutable_atomic()} returns \code{FALSE} otherwise. \cr
 \cr
 For \code{couldb.mutable_atomic()}: \cr
 Returns \code{TRUE} if the object is one of the following types: \cr
@@ -90,7 +90,7 @@ since it is internally defined as \link{double}. \cr \cr
 \section{Warning}{
 
 
-Always use \code{mutable_atomic()} or \code{as.mutable_atomic} to create a mutable object,
+Always use \code{mutable_atomic()} or \code{as.mutable_atomic()} to create a mutable object,
 as they make necessary checks. \cr
 Circumventing these checks may break things. \cr \cr
 }

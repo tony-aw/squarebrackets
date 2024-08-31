@@ -5,7 +5,6 @@
 #' 
 #'  * base `atomic` vector classes \cr
 #'  (atomic vectors, matrices, and arrays);
-#'  * \link[base]{factor};
 #'  * base `recursive` vector classes/lists \cr
 #'  (recursive vectors, matrices, and arrays) \cr
 #'  (note that lists are merely pointers to other objects,

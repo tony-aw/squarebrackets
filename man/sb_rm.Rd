@@ -5,7 +5,6 @@
 \alias{sb_rm.default}
 \alias{sb_rm.matrix}
 \alias{sb_rm.array}
-\alias{sb_rm.factor}
 \alias{sb2_rm}
 \alias{sb2_rm.default}
 \alias{sb2_rm.array}
@@ -30,15 +29,6 @@ sb_rm(x, ...)
   sub = NULL,
   dims = NULL,
   i = NULL,
-  ...,
-  chkdup = getOption("squarebrackets.chkdup", FALSE)
-)
-
-\method{sb_rm}{factor}(
-  x,
-  i = NULL,
-  lvl = NULL,
-  drop = FALSE,
   ...,
   chkdup = getOption("squarebrackets.chkdup", FALSE)
 )
@@ -78,27 +68,24 @@ sb2_rm(x, ...)
 
 \item{...}{see \link{squarebrackets_method_dispatch}.}
 
-\item{i, lvl, row, col, sub, dims, filter, vars}{See \link{squarebrackets_indx_args}. \cr
+\item{i, row, col, sub, dims, filter, vars}{See \link{squarebrackets_indx_args}. \cr
 An empty index selection results in nothing being removed,
 and the entire object is returned. \cr}
 
 \item{chkdup}{see \link{squarebrackets_options}. \cr
 \ifelse{html}{\figure{for_performance-set_to_FALSE-red.svg}{options: alt='[for performance: set to FALSE]'}}{\link[=squarebrackets_help]{for performance: set to FALSE}} \cr}
 
-\item{drop}{Boolean.
-\itemize{
-\item For factors: If \code{drop = TRUE}, unused levels are dropped, if \code{drop = FALSE} they are not dropped.
-\item For lists: if \code{drop = TRUE}, selecting a single element will give the simplified result,
-like using \verb{[[]]}.
-If \code{drop = FALSE}, a list is always returned regardless of the number of elements.
-}}
+\item{drop}{Boolean, for list only. \cr
+I f \code{drop = TRUE}, selecting a single element will give the simplified result,
+like using \verb{[[]]}. \cr
+If \code{drop = FALSE}, a list is always returned regardless of the number of elements.}
 }
 \value{
 A copy of the sub-setted object.
 }
 \description{
 This is an S3 Method to un-select/remove subsets from an object. \cr
-Use \code{sb_rm(x, ...)} if \code{x} is a non-recursive object (i.e. atomic or factor). \cr
+Use \code{sb_rm(x, ...)} if \code{x} is a non-recursive object (i.e. atomic). \cr
 Use \code{sb2_rm(x, ...)} if \code{x} is a recursive object (i.e. list or data.frame-like). \cr \cr
 }
 \examples{
@@ -122,14 +109,6 @@ sb_rm(obj, n(1, c(1, 3)), c(1, 3))
 sb_rm(obj, i = \(x)x>5)
 # above is equivalent to obj[!obj > 5]
 
-#############################################################################
-
-
-# factors ====
-
-obj <- factor(rep(letters[1:5], 2))
-sb_rm(obj, lvl = "a")
-# above is equivalent to obj[which(!obj \%in\% "a")]
 
 
 #############################################################################

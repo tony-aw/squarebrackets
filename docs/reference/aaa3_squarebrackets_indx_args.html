@@ -4,7 +4,6 @@ in the generic methods of 'squarebrackets' to specify the indices to perform ope
 i: to specify flat (i.e. dimensionless) indices.
 row, col: to specify rows and/or columns in tabular objects.
 sub, dims: to specify indices of arbitrary dimensions in arrays.
-lvl: specify levels, for factors only.
 filter, vars: to specify rows and/or columns specifically in data.frame-like objects.
 margin, slice: to specify indices of one particular dimension.  
 
@@ -16,7 +15,6 @@ in the generic methods of 'squarebrackets' to specify the indices to perform ope
 i: to specify flat (i.e. dimensionless) indices.
 row, col: to specify rows and/or columns in tabular objects.
 sub, dims: to specify indices of arbitrary dimensions in arrays.
-lvl: specify levels, for factors only.
 filter, vars: to specify rows and/or columns specifically in data.frame-like objects.
 margin, slice: to specify indices of one particular dimension.  
 
@@ -80,7 +78,6 @@ In this help page x refers to the object on which subset operations are performe
 in the generic methods of 'squarebrackets' to specify the indices to perform operations on:</p><ul><li><p><code>i</code>: to specify flat (i.e. dimensionless) indices.</p></li>
 <li><p><code>row, col</code>: to specify rows and/or columns in tabular objects.</p></li>
 <li><p><code>sub, dims</code>: to specify indices of arbitrary dimensions in arrays.</p></li>
-<li><p><code>lvl</code>: specify levels, for factors only.</p></li>
 <li><p><code>filter, vars</code>: to specify rows and/or columns specifically in data.frame-like objects.</p></li>
 <li><p><code>margin, slice</code>: to specify indices of one particular dimension. <br><br></p></li>
 </ul><p>In this help page <code>x</code> refers to the object on which subset operations are performed. <br><br><br></p>
@@ -220,14 +217,6 @@ and dimensional subscripts (<code>sub</code>, <code>dims</code>),
 see the <code>Details</code> section in <a href="sub2ind.html">sub2ind</a>. <br><br></p>
     </div>
     <div class="section level2">
-    <h2 id="argument-lvl">Argument lvl<a class="anchor" aria-label="anchor" href="#argument-lvl"></a></h2>
-    
-
-<p><img src="figures/class-factor-blue.svg" alt="[class: factor]"><br></p>
-<p>For this argument, the names of the levels of <code>x</code> can be given,
-selecting the corresponding indices for the operation. <br><br></p>
-    </div>
-    <div class="section level2">
     <h2 id="arguments-filter-vars">Arguments filter, vars<a class="anchor" aria-label="anchor" href="#arguments-filter-vars"></a></h2>
     
 
@@ -333,11 +322,8 @@ and so <code>NA</code>s are ignored. <br><br></p></li>
 
 
 <p>One cannot specify <code>i</code> and  the other indexing arguments simultaneously;
-it's either <code>i</code>, or the other arguments. <br>
-The arguments are  evaluated in the following order:</p><ol><li><p>Argument <code>i</code></p></li>
-<li><p>Argument <code>lvl</code> (for factors)</p></li>
-<li><p>The rest of the indexing arguments.</p></li>
-</ol><p>One cannot specify <code>row</code> and <code>filter</code> simultaneously;
+it's either <code>i</code>, or the other arguments. <br><br>
+One cannot specify <code>row</code> and <code>filter</code> simultaneously;
 it's either one or the other. <br>
 One cannot specify <code>col</code> and <code>vars</code> simultaneously;
 it's either one or the other. <br>

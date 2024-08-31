@@ -118,10 +118,10 @@ through the use of the 'Rcpp', 'collapse', and 'data.table' R-packages. <br><br>
 <p>'squarebrackets' only supports S3 classes,
 and only those that primarily use square brackets for sub-setting
 (hence the name of the package). <br><br>
-Supported <a href="aaa1_squarebrackets_immutable_classes.html">immutable classes</a>: <br><code>atomic</code>, <code>factor</code>, <code>list</code>, <code>data.frame</code>
-(including <code>tibble</code> and <code>sf-data.frame</code>). <br><br>
+Supported <a href="aaa1_squarebrackets_immutable_classes.html">immutable classes</a>: <br><code>atomic</code>, <code>list</code>, <code>data.frame</code>
+(including <code>tibble</code>, <code>sf-data.frame</code>, and <code>sf-tibble</code>). <br><br>
 Supported  <a href="aaa2_squarebrackets_mutable_classes.html">mutable classes</a>: <br><a href="class_mutable_atomic.html">mutable_atomic</a>, <code>data.table</code>
-(including <code>tidytable</code> and <code>sf-data.table</code>). <br><br>
+(including <code>tidytable</code>, <code>sf-data.table</code>, and <code>sf-tidytable</code>). <br><br>
 There are, of course, a lot of classes which are not supported by 'squarebrackets'. <br>
 Most notably, key-value stores,
 such as environments,
@@ -137,7 +137,7 @@ are not supported. <br><br></p>
 <p><img src="figures/generic_methods-darkgreen.svg" alt="[GENERIC METHODS]"><br>
 The main focus of this package is on its generic methods
 and dimensional binding implementations. <br><br>
-Generic methods for non-recursive objects (atomic, factor, etc.)
+Generic methods for atomic objects
 start with <code>sb_</code>. <br>
 Generic methods for recursive objects (list, data.frame, etc.)
 start with <code>sb2_</code>. <br>

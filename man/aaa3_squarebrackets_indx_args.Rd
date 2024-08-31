@@ -11,7 +11,6 @@ in the generic methods of 'squarebrackets' to specify the indices to perform ope
 \item \code{i}: to specify flat (i.e. dimensionless) indices.
 \item \verb{row, col}: to specify rows and/or columns in tabular objects.
 \item \verb{sub, dims}: to specify indices of arbitrary dimensions in arrays.
-\item \code{lvl}: specify levels, for factors only.
 \item \verb{filter, vars}: to specify rows and/or columns specifically in data.frame-like objects.
 \item \verb{margin, slice}: to specify indices of one particular dimension. \cr \cr
 }
@@ -206,15 +205,6 @@ and dimensional subscripts (\code{sub}, \code{dims}),
 see the \code{Details} section in \link{sub2ind}. \cr \cr
 }
 
-\section{Argument lvl}{
-
-\ifelse{html}{\figure{class-factor-blue.svg}{options: alt='[class: factor]'}}{\link[=squarebrackets_indx_args]{class: factor}} \cr
-
-For this argument, the names of the levels of \code{x} can be given,
-selecting the corresponding indices for the operation. \cr
-\cr
-}
-
 \section{Arguments filter, vars}{
 
 \ifelse{html}{\figure{class-data.frame-like-blue.svg}{options: alt='[class: data.frame-like]'}}{\link[=squarebrackets_indx_args]{class: data.frame-like}} \cr
@@ -346,13 +336,7 @@ and so \code{NA}s are ignored. \cr \cr
 
 One cannot specify \code{i} and  the other indexing arguments simultaneously;
 it's either \code{i}, or the other arguments. \cr
-The arguments are  evaluated in the following order:
-\enumerate{
-\item Argument \code{i}
-\item Argument \code{lvl} (for factors)
-\item The rest of the indexing arguments.
-}
-
+\cr
 One cannot specify \code{row} and \code{filter} simultaneously;
 it's either one or the other. \cr
 One cannot specify \code{col} and \code{vars} simultaneously;

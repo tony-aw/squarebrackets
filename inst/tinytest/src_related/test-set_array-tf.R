@@ -35,6 +35,9 @@ generate_data <- function(x.len) {
 }
 
 
+expected <- out <- list()
+i <- 1
+
 for(iSample in 1:10) {
   for(iDim in 2:7) {
     x.dim <- sample(1:6, size = iDim, replace = TRUE)
@@ -45,15 +48,18 @@ for(iSample in 1:10) {
       sub <- lapply(x.dim, \(x) sample(1:x, max(c(1, x)), FALSE))
       dims <- 1:length(x.dim)
       
-      expect_equal(
-        tempfun1(x, sub, tf.funs[[iType]]), tempfun2(x, sub, dims, tf.funs[[iType]])
-      ) |> errorfun() # test indexing & atomic type recognition
+      expected[[i]] <- tempfun1(x, sub, tf.funs[[iType]])
+      out[[i]] <- tempfun2(x, sub, dims, tf.funs[[iType]])
       
+      x <- data.table::copy(x)
       x2 <- x
       sb_set.array(x, sub, dims, tf = tf.funs[[iType]])
       expect_equal(x,x2) |> errorfun() # test indexing & pass-by-reference
       
       enumerate <- enumerate + 2
+      i <- i + 1
     }
   }
 }
+expect_equal(expected, out)
+

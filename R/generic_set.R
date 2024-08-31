@@ -36,7 +36,6 @@
 #' Specifying argument `tf` will transform the subset.
 #' Specifying `rp` will replace the subset.
 #' One cannot specify both `tf` and `rp`. It's either one set or the other. \cr
-#' Note that there is no `sb_set()` method for factors: this is intentional. \cr
 #' \cr
 #' 
 #' 

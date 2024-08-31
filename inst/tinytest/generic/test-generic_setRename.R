@@ -119,7 +119,7 @@ expect_equal( # check that the original base::letters has NOT been modified
 enumerate <- enumerate + 6
 
 
-# matrix/array  - names + dimnames====
+# matrix/array - names + dimnames====
 x <- mutable_atomic(
   1:260, dim = c(10, 26),
   names = sample(letters, 260, TRUE), dimnames = n(letters[1:10], letters)

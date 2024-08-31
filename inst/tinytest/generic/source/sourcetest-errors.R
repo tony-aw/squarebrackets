@@ -90,25 +90,6 @@ for(i in 1:length(xlist)) {
   enumerate <- enumerate + 1
 }
 
-if(!test_PassByReference) {
-  # lvl ====
-  if(test_use_factors) {
-    x <- factor(month.abb[1:10])
-    names(x) <- letters[1:10]
-    # expect_error(
-    #   sb_test(x, lvl = "1"),
-    #   pattern = "unknown level given"
-    # ) |> errorfun()
-    expect_error(
-      sb_test(x, lvl = "1", i = 1),
-      pattern = "cannot specify both elements and levels"
-    ) |> errorfun()
-    enumerate <- enumerate + 2
-  }
-  
-  
-}
-
 
 # row ====
 xlist <- list(
@@ -390,12 +371,6 @@ if(test_allow_duplicates) {
     pattern = "unknown arguments given"
   )
   
-  x <- factor(letters)
-  expect_error(
-    sb_test(x, inv = TRUE),
-    pattern = "unknown arguments given"
-  )
-  
 }
 
 x <- mutable_atomic(1:10)
@@ -415,13 +390,5 @@ expect_error(
   sb_test(x, foo = TRUE),
   pattern = "unknown arguments given"
 )
-
-if(test_use_factors) {
-  x <- factor(letters)
-  expect_error(
-    sb_test(x, foo = TRUE),
-    pattern = "unknown arguments given"
-  )
-}
 
 

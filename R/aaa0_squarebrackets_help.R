@@ -67,12 +67,12 @@
 #' (hence the name of the package). \cr
 #' \cr
 #' Supported \link[=squarebrackets_immutable_classes]{immutable classes}: \cr
-#' `atomic`, `factor`, `list`, `data.frame`
-#' (including `tibble` and `sf-data.frame`). \cr
+#' `atomic`, `list`, `data.frame`
+#' (including `tibble`, `sf-data.frame`, and `sf-tibble`). \cr
 #' \cr
 #' Supported  \link[=squarebrackets_mutable_classes]{mutable classes}: \cr
 #' \link{mutable_atomic}, `data.table`
-#' (including `tidytable` and `sf-data.table`). \cr
+#' (including `tidytable`, `sf-data.table`, and `sf-tidytable`). \cr
 #' \cr
 #' There are, of course, a lot of classes which are not supported by 'squarebrackets'. \cr
 #' Most notably, key-value stores,
@@ -88,7 +88,7 @@
 #' The main focus of this package is on its generic methods
 #' and dimensional binding implementations. \cr
 #' \cr
-#' Generic methods for non-recursive objects (atomic, factor, etc.)
+#' Generic methods for atomic objects
 #' start with `sb_`. \cr
 #' Generic methods for recursive objects (list, data.frame, etc.)
 #' start with `sb2_`. \cr

@@ -24,68 +24,6 @@
 }
 
 
-
-
-#' @keywords internal
-#' @noRd
-.lvl2indx.sb_x <- function(indx, x, abortcall) {
-  
-  
-  if(length(indx) == 0L) {
-    return(integer(0L))
-  }
-  
-  return(match_all(indx, x))
-}
-
-
-
-#' @keywords internal
-#' @noRd
-.lvl2indx <- function(indx, x, chkdup, inv, abortcall) {
-  
-  n <- length(x)
-
-  
-  if(length(indx) == 0L) {
-    if(!inv) return(integer(0L))
-    if(inv) return(seq_len(n))
-  }
-  
-  if(chkdup) {
-    if(collapse::any_duplicated(indx)) {
-      stop(simpleError("duplicate integers or names not allowed", call = abortcall))
-    }
-  }
-  
-  if(!inv) { return(match_all(indx, x)) }
-  if(inv){ return(collapse::`%!iin%`(x, indx)) }
-  
-  .indx_stop(abortcall)
-}
-
-
-#' @keywords internal
-#' @noRd
-.prep_relevel <- function(indx, rp, x, abortcall) {
-  
-  n.indx <- length(indx)
-  if(n.indx == 0L) {
-    return(logical(0L))
-  }
-
-  if(collapse::any_duplicated(indx)) {
-    stop(simpleError("duplicate integers or names not allowed", call = abortcall))
-  }
-
-  if(n.indx != length(rp)) {
-    error.txt <- "recycling not allowed"
-    stop(simpleError(error.txt, call = abortcall))
-  }
-
-}
-
-
 #' @keywords internal
 #' @noRd
 .indx_make_filter <- function(x, filter, inv, abortcall) {
@@ -119,16 +57,6 @@
   out <- collapse::get_vars(x, vars, return = "logical")
   if(!inv)return(which(out))
   if(inv)return(which(!out))
-}
-
-
-
-#' @keywords internal
-#' @noRd
-.check_args_factor <- function(i, lvl, drop, abortcall) {
-  if(!is.null(i) && !is.null(lvl)) {
-    stop(simpleError("cannot specify both elements and levels", call = abortcall))
-  }
 }
 
 

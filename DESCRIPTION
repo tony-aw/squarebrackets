@@ -8,7 +8,7 @@ Authors@R:
            role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0000-0001-9498-8379"))
 Description: Provides subset methods
-    (supporting both non-recursive and recursive S3 classes)
+    (supporting both atomic and recursive S3 classes)
     that may be more convenient alternatives to the `[` and `[<-` operators,
     whilst maintaining similar performance.
     Some nice properties of these methods include, but are not limited to, the following.

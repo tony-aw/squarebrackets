@@ -192,7 +192,7 @@ has the correctly set attribute <code>"typeof"</code>,
 <b>and</b> has an address that does not overlap with the addresses of base objects. <br></p>
 
 
-<p><code>is.mutable_atomic</code> returns <code>FALSE</code> otherwise. <br></p>
+<p><code>is.mutable_atomic()</code> returns <code>FALSE</code> otherwise. <br></p>
 
 
 <p><br></p>
@@ -222,7 +222,7 @@ since it is internally defined as <a href="https://rdrr.io/r/base/double.html" c
     
 
 
-<p>Always use <code>mutable_atomic()</code> or <code>as.mutable_atomic</code> to create a mutable object,
+<p>Always use <code>mutable_atomic()</code> or <code>as.mutable_atomic()</code> to create a mutable object,
 as they make necessary checks. <br>
 Circumventing these checks may break things. <br><br></p>
     </div>

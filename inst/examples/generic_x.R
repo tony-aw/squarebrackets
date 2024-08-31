@@ -19,15 +19,6 @@ sb_x(obj, n(1:3, 1:2), c(1,3))
 sb_x(obj, i = \(x)x>5)
 # above is equivalent to obj[obj > 5]
 
-#############################################################################
-
-
-
-# factors ====
-
-obj <- factor(rep(letters[1:5], 2))
-sb_x(obj, lvl = c("a", "a"))
-# above is equivalent to obj[lapply(c("a", "a"), \(i) which(obj == i)) |> unlist()]
 
 #############################################################################
 

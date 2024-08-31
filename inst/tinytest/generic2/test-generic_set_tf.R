@@ -14,25 +14,26 @@ sb2_set2 <- function(x, ...) {
   if(is.atomic(x)) x <- as.mutable_atomic(x)
   x2 <- x
   sb2_set(x, ...)
-  expect_equal(x, x2) |> errorfun()
+  if(!identical(x, x2)) { stop("PassByReference fail")}
   return(x)
 }
 
 
 # test datasets ====
 
+pre_subset_df <- sb2_x.data.frame
 
-subset_dt <- function(x, row, col, filter, get_vars) {
+f_expect.data.frame <- function(x, row = NULL, col = NULL, filter = NULL, get_vars = NULL) {
   
-  tf <- function(x)x[1]
+  tf <- \(x)x[1]
   
   if(!is.null(row)) row <- indx_x(row, x, rownames(x), nrow(x))
-  if(!is.null(col)) col <- indx_x(col, x, colnames(x), ncol(x))
+  if(!is.null(col)) col <- indx_x(col, x, names(x), ncol(x))
   if(!is.null(filter)) {
-    row <- which((model.frame(as.formula(filter), data = x)[, 1] |> as.logical()))
+    row <- model.frame(as.formula(filter), data = x)[, 1] |> as.logical() |> which()
   }
   if(!is.null(get_vars)) {
-    col <- which(sapply(x, get_vars))
+    col <- which(vapply(x, get_vars, logical(1L)))
   }
   
   if(any_empty_indices(row, col)) {
@@ -42,67 +43,31 @@ subset_dt <- function(x, row, col, filter, get_vars) {
   if(is.null(row)) row <- seq_len(nrow(x))
   if(is.null(col)) col <- seq_len(ncol(x))
   
+  
   row <- as.integer(row)
   col <- as.integer(col)
   
   value <- collapse::ss(x, row, col, check = FALSE)
   value <- lapply(value, tf)
+  
   x <- data.table::copy(x)
   data.table::set(x, row, col, value)
   
   return(x)
 }
 
-temp.fun.main <- function(x, row, col, filter, get_vars) {
-  for(i in 1:length(row)) {
-    for(j in 1:length(col)) {
-      for(k in 1:length(filter)) {
-        for(l in 1:length(get_vars)) {
-          wrong1 <- is.null(row[[i]]) && is.null(col[[j]]) && is.null(filter[[k]]) && is.null(get_vars[[l]])
-          wrong2 <- !is.null(filter[[k]]) && !is.null(row[[i]])
-          wrong3 <- !is.null(get_vars[[l]]) && !is.null(col[[j]])
-          if(!wrong1 && !wrong2 && !wrong3) {
-            cat(i, j, k, l)
-            if(dt.$is.data.table(x)) {mysubset <- subset_dt} else{mysubset <- subset_df}
-            expect_equivalent(
-              sb2_set2(x, row[[i]], col[[j]], filter[[k]], get_vars[[l]], tf = \(x)x[1]),
-              mysubset(x, row[[i]], col[[j]], filter[[k]], get_vars[[l]])
-            ) |> errorfun()
-            expect_true(
-              sb2_set2(x, row[[i]], col[[j]], filter[[k]], get_vars[[l]], tf = \(x)x[1]) |> is.data.frame()
-            )
-            assign("enumerate", enumerate + 2, envir = parent.frame(n = 1))
-          }
-        }
-      }
-    }
-  }
+f_out.data.frame <- function(x, row = NULL, col = NULL, filter = NULL, get_vars = NULL) {
+  
+  return(sb2_set2(x, row = row, col = col, filter = filter, vars = get_vars, tf = \(x)x[1]))
+  
 }
 
 
 # rl. <- loadNamespace("rlang")
 dt. <- loadNamespace("data.table")
 
-indx_general <- function(x, dim.i) {
-  dim.n <- dim(x)[[dim.i]]
-  dim.n1 <- dim.n - round(dim.n/2)
-  dim.n2 <- dim.n - dim.n1
-  out <- list(
-    NULL,
-    logical(0),
-    rep(TRUE, dim.n), rep(FALSE, dim.n),
-    c(rep(TRUE, dim.n1), rep(FALSE, dim.n2)),
-    1, 1:2, 2:1
-  )
-  return(out)
-}
-
-indx_named <- function(x, dim.i) {
-  if(dim.i==1) return(c(indx_general(x, dim.i), list("1", c("1", "2"))))
-  if(dim.i==2) return(c(indx_general(x, dim.i), list("a", c("a", "b"))))
-}
-
 sys.source(file.path(getwd(), "source", "sourcetest-datasets.R"), envir = environment())
+
 
 
 # test errors ====

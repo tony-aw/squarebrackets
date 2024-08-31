@@ -7,7 +7,6 @@
 #'  * `i`: to specify flat (i.e. dimensionless) indices.
 #'  * `row, col`: to specify rows and/or columns in tabular objects.
 #'  * `sub, dims`: to specify indices of arbitrary dimensions in arrays.
-#'  * `lvl`: specify levels, for factors only.
 #'  * `filter, vars`: to specify rows and/or columns specifically in data.frame-like objects.
 #'  *  `margin, slice`: to specify indices of one particular dimension. \cr \cr
 #' 
@@ -196,13 +195,6 @@
 #' 
 #' 
 #' 
-#' @section Argument lvl:
-#' `r .mybadge_class("factor")` \cr
-#' 
-#' For this argument, the names of the levels of `x` can be given,
-#' selecting the corresponding indices for the operation. \cr
-#' \cr
-#' 
 #' 
 #' @section Arguments filter, vars:
 #' `r .mybadge_class("data.frame-like")` \cr
@@ -330,12 +322,7 @@
 #' 
 #' One cannot specify `i` and  the other indexing arguments simultaneously;
 #' it's either `i`, or the other arguments. \cr
-#' The arguments are  evaluated in the following order: 
-#' 
-#'  1) Argument `i`
-#'  2) Argument `lvl` (for factors)
-#'  3) The rest of the indexing arguments.
-#' 
+#' \cr
 #' One cannot specify `row` and `filter` simultaneously;
 #' it's either one or the other. \cr
 #' One cannot specify `col` and `vars` simultaneously;

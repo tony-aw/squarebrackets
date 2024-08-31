@@ -134,5 +134,8 @@ tinycodet::import_LL("squarebrackets", selection = ... )
   backward indexing via Complex Vector indices. Added more tests.
   Replaced `seq_names()` with the new and far more flexible `idx_r()`
   function.
+- 31 August 2024: Made the tests more efficient. Removed separate method
+  dispatch for factors, as using the default atomic vector method
+  dispatch is sufficient for factors.
 
  

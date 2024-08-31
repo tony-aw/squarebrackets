@@ -45,57 +45,6 @@ temp.fun <- function(x, elements) {
 sys.source(file.path(getwd(), "source", "sourcetest-elements.R"), envir = environment())
 
 
-# test factors ====
-
-test_sb <- function(x, i = NULL, lvl = NULL, drop = FALSE) {
-  if(!is.null(i)) {
-    i <- indx_rm(i, x, names(x), length(x))
-  }
-  if(!is.null(lvl)) {
-    i <- lapply(
-      lvl, \(i) which(x == i)
-    ) |> unlist()
-  }
-  return(x[i, drop = drop])
-}
-
-indx_general <- list(
-  logical(0),
-  1, 1:2, 2:1,
-  function(x) x != "Jan"
-)
-
-indx_named <- c(indx_general, list("a", c("a", "b")))
-
-
-temp.fun <- function(x, elements) {
-  for (i in 1:length(elements)) {
-    expect_equal(
-      sb_rm(x, i = elements[[i]]),
-      test_sb(x, i = elements[[i]])
-    ) |> errorfun()
-    expect_equal(
-      sb_rm(x, i = elements[[i]], drop = TRUE),
-      test_sb(x, i = elements[[i]], drop = TRUE)
-    ) |> errorfun()
-    assign("enumerate", enumerate + 2, envir = parent.frame(n = 1))
-  }
-}
-
-sys.source(file.path(getwd(), "source", "sourcetest-factors.R"), envir = environment())
-
-expect_equal(sb_rm(x, lvl = "Jan"), x[x != "Jan"])
-expect_equal(sb_rm(x, lvl = "Jan", drop = TRUE), x[x != "Jan", drop = TRUE])
-expect_equal(sb_rm(x, lvl = "Jan"), x[x != "Jan"])
-expect_equal(sb_rm(x, lvl = "Jan", drop = TRUE), x[x != "Jan", drop = TRUE])
-expect_equal(sb_rm(x, lvl = "Jan"), x[x != "Jan"])
-expect_equal(sb_rm(x, lvl = "Jan", drop = TRUE), x[x != "Jan", drop = TRUE])
-enumerate <- enumerate + 6
-
-
-
-
-
 # test matrix & arrays ====
 
 rep3.bind <- function(x, dim) {

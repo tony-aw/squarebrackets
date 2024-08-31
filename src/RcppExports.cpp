@@ -1744,7 +1744,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // rcpp_sub2ind_setrange
-void rcpp_sub2ind_setrange(NumericVector out, const R_xlen_t start, const R_xlen_t end, const R_xlen_t each, const double myprod, IntegerVector rp);
+void rcpp_sub2ind_setrange(NumericVector out, const R_xlen_t start, const R_xlen_t end, const R_xlen_t each, const double myprod, const IntegerVector rp);
 RcppExport SEXP _squarebrackets_rcpp_sub2ind_setrange(SEXP outSEXP, SEXP startSEXP, SEXP endSEXP, SEXP eachSEXP, SEXP myprodSEXP, SEXP rpSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -1753,7 +1753,7 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
     Rcpp::traits::input_parameter< const R_xlen_t >::type each(eachSEXP);
     Rcpp::traits::input_parameter< const double >::type myprod(myprodSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type rp(rpSEXP);
+    Rcpp::traits::input_parameter< const IntegerVector >::type rp(rpSEXP);
     rcpp_sub2ind_setrange(out, start, end, each, myprod, rp);
     return R_NilValue;
 END_RCPP

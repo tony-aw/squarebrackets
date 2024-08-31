@@ -3,20 +3,18 @@
 #' @description
 #' This is an S3 Method to extract, exchange,
 #' or duplicate (i.e. repeat x times) subsets of an object. \cr
-#' Use `sb_x(x, ...)` if `x` is a non-recursive object (i.e. atomic or factor). \cr
+#' Use `sb_x(x, ...)` if `x` is a non-recursive object (i.e. atomic). \cr
 #' Use `sb2_x(x, ...)` if `x` is a recursive object (i.e. list or data.frame-like). \cr \cr
 #'
 #' @param x see \link{squarebrackets_immutable_classes} and \link{squarebrackets_mutable_classes}.
-#' @param i,lvl,row,col,sub,dims,filter,vars See \link{squarebrackets_indx_args}. \cr
+#' @param i,row,col,sub,dims,filter,vars See \link{squarebrackets_indx_args}. \cr
 #' Duplicates are allowed, resulting in duplicated indices. \cr
 #' An empty index selection results in an empty object of length 0. \cr
-#' @param drop Boolean.
-#'  * For factors: If `drop = TRUE`, unused levels are dropped, if `drop = FALSE` they are not dropped.
-#'  * For lists: if `drop = TRUE`,
-#'  and sub-setting is done using argument `i`,
-#'  selecting a single element will give the simplified result,
-#'  like using `[[]]`.
-#'  If `drop = FALSE`, a list is always returned regardless of the number of elements.
+#' @param drop Boolean, for lists only. \cr
+#' If `drop = TRUE`,
+#' selecting a single element will give the simplified result,
+#' like using `[[]]`. \cr
+#' If `drop = FALSE`, a list is always returned regardless of the number of elements.
 #' @param ... see \link{squarebrackets_method_dispatch}.
 #'
 #'
@@ -118,28 +116,6 @@ sb_x.array <- function(
   return(.sb_x_array(x, sub, dims, i, sys.call()))
   
 }
-
-#' @rdname sb_x
-#' @export
-sb_x.factor <- function(x, i = NULL, lvl = NULL, drop = FALSE, ...) {
-  
-  .internal_check_dots(list(...), sys.call())
-  .check_args_factor(i, lvl, drop, abortcall = sys.call())
-  if(.all_NULL_indices(list(i, lvl))) {
-    return(x)
-  }
-  
-  
-  if(!is.null(i)) {
-    elements <- ci_flat(x, i, .abortcall = sys.call())
-    return(x[elements, drop = drop])
-  }
-  if(!is.null(lvl)) {
-    indx <- .lvl2indx.sb_x(lvl, x, abortcall = sys.call())
-    return(x <- x[indx, drop = drop])
-  }
-}
-
 
 
 #' @rdname sb_x

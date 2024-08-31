@@ -23,6 +23,9 @@ generate_data <- function(x.len) {
 }
 
 
+expected <- out <- list()
+i <- 1
+
 for(iSample in 1:10) {
   for(iDim in 2:6) {
     x.dim <- sample(1:6, size = iDim, replace = TRUE)
@@ -35,16 +38,18 @@ for(iSample in 1:10) {
       
       ind <- sub2ind(sub, x.dim)
       
-      expect <- temp.fun(x, sub) |> as.vector() |> as.mutable_atomic()
+      expected[[i]] <- temp.fun(x, sub) |> as.vector() |> as.mutable_atomic()
+      out[[i]] <- x[ind]
       
-      expect_equal(
-        x[ind], expect
-      ) |> errorfun()
-      
-      enumerate <- enumerate + 2
+      enumerate <- enumerate + 1
+      i <- i + 1
     }
   }
 }
+
+expect_equal(expected, out)
+
+
 
 # error checks ====
 

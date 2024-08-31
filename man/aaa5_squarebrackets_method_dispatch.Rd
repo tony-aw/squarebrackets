@@ -8,11 +8,11 @@
 This help page gives some additional details regarding the S3 method dispatch
 used in 'squarebrackets'. \cr \cr
 }
-\section{Non-Recursive vs Recursive}{
+\section{Atomic vs Recursive}{
 
 With the exception of the \link{idx} method,
 the main generic methods are available in 2 forms: \cr
-The Non-Recursive form (\code{sb_}), and the Recursive Form (\code{sb2_}). \cr
+The Atomic form (\code{sb_}), and the Recursive Form (\code{sb2_}). \cr
 This because some S3 classes are available in both atomic and recursive forms. \cr
 \cr
 For example,
@@ -21,7 +21,7 @@ the \link{array} S3 class and the \link{matrix} S3 class
 have both an atomic form, and a recursive form. \cr
 The recursive form of arrays and matrices is sometimes referred to as a "dimensional list". \cr
 \cr
-Recursive and non-recursive objects are quite different from each other in some ways:
+Atomic and recursive objects are quite different from each other in some ways:
 \itemize{
 \item \strong{homo- or heterogeneous}: atomic object are homogeneous,
 in that they can only contain one data-type
@@ -47,7 +47,7 @@ Atomic objects do now allow for subset views. \cr
 The S3 method dispatch system does not have a built-in method to have separate dispatches for recursive and atomic objects. \cr
 Hence, given all the above,
 the 'squarebrackets' package
-gives separate methods for recursive and non-recursive objects. \cr \cr
+has separate methods for recursive and atomic objects. \cr \cr
 }
 
 \section{Manual Dispatch}{

@@ -18,14 +18,6 @@ sb_rm(obj, n(1, c(1, 3)), c(1, 3))
 sb_rm(obj, i = \(x)x>5)
 # above is equivalent to obj[!obj > 5]
 
-#############################################################################
-
-
-# factors ====
-
-obj <- factor(rep(letters[1:5], 2))
-sb_rm(obj, lvl = "a")
-# above is equivalent to obj[which(!obj %in% "a")]
 
 
 #############################################################################

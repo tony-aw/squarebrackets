@@ -2,13 +2,13 @@
 #'
 #' @description
 #' This is an S3 Method to return a copy of an object with modified subsets. \cr
-#' Use `sb_mod(x, ...)` if `x` is a non-recursive object (i.e. atomic or factor). \cr
+#' Use `sb_mod(x, ...)` if `x` is a non-recursive object (i.e. atomic). \cr
 #' Use `sb2_mod(x, ...)` if `x` is a recursive object (i.e. list or data.frame-like). \cr
 #' \cr
 #' For modifying subsets using R's default copy-on-modification semantics, see \link{idx}. \cr \cr
 #'
 #' @param x see \link{squarebrackets_immutable_classes} and \link{squarebrackets_mutable_classes}.
-#' @param i,lvl,row,col,sub,dims,filter,vars,inv See \link{squarebrackets_indx_args}. \cr
+#' @param i,row,col,sub,dims,filter,vars,inv See \link{squarebrackets_indx_args}. \cr
 #' An empty index selection returns the original object unchanged. \cr
 #' @param ... see \link{squarebrackets_method_dispatch}.
 #' @param tf the transformation function.
@@ -40,7 +40,6 @@
 #' Specifying argument `tf` will transform the subset. \cr
 #' Specifying `rp` will replace the subset. \cr
 #' One cannot specify both `tf` and `rp`. It's either one set or the other. \cr
-#' Note that the `tf` argument is not available for factors: this is intentional. \cr
 #' \cr
 #' \bold{Argument \code{coe}} \cr
 #' For data.frame-like objects,
@@ -187,40 +186,6 @@ sb_mod.array <- function(
   }
 }
 
-
-#' @rdname sb_mod
-#' @export
-sb_mod.factor <- function(
-    x, i = NULL, lvl = NULL, inv = FALSE, ..., rp, chkdup = getOption("squarebrackets.chkdup", FALSE)
-) {
-  
-  .internal_check_dots(list(...), sys.call())
-  
-  .check_args_factor(i, lvl, drop = FALSE, abortcall = sys.call())
-  
-  if(.all_NULL_indices(list(i, lvl))) {
-    return(.sb_mod_all(x, rp, NULL, NULL, sys.call()))
-  }
-  
-  if(!is.null(i)) {
-    elements <- ci_flat(
-      x, i, inv, chkdup, .abortcall = sys.call()
-    )
-    n.i <- length(elements)
-    if(n.i == 0) return(x)
-    .check_rp_atomic(rp, n.i, abortcall = sys.call())
-    x[elements] <- rp
-    return(x)
-  }
-  if(!is.null(lvl)) {
-    if(length(lvl) == 0) return(x)
-    .prep_relevel(lvl, rp, x, sys.call())
-    set.lvls <- levels(x)
-    set.lvls[set.lvls == lvl] <- rp
-    levels(x) <- set.lvls
-    return(x)
-  }
-}
 
 #' @rdname sb_mod
 #' @export

@@ -5,7 +5,6 @@
 \alias{sb_x.default}
 \alias{sb_x.matrix}
 \alias{sb_x.array}
-\alias{sb_x.factor}
 \alias{sb2_x}
 \alias{sb2_x.default}
 \alias{sb2_x.array}
@@ -20,8 +19,6 @@ sb_x(x, ...)
 
 \method{sb_x}{array}(x, sub = NULL, dims = NULL, i = NULL, ...)
 
-\method{sb_x}{factor}(x, i = NULL, lvl = NULL, drop = FALSE, ...)
-
 sb2_x(x, ...)
 
 \method{sb2_x}{default}(x, i = NULL, drop = FALSE, ...)
@@ -35,19 +32,15 @@ sb2_x(x, ...)
 
 \item{...}{see \link{squarebrackets_method_dispatch}.}
 
-\item{i, lvl, row, col, sub, dims, filter, vars}{See \link{squarebrackets_indx_args}. \cr
+\item{i, row, col, sub, dims, filter, vars}{See \link{squarebrackets_indx_args}. \cr
 Duplicates are allowed, resulting in duplicated indices. \cr
 An empty index selection results in an empty object of length 0. \cr}
 
-\item{drop}{Boolean.
-\itemize{
-\item For factors: If \code{drop = TRUE}, unused levels are dropped, if \code{drop = FALSE} they are not dropped.
-\item For lists: if \code{drop = TRUE},
-and sub-setting is done using argument \code{i},
+\item{drop}{Boolean, for lists only. \cr
+If \code{drop = TRUE},
 selecting a single element will give the simplified result,
-like using \verb{[[]]}.
-If \code{drop = FALSE}, a list is always returned regardless of the number of elements.
-}}
+like using \verb{[[]]}. \cr
+If \code{drop = FALSE}, a list is always returned regardless of the number of elements.}
 }
 \value{
 Returns a copy of the sub-setted object.
@@ -55,7 +48,7 @@ Returns a copy of the sub-setted object.
 \description{
 This is an S3 Method to extract, exchange,
 or duplicate (i.e. repeat x times) subsets of an object. \cr
-Use \code{sb_x(x, ...)} if \code{x} is a non-recursive object (i.e. atomic or factor). \cr
+Use \code{sb_x(x, ...)} if \code{x} is a non-recursive object (i.e. atomic). \cr
 Use \code{sb2_x(x, ...)} if \code{x} is a recursive object (i.e. list or data.frame-like). \cr \cr
 }
 \examples{
@@ -80,15 +73,6 @@ sb_x(obj, n(1:3, 1:2), c(1,3))
 sb_x(obj, i = \(x)x>5)
 # above is equivalent to obj[obj > 5]
 
-#############################################################################
-
-
-
-# factors ====
-
-obj <- factor(rep(letters[1:5], 2))
-sb_x(obj, lvl = c("a", "a"))
-# above is equivalent to obj[lapply(c("a", "a"), \(i) which(obj == i)) |> unlist()]
 
 #############################################################################
 

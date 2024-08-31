@@ -97,6 +97,7 @@ tinycodet::import_LL("squarebrackets", selection = ... )
  - 26 May 2024: Removed `sb2_coe()`, as it is redundant.
  - 6 June 2024: Removed the `sb(2)_before/after` methods in favour of the the new `bind_`/`bind2_` implementations. Added the `lst_` functions. Added the `options` help page.
  - 30 June 2024: Re-written internal code for arrays. Added support for backward indexing via Complex Vector indices. Added more tests. Replaced `seq_names()` with the new and far more flexible `idx_r()` function.
+ - 31 August 2024: Made the tests more efficient. Removed separate method dispatch for factors, as using the default atomic vector method dispatch is sufficient for factors.
  
 
 &nbsp;

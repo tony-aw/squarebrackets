@@ -60,19 +60,19 @@ used in 'squarebrackets'. <br><br></p>
 
 
     <div class="section level2">
-    <h2 id="non-recursive-vs-recursive">Non-Recursive vs Recursive<a class="anchor" aria-label="anchor" href="#non-recursive-vs-recursive"></a></h2>
+    <h2 id="atomic-vs-recursive">Atomic vs Recursive<a class="anchor" aria-label="anchor" href="#atomic-vs-recursive"></a></h2>
     
 
 <p>With the exception of the <a href="idx1.html">idx</a> method,
 the main generic methods are available in 2 forms: <br>
-The Non-Recursive form (<code>sb_</code>), and the Recursive Form (<code>sb2_</code>). <br>
+The Atomic form (<code>sb_</code>), and the Recursive Form (<code>sb2_</code>). <br>
 This because some S3 classes are available in both atomic and recursive forms. <br><br>
 For example,
 the <a href="https://rdrr.io/r/base/array.html" class="external-link">array</a> S3 class and the <a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a> S3 class
 (which inherits from the "array" S3 class)
 have both an atomic form, and a recursive form. <br>
 The recursive form of arrays and matrices is sometimes referred to as a "dimensional list". <br><br>
-Recursive and non-recursive objects are quite different from each other in some ways:</p><ul><li><p><strong>homo- or heterogeneous</strong>: atomic object are homogeneous,
+Atomic and recursive objects are quite different from each other in some ways:</p><ul><li><p><strong>homo- or heterogeneous</strong>: atomic object are homogeneous,
 in that they can only contain one data-type
 (logical, integer, double, character, complex, raw). <br>
 In contract, recursive objects are heterogeneous,
@@ -94,7 +94,7 @@ Atomic objects do now allow for subset views. <br></p></li>
 </ul><p>The S3 method dispatch system does not have a built-in method to have separate dispatches for recursive and atomic objects. <br>
 Hence, given all the above,
 the 'squarebrackets' package
-gives separate methods for recursive and non-recursive objects. <br><br></p>
+has separate methods for recursive and atomic objects. <br><br></p>
     </div>
     <div class="section level2">
     <h2 id="manual-dispatch">Manual Dispatch<a class="anchor" aria-label="anchor" href="#manual-dispatch"></a></h2>
