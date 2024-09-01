@@ -46,6 +46,12 @@ subfolders <- c(
   "generic", "generic2", "generic_idx", "generic_bind",
   "helper", "developer", "special", "src_related"
 )
+wd <- SourceFileLocation()
+setwd(wd)
+setwd("..")
+path <- file.path(getwd(), subfolders) |> normalizePath()
+files <- list.files(path, pattern = "*.R", full.names = TRUE)
+max.width <- max(stringi::stri_width(basename(files))) + 8
 
 for(iSubFolder in subfolders) {
   
@@ -55,14 +61,13 @@ for(iSubFolder in subfolders) {
   setwd(normalizePath(iSubFolder))
   getwd()
   files <- list.files(normalizePath(getwd()), pattern = ".R", full.names = TRUE)
-  max.width <- max(stringi::stri_width(basename(files))) + 8
   print(iSubFolder)
   for(iFile in files) {
     capture.output(source(normalizePath(iFile)), file = nullfile()) |> suppressMessages()
     cat(stringi::stri_pad_right(basename(iFile), max.width), " -> ", enumerate,  "\n")
     enumerate_total <- enumerate_total + enumerate
   }
-  rem <-  setdiff(ls(), c("SourceFileLocation", "enumerate", "enumerate_total"))
+  rem <-  setdiff(ls(), c("SourceFileLocation", "enumerate", "enumerate_total", "max.width"))
   rm(list = rem)
   cat("\n")
   
