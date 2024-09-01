@@ -121,7 +121,7 @@ sb_rm.array <- function(
   
   .internal_check_dots(list(...), sys.call())
   
-  return(.sb_rm_array(x, sub, dims, i, chkdup, sys.call()))
+  return(.sb_x_array(x, sub, dims, i, TRUE, FALSE, chkdup, sys.call()))
 }
 
 
@@ -175,13 +175,7 @@ sb2_rm.array <- function(
   
   .internal_check_dots(list(...), sys.call())
   
-  x <- .sb_rm_array(x, sub, dims, i, chkdup, sys.call())
-  
-  if(length(x) == 1 && drop) {
-    return(x[[1]])
-  }
-  
-  return(x)
+  return(.sb_x_array(x, sub, dims, i, TRUE, drop, chkdup, sys.call()))
 }
 
 
@@ -224,32 +218,3 @@ sb2_rm.data.frame <- function(
 }
 
 
-
-#' @keywords internal
-#' @noRd
-.sb_rm_array <- function(x, sub, dims, i, chkdup, abortcall) {
-  
-  if(.all_NULL_indices(list(sub, dims, i))) {
-    return(x)
-  }
-  
-  if(!is.null(i)) {
-    elements <- ci_flat(x, i, inv = TRUE, chkdup = chkdup, .abortcall = sys.call())
-    return(x[elements])
-  }
-  
-  if(length(sub) == 0L && length(dims) == 0L) {
-    return(x)
-  }
-  
-  lst <- ci_sub(x, sub, dims, inv = TRUE, chkdup = chkdup, .abortcall = sys.call())
-  
-  if(is.null(names(x))) {
-    x <- .arr_x(x, lst, abortcall = abortcall)
-  }
-  else {
-    x <- .internal_fix_names(x, \(x).arr_x(x, lst, abortcall = abortcall))
-  }
-  
-  return(x)
-}
