@@ -40,6 +40,26 @@ indx_named <- function(x, dim.i) {
   return(c(indx_general(x, dim.i), list("a", c("a", "b"), c("b", "a"))))
 }
 
+temp.fun.matrix <- function(x, row, col, f_expect, f_out) {
+  
+  out <- expected <- vector("list", length(row) * length(col))
+  k <- 1
+  for(i in 1:length(row)) {
+    for(j in 1:length(col)) {
+      
+      len <- length(pre_subset_mat(x, row[[i]], col[[j]]))
+      len <- sample(c(len, 1L), size = 1L)
+      rp <- af(sample(c(seq_len(len), NA), size = len))
+      
+      expected[[k]] <- f_expect(x, row[[i]], col[[j]])
+      out[[k]] <- f_out(x, row = row[[i]], col = col[[j]])
+      assign("enumerate", enumerate + 2, envir = parent.frame(n = 1))
+      k <- k + 1
+    }
+  }
+  expect_equal(expected, out) |> errorfun()
+  expect_true(all(sapply(out, is.matrix))) |> errorfun()
+}
 
 temp.fun.2d <- function(x, row, col, f_expect, f_out) {
   out <- expected <- vector("list", length(row) * length(col))
@@ -93,7 +113,7 @@ rownames(x) <- letters[1:5]
 colnames(x) <- letters[1:4]
 row <- indx_named(x, 1)
 col <- indx_named(x, 2)
-# temp.fun.matrix(x, row, col)
+temp.fun.matrix(x, row, col, f_expect.matrix, f_out.matrix)
 temp.fun.2d(x, row, col, f_expect.2d, f_out.2d)
 
 
@@ -101,7 +121,7 @@ temp.fun.2d(x, row, col, f_expect.2d, f_out.2d)
 x <- matrix(af(-sample.int(20)), nrow = 5, ncol=4)
 row <- indx_general(x, 1)
 col <- indx_general(x, 2)
-# temp.fun.matrix(x, row, col)
+temp.fun.matrix(x, row, col, f_expect.matrix, f_out.matrix)
 temp.fun.2d(x, row, col, f_expect.2d, f_out.2d)
 
 
@@ -111,7 +131,7 @@ rownames(x) <- c("a", "a", "b", "", NA)
 colnames(x) <- c("a", "a", "", NA)
 row <- indx_named(x, 1)
 col <- indx_named(x, 2)
-# temp.fun.matrix(x, row, col)
+temp.fun.matrix(x, row, col, f_expect.matrix, f_out.matrix)
 temp.fun.2d(x, row, col, f_expect.2d, f_out.2d)
 if(isTRUE(test_allow_duplicates)) {
   expect_equal(

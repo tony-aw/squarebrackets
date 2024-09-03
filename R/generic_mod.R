@@ -2,7 +2,7 @@
 #'
 #' @description
 #' This is an S3 Method to return a copy of an object with modified subsets. \cr
-#' Use `sb_mod(x, ...)` if `x` is a non-recursive object (i.e. atomic). \cr
+#' Use `sb_mod(x, ...)` if `x` is an atomic object. \cr
 #' Use `sb2_mod(x, ...)` if `x` is a recursive object (i.e. list or data.frame-like). \cr
 #' \cr
 #' For modifying subsets using R's default copy-on-modification semantics, see \link{idx}. \cr \cr
@@ -136,8 +136,8 @@ sb_mod.matrix <- function(
     return(x)
   }
   
-  if(is.null(row)) row <- collapse::seq_row(x)
-  if(is.null(col)) col <- collapse::seq_col(x)
+  if(is.null(row)) row <- 1:nrow(x)
+  if(is.null(col)) col <- 1:ncol(x)
   if(!missing(tf)) {
     rp <- tf(x[row, col, drop = FALSE])
   }
@@ -218,6 +218,48 @@ sb2_mod.default <- function(
   return(.flat_mod_list(x, i, inv, rp, tf, chkdup, .lapply, sys.call()))
 }
 
+
+#' @rdname sb_mod
+#' @export
+sb2_mod.matrix <- function(
+    x, row = NULL, col = NULL, i = NULL, inv = FALSE, ...,
+    rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE), .lapply = lapply
+) {
+  
+  .internal_check_dots(list(...), sys.call())
+  
+  .internal_check_rptf(rp, tf, sys.call())
+  
+  if(.all_NULL_indices(list(row, col, i))) {
+    return(.sb_mod_all(x, rp, tf, .lapply, sys.call()))
+  }
+  
+  if(!is.null(i)) {
+    return(.flat_mod_list(x, i, inv, rp, tf, chkdup, .lapply, sys.call()))
+  }
+  
+  if(!is.null(row)) {
+    row <- ci_margin(x, row, 1L, inv, chkdup, .abortcall = sys.call())
+  }
+  if(!is.null(col)) {
+    col <- ci_margin(x, col, 2L, inv, chkdup, .abortcall = sys.call())
+  }
+  
+  if(.any_empty_indices(n(row, col))) {
+    return(x)
+  }
+  
+  if(is.null(row)) row <- 1:nrow(x)
+  if(is.null(col)) col <- 1:ncol(x)
+  if(!missing(tf)) {
+    rp <- lapply(x[row, col, drop = FALSE], tf)
+  }
+  
+  .check_rp_list(rp, (length(row) * length(col)), abortcall = sys.call())
+  x[row, col] <- rp
+  
+  return(x)
+}
 
 
 #' @rdname sb_mod

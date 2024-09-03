@@ -75,11 +75,10 @@
 #' (including `tidytable`, `sf-data.table`, and `sf-tidytable`). \cr
 #' \cr
 #' There are, of course, a lot of classes which are not supported by 'squarebrackets'. \cr
-#' Most notably, key-value stores,
-#' such as environments,
-#' or the various 'collections' classes
-#' from the 'collections' package,
-#' are not supported. \cr \cr
+#' Most notably,
+#' key-value stores - such as environments,
+#' and the various 'collections' classes
+#' from the 'collections' package - are not supported. \cr \cr
 #
 #'  
 #' @section Methods and Functions:

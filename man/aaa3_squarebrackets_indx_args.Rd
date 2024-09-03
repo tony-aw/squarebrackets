@@ -131,6 +131,7 @@ Using the \code{i} arguments corresponds to doing something like the following:
 \section{Arguments row, col}{
 
 \ifelse{html}{\figure{class-atomic_matrix-blue.svg}{options: alt='[class: atomic matrix]'}}{\link[=squarebrackets_indx_args]{class: atomic matrix}} \cr
+\ifelse{html}{\figure{class-recursive_matrix-blue.svg}{options: alt='[class: recursive matrix]'}}{\link[=squarebrackets_indx_args]{class: recursive matrix}} \cr
 \ifelse{html}{\figure{class-data.frame-like-blue.svg}{options: alt='[class: data.frame-like]'}}{\link[=squarebrackets_indx_args]{class: data.frame-like}} \cr
 
 Any of the following can be specified for the arguments \code{row} / \code{col}:
@@ -252,8 +253,8 @@ ALL the corresponding indices will be selected for the operation. \cr
 }
 
 One could also give a vector of length \code{0} for \code{slice}; \cr
-Argument \code{slice} is only used in method \code{sub},
-and the result of \code{sub} are meant to be used inside the regular \code{[} and \verb{[<-} operators. \cr
+Argument \code{slice} is only used in the \link{idx} method ,
+and the result of \link{idx} are meant to be used inside the regular \code{[} and \verb{[<-} operators. \cr
 Thus the result of a zero-length index specification depends on the rule-set of
 \verb{[.class(x)} and \verb{[<-.class(x)}. \cr \cr
 }
@@ -315,9 +316,7 @@ x[] <- tf(x) # for transformation
 
 }\if{html}{\out{</div>}}
 
-The above is true \bold{even if} \code{inv = TRUE}: \cr
-\code{NULL} corresponds to a missing index arguments,
-and missing arguments cannot be inversed. \cr \cr
+The above is true \bold{even if} \code{inv = TRUE} and/or \code{drop = TRUE}. \cr \cr
 }
 
 \section{Out-of-Bounds Integers, Non-Existing Names/Levels, and NAs}{

@@ -60,8 +60,7 @@ expect_equal(
 )
 
 
-# recursive array ====
-
+# recursive matrix ====
 x <- matrix(lapply(1:20, \(x)list(sample(letters), rnorm(10))), ncol = 4)
 colnames(x) <- c("a", "b", "c", "d")
 rownames(x) <- letters[1:5]
@@ -72,11 +71,33 @@ x2 <- x[1:2, 1:2]
 names(x2) <- x.names[1:2, 1:2]
 
 expect_equal(
+  sb2_x(x, 1:2, 1:2),
+  x2
+)
+expect_equal(
+  sb2_rm(x, 3:5, 3:4),
+  x2
+)
+
+enumerate <- 8
+
+
+# recursive array ====
+x <- array(lapply(1:64, \(x)list(sample(letters), rnorm(10))), dim = c(4,4,4))
+colnames(x) <- c("a", "b", "c", "d")
+rownames(x) <- letters[1:4]
+x.names <- sample(letters, 64, replace = TRUE)
+names(x) <- x.names
+dim(x.names) <- dim(x)
+x2 <- x[1:2, 1:2,]
+names(x2) <- x.names[1:2, 1:2,]
+
+expect_equal(
   sb2_x(x, n(1:2, 1:2), 1:2),
   x2
 )
 expect_equal(
-  sb2_rm(x, n(3:5, 3:4), 1:2),
+  sb2_rm(x, n(3:4, 3:4), 1:2),
   x2
 )
 

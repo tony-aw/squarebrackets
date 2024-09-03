@@ -185,7 +185,7 @@ in that it can handle recursive arrays properly
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"names")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "Jan" "Feb" "Mar" "Apr" "May" "Jun" "Jul" "Aug" "Sep" "Oct" "Nov" "Dec"</span>
 <span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">x</span><span class="op">+</span><span class="fl">100</span></span></span>
-<span class="r-in"><span><span class="va">arg.list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y<span class="op">=</span><span class="va">y</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">arg.list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">bind_array</span><span class="op">(</span><span class="va">arg.list</span>, along<span class="op">=</span><span class="fl">0</span>, name_flat <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># binds on new dimension before first</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> , , A</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>

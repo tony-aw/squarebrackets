@@ -8,13 +8,16 @@
 The \code{sb_} generic methods support the following immutable S3 classes: \cr
 \itemize{
 \item base \code{atomic} vector classes \cr
-(atomic vectors, matrices, and arrays);
-\item base \code{recursive} vector classes/lists \cr
+(atomic vectors, matrices, and arrays).
+\item classes derived from \code{atomic} vectors \cr
+(factors, date, POSIXct, etc.). \cr
+'squarebrackets' treats these classes as regular atomic vectors.
+\item base list classes \cr
 (recursive vectors, matrices, and arrays) \cr
 (note that lists are merely pointers to other objects,
-and these other objects may be of a different class and may even be mutable);
+and these other objects may be of a different class and may even be mutable).
 \item \link[base]{data.frame} \cr
-(including the classes \code{tibble}, \code{sf-data.frame} and \code{sf-tibble}) \cr \cr
+(including the classes \code{tibble}, \code{sf-data.frame} and \code{sf-tibble}). \cr \cr
 }
 
 Note that "immutable" does not mean you cannot modify it. \cr
@@ -34,13 +37,17 @@ with a decimal number
 will coerce the entire vector to type \code{dbl}. \cr
 \cr
 \cr
-\bold{Factor} \cr
-\ifelse{html}{\figure{coercion_through_copy-NO-red.svg}{options: alt='[coercion_through_copy: NO]'}}{\link[=squarebrackets_immutable_classes]{coercion_through_copy: NO}} \cr
-Factors only accept values that are part of their levels,
-and thus do not support coercion on modification.
-There is no mechanism for changing factors by reference at all. \cr
-Replacing a value with a new value not part of its levels,
-will result in the replacement value being \code{NA}. \cr
+\bold{Derived From Atomic} \cr
+\ifelse{html}{\figure{coercion_through_copy-depends-lightblue.svg}{options: alt='[coercion_through_copy: depends]'}}{\link[=squarebrackets_immutable_classes]{coercion_through_copy: depends}} \cr
+Factors, datetime, POSIXct and so on are derived from atomic vectors,
+but have attributes and special methods that make them behave differently. \cr
+Depending on their behaviour, they may or may not allow coercion. \cr
+Factors, for example, only accept values that are part of their levels,
+and thus do not support coercion on modification. \cr
+\cr
+There are highly specialized packages to handle objects derived from atomic objects. \cr
+For example the 'forcats' package for handling factors, and the 'anytime' package
+to handle ddate-time objects. \cr
 \cr
 \cr
 \bold{List} \cr

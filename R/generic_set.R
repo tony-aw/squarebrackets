@@ -5,7 +5,7 @@
 #' \link[=squarebrackets_mutable_classes]{supported mutable object}
 #' using
 #' \link[=squarebrackets_PassByReference]{pass-by-reference semantics} \cr
-#' Use `sb_set(x, ...)` if `x` is a non-recursive object (i.e. \link{mutable_atomic}). \cr
+#' Use `sb_set(x, ...)` if `x` is an atomic object (i.e. \link{mutable_atomic}). \cr
 #' Use `sb2_set(x, ...)` if `x` is a recursive object (i.e. \link{data.table}). \cr \cr
 #' 
 #'

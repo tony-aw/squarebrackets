@@ -1,4 +1,4 @@
-#' Access, Replace, Transform, Remove, and Extend Recursive Subsets
+#' Access, Replace, Transform, Remove, or Extend Recursive Subsets
 #'
 #' @description
 #' The `sb2_rec()` and `sb2_reccom()` methods

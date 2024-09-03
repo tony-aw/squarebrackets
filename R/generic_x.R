@@ -3,7 +3,7 @@
 #' @description
 #' This is an S3 Method to extract, exchange,
 #' or duplicate (i.e. repeat x times) subsets of an object. \cr
-#' Use `sb_x(x, ...)` if `x` is a non-recursive object (i.e. atomic). \cr
+#' Use `sb_x(x, ...)` if `x` is an atomic object. \cr
 #' Use `sb2_x(x, ...)` if `x` is a recursive object (i.e. list or data.frame-like). \cr \cr
 #'
 #' @param x see \link{squarebrackets_immutable_classes} and \link{squarebrackets_mutable_classes}.
@@ -12,7 +12,7 @@
 #' An empty index selection results in an empty object of length 0. \cr
 #' @param drop Boolean, for lists only. \cr
 #' If `drop = TRUE`,
-#' selecting a single element will give the simplified result,
+#' selecting a single element with non-empty arguments will give the simplified result,
 #' like using `[[]]`. \cr
 #' If `drop = FALSE`, a list is always returned regardless of the number of elements.
 #' @param ... see \link{squarebrackets_method_dispatch}.
@@ -60,48 +60,7 @@ sb_x.matrix <- function(
 ) {
   
   .internal_check_dots(list(...), sys.call())
-  if(.all_NULL_indices(list(row, col, i))) {
-    return(x)
-  }
-  
-  if(!is.null(i)) {
-    elements <- ci_flat(x, i, .abortcall = sys.call())
-    return(x[elements])
-  }
-  
-  if(!is.null(row)) {
-    row <- ci_margin(x, row, 1L, .abortcall = sys.call())
-  }
-  if(!is.null(col)) {
-    col <- ci_margin(x, col, 2L, .abortcall = sys.call())
-  }
-  
-  
-  if(is.null(row)) {
-    if(is.null(names(x))) {
-      x <- x[, col, drop = FALSE]
-    }
-    else {
-      x <- .internal_fix_names(x, \(x)x[, col, drop = FALSE])
-    }
-    return(x)
-  }
-  if(is.null(col)) {
-    if(is.null(names(x))) {
-      x <- x[row, , drop = FALSE]
-    }
-    else {
-      x <- .internal_fix_names(x, \(x)x[row, , drop = FALSE])
-    }
-    return(x)
-  }
-  
-  if(is.null(names(x))) {
-    x <- x[row, col, drop = FALSE]
-  } else {
-    x <- .internal_fix_names(x, \(x)x[row, col, drop = FALSE])
-  }
-  return(x)
+  return(.sb_x_matrix(x, row, col, i, FALSE, FALSE, FALSE, sys.call()))
 }
 
 
@@ -140,12 +99,7 @@ sb2_x.default <- function(x, i = NULL, drop = FALSE, ...) {
     stop("`drop` must be either `TRUE` or `FALSE`")
   }
   if(is.null(i)) {
-    if(length(x) == 1L && drop) {
-      return(x[[1]])
-    }
-    else {
-      return(x)
-    }
+    return(x)
   }
   
   elements <- ci_flat(x, i, .abortcall = sys.call())
@@ -157,6 +111,17 @@ sb2_x.default <- function(x, i = NULL, drop = FALSE, ...) {
   }
   
   return(x[elements])
+}
+
+
+#' @rdname sb_x
+#' @export
+sb2_x.matrix <- function(
+    x, row = NULL, col = NULL, i = NULL, drop = FALSE, ...
+) {
+  
+  .internal_check_dots(list(...), sys.call())
+  return(.sb_x_matrix(x, row, col, i, FALSE, drop, FALSE, sys.call()))
 }
 
 
@@ -216,12 +181,17 @@ sb2_x.data.frame <- function(
 
 #' @keywords internal
 #' @noRd
-.sb_x_array <- function(x, sub = NULL, dims = NULL, i = NULL, inv = FALSE, drop = FALSE, chkdup = FALSE, abortcall) {
+.sb_x_array <- function(
+    x, sub = NULL, dims = NULL, i = NULL, inv = FALSE, drop = FALSE, chkdup = FALSE, abortcall
+) {
   
+  # empty arguments:
   if(.all_NULL_indices(list(sub, dims, i))) {
     return(x)
   }
   
+  
+  # argument i:
   if(!is.null(i)) {
     elements <- ci_flat(x, i, inv = inv, chkdup = chkdup, .abortcall = abortcall)
     if(drop && length(elements) == 1L) {
@@ -231,14 +201,16 @@ sb2_x.data.frame <- function(
   }
   
   
+  # zero-length subscripts:
   if(length(sub) == 0L && length(dims) == 0L) {
     return(x)
   }
   
   
+  # sub, dims arguments:
   lst <- ci_sub(x, sub, dims, inv = inv, chkdup, .abortcall = abortcall)
   
-  if(drop && all(collapse::vlengths(lst) == 1L)) {
+  if(drop && collapse::allv(collapse::vlengths(lst), 1L)) {
     x <- .arr_x(x, lst, abortcall = abortcall)
     return(x[[1L]])
   }
@@ -247,5 +219,76 @@ sb2_x.data.frame <- function(
   }
   else {
     return(.internal_fix_names(x, \(x).arr_x(x, lst, abortcall = abortcall)))
+  }
+}
+
+
+#' @keywords internal
+#' @noRd
+.sb_x_matrix <- function(
+    x, row = NULL, col = NULL, i = NULL, inv = FALSE, drop = FALSE, chkdup = FALSE, abortcall
+) {
+  
+  # empty arguments:
+  if(.all_NULL_indices(list(row, col, i))) {
+    return(x)
+  }
+  
+  
+  # argument i:
+  if(!is.null(i)) {
+    elements <- ci_flat(x, i, inv = inv, chkdup = chkdup, .abortcall = abortcall)
+    if(drop && length(elements) == 1L) {
+      return(x[[elements]])
+    }
+    return(x[elements])
+  }
+  
+  # prep row, col:
+  if(!is.null(row)) {
+    row <- ci_margin(x, row, 1L, inv = inv, chkdup = chkdup, .abortcall = abortcall)
+  }
+  if(!is.null(col)) {
+    col <- ci_margin(x, col, 2L, inv = inv, chkdup = chkdup, .abortcall = abortcall)
+  }
+  
+  
+  # col:
+  if(is.null(row)) {
+    if(drop && length(col) == 1L && nrow(x) == 1L) {
+      return(x[[, col]])
+    }
+    else if(is.null(names(x))) {
+      return(x[, col, drop = FALSE])
+    }
+    else {
+      return(.internal_fix_names(x, \(x)x[, col, drop = FALSE]))
+    }
+  }
+  
+  
+  # row:
+  if(is.null(col)) {
+    if(drop && length(row) == 1L && ncol(x) == 1L) {
+      return(x[[row, ]])
+    }
+    else if(is.null(names(x))) {
+      return(x[row, , drop = FALSE])
+    }
+    else {
+      return(.internal_fix_names(x, \(x)x[row, , drop = FALSE]))
+    }
+  }
+  
+  
+  # row & col:
+  if(drop && length(row) == 1L && length(col) == 1L) {
+    return(x[[row, col]])
+  }
+  else if(is.null(names(x))) {
+    return(x[row, col, drop = FALSE])
+  }
+  else {
+    return(.internal_fix_names(x, \(x)x[row, col, drop = FALSE]))
   }
 }

@@ -241,6 +241,6 @@ sub2ind <- function(sub, x.dim, checks = TRUE) {
   reps_each <- cumprod(c(1L, ns))[1L:n]
   reps_whole <- total/(ns * reps_each)
   
-  ind2 <- .rcpp_sub2ind_general(sub, total, reps_each, reps_whole, x.dim, cumprod(x.dim))
+  ind2 <- .rcpp_sub2ind_general(sub, total, reps_each, reps_whole, as.integer(x.dim), cumprod(x.dim))
   return(ind2)
 }

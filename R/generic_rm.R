@@ -2,7 +2,7 @@
 #'
 #' @description
 #' This is an S3 Method to un-select/remove subsets from an object. \cr
-#' Use `sb_rm(x, ...)` if `x` is a non-recursive object (i.e. atomic). \cr
+#' Use `sb_rm(x, ...)` if `x` is an atomic object. \cr
 #' Use `sb2_rm(x, ...)` if `x` is a recursive object (i.e. list or data.frame-like). \cr \cr
 #'
 #' @param x see \link{squarebrackets_immutable_classes} and \link{squarebrackets_mutable_classes}.
@@ -10,7 +10,8 @@
 #' An empty index selection results in nothing being removed,
 #' and the entire object is returned. \cr
 #' @param drop Boolean, for list only. \cr
-#' I f `drop = TRUE`, selecting a single element will give the simplified result,
+#' I f `drop = TRUE`,
+#' selecting a single element with non-empty arguments will give the simplified result,
 #' like using `[[]]`. \cr
 #' If `drop = FALSE`, a list is always returned regardless of the number of elements.
 #' @param chkdup see \link{squarebrackets_options}. \cr
@@ -65,50 +66,7 @@ sb_rm.matrix <- function(
 ) {
   
   .internal_check_dots(list(...), sys.call())
-  if(.all_NULL_indices(list(row, col, i))) {
-    return(x)
-  }
-  
-  if(!is.null(i)) {
-    elements <- ci_flat(x, i, inv = TRUE, chkdup = chkdup, .abortcall = sys.call())
-    return(x[elements])
-  }
-  
-  if(!is.null(row)) {
-    row <- ci_margin(x, row, 1L, inv = TRUE, chkdup = chkdup, .abortcall = sys.call())
-  }
-  if(!is.null(col)) {
-    col <- ci_margin(x, col, 2L, inv = TRUE, chkdup = chkdup, .abortcall = sys.call())
-  }
-  
-  if(is.null(row) && is.null(col)) {
-    return(x)
-  }
-  if(is.null(row)) {
-    if(is.null(names(x))) {
-      x <- x[, col, drop = FALSE]
-    }
-    else {
-      x <- .internal_fix_names(x, \(x)x[, col, drop = FALSE])
-    }
-    return(x)
-  }
-  if(is.null(col)) {
-    if(is.null(names(x))) {
-      x <- x[row, , drop = FALSE]
-    }
-    else {
-      x <- .internal_fix_names(x, \(x)x[row, , drop = FALSE])
-    }
-    return(x)
-  }
-  
-  if(is.null(names(x))) {
-    x <- x[row, col, drop = FALSE]
-  } else {
-    x <- .internal_fix_names(x, \(x)x[row, col, drop = FALSE])
-  }
-  return(x)
+  return(.sb_x_matrix(x, row, col, i, TRUE, FALSE, chkdup, sys.call()))
 }
 
 
@@ -146,13 +104,12 @@ sb2_rm.default <- function(
   
   .internal_check_dots(list(...), sys.call())
   
+  if(!isTRUE(drop) && !isFALSE(drop)) {
+    stop("`drop` must be either `TRUE` or `FALSE`")
+  }
+  
   if(is.null(i)) {
-    if(length(x) == 1L && drop) {
-      return(x[[1]])
-    }
-    else {
-      return(x)
-    }
+    return(x)
   }
   
   elements <- ci_flat(x, i, inv = TRUE, chkdup = chkdup, .abortcall = sys.call())
@@ -165,6 +122,17 @@ sb2_rm.default <- function(
   }
 }
 
+#' @rdname sb_rm
+#' @export
+sb2_rm.matrix <- function(
+    x, row = NULL, col = NULL, i = NULL, drop = FALSE, ...,
+    chkdup = getOption("squarebrackets.chkdup", FALSE)
+) {
+  
+  .internal_check_dots(list(...), sys.call())
+  return(.sb_x_matrix(x, row, col, i, TRUE, drop, chkdup, sys.call()))
+}
+
 
 #' @rdname sb_rm
 #' @export
@@ -174,6 +142,10 @@ sb2_rm.array <- function(
 ) {
   
   .internal_check_dots(list(...), sys.call())
+  
+  if(!isTRUE(drop) && !isFALSE(drop)) {
+    stop("`drop` must be either `TRUE` or `FALSE`")
+  }
   
   return(.sb_x_array(x, sub, dims, i, TRUE, drop, chkdup, sys.call()))
 }

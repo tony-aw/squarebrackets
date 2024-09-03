@@ -5,7 +5,7 @@ dimnames(x) <- n(letters[1:3], LETTERS[1:4])
 names(x) <- month.abb
 print(x)
 y <- x+100
-arg.list <- list(x = x, y=y)
+arg.list <- list(x = x, y = y)
 bind_array(arg.list, along=0, name_flat = TRUE) # binds on new dimension before first
 bind_array(arg.list, along=1, name_flat = TRUE) # binds on first dimension
 bind_array(arg.list, along=2, name_flat = TRUE)

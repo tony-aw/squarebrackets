@@ -7,6 +7,7 @@
 \alias{sb_x.array}
 \alias{sb2_x}
 \alias{sb2_x.default}
+\alias{sb2_x.matrix}
 \alias{sb2_x.array}
 \alias{sb2_x.data.frame}
 \title{Method to Extract, Exchange, or Duplicate Subsets of an Object}
@@ -23,6 +24,8 @@ sb2_x(x, ...)
 
 \method{sb2_x}{default}(x, i = NULL, drop = FALSE, ...)
 
+\method{sb2_x}{matrix}(x, row = NULL, col = NULL, i = NULL, drop = FALSE, ...)
+
 \method{sb2_x}{array}(x, sub = NULL, dims = NULL, i = NULL, drop = FALSE, ...)
 
 \method{sb2_x}{data.frame}(x, row = NULL, col = NULL, filter = NULL, vars = NULL, ...)
@@ -38,7 +41,7 @@ An empty index selection results in an empty object of length 0. \cr}
 
 \item{drop}{Boolean, for lists only. \cr
 If \code{drop = TRUE},
-selecting a single element will give the simplified result,
+selecting a single element with non-empty arguments will give the simplified result,
 like using \verb{[[]]}. \cr
 If \code{drop = FALSE}, a list is always returned regardless of the number of elements.}
 }
@@ -48,7 +51,7 @@ Returns a copy of the sub-setted object.
 \description{
 This is an S3 Method to extract, exchange,
 or duplicate (i.e. repeat x times) subsets of an object. \cr
-Use \code{sb_x(x, ...)} if \code{x} is a non-recursive object (i.e. atomic). \cr
+Use \code{sb_x(x, ...)} if \code{x} is an atomic object. \cr
 Use \code{sb2_x(x, ...)} if \code{x} is a recursive object (i.e. list or data.frame-like). \cr \cr
 }
 \examples{
@@ -85,17 +88,34 @@ sb2_x(obj, 1) # obj[1]
 sb2_x(obj, 1, drop = TRUE) # obj[[1]]
 sb2_x(obj, 1:2) # obj[1:2]
 sb2_x(obj, is.numeric) # obj[sapply(obj, is.numeric)]
-# for recursive indexing, see sb2_rec()
+# for recursive subsets, see sb2_rec()
+
 
 ################################################################################
 
+# dimensional lists ====
 
-# recursive arrays / dimensional lists ====
-obj <- c(as.list(1:10), as.list(letters[1:10])) |> array(dim = c(5, 4)) |> t()
+obj <- rbind(
+  lapply(1:4, \(x)sample(c(TRUE, FALSE, NA))),
+  lapply(1:4, \(x)sample(1:10)),
+  lapply(1:4, \(x)rnorm(10)),
+  lapply(1:4, \(x)sample(letters))
+)
+colnames(obj) <- c("a", "b", "c", "a")
 print(obj)
-sb2_x(obj, list(1:3), 1)
-# above is equivalent to obj[1:3, ]
+sb2_x(obj, 1:3, 1:3)
+# above is equivalent to obj[1:3, 1:3, drop = FALSE]
+sb2_x(obj, i = is.numeric)
+# above is equivalent to obj[sapply(obj, is.numeric)]
+sb2_x(obj, col = c("a", "a"))
+# above is equivalent to obj[, lapply(c("a", "a"), \(i) which(colnames(obj) == i)) |> unlist()]
 
+obj <- array(as.list(1:64), c(4,4,3))
+print(obj)
+sb2_x(obj, n(1:3, 1:2), c(1,3))
+# above is equivalent to obj[1:3, , 1:2, drop = FALSE]
+sb2_x(obj, i = \(x)x>5)
+# above is equivalent to obj[sapply(obj, \(x) x > 5)]
 
 #############################################################################
 

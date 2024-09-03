@@ -3,7 +3,7 @@
 \name{sb2_rec}
 \alias{sb2_rec}
 \alias{sb2_reccom}
-\title{Access, Replace, Transform, Remove, and Extend Recursive Subsets}
+\title{Access, Replace, Transform, Remove, or Extend Recursive Subsets}
 \usage{
 sb2_rec(x, rec)
 

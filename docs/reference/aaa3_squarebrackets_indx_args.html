@@ -165,7 +165,7 @@ For recursive objects, <code>i</code> is interpreted as <code>lapply(x, i)</code
     <h2 id="arguments-row-col">Arguments row, col<a class="anchor" aria-label="anchor" href="#arguments-row-col"></a></h2>
     
 
-<p><img src="figures/class-atomic_matrix-blue.svg" alt="[class: atomic matrix]"><br><img src="figures/class-data.frame-like-blue.svg" alt="[class: data.frame-like]"><br></p>
+<p><img src="figures/class-atomic_matrix-blue.svg" alt="[class: atomic matrix]"><br><img src="figures/class-recursive_matrix-blue.svg" alt="[class: recursive matrix]"><br><img src="figures/class-data.frame-like-blue.svg" alt="[class: data.frame-like]"><br></p>
 <p>Any of the following can be specified for the arguments <code>row</code> / <code>col</code>:</p><ul><li><p><code>NULL</code> (default), corresponds to a missing argument.</p></li>
 <li><p>a vector of length 0,
 in which case no indices are selected for the operation (i.e. empty selection).</p></li>
@@ -251,8 +251,8 @@ giving the dimension indices to select for the operation.</p></li>
 If a dimension has multiple indices with the given name,
 ALL the corresponding indices will be selected for the operation. <br></p></li>
 </ul><p>One could also give a vector of length <code>0</code> for <code>slice</code>; <br>
-Argument <code>slice</code> is only used in method <code>sub</code>,
-and the result of <code>sub</code> are meant to be used inside the regular <code>[</code> and <code>[&lt;-</code> operators. <br>
+Argument <code>slice</code> is only used in the <a href="idx1.html">idx</a> method ,
+and the result of <a href="idx1.html">idx</a> are meant to be used inside the regular <code>[</code> and <code>[&lt;-</code> operators. <br>
 Thus the result of a zero-length index specification depends on the rule-set of
 <code>[.class(x)</code> and <code>[&lt;-.class(x)</code>. <br><br></p>
     </div>
@@ -303,8 +303,7 @@ using <code>NULL</code> corresponds to something like the following:</p>
 <span><span class="va">x</span><span class="op">[</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">rp</span> <span class="co"># for replacement</span></span>
 <span><span class="va">x</span><span class="op">[</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">tf</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="co"># for transformation</span></span>
 <span></span></code></pre><p></p></div>
-<p>The above is true <b>even if</b> <code>inv = TRUE</code>: <br><code>NULL</code> corresponds to a missing index arguments,
-and missing arguments cannot be inversed. <br><br></p>
+<p>The above is true <b>even if</b> <code>inv = TRUE</code> and/or <code>drop = TRUE</code>. <br><br></p>
     </div>
     <div class="section level2">
     <h2 id="out-of-bounds-integers-non-existing-names-levels-and-nas">Out-of-Bounds Integers, Non-Existing Names/Levels, and NAs<a class="anchor" aria-label="anchor" href="#out-of-bounds-integers-non-existing-names-levels-and-nas"></a></h2>

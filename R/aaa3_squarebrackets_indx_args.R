@@ -124,6 +124,7 @@
 #' 
 #' @section Arguments row, col:
 #' `r .mybadge_class("atomic matrix")` \cr
+#' `r .mybadge_class("recursive matrix")` \cr
 #' `r .mybadge_class("data.frame-like")` \cr
 #' 
 #' Any of the following can be specified for the arguments `row` / `col`:
@@ -240,8 +241,8 @@
 #'  ALL the corresponding indices will be selected for the operation. \cr
 #'  
 #' One could also give a vector of length `0` for `slice`; \cr
-#' Argument `slice` is only used in method `sub`,
-#' and the result of `sub` are meant to be used inside the regular `[` and `[<-` operators. \cr
+#' Argument `slice` is only used in the \link{idx} method ,
+#' and the result of \link{idx} are meant to be used inside the regular `[` and `[<-` operators. \cr
 #' Thus the result of a zero-length index specification depends on the rule-set of
 #' `[.class(x)` and `[<-.class(x)`. \cr \cr
 #' 
@@ -305,9 +306,7 @@
 #' 
 #' ```
 #' 
-#' The above is true \bold{even if} `inv = TRUE`: \cr
-#' `NULL` corresponds to a missing index arguments,
-#' and missing arguments cannot be inversed. \cr \cr
+#' The above is true \bold{even if} `inv = TRUE` and/or `drop = TRUE`. \cr \cr
 #' 
 #' 
 #' @section Out-of-Bounds Integers, Non-Existing Names/Levels, and NAs:

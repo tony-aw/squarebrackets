@@ -28,7 +28,7 @@ void rcpp_sub2ind_setrange(
 //' @noRd
 // [[Rcpp::export(.rcpp_sub2ind_general)]]
 NumericVector rcpp_sub2ind_general(
-  const List lst, const R_xlen_t total, const NumericVector reps_each, const NumericVector reps_whole, const NumericVector xdim, const NumericVector dimcumprod
+  const List lst, const R_xlen_t total, const NumericVector reps_each, const NumericVector reps_whole, const IntegerVector xdim, const NumericVector dimcumprod
 ) {
   int ndim = lst.length();
   Rcpp::NumericVector out(total);

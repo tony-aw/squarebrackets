@@ -4,13 +4,16 @@
 #' The `sb_` generic methods support the following immutable S3 classes: \cr
 #' 
 #'  * base `atomic` vector classes \cr
-#'  (atomic vectors, matrices, and arrays);
-#'  * base `recursive` vector classes/lists \cr
+#'  (atomic vectors, matrices, and arrays).
+#'  * classes derived from `atomic` vectors \cr
+#'  (factors, date, POSIXct, etc.). \cr
+#'  'squarebrackets' treats these classes as regular atomic vectors.
+#'  * base list classes \cr
 #'  (recursive vectors, matrices, and arrays) \cr
 #'  (note that lists are merely pointers to other objects,
-#'  and these other objects may be of a different class and may even be mutable);
+#'  and these other objects may be of a different class and may even be mutable).
 #'  * \link[base]{data.frame} \cr
-#'  (including the classes `tibble`, `sf-data.frame` and `sf-tibble`) \cr \cr
+#'  (including the classes `tibble`, `sf-data.frame` and `sf-tibble`). \cr \cr
 #'  
 #' Note that "immutable" does not mean you cannot modify it. \cr
 #' It simply means that modification leads to a copy being made. \cr \cr
@@ -29,13 +32,17 @@
 #' will coerce the entire vector to type `dbl`. \cr
 #' \cr
 #' \cr
-#' \bold{Factor} \cr
-#' `r .mybadge_coercion("NO")` \cr
-#' Factors only accept values that are part of their levels,
-#' and thus do not support coercion on modification.
-#' There is no mechanism for changing factors by reference at all. \cr
-#' Replacing a value with a new value not part of its levels,
-#' will result in the replacement value being `NA`. \cr
+#' \bold{Derived From Atomic} \cr
+#' `r .mybadge_coercion("depends")` \cr
+#' Factors, datetime, POSIXct and so on are derived from atomic vectors,
+#' but have attributes and special methods that make them behave differently. \cr
+#' Depending on their behaviour, they may or may not allow coercion. \cr
+#' Factors, for example, only accept values that are part of their levels,
+#' and thus do not support coercion on modification. \cr
+#' \cr
+#' There are highly specialized packages to handle objects derived from atomic objects. \cr
+#' For example the 'forcats' package for handling factors, and the 'anytime' package
+#' to handle ddate-time objects. \cr
 #' \cr
 #' \cr
 #' \bold{List} \cr

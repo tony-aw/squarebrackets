@@ -48,11 +48,30 @@ sb2_mod(obj, is.numeric, rp = list(-1:-10, -11:-20))
 #############################################################################
 
 
-# recursive arrays / dimensional lists ====
-obj <- c(as.list(1:10), as.list(letters[1:10])) |> array(dim = c(5, 4)) |> t()
+# dimensional lists ====
+obj <- rbind(
+  lapply(1:4, \(x)sample(c(TRUE, FALSE, NA))),
+  lapply(1:4, \(x)sample(1:10)),
+  lapply(1:4, \(x)rnorm(10)),
+  lapply(1:4, \(x)sample(letters))
+)
+colnames(obj) <- c("a", "b", "c", "a")
 print(obj)
-sb2_mod(obj, list(1:3), 1, rp = list(FALSE))
-# above is equivalent to obj[1:3, ] <- list(FALSE)
+sb2_mod(obj, 1:3, 1:3, rp = n(-1))
+# above is equivalent to obj[1:3, 1:3] <- list(-1)
+sb2_mod(obj, i = is.numeric, rp = n(-1))
+# above is equivalent to obj[sapply(obj, is.numeric)] <- list(-1)
+sb2_mod(obj, col = c("a"), rp = n(-1))
+# above is equivalent to
+# obj[, lapply(c("a", "a"), \(i) which(colnames(obj) == i)) |> unlist()] <- list(-1)
+
+
+obj <- array(as.list(1:64), c(4,4,3))
+print(obj)
+sb2_mod(obj, list(1:3, 1:2), c(1,3), rp = as.list(-1:-24))
+# above is equivalent to obj[1:3, , 1:2] <- as.list(-1:-24)
+sb2_mod(obj, i = \(x)x<=5, rp = as.list(-1:-5))
+# above is equivalent to obj[sapply(onj, \(x) x <= 5)] <- as.list(-1:-5)
 
 
 #############################################################################

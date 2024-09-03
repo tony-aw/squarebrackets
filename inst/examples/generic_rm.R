@@ -14,7 +14,7 @@ sb_rm(obj, col = "a")
 obj <- array(1:64, c(4,4,3))
 print(obj)
 sb_rm(obj, n(1, c(1, 3)), c(1, 3))
-# above is equivalent to obj[-1, c(-1, -3), drop = FALSE]
+# above is equivalent to obj[-1, , c(-1, -3), drop = FALSE]
 sb_rm(obj, i = \(x)x>5)
 # above is equivalent to obj[!obj > 5]
 
@@ -43,11 +43,30 @@ sb2_rm(obj, is.numeric)
 #############################################################################
 
 
-# recursive arrays / dimensional lists ====
-obj <- c(as.list(1:10), as.list(letters[1:10])) |> array(dim = c(5, 4)) |> t()
+# dimensional lists ====
+
+obj <- rbind(
+  lapply(1:4, \(x)sample(c(TRUE, FALSE, NA))),
+  lapply(1:4, \(x)sample(1:10)),
+  lapply(1:4, \(x)rnorm(10)),
+  lapply(1:4, \(x)sample(letters))
+)
+colnames(obj) <- c("a", "b", "c", "a")
 print(obj)
-sb2_rm(obj, list(1:3), 1)
-# above is equivalent to obj[-1:-3, ]
+sb2_rm(obj, 1:3, 1:3)
+# above is equivalent to obj[1:3, 1:3, drop = FALSE]
+sb2_rm(obj, i = is.numeric)
+# above is equivalent to obj[sapply(obj, is.numeric)]
+sb2_rm(obj, col = c("a", "a"))
+# above is equivalent to obj[, lapply(c("a", "a"), \(i) which(colnames(obj) == i)) |> unlist()]
+
+obj <- array(as.list(1:64), c(4,4,3))
+print(obj)
+sb2_rm(obj, n(1, c(1, 3)), c(1, 3))
+# above is equivalent to obj[-1, , c(-1, -3), drop = FALSE]
+sb2_rm(obj, i = \(x)x>5)
+# above is equivalent to obj[!sapply(obj, \(x) x > 5)]
+
 
 
 #############################################################################

@@ -103,7 +103,7 @@ This is an S3 Method to replace or transform a subset of a
 \link[=squarebrackets_mutable_classes]{supported mutable object}
 using
 \link[=squarebrackets_PassByReference]{pass-by-reference semantics} \cr
-Use \code{sb_set(x, ...)} if \code{x} is a non-recursive object (i.e. \link{mutable_atomic}). \cr
+Use \code{sb_set(x, ...)} if \code{x} is an atomic object (i.e. \link{mutable_atomic}). \cr
 Use \code{sb2_set(x, ...)} if \code{x} is a recursive object (i.e. \link{data.table}). \cr \cr
 }
 \details{

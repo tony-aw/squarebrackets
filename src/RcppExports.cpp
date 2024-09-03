@@ -1759,7 +1759,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // rcpp_sub2ind_general
-NumericVector rcpp_sub2ind_general(const List lst, const R_xlen_t total, const NumericVector reps_each, const NumericVector reps_whole, const NumericVector xdim, const NumericVector dimcumprod);
+NumericVector rcpp_sub2ind_general(const List lst, const R_xlen_t total, const NumericVector reps_each, const NumericVector reps_whole, const IntegerVector xdim, const NumericVector dimcumprod);
 RcppExport SEXP _squarebrackets_rcpp_sub2ind_general(SEXP lstSEXP, SEXP totalSEXP, SEXP reps_eachSEXP, SEXP reps_wholeSEXP, SEXP xdimSEXP, SEXP dimcumprodSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -1768,7 +1768,7 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const R_xlen_t >::type total(totalSEXP);
     Rcpp::traits::input_parameter< const NumericVector >::type reps_each(reps_eachSEXP);
     Rcpp::traits::input_parameter< const NumericVector >::type reps_whole(reps_wholeSEXP);
-    Rcpp::traits::input_parameter< const NumericVector >::type xdim(xdimSEXP);
+    Rcpp::traits::input_parameter< const IntegerVector >::type xdim(xdimSEXP);
     Rcpp::traits::input_parameter< const NumericVector >::type dimcumprod(dimcumprodSEXP);
     rcpp_result_gen = Rcpp::wrap(rcpp_sub2ind_general(lst, total, reps_each, reps_whole, xdim, dimcumprod));
     return rcpp_result_gen;
