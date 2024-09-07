@@ -717,12 +717,6 @@
 
 #' @keywords internal
 #' @noRd
-.rcpp_any_badindx <- function(indx, value) {
-    .Call(`_squarebrackets_rcpp_any_badindx`, indx, value)
-}
-
-#' @keywords internal
-#' @noRd
 .rcpp_prod_int <- function(x) {
     .Call(`_squarebrackets_rcpp_prod_int`, x)
 }
@@ -783,8 +777,8 @@
 
 #' @keywords internal
 #' @noRd
-.rcpp_sub2ind_setrange <- function(out, start, end, each, myprod, rp) {
-    invisible(.Call(`_squarebrackets_rcpp_sub2ind_setrange`, out, start, end, each, myprod, rp))
+.C_sub2ind_setrange <- function(out, start, end, each, myprod, rp) {
+    invisible(.Call(`_squarebrackets_C_sub2ind_setrange`, out, start, end, each, myprod, rp))
 }
 
 #' @keywords internal

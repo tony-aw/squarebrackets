@@ -40,7 +40,7 @@
 #' \cr
 #' 
 #'
-#' @section Mutable vs Immutable types:
+#' @section Mutable vs Immutable Classes:
 #' With the exception of environments,
 #' most of base R's data types are treated as immutable: \cr
 #' Modifying an object in 'R' will make a copy of the object,
@@ -52,6 +52,9 @@
 #' Modifying a base 'R' object by reference can be problematic. \cr
 #' Since 'R', and also most R-packages, treat these objects as immutable,
 #' modifying them as-if they are mutable may produce undesired results. \cr
+#' For example,
+#' modifying `base::leters` by reference
+#' will actually modify the `letters` object within `base`. \cr
 #' \cr
 #' To prevent the issue described above,
 #' 'squarebrackets' only supports pass-by-reference semantics
@@ -61,6 +64,38 @@
 #' \link[=class_mutable_atomic]{mutable_atomic},
 #' which are simply atomic objects
 #' that have the permission to be modified by reference. \cr \cr
+#' 
+#' 
+#' @section Material vs Immaterial objects:
+#' Most objects in 'R' are material objects: \cr
+#' the values an object contains are actually stored in memory. \cr
+#' For example, given `x <- rnorm(1e6)`, `x` is a material object: \cr
+#' 1 million values (decimal numbers, in this case) are actually stored in memory. \cr
+#' \cr
+#' In contrast, \link[=makeActiveBinding]{ActiveBindings} are immaterial: \cr
+#' They are objects that,
+#' when accessed,
+#' call a function to generate values on the fly,
+#' rather than actually storing values. \cr
+#' \cr
+#' A more subtle type of immaterial objects are ALTREP objects. \cr
+#' ALTREP objects store instructions on how values are stored, but do not actually store the values. \cr
+#' For example, `x <- 1:1e6` is an \bold{immaterial} object: \cr
+#' Unlike `rnorm(1e6)`, `1:1e6` does not actually store 1 million values; \cr
+#' Rather, it stores the simple \bold{instruction} that `x[i] = i`. \cr
+#' When `x` is modified, the given instructions obviously don't hold any more,
+#' and so 'R' will materialize `x`, which means `x` will then actually store its values in memory. \cr
+#' So when `x` is materialized,
+#' the size of `x` in the memory will change from a few bytes to a few Mega Bytes. \cr
+#' \cr
+#' Since immaterial objects do not actually store the values in memory,
+#' the values obviously also cannot be changed in memory. \cr
+#' Therefore, Pass-by-Reference semantics \bold{do not work} on immaterial objects. \cr
+#' \cr
+#' A `data.table` can have ALTREP columns. \cr
+#' A `data.tables` will coerce the column to a materialized column when it is modified, even by reference. \cr
+#' This works since a `data.table` is a recursive object. \cr
+#' Pass-by-Reference never works on atomic ALTREP objects. \cr \cr
 #' 
 #' 
 #' @section Mutability Rules With Respect To Recursive Objects:

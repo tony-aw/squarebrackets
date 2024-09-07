@@ -3,35 +3,57 @@
 #include <R_ext/Error.h>
 
 SEXP C_any_badmargin ( SEXP x, SEXP val ) {
- R_xlen_t n = xlength(x);
  
-switch(TYPEOF(val)) {
+R_xlen_t n = Rf_xlength(x);
+
+switch(TYPEOF(x)) {
   case INTSXP:
     {
-      const int *px = INTEGER(x);
+      
       int v;
-      v = asInteger(val);
-      for(R_xlen_t i = 0; i != n; ++i) { 
-        if(px[i] < 0 || px[i] > v) return ScalarLogical(1);
+      v = Rf_asInteger(val);
+      const int *px;
+      px = INTEGER(x);
+      
+      if(ALTREP(x)) {
+        if(px[0] < 0 || px[0] > v) return Rf_ScalarLogical(1);
+        if(px[n-1] < 0 || px[n-1] > v) return Rf_ScalarLogical(1);
+        return Rf_ScalarLogical(0);
+        break;
       }
-      return ScalarLogical(0);
+      for(R_xlen_t i = 0; i != n; ++i) { 
+        if(px[i] < 0 || px[i] > v) return Rf_ScalarLogical(1);
+      }
+      return Rf_ScalarLogical(0);
       break;
     }
-
+  
   case REALSXP: 
     {
-      const double *px = REAL(x);
+      
       double v;
-      v = asReal(val);
-      for(R_xlen_t i = 0; i != n; ++i) { 
-        if(px[i] < 0 || px[i] > v) return ScalarLogical(1);
+      v = Rf_asReal(val);
+      const double *px;
+      px = REAL(x);
+      
+      if(ALTREP(x)) {
+        
+        if(px[0] < 0 || px[0] > v) return Rf_ScalarLogical(1);
+        if(px[n-1] < 0 || px[n-1] > v) return Rf_ScalarLogical(1);
+        return Rf_ScalarLogical(0);
+        break;
       }
-      return ScalarLogical(0);
+      for(R_xlen_t i = 0; i != n; ++i) { 
+        if(px[i] < 0 || px[i] > v) return Rf_ScalarLogical(1);
+      }
+      return Rf_ScalarLogical(0);
       break;
     }
-
+  
   default: error("unsupported type");
- }
+}
 
- return(R_NilValue);
+
+return(R_NilValue);
+
 }

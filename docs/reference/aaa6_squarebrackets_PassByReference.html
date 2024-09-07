@@ -98,7 +98,7 @@ I.e. the following code,</p>
 even though <code>y</code> is a locked constant. <br><br></p>
     </div>
     <div class="section level2">
-    <h2 id="mutable-vs-immutable-types">Mutable vs Immutable types<a class="anchor" aria-label="anchor" href="#mutable-vs-immutable-types"></a></h2>
+    <h2 id="mutable-vs-immutable-classes">Mutable vs Immutable Classes<a class="anchor" aria-label="anchor" href="#mutable-vs-immutable-classes"></a></h2>
     
 
 <p>With the exception of environments,
@@ -111,7 +111,10 @@ thus treating these objects as mutable,
 even though they are not "supposed" to be mutable. <br>
 Modifying a base 'R' object by reference can be problematic. <br>
 Since 'R', and also most R-packages, treat these objects as immutable,
-modifying them as-if they are mutable may produce undesired results. <br><br>
+modifying them as-if they are mutable may produce undesired results. <br>
+For example,
+modifying <code>base::leters</code> by reference
+will actually modify the <code>letters</code> object within <code>base</code>. <br><br>
 To prevent the issue described above,
 'squarebrackets' only supports pass-by-reference semantics
 on objects that are actually supposed to be mutable. <br>
@@ -120,6 +123,36 @@ In relation to this restriction,
 <a href="class_mutable_atomic.html">mutable_atomic</a>,
 which are simply atomic objects
 that have the permission to be modified by reference. <br><br></p>
+    </div>
+    <div class="section level2">
+    <h2 id="material-vs-immaterial-objects">Material vs Immaterial objects<a class="anchor" aria-label="anchor" href="#material-vs-immaterial-objects"></a></h2>
+    
+
+<p>Most objects in 'R' are material objects: <br>
+the values an object contains are actually stored in memory. <br>
+For example, given <code>x &lt;- rnorm(1e6)</code>, <code>x</code> is a material object: <br>
+1 million values (decimal numbers, in this case) are actually stored in memory. <br><br>
+In contrast, <a href="https://rdrr.io/r/base/bindenv.html" class="external-link">ActiveBindings</a> are immaterial: <br>
+They are objects that,
+when accessed,
+call a function to generate values on the fly,
+rather than actually storing values. <br><br>
+A more subtle type of immaterial objects are ALTREP objects. <br>
+ALTREP objects store instructions on how values are stored, but do not actually store the values. <br>
+For example, <code>x &lt;- 1:1e6</code> is an <b>immaterial</b> object: <br>
+Unlike <code>rnorm(1e6)</code>, <code>1:1e6</code> does not actually store 1 million values; <br>
+Rather, it stores the simple <b>instruction</b> that <code>x[i] = i</code>. <br>
+When <code>x</code> is modified, the given instructions obviously don't hold any more,
+and so 'R' will materialize <code>x</code>, which means <code>x</code> will then actually store its values in memory. <br>
+So when <code>x</code> is materialized,
+the size of <code>x</code> in the memory will change from a few bytes to a few Mega Bytes. <br><br>
+Since immaterial objects do not actually store the values in memory,
+the values obviously also cannot be changed in memory. <br>
+Therefore, Pass-by-Reference semantics <b>do not work</b> on immaterial objects. <br><br>
+A <code>data.table</code> can have ALTREP columns. <br>
+A <code>data.tables</code> will coerce the column to a materialized column when it is modified, even by reference. <br>
+This works since a <code>data.table</code> is a recursive object. <br>
+Pass-by-Reference never works on atomic ALTREP objects. <br><br></p>
     </div>
     <div class="section level2">
     <h2 id="mutability-rules-with-respect-to-recursive-objects">Mutability Rules With Respect To Recursive Objects<a class="anchor" aria-label="anchor" href="#mutability-rules-with-respect-to-recursive-objects"></a></h2>

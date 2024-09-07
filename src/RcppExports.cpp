@@ -1605,18 +1605,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// rcpp_any_badindx
-bool rcpp_any_badindx(IntegerVector indx, int value);
-RcppExport SEXP _squarebrackets_rcpp_any_badindx(SEXP indxSEXP, SEXP valueSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< IntegerVector >::type indx(indxSEXP);
-    Rcpp::traits::input_parameter< int >::type value(valueSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_any_badindx(indx, value));
-    return rcpp_result_gen;
-END_RCPP
-}
 // rcpp_prod_int
 int rcpp_prod_int(IntegerVector x);
 RcppExport SEXP _squarebrackets_rcpp_prod_int(SEXP xSEXP) {
@@ -1743,18 +1731,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// rcpp_sub2ind_setrange
-void rcpp_sub2ind_setrange(NumericVector out, const R_xlen_t start, const R_xlen_t end, const R_xlen_t each, const double myprod, const IntegerVector rp);
-RcppExport SEXP _squarebrackets_rcpp_sub2ind_setrange(SEXP outSEXP, SEXP startSEXP, SEXP endSEXP, SEXP eachSEXP, SEXP myprodSEXP, SEXP rpSEXP) {
+// C_sub2ind_setrange
+void C_sub2ind_setrange(SEXP out, const R_xlen_t start, const R_xlen_t end, const R_xlen_t each, const double myprod, const SEXP rp);
+RcppExport SEXP _squarebrackets_C_sub2ind_setrange(SEXP outSEXP, SEXP startSEXP, SEXP endSEXP, SEXP eachSEXP, SEXP myprodSEXP, SEXP rpSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type out(outSEXP);
+    Rcpp::traits::input_parameter< SEXP >::type out(outSEXP);
     Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
     Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
     Rcpp::traits::input_parameter< const R_xlen_t >::type each(eachSEXP);
     Rcpp::traits::input_parameter< const double >::type myprod(myprodSEXP);
-    Rcpp::traits::input_parameter< const IntegerVector >::type rp(rpSEXP);
-    rcpp_sub2ind_setrange(out, start, end, each, myprod, rp);
+    Rcpp::traits::input_parameter< const SEXP >::type rp(rpSEXP);
+    C_sub2ind_setrange(out, start, end, each, myprod, rp);
     return R_NilValue;
 END_RCPP
 }
@@ -1779,6 +1767,7 @@ RcppExport SEXP C_any_badindx(SEXP, SEXP);
 RcppExport SEXP C_any_badmargin(SEXP, SEXP);
 RcppExport SEXP C_any_neg(SEXP);
 RcppExport SEXP C_any_nonpos(SEXP);
+RcppExport SEXP C_is_altrep(SEXP);
 RcppExport SEXP C_sub2ind_2d(SEXP, SEXP, SEXP);
 RcppExport SEXP C_sub2ind_3d(SEXP, SEXP, SEXP, SEXP);
 RcppExport SEXP C_sub2ind_4d(SEXP, SEXP, SEXP, SEXP, SEXP);
@@ -1905,7 +1894,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_squarebrackets_rcpp_list_bindings", (DL_FUNC) &_squarebrackets_rcpp_list_bindings, 3},
     {"_squarebrackets_rcpp_all_addresses", (DL_FUNC) &_squarebrackets_rcpp_all_addresses, 2},
     {"_squarebrackets_rcpp_address_in_env", (DL_FUNC) &_squarebrackets_rcpp_address_in_env, 3},
-    {"_squarebrackets_rcpp_any_badindx", (DL_FUNC) &_squarebrackets_rcpp_any_badindx, 2},
     {"_squarebrackets_rcpp_prod_int", (DL_FUNC) &_squarebrackets_rcpp_prod_int, 1},
     {"_squarebrackets_rcpp_pre_coord2ind", (DL_FUNC) &_squarebrackets_rcpp_pre_coord2ind, 3},
     {"_squarebrackets_rcpp_coord2ind", (DL_FUNC) &_squarebrackets_rcpp_coord2ind, 3},
@@ -1916,12 +1904,13 @@ static const R_CallMethodDef CallEntries[] = {
     {"_squarebrackets_rcpp_recycle_seq_mlen", (DL_FUNC) &_squarebrackets_rcpp_recycle_seq_mlen, 2},
     {"_squarebrackets_rcpp_set_namepointer", (DL_FUNC) &_squarebrackets_rcpp_set_namepointer, 3},
     {"_squarebrackets_rcpp_sub2coord", (DL_FUNC) &_squarebrackets_rcpp_sub2coord, 6},
-    {"_squarebrackets_rcpp_sub2ind_setrange", (DL_FUNC) &_squarebrackets_rcpp_sub2ind_setrange, 6},
+    {"_squarebrackets_C_sub2ind_setrange", (DL_FUNC) &_squarebrackets_C_sub2ind_setrange, 6},
     {"_squarebrackets_rcpp_sub2ind_general", (DL_FUNC) &_squarebrackets_rcpp_sub2ind_general, 6},
     {"C_any_badindx",   (DL_FUNC) &C_any_badindx,   2},
     {"C_any_badmargin", (DL_FUNC) &C_any_badmargin, 2},
     {"C_any_neg",       (DL_FUNC) &C_any_neg,       1},
     {"C_any_nonpos",    (DL_FUNC) &C_any_nonpos,    1},
+    {"C_is_altrep",     (DL_FUNC) &C_is_altrep,     1},
     {"C_sub2ind_2d",    (DL_FUNC) &C_sub2ind_2d,    3},
     {"C_sub2ind_3d",    (DL_FUNC) &C_sub2ind_3d,    4},
     {"C_sub2ind_4d",    (DL_FUNC) &C_sub2ind_4d,    5},

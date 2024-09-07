@@ -137,5 +137,7 @@ tinycodet::import_LL("squarebrackets", selection = ... )
 - 31 August 2024: Made the tests more efficient. Removed separate method
   dispatch for factors, as using the default atomic vector method
   dispatch is sufficient for factors.
+- 7 September 2024: Incorporated some ALTREP functionality into the
+  package.
 
  
