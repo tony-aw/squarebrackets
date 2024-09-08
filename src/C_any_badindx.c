@@ -16,13 +16,6 @@ switch(TYPEOF(x)) {
       v = Rf_asInteger(val);
       const int *px;
       px = INTEGER(x);
-      
-      if(ALTREP(x)) {
-        if(px[0] < 1 || px[0] > v) return Rf_ScalarLogical(1);
-        if(px[n-1] < 1 || px[n-1] > v) return Rf_ScalarLogical(1);
-        return Rf_ScalarLogical(0);
-        break;
-      }
       for(R_xlen_t i = 0; i != n; ++i) { 
         if(px[i] < 1 || px[i] > v) return Rf_ScalarLogical(1);
       }
@@ -37,14 +30,6 @@ switch(TYPEOF(x)) {
       v = Rf_asReal(val);
       const double *px;
       px = REAL(x);
-      
-      if(ALTREP(x)) {
-        
-        if(px[0] < 1 || px[0] > v) return Rf_ScalarLogical(1);
-        if(px[n-1] < 1 || px[n-1] > v) return Rf_ScalarLogical(1);
-        return Rf_ScalarLogical(0);
-        break;
-      }
       for(R_xlen_t i = 0; i != n; ++i) { 
         if(px[i] < 1 || px[i] > v) return Rf_ScalarLogical(1);
       }

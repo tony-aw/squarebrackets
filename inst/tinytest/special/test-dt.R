@@ -50,7 +50,7 @@ x <- data.table::data.table(a = 1:10, b = letters[1:10])
 new <- list(a = 1:10, b = letters[1:10])
 expect_error(
   dt_setadd(x, new),
-  pattern = "`new` must be a data.table"
+  pattern = "`new` must be a data.frame-like object"
 )
 new <- data.table::data.table(e = 1:10, e = letters[1:10])
 expect_error(
@@ -60,7 +60,8 @@ expect_error(
 new <- data.table::data.table(b = 1:10, c = letters[1:10])
 expect_error(
   dt_setadd(x, new),
-  pattern = "columns already exist"
+  pattern = "column(s) already exist",
+  fixed = TRUE
 )
 expect_error(
   dt_setadd(x, data.table::data.table()),

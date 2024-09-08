@@ -52,7 +52,7 @@ Duplicates are not allowed.}
 \item{chkdup}{see \link{squarebrackets_options}. \cr
 \ifelse{html}{\figure{for_performance-set_to_FALSE-red.svg}{options: alt='[for performance: set to FALSE]'}}{\link[=squarebrackets_help]{for performance: set to FALSE}} \cr}
 
-\item{new}{a \code{data.table} or \code{tidytable}. \cr
+\item{new}{a data.frame-like object. \cr
 It must have column names that do not already exist in \code{x}.}
 
 \item{roworder}{a integer vector of the same length as \code{nrow(x)},

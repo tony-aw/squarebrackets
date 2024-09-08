@@ -717,14 +717,14 @@
 
 #' @keywords internal
 #' @noRd
-.rcpp_prod_int <- function(x) {
-    .Call(`_squarebrackets_rcpp_prod_int`, x)
+.C_prod_int <- function(x, start, end) {
+    .Call(`_squarebrackets_C_prod_int`, x, start, end)
 }
 
 #' @keywords internal
 #' @noRd
-.rcpp_pre_coord2ind <- function(ind, coord, myprod) {
-    invisible(.Call(`_squarebrackets_rcpp_pre_coord2ind`, ind, coord, myprod))
+.C_pre_coord2ind <- function(ind, coord, myprod) {
+    invisible(.Call(`_squarebrackets_C_pre_coord2ind`, ind, coord, myprod))
 }
 
 #' @keywords internal

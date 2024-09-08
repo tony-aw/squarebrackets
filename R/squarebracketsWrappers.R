@@ -1,35 +1,23 @@
 
 #' @keywords Internal
 #' @noRd
+.C_is_altrep <- function(x) {
+  .Call("C_is_altrep", x = x)
+}
+
+
+#' @keywords Internal
+#' @noRd
 .C_any_badindx <- function(x, val) {
-  
-  if(is.integer(x) && val > (2^31 - 1L)) {
-    .Call("C_any_nonpos", x = x)
-  }
-  else {
-    .Call("C_any_badindx", x = x, val = val)
-  }
-  
+  .Call("C_any_badindx", x = x, val = val)
 }
 
 #' @keywords Internal
 #' @noRd
 .C_any_badmargin <- function(x, val) {
-  
-  if(is.integer(x) && val > (2^31 - 1L)) {
-    .Call("C_any_neg", x = x)
-  }
-  else {
-    .Call("C_any_badmargin", x = x, val = val)
-  }
+  .Call("C_any_badmargin", x = x, val = val)
 }
 
-
-#' @keywords Internal
-#' @noRd
-.C_is_altrep <- function(x) {
-  .Call("C_is_altrep", x = x)
-}
 
 #' @keywords Internal
 #' @noRd

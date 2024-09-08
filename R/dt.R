@@ -26,7 +26,7 @@
 #' 
 #' 
 #' @param x a `data.table` or `tidytable`.
-#' @param new a `data.table` or `tidytable`. \cr
+#' @param new a data.frame-like object. \cr
 #' It must have column names that do not already exist in `x`.
 #' @param f the aggregation function
 #' @param v the coercive transformation function
@@ -175,8 +175,8 @@ dt_setadd <- function(x, new) {
     stop("`x` does not have unique variable names for all columns; \n fix this before subsetting")
   }
   
-  if(!data.table::is.data.table(new)) {
-    stop("`new` must be a data.table")
+  if(!is.data.frame(new)) {
+    stop("`new` must be a data.frame-like object")
   }
   if(ncol(new) == 0) {
     stop("must give at least one new column")
@@ -186,7 +186,7 @@ dt_setadd <- function(x, new) {
   }
   
   if(any(data.table::`%chin%`(names(new), names(x)))) {
-    stop("columns already exist")
+    stop("column(s) already exist")
   }
   
   data.table::set(x, j = names(new), value = new)

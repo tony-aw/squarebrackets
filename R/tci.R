@@ -47,7 +47,7 @@ tci_bool <- function(indx, n, inv = FALSE, .abortcall = sys.call()) {
 #' @export
 tci_int <- function(indx, n, inv = FALSE, chkdup = FALSE, .abortcall = sys.call()) {
   
-  if(.C_any_badindx(indx, n)) {
+  if(.any_badindx(indx, n)) {
     stop(simpleError("integers must be >= 1 and <= bounds", call = .abortcall))
   }
   

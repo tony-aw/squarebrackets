@@ -218,7 +218,7 @@ ci_df <- function(
   if(length(sub) != length(dims)) {
     stop(simpleError("`length(sub) != length(dims)`", call = .abortcall))
   }
-  if(.C_any_badindx(as.integer(dims), ndims)) {
+  if(.any_badindx(as.integer(dims), ndims)) {
     stop(simpleError("`dims` out of range", call = .abortcall))
   }
 }

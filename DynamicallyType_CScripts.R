@@ -27,15 +27,14 @@ all_for <- rev(c(
 
 all_parts <- c(
   "pi[i]",
-  "pdim1 * (pj[j] - 1)",
-  "pdim2 * (pk[k] - 1)",
-  "pdim3 * (pl[l] - 1)",
-  "pdim4 * (pm[m] - 1)",
-  "pdim5 * (pn[n] - 1)"
+  "pdim[0] * (pj[j] - 1)",
+  "pdim[1] * (pk[k] - 1)",
+  "pdim[2] * (pl[l] - 1)",
+  "pdim[3] * (pm[m] - 1)",
+  "pdim[4] * (pn[n] - 1)"
 )
 
-set_pointers <- sprintf("int *p%s; \n p%s = INTEGER(ind%d);", letters[9:14], letters[9:14], 1:6)
-set_dimcumprod <- sprintf("double pdim%d = REAL(dimcumprod)[%d]; \n", 1:5, 0:4)
+set_pointers <- sprintf("int *restrict p%s; \n p%s = INTEGER(ind%d);", letters[9:14], letters[9:14], 1:6)
 
 templatecode <- "
 
@@ -53,10 +52,12 @@ R_xlen_t counter = 0;
 double temp = 0.0;
 
 <set_pointers>
-<set_dimcumprod>
+
+double *restrict pdim;
+pdim = REAL(dimcumprod);
 
 
-double *pout;
+double *restrict pout;
 SEXP out = PROTECT(allocVector(REALSXP, <set_length_mult>));
 pout = REAL(out);
   
@@ -84,7 +85,6 @@ for(i in DTYPES) {
   current_setlengths <- stri_c(set_lengths[1:i], collapse = "\n")
   current_setlength_mult <- stri_c(all_lengths[1:i], collapse = " * ")
   current_pointers <- stri_c(set_pointers[1:i], collapse = "\n")
-  current_dimcumprod <- stri_c(set_dimcumprod[1:(i-1)], collapse = "\n")
   current_for <- stri_c(all_for[i:1], collapse = "\n")
   current_main <- stri_c(all_parts[1:i], collapse = " + ")
   current_end <- stri_c(rep("\t }", i), collapse = "\n")
@@ -95,7 +95,6 @@ for(i in DTYPES) {
     "<set_lengths>",
     "<set_length_mult>",
     "<set_pointers>",
-    "<set_dimcumprod>",
     "<startfor>",
     "<main>",
     "<endfor>"
@@ -106,7 +105,6 @@ for(i in DTYPES) {
     current_setlengths,
     current_setlength_mult,
     current_pointers,
-    current_dimcumprod,
     current_for,
     current_main,
     current_end

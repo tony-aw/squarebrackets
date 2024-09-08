@@ -61,7 +61,7 @@ idx_r <- function(x, m = 0L, start = NULL, end = NULL, by = 1L) {
   if(!is.numeric(m)) {
     stop("`m` must be integer")
   }
-  if(.C_any_badmargin(m, length(dim(x)))) {
+  if(.any_badmargin(m, length(dim(x)))) {
     stop("`m` out of bounds")
   }
   

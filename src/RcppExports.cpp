@@ -1605,26 +1605,28 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// rcpp_prod_int
-int rcpp_prod_int(IntegerVector x);
-RcppExport SEXP _squarebrackets_rcpp_prod_int(SEXP xSEXP) {
+// C_prod_int
+int C_prod_int(SEXP x, int start, int end);
+RcppExport SEXP _squarebrackets_C_prod_int(SEXP xSEXP, SEXP startSEXP, SEXP endSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< IntegerVector >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_prod_int(x));
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    Rcpp::traits::input_parameter< int >::type start(startSEXP);
+    Rcpp::traits::input_parameter< int >::type end(endSEXP);
+    rcpp_result_gen = Rcpp::wrap(C_prod_int(x, start, end));
     return rcpp_result_gen;
 END_RCPP
 }
-// rcpp_pre_coord2ind
-void rcpp_pre_coord2ind(NumericVector ind, IntegerVector coord, int myprod);
-RcppExport SEXP _squarebrackets_rcpp_pre_coord2ind(SEXP indSEXP, SEXP coordSEXP, SEXP myprodSEXP) {
+// C_pre_coord2ind
+void C_pre_coord2ind(SEXP ind, SEXP coord, int myprod);
+RcppExport SEXP _squarebrackets_C_pre_coord2ind(SEXP indSEXP, SEXP coordSEXP, SEXP myprodSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type ind(indSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type coord(coordSEXP);
+    Rcpp::traits::input_parameter< SEXP >::type ind(indSEXP);
+    Rcpp::traits::input_parameter< SEXP >::type coord(coordSEXP);
     Rcpp::traits::input_parameter< int >::type myprod(myprodSEXP);
-    rcpp_pre_coord2ind(ind, coord, myprod);
+    C_pre_coord2ind(ind, coord, myprod);
     return R_NilValue;
 END_RCPP
 }
@@ -1894,8 +1896,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_squarebrackets_rcpp_list_bindings", (DL_FUNC) &_squarebrackets_rcpp_list_bindings, 3},
     {"_squarebrackets_rcpp_all_addresses", (DL_FUNC) &_squarebrackets_rcpp_all_addresses, 2},
     {"_squarebrackets_rcpp_address_in_env", (DL_FUNC) &_squarebrackets_rcpp_address_in_env, 3},
-    {"_squarebrackets_rcpp_prod_int", (DL_FUNC) &_squarebrackets_rcpp_prod_int, 1},
-    {"_squarebrackets_rcpp_pre_coord2ind", (DL_FUNC) &_squarebrackets_rcpp_pre_coord2ind, 3},
+    {"_squarebrackets_C_prod_int", (DL_FUNC) &_squarebrackets_C_prod_int, 3},
+    {"_squarebrackets_C_pre_coord2ind", (DL_FUNC) &_squarebrackets_C_pre_coord2ind, 3},
     {"_squarebrackets_rcpp_coord2ind", (DL_FUNC) &_squarebrackets_rcpp_coord2ind, 3},
     {"_squarebrackets_rcpp_indx_convert_cplx_multi", (DL_FUNC) &_squarebrackets_rcpp_indx_convert_cplx_multi, 3},
     {"_squarebrackets_rcpp_sb_str", (DL_FUNC) &_squarebrackets_rcpp_sb_str, 2},

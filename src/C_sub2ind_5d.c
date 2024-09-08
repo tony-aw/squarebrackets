@@ -17,27 +17,22 @@ int nm = Rf_length(ind5);
 R_xlen_t counter = 0;
 double temp = 0.0;
 
-int *pi; 
+int *restrict pi; 
  pi = INTEGER(ind1);
-int *pj; 
+int *restrict pj; 
  pj = INTEGER(ind2);
-int *pk; 
+int *restrict pk; 
  pk = INTEGER(ind3);
-int *pl; 
+int *restrict pl; 
  pl = INTEGER(ind4);
-int *pm; 
+int *restrict pm; 
  pm = INTEGER(ind5);
-double pdim1 = REAL(dimcumprod)[0]; 
 
-double pdim2 = REAL(dimcumprod)[1]; 
-
-double pdim3 = REAL(dimcumprod)[2]; 
-
-double pdim4 = REAL(dimcumprod)[3]; 
+double *restrict pdim;
+pdim = REAL(dimcumprod);
 
 
-
-double *pout;
+double *restrict pout;
 SEXP out = PROTECT(allocVector(REALSXP, ni * nj * nk * nl * nm));
 pout = REAL(out);
   
@@ -46,7 +41,7 @@ pout = REAL(out);
 	 for(int k = 0; k < nk; ++k) {
 	 for(int j = 0; j < nj; ++j) {
 	 for(int i = 0; i < ni; ++i) {
-      temp = pi[i] + pdim1 * (pj[j] - 1) + pdim2 * (pk[k] - 1) + pdim3 * (pl[l] - 1) + pdim4 * (pm[m] - 1);
+      temp = pi[i] + pdim[0] * (pj[j] - 1) + pdim[1] * (pk[k] - 1) + pdim[2] * (pl[l] - 1) + pdim[3] * (pm[m] - 1);
       pout[counter] = temp;
       counter++;
     
