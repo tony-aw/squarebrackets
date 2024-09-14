@@ -67,9 +67,9 @@ An integer vector of casted indices.
 \description{
 These functions construct flat or dimensional indices. \cr
 \itemize{
-\item \code{ci_flat()} constructs an integer vector flat indices. \cr
-\item \code{ci_margin()} constructs an integer vector of indices for one particular dimension margin. \cr
-\item \code{ci_sub()} constructs a list of integer subscripts. \cr
+\item \code{ci_flat()} constructs an integer vector flat indices.
+\item \code{ci_margin()} constructs an integer vector of indices for one particular dimension margin.
+\item \code{ci_sub()} constructs a list of integer subscripts.
 \item \code{ci_df()} is the same as \code{ci_margin()},
 except it is specifically designed for data.frame-like objects. \cr
 It is a separate function,

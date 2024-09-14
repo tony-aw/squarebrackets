@@ -201,6 +201,8 @@
 }
 
 
+#' @keywords internal
+#' @noRd
 .internal_check_dots <- function(dots.list, abortcall) {
   # this check will not take much performance
   if(length(dots.list) > 0L) {
@@ -214,6 +216,8 @@
 }
 
 
+#' @keywords internal
+#' @noRd
 .internal_is_formula <- function(form) {
   check <- inherits(form, "formula") && is.call(form) && isTRUE(form[[1]] == "~")
   return(check)

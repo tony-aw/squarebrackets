@@ -67,7 +67,7 @@
 
 
 <dt>m</dt>
-<dd><p>integer, giving the margin. <br>
+<dd><p>integer or complex number, giving the margin. <br>
 For non-dimensional objects or for flat indices, specify <code>m = 0L</code>.</p></dd>
 
 
@@ -82,7 +82,7 @@ specifying the end point.</p></dd>
 
 
 <dt>by</dt>
-<dd><p>integer scalar, of the same length as <code>m</code> or of length 1,
+<dd><p>integer, of the same length as <code>m</code> or of length 1,
 specifying the step size. <br></p></dd>
 
 </dl></div>
@@ -103,14 +103,14 @@ containing numeric vectors of indices. <br></p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p><b>start, stop, by</b> <br>
-If <code>start, stop</code> are not specified,
+    <p><b>start, end, by</b> <br>
+If <code>start, end</code> are not specified,
 using <code>by</code> will construct the following sequence: <br>
 If <code>by</code> is positive, <code>seq.int(1L, n, by)</code>. <br>
 If <code>by</code> is negative, <code>seq.int(n, 1L, by)</code>. <br>
 Where <code>n</code> is the maximum index
 (i.e. <code>length(x)</code> or <code>dim(x)[m]</code>, depending on the situation). <br><br>
-If <code>start, stop, by</code> are all specified,
+If <code>start, end, by</code> are all specified,
 <code>by</code> is stored as <code>abs(by)</code>,
 and the sign  of <code>by</code> is automatically adjusted to ensure a sensible sequence is created. <br><br>
 So, for example,

@@ -359,3 +359,127 @@ for(i in seq_along(slice_by)) {
   
 }
 
+
+################################################################################
+# ERRORS ====
+
+
+# bad `m`:
+x <- 1:10
+
+expect_error(
+  idx_r(x, "q"),
+  pattern = "`m` must be (complex) numeric",
+  fixed = TRUE
+)
+
+expect_error(
+  idx_r(x, -1),
+  pattern = "index out of bounds"
+)
+
+expect_error(
+  idx_r(x, -1 -1i),
+  pattern = "index out of bounds"
+)
+
+x <- matrix(1:10, ncol = 2)
+
+expect_error(
+  idx_r(x, c(0, 1)),
+  pattern = "improper `m` given",
+  fixed = TRUE
+)
+enumerate <- enumerate + 4
+
+
+# bad lengths:
+x <- matrix(1:10, ncol = 2)
+
+expect_error(
+  idx_r(x, 0, c(1, 2), 2, 1),
+  pattern = "`m`, `start`, `end` `by` must be equal length, length of 1, or `NULL`",
+  fixed = TRUE
+)
+
+expect_error(
+  idx_r(x, 0, 1, c(1, 2), 1),
+  pattern = "`m`, `start`, `end` `by` must be equal length, length of 1, or `NULL`",
+  fixed = TRUE
+)
+
+expect_error(
+  idx_r(x, 0, 1, 2,  c(1, 2)),
+  pattern = "`m`, `start`, `end` `by` must be equal length, length of 1, or `NULL`",
+  fixed = TRUE
+)
+enumerate <- enumerate + 3
+
+
+# arg checks:
+x <- matrix(1:10, ncol = 2)
+
+expect_error(
+  idx_r(x, 0, start = 1, by = 1),
+  pattern = "either specify both `start` and `end`, or specify neither",
+  fixed = TRUE
+)
+
+expect_error(
+  idx_r(x, 0, end = 1, by = 1),
+  pattern = "either specify both `start` and `end`, or specify neither",
+  fixed = TRUE
+)
+
+expect_error(
+  idx_r(x, 0, by = NULL),
+  pattern = "`by` missing",
+  fixed = TRUE
+)
+
+expect_error(
+  idx_r(x, 0, start = "a", end = 3),
+  pattern = "`m`, `start`, `end` `by` must be (complex) numeric or `NULL`",
+  fixed = TRUE
+)
+
+expect_error(
+  idx_r(x, 0, start = 1, end = "z"),
+  pattern = "`m`, `start`, `end` `by` must be (complex) numeric or `NULL`",
+  fixed = TRUE
+)
+
+expect_error(
+  idx_r(x, 0, by = 0),
+  pattern = "`by` cannot be zero",
+  fixed = TRUE
+)
+enumerate <- enumerate + 6
+
+
+# bad start/end:
+x <- matrix(1:10, ncol = 2)
+
+expect_error(
+  idx_r(x, 1, start = 1, end = 6),
+  pattern = "index out of bounds"
+)
+
+expect_error(
+  idx_r(x, 1, start = -1, end = 5),
+  pattern = "index out of bounds"
+)
+
+expect_error(
+  idx_r(x, 1, start = 6 -1i, end = 6),
+  pattern = "index out of bounds"
+)
+
+expect_error(
+  idx_r(x, 1, start = 1, end = 6 -1i),
+  pattern = "index out of bounds"
+)
+
+enumerate <- enumerate + 4
+
+

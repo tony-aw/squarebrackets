@@ -9,7 +9,7 @@ idx_r(x, m = 0L, start = NULL, end = NULL, by = 1L)
 \arguments{
 \item{x}{the object to index.}
 
-\item{m}{integer, giving the margin. \cr
+\item{m}{integer or complex number, giving the margin. \cr
 For non-dimensional objects or for flat indices, specify \code{m = 0L}.}
 
 \item{start}{integer or complex, of the same length as \code{m} or of length 1,
@@ -18,7 +18,7 @@ specifying the start point.}
 \item{end}{integer or complex, , of the same length as \code{m} or of length 1,
 specifying the end point.}
 
-\item{by}{integer scalar, of the same length as \code{m} or of length 1,
+\item{by}{integer, of the same length as \code{m} or of length 1,
 specifying the step size. \cr}
 }
 \value{
@@ -31,15 +31,15 @@ containing numeric vectors of indices. \cr
 \code{idx_r()} computes integer index range(s). \cr \cr
 }
 \details{
-\bold{start, stop, by} \cr
-If \verb{start, stop} are not specified,
+\bold{start, end, by} \cr
+If \verb{start, end} are not specified,
 using \code{by} will construct the following sequence: \cr
 If \code{by} is positive, \code{seq.int(1L, n, by)}. \cr
 If \code{by} is negative, \code{seq.int(n, 1L, by)}. \cr
 Where \code{n} is the maximum index
 (i.e. \code{length(x)} or \code{dim(x)[m]}, depending on the situation). \cr
 \cr
-If \verb{start, stop, by} are all specified,
+If \verb{start, end, by} are all specified,
 \code{by} is stored as \code{abs(by)},
 and the sign  of \code{by} is automatically adjusted to ensure a sensible sequence is created. \cr
 \cr

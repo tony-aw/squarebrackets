@@ -3,9 +3,9 @@
 #' @description
 #' These functions construct flat or dimensional indices. \cr
 #'
-#'  * `ci_flat()` constructs an integer vector flat indices. \cr
-#'  * `ci_margin()` constructs an integer vector of indices for one particular dimension margin. \cr
-#'  * `ci_sub()` constructs a list of integer subscripts. \cr
+#'  * `ci_flat()` constructs an integer vector flat indices.
+#'  * `ci_margin()` constructs an integer vector of indices for one particular dimension margin.
+#'  * `ci_sub()` constructs a list of integer subscripts.
 #'  * `ci_df()` is the same as `ci_margin()`,
 #'  except it is specifically designed for data.frame-like objects. \cr
 #'  It is a separate function,

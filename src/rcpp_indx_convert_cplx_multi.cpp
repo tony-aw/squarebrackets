@@ -9,6 +9,9 @@ NumericVector rcpp_indx_convert_cplx_multi(
   const NumericVector re, const NumericVector im, const NumericVector lens
 ) {
   int n = lens.length();
+  if(re.length() != n || im.length() != n) {
+    stop("re, im, and lens must be of equal length");
+  }
   NumericVector out(n);
   for(int i = 0; i < n; ++i) {
     if(im[i] < 0) {

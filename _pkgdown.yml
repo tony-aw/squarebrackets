@@ -57,5 +57,6 @@ reference:
 - title: Developer Functions
   contents:
   - '`ci_flat`'
+  - '`ci_seq`'
   - '`tci_chr`'
   - '`indx_x`'
