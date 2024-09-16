@@ -109,9 +109,11 @@
     return(invisible(NULL))
   }
   
+  
   lst <- ci_sub(
     x, sub, dims, inv, chkdup, .abortcall = abortcall
-  )
+  ) # Note: ci_sub will already ensure the subs are integers.
+  
   
   # CASE 2: all list elements are integer(0), so nothing to change
   if(.any_empty_indices(lst)) {

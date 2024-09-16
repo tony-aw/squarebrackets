@@ -131,6 +131,7 @@
 <li>30 June 2024: Re-written internal code for arrays. Added support for backward indexing via Complex Vector indices. Added more tests. Replaced <code>seq_names()</code> with the new and far more flexible <code><a href="reference/idx_r.html">idx_r()</a></code> function.</li>
 <li>31 August 2024: Made the tests more efficient. Removed separate method dispatch for factors, as using the default atomic vector method dispatch is sufficient for factors.</li>
 <li>7 September 2024: Incorporated some ALTREP functionality into the package.</li>
+<li>15 September 2024: Replaced the <code>drop</code> argument with <code>red</code> to avoid confusion with base R’s own <code>drop</code> mechanic. Small performance improvements for <code><a href="reference/sub2ind.html">sub2ind()</a></code> and <code><a href="reference/sb_set.html">sb_set.array()</a></code>.</li>
 </ul>
 <p> </p>
 </div>

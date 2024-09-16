@@ -39,7 +39,7 @@ expected <- out <- list()
 i <- 1
 
 for(iSample in 1:10) {
-  for(iDim in 2:7) {
+  for(iDim in 2:8) {
     x.dim <- sample(1:6, size = iDim, replace = TRUE)
     x.len <- prod(x.dim)
     x.data <- generate_data(x.len)
@@ -63,27 +63,3 @@ for(iSample in 1:10) {
 }
 expect_equal(expected, out)
 
-
-
-for(iSample in 1:10) {
-  for(iDim in 2:7) {
-    x.dim <- sample(1:6, size = iDim, replace = TRUE)
-    x.len <- prod(x.dim)
-    x.data <- generate_data(x.len)
-    for(iType in seq_along(x.data)) {
-      x <- as.mutable_atomic(array(x.data[[iType]], x.dim))
-      sub <- lapply(x.dim, \(x) sample(1:x, max(c(1, x)), FALSE))
-      dims <- 1:length(x.dim)
-      
-      expect_equal(
-        tempfun1(x, sub, rp.lst[[iType]]), tempfun2(x, sub, dims, rp.lst[[iType]])
-      ) |> errorfun() # test indexing & atomic type recognition
-      
-      x2 <- x
-      sb_set.array(x, sub, dims, rp = rp.lst[[iType]])
-      expect_equal(x,x2) |> errorfun() # test indexing & pass-by-reference
-      
-      enumerate <- enumerate + 2
-    }
-  }
-}

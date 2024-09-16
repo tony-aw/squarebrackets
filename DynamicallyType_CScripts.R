@@ -42,7 +42,7 @@ templatecode <- "
 #include <Rdefines.h>
 #include <R_ext/Error.h>
 
-SEXP C_sub2ind_DTYPEd(
+SEXP C_sub2ind_DTYPEd_64(
   <args>, const SEXP dimcumprod
 ) {
 
@@ -118,7 +118,7 @@ for(i in DTYPES) {
     vectorize_all = FALSE
   )
 
-  mypath <- sprintf("src/C_sub2ind_%dd.c", i)
+  mypath <- sprintf("src/C_sub2ind_%dd_64.c", i)
   fileConn <- file(mypath)
   writeLines(out, fileConn)
   close(fileConn)
@@ -135,11 +135,11 @@ args_assigned <- sprintf("ind%d = as.integer(ind%d)", 1:6, 1:6)
 templatecode <- "
 #' @keywords Internal
 #' @noRd
-.C_sub2ind_DTYPEd <- function(
+.C_sub2ind_DTYPEd_64 <- function(
   <args>, dimcumprod
 ) {
   .Call(
-    \"C_sub2ind_DTYPEd\",
+    \"C_sub2ind_DTYPEd_64\",
     <args assigned>,
     dimcumprod = as.double(dimcumprod)
   )

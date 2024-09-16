@@ -39,7 +39,7 @@ sb2_rm(x, ...)
 \method{sb2_rm}{default}(
   x,
   i = NULL,
-  drop = FALSE,
+  red = FALSE,
   ...,
   chkdup = getOption("squarebrackets.chkdup", FALSE)
 )
@@ -49,7 +49,7 @@ sb2_rm(x, ...)
   row = NULL,
   col = NULL,
   i = NULL,
-  drop = FALSE,
+  red = FALSE,
   ...,
   chkdup = getOption("squarebrackets.chkdup", FALSE)
 )
@@ -59,7 +59,7 @@ sb2_rm(x, ...)
   sub = NULL,
   dims = NULL,
   i = NULL,
-  drop = FALSE,
+  red = FALSE,
   ...,
   chkdup = getOption("squarebrackets.chkdup", FALSE)
 )
@@ -86,11 +86,11 @@ and the entire object is returned. \cr}
 \item{chkdup}{see \link{squarebrackets_options}. \cr
 \ifelse{html}{\figure{for_performance-set_to_FALSE-red.svg}{options: alt='[for performance: set to FALSE]'}}{\link[=squarebrackets_help]{for performance: set to FALSE}} \cr}
 
-\item{drop}{Boolean, for list only. \cr
-I f \code{drop = TRUE},
+\item{red}{Boolean, for list only. \cr
+I f \code{red = TRUE},
 selecting a single element with non-empty arguments will give the simplified result,
 like using \verb{[[]]}. \cr
-If \code{drop = FALSE}, a list is always returned regardless of the number of elements.}
+If \code{red = FALSE}, a list is always returned regardless of the number of elements.}
 }
 \value{
 A copy of the sub-setted object.
@@ -135,7 +135,7 @@ sb2_rm(obj, "a")
 sb2_rm(obj, 1) # obj[-1]
 sb2_rm(obj, 1:2)
 # above is equivalent to obj[seq_len(length(obj))[-1:-2]]
-sb2_rm(obj, is.numeric, drop = TRUE)
+sb2_rm(obj, is.numeric, red = TRUE)
 # above is equivalent to obj[[!sapply(obj, is.numeric)]] IF this returns a single element
 obj <- list(a = 1:10, b = letters[1:11], c = letters)
 sb2_rm(obj, is.numeric)

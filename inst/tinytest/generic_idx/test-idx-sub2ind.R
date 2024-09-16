@@ -3,87 +3,47 @@
 
 sys.source(file.path(getwd(), "source", "functions4testing.R"), envir = environment())
 enumerate <- 0
-temp.fun <- function(x, ...) {
-  return(x[...])
+temp.fun <- function(x, lst) {
+  squarebrackets:::.arr_x(x, lst, sys.call())
 }
 
-# 5D array ====
-dims <- rep(10, 5)
-len <- prod(dims)
-
-for(i in 1:10) {
-  x <- array(sample(seq_len(len*10), len, FALSE), dims)
-  ind1 <- sample(1:10, 4, FALSE)
-  ind2 <- sample(1:10, 4, FALSE)
-  ind3 <- seq_len(dim(x)[3])
-  ind4 <- sample(1:10, 4, FALSE)
-  ind5 <- sample(1:10, 4, FALSE)
-  subs <- list(ind1, ind2, ind4, ind5)
-  ind <- idx(x, sub = subs, dims = c(1, 2, 4, 5))
-  
-  expect_equal(
-    x[ind], as.vector(x[ind1, ind2, ind3, ind4, ind5])
-  ) |> errorfun()
+generate_data <- function(x.len) {
+  list(
+    sample(c(TRUE, FALSE, NA), x.len, TRUE),
+    as.integer(sample(c(1:x.len - 1, NA))),
+    sample(c(rnorm(x.len), NA, NaN, Inf, -Inf), x.len),
+    sample(c(stringi::stri_rand_strings(x.len, 26), NA)),
+    as.complex(sample(c(rnorm(x.len - 1), NA))),
+    as.raw(sample(1:100, x.len, TRUE))
+  )
 }
-enumerate <- enumerate + 1
 
 
+expected <- out <- list()
+i <- 1
 
-# 4D array ====
-dims <- rep(10, 4)
-len <- prod(dims)
-
-for(i in 1:10) {
-  x <- array(sample(seq_len(len*10), len, FALSE), dims)
-  ind1 <- sample(1:10, 4, FALSE)
-  ind2 <- sample(1:10, 4, FALSE)
-  ind3 <- seq_len(dim(x)[3])
-  ind4 <- sample(1:10, 4, FALSE)
-  subs <- list(ind1, ind2, ind4)
-  ind <- idx(x, sub = subs, dims = c(1, 2, 4))
-  
-  expect_equal(
-    x[ind], as.vector(x[ind1, ind2, ind3, ind4])
-  ) |> errorfun()
+for(iSample in 1:10) {
+  for(iDim in 2:8) {
+    x.dim <- sample(1:6, size = iDim, replace = TRUE)
+    x.len <- prod(x.dim)
+    x.data <- generate_data(x.len)
+    for(iType in seq_along(x.data)) {
+      x <- array(x.data[[iType]], x.dim)
+      sub <- lapply(x.dim, \(x) sample(1:x, max(c(1, x)), FALSE))
+      dims <- 1:length(x.dim)
+      
+      ind <- idx(x, sub = sub, dims = dims)
+      
+      expected[[i]] <- temp.fun(x, sub) |> as.vector()
+      out[[i]] <- x[ind]
+      
+      enumerate <- enumerate + 1
+      i <- i + 1
+    }
+  }
 }
-enumerate <- enumerate + 1
 
-
-# 3D array ====
-dims <- rep(10, 3)
-len <- prod(dims)
-
-for(i in 1:10) {
-  x <- array(sample(seq_len(len*10), len, FALSE), dims)
-  ind1 <- sample(1:10, 4, FALSE)
-  ind2 <- seq_len(dim(x)[2])
-  ind3 <- sample(1:10, 4, FALSE)
-  subs <- list(ind1, ind3)
-  ind <- idx(x, subs, dims = c(1, 3))
-  
-  expect_equal(
-    x[ind], as.vector(x[ind1, ind2, ind3])
-  ) |> errorfun()
-}
-enumerate <- enumerate + 1
-
-
-# 2D array ====
-dims <- rep(10, 2)
-len <- prod(dims)
-
-for(i in 1:10) {
-  x <- array(sample(seq_len(len*10), len, FALSE), dims)
-  ind1 <- sample(1:10, 4, FALSE)
-  ind2 <- sample(1:10, 4, FALSE)
-  subs <- list(ind1, ind2)
-  ind <- idx(x, subs, dims = c(1,2))
-  
-  expect_equal(
-    x[ind], as.vector(x[ind1, ind2])
-  ) |> errorfun()
-}
-enumerate <- enumerate + 1
+expect_equal(expected, out)
 
 
 

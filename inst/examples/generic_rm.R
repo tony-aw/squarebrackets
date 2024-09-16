@@ -32,7 +32,7 @@ sb2_rm(obj, "a")
 sb2_rm(obj, 1) # obj[-1]
 sb2_rm(obj, 1:2)
 # above is equivalent to obj[seq_len(length(obj))[-1:-2]]
-sb2_rm(obj, is.numeric, drop = TRUE)
+sb2_rm(obj, is.numeric, red = TRUE)
 # above is equivalent to obj[[!sapply(obj, is.numeric)]] IF this returns a single element
 obj <- list(a = 1:10, b = letters[1:11], c = letters)
 sb2_rm(obj, is.numeric)

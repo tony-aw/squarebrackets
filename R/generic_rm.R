@@ -9,11 +9,11 @@
 #' @param i,row,col,sub,dims,filter,vars See \link{squarebrackets_indx_args}. \cr
 #' An empty index selection results in nothing being removed,
 #' and the entire object is returned. \cr
-#' @param drop Boolean, for list only. \cr
-#' I f `drop = TRUE`,
+#' @param red Boolean, for list only. \cr
+#' I f `red = TRUE`,
 #' selecting a single element with non-empty arguments will give the simplified result,
 #' like using `[[]]`. \cr
-#' If `drop = FALSE`, a list is always returned regardless of the number of elements.
+#' If `red = FALSE`, a list is always returned regardless of the number of elements.
 #' @param chkdup see \link{squarebrackets_options}. \cr
 #' `r .mybadge_performance_set2("FALSE")` \cr
 #' @param ... see \link{squarebrackets_method_dispatch}.
@@ -98,14 +98,14 @@ sb2_rm <- function(x, ...) {
 #' @rdname sb_rm
 #' @export
 sb2_rm.default <- function(
-    x, i = NULL, drop = FALSE, ...,
+    x, i = NULL, red = FALSE, ...,
     chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
   .internal_check_dots(list(...), sys.call())
   
-  if(!isTRUE(drop) && !isFALSE(drop)) {
-    stop("`drop` must be either `TRUE` or `FALSE`")
+  if(!isTRUE(red) && !isFALSE(red)) {
+    stop("`red` must be either `TRUE` or `FALSE`")
   }
   
   if(is.null(i)) {
@@ -114,7 +114,7 @@ sb2_rm.default <- function(
   
   elements <- ci_flat(x, i, inv = TRUE, chkdup = chkdup, .abortcall = sys.call())
   n.i <- length(elements)
-  if(n.i == 1 && drop) {
+  if(n.i == 1 && red) {
     return(x[[elements]])
   }
   else {
@@ -125,29 +125,29 @@ sb2_rm.default <- function(
 #' @rdname sb_rm
 #' @export
 sb2_rm.matrix <- function(
-    x, row = NULL, col = NULL, i = NULL, drop = FALSE, ...,
+    x, row = NULL, col = NULL, i = NULL, red = FALSE, ...,
     chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
   .internal_check_dots(list(...), sys.call())
-  return(.sb_x_matrix(x, row, col, i, TRUE, drop, chkdup, sys.call()))
+  return(.sb_x_matrix(x, row, col, i, TRUE, red, chkdup, sys.call()))
 }
 
 
 #' @rdname sb_rm
 #' @export
 sb2_rm.array <- function(
-    x, sub = NULL, dims = NULL, i = NULL, drop = FALSE, ...,
+    x, sub = NULL, dims = NULL, i = NULL, red = FALSE, ...,
     chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
   .internal_check_dots(list(...), sys.call())
   
-  if(!isTRUE(drop) && !isFALSE(drop)) {
-    stop("`drop` must be either `TRUE` or `FALSE`")
+  if(!isTRUE(red) && !isFALSE(red)) {
+    stop("`red` must be either `TRUE` or `FALSE`")
   }
   
-  return(.sb_x_array(x, sub, dims, i, TRUE, drop, chkdup, sys.call()))
+  return(.sb_x_array(x, sub, dims, i, TRUE, red, chkdup, sys.call()))
 }
 
 

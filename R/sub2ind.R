@@ -168,6 +168,12 @@ sub2ind <- function(sub, x.dim, checks = TRUE) {
   
   n <- length(x.dim)
   
+  ind <- !vapply(sub, is.integer, logical(1L))
+  if(length(ind) > 0L) {
+    sub[ind] <- lapply(sub[ind], as.integer)
+  }
+  
+  
   if(checks) {
     if(n == 0L) {
       stop("`length(x.dim) == 0`")
@@ -181,53 +187,30 @@ sub2ind <- function(sub, x.dim, checks = TRUE) {
   if(n == 1L) {
     return(sub[[1L]])
   }
-  else if(n == 2L) {
-    dimcumprod <- cumprod(x.dim)
-    return(.C_sub2ind_2d(
-      as.integer(sub[[1L]]), as.integer(sub[[2L]]), dimcumprod
-    ))
+  
+  if(n <= 7L) {
+    return(.sub2ind_d(sub, x.dim))
   }
-  else if(n == 3L) {
-    dimcumprod <- cumprod(x.dim)
-    return(.C_sub2ind_3d(
-      as.integer(sub[[1L]]), as.integer(sub[[2L]]), as.integer(sub[[3L]]), dimcumprod
-    ))
-  }
-  else if(n == 4L) {
-    dimcumprod <- cumprod(x.dim)
-    return(.C_sub2ind_4d(
-      as.integer(sub[[1L]]),
-      as.integer(sub[[2L]]),
-      as.integer(sub[[3L]]),
-      as.integer(sub[[4L]]),
-      dimcumprod
-    ))
-  }
-  else if(n == 5L) {
-    dimcumprod <- cumprod(x.dim)
-    return(.C_sub2ind_5d(
-      as.integer(sub[[1L]]),
-      as.integer(sub[[2L]]),
-      as.integer(sub[[3L]]),
-      as.integer(sub[[4L]]),
-      as.integer(sub[[5L]]),
-      dimcumprod
-    ))
-  }
-  else if(n == 6L) {
-    dimcumprod <- cumprod(x.dim)
-    return(.C_sub2ind_6d(
-      as.integer(sub[[1L]]),
-      as.integer(sub[[2L]]),
-      as.integer(sub[[3L]]),
-      as.integer(sub[[4L]]),
-      as.integer(sub[[5L]]),
-      as.integer(sub[[6L]]),
-      dimcumprod
-    ))
+  else {
+    return(.sub2ind_general(sub, x.dim))
   }
   
-  return(.sub2ind_general(sub, x.dim))
+  
+}
+
+#' @keywords internal
+#' @noRd
+.sub2ind_d <- function(sub, x.dim) {
+  
+  n <- length(x.dim)
+  if(prod(x.dim) > (2^31 - 1)) {
+    dimcumprod <- as.integer(cumprod(x.dim)[1L:(n - 1L)])
+    return(.rcpp_sub2ind_2d_7d_32(sub, dimcumprod))
+  }
+  else {
+    dimcumprod <- as.double(cumprod(x.dim)[1L:(n - 1L)])
+    return(.rcpp_sub2ind_2d_7d_64(sub, dimcumprod))
+  }
   
 }
 
@@ -240,7 +223,20 @@ sub2ind <- function(sub, x.dim, checks = TRUE) {
   total <- prod(ns)
   reps_each <- cumprod(c(1L, ns))[1L:n]
   reps_whole <- total/(ns * reps_each)
+  dimcumprod <- cumprod(x.dim)[1L:(n - 1L)]
   
-  ind2 <- .rcpp_sub2ind_general(sub, total, reps_each, reps_whole, as.integer(x.dim), cumprod(x.dim))
-  return(ind2)
+  if(prod(x.dim) < (2^31 - 1)) {
+    ind <- .rcpp_sub2ind_general32(
+      sub, total,
+      as.integer(reps_each), as.integer(reps_whole), as.integer(x.dim),
+      as.integer(dimcumprod)
+    )
+  }
+  else {
+    ind <- .rcpp_sub2ind_general64(
+      sub, total, reps_each, reps_whole, as.integer(x.dim), dimcumprod
+    )
+  }
+
+  return(ind)
 }

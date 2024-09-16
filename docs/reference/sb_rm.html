@@ -94,7 +94,7 @@ Use <code>sb2_rm(x, ...)</code> if <code>x</code> is a recursive object (i.e. li
 <span><span class="fu">sb2_rm</span><span class="op">(</span></span>
 <span>  <span class="va">x</span>,</span>
 <span>  i <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  drop <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  red <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  <span class="va">...</span>,</span>
 <span>  chkdup <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"squarebrackets.chkdup"</span>, <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
@@ -105,7 +105,7 @@ Use <code>sb2_rm(x, ...)</code> if <code>x</code> is a recursive object (i.e. li
 <span>  row <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  col <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  i <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  drop <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  red <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  <span class="va">...</span>,</span>
 <span>  chkdup <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"squarebrackets.chkdup"</span>, <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
@@ -116,7 +116,7 @@ Use <code>sb2_rm(x, ...)</code> if <code>x</code> is a recursive object (i.e. li
 <span>  sub <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  dims <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  i <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  drop <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  red <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  <span class="va">...</span>,</span>
 <span>  chkdup <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"squarebrackets.chkdup"</span>, <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
@@ -153,12 +153,12 @@ and the entire object is returned. <br></p></dd>
 <dd><p>see <a href="aaa4_squarebrackets_options.html">squarebrackets_options</a>. <br><img src="figures/for_performance-set_to_FALSE-red.svg" alt="[for performance: set to FALSE]"><br></p></dd>
 
 
-<dt>drop</dt>
+<dt>red</dt>
 <dd><p>Boolean, for list only. <br>
-I f <code>drop = TRUE</code>,
+I f <code>red = TRUE</code>,
 selecting a single element with non-empty arguments will give the simplified result,
 like using <code>[[]]</code>. <br>
-If <code>drop = FALSE</code>, a list is always returned regardless of the number of elements.</p></dd>
+If <code>red = FALSE</code>, a list is always returned regardless of the number of elements.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -273,7 +273,7 @@ If <code>drop = FALSE</code>, a list is always returned regardless of the number
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 11 12 13 14 15 16 17 18 19 20</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="co"># above is equivalent to obj[seq_len(length(obj))[-1:-2]]</span></span></span>
-<span class="r-in"><span><span class="fu">sb2_rm</span><span class="op">(</span><span class="va">obj</span>, <span class="va">is.numeric</span>, drop <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">sb2_rm</span><span class="op">(</span><span class="va">obj</span>, <span class="va">is.numeric</span>, red <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k"</span>
 <span class="r-in"><span><span class="co"># above is equivalent to obj[[!sapply(obj, is.numeric)]] IF this returns a single element</span></span></span>
 <span class="r-in"><span><span class="va">obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, b <span class="op">=</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">11</span><span class="op">]</span>, c <span class="op">=</span> <span class="va">letters</span><span class="op">)</span></span></span>

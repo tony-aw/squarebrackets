@@ -306,7 +306,7 @@
 #' 
 #' ```
 #' 
-#' The above is true \bold{even if} `inv = TRUE` and/or `drop = TRUE`. \cr \cr
+#' The above is true \bold{even if} `inv = TRUE` and/or `red = TRUE`. \cr \cr
 #' 
 #' 
 #' @section Out-of-Bounds Integers, Non-Existing Names/Levels, and NAs:

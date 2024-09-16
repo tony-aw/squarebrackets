@@ -22,11 +22,11 @@ sb_x(x, ...)
 
 sb2_x(x, ...)
 
-\method{sb2_x}{default}(x, i = NULL, drop = FALSE, ...)
+\method{sb2_x}{default}(x, i = NULL, red = FALSE, ...)
 
-\method{sb2_x}{matrix}(x, row = NULL, col = NULL, i = NULL, drop = FALSE, ...)
+\method{sb2_x}{matrix}(x, row = NULL, col = NULL, i = NULL, red = FALSE, ...)
 
-\method{sb2_x}{array}(x, sub = NULL, dims = NULL, i = NULL, drop = FALSE, ...)
+\method{sb2_x}{array}(x, sub = NULL, dims = NULL, i = NULL, red = FALSE, ...)
 
 \method{sb2_x}{data.frame}(x, row = NULL, col = NULL, filter = NULL, vars = NULL, ...)
 }
@@ -39,11 +39,11 @@ sb2_x(x, ...)
 Duplicates are allowed, resulting in duplicated indices. \cr
 An empty index selection results in an empty object of length 0. \cr}
 
-\item{drop}{Boolean, for lists only. \cr
-If \code{drop = TRUE},
+\item{red}{Boolean, for lists only, indicating if the result should be reduced. \cr
+If \code{red = TRUE},
 selecting a single element with non-empty arguments will give the simplified result,
 like using \verb{[[]]}. \cr
-If \code{drop = FALSE}, a list is always returned regardless of the number of elements.}
+If \code{red = FALSE}, a list is always returned regardless of the number of elements.}
 }
 \value{
 Returns a copy of the sub-setted object.
@@ -85,7 +85,7 @@ sb_x(obj, i = \(x)x>5)
 obj <- list(a = 1:10, b = letters[1:11], c = 11:20)
 print(obj)
 sb2_x(obj, 1) # obj[1]
-sb2_x(obj, 1, drop = TRUE) # obj[[1]]
+sb2_x(obj, 1, red = TRUE) # obj[[1]]
 sb2_x(obj, 1:2) # obj[1:2]
 sb2_x(obj, is.numeric) # obj[sapply(obj, is.numeric)]
 # for recursive subsets, see sb2_rec()

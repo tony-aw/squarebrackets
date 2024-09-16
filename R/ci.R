@@ -150,9 +150,9 @@ ci_sub <- function(
   lst <- .rcpp_seq_mlen(as.integer(dim(x)))
   if(length(dims) > 0L) {
     for(i in seq_along(dims)) {
-      lst[[dims[i]]] <- ci_margin(
+      lst[[dims[i]]] <- as.integer(ci_margin(
         x, sub[[i]], dims[i], inv, chkdup, uniquely_named = FALSE, .abortcall
-      )
+      ))
     }
   }
   return(lst)

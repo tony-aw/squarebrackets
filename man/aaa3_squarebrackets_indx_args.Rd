@@ -316,7 +316,7 @@ x[] <- tf(x) # for transformation
 
 }\if{html}{\out{</div>}}
 
-The above is true \bold{even if} \code{inv = TRUE} and/or \code{drop = TRUE}. \cr \cr
+The above is true \bold{even if} \code{inv = TRUE} and/or \code{red = TRUE}. \cr \cr
 }
 
 \section{Out-of-Bounds Integers, Non-Existing Names/Levels, and NAs}{

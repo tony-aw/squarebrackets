@@ -139,5 +139,8 @@ tinycodet::import_LL("squarebrackets", selection = ... )
   dispatch is sufficient for factors.
 - 7 September 2024: Incorporated some ALTREP functionality into the
   package.
+- 15 September 2024: Replaced the `drop` argument with `red` to avoid
+  confusion with base R’s own `drop` mechanic. Small performance
+  improvements for `sub2ind()` and `sb_set.array()`.
 
  

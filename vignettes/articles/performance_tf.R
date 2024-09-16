@@ -51,7 +51,7 @@ tf <- function(x) { return(-1 * x) }
 bm.sb_tf.3d <- bench::mark(
   "base [<-" = basefun(x.3d, sel.rows, sel.lyrs, tf = tf ),
   "sb_set" =  sb_set.array(x.3d2, n(sel.rows, sel.lyrs), c(1,3), tf = tf),
-  "sb_mod" = sb_mod.array(x.3d, rcl = n(sel.rows, NULL, sel.lyrs), tf = tf),
+  "sb_mod" = sb_mod.array(x.3d, n(sel.rows, NULL, sel.lyrs), c(1, 3) tf = tf),
   check = FALSE,
   min_iterations = 500
 )

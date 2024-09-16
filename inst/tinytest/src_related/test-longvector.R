@@ -68,12 +68,12 @@ enumerate <- enumerate + 4
 # C_sub2ind_dims ====
 for(i in 2:6) {
   m <- (2^31 + 10)^(1/i) |> ceiling()
-  sub <- rep(list(m), i)
+  sub <- rep(list(m), i) |> lapply(as.integer)
   x.dim <- rep(m, i)
   dimcumprod <- cumprod(x.dim)
   args <- c(sub, n(dimcumprod))
   
-  fun.name <- paste0("squarebrackets:::.C_sub2ind_", i, "d")
+  fun.name <- paste0("squarebrackets:::.C_sub2ind_", i, "d_64")
   print(fun.name)
   fun <- eval(parse(text = fun.name))
   expect_equal(
@@ -83,24 +83,6 @@ for(i in 2:6) {
   enumerate <- enumerate + 1
 }
 
-
-# rcpp_sub2ind (for indirectly testing long vectors in rcpp_set_array) ====
-for(i in 2:6) {
-  m <- ceiling( (2^31 + 10)^(1/i) )
-  sub <- rep(list(m), i)
-  x.dim <- rep(m, i)
-  dimcumprod <- cumprod(x.dim)
-  args <- c(sub, n(dimcumprod))
-  
-  fun.name <- paste0("squarebrackets:::.rcpp_sub2ind_", i, "d")
-  print(fun.name)
-  fun <- eval(parse(text = fun.name))
-  expect_equal(
-    do.call(fun, args),
-    m^i
-  ) |> errorfun()
-  enumerate <- enumerate + 1
-}
 
 
 # rcpp_sub2ind_general ====

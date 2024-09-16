@@ -56,11 +56,11 @@ sys.source(file.path(getwd(), "source", "sourcetest-elements.R"), envir = enviro
 
 x <- as.list(1:10)
 expect_equal(
-  sb2_x(x, 1, drop = TRUE),
+  sb2_x(x, 1, red = TRUE),
   x[[1]]
 )
 expect_equal(
-  sb2_x(x, c(TRUE, rep(FALSE, 9)), drop = TRUE),
+  sb2_x(x, c(TRUE, rep(FALSE, 9)), red = TRUE),
   x[[1]]
 )
 enumerate <- enumerate + 2
@@ -140,7 +140,7 @@ rownames(x) <- c(letters[1:8], "a", NA)
 sub <- list("b", 1, 1, 2)
 dims <- 1:4
 expect_equal(
-  sb2_x(x, sub, dims, drop = TRUE),
+  sb2_x(x, sub, dims, red = TRUE),
   x[["b", 1, 1, 2]]
 )
 
