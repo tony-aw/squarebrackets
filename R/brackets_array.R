@@ -133,7 +133,7 @@
   # CASE 4: `x` has more than 6 dimension
   # so default to translating subscripts to flat indices,
   # and treat as vector with the flattened indices.
-  elements <- .sub2ind_general(lst, x.dim)
+  elements <- sub2ind(lst, x.dim, checks = FALSE)
   .sb_set_atomic(x, elements, rp = rp, tf = tf, abortcall = sys.call())
   return(invisible(NULL))
   

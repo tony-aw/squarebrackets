@@ -66,27 +66,20 @@ enumerate <- enumerate + 4
 
 
 # C_sub2ind_dims ====
-for(i in 2:6) {
+for(i in 2:7) {
   m <- (2^31 + 10)^(1/i) |> ceiling()
   sub <- rep(list(m), i) |> lapply(as.integer)
   x.dim <- rep(m, i)
-  dimcumprod <- cumprod(x.dim)
-  args <- c(sub, n(dimcumprod))
-  
-  fun.name <- paste0("squarebrackets:::.C_sub2ind_", i, "d_64")
-  print(fun.name)
-  fun <- eval(parse(text = fun.name))
+  args <- c(sub, n(x.dim))
   expect_equal(
-    do.call(fun, args),
+    squarebrackets:::.sub2ind_d64(sub, x.dim),
     m^i
   ) |> errorfun()
   enumerate <- enumerate + 1
 }
 
-
-
 # rcpp_sub2ind_general ====
-for(i in 2:6) {
+for(i in 2:8) {
   m <- ceiling( (2^31 + 10)^(1/i) )
   sub <- rep(list(m), i)
   x.dim <- rep(m, i)
@@ -94,7 +87,22 @@ for(i in 2:6) {
   args <- c(sub, n(dimcumprod))
   
   expect_equal(
-    squarebrackets:::.sub2ind_general(sub, x.dim),
+    squarebrackets:::.sub2ind_general64(sub, x.dim),
+    m^i
+  ) |> errorfun()
+  enumerate <- enumerate + 1
+}
+
+# sub2ind ====
+for(i in 2:8) {
+  m <- ceiling( (2^31 + 10)^(1/i) )
+  sub <- rep(list(m), i)
+  x.dim <- rep(m, i)
+  dimcumprod <- cumprod(x.dim)
+  args <- c(sub, n(dimcumprod))
+  
+  expect_equal(
+    sub2ind(sub, x.dim),
     m^i
   ) |> errorfun()
   enumerate <- enumerate + 1

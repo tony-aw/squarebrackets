@@ -35,7 +35,7 @@ for(iSample in 1:10) {
       x <- as.mutable_atomic(array(x.data[[iType]], x.dim))
       sub <- lapply(x.dim, \(x) sample(1:x, max(c(1, x)), FALSE))
       
-      ind <- squarebrackets:::.sub2ind_general32(sub, x.dim)
+      ind <- sub2ind(sub, x.dim)
       
       expected[[i]] <- temp.fun(x, sub) |> as.vector() |> as.mutable_atomic()
       out[[i]] <- x[ind]
@@ -47,27 +47,3 @@ for(iSample in 1:10) {
 }
 expect_equal(expected, out)
 
-
-expected <- out <- list()
-i <- 1
-
-for(iSample in 1:10) {
-  for(iDim in 2:8) {
-    x.dim <- sample(1:6, size = iDim, replace = TRUE)
-    x.len <- prod(x.dim)
-    x.data <- generate_data(x.len)
-    for(iType in seq_along(x.data)) {
-      x <- as.mutable_atomic(array(x.data[[iType]], x.dim))
-      sub <- lapply(x.dim, \(x) sample(1:x, max(c(1, x)), FALSE))
-      
-      ind <- squarebrackets:::.sub2ind_general64(sub, x.dim)
-      
-      expected[[i]] <- temp.fun(x, sub) |> as.vector() |> as.mutable_atomic()
-      out[[i]] <- x[ind]
-      
-      enumerate <- enumerate + 1
-      i <- i + 1
-    }
-  }
-}
-expect_equal(expected, out)

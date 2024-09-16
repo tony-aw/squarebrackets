@@ -35,9 +35,7 @@ for(iSample in 1:10) {
       x <- array(x.data[[iType]], x.dim)
       sub <- lapply(x.dim, \(x) as.integer(sample(1:x, max(c(1, x)), FALSE)))
       dims <- 1:length(x.dim)
-      dimcumprod <- as.integer(cumprod(x.dim)[1L:(length(x.dim) - 1L)])
-      
-      ind <- squarebrackets:::.rcpp_sub2ind_2d_7d_32(sub, dimcumprod)
+      ind <- squarebrackets:::.sub2ind_d32(sub, x.dim)
       
       expected[[i]] <- temp.fun(x, sub) |> as.vector()
       out[[i]] <- x[ind]
@@ -64,9 +62,8 @@ for(iSample in 1:10) {
       x <- array(x.data[[iType]], x.dim)
       sub <- lapply(x.dim, \(x) as.integer(sample(1:x, max(c(1, x)), FALSE)))
       dims <- 1:length(x.dim)
-      dimcumprod <- as.double(cumprod(x.dim)[1L:(length(x.dim) - 1L)])
       
-      ind <- squarebrackets:::.rcpp_sub2ind_2d_7d_64(sub, dimcumprod)
+      ind <- squarebrackets:::.sub2ind_d64(sub, x.dim)
       
       expected[[i]] <- temp.fun(x, sub) |> as.vector()
       out[[i]] <- x[ind]

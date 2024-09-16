@@ -187,37 +187,43 @@ sub2ind <- function(sub, x.dim, checks = TRUE) {
   if(n == 1L) {
     return(sub[[1L]])
   }
-  
-  if(n <= 7L) {
-    return(.sub2ind_d(sub, x.dim))
+  else if(n <= 7L) {
+    if(prod(x.dim) < (2^31 - 1)) {
+      return(.sub2ind_d32(sub, x.dim))
+    }
+    else {
+      return(.sub2ind_d64(sub, x.dim))
+    }
   }
   else {
-    return(.sub2ind_general(sub, x.dim))
+    if(prod(x.dim) < (2^31 - 1)) {
+      return(.sub2ind_general32(sub, x.dim))
+    }
+    else {
+      return(.sub2ind_general64(sub, x.dim))
+    }
   }
-  
-  
 }
 
 #' @keywords internal
 #' @noRd
-.sub2ind_d <- function(sub, x.dim) {
-  
+.sub2ind_d32 <- function(sub, x.dim) {
   n <- length(x.dim)
-  if(prod(x.dim) > (2^31 - 1)) {
-    dimcumprod <- as.integer(cumprod(x.dim)[1L:(n - 1L)])
-    return(.rcpp_sub2ind_2d_7d_32(sub, dimcumprod))
-  }
-  else {
-    dimcumprod <- as.double(cumprod(x.dim)[1L:(n - 1L)])
-    return(.rcpp_sub2ind_2d_7d_64(sub, dimcumprod))
-  }
-  
+  dimcumprod <- as.integer(cumprod(x.dim)[1L:(n - 1L)])
+  return(.rcpp_sub2ind_2d_7d_32(sub, dimcumprod))
 }
-
 
 #' @keywords internal
 #' @noRd
-.sub2ind_general <- function(sub, x.dim) {
+.sub2ind_d64 <- function(sub, x.dim) {
+  n <- length(x.dim)
+  dimcumprod <- as.double(cumprod(x.dim)[1L:(n - 1L)])
+  return(.rcpp_sub2ind_2d_7d_64(sub, dimcumprod))
+}
+
+#' @keywords internal
+#' @noRd
+.sub2ind_general32 <- function(sub, x.dim) {
   n <- length(x.dim)
   ns <- collapse::vlengths(sub)
   total <- prod(ns)
@@ -225,18 +231,22 @@ sub2ind <- function(sub, x.dim, checks = TRUE) {
   reps_whole <- total/(ns * reps_each)
   dimcumprod <- cumprod(x.dim)[1L:(n - 1L)]
   
-  if(prod(x.dim) < (2^31 - 1)) {
-    ind <- .rcpp_sub2ind_general32(
-      sub, total,
-      as.integer(reps_each), as.integer(reps_whole), as.integer(x.dim),
-      as.integer(dimcumprod)
-    )
-  }
-  else {
-    ind <- .rcpp_sub2ind_general64(
-      sub, total, reps_each, reps_whole, as.integer(x.dim), dimcumprod
-    )
-  }
+  return(.rcpp_sub2ind_general32(
+    sub, total, reps_each, reps_whole, as.integer(x.dim), as.integer(dimcumprod)
+  ))
+}
 
-  return(ind)
+#' @keywords internal
+#' @noRd
+.sub2ind_general64 <- function(sub, x.dim) {
+  n <- length(x.dim)
+  ns <- collapse::vlengths(sub)
+  total <- prod(ns)
+  reps_each <- cumprod(c(1L, ns))[1L:n]
+  reps_whole <- total/(ns * reps_each)
+  dimcumprod <- cumprod(x.dim)[1L:(n - 1L)]
+  
+  return(.rcpp_sub2ind_general64(
+    sub, total, reps_each, reps_whole, as.integer(x.dim), dimcumprod
+  ))
 }
