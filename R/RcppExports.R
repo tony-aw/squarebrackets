@@ -99,6 +99,12 @@
 
 #' @keywords internal
 #' @noRd
+.rcpp_set_array_8d_Logical <- function(x, ind1, ind2, ind3, ind4, ind5, ind6, ind7, ind8, dimcumprod, rp) {
+    invisible(.Call(`_squarebrackets_rcpp_set_array_8d_Logical`, x, ind1, ind2, ind3, ind4, ind5, ind6, ind7, ind8, dimcumprod, rp))
+}
+
+#' @keywords internal
+#' @noRd
 .rcpp_set_array_2d_Integer <- function(x, ind1, ind2, dimcumprod, rp) {
     invisible(.Call(`_squarebrackets_rcpp_set_array_2d_Integer`, x, ind1, ind2, dimcumprod, rp))
 }
@@ -131,6 +137,12 @@
 #' @noRd
 .rcpp_set_array_7d_Integer <- function(x, ind1, ind2, ind3, ind4, ind5, ind6, ind7, dimcumprod, rp) {
     invisible(.Call(`_squarebrackets_rcpp_set_array_7d_Integer`, x, ind1, ind2, ind3, ind4, ind5, ind6, ind7, dimcumprod, rp))
+}
+
+#' @keywords internal
+#' @noRd
+.rcpp_set_array_8d_Integer <- function(x, ind1, ind2, ind3, ind4, ind5, ind6, ind7, ind8, dimcumprod, rp) {
+    invisible(.Call(`_squarebrackets_rcpp_set_array_8d_Integer`, x, ind1, ind2, ind3, ind4, ind5, ind6, ind7, ind8, dimcumprod, rp))
 }
 
 #' @keywords internal
@@ -171,6 +183,12 @@
 
 #' @keywords internal
 #' @noRd
+.rcpp_set_array_8d_Numeric <- function(x, ind1, ind2, ind3, ind4, ind5, ind6, ind7, ind8, dimcumprod, rp) {
+    invisible(.Call(`_squarebrackets_rcpp_set_array_8d_Numeric`, x, ind1, ind2, ind3, ind4, ind5, ind6, ind7, ind8, dimcumprod, rp))
+}
+
+#' @keywords internal
+#' @noRd
 .rcpp_set_array_2d_Character <- function(x, ind1, ind2, dimcumprod, rp) {
     invisible(.Call(`_squarebrackets_rcpp_set_array_2d_Character`, x, ind1, ind2, dimcumprod, rp))
 }
@@ -203,6 +221,12 @@
 #' @noRd
 .rcpp_set_array_7d_Character <- function(x, ind1, ind2, ind3, ind4, ind5, ind6, ind7, dimcumprod, rp) {
     invisible(.Call(`_squarebrackets_rcpp_set_array_7d_Character`, x, ind1, ind2, ind3, ind4, ind5, ind6, ind7, dimcumprod, rp))
+}
+
+#' @keywords internal
+#' @noRd
+.rcpp_set_array_8d_Character <- function(x, ind1, ind2, ind3, ind4, ind5, ind6, ind7, ind8, dimcumprod, rp) {
+    invisible(.Call(`_squarebrackets_rcpp_set_array_8d_Character`, x, ind1, ind2, ind3, ind4, ind5, ind6, ind7, ind8, dimcumprod, rp))
 }
 
 #' @keywords internal
@@ -243,6 +267,12 @@
 
 #' @keywords internal
 #' @noRd
+.rcpp_set_array_8d_Complex <- function(x, ind1, ind2, ind3, ind4, ind5, ind6, ind7, ind8, dimcumprod, rp) {
+    invisible(.Call(`_squarebrackets_rcpp_set_array_8d_Complex`, x, ind1, ind2, ind3, ind4, ind5, ind6, ind7, ind8, dimcumprod, rp))
+}
+
+#' @keywords internal
+#' @noRd
 .rcpp_set_array_2d_Raw <- function(x, ind1, ind2, dimcumprod, rp) {
     invisible(.Call(`_squarebrackets_rcpp_set_array_2d_Raw`, x, ind1, ind2, dimcumprod, rp))
 }
@@ -279,37 +309,43 @@
 
 #' @keywords internal
 #' @noRd
-.rcpp_set_array_2d_6d_Logical <- function(x, out, dimcumprod, rp) {
+.rcpp_set_array_8d_Raw <- function(x, ind1, ind2, ind3, ind4, ind5, ind6, ind7, ind8, dimcumprod, rp) {
+    invisible(.Call(`_squarebrackets_rcpp_set_array_8d_Raw`, x, ind1, ind2, ind3, ind4, ind5, ind6, ind7, ind8, dimcumprod, rp))
+}
+
+#' @keywords internal
+#' @noRd
+.rcpp_set_array_2d_8d_Logical <- function(x, out, dimcumprod, rp) {
     invisible(.Call(`_squarebrackets_rcpp_set_array_2d_6d_Logical`, x, out, dimcumprod, rp))
 }
 
 #' @keywords internal
 #' @noRd
-.rcpp_set_array_2d_6d_Integer <- function(x, out, dimcumprod, rp) {
+.rcpp_set_array_2d_8d_Integer <- function(x, out, dimcumprod, rp) {
     invisible(.Call(`_squarebrackets_rcpp_set_array_2d_6d_Integer`, x, out, dimcumprod, rp))
 }
 
 #' @keywords internal
 #' @noRd
-.rcpp_set_array_2d_6d_Numeric <- function(x, out, dimcumprod, rp) {
+.rcpp_set_array_2d_8d_Numeric <- function(x, out, dimcumprod, rp) {
     invisible(.Call(`_squarebrackets_rcpp_set_array_2d_6d_Numeric`, x, out, dimcumprod, rp))
 }
 
 #' @keywords internal
 #' @noRd
-.rcpp_set_array_2d_6d_Character <- function(x, out, dimcumprod, rp) {
+.rcpp_set_array_2d_8d_Character <- function(x, out, dimcumprod, rp) {
     invisible(.Call(`_squarebrackets_rcpp_set_array_2d_6d_Character`, x, out, dimcumprod, rp))
 }
 
 #' @keywords internal
 #' @noRd
-.rcpp_set_array_2d_6d_Complex <- function(x, out, dimcumprod, rp) {
+.rcpp_set_array_2d_8d_Complex <- function(x, out, dimcumprod, rp) {
     invisible(.Call(`_squarebrackets_rcpp_set_array_2d_6d_Complex`, x, out, dimcumprod, rp))
 }
 
 #' @keywords internal
 #' @noRd
-.rcpp_set_array_2d_6d_Raw <- function(x, out, dimcumprod, rp) {
+.rcpp_set_array_2d_8d_Raw <- function(x, out, dimcumprod, rp) {
     invisible(.Call(`_squarebrackets_rcpp_set_array_2d_6d_Raw`, x, out, dimcumprod, rp))
 }
 
@@ -711,8 +747,14 @@
 
 #' @keywords internal
 #' @noRd
-.rcpp_sub2ind_2d_7d_32 <- function(sub, dimcumprod) {
-    .Call(`_squarebrackets_rcpp_sub2ind_2d_7d_32`, sub, dimcumprod)
+.C_sub2ind_8d_32 <- function(ind1, ind2, ind3, ind4, ind5, ind6, ind7, ind8, dimcumprod) {
+    .Call(`_squarebrackets_C_sub2ind_8d_32`, ind1, ind2, ind3, ind4, ind5, ind6, ind7, ind8, dimcumprod)
+}
+
+#' @keywords internal
+#' @noRd
+.rcpp_sub2ind_2d_8d_32 <- function(sub, dimcumprod) {
+    .Call(`_squarebrackets_rcpp_sub2ind_2d_8d_32`, sub, dimcumprod)
 }
 
 #' @keywords internal
@@ -753,8 +795,14 @@
 
 #' @keywords internal
 #' @noRd
-.rcpp_sub2ind_2d_7d_64 <- function(sub, dimcumprod) {
-    .Call(`_squarebrackets_rcpp_sub2ind_2d_7d_64`, sub, dimcumprod)
+.C_sub2ind_8d_64 <- function(ind1, ind2, ind3, ind4, ind5, ind6, ind7, ind8, dimcumprod) {
+    .Call(`_squarebrackets_C_sub2ind_8d_64`, ind1, ind2, ind3, ind4, ind5, ind6, ind7, ind8, dimcumprod)
+}
+
+#' @keywords internal
+#' @noRd
+.rcpp_sub2ind_2d_8d_64 <- function(sub, dimcumprod) {
+    .Call(`_squarebrackets_rcpp_sub2ind_2d_8d_64`, sub, dimcumprod)
 }
 
 #' @keywords internal

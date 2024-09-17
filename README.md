@@ -13,7 +13,7 @@ public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostat
 <!-- badges: end -->
 
 squarebrackets: Subset Methods as Alternatives to the Square Brackets
-Operators
+Operators for Programming
 
 ## Description
 

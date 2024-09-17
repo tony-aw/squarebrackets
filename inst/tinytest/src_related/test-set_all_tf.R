@@ -41,7 +41,7 @@ expected <- out <- list()
 i <- 1
 
 for(iSample in 1:10) {
-  for(iDim in 2:8) {
+  for(iDim in 2:9) {
     x.dim <- sample(1:6, size = iDim, replace = TRUE)
     x.len <- prod(x.dim)
     x.data <- generate_data(x.len)

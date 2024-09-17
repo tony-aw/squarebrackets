@@ -474,6 +474,118 @@ else stop("recycling not allowed");
 
 //' @keywords internal
 //' @noRd
+// [[Rcpp::export(.rcpp_set_array_8d_Logical)]]
+void rcpp_set_array_8d_Logical(
+  LogicalVector x, const SEXP ind1, const SEXP ind2, const SEXP ind3, const SEXP ind4, const SEXP ind5, const SEXP ind6, const SEXP ind7, const SEXP ind8, SEXP dimcumprod, LogicalVector rp
+) {
+
+int len1 = Rf_length(ind1);
+int len2 = Rf_length(ind2);
+int len3 = Rf_length(ind3);
+int len4 = Rf_length(ind4);
+int len5 = Rf_length(ind5);
+int len6 = Rf_length(ind6);
+int len7 = Rf_length(ind7);
+int len8 = Rf_length(ind8);
+const int *pind1;
+pind1 = INTEGER(ind1);
+
+const int *pind2;
+pind2 = INTEGER(ind2);
+
+const int *pind3;
+pind3 = INTEGER(ind3);
+
+const int *pind4;
+pind4 = INTEGER(ind4);
+
+const int *pind5;
+pind5 = INTEGER(ind5);
+
+const int *pind6;
+pind6 = INTEGER(ind6);
+
+const int *pind7;
+pind7 = INTEGER(ind7);
+
+const int *pind8;
+pind8 = INTEGER(ind8);
+
+
+double *pdim;
+pdim = REAL(dimcumprod);
+
+R_xlen_t flatind = 0;
+  
+if(rp.length() == (len1 * len2 * len3 * len4 * len5 * len6 * len7 * len8)) {
+R_xlen_t counter = 0;
+	 for(int iter8 = 0; iter8 < len8; ++iter8) {
+
+	 for(int iter7 = 0; iter7 < len7; ++iter7) {
+
+	 for(int iter6 = 0; iter6 < len6; ++iter6) {
+
+	 for(int iter5 = 0; iter5 < len5; ++iter5) {
+
+	 for(int iter4 = 0; iter4 < len4; ++iter4) {
+
+	 for(int iter3 = 0; iter3 < len3; ++iter3) {
+
+	 for(int iter2 = 0; iter2 < len2; ++iter2) {
+
+	 for(int iter1 = 0; iter1 < len1; ++iter1) {
+
+      flatind = pind1[iter1] + pdim[0] * (pind2[iter2] - 1) + pdim[1] * (pind3[iter3] - 1) + pdim[2] * (pind4[iter4] - 1) + pdim[3] * (pind5[iter5] - 1) + pdim[4] * (pind6[iter6] - 1) + pdim[5] * (pind7[iter7] - 1) + pdim[6] * (pind8[iter8] - 1);
+      x[flatind - 1] = rp[counter];
+      counter++;
+	 }
+	 }
+	 }
+	 }
+	 }
+	 }
+	 }
+	 }
+}
+else if(rp.length() == 1) {
+	 for(int iter8 = 0; iter8 < len8; ++iter8) {
+
+	 for(int iter7 = 0; iter7 < len7; ++iter7) {
+
+	 for(int iter6 = 0; iter6 < len6; ++iter6) {
+
+	 for(int iter5 = 0; iter5 < len5; ++iter5) {
+
+	 for(int iter4 = 0; iter4 < len4; ++iter4) {
+
+	 for(int iter3 = 0; iter3 < len3; ++iter3) {
+
+	 for(int iter2 = 0; iter2 < len2; ++iter2) {
+
+	 for(int iter1 = 0; iter1 < len1; ++iter1) {
+
+      flatind = pind1[iter1] + pdim[0] * (pind2[iter2] - 1) + pdim[1] * (pind3[iter3] - 1) + pdim[2] * (pind4[iter4] - 1) + pdim[3] * (pind5[iter5] - 1) + pdim[4] * (pind6[iter6] - 1) + pdim[5] * (pind7[iter7] - 1) + pdim[6] * (pind8[iter8] - 1);
+      x[flatind - 1] = rp[0];
+	 }
+	 }
+	 }
+	 }
+	 }
+	 }
+	 }
+	 }
+}
+else stop("recycling not allowed");
+
+}
+
+
+
+
+
+
+//' @keywords internal
+//' @noRd
 // [[Rcpp::export(.rcpp_set_array_2d_Integer)]]
 void rcpp_set_array_2d_Integer(
   IntegerVector x, const SEXP ind1, const SEXP ind2, SEXP dimcumprod, IntegerVector rp
@@ -917,6 +1029,118 @@ else if(rp.length() == 1) {
 
       flatind = pind1[iter1] + pdim[0] * (pind2[iter2] - 1) + pdim[1] * (pind3[iter3] - 1) + pdim[2] * (pind4[iter4] - 1) + pdim[3] * (pind5[iter5] - 1) + pdim[4] * (pind6[iter6] - 1) + pdim[5] * (pind7[iter7] - 1);
       x[flatind - 1] = rp[0];
+	 }
+	 }
+	 }
+	 }
+	 }
+	 }
+	 }
+}
+else stop("recycling not allowed");
+
+}
+
+
+
+
+
+
+//' @keywords internal
+//' @noRd
+// [[Rcpp::export(.rcpp_set_array_8d_Integer)]]
+void rcpp_set_array_8d_Integer(
+  IntegerVector x, const SEXP ind1, const SEXP ind2, const SEXP ind3, const SEXP ind4, const SEXP ind5, const SEXP ind6, const SEXP ind7, const SEXP ind8, SEXP dimcumprod, IntegerVector rp
+) {
+
+int len1 = Rf_length(ind1);
+int len2 = Rf_length(ind2);
+int len3 = Rf_length(ind3);
+int len4 = Rf_length(ind4);
+int len5 = Rf_length(ind5);
+int len6 = Rf_length(ind6);
+int len7 = Rf_length(ind7);
+int len8 = Rf_length(ind8);
+const int *pind1;
+pind1 = INTEGER(ind1);
+
+const int *pind2;
+pind2 = INTEGER(ind2);
+
+const int *pind3;
+pind3 = INTEGER(ind3);
+
+const int *pind4;
+pind4 = INTEGER(ind4);
+
+const int *pind5;
+pind5 = INTEGER(ind5);
+
+const int *pind6;
+pind6 = INTEGER(ind6);
+
+const int *pind7;
+pind7 = INTEGER(ind7);
+
+const int *pind8;
+pind8 = INTEGER(ind8);
+
+
+double *pdim;
+pdim = REAL(dimcumprod);
+
+R_xlen_t flatind = 0;
+  
+if(rp.length() == (len1 * len2 * len3 * len4 * len5 * len6 * len7 * len8)) {
+R_xlen_t counter = 0;
+	 for(int iter8 = 0; iter8 < len8; ++iter8) {
+
+	 for(int iter7 = 0; iter7 < len7; ++iter7) {
+
+	 for(int iter6 = 0; iter6 < len6; ++iter6) {
+
+	 for(int iter5 = 0; iter5 < len5; ++iter5) {
+
+	 for(int iter4 = 0; iter4 < len4; ++iter4) {
+
+	 for(int iter3 = 0; iter3 < len3; ++iter3) {
+
+	 for(int iter2 = 0; iter2 < len2; ++iter2) {
+
+	 for(int iter1 = 0; iter1 < len1; ++iter1) {
+
+      flatind = pind1[iter1] + pdim[0] * (pind2[iter2] - 1) + pdim[1] * (pind3[iter3] - 1) + pdim[2] * (pind4[iter4] - 1) + pdim[3] * (pind5[iter5] - 1) + pdim[4] * (pind6[iter6] - 1) + pdim[5] * (pind7[iter7] - 1) + pdim[6] * (pind8[iter8] - 1);
+      x[flatind - 1] = rp[counter];
+      counter++;
+	 }
+	 }
+	 }
+	 }
+	 }
+	 }
+	 }
+	 }
+}
+else if(rp.length() == 1) {
+	 for(int iter8 = 0; iter8 < len8; ++iter8) {
+
+	 for(int iter7 = 0; iter7 < len7; ++iter7) {
+
+	 for(int iter6 = 0; iter6 < len6; ++iter6) {
+
+	 for(int iter5 = 0; iter5 < len5; ++iter5) {
+
+	 for(int iter4 = 0; iter4 < len4; ++iter4) {
+
+	 for(int iter3 = 0; iter3 < len3; ++iter3) {
+
+	 for(int iter2 = 0; iter2 < len2; ++iter2) {
+
+	 for(int iter1 = 0; iter1 < len1; ++iter1) {
+
+      flatind = pind1[iter1] + pdim[0] * (pind2[iter2] - 1) + pdim[1] * (pind3[iter3] - 1) + pdim[2] * (pind4[iter4] - 1) + pdim[3] * (pind5[iter5] - 1) + pdim[4] * (pind6[iter6] - 1) + pdim[5] * (pind7[iter7] - 1) + pdim[6] * (pind8[iter8] - 1);
+      x[flatind - 1] = rp[0];
+	 }
 	 }
 	 }
 	 }
@@ -1398,6 +1622,118 @@ else stop("recycling not allowed");
 
 //' @keywords internal
 //' @noRd
+// [[Rcpp::export(.rcpp_set_array_8d_Numeric)]]
+void rcpp_set_array_8d_Numeric(
+  NumericVector x, const SEXP ind1, const SEXP ind2, const SEXP ind3, const SEXP ind4, const SEXP ind5, const SEXP ind6, const SEXP ind7, const SEXP ind8, SEXP dimcumprod, NumericVector rp
+) {
+
+int len1 = Rf_length(ind1);
+int len2 = Rf_length(ind2);
+int len3 = Rf_length(ind3);
+int len4 = Rf_length(ind4);
+int len5 = Rf_length(ind5);
+int len6 = Rf_length(ind6);
+int len7 = Rf_length(ind7);
+int len8 = Rf_length(ind8);
+const int *pind1;
+pind1 = INTEGER(ind1);
+
+const int *pind2;
+pind2 = INTEGER(ind2);
+
+const int *pind3;
+pind3 = INTEGER(ind3);
+
+const int *pind4;
+pind4 = INTEGER(ind4);
+
+const int *pind5;
+pind5 = INTEGER(ind5);
+
+const int *pind6;
+pind6 = INTEGER(ind6);
+
+const int *pind7;
+pind7 = INTEGER(ind7);
+
+const int *pind8;
+pind8 = INTEGER(ind8);
+
+
+double *pdim;
+pdim = REAL(dimcumprod);
+
+R_xlen_t flatind = 0;
+  
+if(rp.length() == (len1 * len2 * len3 * len4 * len5 * len6 * len7 * len8)) {
+R_xlen_t counter = 0;
+	 for(int iter8 = 0; iter8 < len8; ++iter8) {
+
+	 for(int iter7 = 0; iter7 < len7; ++iter7) {
+
+	 for(int iter6 = 0; iter6 < len6; ++iter6) {
+
+	 for(int iter5 = 0; iter5 < len5; ++iter5) {
+
+	 for(int iter4 = 0; iter4 < len4; ++iter4) {
+
+	 for(int iter3 = 0; iter3 < len3; ++iter3) {
+
+	 for(int iter2 = 0; iter2 < len2; ++iter2) {
+
+	 for(int iter1 = 0; iter1 < len1; ++iter1) {
+
+      flatind = pind1[iter1] + pdim[0] * (pind2[iter2] - 1) + pdim[1] * (pind3[iter3] - 1) + pdim[2] * (pind4[iter4] - 1) + pdim[3] * (pind5[iter5] - 1) + pdim[4] * (pind6[iter6] - 1) + pdim[5] * (pind7[iter7] - 1) + pdim[6] * (pind8[iter8] - 1);
+      x[flatind - 1] = rp[counter];
+      counter++;
+	 }
+	 }
+	 }
+	 }
+	 }
+	 }
+	 }
+	 }
+}
+else if(rp.length() == 1) {
+	 for(int iter8 = 0; iter8 < len8; ++iter8) {
+
+	 for(int iter7 = 0; iter7 < len7; ++iter7) {
+
+	 for(int iter6 = 0; iter6 < len6; ++iter6) {
+
+	 for(int iter5 = 0; iter5 < len5; ++iter5) {
+
+	 for(int iter4 = 0; iter4 < len4; ++iter4) {
+
+	 for(int iter3 = 0; iter3 < len3; ++iter3) {
+
+	 for(int iter2 = 0; iter2 < len2; ++iter2) {
+
+	 for(int iter1 = 0; iter1 < len1; ++iter1) {
+
+      flatind = pind1[iter1] + pdim[0] * (pind2[iter2] - 1) + pdim[1] * (pind3[iter3] - 1) + pdim[2] * (pind4[iter4] - 1) + pdim[3] * (pind5[iter5] - 1) + pdim[4] * (pind6[iter6] - 1) + pdim[5] * (pind7[iter7] - 1) + pdim[6] * (pind8[iter8] - 1);
+      x[flatind - 1] = rp[0];
+	 }
+	 }
+	 }
+	 }
+	 }
+	 }
+	 }
+	 }
+}
+else stop("recycling not allowed");
+
+}
+
+
+
+
+
+
+//' @keywords internal
+//' @noRd
 // [[Rcpp::export(.rcpp_set_array_2d_Character)]]
 void rcpp_set_array_2d_Character(
   CharacterVector x, const SEXP ind1, const SEXP ind2, SEXP dimcumprod, CharacterVector rp
@@ -1841,6 +2177,118 @@ else if(rp.length() == 1) {
 
       flatind = pind1[iter1] + pdim[0] * (pind2[iter2] - 1) + pdim[1] * (pind3[iter3] - 1) + pdim[2] * (pind4[iter4] - 1) + pdim[3] * (pind5[iter5] - 1) + pdim[4] * (pind6[iter6] - 1) + pdim[5] * (pind7[iter7] - 1);
       x[flatind - 1] = rp[0];
+	 }
+	 }
+	 }
+	 }
+	 }
+	 }
+	 }
+}
+else stop("recycling not allowed");
+
+}
+
+
+
+
+
+
+//' @keywords internal
+//' @noRd
+// [[Rcpp::export(.rcpp_set_array_8d_Character)]]
+void rcpp_set_array_8d_Character(
+  CharacterVector x, const SEXP ind1, const SEXP ind2, const SEXP ind3, const SEXP ind4, const SEXP ind5, const SEXP ind6, const SEXP ind7, const SEXP ind8, SEXP dimcumprod, CharacterVector rp
+) {
+
+int len1 = Rf_length(ind1);
+int len2 = Rf_length(ind2);
+int len3 = Rf_length(ind3);
+int len4 = Rf_length(ind4);
+int len5 = Rf_length(ind5);
+int len6 = Rf_length(ind6);
+int len7 = Rf_length(ind7);
+int len8 = Rf_length(ind8);
+const int *pind1;
+pind1 = INTEGER(ind1);
+
+const int *pind2;
+pind2 = INTEGER(ind2);
+
+const int *pind3;
+pind3 = INTEGER(ind3);
+
+const int *pind4;
+pind4 = INTEGER(ind4);
+
+const int *pind5;
+pind5 = INTEGER(ind5);
+
+const int *pind6;
+pind6 = INTEGER(ind6);
+
+const int *pind7;
+pind7 = INTEGER(ind7);
+
+const int *pind8;
+pind8 = INTEGER(ind8);
+
+
+double *pdim;
+pdim = REAL(dimcumprod);
+
+R_xlen_t flatind = 0;
+  
+if(rp.length() == (len1 * len2 * len3 * len4 * len5 * len6 * len7 * len8)) {
+R_xlen_t counter = 0;
+	 for(int iter8 = 0; iter8 < len8; ++iter8) {
+
+	 for(int iter7 = 0; iter7 < len7; ++iter7) {
+
+	 for(int iter6 = 0; iter6 < len6; ++iter6) {
+
+	 for(int iter5 = 0; iter5 < len5; ++iter5) {
+
+	 for(int iter4 = 0; iter4 < len4; ++iter4) {
+
+	 for(int iter3 = 0; iter3 < len3; ++iter3) {
+
+	 for(int iter2 = 0; iter2 < len2; ++iter2) {
+
+	 for(int iter1 = 0; iter1 < len1; ++iter1) {
+
+      flatind = pind1[iter1] + pdim[0] * (pind2[iter2] - 1) + pdim[1] * (pind3[iter3] - 1) + pdim[2] * (pind4[iter4] - 1) + pdim[3] * (pind5[iter5] - 1) + pdim[4] * (pind6[iter6] - 1) + pdim[5] * (pind7[iter7] - 1) + pdim[6] * (pind8[iter8] - 1);
+      x[flatind - 1] = rp[counter];
+      counter++;
+	 }
+	 }
+	 }
+	 }
+	 }
+	 }
+	 }
+	 }
+}
+else if(rp.length() == 1) {
+	 for(int iter8 = 0; iter8 < len8; ++iter8) {
+
+	 for(int iter7 = 0; iter7 < len7; ++iter7) {
+
+	 for(int iter6 = 0; iter6 < len6; ++iter6) {
+
+	 for(int iter5 = 0; iter5 < len5; ++iter5) {
+
+	 for(int iter4 = 0; iter4 < len4; ++iter4) {
+
+	 for(int iter3 = 0; iter3 < len3; ++iter3) {
+
+	 for(int iter2 = 0; iter2 < len2; ++iter2) {
+
+	 for(int iter1 = 0; iter1 < len1; ++iter1) {
+
+      flatind = pind1[iter1] + pdim[0] * (pind2[iter2] - 1) + pdim[1] * (pind3[iter3] - 1) + pdim[2] * (pind4[iter4] - 1) + pdim[3] * (pind5[iter5] - 1) + pdim[4] * (pind6[iter6] - 1) + pdim[5] * (pind7[iter7] - 1) + pdim[6] * (pind8[iter8] - 1);
+      x[flatind - 1] = rp[0];
+	 }
 	 }
 	 }
 	 }
@@ -2322,6 +2770,118 @@ else stop("recycling not allowed");
 
 //' @keywords internal
 //' @noRd
+// [[Rcpp::export(.rcpp_set_array_8d_Complex)]]
+void rcpp_set_array_8d_Complex(
+  ComplexVector x, const SEXP ind1, const SEXP ind2, const SEXP ind3, const SEXP ind4, const SEXP ind5, const SEXP ind6, const SEXP ind7, const SEXP ind8, SEXP dimcumprod, ComplexVector rp
+) {
+
+int len1 = Rf_length(ind1);
+int len2 = Rf_length(ind2);
+int len3 = Rf_length(ind3);
+int len4 = Rf_length(ind4);
+int len5 = Rf_length(ind5);
+int len6 = Rf_length(ind6);
+int len7 = Rf_length(ind7);
+int len8 = Rf_length(ind8);
+const int *pind1;
+pind1 = INTEGER(ind1);
+
+const int *pind2;
+pind2 = INTEGER(ind2);
+
+const int *pind3;
+pind3 = INTEGER(ind3);
+
+const int *pind4;
+pind4 = INTEGER(ind4);
+
+const int *pind5;
+pind5 = INTEGER(ind5);
+
+const int *pind6;
+pind6 = INTEGER(ind6);
+
+const int *pind7;
+pind7 = INTEGER(ind7);
+
+const int *pind8;
+pind8 = INTEGER(ind8);
+
+
+double *pdim;
+pdim = REAL(dimcumprod);
+
+R_xlen_t flatind = 0;
+  
+if(rp.length() == (len1 * len2 * len3 * len4 * len5 * len6 * len7 * len8)) {
+R_xlen_t counter = 0;
+	 for(int iter8 = 0; iter8 < len8; ++iter8) {
+
+	 for(int iter7 = 0; iter7 < len7; ++iter7) {
+
+	 for(int iter6 = 0; iter6 < len6; ++iter6) {
+
+	 for(int iter5 = 0; iter5 < len5; ++iter5) {
+
+	 for(int iter4 = 0; iter4 < len4; ++iter4) {
+
+	 for(int iter3 = 0; iter3 < len3; ++iter3) {
+
+	 for(int iter2 = 0; iter2 < len2; ++iter2) {
+
+	 for(int iter1 = 0; iter1 < len1; ++iter1) {
+
+      flatind = pind1[iter1] + pdim[0] * (pind2[iter2] - 1) + pdim[1] * (pind3[iter3] - 1) + pdim[2] * (pind4[iter4] - 1) + pdim[3] * (pind5[iter5] - 1) + pdim[4] * (pind6[iter6] - 1) + pdim[5] * (pind7[iter7] - 1) + pdim[6] * (pind8[iter8] - 1);
+      x[flatind - 1] = rp[counter];
+      counter++;
+	 }
+	 }
+	 }
+	 }
+	 }
+	 }
+	 }
+	 }
+}
+else if(rp.length() == 1) {
+	 for(int iter8 = 0; iter8 < len8; ++iter8) {
+
+	 for(int iter7 = 0; iter7 < len7; ++iter7) {
+
+	 for(int iter6 = 0; iter6 < len6; ++iter6) {
+
+	 for(int iter5 = 0; iter5 < len5; ++iter5) {
+
+	 for(int iter4 = 0; iter4 < len4; ++iter4) {
+
+	 for(int iter3 = 0; iter3 < len3; ++iter3) {
+
+	 for(int iter2 = 0; iter2 < len2; ++iter2) {
+
+	 for(int iter1 = 0; iter1 < len1; ++iter1) {
+
+      flatind = pind1[iter1] + pdim[0] * (pind2[iter2] - 1) + pdim[1] * (pind3[iter3] - 1) + pdim[2] * (pind4[iter4] - 1) + pdim[3] * (pind5[iter5] - 1) + pdim[4] * (pind6[iter6] - 1) + pdim[5] * (pind7[iter7] - 1) + pdim[6] * (pind8[iter8] - 1);
+      x[flatind - 1] = rp[0];
+	 }
+	 }
+	 }
+	 }
+	 }
+	 }
+	 }
+	 }
+}
+else stop("recycling not allowed");
+
+}
+
+
+
+
+
+
+//' @keywords internal
+//' @noRd
 // [[Rcpp::export(.rcpp_set_array_2d_Raw)]]
 void rcpp_set_array_2d_Raw(
   RawVector x, const SEXP ind1, const SEXP ind2, SEXP dimcumprod, RawVector rp
@@ -2784,7 +3344,119 @@ else stop("recycling not allowed");
 
 //' @keywords internal
 //' @noRd
-// [[Rcpp::export(.rcpp_set_array_2d_6d_Logical)]]
+// [[Rcpp::export(.rcpp_set_array_8d_Raw)]]
+void rcpp_set_array_8d_Raw(
+  RawVector x, const SEXP ind1, const SEXP ind2, const SEXP ind3, const SEXP ind4, const SEXP ind5, const SEXP ind6, const SEXP ind7, const SEXP ind8, SEXP dimcumprod, RawVector rp
+) {
+
+int len1 = Rf_length(ind1);
+int len2 = Rf_length(ind2);
+int len3 = Rf_length(ind3);
+int len4 = Rf_length(ind4);
+int len5 = Rf_length(ind5);
+int len6 = Rf_length(ind6);
+int len7 = Rf_length(ind7);
+int len8 = Rf_length(ind8);
+const int *pind1;
+pind1 = INTEGER(ind1);
+
+const int *pind2;
+pind2 = INTEGER(ind2);
+
+const int *pind3;
+pind3 = INTEGER(ind3);
+
+const int *pind4;
+pind4 = INTEGER(ind4);
+
+const int *pind5;
+pind5 = INTEGER(ind5);
+
+const int *pind6;
+pind6 = INTEGER(ind6);
+
+const int *pind7;
+pind7 = INTEGER(ind7);
+
+const int *pind8;
+pind8 = INTEGER(ind8);
+
+
+double *pdim;
+pdim = REAL(dimcumprod);
+
+R_xlen_t flatind = 0;
+  
+if(rp.length() == (len1 * len2 * len3 * len4 * len5 * len6 * len7 * len8)) {
+R_xlen_t counter = 0;
+	 for(int iter8 = 0; iter8 < len8; ++iter8) {
+
+	 for(int iter7 = 0; iter7 < len7; ++iter7) {
+
+	 for(int iter6 = 0; iter6 < len6; ++iter6) {
+
+	 for(int iter5 = 0; iter5 < len5; ++iter5) {
+
+	 for(int iter4 = 0; iter4 < len4; ++iter4) {
+
+	 for(int iter3 = 0; iter3 < len3; ++iter3) {
+
+	 for(int iter2 = 0; iter2 < len2; ++iter2) {
+
+	 for(int iter1 = 0; iter1 < len1; ++iter1) {
+
+      flatind = pind1[iter1] + pdim[0] * (pind2[iter2] - 1) + pdim[1] * (pind3[iter3] - 1) + pdim[2] * (pind4[iter4] - 1) + pdim[3] * (pind5[iter5] - 1) + pdim[4] * (pind6[iter6] - 1) + pdim[5] * (pind7[iter7] - 1) + pdim[6] * (pind8[iter8] - 1);
+      x[flatind - 1] = rp[counter];
+      counter++;
+	 }
+	 }
+	 }
+	 }
+	 }
+	 }
+	 }
+	 }
+}
+else if(rp.length() == 1) {
+	 for(int iter8 = 0; iter8 < len8; ++iter8) {
+
+	 for(int iter7 = 0; iter7 < len7; ++iter7) {
+
+	 for(int iter6 = 0; iter6 < len6; ++iter6) {
+
+	 for(int iter5 = 0; iter5 < len5; ++iter5) {
+
+	 for(int iter4 = 0; iter4 < len4; ++iter4) {
+
+	 for(int iter3 = 0; iter3 < len3; ++iter3) {
+
+	 for(int iter2 = 0; iter2 < len2; ++iter2) {
+
+	 for(int iter1 = 0; iter1 < len1; ++iter1) {
+
+      flatind = pind1[iter1] + pdim[0] * (pind2[iter2] - 1) + pdim[1] * (pind3[iter3] - 1) + pdim[2] * (pind4[iter4] - 1) + pdim[3] * (pind5[iter5] - 1) + pdim[4] * (pind6[iter6] - 1) + pdim[5] * (pind7[iter7] - 1) + pdim[6] * (pind8[iter8] - 1);
+      x[flatind - 1] = rp[0];
+	 }
+	 }
+	 }
+	 }
+	 }
+	 }
+	 }
+	 }
+}
+else stop("recycling not allowed");
+
+}
+
+
+
+
+
+
+//' @keywords internal
+//' @noRd
+// [[Rcpp::export(.rcpp_set_array_2d_8d_Logical)]]
 void rcpp_set_array_2d_6d_Logical(
   LogicalVector x, List out, NumericVector dimcumprod, LogicalVector rp
 ) {
@@ -2797,6 +3469,7 @@ void rcpp_set_array_2d_6d_Logical(
   IntegerVector ind5;
   IntegerVector ind6;
   IntegerVector ind7;
+  IntegerVector ind8;
 
   if(n > 2) {
     ind3 = out[2];
@@ -2808,6 +3481,9 @@ void rcpp_set_array_2d_6d_Logical(
           ind6 = out[5];
           if(n > 6) {
             ind7 = out[6];
+            if(n > 7) {
+              ind8 = out[7];
+            }
           }
         }
       }
@@ -2863,6 +3539,14 @@ void rcpp_set_array_2d_6d_Logical(
         rp
       );
       break;
+    case 8:
+      rcpp_set_array_8d_Logical(
+        x,
+        ind1, ind2, ind3, ind4, ind5, ind6, ind7, ind8,
+        dimcumprod,
+        rp
+      );
+      break;
   }
 }
 
@@ -2873,7 +3557,7 @@ void rcpp_set_array_2d_6d_Logical(
 
 //' @keywords internal
 //' @noRd
-// [[Rcpp::export(.rcpp_set_array_2d_6d_Integer)]]
+// [[Rcpp::export(.rcpp_set_array_2d_8d_Integer)]]
 void rcpp_set_array_2d_6d_Integer(
   IntegerVector x, List out, NumericVector dimcumprod, IntegerVector rp
 ) {
@@ -2886,6 +3570,7 @@ void rcpp_set_array_2d_6d_Integer(
   IntegerVector ind5;
   IntegerVector ind6;
   IntegerVector ind7;
+  IntegerVector ind8;
 
   if(n > 2) {
     ind3 = out[2];
@@ -2897,6 +3582,9 @@ void rcpp_set_array_2d_6d_Integer(
           ind6 = out[5];
           if(n > 6) {
             ind7 = out[6];
+            if(n > 7) {
+              ind8 = out[7];
+            }
           }
         }
       }
@@ -2952,6 +3640,14 @@ void rcpp_set_array_2d_6d_Integer(
         rp
       );
       break;
+    case 8:
+      rcpp_set_array_8d_Integer(
+        x,
+        ind1, ind2, ind3, ind4, ind5, ind6, ind7, ind8,
+        dimcumprod,
+        rp
+      );
+      break;
   }
 }
 
@@ -2962,7 +3658,7 @@ void rcpp_set_array_2d_6d_Integer(
 
 //' @keywords internal
 //' @noRd
-// [[Rcpp::export(.rcpp_set_array_2d_6d_Numeric)]]
+// [[Rcpp::export(.rcpp_set_array_2d_8d_Numeric)]]
 void rcpp_set_array_2d_6d_Numeric(
   NumericVector x, List out, NumericVector dimcumprod, NumericVector rp
 ) {
@@ -2975,6 +3671,7 @@ void rcpp_set_array_2d_6d_Numeric(
   IntegerVector ind5;
   IntegerVector ind6;
   IntegerVector ind7;
+  IntegerVector ind8;
 
   if(n > 2) {
     ind3 = out[2];
@@ -2986,6 +3683,9 @@ void rcpp_set_array_2d_6d_Numeric(
           ind6 = out[5];
           if(n > 6) {
             ind7 = out[6];
+            if(n > 7) {
+              ind8 = out[7];
+            }
           }
         }
       }
@@ -3041,6 +3741,14 @@ void rcpp_set_array_2d_6d_Numeric(
         rp
       );
       break;
+    case 8:
+      rcpp_set_array_8d_Numeric(
+        x,
+        ind1, ind2, ind3, ind4, ind5, ind6, ind7, ind8,
+        dimcumprod,
+        rp
+      );
+      break;
   }
 }
 
@@ -3051,7 +3759,7 @@ void rcpp_set_array_2d_6d_Numeric(
 
 //' @keywords internal
 //' @noRd
-// [[Rcpp::export(.rcpp_set_array_2d_6d_Character)]]
+// [[Rcpp::export(.rcpp_set_array_2d_8d_Character)]]
 void rcpp_set_array_2d_6d_Character(
   CharacterVector x, List out, NumericVector dimcumprod, CharacterVector rp
 ) {
@@ -3064,6 +3772,7 @@ void rcpp_set_array_2d_6d_Character(
   IntegerVector ind5;
   IntegerVector ind6;
   IntegerVector ind7;
+  IntegerVector ind8;
 
   if(n > 2) {
     ind3 = out[2];
@@ -3075,6 +3784,9 @@ void rcpp_set_array_2d_6d_Character(
           ind6 = out[5];
           if(n > 6) {
             ind7 = out[6];
+            if(n > 7) {
+              ind8 = out[7];
+            }
           }
         }
       }
@@ -3130,6 +3842,14 @@ void rcpp_set_array_2d_6d_Character(
         rp
       );
       break;
+    case 8:
+      rcpp_set_array_8d_Character(
+        x,
+        ind1, ind2, ind3, ind4, ind5, ind6, ind7, ind8,
+        dimcumprod,
+        rp
+      );
+      break;
   }
 }
 
@@ -3140,7 +3860,7 @@ void rcpp_set_array_2d_6d_Character(
 
 //' @keywords internal
 //' @noRd
-// [[Rcpp::export(.rcpp_set_array_2d_6d_Complex)]]
+// [[Rcpp::export(.rcpp_set_array_2d_8d_Complex)]]
 void rcpp_set_array_2d_6d_Complex(
   ComplexVector x, List out, NumericVector dimcumprod, ComplexVector rp
 ) {
@@ -3153,6 +3873,7 @@ void rcpp_set_array_2d_6d_Complex(
   IntegerVector ind5;
   IntegerVector ind6;
   IntegerVector ind7;
+  IntegerVector ind8;
 
   if(n > 2) {
     ind3 = out[2];
@@ -3164,6 +3885,9 @@ void rcpp_set_array_2d_6d_Complex(
           ind6 = out[5];
           if(n > 6) {
             ind7 = out[6];
+            if(n > 7) {
+              ind8 = out[7];
+            }
           }
         }
       }
@@ -3219,6 +3943,14 @@ void rcpp_set_array_2d_6d_Complex(
         rp
       );
       break;
+    case 8:
+      rcpp_set_array_8d_Complex(
+        x,
+        ind1, ind2, ind3, ind4, ind5, ind6, ind7, ind8,
+        dimcumprod,
+        rp
+      );
+      break;
   }
 }
 
@@ -3229,7 +3961,7 @@ void rcpp_set_array_2d_6d_Complex(
 
 //' @keywords internal
 //' @noRd
-// [[Rcpp::export(.rcpp_set_array_2d_6d_Raw)]]
+// [[Rcpp::export(.rcpp_set_array_2d_8d_Raw)]]
 void rcpp_set_array_2d_6d_Raw(
   RawVector x, List out, NumericVector dimcumprod, RawVector rp
 ) {
@@ -3242,6 +3974,7 @@ void rcpp_set_array_2d_6d_Raw(
   IntegerVector ind5;
   IntegerVector ind6;
   IntegerVector ind7;
+  IntegerVector ind8;
 
   if(n > 2) {
     ind3 = out[2];
@@ -3253,6 +3986,9 @@ void rcpp_set_array_2d_6d_Raw(
           ind6 = out[5];
           if(n > 6) {
             ind7 = out[6];
+            if(n > 7) {
+              ind8 = out[7];
+            }
           }
         }
       }
@@ -3304,6 +4040,14 @@ void rcpp_set_array_2d_6d_Raw(
       rcpp_set_array_7d_Raw(
         x,
         ind1, ind2, ind3, ind4, ind5, ind6, ind7,
+        dimcumprod,
+        rp
+      );
+      break;
+    case 8:
+      rcpp_set_array_8d_Raw(
+        x,
+        ind1, ind2, ind3, ind4, ind5, ind6, ind7, ind8,
         dimcumprod,
         rp
       );

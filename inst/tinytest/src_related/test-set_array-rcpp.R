@@ -3,24 +3,24 @@
 
 sys.source(file.path(getwd(), "source", "functions4testing.R"), envir = environment())
 enumerate <- 0
-tempfun2 <- function(x, sub, dims, tf) {
+tempfun2 <- function(x, sub, dims, rp) {
   x <- data.table::copy(x)
-  sb_set.array(x, sub, dims, tf = tf)
+  squarebrackets:::.rcpp_set_array_2d_8d(x, rp, sub, dim(x))
   return(x)
 }
-tempfun1 <- function(x, sub, tf) {
+tempfun1 <- function(x, sub, rp) {
   ind <- idx.array(x, sub, dims)
-  x[ind] <- tf(x[ind])
+  x[ind] <- rp
   return(x)
 }
 
-tf.funs <- list(
-  collapse::fmode.default,
-  function(x)sum(x, na.rm = TRUE) |> as.integer(),
-  function(x)mean.default(x, na.rm = TRUE),
-  function(x){sum(x=="a", na.rm = TRUE) |> as.character()},
-  function(x)mean.default(x, na.rm = TRUE),
-  function(x){as.integer(x) |> mean() |> as.integer() |> as.raw() }
+rp.lst <- list(
+  NA,
+  -1000L,
+  -Inf,
+  "NA; NaN; Inf; -Inf",
+  as.complex(-1000),
+  as.raw(0)
 )
 
 generate_data <- function(x.len) {
@@ -39,7 +39,7 @@ expected <- out <- list()
 i <- 1
 
 for(iSample in 1:10) {
-  for(iDim in 2:9) {
+  for(iDim in 2:8) {
     x.dim <- sample(1:6, size = iDim, replace = TRUE)
     x.len <- prod(x.dim)
     x.data <- generate_data(x.len)
@@ -48,12 +48,12 @@ for(iSample in 1:10) {
       sub <- lapply(x.dim, \(x) sample(1:x, max(c(1, x)), FALSE))
       dims <- 1:length(x.dim)
       
-      expected[[i]] <- tempfun1(x, sub, tf.funs[[iType]])
-      out[[i]] <- tempfun2(x, sub, dims, tf.funs[[iType]])
+      expected[[i]] <- tempfun1(x, sub, rp.lst[[iType]])
+      out[[i]] <- tempfun2(x, sub, dims, rp.lst[[iType]])
       
       x <- data.table::copy(x)
       x2 <- x
-      sb_set.array(x, sub, dims, tf = tf.funs[[iType]])
+      sb_set.array(x, sub, dims, rp = rp.lst[[iType]])
       expect_equal(x,x2) |> errorfun() # test indexing & pass-by-reference
       
       enumerate <- enumerate + 2

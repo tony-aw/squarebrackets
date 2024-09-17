@@ -18,7 +18,7 @@
 #'  * `sub2ind()`
 #'  is a faster and more memory efficient version of \cr
 #'  `coord2ind(sub2coord(sub, x.dims), x.dims)` \cr
-#'  (especially for up to 6 dimensions). \cr
+#'  (especially for up to 8 dimensions). \cr
 #' 
 #' 
 #' All of these functions are written to be memory-efficient. \cr
@@ -187,7 +187,7 @@ sub2ind <- function(sub, x.dim, checks = TRUE) {
   if(n == 1L) {
     return(sub[[1L]])
   }
-  else if(n <= 7L) {
+  else if(n <= 8L) {
     if(prod(x.dim) < (2^31 - 1)) {
       return(.sub2ind_d32(sub, x.dim))
     }
@@ -210,7 +210,7 @@ sub2ind <- function(sub, x.dim, checks = TRUE) {
 .sub2ind_d32 <- function(sub, x.dim) {
   n <- length(x.dim)
   dimcumprod <- as.integer(cumprod(x.dim)[1L:(n - 1L)])
-  return(.rcpp_sub2ind_2d_7d_32(sub, dimcumprod))
+  return(.rcpp_sub2ind_2d_8d_32(sub, dimcumprod))
 }
 
 #' @keywords internal
@@ -218,7 +218,7 @@ sub2ind <- function(sub, x.dim, checks = TRUE) {
 .sub2ind_d64 <- function(sub, x.dim) {
   n <- length(x.dim)
   dimcumprod <- as.double(cumprod(x.dim)[1L:(n - 1L)])
-  return(.rcpp_sub2ind_2d_7d_64(sub, dimcumprod))
+  return(.rcpp_sub2ind_2d_8d_64(sub, dimcumprod))
 }
 
 #' @keywords internal

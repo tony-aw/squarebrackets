@@ -8,13 +8,13 @@ library(stringi)
 # rcpp_sub2ind_d_32 ====
 
 
-DTYPES <- 2:7
-all_args <- stri_c("const SEXP ind", 1:7)
-setlengths <- paste("int len", 1:7, " = Rf_length(ind", 1:7, ");", sep= "")
-make_pointers <- sprintf("const int *pind%d;\npind%d = INTEGER(ind%d);\n", 1:7, 1:7, 1:7)
-all_lengths <- paste("len", 1:7, sep = "")
+DTYPES <- 2:8
+all_args <- stri_c("const SEXP ind", 1:8)
+setlengths <- paste("int len", 1:8, " = Rf_length(ind", 1:8, ");", sep= "")
+make_pointers <- sprintf("const int *pind%d;\npind%d = INTEGER(ind%d);\n", 1:8, 1:8, 1:8)
+all_lengths <- paste("len", 1:8, sep = "")
 all_for <- rev(
-  sprintf("\t for(int iter%d = 0; iter%d < len%d; ++iter%d) {\n", 7:1, 7:1, 7:1, 7:1)
+  sprintf("\t for(int iter%d = 0; iter%d < len%d; ++iter%d) {\n", 8:1, 8:1, 8:1, 8:1)
 )
 
 all_parts <- c(
@@ -24,7 +24,8 @@ all_parts <- c(
   "pdim[2] * (pind4[iter4] - 1)",
   "pdim[3] * (pind5[iter5] - 1)",
   "pdim[4] * (pind6[iter6] - 1)",
-  "pdim[5] * (pind7[iter7] - 1)"
+  "pdim[5] * (pind7[iter7] - 1)",
+  "pdim[6] * (pind8[iter8] - 1)"
 )
 
 
@@ -116,8 +117,8 @@ templatecode2 <- "
 
 //' @keywords internal
 //' @noRd
-// [[Rcpp::export(.rcpp_sub2ind_2d_7d_32)]]
-IntegerVector rcpp_sub2ind_2d_7d_32(
+// [[Rcpp::export(.rcpp_sub2ind_2d_8d_32)]]
+IntegerVector rcpp_sub2ind_2d_8d_32(
   List sub, SEXP dimcumprod
 ) {
   int n = sub.length();
@@ -129,6 +130,7 @@ IntegerVector rcpp_sub2ind_2d_7d_32(
   IntegerVector ind5;
   IntegerVector ind6;
   IntegerVector ind7;
+  IntegerVector ind8;
   IntegerVector out;
 
   if(n > 2) {
@@ -141,6 +143,9 @@ IntegerVector rcpp_sub2ind_2d_7d_32(
           ind6 = sub[5];
           if(n > 6) {
             ind7 = sub[6];
+            if(n > 7) {
+              ind8 = sub[7];
+            }
           }
         }
       }
@@ -184,6 +189,12 @@ IntegerVector rcpp_sub2ind_2d_7d_32(
         dimcumprod
       );
       break;
+    case 8:
+      out = C_sub2ind_8d_32(
+        <args8>,
+        dimcumprod
+      );
+      break;
   }
   
   return out;
@@ -193,12 +204,12 @@ IntegerVector rcpp_sub2ind_2d_7d_32(
 
 "
 
-args <- sprintf("ind%d", 1:7)
-rp <- sapply(2:7, \(i) stri_c(args[1:i], collapse = ", "))
+args <- sprintf("ind%d", 1:8)
+rp <- sapply(2:8, \(i) stri_c(args[1:i], collapse = ", "))
 
 templatecode2 <- stri_replace_all_fixed(
   templatecode2,
-  sprintf("<args%d>", 2:7),
+  sprintf("<args%d>", 2:8),
   rp,
   vectorize_all = FALSE
 )
@@ -234,26 +245,6 @@ close(fileConn)
 
 ################################################################################
 # rcpp_sub2ind_d_64 ====
-
-
-DTYPES <- 2:7
-all_args <- stri_c("const SEXP ind", 1:7)
-setlengths <- paste("int len", 1:7, " = Rf_length(ind", 1:7, ");", sep= "")
-make_pointers <- sprintf("const int *pind%d;\npind%d = INTEGER(ind%d);\n", 1:7, 1:7, 1:7)
-all_lengths <- paste("len", 1:7, sep = "")
-all_for <- rev(
-  sprintf("\t for(int iter%d = 0; iter%d < len%d; ++iter%d) {\n", 7:1, 7:1, 7:1, 7:1)
-)
-
-all_parts <- c(
-  "pind1[iter1]",
-  "pdim[0] * (pind2[iter2] - 1)",
-  "pdim[1] * (pind3[iter3] - 1)",
-  "pdim[2] * (pind4[iter4] - 1)",
-  "pdim[3] * (pind5[iter5] - 1)",
-  "pdim[4] * (pind6[iter6] - 1)",
-  "pdim[5] * (pind7[iter7] - 1)"
-)
 
 
 templatecode <- "
@@ -344,8 +335,8 @@ templatecode2 <- "
 
 //' @keywords internal
 //' @noRd
-// [[Rcpp::export(.rcpp_sub2ind_2d_7d_64)]]
-NumericVector rcpp_sub2ind_2d_7d_64(
+// [[Rcpp::export(.rcpp_sub2ind_2d_8d_64)]]
+NumericVector rcpp_sub2ind_2d_8d_64(
   List sub, SEXP dimcumprod
 ) {
   int n = sub.length();
@@ -357,6 +348,7 @@ NumericVector rcpp_sub2ind_2d_7d_64(
   IntegerVector ind5;
   IntegerVector ind6;
   IntegerVector ind7;
+  IntegerVector ind8;
   NumericVector out;
 
   if(n > 2) {
@@ -369,6 +361,9 @@ NumericVector rcpp_sub2ind_2d_7d_64(
           ind6 = sub[5];
           if(n > 6) {
             ind7 = sub[6];
+            if(n > 7) {
+              ind8 = sub[7];
+            }
           }
         }
       }
@@ -412,6 +407,12 @@ NumericVector rcpp_sub2ind_2d_7d_64(
         dimcumprod
       );
       break;
+    case 8:
+      out = C_sub2ind_8d_64(
+        <args8>,
+        dimcumprod
+      );
+      break;
   }
   
   return out;
@@ -421,12 +422,12 @@ NumericVector rcpp_sub2ind_2d_7d_64(
 
 "
 
-args <- sprintf("ind%d", 1:7)
-rp <- sapply(2:7, \(i) stri_c(args[1:i], collapse = ", "))
+args <- sprintf("ind%d", 1:8)
+rp <- sapply(2:8, \(i) stri_c(args[1:i], collapse = ", "))
 
 templatecode2 <- stri_replace_all_fixed(
   templatecode2,
-  sprintf("<args%d>", 2:7),
+  sprintf("<args%d>", 2:8),
   rp,
   vectorize_all = FALSE
 )
@@ -562,7 +563,7 @@ templatecode2 <- "
 
 //' @keywords internal
 //' @noRd
-// [[Rcpp::export(.rcpp_set_array_2d_6d_RTYPE)]]
+// [[Rcpp::export(.rcpp_set_array_2d_8d_RTYPE)]]
 void rcpp_set_array_2d_6d_RTYPE(
   RTYPEVector x, List out, NumericVector dimcumprod, RTYPEVector rp
 ) {
@@ -575,6 +576,7 @@ void rcpp_set_array_2d_6d_RTYPE(
   IntegerVector ind5;
   IntegerVector ind6;
   IntegerVector ind7;
+  IntegerVector ind8;
 
   if(n > 2) {
     ind3 = out[2];
@@ -586,6 +588,9 @@ void rcpp_set_array_2d_6d_RTYPE(
           ind6 = out[5];
           if(n > 6) {
             ind7 = out[6];
+            if(n > 7) {
+              ind8 = out[7];
+            }
           }
         }
       }
@@ -641,18 +646,26 @@ void rcpp_set_array_2d_6d_RTYPE(
         rp
       );
       break;
+    case 8:
+      rcpp_set_array_8d_RTYPE(
+        x,
+        <args8>,
+        dimcumprod,
+        rp
+      );
+      break;
   }
 }
 
 "
 
 
-args <- sprintf("ind%d", 1:7)
-rp <- sapply(2:7, \(i) stri_c(args[1:i], collapse = ", "))
+args <- sprintf("ind%d", 1:8)
+rp <- sapply(2:8, \(i) stri_c(args[1:i], collapse = ", "))
 
 templatecode2 <- stri_replace_all_fixed(
   templatecode2,
-  sprintf("<args%d>", 2:7),
+  sprintf("<args%d>", 2:8),
   rp,
   vectorize_all = FALSE
 )
@@ -696,192 +709,5 @@ writeLines(rcpp_code, fileConn)
 close(fileConn)
 
 
-
-sub2ind <- function(sub, x.dim, checks = TRUE) {
-  
-  n <- length(x.dim)
-  
-  if(checks) {
-    if(n == 0) {
-      stop("`length(x.dim) == 0`")
-    }
-    
-    if(length(sub) != n) {
-      stop("`length(sub) != length(x.dim)`")
-    }
-  }
-  
-  if(n == 1) {
-    return(sub[[1]])
-  }
-  else if(n == 2) {
-    dimcumprod <- as.double(cumprod(x.dim))
-    return(.rcpp_sub2ind_2d(
-      as.integer(sub[[1]]), as.integer(sub[[2]]), dimcumprod
-    ))
-  }
-  else if(n == 3) {
-    dimcumprod <- as.double(cumprod(x.dim))
-    return(.rcpp_sub2ind_3d(
-      as.integer(sub[[1]]), as.integer(sub[[2]]), as.integer(sub[[3]]), dimcumprod
-    ))
-  }
-  else if(n == 4) {
-    dimcumprod <- as.double(cumprod(x.dim))
-    return(.rcpp_sub2ind_4d(
-      as.integer(sub[[1]]),
-      as.integer(sub[[2]]),
-      as.integer(sub[[3]]),
-      as.integer(sub[[4]]),
-      dimcumprod
-    ))
-  }
-  else if(n == 5) {
-    dimcumprod <- as.double(cumprod(x.dim))
-    return(.rcpp_sub2ind_5d(
-      as.integer(sub[[1]]),
-      as.integer(sub[[2]]),
-      as.integer(sub[[3]]),
-      as.integer(sub[[4]]),
-      as.integer(sub[[5]]),
-      dimcumprod
-    ))
-  }
-  else if(n == 6) {
-    dimcumprod <- as.double(cumprod(x.dim))
-    return(.rcpp_sub2ind_6d(
-      as.integer(sub[[1]]),
-      as.integer(sub[[2]]),
-      as.integer(sub[[3]]),
-      as.integer(sub[[4]]),
-      as.integer(sub[[5]]),
-      as.integer(sub[[6]]),
-      dimcumprod
-    ))
-  }
-  
-  return(.sub2ind_general(sub, x.dim))
-  
-}
-
-sub2ind2 <- function(sub, x.dim) {
-  n <- length(sub)
-  if(n == 1) {
-    return(sub[[1]])
-  }
-  else if(n <=6 ) {
-    dimcumprod <- as.double(cumprod(x.dim))
-    return(.rcpp_sub2ind_2d_6d(
-      sub, dimcumprod
-    ))
-  }
-  return(.sub2ind_general(sub, x.dim))
-}
-
-
-
-
-x.dim <- c(100, 100, 100)
-x.len <- prod(x.dim)
-x <- array(1:x.len, x.dim)
-sub <- lapply(1:3, \(i)sample(1:99))
-
-foo <- bench::mark(
-  sub2ind(sub, x.dim, checks = FALSE),
-  sub2ind2(sub, x.dim),
-  min_iterations = 1000
-)
-foo
-ggplot2::autoplot(foo)
-
-
-
-################################################################################
-
-# seq_rec ====
-
-
-inops_nms <- c("plus", "min", "x", "div")
-inops_sym <- c("+", "-", "*", "/")
-
-templatecode <- "
-
-//' @keywords internal
-//' @noRd
-// [[Rcpp::export(.rcpp_seq_rec2_<INOP>)]]
-NumericVector rcpp_seq_rec2_<INOP>(
-  NumericVector inits, int n, NumericVector s, NumericVector m, int form, bool rev
-) {
-
-  if(inits.length() != 2 || s.length() != 2 || m.length() != 2) {
-    stop(\"`inits`, `s`, `m` must each be of length 2\");
-  }
-  
-  NumericVector x(n);
-  Range idx(0, 1);
-  x[sub] = inits;
-  
-  int prev1;
-  int prev2;
-  
-  if(!rev) {
-    prev1 = 1;
-    prev2 = 2;
-  }
-  if(rev) {
-    prev1 = 2;
-    prev2 = 1;
-  }
-  
-  if(form == 1) {
-    for (int i = 2; i < n; i++){
-      x[i] = (s[0] + m[0] * x[i-prev1]) %INOP% (s[1] + m[1] * x[i-prev2]);
-    }
-  }
-  if(form == 2) {
-    for (int i = 2; i < n; i++){
-       x[i] =(m[0] * (x[i-prev1] + s[0])) %INOP% (m[1] * (x[i-prev2] + s[1]));
-    }
-  }
-  
-  return x;
-}
-
-"
-
-rcpp_scripts <- character(length(inops_sym))
-
-for(i in seq_along(inops_sym)) {
-  rcpp_scripts[i] <- stri_replace_all(
-    templatecode,
-    fixed = c("%INOP%", "<INOP>"),
-    replacement = c(inops_sym[i], inops_nms[i]),
-    case_insensitive = FALSE,
-    vectorize_all = FALSE
-  )
-}
-
-
-headers <- "
-
-#include <Rcpp.h>
-
-using namespace Rcpp;
-
-"
-
-
-rcpp_code <- paste(c(headers, rcpp_scripts), collapse = "\n\n\n")
-cat(rcpp_code)
-
-Rcpp::sourceCpp(
-  code = rcpp_code # no errors, good
-)
-
-
-
-fileConn <- file("src/dynamic_rcpp_seq_rec2.cpp")
-writeLines(rcpp_code, fileConn)
-close(fileConn)
 
 

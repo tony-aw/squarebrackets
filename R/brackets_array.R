@@ -121,12 +121,12 @@
   }
   
   # CASE 3: `x` has between 2 and 6 dimensions, and neither all nor empty selection
-  if(ndims <= 6L) {
+  if(ndims <= 8L) {
     if(!missing(tf)) {
       if(!is.function(tf)) stop(simpleError("`tf` must be a function", call = abortcall))
       rp <- tf(do.call(\(...)x[...], lst))
     }
-    .rcpp_set_array_2d_6d(x, rp, lst, x.dim, abortcall = abortcall)
+    .rcpp_set_array_2d_8d(x, rp, lst, x.dim, abortcall = abortcall)
     return(invisible(NULL))
   }
   
@@ -141,30 +141,30 @@
 
 #' @keywords internal
 #' @noRd
-.rcpp_set_array_2d_6d <- function(x, rp, lst, x.dim, abortcall) {
+.rcpp_set_array_2d_8d <- function(x, rp, lst, x.dim, abortcall) {
   dimcumprod <- as.double(cumprod(x.dim))
   if(is.logical(x)) {
-    .rcpp_set_array_2d_6d_Logical(x, lst, dimcumprod, as.logical(rp))
+    .rcpp_set_array_2d_8d_Logical(x, lst, dimcumprod, as.logical(rp))
     return(invisible(NULL))
   }
   else if(is.integer(x)) {
-    .rcpp_set_array_2d_6d_Integer(x, lst, dimcumprod, as.integer(rp))
+    .rcpp_set_array_2d_8d_Integer(x, lst, dimcumprod, as.integer(rp))
     return(invisible(NULL))
   }
   else if(is.double(x)) {
-    .rcpp_set_array_2d_6d_Numeric(x, lst, dimcumprod, as.double(rp))
+    .rcpp_set_array_2d_8d_Numeric(x, lst, dimcumprod, as.double(rp))
     return(invisible(NULL))
   }
   else if(is.character(x)) {
-    .rcpp_set_array_2d_6d_Character(x, lst, dimcumprod, as.character(rp))
+    .rcpp_set_array_2d_8d_Character(x, lst, dimcumprod, as.character(rp))
     return(invisible(NULL))
   }
   else if(is.complex(x)) {
-    .rcpp_set_array_2d_6d_Complex(x, lst, dimcumprod, as.complex(rp))
+    .rcpp_set_array_2d_8d_Complex(x, lst, dimcumprod, as.complex(rp))
     return(invisible(NULL))
   }
   else if(is.raw(x)) {
-    .rcpp_set_array_2d_6d_Raw(x, lst, dimcumprod, as.raw(rp))
+    .rcpp_set_array_2d_8d_Raw(x, lst, dimcumprod, as.raw(rp))
     return(invisible(NULL))
   }
   else {
