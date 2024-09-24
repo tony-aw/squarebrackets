@@ -222,3 +222,6 @@
   check <- inherits(form, "formula") && is.call(form) && isTRUE(form[[1]] == "~")
   return(check)
 }
+
+
+

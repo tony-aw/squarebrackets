@@ -91,7 +91,7 @@
 #' start with `sb_`. \cr
 #' Generic methods for recursive objects (list, data.frame, etc.)
 #' start with `sb2_`. \cr
-#' The binding implementations for non-recursive dimensional objects (atomic arrays)
+#' The binding implementations for atomic dimensional objects (atomic arrays)
 #' start with `bind_`. \cr
 #' The binding implementations for recursive dimensional objects (recursive arrays, data.frames)
 #' start with `bind2_`. \cr

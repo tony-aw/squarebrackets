@@ -108,7 +108,7 @@ Generic methods for atomic objects
 start with \code{sb_}. \cr
 Generic methods for recursive objects (list, data.frame, etc.)
 start with \code{sb2_}. \cr
-The binding implementations for non-recursive dimensional objects (atomic arrays)
+The binding implementations for atomic dimensional objects (atomic arrays)
 start with \code{bind_}. \cr
 The binding implementations for recursive dimensional objects (recursive arrays, data.frames)
 start with \code{bind2_}. \cr

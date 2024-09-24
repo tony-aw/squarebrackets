@@ -16,47 +16,20 @@ void C_sub2ind_setrange64(
   double *pout;
   pout = REAL(out);
   
-  switch(TYPEOF(rp)) {
-    case INTSXP:
-      {
-        int *prp;
-        prp = INTEGER(rp);
-        
-        for(R_xlen_t i = start; i <= end; ++i) {
-          temp = pout[i] + (prp[counter_rp] - 1) * myprod;
-          pout[i] = temp;
-          counter_each++;
-          if(counter_each == each) {
-            counter_rp++;
-            counter_each = 0;
-          }
-        }
-        break;
-      }
-    case REALSXP:
-      {
-        double *prp;
-        prp = REAL(rp);
-        
-        for(R_xlen_t i = start; i <= end; ++i) {
-          temp = pout[i] + (prp[counter_rp] - 1) * myprod;
-          pout[i] = temp;
-          counter_each++;
-          if(counter_each == each) {
-            counter_rp++;
-            counter_each = 0;
-          }
-        }
-        break;
-      }
-    default:
-      {
-        stop("unsupported type");
-      }
+  int *prp;
+  prp = INTEGER(rp);
+  
+  for(R_xlen_t i = start; i <= end; ++i) {
+    temp = pout[i] + (prp[counter_rp] - 1) * myprod;
+    pout[i] = temp;
+    counter_each++;
+    if(counter_each == each) {
+      counter_rp++;
+      counter_each = 0;
+    }
   }
+}  
   
-  
-}
 //' @keywords internal
 //' @noRd
 // [[Rcpp::export(.rcpp_sub2ind_general64)]]
@@ -65,12 +38,12 @@ NumericVector rcpp_sub2ind_general64(
 ) {
   int ndim = lst.length();
   Rcpp::NumericVector out(total);
-  IntegerVector temp1 = lst[0];
-  out = rep(temp1, reps_whole[0]);
+  IntegerVector temp = lst[0];
+  out = rep(temp, reps_whole[0]);
   if(ndim > 1) {
     for(int j = 1; j < ndim; ++j) {
       double myprod = dimcumprod[j - 1];
-      SEXP temp = lst[j];
+      temp = lst[j];
       R_xlen_t n = Rf_xlength(temp) * reps_each[j];
       for(R_xlen_t i = 0; i < reps_whole[j]; ++i) {
         C_sub2ind_setrange64(out, n * i, n * (i + 1) - 1, reps_each[j], myprod, temp);
@@ -118,12 +91,12 @@ IntegerVector rcpp_sub2ind_general32(
 ) {
   int ndim = lst.length();
   IntegerVector out(total);
-  IntegerVector temp1 = lst[0];
-  out = rep(temp1, reps_whole[0]);
+  IntegerVector temp = lst[0];
+  out = rep(temp, reps_whole[0]);
   if(ndim > 1) {
     for(int j = 1; j < ndim; ++j) {
       double myprod = dimcumprod[j - 1];
-      SEXP temp = lst[j];
+      temp = lst[j];
       R_xlen_t n = Rf_xlength(temp) * reps_each[j];
       for(R_xlen_t i = 0; i < reps_whole[j]; ++i) {
         C_sub2ind_setrange32(out, n * i, n * (i + 1) - 1, reps_each[j], myprod, temp);

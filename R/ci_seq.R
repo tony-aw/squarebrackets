@@ -102,6 +102,7 @@ ci_seq <- function(x, m = 0L, start = NULL, end = NULL, by = 1L, .abortcall = sy
 #' @noRd
 .ci_seq.check_args <- function(m, start, end, by, abortcall) {
 
+  # check start/end combination
   startend.missing <- is.null(start) + is.null(end)
   if(startend.missing == 1L) {
     stop(simpleError(
@@ -110,10 +111,18 @@ ci_seq <- function(x, m = 0L, start = NULL, end = NULL, by = 1L, .abortcall = sy
     ))
   }
   
-  if(startend.missing == 2L) {
-    if(missing(by) || is.null(by)) {
-      stop(simpleError("`by` missing", call = abortcall))
-    }
+  # check by
+  if(missing(by) || is.null(by)) {
+    stop(simpleError("`by` missing", call = abortcall))
+  }
+  if(anyNA(by)) {
+    stop(simpleError("`by` cannot be `NA`", call = abortcall))
+  }
+  if(collapse::anyv(by, 0)) {
+    stop(simpleError("`by` cannot be zero", call = abortcall))
+  }
+  if(any(by != round(by))) {
+    stop(simpleError("`by` cannot be fractional", call = abortcall))
   }
   
   arg.list <- list(m, start, end, by)
@@ -125,9 +134,7 @@ ci_seq <- function(x, m = 0L, start = NULL, end = NULL, by = 1L, .abortcall = sy
     ))
   }
   
-  if(collapse::anyv(by, 0)) {
-    stop(simpleError("`by` cannot be zero", call = abortcall))
-  }
+  
   
 }
 
@@ -149,6 +156,11 @@ ci_seq <- function(x, m = 0L, start = NULL, end = NULL, by = 1L, .abortcall = sy
 #' @keywords internal
 #' @noRd
 .ci_seq.convert_startend <- function(x, n, abortcall) {
+  
+  if(anyNA(x)) {
+    stop(simpleError("index out of bounds", call = abortcall))
+  }
+  
   if(is.complex(x)) {
     x <- .indx_convert_complex_multi(x, n, abortcall)
     if(any(x > n | x < 1L)) {
@@ -181,29 +193,29 @@ ci_seq <- function(x, m = 0L, start = NULL, end = NULL, by = 1L, .abortcall = sy
     if(by > 0L) {
       start <- 1L
       end <- n
-      length <- floor((end - start )/by) + 1L
+      length.out <- .ci_seq.calc_length.out(start, end, by)
+      end <- .ci_seq.recalc_end(start, by, length.out, n, abortcall)
+      
     }
     if(by < 0L) {
       start <- n
       end <- 1L
-      length <- floor((start - end)/by) + 1L
+      length.out <- .ci_seq.calc_length.out(start, end, by)
+      end <- .ci_seq.recalc_end(start, by, length.out, n, abortcall)
     }
-    return(list(start = start, end = end, by = by, length = length))
+    return(list(start = start, end = end, by = by, length.out = length.out))
   }
   
   
-  start <- ifelse(by > 0L, 1L, n)
-  end <- ifelse(by > 0L, n, 1L)
-  length <- ifelse(
-    by > 0L,
-    floor((end - start )/by) + 1L,
-    floor((start - end)/by) + 1L
-  )
+  start <- data.table::fifelse(by > 0L, 1L, n)
+  end <- data.table::fifelse(by > 0L, n, 1L)
+  length.out <- .ci_seq.calc_length.out(start, end, by)
+  end <- .ci_seq.recalc_end(start, by, length.out, n, abortcall)
   out <- list(
     start = start,
     end = end,
     by = by,
-    length = length
+    length.out = length.out
   )
   return(out)
 }
@@ -217,21 +229,36 @@ ci_seq <- function(x, m = 0L, start = NULL, end = NULL, by = 1L, .abortcall = sy
   
   start <- .ci_seq.convert_startend(start, n, abortcall)
   end <- .ci_seq.convert_startend(end, n, abortcall)
-  by <- ifelse(start < end, by, -by)
-  length <- ifelse(
-    start < end,
-    floor((end - start )/by) + 1L,
-    floor((start - end)/by) + 1L
-  )
+  by <- data.table::fifelse(start < end, by, -by)
+  length.out <- .ci_seq.calc_length.out(start, end, by)
+  end <- .ci_seq.recalc_end(start, by, length.out, n, abortcall)
   
   out <- list(
     start = start,
     end = end,
     by = by,
-    length = length
+    length.out = length.out
   )
   return(out)
   
 }
 
 
+#' @keywords internal
+#' @noRd
+.ci_seq.calc_length.out <- function(start, end, by) {
+  out <- (end - start) / by
+  out <- floor(abs(out)) + 1L
+  return(out)
+}
+
+#' @keywords internal
+#' @noRd
+.ci_seq.recalc_end <- function(start, by, length.out, n, abortcall) {
+  end <- start + by * (length.out - 1)
+  if(any(end > n | end < 1L)) {
+    stop(simpleError("index out of bounds", call = abortcall))
+  }
+  return(end)
+  
+}
