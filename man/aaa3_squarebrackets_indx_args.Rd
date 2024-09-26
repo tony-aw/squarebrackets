@@ -50,36 +50,38 @@ Character indices are internally translated to integer indices using
 \link{match_all}. \cr
 \cr
 \cr
-\bold{Complex Numbers} \cr
-Unlike base 'R',
-squarebrackets' includes support for indexing through \code{complex} vectors. \cr
-Indexing with complex numbers is a generalization of indexing with regular integers. \cr
+\bold{Imaginary Numbers} \cr
+A \link[base]{complex} vector \code{y} is structured as \cr
+\code{y = a + b * i} \cr
+where \code{Re(y)} returns \code{a}, and \code{Im(y)} returns \code{b}. \cr
+squarebrackets' includes support for indexing through imaginary numbers (\code{Im(y)}) of \link[base]{complex} vectors. \cr
+Indexing with imaginary numbers is a generalization of indexing with regular integers. \cr
 \cr
 It works as follows: \cr
-A complex vector is essentially structured as \code{Real + Imaginary}. \cr
-The Real part must be \bold{strictly positive integers}. \cr
-The Imaginary part must be \bold{constant}.
-\itemize{
-\item If \code{Imaginary} is positive or zero, it works the same as integer values.
-\item If \code{Imaginary} is negative, indexing counts backwards,
-where the integer indices are computed as \code{n - Real + 1L}.
-}
-
+Imaginary numbers that are positive integers,
+like \code{1:10 * 1i}, work the same as regular integers. \cr
+Imaginary numbers that are negative integers,
+like \code{1:10 * -1i},
+index by counting backwards (i.e. from the end),
+where the integer indices are computed as \code{n - Im(y) + 1L}. \cr
 Where \code{n} is the maximum possible integer
 (i.e. \code{length(x)}, or \code{dim(x)[L]}, depending on the situation). \cr
+\cr
+Note that \bold{only} the \code{Imaginary} part of a complex vector is used (\code{Im(y)}); \cr
+the \code{Real} part (\code{Re(y)}) is \bold{ignored}. \cr
 \cr
 See the results of the following code as an example:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{
 x <- 1:30 # vector of 30 elements
 
-sb_x(x, 1:10 + 1i) # extract first 10 elements
+sb_x(x, 1:10 * 1i) # extract first 10 elements
 #>  [1]  1  2  3  4  5  6  7  8  9 10
 
-sb_x(x, 1:10 - 1i) # extract last 10 elements
+sb_x(x, 1:10 * -1i) # extract last 10 elements
 #>  [1] 30 29 28 27 26 25 24 23 22 21
 
-sb_x(x, 10:1 - 1i) # last 10 elements, in tail()-like order
+sb_x(x, 10:1 * -1i) # last 10 elements, in tail()-like order
 #>  [1] 21 22 23 24 25 26 27 28 29 30
 }\if{html}{\out{</div>}}
 

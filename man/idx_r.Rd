@@ -7,15 +7,15 @@
 idx_r(x, m = 0L, start = NULL, end = NULL, by = 1L)
 }
 \arguments{
-\item{x}{the object to index.}
+\item{x}{the object for which to compute subset indices.}
 
-\item{m}{integer or complex number, giving the margin. \cr
+\item{m}{integer or complex, giving the margin(s). \cr
 For non-dimensional objects or for flat indices, specify \code{m = 0L}.}
 
 \item{start}{integer or complex, of the same length as \code{m} or of length 1,
 specifying the start point.}
 
-\item{end}{integer or complex, , of the same length as \code{m} or of length 1,
+\item{end}{integer or complex, of the same length as \code{m} or of length 1,
 specifying the end point.}
 
 \item{by}{integer, of the same length as \code{m} or of length 1,
@@ -25,7 +25,7 @@ specifying the step size. \cr}
 If \code{length(m) == 1L}: a vector of numeric indices. \cr
 \cr
 If \code{length(m) > 1L}: a list of the same length as \code{m},
-containing numeric vectors of indices. \cr
+containing numeric vectors of indices.  \cr \cr
 }
 \description{
 \code{idx_r()} computes integer index range(s). \cr \cr
@@ -46,13 +46,6 @@ and the sign  of \code{by} is automatically adjusted to ensure a sensible sequen
 So, for example,
 to specify something like \code{n:1}, one can simply call \code{idx_r(x, m, by = -1L)}. \cr \cr
 
-\bold{Heterogeneous Complex input} \cr
-The user can specify complex vectors with varying imaginary parts for
-\code{start} and \code{end}. \cr
-Except for this difference,
-the complex vectors are translated to integer vectors as explained in
-\link{squarebrackets_indx_args}. \cr \cr
-
 \bold{Multiple indices at once} \cr
 The \code{idx_r()} function can compute indices for multiple dimensions at once,
 by specifying a vector for \code{m}. \cr \cr
@@ -63,15 +56,15 @@ x <- data.frame(
   a = 1:10, b = letters[1:10], c = factor(letters[1:10]), d = -1:-10
 )
 print(x)
-ind1 <- idx_r(x, 1, 2, 2-1i) # rows 2:(nrow(x)-1)
+ind1 <- idx_r(x, 1, 2, 2* -1i) # rows 2:(nrow(x)-1)
 sb2_x(x, ind1) # extract the row range
 
 x <- array(1:125, c(5,5,5))
 dims <- 1:3
-sub <- idx_r(x, dims, 2, 2-1i) # 2:(n-1) for every dimension
+sub <- idx_r(x, dims, 2, 2* -1i) # 2:(n-1) for every dimension
 sb_x(x, sub, dims) # same as x[ 2:4, 2:4, 2:4, drop = FALSE]
 
 x <- letters
-x[idx_r(x, 0, 2, 2-1i)]
+x[idx_r(x, 0, 2, 2* -1i)]
 
 }

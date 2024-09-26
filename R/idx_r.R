@@ -3,12 +3,12 @@
 #' @description
 #' `idx_r()` computes integer index range(s). \cr \cr
 #' 
-#' @param x the object to index.
-#' @param m integer or complex number, giving the margin. \cr
+#' @param x the object for which to compute subset indices.
+#' @param m integer or complex, giving the margin(s). \cr
 #' For non-dimensional objects or for flat indices, specify `m = 0L`.
 #' @param start integer or complex, of the same length as `m` or of length 1,
 #' specifying the start point.
-#' @param end integer or complex, , of the same length as `m` or of length 1,
+#' @param end integer or complex, of the same length as `m` or of length 1,
 #' specifying the end point.
 #' @param by integer, of the same length as `m` or of length 1,
 #' specifying the step size. \cr
@@ -32,13 +32,6 @@
 #' to specify something like `n:1`, one can simply call `idx_r(x, m, by = -1L)`. \cr \cr
 #' 
 #' 
-#' \bold{Heterogeneous Complex input} \cr
-#' The user can specify complex vectors with varying imaginary parts for
-#' `start` and `end`. \cr
-#' Except for this difference,
-#' the complex vectors are translated to integer vectors as explained in
-#' \link{squarebrackets_indx_args}. \cr \cr
-#' 
 #' \bold{Multiple indices at once} \cr
 #' The `idx_r()` function can compute indices for multiple dimensions at once,
 #' by specifying a vector for `m`. \cr \cr
@@ -48,7 +41,7 @@
 #' If `length(m) == 1L`: a vector of numeric indices. \cr
 #' \cr
 #' If `length(m) > 1L`: a list of the same length as `m`,
-#' containing numeric vectors of indices. \cr
+#' containing numeric vectors of indices.  \cr \cr
 #' 
 #' @example inst/examples/idx_r.R
 #
@@ -68,5 +61,5 @@ idx_r <- function(x, m = 0L, start = NULL, end = NULL, by = 1L) {
   by <- lst$by
   
   return(mapply(seq.int, start, end, by, SIMPLIFY = FALSE))
-  
+ 
 }

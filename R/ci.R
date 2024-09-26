@@ -64,7 +64,7 @@ ci_flat <- function(
   
   if(is.complex(i)) {
     n <- length(x)
-    return(tci_complex(i, n, inv, chkdup))
+    return(tci_cplx(i, n, inv, chkdup))
   }
   
   if(is.numeric(i)) {
@@ -108,7 +108,7 @@ ci_margin <- function(
   
   if(is.complex(slice)) {
     dlength <- dim(x)[margin]
-    return(tci_complex(slice, dlength, inv, chkdup))
+    return(tci_cplx(slice, dlength, inv, chkdup))
   }
   
   if(is.numeric(slice)) {
@@ -180,7 +180,7 @@ ci_df <- function(
   if(is.complex(slice)) {
     if(margin == 1L) dlength <- nrow(x)
     if(margin == 2L) dlength <- ncol(x)
-    return(tci_complex(slice, dlength, inv, chkdup))
+    return(tci_cplx(slice, dlength, inv, chkdup))
   }
   
   if(is.numeric(slice)) {

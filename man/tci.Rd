@@ -4,7 +4,7 @@
 \alias{tci_bool}
 \alias{tci_int}
 \alias{tci_chr}
-\alias{tci_complex}
+\alias{tci_cplx}
 \title{Type Cast Indices}
 \usage{
 tci_bool(indx, n, inv = FALSE, .abortcall = sys.call())
@@ -20,7 +20,7 @@ tci_chr(
   .abortcall = sys.call()
 )
 
-tci_complex(indx, n, inv = FALSE, chkdup = FALSE, .abortcall = sys.call())
+tci_cplx(indx, n, inv = FALSE, chkdup = FALSE, .abortcall = sys.call())
 }
 \arguments{
 \item{indx}{the indices to typecast}

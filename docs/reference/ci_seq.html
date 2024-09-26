@@ -102,7 +102,7 @@ It is internally used by the <a href="idx_r.html">idx_r</a> function. <br><br></
 <span class="r-out co"><span class="r-pr">#&gt;</span> 8   8 h h  -8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 9   9 i i  -9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10 10 j j -10</span>
-<span class="r-in"><span><span class="va">ind1</span> <span class="op">&lt;-</span> <span class="fu"><a href="idx_r.html">idx_r</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">-</span><span class="fl">1i</span><span class="op">)</span> <span class="co"># rows 2:(nrow(x)-1)</span></span></span>
+<span class="r-in"><span><span class="va">ind1</span> <span class="op">&lt;-</span> <span class="fu"><a href="idx_r.html">idx_r</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">*</span> <span class="op">-</span><span class="fl">1i</span><span class="op">)</span> <span class="co"># rows 2:(nrow(x)-1)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="sb_x.html">sb2_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">ind1</span><span class="op">)</span> <span class="co"># extract the row range</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   a b c  d</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 2 b b -2</span>
@@ -116,7 +116,7 @@ It is internally used by the <a href="idx_r.html">idx_r</a> function. <br><br></
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/array.html" class="external-link">array</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">125</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>,<span class="fl">5</span>,<span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">dims</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span></span></span>
-<span class="r-in"><span><span class="va">sub</span> <span class="op">&lt;-</span> <span class="fu"><a href="idx_r.html">idx_r</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">dims</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">-</span><span class="fl">1i</span><span class="op">)</span> <span class="co"># 2:(n-1) for every dimension</span></span></span>
+<span class="r-in"><span><span class="va">sub</span> <span class="op">&lt;-</span> <span class="fu"><a href="idx_r.html">idx_r</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">dims</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">*</span> <span class="op">-</span><span class="fl">1i</span><span class="op">)</span> <span class="co"># 2:(n-1) for every dimension</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="sb_x.html">sb_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">sub</span>, <span class="va">dims</span><span class="op">)</span> <span class="co"># same as x[ 2:4, 2:4, 2:4, drop = FALSE]</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> , , 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -141,7 +141,7 @@ It is internally used by the <a href="idx_r.html">idx_r</a> function. <br><br></
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">letters</span></span></span>
-<span class="r-in"><span><span class="va">x</span><span class="op">[</span><span class="fu"><a href="idx_r.html">idx_r</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">0</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">-</span><span class="fl">1i</span><span class="op">)</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">x</span><span class="op">[</span><span class="fu"><a href="idx_r.html">idx_r</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">0</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">*</span> <span class="op">-</span><span class="fl">1i</span><span class="op">)</span><span class="op">]</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "m" "n" "o" "p" "q" "r" "s" "t"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [20] "u" "v" "w" "x" "y"</span>
 <span class="r-in"><span></span></span>

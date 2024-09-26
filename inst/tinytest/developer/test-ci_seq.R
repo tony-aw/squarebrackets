@@ -43,7 +43,7 @@ expect_error(
 )
 
 expect_error(
-  ci_seq(x, -1 -1i),
+  ci_seq(x, 100 * -1i),
   pattern = "index out of bounds"
 )
 
@@ -154,7 +154,7 @@ expect_error(
 )
 
 expect_error(
-  ci_seq(x, 1, start = 6 -1i, end = 6),
+  ci_seq(x, 1, start = 6 * -1i, end = 6),
   pattern = "index out of bounds"
 )
 
@@ -169,7 +169,7 @@ expect_error(
 )
 
 expect_error(
-  ci_seq(x, 1, start = 1, end = 6 -1i),
+  ci_seq(x, 1, start = 1, end = 6 * -1i),
   pattern = "index out of bounds"
 )
 

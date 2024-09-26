@@ -2207,6 +2207,8 @@ RcppExport SEXP C_any_badindx(SEXP, SEXP);
 RcppExport SEXP C_any_badmargin(SEXP, SEXP);
 RcppExport SEXP C_any_neg(SEXP);
 RcppExport SEXP C_any_nonpos(SEXP);
+RcppExport SEXP C_convert_cplx_32(SEXP, SEXP);
+RcppExport SEXP C_convert_cplx_64(SEXP, SEXP);
 RcppExport SEXP C_is_altrep(SEXP);
 
 static const R_CallMethodDef CallEntries[] = {
@@ -2366,11 +2368,13 @@ static const R_CallMethodDef CallEntries[] = {
     {"_squarebrackets_rcpp_sub2ind_general64", (DL_FUNC) &_squarebrackets_rcpp_sub2ind_general64, 6},
     {"_squarebrackets_C_sub2ind_setrange32", (DL_FUNC) &_squarebrackets_C_sub2ind_setrange32, 6},
     {"_squarebrackets_rcpp_sub2ind_general32", (DL_FUNC) &_squarebrackets_rcpp_sub2ind_general32, 6},
-    {"C_any_badindx",   (DL_FUNC) &C_any_badindx,   2},
-    {"C_any_badmargin", (DL_FUNC) &C_any_badmargin, 2},
-    {"C_any_neg",       (DL_FUNC) &C_any_neg,       1},
-    {"C_any_nonpos",    (DL_FUNC) &C_any_nonpos,    1},
-    {"C_is_altrep",     (DL_FUNC) &C_is_altrep,     1},
+    {"C_any_badindx",     (DL_FUNC) &C_any_badindx,     2},
+    {"C_any_badmargin",   (DL_FUNC) &C_any_badmargin,   2},
+    {"C_any_neg",         (DL_FUNC) &C_any_neg,         1},
+    {"C_any_nonpos",      (DL_FUNC) &C_any_nonpos,      1},
+    {"C_convert_cplx_32", (DL_FUNC) &C_convert_cplx_32, 2},
+    {"C_convert_cplx_64", (DL_FUNC) &C_convert_cplx_64, 2},
+    {"C_is_altrep",       (DL_FUNC) &C_is_altrep,       1},
     {NULL, NULL, 0}
 };
 

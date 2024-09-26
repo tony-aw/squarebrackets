@@ -44,22 +44,25 @@
 #' \link{match_all}. \cr
 #' \cr
 #' \cr
-#' \bold{Complex Numbers} \cr
-#' Unlike base 'R',
-#' squarebrackets' includes support for indexing through `complex` vectors. \cr
-#' Indexing with complex numbers is a generalization of indexing with regular integers. \cr
+#' \bold{Imaginary Numbers} \cr
+#' A \link[base]{complex} vector `y` is structured as \cr
+#' `y = a + b * i` \cr
+#' where `Re(y)` returns `a`, and `Im(y)` returns `b`. \cr
+#' squarebrackets' includes support for indexing through imaginary numbers (`Im(y)`) of \link[base]{complex} vectors. \cr
+#' Indexing with imaginary numbers is a generalization of indexing with regular integers. \cr
 #' \cr
 #' It works as follows: \cr
-#' A complex vector is essentially structured as `Real + Imaginary`. \cr
-#' The Real part must be \bold{strictly positive integers}. \cr
-#' The Imaginary part must be \bold{constant}.
-#' 
-#'  * If `Imaginary` is positive or zero, it works the same as integer values.
-#'  * If `Imaginary` is negative, indexing counts backwards,
-#'  where the integer indices are computed as `n - Real + 1L`.
-#' 
+#' Imaginary numbers that are positive integers,
+#' like `1:10 * 1i`, work the same as regular integers. \cr
+#' Imaginary numbers that are negative integers,
+#' like `1:10 * -1i`,
+#' index by counting backwards (i.e. from the end),
+#' where the integer indices are computed as `n - Im(y) + 1L`. \cr
 #' Where `n` is the maximum possible integer
 #' (i.e. `length(x)`, or `dim(x)[L]`, depending on the situation). \cr
+#' \cr
+#' Note that \bold{only} the `Imaginary` part of a complex vector is used (`Im(y)`); \cr
+#' the `Real` part (`Re(y)`) is \bold{ignored}. \cr
 #' \cr
 #' See the results of the following code as an example:
 #' 
@@ -67,11 +70,11 @@
 #' 
 #' x <- 1:30 # vector of 30 elements
 #' 
-#' sb_x(x, 1:10 + 1i) # extract first 10 elements
+#' sb_x(x, 1:10 * 1i) # extract first 10 elements
 #' 
-#' sb_x(x, 1:10 - 1i) # extract last 10 elements
+#' sb_x(x, 1:10 * -1i) # extract last 10 elements
 #' 
-#' sb_x(x, 10:1 - 1i) # last 10 elements, in tail()-like order
+#' sb_x(x, 10:1 * -1i) # last 10 elements, in tail()-like order
 #' 
 #' ```
 #' Thus complex vectors allow the user to choose between counting from the beginning,

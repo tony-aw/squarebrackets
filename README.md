@@ -142,5 +142,6 @@ tinycodet::import_LL("squarebrackets", selection = ... )
 - 15 September 2024: Replaced the `drop` argument with `red` to avoid
   confusion with base R’s own `drop` mechanic. Small performance
   improvements for `sub2ind()` and `sb_set.array()`.
+- 26 September 2024: Overhauled how indexing with complex vectors work.
 
  

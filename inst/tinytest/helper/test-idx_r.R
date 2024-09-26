@@ -5,14 +5,14 @@ enumerate <- 0
 # argument i ====
 x <- 1:10
 slice_start <- c(
-  1, 2, 1-1i, 2-1i
-)
+  1, 2, -1, -2
+) * 1i
 seq_start <- c(
   1, 2, length(x), length(x) - 1
 )
 slice_end <- c(
-  1, 2, 1-1i, 2-1i
-)
+  1, 2, -1, -2
+) * 1i
 seq_end <- c(
   1, 2, length(x), length(x) - 1
 )
@@ -60,14 +60,14 @@ for(i in seq_along(slice_by)) {
 
 x <- matrix(1:50, ncol = 10)
 slice_start <- c(
-  1, 2, 1-1i, 2-1i
-)
+  1, 2, -1, -2
+) * 1i
 seq_start <- c(
   1, 2, ncol(x), ncol(x) - 1
 )
 slice_end <- c(
-  1, 2, 1-1i, 2-1i
-)
+  1, 2, -1, -2
+) * 1i
 seq_end <- c(
   1, 2, ncol(x), ncol(x) - 1
 )
@@ -113,14 +113,14 @@ for(i in seq_along(slice_by)) {
 
 x <- matrix(1:50, nrow = 10)
 slice_start <- c(
-  1, 2, 1-1i, 2-1i
-)
+  1, 2, -1, -2
+) * 1i
 seq_start <- c(
   1, 2, nrow(x), nrow(x) - 1
 )
 slice_end <- c(
-  1, 2, 1-1i, 2-1i
-)
+  1, 2, -1, -2
+) * 1i
 seq_end <- c(
   1, 2, nrow(x), nrow(x) - 1
 )
@@ -168,14 +168,14 @@ for(i in seq_along(slice_by)) {
 x <- array(1:125, c(5, 5, 5))
 n <- 5
 slice_start <- c(
-  1, 2, 1-1i, 2-1i
-)
+  1, 2, -1, -2
+) * 1i
 seq_start <- c(
   1, 2, n, n - 1
 )
 slice_end <- c(
-  1, 2, 1-1i, 2-1i
-)
+  1, 2, -1, -2
+) * 1i
 seq_end <- c(
   1, 2, n, n - 1
 )
@@ -233,13 +233,13 @@ expect_equal(
 enumerate <- enumerate + 1L
 
 expect_equal(
-  idx_r(x, 1:4, c(1, 2, 1-1i, 2-1i), c(1-1i, 2-1i, 2, 1)),
+  idx_r(x, 1:4, c(1, 2, -1, -2) * 1i, c(-1, -2, 2, 1) * 1i),
   n(1:5, 2:5, 7:2, 7:1)
 )
 enumerate <- enumerate + 1L
 
 expect_equal(
-  idx_r(x, 1:4, c(1, 2, 1-1i, 2-1i), c(1-1i, 2-1i, 2, 1), c(1, -1, 2, -2)),
+  idx_r(x, 1:4, c(1, 2, -1, -2) * 1i, c(-1, -2, 2, 1) * 1i, c(1, -1, 2, -2)),
   n(1:5, 2:5, seq(7, 2, -2), seq(7, 1, -2))
 )
 enumerate <- enumerate + 1L
@@ -252,14 +252,14 @@ enumerate <- enumerate + 1L
 x <- data.frame(a = 1:10, b = letters[1:10])
 
 slice_start <- c(
-  1, 2, 1-1i, 2-1i
-)
+  1, 2, -1, -2
+) * 1i
 seq_start <- c(
   1, 2, nrow(x), nrow(x) - 1
 )
 slice_end <- c(
-  1, 2, 1-1i, 2-1i
-)
+  1, 2, -1, -2
+) * 1i
 seq_end <- c(
   1, 2, nrow(x), nrow(x) - 1
 )
@@ -309,14 +309,14 @@ x <- data.frame(
   a = 1:10, b = letters[1:10], c = factor(letters[1:10]), d = rnorm(10), e = sample(c(TRUE, FALSE, NA), 10, TRUE)
 )
 slice_start <- c(
-  1, 2, 1-1i, 2-1i
-)
+  1, 2, -1, -2
+) * 1i
 seq_start <- c(
   1, 2, ncol(x), ncol(x) - 1
 )
 slice_end <- c(
-  1, 2, 1-1i, 2-1i
-)
+  1, 2, -1, -2
+) * 1i
 seq_end <- c(
   1, 2, ncol(x), ncol(x) - 1
 )

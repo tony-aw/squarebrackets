@@ -22,7 +22,8 @@
 #' An objects can become `mutable_atomic` if it is one of the following types: \cr
 #' \link{logical}, \link{integer}, \link{double}, \link{character}, \link{complex}, \link{raw}. \cr
 #' \code{bit64::}\link[bit64]{integer64} type is also supported,
-#' since it is internally defined as \link{double}. \cr \cr
+#' since it is internally defined as \link{double}. \cr
+#'  * `materialize_atomic():` takes an immaterial ALTREP atomic object, and returns the materialized atomic object. \cr \cr
 #'
 #' @param x an atomic object.
 #' @param data atomic vector giving data to fill the `mutable_atomic` object.
@@ -120,7 +121,12 @@ as.mutable_atomic <- function(x, ...) {
     return(x)
   }
   
-  y <- data.table::copy(x)
+  if(.C_is_altrep(x)) {
+    y <- materialize_atomic(x)
+  }
+  else {
+    y <- data.table::copy(x)
+  }
   attr(y, "typeof") <- typeof(x)
   class(y) <- c("mutable_atomic", class(y))
   
@@ -162,6 +168,19 @@ couldb.mutable_atomic <- function(x) {
   return(
     check1 && check2
   )
+}
+
+
+#' @rdname class_mutable_atomic
+#' @export
+materialize_atomic <- function(x) {
+  if(!.C_is_altrep(x)) {
+    return(x)
+  }
+  out <- vector(typeof(x), length(x))
+  .rcpp_set_all(out, rp = x)
+  mostattributes(out) <- attributes(x)
+  return(out)
 }
 
 

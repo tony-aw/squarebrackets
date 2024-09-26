@@ -105,29 +105,33 @@ When selecting indices using a character vector,
 base 'R' only selects the first matches in the names. <br>
 'squarebrackets', however, selects ALL matches. <br>
 Character indices are internally translated to integer indices using
-<a href="match_all.html">match_all</a>. <br><br><br><b>Complex Numbers</b> <br>
-Unlike base 'R',
-squarebrackets' includes support for indexing through <code>complex</code> vectors. <br>
-Indexing with complex numbers is a generalization of indexing with regular integers. <br><br>
+<a href="match_all.html">match_all</a>. <br><br><br><b>Imaginary Numbers</b> <br>
+A <a href="https://rdrr.io/r/base/complex.html" class="external-link">complex</a> vector <code>y</code> is structured as <br><code>y = a + b * i</code> <br>
+where <code>Re(y)</code> returns <code>a</code>, and <code>Im(y)</code> returns <code>b</code>. <br>
+squarebrackets' includes support for indexing through imaginary numbers (<code>Im(y)</code>) of <a href="https://rdrr.io/r/base/complex.html" class="external-link">complex</a> vectors. <br>
+Indexing with imaginary numbers is a generalization of indexing with regular integers. <br><br>
 It works as follows: <br>
-A complex vector is essentially structured as <code>Real + Imaginary</code>. <br>
-The Real part must be <b>strictly positive integers</b>. <br>
-The Imaginary part must be <b>constant</b>.</p><ul><li><p>If <code>Imaginary</code> is positive or zero, it works the same as integer values.</p></li>
-<li><p>If <code>Imaginary</code> is negative, indexing counts backwards,
-where the integer indices are computed as <code>n - Real + 1L</code>.</p></li>
-</ul><p>Where <code>n</code> is the maximum possible integer
+Imaginary numbers that are positive integers,
+like <code>1:10 * 1i</code>, work the same as regular integers. <br>
+Imaginary numbers that are negative integers,
+like <code>1:10 * -1i</code>,
+index by counting backwards (i.e. from the end),
+where the integer indices are computed as <code>n - Im(y) + 1L</code>. <br>
+Where <code>n</code> is the maximum possible integer
 (i.e. <code>length(x)</code>, or <code>dim(x)[L]</code>, depending on the situation). <br><br>
+Note that <b>only</b> the <code>Imaginary</code> part of a complex vector is used (<code>Im(y)</code>); <br>
+the <code>Real</code> part (<code>Re(y)</code>) is <b>ignored</b>. <br><br>
 See the results of the following code as an example:</p>
 <p></p><div class="sourceCode r"><pre><code><span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">30</span> <span class="co"># vector of 30 elements</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/sb_x.html">sb_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">10</span> <span class="op">+</span> <span class="fl">1i</span><span class="op">)</span> <span class="co"># extract first 10 elements</span></span>
+<span><span class="fu"><a href="../reference/sb_x.html">sb_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">10</span> <span class="op">*</span> <span class="fl">1i</span><span class="op">)</span> <span class="co"># extract first 10 elements</span></span>
 <span><span class="co">#&gt;  [1]  1  2  3  4  5  6  7  8  9 10</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/sb_x.html">sb_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">10</span> <span class="op">-</span> <span class="fl">1i</span><span class="op">)</span> <span class="co"># extract last 10 elements</span></span>
+<span><span class="fu"><a href="../reference/sb_x.html">sb_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">10</span> <span class="op">*</span> <span class="op">-</span><span class="fl">1i</span><span class="op">)</span> <span class="co"># extract last 10 elements</span></span>
 <span><span class="co">#&gt;  [1] 30 29 28 27 26 25 24 23 22 21</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/sb_x.html">sb_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">10</span><span class="op">:</span><span class="fl">1</span> <span class="op">-</span> <span class="fl">1i</span><span class="op">)</span> <span class="co"># last 10 elements, in tail()-like order</span></span>
+<span><span class="fu"><a href="../reference/sb_x.html">sb_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">10</span><span class="op">:</span><span class="fl">1</span> <span class="op">*</span> <span class="op">-</span><span class="fl">1i</span><span class="op">)</span> <span class="co"># last 10 elements, in tail()-like order</span></span>
 <span><span class="co">#&gt;  [1] 21 22 23 24 25 26 27 28 29 30</span></span></code></pre><p></p></div>
 <p>Thus complex vectors allow the user to choose between counting from the beginning,
 like regular integers,

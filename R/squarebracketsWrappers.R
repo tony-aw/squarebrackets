@@ -32,3 +32,29 @@
 }
 
 
+#' @keywords Internal
+#' @noRd
+.C_convert_cplx_32 <- function(x, val) {
+  .Call("C_convert_cplx_32", x = x, val = as.integer(val))
+}
+
+
+#' @keywords Internal
+#' @noRd
+.C_convert_cplx_64 <- function(x, val) {
+  .Call("C_convert_cplx_64", x = x, val = as.double(val))
+}
+
+
+#' @keywords Internal
+#' @noRd
+.C_convert_cplx <- function(x, val) {
+  
+  if(is.integer(val)) {
+    return(.C_convert_cplx_32(x, val))
+  }
+  if(is.double(val)) {
+    return(.C_convert_cplx_64(x, val))
+  }
+}
+

@@ -93,19 +93,9 @@ tci_chr <- function(
 
 #' @rdname tci
 #' @export
-tci_complex <- function(indx, n, inv = FALSE, chkdup = FALSE, .abortcall = sys.call()) {
-  unim <- Im(indx[1])
+tci_cplx <- function(indx, n, inv = FALSE, chkdup = FALSE, .abortcall = sys.call()) {
   
-  if(!collapse::allv(Im(indx), unim)) {
-    stop(simpleError("imaginary number in complex indices must be a constant", call = .abortcall))
-  }
-  
-  if(unim < 0) {
-    indx <- n - Re(indx) + 1L
-  }
-  else {
-    indx <- Re(indx)
-  }
+  indx <- .C_convert_cplx(Im(indx), n)
   
   return(tci_int(indx, n, inv, chkdup))
 }

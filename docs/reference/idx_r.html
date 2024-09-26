@@ -63,11 +63,11 @@
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>x</dt>
-<dd><p>the object to index.</p></dd>
+<dd><p>the object for which to compute subset indices.</p></dd>
 
 
 <dt>m</dt>
-<dd><p>integer or complex number, giving the margin. <br>
+<dd><p>integer or complex, giving the margin(s). <br>
 For non-dimensional objects or for flat indices, specify <code>m = 0L</code>.</p></dd>
 
 
@@ -77,7 +77,7 @@ specifying the start point.</p></dd>
 
 
 <dt>end</dt>
-<dd><p>integer or complex, , of the same length as <code>m</code> or of length 1,
+<dd><p>integer or complex, of the same length as <code>m</code> or of length 1,
 specifying the end point.</p></dd>
 
 
@@ -97,7 +97,9 @@ specifying the step size. <br></p></dd>
 
 
 <p>If <code>length(m) &gt; 1L</code>: a list of the same length as <code>m</code>,
-containing numeric vectors of indices. <br></p>
+containing numeric vectors of indices.  <br></p>
+<p></p>
+<p><br></p>
 
 
     </div>
@@ -115,12 +117,6 @@ If <code>start, end, by</code> are all specified,
 and the sign  of <code>by</code> is automatically adjusted to ensure a sensible sequence is created. <br><br>
 So, for example,
 to specify something like <code>n:1</code>, one can simply call <code>idx_r(x, m, by = -1L)</code>. <br><br></p>
-<p><b>Heterogeneous Complex input</b> <br>
-The user can specify complex vectors with varying imaginary parts for
-<code>start</code> and <code>end</code>. <br>
-Except for this difference,
-the complex vectors are translated to integer vectors as explained in
-<a href="aaa3_squarebrackets_indx_args.html">squarebrackets_indx_args</a>. <br><br></p>
 <p><b>Multiple indices at once</b> <br>
 The <code>idx_r()</code> function can compute indices for multiple dimensions at once,
 by specifying a vector for <code>m</code>. <br><br></p>
@@ -144,7 +140,7 @@ by specifying a vector for <code>m</code>. <br><br></p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 8   8 h h  -8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 9   9 i i  -9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10 10 j j -10</span>
-<span class="r-in"><span><span class="va">ind1</span> <span class="op">&lt;-</span> <span class="fu">idx_r</span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">-</span><span class="fl">1i</span><span class="op">)</span> <span class="co"># rows 2:(nrow(x)-1)</span></span></span>
+<span class="r-in"><span><span class="va">ind1</span> <span class="op">&lt;-</span> <span class="fu">idx_r</span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">*</span> <span class="op">-</span><span class="fl">1i</span><span class="op">)</span> <span class="co"># rows 2:(nrow(x)-1)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="sb_x.html">sb2_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">ind1</span><span class="op">)</span> <span class="co"># extract the row range</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   a b c  d</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 2 b b -2</span>
@@ -158,7 +154,7 @@ by specifying a vector for <code>m</code>. <br><br></p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/array.html" class="external-link">array</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">125</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>,<span class="fl">5</span>,<span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">dims</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span></span></span>
-<span class="r-in"><span><span class="va">sub</span> <span class="op">&lt;-</span> <span class="fu">idx_r</span><span class="op">(</span><span class="va">x</span>, <span class="va">dims</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">-</span><span class="fl">1i</span><span class="op">)</span> <span class="co"># 2:(n-1) for every dimension</span></span></span>
+<span class="r-in"><span><span class="va">sub</span> <span class="op">&lt;-</span> <span class="fu">idx_r</span><span class="op">(</span><span class="va">x</span>, <span class="va">dims</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">*</span> <span class="op">-</span><span class="fl">1i</span><span class="op">)</span> <span class="co"># 2:(n-1) for every dimension</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="sb_x.html">sb_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">sub</span>, <span class="va">dims</span><span class="op">)</span> <span class="co"># same as x[ 2:4, 2:4, 2:4, drop = FALSE]</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> , , 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -183,7 +179,7 @@ by specifying a vector for <code>m</code>. <br><br></p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">letters</span></span></span>
-<span class="r-in"><span><span class="va">x</span><span class="op">[</span><span class="fu">idx_r</span><span class="op">(</span><span class="va">x</span>, <span class="fl">0</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">-</span><span class="fl">1i</span><span class="op">)</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">x</span><span class="op">[</span><span class="fu">idx_r</span><span class="op">(</span><span class="va">x</span>, <span class="fl">0</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">*</span> <span class="op">-</span><span class="fl">1i</span><span class="op">)</span><span class="op">]</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "m" "n" "o" "p" "q" "r" "s" "t"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [20] "u" "v" "w" "x" "y"</span>
 <span class="r-in"><span></span></span>

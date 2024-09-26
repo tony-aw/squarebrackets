@@ -53,11 +53,11 @@ ci_seq <- function(x, m = 0L, start = NULL, end = NULL, by = 1L, .abortcall = sy
 #' @noRd
 .ci_seq.convert_margin <- function(x, n, abortcall) {
   if(is.complex(x)) {
-    if(Re(x) == 0) {
+    if(Im(x) == 0) {
       x <- 0
     }
     else {
-      x <- .indx_convert_complex_multi(x, n, abortcall)
+      x <- .C_convert_cplx(Im(x), n)
       if(.any_badmargin(x, n)) {
         stop(simpleError("index out of bounds", call = abortcall))
       }
@@ -162,7 +162,7 @@ ci_seq <- function(x, m = 0L, start = NULL, end = NULL, by = 1L, .abortcall = sy
   }
   
   if(is.complex(x)) {
-    x <- .indx_convert_complex_multi(x, n, abortcall)
+    x <- .C_convert_cplx(Im(x), n)
     if(any(x > n | x < 1L)) {
       stop(simpleError("index out of bounds", call = abortcall))
     }
@@ -175,15 +175,6 @@ ci_seq <- function(x, m = 0L, start = NULL, end = NULL, by = 1L, .abortcall = sy
   return(x)
 }
 
-
-#' @keywords internal
-#' @noRd
-.indx_convert_complex_multi <- function(indx, n, abortcall) {
-  im <- Im(indx)
-  re <- Re(indx)
-  out <- .rcpp_indx_convert_cplx_multi(re, im, n)
-  return(out)
-}
 
 
 #' @keywords internal
@@ -261,4 +252,14 @@ ci_seq <- function(x, m = 0L, start = NULL, end = NULL, by = 1L, .abortcall = sy
   }
   return(end)
   
+}
+
+
+.ci_seq.convert_cplx <- function(x, n) {
+  if(n < (2^31 - 1)) {
+    indx <- .C_convert_cplx_32(Im(indx), as.integer(n))
+  }
+  else {
+    indx <- .C_convert_cplx_64(Im(indx), as.double(n))
+  }
 }

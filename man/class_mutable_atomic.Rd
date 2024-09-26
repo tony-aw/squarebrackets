@@ -6,6 +6,7 @@
 \alias{as.mutable_atomic}
 \alias{is.mutable_atomic}
 \alias{couldb.mutable_atomic}
+\alias{materialize_atomic}
 \alias{[.mutable_atomic}
 \alias{[<-.mutable_atomic}
 \alias{format.mutable_atomic}
@@ -19,6 +20,8 @@ as.mutable_atomic(x, ...)
 is.mutable_atomic(x)
 
 couldb.mutable_atomic(x)
+
+materialize_atomic(x)
 
 \method{[}{mutable_atomic}(x, ...)
 
@@ -84,7 +87,8 @@ Exposed functions (beside the S3 methods):
 An objects can become \code{mutable_atomic} if it is one of the following types: \cr
 \link{logical}, \link{integer}, \link{double}, \link{character}, \link{complex}, \link{raw}. \cr
 \code{bit64::}\link[bit64]{integer64} type is also supported,
-since it is internally defined as \link{double}. \cr \cr
+since it is internally defined as \link{double}. \cr
+\item \verb{materialize_atomic():} takes an immaterial ALTREP atomic object, and returns the materialized atomic object. \cr \cr
 }
 }
 \section{Warning}{
