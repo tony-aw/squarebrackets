@@ -91,11 +91,12 @@ in the generic methods of 'squarebrackets' to specify the indices to perform ope
 
 <p>Base 'R' supports indexing through <code>logical</code>, <code>integer</code>, and <code>character</code> vectors. <br>
 'squarebrackets' suppports these also (albeit with some improvements),
-but also supports some additional methods of indexing. <br><br><br><b>Integers</b> <br>
-Integers are the most basic form on index selection. <br>
-All forms of indexing in 'squarebrackets' are internally translated to integer indexing first,
+but also supports some additional methods of indexing. <br><br><br><b>Whole numbers</b> <br>
+Whole numbers are the most basic form on index selection. <br>
+All forms of indexing in 'squarebrackets' are internally translated to integer
+(or double if<code> &gt; (2^31 - 1)</code>) indexing first,
 ensuring consistency. <br>
-Indexing through integers in 'squarebrackets' works the same as in base 'R',
+Indexing through integer/numeric indices in 'squarebrackets' works the same as in base 'R',
 except that negative values are not allowed. <br><br><br><b>Logical</b> <br>
 Selecting indices with a logical vector in 'squarebrackets' works the same as in base 'R',
 except that recycling is not allowed. <br>
@@ -116,9 +117,10 @@ like <code>1:10 * 1i</code>, work the same as regular integers. <br>
 Imaginary numbers that are negative integers,
 like <code>1:10 * -1i</code>,
 index by counting backwards (i.e. from the end),
-where the integer indices are computed as <code>n - Im(y) + 1L</code>. <br>
-Where <code>n</code> is the maximum possible integer
-(i.e. <code>length(x)</code>, or <code>dim(x)[L]</code>, depending on the situation). <br><br>
+where the integer indices are computed as <code>n + Im(y) + 1L</code>. <br>
+Here <code>n</code> is the maximum possible integer
+(i.e. <code>length(x)</code>, or <code>dim(x)[L]</code>, depending on the situation),
+and <code>Im(y)</code> is negative. <br>
 Note that <b>only</b> the <code>Imaginary</code> part of a complex vector is used (<code>Im(y)</code>); <br>
 the <code>Real</code> part (<code>Re(y)</code>) is <b>ignored</b>. <br><br>
 See the results of the following code as an example:</p>
@@ -148,7 +150,7 @@ in 'squarebrackets' used to select indices. <br><br></p>
 <li><p>a vector of length 0,
 in which case no indices are selected for the operation
 (i.e. empty selection).</p></li>
-<li><p>a <b>strictly positive integer</b> vector with indices.</p></li>
+<li><p>a <b>strictly positive whole numbers</b> vector with indices.</p></li>
 <li><p>a <b>complex</b> vector, as explained at the start of this help page.</p></li>
 <li><p>a <b>logical vector</b>,
 of the same length as <code>x</code>,
@@ -173,7 +175,7 @@ For recursive objects, <code>i</code> is interpreted as <code>lapply(x, i)</code
 <p>Any of the following can be specified for the arguments <code>row</code> / <code>col</code>:</p><ul><li><p><code>NULL</code> (default), corresponds to a missing argument.</p></li>
 <li><p>a vector of length 0,
 in which case no indices are selected for the operation (i.e. empty selection).</p></li>
-<li><p>a <b>strictly positive integer</b> vector with dimension indices to select for the operation.</p></li>
+<li><p>a <b>strictly positive whole numbers</b> vector with dimension indices to select for the operation.</p></li>
 <li><p>a <b>complex</b> vector, as explained at the start of this help page.</p></li>
 <li><p>a <b>logical</b> vector of the same length as the corresponding dimension size,
 giving the indices of this dimension to select for the operation.</p></li>
@@ -196,7 +198,7 @@ giving the dimensions over which to select indices
 (i.e. <code>dims</code> specifies the "non-missing" index margins). <br><code>sub</code> must be a list of subscripts, of the same length as <code>dims</code>.
 Each element of <code>sub</code> can be any of the following:</p><ul><li><p>a vector of length 0,
 in which case no indices are selected for the operation (i.e. empty selection).</p></li>
-<li><p>a <b>strictly positive integer</b> vector with dimension indices to select for the operation.</p></li>
+<li><p>a <b>strictly positive whole numbers</b> vector with dimension indices to select for the operation.</p></li>
 <li><p>a <b>complex</b> vector, as explained at the start of this help page.</p></li>
 <li><p>a <b>logical</b> vector of the same length as the corresponding dimension size,
 giving the indices of this dimension to select for the operation.</p></li>
@@ -247,7 +249,7 @@ The <code>margin</code> argument specifies the dimension on which argument <code
 I.e. when <code>margin = 1</code>, <code>slice</code> selects rows; <br>
 when <code>margin = 2</code>, <code>slice</code> selects columns; <br>
 etc. <br><br>
-The <code>slice</code> argument can be any of the following:</p><ul><li><p>a <b>strictly positive integer</b> vector with dimension indices to select for the operation.</p></li>
+The <code>slice</code> argument can be any of the following:</p><ul><li><p>a <b>strictly positive whole numbers</b> vector with dimension indices to select for the operation.</p></li>
 <li><p>a <b>complex</b> vector, as explained at the start of this help page.</p></li>
 <li><p>a <b>logical</b> vector of the same length as the corresponding dimension size,
 giving the dimension indices to select for the operation.</p></li>

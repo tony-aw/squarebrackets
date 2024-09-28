@@ -18,12 +18,12 @@
 #'  * `mutable_atomic()`: create a `mutable_atomic` object.
 #'  * `is.mutable_atomic()`: checks if an object is atomic.
 #'  * `as.mutable_atomic()`: converts a regular atomic object to `mutable_atomic`.
-#'  * `couldb.mutable_atomic()`: checks if an object could be `mutable_atomic`. \cr
+#'  * `couldb.mutable_atomic()`: checks if an object could become `mutable_atomic`. \cr
 #' An objects can become `mutable_atomic` if it is one of the following types: \cr
 #' \link{logical}, \link{integer}, \link{double}, \link{character}, \link{complex}, \link{raw}. \cr
 #' \code{bit64::}\link[bit64]{integer64} type is also supported,
 #' since it is internally defined as \link{double}. \cr
-#'  * `materialize_atomic():` takes an immaterial ALTREP atomic object, and returns the materialized atomic object. \cr \cr
+#'  * `materialize_atomic():` takes an immaterial ALTREP atomic object, and returns a materialized `mutable_atomic` object. \cr \cr
 #'
 #' @param x an atomic object.
 #' @param data atomic vector giving data to fill the `mutable_atomic` object.
@@ -33,7 +33,9 @@
 #' 
 #' @section Warning: 
 #' 
-#' Always use `mutable_atomic()` or `as.mutable_atomic()` to create a mutable object,
+#' Always use
+#' `mutable_atomic()`, `as.mutable_atomic()`, or `materialize_atomic()`
+#' to create a mutable object,
 #' as they make necessary checks. \cr
 #' Circumventing these checks may break things. \cr \cr
 #' 
@@ -46,6 +48,9 @@
 #' Converts an atomic object (vector, matrix, array)
 #' to the same object, but with additional class `"mutable_atomic"`,
 #' and the additional attribute `"typeof"`. \cr
+#' \cr
+#' For `materialize_atomic()`: \cr
+#' Converts an immaterial ALTREP atomic object to a materialized `mutable_atomic` object. \cr
 #' \cr
 #' For `is.mutable_atomic()`: \cr
 #' Returns `TRUE` if the object is atomic, has
@@ -122,23 +127,22 @@ as.mutable_atomic <- function(x, ...) {
   }
   
   if(.C_is_altrep(x)) {
-    y <- materialize_atomic(x)
+    return(materialize_atomic(x))
   }
-  else {
-    y <- data.table::copy(x)
-  }
+  y <- data.table::copy(x)
+  
   attr(y, "typeof") <- typeof(x)
   class(y) <- c("mutable_atomic", class(y))
   
   if(!is.null(names(y))) {
     nms <- data.table::copy(names(y)) # protection against pass-by-reference
-    names(y) <- NULL
-    names(y) <- nms
+    data.table::setattr(y, "names", NULL)
+    data.table::setattr(y, "names", nms)
   }
   if(!is.null(dimnames(y))) {
     nms <- data.table::copy(dimnames(y)) # protection against pass-by-reference
-    dimnames(y) <- NULL
-    dimnames(y) <- nms
+    data.table::setattr(y, "dimnames", NULL)
+    data.table::setattr(y, "dimnames", nms)
   }
   
   return(y)
@@ -177,10 +181,24 @@ materialize_atomic <- function(x) {
   if(!.C_is_altrep(x)) {
     return(x)
   }
-  out <- vector(typeof(x), length(x))
-  .rcpp_set_all(out, rp = x)
-  mostattributes(out) <- attributes(x)
-  return(out)
+  y <- vector(typeof(x), length(x))
+  .rcpp_set_all(y, rp = x)
+  mostattributes(y) <- attributes(x)
+  data.table::setattr(y, "typeof", typeof(x))
+  data.table::setattr(y, "class", c("mutable_atomic", class(y)))
+  
+  if(!is.null(names(y))) {
+    nms <- data.table::copy(names(y)) # protection against pass-by-reference
+    data.table::setattr(y, "names", NULL)
+    data.table::setattr(y, "names", nms)
+  }
+  if(!is.null(dimnames(y))) {
+    nms <- data.table::copy(dimnames(y)) # protection against pass-by-reference
+    data.table::setattr(y, "dimnames", NULL)
+    data.table::setattr(y, "dimnames", nms)
+  }
+  
+  return(y)
 }
 
 

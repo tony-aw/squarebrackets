@@ -83,8 +83,19 @@ when accessed,
 call a function to generate values on the fly,
 rather than actually storing values. \cr
 \cr
-A more subtle type of immaterial objects are ALTREP objects. \cr
-ALTREP objects store instructions on how values are stored, but do not actually store the values. \cr
+Since immaterial objects do not actually store the values in memory,
+the values obviously also cannot be changed in memory. \cr
+Therefore, Pass-by-Reference semantics \bold{do not work} on immaterial objects. \cr
+\cr
+}
+
+\section{ALTREP}{
+
+A more subtle type of (usually) immaterial objects are ALTREP objects. \cr
+Although ALTREP can be used in various different ways,
+ALTREP objects in base 'R' store instructions on how values are stored,
+but do not actually store the values, and so are immaterial. \cr
+\cr
 For example, \code{x <- 1:1e6} is an \bold{immaterial} object: \cr
 Unlike \code{rnorm(1e6)}, \code{1:1e6} does not actually store 1 million values; \cr
 Rather, it stores the simple \bold{instruction} that \code{x[i] = i}. \cr
@@ -93,14 +104,17 @@ and so 'R' will materialize \code{x}, which means \code{x} will then actually st
 So when \code{x} is materialized,
 the size of \code{x} in the memory will change from a few bytes to a few Mega Bytes. \cr
 \cr
-Since immaterial objects do not actually store the values in memory,
-the values obviously also cannot be changed in memory. \cr
-Therefore, Pass-by-Reference semantics \bold{do not work} on immaterial objects. \cr
+The 'stringfish' package also uses ALTREP,
+but ALTREP objects in 'stringfish' are actually material objects. \cr
+\cr
+Clearly, ALTREP objects are difficult to work with when using pass-by-reference. \cr
 \cr
 A \code{data.table} can have ALTREP columns. \cr
 A \code{data.tables} will coerce the column to a materialized column when it is modified, even by reference. \cr
 This works since a \code{data.table} is a recursive object. \cr
-Pass-by-Reference never works on atomic ALTREP objects. \cr \cr
+\cr
+The \code{mutable_atomic} class materializes its input, just to be on the safe side. \cr
+\cr
 }
 
 \section{Mutability Rules With Respect To Recursive Objects}{

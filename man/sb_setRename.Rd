@@ -2,34 +2,35 @@
 % Please edit documentation in R/generic_setRename.R
 \name{sb_setRename}
 \alias{sb_setRename}
-\alias{sb_setRename.default}
-\alias{sb_setRename.array}
-\alias{sb2_setRename}
-\alias{sb2_setRename.data.table}
-\title{Method to Change the Names of a Mutable Object By Reference}
+\alias{sb_setFlatnames}
+\alias{sb_setDimnames}
+\alias{sb2_setVarnames}
+\title{Change the Names of a Mutable Object By Reference}
 \usage{
-sb_setRename(x, ...)
+sb_setFlatnames(x, i = NULL, newnames, ...)
 
-\method{sb_setRename}{default}(x, newnames, ...)
+sb_setDimnames(x, m, newdimnames, ...)
 
-\method{sb_setRename}{array}(x, newdimnames, newnames, ...)
-
-sb2_setRename(x, ...)
-
-\method{sb2_setRename}{data.table}(x, old, new, skip_absent = FALSE, ...)
+sb2_setVarnames(x, old, new, skip_absent = FALSE, ...)
 }
 \arguments{
 \item{x}{a \bold{variable} belonging to one of the
 \link[=squarebrackets_mutable_classes]{supported mutable classes}. \cr}
 
+\item{i}{logical, numeric, character, or imaginary indices, indicating which flatnames should be changed. \cr
+If \code{i = NULL}, the names will be completely replaced.}
+
+\item{newnames}{Atomic character vector giving the new names. \cr
+Specifying \code{NULL} will remove the names. \cr}
+
 \item{...}{see \link{squarebrackets_method_dispatch}. \cr \cr}
 
-\item{newnames}{atomic character vector giving the new names. \cr
-Specifying \code{NULL} will remove the names.}
+\item{m}{integer vector giving the margin(s) for which to change the names
+(\code{m = 1L} for rows, \code{m = 2L} for columns, etc.).}
 
-\item{newdimnames}{a list of the same length as \code{dim(x)}. \cr
-The first element of the list corresponds to the first dimension (i.e. rows),
-the second element to the second dimension (i.e. columns),
+\item{newdimnames}{a list of the same length as \code{m}. \cr
+The first element of the list corresponds to margin \code{m[1]},
+the second element to \code{m[2]},
 and so on. \cr
 The components of the list can be either \code{NULL},
 or a character vector with the same length as the corresponding dimension. \cr
@@ -51,13 +52,18 @@ Do not use assignment like \code{names(x) <- sb_setRename(x, ...)}. \cr
 Since this function returns void, you'll just get \code{NULL}. \cr \cr
 }
 \description{
-This is an S3 Method to rename a
+Functions to rename a
 \link[=squarebrackets_mutable_classes]{supported mutable object}
 using
 \link[=squarebrackets_PassByReference]{pass-by-reference}
-semantics. \cr
-\cr
-This method takes extra care
+semantics:
+\itemize{
+\item \code{sb_setFlatnames()} renames the (flat) names of a \code{mutable_atomic} object.
+\item \code{sb_setDimnames()} renames the dimension names of a \code{mutable_atomic} object.
+\item \code{sb2_setVarnames()} renames the variable names of a \code{data.table} object. \cr \cr
+}
+
+These methods take extra care
 not to modify any objects that happen to share the same address as
 the (dim)names of \code{x}. \cr
 I.e. the following code:
@@ -65,24 +71,26 @@ I.e. the following code:
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{x <- mutable_atomic(1:26)
 names(x) <- base::letters
 y <- x
-sb_setRename(x, newnames = rev(names(x)))
+sb_setFlatname(x, newnames = rev(names(x)))
 
 }\if{html}{\out{</div>}}
 
 will not modify \code{base::letters}, even though \code{names(x)} shared the same address. \cr
-Thus, \code{sb_setRename()} can be used safely without fearing such accidents. \cr
+Thus, these functions can be used safely without fearing such accidents. \cr
 \cr
-Use \code{sb_setRename(x, ...)} if \code{x} is a non-recursive object
-(i.e. \link{mutable_atomic}). \cr
-Use \code{sb2_setRename(x, ...)} if \code{x} is a recursive object
-(i.e. \link{data.table}). \cr \cr
 }
 \examples{
  
 # mutable atomic vector ====
 x <- y <- mutable_atomic(1:10, names = letters[1:10])
-sb_setRename(x, rev(letters[1:10]))
 print(x)
+sb_setFlatnames(x, newnames = rev(letters[1:10]))
+print(y)
+
+x <- y <- mutable_atomic(1:10, names = letters[1:10])
+print(x)
+sb_setFlatnames(x, 1L, "XXX")
+print(y)
 
 ################################################################################
 
@@ -92,23 +100,13 @@ x <- mutable_atomic(
   1:20, dim = c(5, 4), dimnames = n(letters[1:5], letters[1:4])
 )
 print(x)
-sb_setRename(
+sb_setDimnames(
   x,
+  1:2,
   lapply(dimnames(x), rev)
 )
 print(x)
 
-
-x <- mutable_atomic(
-   1:20, letters[1:20], dim = c(5, 4), dimnames = n(letters[1:5], letters[1:4])
-)
-print(x)
-sb_setRename(
-  x,
-  newdimnames = lapply(dimnames(x), rev),
-  newnames = rev(names(x))
-)
-print(x)
 
 
 ################################################################################
@@ -122,7 +120,7 @@ x <- data.table::data.table(
   b = letters[1:20]
 )
 print(x)
-sb2_setRename(x, old = names(x), new = rev(names(x)))
+sb2_setVarnames(x, old = names(x), new = rev(names(x)))
 print(x)
 
 }

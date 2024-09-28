@@ -1,8 +1,14 @@
  
 # mutable atomic vector ====
 x <- y <- mutable_atomic(1:10, names = letters[1:10])
-sb_setRename(x, rev(letters[1:10]))
 print(x)
+sb_setFlatnames(x, newnames = rev(letters[1:10]))
+print(y)
+
+x <- y <- mutable_atomic(1:10, names = letters[1:10])
+print(x)
+sb_setFlatnames(x, 1L, "XXX")
+print(y)
 
 ################################################################################
 
@@ -12,23 +18,13 @@ x <- mutable_atomic(
   1:20, dim = c(5, 4), dimnames = n(letters[1:5], letters[1:4])
 )
 print(x)
-sb_setRename(
+sb_setDimnames(
   x,
+  1:2,
   lapply(dimnames(x), rev)
 )
 print(x)
 
-
-x <- mutable_atomic(
-   1:20, letters[1:20], dim = c(5, 4), dimnames = n(letters[1:5], letters[1:4])
-)
-print(x)
-sb_setRename(
-  x,
-  newdimnames = lapply(dimnames(x), rev),
-  newnames = rev(names(x))
-)
-print(x)
 
 
 ################################################################################
@@ -42,6 +38,6 @@ x <- data.table::data.table(
   b = letters[1:20]
 )
 print(x)
-sb2_setRename(x, old = names(x), new = rev(names(x)))
+sb2_setVarnames(x, old = names(x), new = rev(names(x)))
 print(x)
 

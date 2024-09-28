@@ -5,6 +5,17 @@ library(ggplot2)
 library(data.table)
 
 # atomic ====
+x <- 1:1e7
+bm.sb_x.default <- bench::mark(
+  sb_x(x, i = 1:1e6),
+  x[1:1e6],
+  min_iterations = 500
+)
+bm.sb_x.default$result <- NULL
+summary(bm.sb_x.default)
+ggplot2::autoplot(bm.sb_x.default)
+save(bm.sb_x.default, file = "bm.sb_x.default.RData")
+
 
 n <- 5e3
 x.mat <- matrix(seq_len(n*n), ncol = n)
@@ -21,7 +32,7 @@ bm.sb_x.matrix <- bench::mark(
   "base R" = x.mat[sel.rows, lapply(sel.cols, \(i) which(colnames(x.mat) == i)) |> unlist(), drop = FALSE],
   min_iterations = 500
 )
-bm.sb_x.matrix
+bm.sb_x.matrix$result <- NULL
 summary(bm.sb_x.matrix)
 autoplot(bm.sb_x.matrix) + ggtitle("matrix")
 save(bm.sb_x.matrix, file = "bm.sb_x.matrix.RData")
@@ -36,6 +47,7 @@ bm.sb_x.3d <- bench::mark(
   "base R + abind" = abind::asub(x.3d, idx = list(sel.rows, sel.lyrs), dims = c(1,3)),
   min_iterations = 500
 )
+bm.sb_x.3d$result <- NULL
 summary(bm.sb_x.3d)
 autoplot(bm.sb_x.3d) + ggtitle("3d")
 save(bm.sb_x.3d, file = "bm.sb_x.3d.RData")

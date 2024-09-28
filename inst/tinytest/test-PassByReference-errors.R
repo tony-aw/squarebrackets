@@ -10,7 +10,7 @@ expect_error(
   fixed = TRUE
 )
 expect_error(
-  sb_setRename(x, letters[11:20]),
+  sb_setFlatnames(x, letters[11:20]),
   pattern = pattern,
   fixed = TRUE
 )
@@ -23,7 +23,7 @@ expect_error(
   fixed = TRUE
 )
 expect_error(
-  sb_setRename(x, dimnames = n(letters[5:8], NULL)),
+  sb_setFlatnames(x, dimnames = n(letters[5:8], NULL)),
   pattern = pattern,
   fixed = TRUE
 )
@@ -35,7 +35,7 @@ expect_error(
   fixed = TRUE
 )
 expect_error(
-  sb_setRename(x, dimnames = lapply(dimnames(x), rev)),
+  sb_setFlatnames(x, dimnames = lapply(dimnames(x), rev)),
   pattern = pattern,
   fixed = TRUE
 )
@@ -62,16 +62,22 @@ enumerate <- enumerate + 10
 # not a variable errors ====
 
 expect_error(
-  sb_set(1:10, i = 1, rp = -1)
+  sb_set(as.mutable_atomic(1:10), i = 1, rp = -1),
+  pattern = "only existing variables can be modified by reference"
 )
 expect_error(
-  sb_setRename(1:10, dimnames = lapply(dimnames(x), rev))
+  sb_setDimnames(
+    as.mutable_atomic(1:10), 1:length(dim(x)), newdimnames = lapply(dimnames(x), rev)
+  ),
+  pattern = "only existing variables can be modified by reference"
 )
 expect_error(
-  setapply(1:10, 1, sum)
+  setapply(mutable_atomic(1:10, dim = c(2, 5)), 1, sum),
+  pattern = "only existing variables can be modified by reference"
 )
 expect_error(
-  ma_setv(1:10, 1, 1)
+  ma_setv(as.mutable_atomic(1:10), 1, 10),
+  pattern = "only existing variables can be modified by reference"
 )
 enumerate <- enumerate + 4
 
@@ -84,7 +90,11 @@ expect_error(
   pattern = "object is locked"
 )
 expect_error(
-  sb_setRename(x, dimnames = lapply(dimnames(x), rev)),
+  sb_setDimnames(x, 1:2, dimnames = lapply(dimnames(x), rev)),
+  pattern = "object is locked"
+)
+expect_error(
+  sb_setFlatnames(x, newnames = letters[1:20]),
   pattern = "object is locked"
 )
 expect_error(
@@ -93,6 +103,14 @@ expect_error(
 )
 expect_error(
   ma_setv(x, 1, 1),
+  pattern = "object is locked"
+)
+
+rm(list = "x")
+x <- data.table::data.table(a = letters, b = 1:26)
+lockBinding("x", environment())
+expect_error(
+  sb2_setVarnames(x, "a", "xxx"),
   pattern = "object is locked"
 )
 
@@ -141,6 +159,6 @@ enumerate <- enumerate + 1
 # ma_setv ====
 # see the script test-ma_setv.R
 
-# sb_setRename() ====
+# sb_setFlatnames() ====
 # see the script test-generic_setRename.R
 

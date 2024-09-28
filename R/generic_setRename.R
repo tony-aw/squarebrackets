@@ -1,13 +1,18 @@
-#' Method to Change the Names of a Mutable Object By Reference
+#' Change the Names of a Mutable Object By Reference
 #'
 #' @description
-#' This is an S3 Method to rename a
+#' Functions to rename a
 #' \link[=squarebrackets_mutable_classes]{supported mutable object}
 #' using
 #' \link[=squarebrackets_PassByReference]{pass-by-reference}
-#' semantics. \cr
-#' \cr
-#' This method takes extra care
+#' semantics:
+#' 
+#'  * `sb_setFlatnames()` renames the (flat) names of a `mutable_atomic` object. 
+#'  * `sb_setDimnames()` renames the dimension names of a `mutable_atomic` object.
+#'  * `sb2_setVarnames()` renames the variable names of a `data.table` object. \cr \cr
+#' 
+#' 
+#' These methods take extra care
 #' not to modify any objects that happen to share the same address as
 #' the (dim)names of `x`. \cr
 #' I.e. the following code: 
@@ -16,25 +21,25 @@
 #' x <- mutable_atomic(1:26)
 #' names(x) <- base::letters
 #' y <- x
-#' sb_setRename(x, newnames = rev(names(x)))
+#' sb_setFlatname(x, newnames = rev(names(x)))
 #' 
 #' ```
 #' will not modify `base::letters`, even though `names(x)` shared the same address. \cr
-#' Thus, `sb_setRename()` can be used safely without fearing such accidents. \cr
+#' Thus, these functions can be used safely without fearing such accidents. \cr
 #' \cr
-#' Use `sb_setRename(x, ...)` if `x` is a non-recursive object
-#' (i.e. \link{mutable_atomic}). \cr
-#' Use `sb2_setRename(x, ...)` if `x` is a recursive object
-#' (i.e. \link{data.table}). \cr \cr
 #' 
 #'
 #' @param x a \bold{variable} belonging to one of the
 #' \link[=squarebrackets_mutable_classes]{supported mutable classes}. \cr
-#' @param newnames atomic character vector giving the new names. \cr
-#' Specifying `NULL` will remove the names.
-#' @param newdimnames a list of the same length as `dim(x)`. \cr
-#' The first element of the list corresponds to the first dimension (i.e. rows),
-#' the second element to the second dimension (i.e. columns),
+#' @param i logical, numeric, character, or imaginary indices, indicating which flatnames should be changed. \cr
+#' If `i = NULL`, the names will be completely replaced.
+#' @param newnames Atomic character vector giving the new names. \cr
+#' Specifying `NULL` will remove the names. \cr
+#' @param m integer vector giving the margin(s) for which to change the names
+#' (`m = 1L` for rows, `m = 2L` for columns, etc.).
+#' @param newdimnames a list of the same length as `m`. \cr
+#' The first element of the list corresponds to margin `m[1]`,
+#' the second element to `m[2]`,
 #' and so on. \cr
 #' The components of the list can be either `NULL`,
 #' or a character vector with the same length as the corresponding dimension. \cr
@@ -58,16 +63,68 @@
 #' @example inst/examples/generic_setRename.R
 #' 
 
-#' @rdname sb_setRename
-#' @export
-sb_setRename <- function(x, ...) {
-  
-  UseMethod("sb_setRename", x)
-}
+
+#' @name sb_setRename
+NULL
 
 #' @rdname sb_setRename
 #' @export
-sb_setRename.default <- function(x, newnames, ...) {
+sb_setFlatnames <- function(x, i = NULL, newnames, ...) {
+  
+  # error checks:
+    if(!is.mutable_atomic(x)){
+      stop("`x` is not a (supported) mutable object")
+    }
+  .check_bindingIsLocked(substitute(x), parent.frame(n = 1), abortcall = sys.call())
+  
+  
+  if(is.null(newnames)) {
+    data.table::setattr(x, "names", NULL)
+    return(invisible(NULL))
+  }
+  else if(!is.null(newnames)) {
+    
+    if(!is.character(newnames)) {
+      stop("`newnames` must be a character vector")
+    }
+    
+    if(is.null(names(x))) {
+      data.table::setattr(x, "names", data.table::copy(newnames))
+      return(invisible(NULL))
+    }
+    if(is.null(i)) {
+      if(length(newnames) != length(x)) {
+        stop("`newnames` of wrong length")
+      }
+      data.table::setattr(x, "names", NULL) # protecting original names
+      data.table::setattr(x, "names", data.table::copy(newnames))
+      return(invisible(NULL))
+    }
+    
+    nms <- data.table::copy(names(x)) # protecting original names
+    i <- .sb_setrename_indx(i, nms, sys.call())
+    if(length(i) != length(newnames)) {
+      stop("`newnames` of wrong length")
+    }
+    .rcpp_set_vind(nms, i, newnames, sys.call())
+    
+    data.table::setattr(x, "names", NULL) # protecting original names
+    data.table::setattr(x, "names", nms)
+    return(invisible(NULL))
+  }
+  else {
+    stop("improper `newnames` given")
+  }
+  
+  return(invisible(NULL))
+  
+  
+}
+
+
+#' @rdname sb_setRename
+#' @export
+sb_setDimnames <- function(x, m, newdimnames, ...) {
   
   # error checks:
   if(!is.mutable_atomic(x)){
@@ -76,93 +133,46 @@ sb_setRename.default <- function(x, newnames, ...) {
   .check_bindingIsLocked(substitute(x), parent.frame(n = 1), abortcall = sys.call())
   
   
-  if(!missing(newnames)) {
-    if(!is.null(newnames)) {
-      if(!is.character(newnames)) {
-        stop("improper `newnames` given")
-      }
-      if(length(newnames) != length(x)) {
-        stop("improper `newnames` given")
-      }
-      data.table::setattr(x, "names", NULL) # protecting original names
-      newnames <- data.table::copy(newnames) # protecting original names
+  # remove dimnames:
+  if(is.null(newdimnames)) {
+    data.table::setattr(x, "dimnames", NULL)
+    return(invisible(NULL))
+  }
+  
+  # check m:
+  if(length(m) > length(dim(x)) || any(m <= 0)) {
+    stop("improper `m` given")
+  }
+  
+  # check dimnames:
+  if(!is.list(newdimnames) || length(newdimnames) != length(m)) {
+    stop("`newdimnames` must be a list of the same length as `m`")
+  }
+  
+  nulldims <- sapply(newdimnames, is.null)
+  if(!all(nulldims)) {
+    if(any(collapse::vlengths(newdimnames[!nulldims]) != dim(x)[m][!nulldims])) {
+      stop("improper `newdimnames` given")
     }
-    data.table::setattr(x, "names", newnames) 
-  }
-  
-  return(invisible(NULL))
-}
-
-
-
-#' @rdname sb_setRename
-#' @export
-sb_setRename.array <- function(x, newdimnames, newnames, ...) {
-  
-  # error checks:
-  if(!is.mutable_atomic(x)){
-    stop("`x` is not a (supported) mutable object")
-  }
-  .check_bindingIsLocked(substitute(x), parent.frame(n = 1), abortcall = sys.call())
-  
-  
-  
-  if(!missing(newdimnames)) {
-    if(!is.null(newdimnames)) {
-      
-      if(!is.list(newdimnames)) {
-        stop("improper `newdimnames` given")
-      }
-      if(length(newdimnames) != length(dim(x))) {
-        stop("improper `newdimnames` given")
-      }
-      
-      nulldims <- sapply(newdimnames, is.null)
-      if(!all(nulldims)) {
-        if(any(collapse::vlengths(newdimnames[!nulldims]) != dim(x)[!nulldims])) {
-          stop("improper `newdimnames` given")
-        }
-        if(any(collapse::vclasses(newdimnames[!nulldims]) != "character")) {
-          stop("improper `newdimnames` given")
-        }
-      }
-      
-      data.table::setattr(x, "dimnames", NULL) # protecting original names
-      newdimnames <- data.table::copy(newdimnames) # protecting original names
+    if(any(collapse::vclasses(newdimnames[!nulldims]) != "character")) {
+      stop("improper `newdimnames` given")
     }
-    data.table::setattr(x, "dimnames", newdimnames) 
   }
   
-  if(!missing(newnames)) {
-    if(!is.null(newnames)) {
-      if(!is.character(newnames)) {
-        stop("improper `newnames` given")
-      }
-      if(length(newnames) != length(x)) {
-        stop("improper `newnames` given")
-      }
-      data.table::setattr(x, "names", NULL) # protecting original names
-      newnames <- data.table::copy(newnames) # protecting original names
-    }
-    data.table::setattr(x, "names", newnames) 
-  }
+  dimnames <- dimnames(x)
+  dimnames[m] <- data.table::copy(newdimnames[m])
   
-  
+  data.table::setattr(x, "dimnames", NULL) # protecting original names
+  data.table::setattr(x, "dimnames", dimnames)
   return(invisible(NULL))
   
 }
 
-#' @rdname sb_setRename
-#' @export
-sb2_setRename <- function(x, ...) {
-  
-  UseMethod("sb2_setRename", x)
-}
 
 
 #' @rdname sb_setRename
 #' @export
-sb2_setRename.data.table <- function(x, old, new, skip_absent = FALSE, ...) {
+sb2_setVarnames <- function(x, old, new, skip_absent = FALSE, ...) {
   if(!data.table::is.data.table(x)) {
     stop("`x` is not a (supported) mutable object")
   }
@@ -177,4 +187,20 @@ sb2_setRename.data.table <- function(x, old, new, skip_absent = FALSE, ...) {
 }
 
 
-
+.sb_setrename_indx <- function(i, nms, abortcall) {
+  if(is.logical(i)) {
+    return(tci_bool(i, length(nms), .abortcall = abortcall))
+  }
+  else if(is.numeric(i)) {
+    return(tci_int(i, length(nms), .abortcall = abortcall))
+  }
+  else if(is.character(i)) {
+    return(tci_chr(i, nms, .abortcall = abortcall))
+  }
+  else if(is.complex(i)) {
+    return(tci_cplx(i, length(nms), .abortcall = abortcall))
+  }
+  else {
+    .indx_stop(abortcall)
+  }
+}

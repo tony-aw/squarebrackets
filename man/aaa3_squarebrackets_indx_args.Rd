@@ -27,11 +27,12 @@ Base 'R' supports indexing through \code{logical}, \code{integer}, and \code{cha
 but also supports some additional methods of indexing. \cr
 \cr
 \cr
-\bold{Integers} \cr
-Integers are the most basic form on index selection. \cr
-All forms of indexing in 'squarebrackets' are internally translated to integer indexing first,
+\bold{Whole numbers} \cr
+Whole numbers are the most basic form on index selection. \cr
+All forms of indexing in 'squarebrackets' are internally translated to integer
+(or double if\verb{ > (2^31 - 1)}) indexing first,
 ensuring consistency. \cr
-Indexing through integers in 'squarebrackets' works the same as in base 'R',
+Indexing through integer/numeric indices in 'squarebrackets' works the same as in base 'R',
 except that negative values are not allowed. \cr
 \cr
 \cr
@@ -63,10 +64,10 @@ like \code{1:10 * 1i}, work the same as regular integers. \cr
 Imaginary numbers that are negative integers,
 like \code{1:10 * -1i},
 index by counting backwards (i.e. from the end),
-where the integer indices are computed as \code{n - Im(y) + 1L}. \cr
-Where \code{n} is the maximum possible integer
-(i.e. \code{length(x)}, or \code{dim(x)[L]}, depending on the situation). \cr
-\cr
+where the integer indices are computed as \code{n + Im(y) + 1L}. \cr
+Here \code{n} is the maximum possible integer
+(i.e. \code{length(x)}, or \code{dim(x)[L]}, depending on the situation),
+and \code{Im(y)} is negative. \cr
 Note that \bold{only} the \code{Imaginary} part of a complex vector is used (\code{Im(y)}); \cr
 the \code{Real} part (\code{Re(y)}) is \bold{ignored}. \cr
 \cr
@@ -107,7 +108,7 @@ Any of the following can be specified for argument \code{i}:
 \item a vector of length 0,
 in which case no indices are selected for the operation
 (i.e. empty selection).
-\item a \bold{strictly positive integer} vector with indices.
+\item a \bold{strictly positive whole numbers} vector with indices.
 \item a \bold{complex} vector, as explained at the start of this help page.
 \item a \bold{logical vector},
 of the same length as \code{x},
@@ -141,7 +142,7 @@ Any of the following can be specified for the arguments \code{row} / \code{col}:
 \item \code{NULL} (default), corresponds to a missing argument.
 \item a vector of length 0,
 in which case no indices are selected for the operation (i.e. empty selection).
-\item a \bold{strictly positive integer} vector with dimension indices to select for the operation.
+\item a \bold{strictly positive whole numbers} vector with dimension indices to select for the operation.
 \item a \bold{complex} vector, as explained at the start of this help page.
 \item a \bold{logical} vector of the same length as the corresponding dimension size,
 giving the indices of this dimension to select for the operation.
@@ -173,7 +174,7 @@ Each element of \code{sub} can be any of the following:
 \itemize{
 \item a vector of length 0,
 in which case no indices are selected for the operation (i.e. empty selection).
-\item a \bold{strictly positive integer} vector with dimension indices to select for the operation.
+\item a \bold{strictly positive whole numbers} vector with dimension indices to select for the operation.
 \item a \bold{complex} vector, as explained at the start of this help page.
 \item a \bold{logical} vector of the same length as the corresponding dimension size,
 giving the indices of this dimension to select for the operation.
@@ -245,7 +246,7 @@ etc. \cr
 \cr
 The \code{slice} argument can be any of the following:
 \itemize{
-\item a \bold{strictly positive integer} vector with dimension indices to select for the operation.
+\item a \bold{strictly positive whole numbers} vector with dimension indices to select for the operation.
 \item a \bold{complex} vector, as explained at the start of this help page.
 \item a \bold{logical} vector of the same length as the corresponding dimension size,
 giving the dimension indices to select for the operation.

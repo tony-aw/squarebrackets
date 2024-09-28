@@ -32,6 +32,9 @@ if ( requireNamespace("tinytest", quietly = TRUE) ){
     tinytest::test_package(
       "squarebrackets", testdir = "tinytest/generic_idx", set_env=list(LC_COLLATE="C")
     )
+    tinytest::test_package(
+      "squarebrackets", testdir = "tinytest/generic_rename", set_env=list(LC_COLLATE="C")
+    )
   }
   
   # the next tests explicitly require the abind package

@@ -34,7 +34,7 @@ reference:
   - '`sb_mod`'
   - '`sb_set`'
   - '`sb2_rec`'
-  - '`sb_setRename`'
+  - '`sb_setFlatnames`'
   - '`bind`'
   - '`idx`'
 - title: Specialized Functions

@@ -143,5 +143,7 @@ tinycodet::import_LL("squarebrackets", selection = ... )
   confusion with base R’s own `drop` mechanic. Small performance
   improvements for `sub2ind()` and `sb_set.array()`.
 - 26 September 2024: Overhauled how indexing with complex vectors work.
+- 28 September 2024: Split `sb(2)_setRename()` into `sb_setFlatnames()`,
+  `sb_setDimnames()`, and `sb2_setVarnames()`.
 
  

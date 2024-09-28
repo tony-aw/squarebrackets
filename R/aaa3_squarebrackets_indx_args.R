@@ -21,11 +21,12 @@
 #' but also supports some additional methods of indexing. \cr
 #' \cr
 #' \cr
-#' \bold{Integers} \cr
-#' Integers are the most basic form on index selection. \cr
-#' All forms of indexing in 'squarebrackets' are internally translated to integer indexing first,
+#' \bold{Whole numbers} \cr
+#' Whole numbers are the most basic form on index selection. \cr
+#' All forms of indexing in 'squarebrackets' are internally translated to integer
+#' (or double if` > (2^31 - 1)`) indexing first,
 #' ensuring consistency. \cr
-#' Indexing through integers in 'squarebrackets' works the same as in base 'R',
+#' Indexing through integer/numeric indices in 'squarebrackets' works the same as in base 'R',
 #' except that negative values are not allowed. \cr
 #' \cr
 #' \cr
@@ -57,10 +58,10 @@
 #' Imaginary numbers that are negative integers,
 #' like `1:10 * -1i`,
 #' index by counting backwards (i.e. from the end),
-#' where the integer indices are computed as `n - Im(y) + 1L`. \cr
-#' Where `n` is the maximum possible integer
-#' (i.e. `length(x)`, or `dim(x)[L]`, depending on the situation). \cr
-#' \cr
+#' where the integer indices are computed as `n + Im(y) + 1L`. \cr
+#' Here `n` is the maximum possible integer
+#' (i.e. `length(x)`, or `dim(x)[L]`, depending on the situation),
+#' and `Im(y)` is negative. \cr
 #' Note that \bold{only} the `Imaginary` part of a complex vector is used (`Im(y)`); \cr
 #' the `Real` part (`Re(y)`) is \bold{ignored}. \cr
 #' \cr
@@ -100,7 +101,7 @@
 #'  * a vector of length 0,
 #'  in which case no indices are selected for the operation
 #'  (i.e. empty selection).
-#'  * a \bold{strictly positive integer} vector with indices.
+#'  * a \bold{strictly positive whole numbers} vector with indices.
 #'  * a \bold{complex} vector, as explained at the start of this help page.
 #'  * a \bold{logical vector},
 #'  of the same length as `x`,
@@ -135,7 +136,7 @@
 #'  * `NULL` (default), corresponds to a missing argument.
 #'  * a vector of length 0,
 #'  in which case no indices are selected for the operation (i.e. empty selection).
-#'  * a \bold{strictly positive integer} vector with dimension indices to select for the operation.
+#'  * a \bold{strictly positive whole numbers} vector with dimension indices to select for the operation.
 #'  * a \bold{complex} vector, as explained at the start of this help page.
 #'  * a \bold{logical} vector of the same length as the corresponding dimension size,
 #'  giving the indices of this dimension to select for the operation.
@@ -165,7 +166,7 @@
 #' 
 #'  * a vector of length 0,
 #'  in which case no indices are selected for the operation (i.e. empty selection).
-#'  * a \bold{strictly positive integer} vector with dimension indices to select for the operation.
+#'  * a \bold{strictly positive whole numbers} vector with dimension indices to select for the operation.
 #'  * a \bold{complex} vector, as explained at the start of this help page.
 #'  * a \bold{logical} vector of the same length as the corresponding dimension size,
 #'  giving the indices of this dimension to select for the operation.
@@ -235,7 +236,7 @@
 #' \cr
 #' The `slice` argument can be any of the following:
 #' 
-#'  * a \bold{strictly positive integer} vector with dimension indices to select for the operation.
+#'  * a \bold{strictly positive whole numbers} vector with dimension indices to select for the operation.
 #'  * a \bold{complex} vector, as explained at the start of this help page.
 #'  * a \bold{logical} vector of the same length as the corresponding dimension size,
 #'  giving the dimension indices to select for the operation.

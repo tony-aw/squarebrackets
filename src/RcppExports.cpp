@@ -2050,19 +2050,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// rcpp_indx_convert_cplx_multi
-NumericVector rcpp_indx_convert_cplx_multi(const NumericVector re, const NumericVector im, const NumericVector lens);
-RcppExport SEXP _squarebrackets_rcpp_indx_convert_cplx_multi(SEXP reSEXP, SEXP imSEXP, SEXP lensSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const NumericVector >::type re(reSEXP);
-    Rcpp::traits::input_parameter< const NumericVector >::type im(imSEXP);
-    Rcpp::traits::input_parameter< const NumericVector >::type lens(lensSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_indx_convert_cplx_multi(re, im, lens));
-    return rcpp_result_gen;
-END_RCPP
-}
 // rcpp_sb_str
 String rcpp_sb_str(std::string x, IntegerVector ind);
 RcppExport SEXP _squarebrackets_rcpp_sb_str(SEXP xSEXP, SEXP indSEXP) {
@@ -2357,7 +2344,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_squarebrackets_C_prod_int", (DL_FUNC) &_squarebrackets_C_prod_int, 3},
     {"_squarebrackets_C_pre_coord2ind", (DL_FUNC) &_squarebrackets_C_pre_coord2ind, 3},
     {"_squarebrackets_rcpp_coord2ind", (DL_FUNC) &_squarebrackets_rcpp_coord2ind, 3},
-    {"_squarebrackets_rcpp_indx_convert_cplx_multi", (DL_FUNC) &_squarebrackets_rcpp_indx_convert_cplx_multi, 3},
     {"_squarebrackets_rcpp_sb_str", (DL_FUNC) &_squarebrackets_rcpp_sb_str, 2},
     {"_squarebrackets_rcpp_sb_str_rp", (DL_FUNC) &_squarebrackets_rcpp_sb_str_rp, 4},
     {"_squarebrackets_rcpp_seq_mlen", (DL_FUNC) &_squarebrackets_rcpp_seq_mlen, 1},

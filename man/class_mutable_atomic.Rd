@@ -51,6 +51,9 @@ Converts an atomic object (vector, matrix, array)
 to the same object, but with additional class \code{"mutable_atomic"},
 and the additional attribute \code{"typeof"}. \cr
 \cr
+For \code{materialize_atomic()}: \cr
+Converts an immaterial ALTREP atomic object to a materialized \code{mutable_atomic} object. \cr
+\cr
 For \code{is.mutable_atomic()}: \cr
 Returns \code{TRUE} if the object is atomic, has
 the class \code{"mutable_atomic"},
@@ -83,18 +86,20 @@ Exposed functions (beside the S3 methods):
 \item \code{mutable_atomic()}: create a \code{mutable_atomic} object.
 \item \code{is.mutable_atomic()}: checks if an object is atomic.
 \item \code{as.mutable_atomic()}: converts a regular atomic object to \code{mutable_atomic}.
-\item \code{couldb.mutable_atomic()}: checks if an object could be \code{mutable_atomic}. \cr
+\item \code{couldb.mutable_atomic()}: checks if an object could become \code{mutable_atomic}. \cr
 An objects can become \code{mutable_atomic} if it is one of the following types: \cr
 \link{logical}, \link{integer}, \link{double}, \link{character}, \link{complex}, \link{raw}. \cr
 \code{bit64::}\link[bit64]{integer64} type is also supported,
 since it is internally defined as \link{double}. \cr
-\item \verb{materialize_atomic():} takes an immaterial ALTREP atomic object, and returns the materialized atomic object. \cr \cr
+\item \verb{materialize_atomic():} takes an immaterial ALTREP atomic object, and returns a materialized \code{mutable_atomic} object. \cr \cr
 }
 }
 \section{Warning}{
 
 
-Always use \code{mutable_atomic()} or \code{as.mutable_atomic()} to create a mutable object,
+Always use
+\code{mutable_atomic()}, \code{as.mutable_atomic()}, or \code{materialize_atomic()}
+to create a mutable object,
 as they make necessary checks. \cr
 Circumventing these checks may break things. \cr \cr
 }

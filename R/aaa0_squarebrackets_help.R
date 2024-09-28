@@ -111,7 +111,7 @@
 #'  * \link{sb2_rec}: access recursive subsets of lists.
 #'  * \link{sb2_reccom}: replace, transform, remove, or add recursive subsets to a list,
 #'  through R's default Copy-On-Modify semantics.
-#'  * \link{sb_setRename}, \link{sb2_setRename}: change the names of
+#'  * \link{sb_setFlatnames}, \link{sb_setDimnames}, \link{sb2_setVarnames}: change the names of
 #'  a \link[=squarebrackets_mutable_classes]{mutable object}
 #'  using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
 #'  * \link[=bind]{bind_}, \link[=bind]{bind2_}:  implementations for binding dimensional objects.
@@ -162,7 +162,7 @@
 #'  \link[=idx_ord_v]{idx_ord_}-functions to compute ordered indices. \cr
 #'  * Computing sequences: \cr
 #'  \link{seq_rec2} for the recursive sequence generator
-#'  (for example to generate a Fibonacci sequence). \cr 
+#'  (for example to generate a Fibonacci sequence). \cr  \cr
 #' 
 #' 
 #' `r .mybadge_intro_section("DEVELOPER FUNCTIONS", "pink")` \cr
@@ -194,14 +194,15 @@
 #' @exportPattern "^sb_set"
 #' @exportPattern "^sb_mod"
 #' @exportPattern "^sb_coe"
-#' @exportPattern "^sb_setRename"
+#' @exportPattern "^sb_setFlatnames"
+#' @exportPattern "^sb_setDimnames"
 #' @exportPattern "^currentBindings"
 #' @exportPattern "^sb2_x"
 #' @exportPattern "^sb2_rm"
 #' @exportPattern "^sb2_set"
 #' @exportPattern "^sb2_mod"
 #' @exportPattern "^sb2_rec"
-#' @exportPattern "^sb2_setRename"
+#' @exportPattern "^sb2_setVarnames"
 #' @exportPattern "^idx"
 #' @method `[` mutable_atomic
 #' @method `[<-` mutable_atomic
