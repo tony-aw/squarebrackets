@@ -97,7 +97,7 @@ tci_cplx <- function(indx, n, inv = FALSE, chkdup = FALSE, .abortcall = sys.call
   
   indx <- .C_convert_cplx(Im(indx), n)
   
-  return(tci_int(indx, n, inv, chkdup))
+  return(tci_int(indx, n, inv, chkdup, .abortcall = .abortcall))
 }
 
 

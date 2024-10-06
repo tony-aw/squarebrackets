@@ -6,7 +6,9 @@
 \alias{as.mutable_atomic}
 \alias{is.mutable_atomic}
 \alias{couldb.mutable_atomic}
+\alias{typecast.mutable_atomic}
 \alias{materialize_atomic}
+\alias{c.mutable_atomic}
 \alias{[.mutable_atomic}
 \alias{[<-.mutable_atomic}
 \alias{format.mutable_atomic}
@@ -21,7 +23,11 @@ is.mutable_atomic(x)
 
 couldb.mutable_atomic(x)
 
+typecast.mutable_atomic(x, type = typeof(x), dims = dim(x))
+
 materialize_atomic(x)
+
+\method{c}{mutable_atomic}(..., use.names = TRUE)
 
 \method{[}{mutable_atomic}(x, ...)
 
@@ -40,26 +46,21 @@ materialize_atomic(x)
 
 \item{...}{method dependent arguments.}
 
+\item{type}{a string giving the type; see \link[base]{typeof}.}
+
+\item{dims}{integer vector, giving the new dimensions.}
+
+\item{use.names}{Boolean, indicating if \link[base]{names} should be preserved.}
+
 \item{value}{see \link[base]{Extract}.}
 }
 \value{
-For \code{mutable_atomic()}: \cr
+For \code{mutable_atomic()}, \code{as.mutable_atomic()}, \code{materialize_atomic()}, \code{typecast.mutable_atomic()}: \cr
 Returns a \code{mutable_atomic} object. \cr
 \cr
-For \code{as.mutable_atomic()}: \cr
-Converts an atomic object (vector, matrix, array)
-to the same object, but with additional class \code{"mutable_atomic"},
-and the additional attribute \code{"typeof"}. \cr
-\cr
-For \code{materialize_atomic()}: \cr
-Converts an immaterial ALTREP atomic object to a materialized \code{mutable_atomic} object. \cr
-\cr
 For \code{is.mutable_atomic()}: \cr
-Returns \code{TRUE} if the object is atomic, has
-the class \code{"mutable_atomic"},
-has the correctly set attribute \code{"typeof"},
-\bold{and} has an address that does not overlap with the addresses of base objects. \cr
-\code{is.mutable_atomic()} returns \code{FALSE} otherwise. \cr
+Returns \code{TRUE} if the object is \code{mutable_atomic},
+and returns \code{FALSE} otherwise. \cr
 \cr
 For \code{couldb.mutable_atomic()}: \cr
 Returns \code{TRUE} if the object is one of the following types: \cr
@@ -83,25 +84,26 @@ For modification  by reference, use \link{sb_set}. \cr
 \cr
 Exposed functions (beside the S3 methods):
 \itemize{
-\item \code{mutable_atomic()}: create a \code{mutable_atomic} object.
-\item \code{is.mutable_atomic()}: checks if an object is atomic.
-\item \code{as.mutable_atomic()}: converts a regular atomic object to \code{mutable_atomic}.
+\item \code{mutable_atomic()}: create a \code{mutable_atomic} object from given data.
 \item \code{couldb.mutable_atomic()}: checks if an object could become \code{mutable_atomic}. \cr
 An objects can become \code{mutable_atomic} if it is one of the following types: \cr
 \link{logical}, \link{integer}, \link{double}, \link{character}, \link{complex}, \link{raw}. \cr
 \code{bit64::}\link[bit64]{integer64} type is also supported,
 since it is internally defined as \link{double}. \cr
-\item \verb{materialize_atomic():} takes an immaterial ALTREP atomic object, and returns a materialized \code{mutable_atomic} object. \cr \cr
+\item \verb{materialize_atomic():} takes an immaterial ALTREP atomic object, and returns a materialized \code{mutable_atomic} object.
+\item \code{typecast.mutable_atomic()} type-casts and possibly reshapes a (mutable) atomic object,
+and returns a \code{mutable_atomic} object. \cr
+Does not preserve dimension names if dimensions are changed. \cr \cr
 }
 }
 \section{Warning}{
 
-
 Always use
-\code{mutable_atomic()}, \code{as.mutable_atomic()}, or \code{materialize_atomic()}
-to create a mutable object,
+the exported functions given by 'squarebrackets'
+to create a \code{mutable_atomic} object,
 as they make necessary checks. \cr
-Circumventing these checks may break things. \cr \cr
+Circumventing these checks may break things! \cr
+\cr
 }
 
 \examples{
@@ -110,6 +112,7 @@ x <- mutable_atomic(
   1:20, dim = c(5, 4), dimnames = list(letters[1:5], letters[1:4])
 )
 x
+typecast.mutable_atomic(x, "character")
 
 x <- matrix(1:10, ncol = 2)
 x <- as.mutable_atomic(x)
@@ -117,5 +120,6 @@ is.mutable_atomic(x)
 print(x)
 x[, 1]
 x[] <- as.double(x) # notifies the user a copy is being made
-print(x) # "typeof" attribute adjusted accordingly, and class still present
+print(x)
+is.mutable_atomic(x)
 }

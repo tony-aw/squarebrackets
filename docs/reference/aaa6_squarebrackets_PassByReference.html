@@ -78,8 +78,9 @@ use pass-by-reference semantics. <br><br></p>
     <h2 id="advantages-and-disadvantages">Advantages and Disadvantages<a class="anchor" aria-label="anchor" href="#advantages-and-disadvantages"></a></h2>
     
 
-<p>The main advantage of pass-by-reference is that much less memory is required to modify objects. <br>
-But it does have several disadvantages. <br>
+<p>The main advantage of pass-by-reference is that much less memory is required to modify objects,
+and modification is also generally faster. <br>
+But it does have several disadvantages. <br><br>
 First, the coercion rules are slightly different: see <a href="aaa2_squarebrackets_mutable_classes.html">squarebrackets_mutable_classes</a>. <br><br>
 Second, if 2 or more variables refer to exactly the same object,
 changing one variable also changes the other ones. <br>
@@ -102,27 +103,12 @@ even though <code>y</code> is a locked constant. <br><br></p>
     
 
 <p>With the exception of environments,
-most of base R's data types are treated as immutable: <br>
+most of base R's S3 classes are treated as immutable: <br>
 Modifying an object in 'R' will make a copy of the object,
-something called 'copy-on-modify' semantics. <br>
-However, almost any of base R's data types can be modified by reference,
-through R's own 'C' API, or through 'C++' code (like via 'Rcpp'),
-thus treating these objects as mutable,
-even though they are not "supposed" to be mutable. <br>
-Modifying a base 'R' object by reference can be problematic. <br>
-Since 'R', and also most R-packages, treat these objects as immutable,
-modifying them as-if they are mutable may produce undesired results. <br>
-For example,
-modifying <code>base::leters</code> by reference
-will actually modify the <code>letters</code> object within <code>base</code>. <br><br>
-To prevent the issue described above,
-'squarebrackets' only supports pass-by-reference semantics
-on objects that are actually supposed to be mutable. <br>
-In relation to this restriction,
-'squarebrackets' adds a new class of objects,
-<a href="class_mutable_atomic.html">mutable_atomic</a>,
-which are simply atomic objects
-that have the permission to be modified by reference. <br><br></p>
+something called 'copy-on-modify' semantics. <br><br>
+A prominent mutable S3 class is the <code>data.table</code> class,
+which is a mutable data.frame class, and supported by 'squarebrackets'. <br>
+Similarly, 'squarebrackets' adds a class for mutable atomic objects: <br><a href="class_mutable_atomic.html">mutable_atomic</a>. <br><br></p>
     </div>
     <div class="section level2">
     <h2 id="material-vs-immaterial-objects">Material vs Immaterial objects<a class="anchor" aria-label="anchor" href="#material-vs-immaterial-objects"></a></h2>
@@ -187,7 +173,7 @@ So the list itself is immutable,
 but the recursive subsets of the list retain their mutability. <br>
 If you have a list of <code>data.table</code> objects, for example,
 the data.tables themselves remain mutable. <br>
-Therefore, the following pass-by-reference modification will work: <br></p>
+Therefore, the following pass-by-reference modification will work without issue: <br></p>
 <p></p><div class="sourceCode r"><pre><code><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span> a <span class="op">=</span> <span class="fu">data.table</span><span class="op">(</span>cola <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, colb <span class="op">=</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span><span class="op">)</span>,</span>
 <span> b <span class="op">=</span> <span class="fu">data.table</span><span class="op">(</span>cola <span class="op">=</span> <span class="fl">11</span><span class="op">:</span><span class="fl">20</span>, colb <span class="op">=</span> <span class="va">letters</span><span class="op">[</span><span class="fl">11</span><span class="op">:</span><span class="fl">20</span><span class="op">]</span><span class="op">)</span></span>
@@ -205,8 +191,8 @@ In other words: <code>mypointer</code> is what could be called a "<b>View</b>" o
     
 
 <p>Methods/functions that perform in-place modification by reference
-can be thought of as similar to functions in the style of <code>some_function(x, ...) &lt;- value</code>,
-in the sense that the variable must actually exist as an actual variable. <br>
+only works on objects that actually exist as an actual variable,
+similar to functions in the style of <code>some_function(x, ...) &lt;- value</code>. <br>
 Thus things like any of the following, <br><code>sb_set(1:10, ...)</code>, <code>sb2_set(x$a, ...)</code>, or <code>sb_set(base::letters)</code>, <br>
 will not work. <br><br></p>
     </div>
@@ -228,18 +214,6 @@ Use the 'squarebrackets'  methods and (of course) core/base 'R' methods,
 in case the user fears the binding locks will not be respected. <br><br></p>
     </div>
     <div class="section level2">
-    <h2 id="protected-addresses">Protected Addresses<a class="anchor" aria-label="anchor" href="#protected-addresses"></a></h2>
-    
-
-<p>To prevent an accidental pass-by-reference modification of objects in the base environment,
-all addresses of all exported objects in the base environment
-(<a href="https://rdrr.io/r/base/environment.html" class="external-link">baseenv</a>)
-are stored in
-the option <code>squarebrackets.protected</code> whenever 'squarebrackets' is <b>loaded</b>,
-either directly or indirectly. <br>
-Needless to say, the user should never touch this option. <br><br></p>
-    </div>
-    <div class="section level2">
     <h2 id="protection">Protection<a class="anchor" aria-label="anchor" href="#protection"></a></h2>
     
 
@@ -259,10 +233,7 @@ thus keeping the original object safe from modification by reference);</p></li>
 </ol><p>Despite the checks made by this package,
 the user should never actively try to modify
 a <b>locked</b> or <b>protected</b> object by reference,
-as that would defeat the purpose of locking an object. <br><br>
-Some packages provide functions that change class-related attributes of objects by reference. <br>
-Using such functions is discouraged,
-unless you know exactly what you're doing. <br><br></p>
+as that would defeat the purpose of locking an object. <br><br></p>
     </div>
 
     <div class="section level2">
@@ -317,10 +288,6 @@ unless you know exactly what you're doing. <br><br></p>
 <span class="r-in"><span><span class="fu">base</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/r/base/Constants.html" class="external-link">letters</a></span> <span class="co"># but this still the same</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "m" "n" "o" "p" "q" "r" "s"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [20] "t" "u" "v" "w" "x" "y" "z"</span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Word of warning:</span></span></span>
-<span class="r-in"><span><span class="co"># the safe-guard in 'squarebrackets' is good, but definitely not perfect.</span></span></span>
-<span class="r-in"><span><span class="co"># Do not actively try to break things; you might actually succeed.</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

@@ -15,49 +15,45 @@
 #' \cr
 #' Exposed functions (beside the S3 methods):
 #' 
-#'  * `mutable_atomic()`: create a `mutable_atomic` object.
-#'  * `is.mutable_atomic()`: checks if an object is atomic.
-#'  * `as.mutable_atomic()`: converts a regular atomic object to `mutable_atomic`.
+#'  * `mutable_atomic()`: create a `mutable_atomic` object from given data.
 #'  * `couldb.mutable_atomic()`: checks if an object could become `mutable_atomic`. \cr
 #' An objects can become `mutable_atomic` if it is one of the following types: \cr
 #' \link{logical}, \link{integer}, \link{double}, \link{character}, \link{complex}, \link{raw}. \cr
 #' \code{bit64::}\link[bit64]{integer64} type is also supported,
 #' since it is internally defined as \link{double}. \cr
-#'  * `materialize_atomic():` takes an immaterial ALTREP atomic object, and returns a materialized `mutable_atomic` object. \cr \cr
+#'  * `materialize_atomic():` takes an immaterial ALTREP atomic object, and returns a materialized `mutable_atomic` object.
+#'  * `typecast.mutable_atomic()` type-casts and possibly reshapes a (mutable) atomic object,
+#'  and returns a `mutable_atomic` object. \cr
+#'  Does not preserve dimension names if dimensions are changed. \cr \cr
+#'
+#'
 #'
 #' @param x an atomic object.
 #' @param data atomic vector giving data to fill the `mutable_atomic` object.
 #' @param value see \link[base]{Extract}.
 #' @param names,dim,dimnames see \link[stats]{setNames} and \link[base]{array}.
+#' @param type a string giving the type; see \link[base]{typeof}.
+#' @param dims integer vector, giving the new dimensions.
+#' @param use.names Boolean, indicating if \link[base]{names} should be preserved.
 #' @param ... method dependent arguments.
 #' 
-#' @section Warning: 
 #' 
+#' @section Warning: 
 #' Always use
-#' `mutable_atomic()`, `as.mutable_atomic()`, or `materialize_atomic()`
-#' to create a mutable object,
+#' the exported functions given by 'squarebrackets'
+#' to create a `mutable_atomic` object,
 #' as they make necessary checks. \cr
-#' Circumventing these checks may break things. \cr \cr
+#' Circumventing these checks may break things! \cr
+#' \cr
 #' 
 #' 
 #' @returns
-#' For `mutable_atomic()`: \cr
+#' For `mutable_atomic()`, `as.mutable_atomic()`, `materialize_atomic()`, `typecast.mutable_atomic()`: \cr
 #' Returns a `mutable_atomic` object. \cr
 #' \cr
-#' For `as.mutable_atomic()`: \cr
-#' Converts an atomic object (vector, matrix, array)
-#' to the same object, but with additional class `"mutable_atomic"`,
-#' and the additional attribute `"typeof"`. \cr
-#' \cr
-#' For `materialize_atomic()`: \cr
-#' Converts an immaterial ALTREP atomic object to a materialized `mutable_atomic` object. \cr
-#' \cr
 #' For `is.mutable_atomic()`: \cr
-#' Returns `TRUE` if the object is atomic, has
-#' the class `"mutable_atomic"`,
-#' has the correctly set attribute `"typeof"`,
-#' \bold{and} has an address that does not overlap with the addresses of base objects. \cr
-#' `is.mutable_atomic()` returns `FALSE` otherwise. \cr
+#' Returns `TRUE` if the object is `mutable_atomic`,
+#' and returns `FALSE` otherwise. \cr
 #' \cr
 #' For `couldb.mutable_atomic()`: \cr
 #' Returns `TRUE` if the object is one of the following types: \cr
@@ -83,6 +79,11 @@ mutable_atomic <- function(data, names = NULL, dim = NULL, dimnames = NULL) {
   if(!couldb.mutable_atomic(data)) {
     stop("non-atomic data given")
   }
+  if(.C_is_altrep(data)) {
+    dataold <- data.table::copy(data)
+    data <- vector(typeof(dataold), length(dataold))
+    .rcpp_set_all(data, rp = dataold)
+  }
   
   if(!is.null(names)) {
     names <- data.table::copy(names) # protection against pass-by-reference
@@ -91,26 +92,12 @@ mutable_atomic <- function(data, names = NULL, dim = NULL, dimnames = NULL) {
     dimnames <- data.table::copy(dimnames) # protection against pass-by-reference
   }
   
-  if(isTRUE(length(dim) == 2)) {
-    x <- structure(
-      as.vector(data), class = c("mutable_atomic", "matrix", "array"), typeof = typeof(data),
-      names = names, dim = dim, dimnames = dimnames
-    )
-    return(x)
-  }
-  
-  if(isTRUE(length(dim) > 2)) {
-    x <- structure(
-      as.vector(data), class = c("mutable_atomic", "array"), typeof = typeof(data),
-      names = names, dim = dim, dimnames = dimnames
-    )
-    return(x)
-  }
-  
   x <- structure(
-    data, class = c("mutable_atomic", class(data)), typeof = typeof(data),
+    as.vector(data),
     names = names, dim = dim, dimnames = dimnames
   )
+  .internal_set_ma(x)
+  
   return(x)
   
 }
@@ -129,10 +116,7 @@ as.mutable_atomic <- function(x, ...) {
   if(.C_is_altrep(x)) {
     return(materialize_atomic(x))
   }
-  y <- data.table::copy(x)
-  
-  attr(y, "typeof") <- typeof(x)
-  class(y) <- c("mutable_atomic", class(y))
+  y <- .internal_return_ma(x)
   
   if(!is.null(names(y))) {
     nms <- data.table::copy(names(y)) # protection against pass-by-reference
@@ -156,13 +140,15 @@ is.mutable_atomic <- function(x) {
   if(!couldb.mutable_atomic(x)) return(FALSE)
   check_protected <- data.table::`%chin%`(
     .rcpp_address(x),
-    getOption("squarebrackets.protected", default = .protected_addresses())
+    .pkgenv_squarebrackets[["protected"]]
   )
   if(check_protected) return(FALSE)
-  check <- inherits(x, "mutable_atomic") && isTRUE(attr(x, "typeof") == typeof(x))
+  
+  check <- .rcpp_is_ma(x)
   return(check)
   
 }
+
 
 #' @rdname class_mutable_atomic
 #' @export
@@ -177,6 +163,64 @@ couldb.mutable_atomic <- function(x) {
 
 #' @rdname class_mutable_atomic
 #' @export
+typecast.mutable_atomic <- function(x, type = typeof(x), dims = dim(x)) {
+  
+  if(length(x) != prod(dims)) {
+    stop("dimension product does not match the length of object")
+  }
+  
+  # set type:
+  if(type == "logical") {
+    y <- as.logical(x)
+  }
+  else if(type == "integer") {
+    y <- as.integer(x)
+  }
+  else if(type == "double") {
+    y <- as.double(x)
+  }
+  else if(type == "character") {
+    y <- as.character(x)
+  }
+  else if(type == "complex") {
+    y <- as.complex(x)
+  }
+  else if(type == "raw") {
+    y <- as.raw(x)
+  }
+  else {
+    stop("unsupported type")
+  }
+  
+  # set dimensions:
+  if(!is.null(dims)) {
+    if(length(x) == prod(dims)) {
+      data.table::setattr(y, "dim", dims)
+    }
+  }
+  
+  # convert:
+  .internal_set_ma(y)
+  
+  # set names:
+  if(!is.null(names(x))) {
+    nms <- data.table::copy(names(x)) # protection against pass-by-reference
+    data.table::setattr(y, "names", NULL)
+    data.table::setattr(y, "names", nms)
+  }
+  if(!is.null(dimnames(x)) && all(dim(x) == dim(y))) {
+    nms <- data.table::copy(dimnames(y)) # protection against pass-by-reference
+    data.table::setattr(y, "dimnames", NULL)
+    data.table::setattr(y, "dimnames", nms)
+  }
+  
+  return(y)
+  
+}
+
+
+#' @rdname class_mutable_atomic
+#' @export
 materialize_atomic <- function(x) {
   if(!.C_is_altrep(x)) {
     return(x)
@@ -184,8 +228,8 @@ materialize_atomic <- function(x) {
   y <- vector(typeof(x), length(x))
   .rcpp_set_all(y, rp = x)
   mostattributes(y) <- attributes(x)
-  data.table::setattr(y, "typeof", typeof(x))
-  data.table::setattr(y, "class", c("mutable_atomic", class(y)))
+  
+  .internal_set_ma(y)
   
   if(!is.null(names(y))) {
     nms <- data.table::copy(names(y)) # protection against pass-by-reference
@@ -204,10 +248,20 @@ materialize_atomic <- function(x) {
 
 #' @rdname class_mutable_atomic
 #' @export
+c.mutable_atomic <- function(..., use.names = TRUE) {
+  y <- unlist(list(...), recursive = FALSE, use.names = use.names)
+  .internal_set_ma(y)
+  return(y)
+}
+
+
+#' @rdname class_mutable_atomic
+#' @export
 `[.mutable_atomic` <- function(x, ...) {
   y <- NextMethod("[")
-  attr(y, "typeof") <- typeof(x)
+  
   class(y) <- c("mutable_atomic", class(y))
+  attr(y, "serial") <- .C_serial(y)
   y
 }
 
@@ -220,11 +274,18 @@ materialize_atomic <- function(x) {
     message("copying on modification; for modification by reference, use `sb_set()`")
   }
   
+  oldtype <- typeof(x)
+  
   oc <- oldClass(x)
   class(x) <- NULL
   x[...] <- value
-  attr(x, "typeof") <- typeof(x)
   class(x) <- oc
+  
+  newtype <- typeof(x)
+  if(oldtype != newtype) {
+    attr(x, "serial") <- .C_serial(x)
+  }
+  
   x
 }
 
@@ -233,6 +294,7 @@ materialize_atomic <- function(x) {
 #' @export
 format.mutable_atomic <- function(x, ...) {
   class(x) <- setdiff(class(x), "mutable_atomic")
+  attr(x, "serial") <- NULL
   format(x, ...)
 }
 
@@ -241,7 +303,7 @@ format.mutable_atomic <- function(x, ...) {
 #' @export
 print.mutable_atomic <- function(x, ...) {
   class(x) <- setdiff(class(x), "mutable_atomic")
-  attr(x, "typeof") <- NULL
+  attr(x, "serial") <- NULL
   print(x, ...)
   cat("mutable_atomic \n")
   cat(paste("typeof: ", typeof(x), "\n"))

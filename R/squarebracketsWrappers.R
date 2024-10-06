@@ -58,3 +58,10 @@
   }
 }
 
+
+#' @keywords Internal
+#' @noRd
+.C_serial <- function(x) {
+  .Call("C_serial", x = x)
+}
+

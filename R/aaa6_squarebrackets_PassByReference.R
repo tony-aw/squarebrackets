@@ -12,8 +12,10 @@
 #' 
 #' 
 #' @section Advantages and Disadvantages:
-#' The main advantage of pass-by-reference is that much less memory is required to modify objects. \cr
+#' The main advantage of pass-by-reference is that much less memory is required to modify objects,
+#' and modification is also generally faster. \cr
 #' But it does have several disadvantages. \cr
+#' \cr
 #' First, the coercion rules are slightly different: see \link{squarebrackets_mutable_classes}. \cr
 #' \cr
 #' Second, if 2 or more variables refer to exactly the same object,
@@ -42,28 +44,14 @@
 #'
 #' @section Mutable vs Immutable Classes:
 #' With the exception of environments,
-#' most of base R's data types are treated as immutable: \cr
+#' most of base R's S3 classes are treated as immutable: \cr
 #' Modifying an object in 'R' will make a copy of the object,
 #' something called 'copy-on-modify' semantics. \cr
-#' However, almost any of base R's data types can be modified by reference,
-#' through R's own 'C' API, or through 'C++' code (like via 'Rcpp'),
-#' thus treating these objects as mutable,
-#' even though they are not "supposed" to be mutable. \cr
-#' Modifying a base 'R' object by reference can be problematic. \cr
-#' Since 'R', and also most R-packages, treat these objects as immutable,
-#' modifying them as-if they are mutable may produce undesired results. \cr
-#' For example,
-#' modifying `base::leters` by reference
-#' will actually modify the `letters` object within `base`. \cr
 #' \cr
-#' To prevent the issue described above,
-#' 'squarebrackets' only supports pass-by-reference semantics
-#' on objects that are actually supposed to be mutable. \cr
-#' In relation to this restriction,
-#' 'squarebrackets' adds a new class of objects,
-#' \link[=class_mutable_atomic]{mutable_atomic},
-#' which are simply atomic objects
-#' that have the permission to be modified by reference. \cr \cr
+#' A prominent mutable S3 class is the `data.table` class,
+#' which is a mutable data.frame class, and supported by 'squarebrackets'. \cr
+#' Similarly, 'squarebrackets' adds a class for mutable atomic objects: \cr
+#' \link{mutable_atomic}. \cr \cr
 #' 
 #' 
 #' @section Material vs Immaterial objects:
@@ -134,7 +122,7 @@
 #' but the recursive subsets of the list retain their mutability. \cr
 #' If you have a list of `data.table` objects, for example,
 #' the data.tables themselves remain mutable. \cr
-#' Therefore, the following pass-by-reference modification will work: \cr
+#' Therefore, the following pass-by-reference modification will work without issue: \cr
 #' 
 #' ```{r eval = FALSE}
 #' x <- list(
@@ -153,8 +141,8 @@
 #' 
 #' @section Input Variable:
 #' Methods/functions that perform in-place modification by reference
-#' can be thought of as similar to functions in the style of `some_function(x, ...) <- value`,
-#' in the sense that the variable must actually exist as an actual variable. \cr
+#' only works on objects that actually exist as an actual variable,
+#' similar to functions in the style of `some_function(x, ...) <- value`. \cr
 #' Thus things like any of the following, \cr
 #' `sb_set(1:10, ...)`, `sb2_set(x$a, ...)`, or `sb_set(base::letters)`, \cr
 #' will not work. \cr \cr
@@ -176,16 +164,6 @@
 #' tend to ignore the lock of an object's binding. \cr
 #' Use the 'squarebrackets'  methods and (of course) core/base 'R' methods,
 #' in case the user fears the binding locks will not be respected. \cr \cr
-#' 
-#' 
-#' @section Protected Addresses:
-#' To prevent an accidental pass-by-reference modification of objects in the base environment,
-#' all addresses of all exported objects in the base environment
-#' (\link[base]{baseenv})
-#' are stored in
-#' the option `squarebrackets.protected` whenever 'squarebrackets' is \bold{loaded},
-#' either directly or indirectly. \cr
-#' Needless to say, the user should never touch this option. \cr \cr
 #' 
 #' 
 #' 
@@ -215,9 +193,6 @@
 #' a \bold{locked} or \bold{protected} object by reference,
 #' as that would defeat the purpose of locking an object. \cr
 #' \cr
-#' Some packages provide functions that change class-related attributes of objects by reference. \cr
-#' Using such functions is discouraged,
-#' unless you know exactly what you're doing. \cr \cr
 #' 
 #' 
 #' 

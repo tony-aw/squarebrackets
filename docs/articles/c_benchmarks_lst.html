@@ -116,8 +116,8 @@ list transformed by <code><a href="../reference/lst.html">lst_untree()</a></code
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 6</span></span></span>
 <span><span class="co">#&gt;   expression      min   median `itr/sec` mem_alloc `gc/sec`</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:byt&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> original     1.24ms   2.75ms      371.    38.4KB     23.7</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> untree'd      9.4µs   15.6µs    <span style="text-decoration: underline;">55</span>000.    77.6KB     22.0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> original      1.1ms   1.34ms      706.    38.4KB     15.1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> untree'd      7.5µs    8.9µs   <span style="text-decoration: underline;">103</span>184.    77.6KB     20.6</span></span>
 <span><span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot</a></span><span class="op">(</span><span class="va">foo</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Loading required namespace: tidyr</span></span></code></pre></div>
 <p><img src="c_benchmarks_lst_files/figure-html/unnamed-chunk-2-1.png" width="768"></p>

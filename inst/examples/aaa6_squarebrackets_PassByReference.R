@@ -32,8 +32,4 @@ sb_set(
 print(x) # x is modified
 base::letters # but this still the same
 
-# Word of warning:
-# the safe-guard in 'squarebrackets' is good, but definitely not perfect.
-# Do not actively try to break things; you might actually succeed.
-
 

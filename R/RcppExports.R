@@ -897,6 +897,18 @@
 
 #' @keywords internal
 #' @noRd
+.rcpp_serial <- function(x) {
+    .Call(`_squarebrackets_rcpp_serial`, x)
+}
+
+#' @keywords internal
+#' @noRd
+.rcpp_is_ma <- function(x) {
+    .Call(`_squarebrackets_rcpp_is_ma`, x)
+}
+
+#' @keywords internal
+#' @noRd
 .rcpp_set_namepointer <- function(nms, ind, rp) {
     invisible(.Call(`_squarebrackets_rcpp_set_namepointer`, nms, ind, rp))
 }

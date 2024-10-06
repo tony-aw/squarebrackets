@@ -23,7 +23,7 @@
 #'  - **homo- or heterogeneous**: atomic object are homogeneous,
 #'  in that they can only contain one data-type
 #'  (logical, integer, double, character, complex, raw). \cr
-#'  In contract, recursive objects are heterogeneous,
+#'  In contrast, recursive objects are heterogeneous,
 #'  as they can have any combination of data-types.
 #'  - **vectorization**: vectorized operations generally work on atomic objects,
 #'  whereas recursive objects generally require loops or apply-like functions. \cr

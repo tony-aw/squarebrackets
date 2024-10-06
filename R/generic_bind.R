@@ -84,8 +84,7 @@ bind_array <- function(
   
   if(couldb.mutable_atomic(out)) {
     # Note: no need to copy names, as .internal_abind already does that
-    attr(out, "typeof") <- typeof(out)
-    class(out) <- c("mutable_atomic", class(out))
+    .internal_set_ma(out)
   }
   return(out)
 }

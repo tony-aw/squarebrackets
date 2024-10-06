@@ -614,17 +614,17 @@ padding-top: 0px;
 <p>squarebrackets: Subset Methods as Alternatives to the Square Brackets
 Operators for Programming</p>
 <h2 id="description">Description</h2>
-<p>Provides subset methods (supporting both non-recursive and recursive
-S3 classes) that may be more convenient alternatives to the
-<code>[</code> and <code>[&lt;-</code> operators, whilst maintaining
-similar performance.</p>
+<p>Provides subset methods (supporting both atomic and recursive S3
+classes) that may be more convenient alternatives to the <code>[</code>
+and <code>[&lt;-</code> operators, whilst maintaining similar
+performance.</p>
 <p>Some nice properties of these methods include, but are not limited
 to, the following:</p>
 <ol style="list-style-type: decimal">
 <li>The <code>[</code> and <code>[&lt;-</code> operators use different
 rule-sets for different data.frame-like types (data.frames, tibbles,
-data.tables, tibbles, etc.). The ‘squarebrackets’ methods use the same
-rule-sets for the different data.frame-like types.</li>
+data.tables, tidytables, etc.). The ‘squarebrackets’ methods use the
+same rule-sets for the different data.frame-like types.</li>
 <li>Performing dimensional subset operations on an array using
 <code>[</code> and <code>[&lt;-</code>, requires a-priori knowledge of
 the number of dimensions the array has. The ‘squarebrackets’ methods

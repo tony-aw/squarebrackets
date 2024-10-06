@@ -7,11 +7,13 @@
   packageStartupMessage(txt)
 }
 
+.pkgenv_squarebrackets <- new.env(parent=emptyenv())
+
 .onLoad <- function(libname, pkgname) {
   options(
-    squarebrackets.protected = .protected_addresses(),
     squarebrackets.cn = FALSE,
     squarebrackets.chkdup = FALSE,
-    squarebrackets.ma_messages = TRUE
+    squarebrackets.ma_messages = FALSE
   )
+  .pkgenv_squarebrackets[["protected"]] <- .protected_addresses()
 }

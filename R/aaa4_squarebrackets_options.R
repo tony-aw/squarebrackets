@@ -37,16 +37,6 @@
 #' by setting `squarebrackets.ma_messages` to `FALSE`. \cr
 #' \cr
 #' 
-#' @section squarebrackets.protected:
-#' The user should NEVER touch the `squarebrackets.protected` option. \cr
-#' This option lists all locked non-functions in the base environment,
-#' in order to protect them from any accidental pass-by-reference modification
-#' by the methods/functions from 'squarebrackets'. \cr
-#' Other packages that provide pass-by-reference modification,
-#' such as the 'collapse' package,
-#' generally do not provide such protections,
-#' and are not blocked by `squarebrackets.protected`. \cr \cr
-#' 
 #' 
 #' @rdname aaa4_squarebrackets_options
 #' @name aaa4_squarebrackets_options

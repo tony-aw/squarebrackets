@@ -76,10 +76,10 @@
 <div class="section level2">
 <h2 id="description">Description<a class="anchor" aria-label="anchor" href="#description"></a>
 </h2>
-<p>Provides subset methods (supporting both non-recursive and recursive S3 classes) that may be more convenient alternatives to the <code>[</code> and <code>[&lt;-</code> operators, whilst maintaining similar performance.</p>
+<p>Provides subset methods (supporting both atomic and recursive S3 classes) that may be more convenient alternatives to the <code>[</code> and <code>[&lt;-</code> operators, whilst maintaining similar performance.</p>
 <p>Some nice properties of these methods include, but are not limited to, the following:</p>
 <ol style="list-style-type: decimal">
-<li>The <code>[</code> and <code>[&lt;-</code> operators use different rule-sets for different data.frame-like types (data.frames, tibbles, data.tables, tibbles, etc.). The ‘squarebrackets’ methods use the same rule-sets for the different data.frame-like types.</li>
+<li>The <code>[</code> and <code>[&lt;-</code> operators use different rule-sets for different data.frame-like types (data.frames, tibbles, data.tables, tidytables, etc.). The ‘squarebrackets’ methods use the same rule-sets for the different data.frame-like types.</li>
 <li>Performing dimensional subset operations on an array using <code>[</code> and <code>[&lt;-</code>, requires a-priori knowledge of the number of dimensions the array has. The ‘squarebrackets’ methods work on any arbitrary dimensions without requiring such prior knowledge.</li>
 <li>When selecting names with the <code>[</code> and <code>[&lt;-</code> operators, only the first occurrence of the names are selected in case of duplicate names. The ‘squarebrackets’ methods always perform on all names in case of duplicates, not just the first.</li>
 <li>The <code>[[</code> and <code>[[&lt;-</code> operators allow operating on a recursive subset of a nested list. But these only operate on a single recursive subset, and are not vectorized for multiple recursive subsets of a nested list at once. ‘squarebrackets’ provides a way to reshape a nested list into a 2D recursive array of lists, thereby allowing vectorized operations on recursive subsets of such a nested list.</li>

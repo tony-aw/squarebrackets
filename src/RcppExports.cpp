@@ -2099,6 +2099,28 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// rcpp_serial
+SEXP rcpp_serial(SEXP x);
+RcppExport SEXP _squarebrackets_rcpp_serial(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_serial(x));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_is_ma
+bool rcpp_is_ma(RObject x);
+RcppExport SEXP _squarebrackets_rcpp_is_ma(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< RObject >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_is_ma(x));
+    return rcpp_result_gen;
+END_RCPP
+}
 // rcpp_set_namepointer
 void rcpp_set_namepointer(CharacterVector nms, IntegerVector ind, CharacterVector rp);
 RcppExport SEXP _squarebrackets_rcpp_set_namepointer(SEXP nmsSEXP, SEXP indSEXP, SEXP rpSEXP) {
@@ -2197,6 +2219,7 @@ RcppExport SEXP C_any_nonpos(SEXP);
 RcppExport SEXP C_convert_cplx_32(SEXP, SEXP);
 RcppExport SEXP C_convert_cplx_64(SEXP, SEXP);
 RcppExport SEXP C_is_altrep(SEXP);
+RcppExport SEXP C_serial(SEXP);
 
 static const R_CallMethodDef CallEntries[] = {
     {"_squarebrackets_rcpp_seq_rec2_plus", (DL_FUNC) &_squarebrackets_rcpp_seq_rec2_plus, 6},
@@ -2348,6 +2371,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_squarebrackets_rcpp_sb_str_rp", (DL_FUNC) &_squarebrackets_rcpp_sb_str_rp, 4},
     {"_squarebrackets_rcpp_seq_mlen", (DL_FUNC) &_squarebrackets_rcpp_seq_mlen, 1},
     {"_squarebrackets_rcpp_recycle_seq_mlen", (DL_FUNC) &_squarebrackets_rcpp_recycle_seq_mlen, 2},
+    {"_squarebrackets_rcpp_serial", (DL_FUNC) &_squarebrackets_rcpp_serial, 1},
+    {"_squarebrackets_rcpp_is_ma", (DL_FUNC) &_squarebrackets_rcpp_is_ma, 1},
     {"_squarebrackets_rcpp_set_namepointer", (DL_FUNC) &_squarebrackets_rcpp_set_namepointer, 3},
     {"_squarebrackets_rcpp_sub2coord", (DL_FUNC) &_squarebrackets_rcpp_sub2coord, 6},
     {"_squarebrackets_C_sub2ind_setrange64", (DL_FUNC) &_squarebrackets_C_sub2ind_setrange64, 6},
@@ -2361,6 +2386,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"C_convert_cplx_32", (DL_FUNC) &C_convert_cplx_32, 2},
     {"C_convert_cplx_64", (DL_FUNC) &C_convert_cplx_64, 2},
     {"C_is_altrep",       (DL_FUNC) &C_is_altrep,       1},
+    {"C_serial",          (DL_FUNC) &C_serial,          1},
     {NULL, NULL, 0}
 };
 
