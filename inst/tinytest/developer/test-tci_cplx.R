@@ -12,6 +12,8 @@ expect_equal(
   tci_cplx(indx, 11),
   11:2
 )
+enumerate <- enumerate + 2
+
 
 # inverse ====
 indx <- 1:10 * 1i
@@ -24,6 +26,7 @@ expect_equal(
   tci_cplx(indx, 15, inv = TRUE, chkdup = TRUE),
   11:15
 )
+enumerate <- enumerate + 2
 
 
 
@@ -48,3 +51,6 @@ indx <- 1:10 + 0i
 expect_error(
   tci_cplx(indx, 15, inv = TRUE)
 )
+enumerate <- enumerate + 5
+
+

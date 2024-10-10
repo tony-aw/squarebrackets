@@ -18,14 +18,15 @@ url: https://tony-aw.github.io/squarebrackets
 reference:
 - title: Overview Help Pages
   contents:
-  - '`aaa0_squarebrackets_help`'
-  - '`aaa1_squarebrackets_immutable_classes`'
-  - '`aaa2_squarebrackets_mutable_classes`'
-  - '`aaa3_squarebrackets_indx_args`'
-  - '`aaa4_squarebrackets_options`'
-  - '`aaa5_squarebrackets_method_dispatch`'
-  - '`aaa6_squarebrackets_PassByReference`'
-  - '`aaa7_squarebrackets_inconveniences`'
+  - '`squarebrackets_help`'
+  - '`squarebrackets_immutable_classes`'
+  - '`squarebrackets_mutable_classes`'
+  - '`squarebrackets_indx_args`'
+  - '`squarebrackets_method_dispatch`'
+  - '`squarebrackets_modify`'
+  - '`squarebrackets_options`'
+  - '`squarebrackets_PassByReference`'
+  - '`squarebrackets_inconveniences`'
   - '`class_mutable_atomic`'
 - title: Generic Methods
   contents:
@@ -37,13 +38,13 @@ reference:
   - '`sb_setFlatnames`'
   - '`bind`'
   - '`idx`'
+  - '`cp_seq`'
 - title: Specialized Functions
   contents:
   - '`lst`'
   - '`dt`'
   - '`setapply`'
   - '`ma_setv`'
-  - '`sb_special`'
 - title: Helper Functions
   contents:
   - '`n`'
@@ -57,6 +58,5 @@ reference:
 - title: Developer Functions
   contents:
   - '`ci_flat`'
-  - '`ci_seq`'
   - '`tci_chr`'
   - '`indx_x`'

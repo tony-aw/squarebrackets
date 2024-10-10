@@ -2,8 +2,10 @@
 #'
 #' @description
 #' This is an S3 Method to return a copy of an object with modified subsets. \cr
-#' Use `sb_mod(x, ...)` if `x` is an atomic object. \cr
-#' Use `sb2_mod(x, ...)` if `x` is a recursive object (i.e. list or data.frame-like). \cr
+#' Use `sb_mod(x, ...)` if `x` is an atomic object; this returns a full copy. \cr
+#' Use `sb2_mod(x, ...)` if `x` is a recursive object
+#' (i.e. list or data.frame-like);
+#' this returns a partial copy. \cr
 #' \cr
 #' For modifying subsets using R's default copy-on-modification semantics, see \link{idx}. \cr \cr
 #'
@@ -11,10 +13,7 @@
 #' @param i,row,col,sub,dims,filter,vars,inv See \link{squarebrackets_indx_args}. \cr
 #' An empty index selection returns the original object unchanged. \cr
 #' @param ... see \link{squarebrackets_method_dispatch}.
-#' @param tf the transformation function.
-#' @param rp an object of somewhat the same type as the selected subset of \code{x},
-#' and the same same length as the selected subset of \code{x} or a length of 1. \cr
-#' To remove recursive subsets of recursive objects, see either \link{sb2_rec} or \link{sb2_rm}.
+#' @param rp,tf,.lapply see \link{squarebrackets_modify}.
 #' @param coe Either `FALSE` (default), `TRUE`, or a function. \cr
 #' The argument `coe` is ignored
 #' if both the `row` and `filter` arguments are set to `NULL`. \cr
@@ -22,16 +21,6 @@
 #' `r .mybadge_performance_set2("FALSE")` \cr
 #' @param chkdup see \link{squarebrackets_options}. \cr
 #' `r .mybadge_performance_set2("FALSE")` \cr
-#' @param .lapply the generic methods use \link[base]{lapply}
-#' for list- and data.frame-like objects
-#' to compute `tf()` on every list element or dataset column. \cr
-#' The user may supply a custom `lapply()`-like function
-#' in this argument to use instead. \cr
-#' For example, the perform parallel transformation,
-#' the user may supply `future.apply::`\link[future.apply]{future_lapply}. \cr
-#' The supplied function must use the exact same argument convention as
-#' \link[base]{lapply},
-#' otherwise errors or unexpected behaviour may occur.
 #' 
 #' 
 #' 
@@ -342,7 +331,7 @@ sb2_mod.data.frame <- function(
   if(is.function(coe) && !rows_unspecified) {
     x <- collapse::ftransformv(x, vars = col, FUN = coe, apply = TRUE)
   } else {
-    x <- data.table::copy(x)
+    x <- collapse::ftransformv(x, vars = col, FUN = data.table::copy, apply = TRUE)
   }
   
   # non-empty return:

@@ -77,8 +77,12 @@ in that they can only contain one data-type
 (logical, integer, double, character, complex, raw). <br>
 In contrast, recursive objects are heterogeneous,
 as they can have any combination of data-types.</p></li>
-<li><p><strong>vectorization</strong>: vectorized operations generally work on atomic objects,
-whereas recursive objects generally require loops or apply-like functions. <br>
+<li><p><strong>copy semantics</strong>: copying atomic data (almost) always performs a <em>deep copy</em>
+(though this statement comes with some technical caveats). <br>
+But since recursive objects are pointers to other data,
+copies of recursive objects are often <em>shallow copies</em>.</p></li>
+<li><p><strong>vectorization</strong>: most vectorized operations generally work on atomic objects,
+whereas recursive objects often require loops or apply-like functions. <br>
 This is especially relevant for transforming subsets.</p></li>
 <li><p><strong>recursive subsets</strong>: Recursive objects distinguish between "regular" subset operations
 (in base R using <code>[</code>, <code>[&lt;-</code>),

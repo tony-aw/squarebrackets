@@ -73,25 +73,10 @@ sb2_set(x, ...)
 \item{i, row, col, sub, dims, filter, vars, inv}{See \link{squarebrackets_indx_args}. \cr
 An empty index selection leaves the original object unchanged. \cr}
 
-\item{rp}{an object of somewhat the same type as the selected subset of \code{x},
-and the same same length as the selected subset of \code{x} or a length of 1. \cr
-To remove recursive subsets of recursive objects, see either \link{sb2_rec} or \link{sb2_rm}.}
-
-\item{tf}{the transformation function.}
+\item{rp, tf, .lapply}{see \link{squarebrackets_modify}.}
 
 \item{chkdup}{see \link{squarebrackets_options}. \cr
 \ifelse{html}{\figure{for_performance-set_to_FALSE-red.svg}{options: alt='[for performance: set to FALSE]'}}{\link[=squarebrackets_help]{for performance: set to FALSE}} \cr}
-
-\item{.lapply}{the generic methods use \link[base]{lapply}
-for list- and data.frame-like objects
-to compute \code{tf()} on every list element or dataset column. \cr
-The user may supply a custom \code{lapply()}-like function
-in this argument to use instead. \cr
-For example, the perform parallel transformation,
-the user may supply \verb{future.apply::}\link[future.apply]{future_lapply}. \cr
-The supplied function must use the exact same argument convention as
-\link[base]{lapply},
-otherwise errors or unexpected behaviour may occur.}
 }
 \value{
 Returns: VOID. This method modifies the object by reference. \cr

@@ -10,7 +10,7 @@
 #'  - `bind_array()` binds atomic arrays and matrices. \cr
 #'  Returns a \link{mutable_atomic} array. \cr
 #'  - `bind2_array()` binds recursive arrays and matrices. \cr
-#'  Returns dimensional lists.
+#'  Returns a recursive array (immutable).
 #'  - `bind2_dt()` binds data.tables and other data.frame-like objects. \cr
 #'  Returns a `data.table`. \cr
 #'  Faster than `do.call(cbind, ...)` or `do.call(rbind, ...)` for regular `data.frame` objects. \cr

@@ -134,6 +134,7 @@
 <li>15 September 2024: Replaced the <code>drop</code> argument with <code>red</code> to avoid confusion with base R’s own <code>drop</code> mechanic. Small performance improvements for <code><a href="reference/sub2ind.html">sub2ind()</a></code> and <code><a href="reference/sb_set.html">sb_set.array()</a></code>.</li>
 <li>26 September 2024: Overhauled how indexing with complex vectors work.</li>
 <li>28 September 2024: Split <code>sb(2)_setRename()</code> into <code><a href="reference/sb_setRename.html">sb_setFlatnames()</a></code>, <code><a href="reference/sb_setRename.html">sb_setDimnames()</a></code>, and <code><a href="reference/sb_setRename.html">sb2_setVarnames()</a></code>.</li>
+<li>10 October 2024: <code><a href="reference/sb_mod.html">sb_mod()</a></code> now makes partial copies of data.frame-like objects instead of whole copies, for more memory efficiency. Also removed the old <code>sb_str()</code> and <code>sb_a()</code> functions. Renamed <code>ci_seq()</code> to <code><a href="reference/cp_seq.html">cp_seq()</a></code> (in preparation for the next update).</li>
 </ul>
 <p> </p>
 </div>

@@ -4,22 +4,12 @@
 \alias{idx_r}
 \title{Compute Integer Index Range}
 \usage{
-idx_r(x, m = 0L, start = NULL, end = NULL, by = 1L)
+idx_r(x, m = 0L, from = NULL, to = NULL, by = 1L)
 }
 \arguments{
 \item{x}{the object for which to compute subset indices.}
 
-\item{m}{integer or complex, giving the margin(s). \cr
-For non-dimensional objects or for flat indices, specify \code{m = 0L}.}
-
-\item{start}{integer or complex, of the same length as \code{m} or of length 1,
-specifying the start point.}
-
-\item{end}{integer or complex, of the same length as \code{m} or of length 1,
-specifying the end point.}
-
-\item{by}{integer, of the same length as \code{m} or of length 1,
-specifying the step size. \cr}
+\item{m, from, to, by}{see \link{cp_seq}. \cr \cr}
 }
 \value{
 If \code{length(m) == 1L}: a vector of numeric indices. \cr
@@ -29,26 +19,6 @@ containing numeric vectors of indices.  \cr \cr
 }
 \description{
 \code{idx_r()} computes integer index range(s). \cr \cr
-}
-\details{
-\bold{start, end, by} \cr
-If \verb{start, end} are not specified,
-using \code{by} will construct the following sequence: \cr
-If \code{by} is positive, \code{seq.int(1L, n, by)}. \cr
-If \code{by} is negative, \code{seq.int(n, 1L, by)}. \cr
-Where \code{n} is the maximum index
-(i.e. \code{length(x)} or \code{dim(x)[m]}, depending on the situation). \cr
-\cr
-If \verb{start, end, by} are all specified,
-\code{by} is stored as \code{abs(by)},
-and the sign  of \code{by} is automatically adjusted to ensure a sensible sequence is created. \cr
-\cr
-So, for example,
-to specify something like \code{n:1}, one can simply call \code{idx_r(x, m, by = -1L)}. \cr \cr
-
-\bold{Multiple indices at once} \cr
-The \code{idx_r()} function can compute indices for multiple dimensions at once,
-by specifying a vector for \code{m}. \cr \cr
 }
 \examples{
 

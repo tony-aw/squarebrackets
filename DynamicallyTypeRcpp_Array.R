@@ -564,7 +564,7 @@ templatecode2 <- "
 //' @keywords internal
 //' @noRd
 // [[Rcpp::export(.rcpp_set_array_2d_8d_RTYPE)]]
-void rcpp_set_array_2d_6d_RTYPE(
+void rcpp_set_array_2d_8d_RTYPE(
   RTYPEVector x, List out, NumericVector dimcumprod, RTYPEVector rp
 ) {
   int n = out.length();

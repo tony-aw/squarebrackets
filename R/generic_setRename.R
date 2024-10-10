@@ -12,22 +12,6 @@
 #'  * `sb2_setVarnames()` renames the variable names of a `data.table` object. \cr \cr
 #' 
 #' 
-#' These methods take extra care
-#' not to modify any objects that happen to share the same address as
-#' the (dim)names of `x`. \cr
-#' I.e. the following code: 
-#' 
-#' ```{r eval = FALSE, echo = TRUE}
-#' x <- mutable_atomic(1:26)
-#' names(x) <- base::letters
-#' y <- x
-#' sb_setFlatname(x, newnames = rev(names(x)))
-#' 
-#' ```
-#' will not modify `base::letters`, even though `names(x)` shared the same address. \cr
-#' Thus, these functions can be used safely without fearing such accidents. \cr
-#' \cr
-#' 
 #'
 #' @param x a \bold{variable} belonging to one of the
 #' \link[=squarebrackets_mutable_classes]{supported mutable classes}. \cr
@@ -54,6 +38,26 @@
 #' @param ... see \link{squarebrackets_method_dispatch}. \cr \cr
 #' 
 #' 
+#' @details
+#' 
+#' These methods take extra care
+#' not to modify any objects that happen to share the same address as
+#' the (dim)names of `x`. \cr
+#' I.e. the following code: 
+#' 
+#' ```{r eval = FALSE, echo = TRUE}
+#' x <- mutable_atomic(1:26)
+#' names(x) <- base::letters
+#' y <- x
+#' sb_setFlatname(x, newnames = rev(names(x)))
+#' 
+#' ```
+#' will not modify `base::letters`, even though `names(x)` shared the same address. \cr
+#' Thus, these functions can be used safely without fearing such accidents. \cr
+#' \cr
+#' 
+#' 
+#' 
 #' @returns
 #' Returns: VOID. This method modifies the object by reference. \cr
 #' Do not use assignment like `names(x) <- sb_setRename(x, ...)`. \cr
@@ -78,46 +82,49 @@ sb_setFlatnames <- function(x, i = NULL, newnames, ...) {
   .check_bindingIsLocked(substitute(x), parent.frame(n = 1), abortcall = sys.call())
   
   
+  # Case 1: remove names (also works if `x` didn't have names in the first place)
   if(is.null(newnames)) {
     data.table::setattr(x, "names", NULL)
     return(invisible(NULL))
   }
-  else if(!is.null(newnames)) {
-    
-    if(!is.character(newnames)) {
-      stop("`newnames` must be a character vector")
+  
+  
+  # Case 2: add names when `x` didn't have any
+  if(!is.character(newnames)) {
+    stop("`newnames` must be a character vector")
+  }
+  if(is.null(names(x))) {
+    data.table::setattr(x, "names", data.table::copy(newnames))
+    return(invisible(NULL))
+  }
+  
+  
+  # Case 3: Complete replace existing names
+  if(is.null(i) && !is.null(names(x)) && !is.null(newnames)) {
+    if(length(newnames) != length(x)) {
+      stop("`newnames` of wrong length")
     }
-    
-    if(is.null(names(x))) {
-      data.table::setattr(x, "names", data.table::copy(newnames))
-      return(invisible(NULL))
-    }
-    if(is.null(i)) {
-      if(length(newnames) != length(x)) {
-        stop("`newnames` of wrong length")
-      }
-      data.table::setattr(x, "names", NULL) # protecting original names
-      data.table::setattr(x, "names", data.table::copy(newnames))
-      return(invisible(NULL))
-    }
-    
+    data.table::setattr(x, "names", NULL) # protecting original names
+    data.table::setattr(x, "names", data.table::copy(newnames))
+    return(invisible(NULL))
+  }
+  
+  
+  # Case 4: Replace subset of names
+  if(!is.null(i) && !is.null(names(x)) && !is.null(newnames)) {
     nms <- data.table::copy(names(x)) # protecting original names
     i <- .sb_setrename_indx(i, nms, sys.call())
     if(length(i) != length(newnames)) {
       stop("`newnames` of wrong length")
     }
     .rcpp_set_vind(nms, i, newnames, sys.call())
-    
     data.table::setattr(x, "names", NULL) # protecting original names
     data.table::setattr(x, "names", nms)
     return(invisible(NULL))
   }
   else {
-    stop("improper `newnames` given")
+    stop("improper combination of arguments given")
   }
-  
-  return(invisible(NULL))
-  
   
 }
 
@@ -160,7 +167,7 @@ sb_setDimnames <- function(x, m, newdimnames, ...) {
   }
   
   dimnames <- dimnames(x)
-  dimnames[m] <- data.table::copy(newdimnames[m])
+  dimnames[m] <- data.table::copy(newdimnames)
   
   data.table::setattr(x, "dimnames", NULL) # protecting original names
   data.table::setattr(x, "dimnames", dimnames)

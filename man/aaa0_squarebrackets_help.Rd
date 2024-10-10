@@ -54,11 +54,11 @@ Powered by the subclass agnostic 'C'-code from 'collapse' and 'data.table'.
 \item \bold{Explicit copy semantics}:
 \itemize{
 \item Sub-set operations that change its memory allocations,
-always return a modified copy of the object. \cr
+always return a modified (partial) copy of the object. \cr
 \item For sub-set operations that just change values in-place
 (similar to the \verb{[<-} and \verb{[[<-} methods)
 the user can choose a method that modifies the object by \bold{reference},
-or choose a method that returns a \bold{deep copy}.
+or choose a method that returns a \bold{(partial) copy}.
 }
 \item \bold{Careful handling of names}:
 \itemize{
@@ -122,7 +122,7 @@ The available generic methods are the following:
 \item \link{sb_set}, \link{sb2_set}: modify (transform or replace)
 subsets of a \link[=squarebrackets_mutable_classes]{mutable object}
 using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
-\item \link{sb_mod}, \link{sb2_mod}: return a \bold{copy}
+\item \link{sb_mod}, \link{sb2_mod}: return a \bold{(partial) copy}
 of an object with modified
 (transformed or replaced) subsets.
 \item \link{sb2_rec}: access recursive subsets of lists.
@@ -133,7 +133,8 @@ a \link[=squarebrackets_mutable_classes]{mutable object}
 using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
 \item \link[=bind]{bind_}, \link[=bind]{bind2_}:  implementations for binding dimensional objects.
 \item \link{idx}: translate given indices/subscripts,
-for the purpose of copy-on-modify substitution. \cr \cr
+for the purpose of copy-on-modify substitution.
+\item \link{cp_seq}: construct parameters for margin-based sequences. \cr
 }
 
 So for example,
@@ -155,9 +156,6 @@ using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
 \item \link{ma_setv}: Find & Replace values in \link{mutable_atomic} objects
 using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr
 This is considerably faster and more memory efficient than using \link{sb_set} for this.
-\item \link{sb_str}: extract or replace a subset of characters of a single string
-(each single character is treated as a single element).
-\item \link{sb_a}: extract multiple attributes from an object. \cr \cr
 }
 
 \ifelse{html}{\figure{helper_functions-lightblue.svg}{options: alt='[HELPER FUNCTIONS]'}}{\link[=squarebrackets_help]{HELPER FUNCTIONS}} \cr

@@ -62,7 +62,8 @@ semantics:
 \item \code{sb_setDimnames()} renames the dimension names of a \code{mutable_atomic} object.
 \item \code{sb2_setVarnames()} renames the variable names of a \code{data.table} object. \cr \cr
 }
-
+}
+\details{
 These methods take extra care
 not to modify any objects that happen to share the same address as
 the (dim)names of \code{x}. \cr

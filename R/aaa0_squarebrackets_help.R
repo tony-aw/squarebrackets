@@ -43,11 +43,11 @@
 #'    Powered by the subclass agnostic 'C'-code from 'collapse' and 'data.table'.
 #'  * \bold{Explicit copy semantics}:
 #'    * Sub-set operations that change its memory allocations,
-#'    always return a modified copy of the object. \cr
+#'    always return a modified (partial) copy of the object. \cr
 #'    * For sub-set operations that just change values in-place
 #'    (similar to the `[<-` and `[[<-` methods)
 #'    the user can choose a method that modifies the object by \bold{reference},
-#'    or choose a method that returns a \bold{deep copy}.
+#'    or choose a method that returns a \bold{(partial) copy}.
 #'  * \bold{Careful handling of names}:
 #'    * Sub-setting an object by index names returns ALL matches with the given names,
 #'    not just the first.
@@ -105,7 +105,7 @@
 #'  * \link{sb_set}, \link{sb2_set}: modify (transform or replace)
 #'  subsets of a \link[=squarebrackets_mutable_classes]{mutable object}
 #'  using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
-#'  * \link{sb_mod}, \link{sb2_mod}: return a \bold{copy}
+#'  * \link{sb_mod}, \link{sb2_mod}: return a \bold{(partial) copy}
 #'  of an object with modified
 #'  (transformed or replaced) subsets.
 #'  * \link{sb2_rec}: access recursive subsets of lists.
@@ -116,7 +116,8 @@
 #'  using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
 #'  * \link[=bind]{bind_}, \link[=bind]{bind2_}:  implementations for binding dimensional objects.
 #'  * \link{idx}: translate given indices/subscripts,
-#'  for the purpose of copy-on-modify substitution. \cr \cr
+#'  for the purpose of copy-on-modify substitution.
+#'  * \link{cp_seq}: construct parameters for margin-based sequences. \cr
 #'  
 #' So for example,
 #' use `sb_rm()` to remove subsets from atomic arrays,
@@ -137,9 +138,7 @@
 #'  * \link{ma_setv}: Find & Replace values in \link{mutable_atomic} objects
 #'  using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr
 #'  This is considerably faster and more memory efficient than using \link{sb_set} for this.
-#'  * \link{sb_str}: extract or replace a subset of characters of a single string
-#'  (each single character is treated as a single element).
-#'  * \link{sb_a}: extract multiple attributes from an object. \cr \cr
+#'  
 #' 
 #' `r .mybadge_intro_section("HELPER FUNCTIONS", "lightblue")` \cr
 #' A couple of helper functions for creating ranges, sequences, and indices

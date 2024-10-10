@@ -57,7 +57,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">idx_r</span><span class="op">(</span><span class="va">x</span>, m <span class="op">=</span> <span class="fl">0L</span>, start <span class="op">=</span> <span class="cn">NULL</span>, end <span class="op">=</span> <span class="cn">NULL</span>, by <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">idx_r</span><span class="op">(</span><span class="va">x</span>, m <span class="op">=</span> <span class="fl">0L</span>, from <span class="op">=</span> <span class="cn">NULL</span>, to <span class="op">=</span> <span class="cn">NULL</span>, by <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -66,24 +66,8 @@
 <dd><p>the object for which to compute subset indices.</p></dd>
 
 
-<dt>m</dt>
-<dd><p>integer or complex, giving the margin(s). <br>
-For non-dimensional objects or for flat indices, specify <code>m = 0L</code>.</p></dd>
-
-
-<dt>start</dt>
-<dd><p>integer or complex, of the same length as <code>m</code> or of length 1,
-specifying the start point.</p></dd>
-
-
-<dt>end</dt>
-<dd><p>integer or complex, of the same length as <code>m</code> or of length 1,
-specifying the end point.</p></dd>
-
-
-<dt>by</dt>
-<dd><p>integer, of the same length as <code>m</code> or of length 1,
-specifying the step size. <br></p></dd>
+<dt>m, from, to, by</dt>
+<dd><p>see <a href="cp_seq.html">cp_seq</a>. <br><br></p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -102,24 +86,6 @@ containing numeric vectors of indices.  <br></p>
 <p><br></p>
 
 
-    </div>
-    <div class="section level2">
-    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p><b>start, end, by</b> <br>
-If <code>start, end</code> are not specified,
-using <code>by</code> will construct the following sequence: <br>
-If <code>by</code> is positive, <code>seq.int(1L, n, by)</code>. <br>
-If <code>by</code> is negative, <code>seq.int(n, 1L, by)</code>. <br>
-Where <code>n</code> is the maximum index
-(i.e. <code>length(x)</code> or <code>dim(x)[m]</code>, depending on the situation). <br><br>
-If <code>start, end, by</code> are all specified,
-<code>by</code> is stored as <code>abs(by)</code>,
-and the sign  of <code>by</code> is automatically adjusted to ensure a sensible sequence is created. <br><br>
-So, for example,
-to specify something like <code>n:1</code>, one can simply call <code>idx_r(x, m, by = -1L)</code>. <br><br></p>
-<p><b>Multiple indices at once</b> <br>
-The <code>idx_r()</code> function can compute indices for multiple dimensions at once,
-by specifying a vector for <code>m</code>. <br><br></p>
     </div>
 
     <div class="section level2">

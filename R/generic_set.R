@@ -14,22 +14,10 @@
 #' @param i,row,col,sub,dims,filter,vars,inv See \link{squarebrackets_indx_args}. \cr
 #' An empty index selection leaves the original object unchanged. \cr
 #' @param ... see \link{squarebrackets_method_dispatch}.
-#' @param tf the transformation function.
-#' @param rp an object of somewhat the same type as the selected subset of \code{x},
-#' and the same same length as the selected subset of \code{x} or a length of 1. \cr
-#' To remove recursive subsets of recursive objects, see either \link{sb2_rec} or \link{sb2_rm}.
+#' @param rp,tf,.lapply see \link{squarebrackets_modify}.
 #' @param chkdup see \link{squarebrackets_options}. \cr
 #' `r .mybadge_performance_set2("FALSE")` \cr
-#' @param .lapply the generic methods use \link[base]{lapply}
-#' for list- and data.frame-like objects
-#' to compute `tf()` on every list element or dataset column. \cr
-#' The user may supply a custom `lapply()`-like function
-#' in this argument to use instead. \cr
-#' For example, the perform parallel transformation,
-#' the user may supply `future.apply::`\link[future.apply]{future_lapply}. \cr
-#' The supplied function must use the exact same argument convention as
-#' \link[base]{lapply},
-#' otherwise errors or unexpected behaviour may occur.
+#' 
 #' 
 #' @details
 #' \bold{Transform or Replace} \cr

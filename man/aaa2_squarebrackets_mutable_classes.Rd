@@ -29,7 +29,7 @@ and are thus not covered by this package. \cr \cr
 The mutable classes support "copy-on-modify" semantics like the immutable classes,
 but - unlike the immutable classes - they also support "pass-by-reference" semantics. \cr
 The \link{sb_mod} method
-modify subsets of an object through a \bold{deep copy}. \cr
+modify subsets of an object through a \bold{(partial) copy}. \cr
 The \link{sb_set} method and \link{dt_setcoe} function
 modify subsets of an object \bold{by reference}. \cr
 These 2 copy semantics - "pass by reference" or "modify copy" -

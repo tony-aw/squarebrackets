@@ -7,7 +7,7 @@ The following implementations are available:
 bind_array() binds atomic arrays and matrices. 
 Returns a mutable_atomic array. 
 bind2_array() binds recursive arrays and matrices. 
-Returns dimensional lists.
+Returns a recursive array (immutable).
 bind2_dt() binds data.tables and other data.frame-like objects. 
 Returns a data.table. 
 Faster than do.call(cbind, ...) or do.call(rbind, ...) for regular data.frame objects. 
@@ -20,7 +20,7 @@ The following implementations are available:
 bind_array() binds atomic arrays and matrices. 
 Returns a mutable_atomic array. 
 bind2_array() binds recursive arrays and matrices. 
-Returns dimensional lists.
+Returns a recursive array (immutable).
 bind2_dt() binds data.tables and other data.frame-like objects. 
 Returns a data.table. 
 Faster than do.call(cbind, ...) or do.call(rbind, ...) for regular data.frame objects. 
@@ -83,7 +83,7 @@ When possible, the <code>bind_</code>/<code>bind2_</code> functions return <a hr
 The following implementations are available:</p><ul><li><p><code>bind_array()</code> binds atomic arrays and matrices. <br>
 Returns a <a href="class_mutable_atomic.html">mutable_atomic</a> array. <br></p></li>
 <li><p><code>bind2_array()</code> binds recursive arrays and matrices. <br>
-Returns dimensional lists.</p></li>
+Returns a recursive array (immutable).</p></li>
 <li><p><code>bind2_dt()</code> binds data.tables and other data.frame-like objects. <br>
 Returns a <code>data.table</code>. <br>
 Faster than <code>do.call(cbind, ...)</code> or <code>do.call(rbind, ...)</code> for regular <code>data.frame</code> objects. <br></p></li>

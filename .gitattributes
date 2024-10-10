@@ -6,10 +6,11 @@ R/aaa0_squarebrackets_help.R -linguist-documentation
 R/aaa1_squarebrackets_immutable_classes.R -linguist-documentation
 R/aaa2_squarebrackets_mutable_classes.R -linguist-documentation
 R/aaa3_squarebrackets_indx_args.R -linguist-documentation
-R/aaa4_squarebrackets_options.R -linguist-documentation
-R/aaa5_squarebrackets_method_dispatch.R -linguist-documentation
-R/aaa6_squarebrackets_PassByReference.R -linguist-documentation
-R/aaa7_squarebrackets_inconveniences.R -linguist-documentation
+R/aaa4_squarebrackets_method_dispatch.R -linguist-documentation
+R/aaa5_squarebrackets_modify.R -linguist-documentation
+R/aaa6_squarebrackets_options.R -linguist-documentation
+R/aaa7_squarebrackets_PassByReference.R -linguist-documentation
+R/aaa8_squarebrackets_inconveniences.R -linguist-documentation
 R/reexports.R -linguist-documentation
 R/meta_functions.R -linguist-documentation
 R/zzz.R -linguist-vendored

@@ -3457,7 +3457,7 @@ else stop("recycling not allowed");
 //' @keywords internal
 //' @noRd
 // [[Rcpp::export(.rcpp_set_array_2d_8d_Logical)]]
-void rcpp_set_array_2d_6d_Logical(
+void rcpp_set_array_2d_8d_Logical(
   LogicalVector x, List out, NumericVector dimcumprod, LogicalVector rp
 ) {
   int n = out.length();
@@ -3558,7 +3558,7 @@ void rcpp_set_array_2d_6d_Logical(
 //' @keywords internal
 //' @noRd
 // [[Rcpp::export(.rcpp_set_array_2d_8d_Integer)]]
-void rcpp_set_array_2d_6d_Integer(
+void rcpp_set_array_2d_8d_Integer(
   IntegerVector x, List out, NumericVector dimcumprod, IntegerVector rp
 ) {
   int n = out.length();
@@ -3659,7 +3659,7 @@ void rcpp_set_array_2d_6d_Integer(
 //' @keywords internal
 //' @noRd
 // [[Rcpp::export(.rcpp_set_array_2d_8d_Numeric)]]
-void rcpp_set_array_2d_6d_Numeric(
+void rcpp_set_array_2d_8d_Numeric(
   NumericVector x, List out, NumericVector dimcumprod, NumericVector rp
 ) {
   int n = out.length();
@@ -3760,7 +3760,7 @@ void rcpp_set_array_2d_6d_Numeric(
 //' @keywords internal
 //' @noRd
 // [[Rcpp::export(.rcpp_set_array_2d_8d_Character)]]
-void rcpp_set_array_2d_6d_Character(
+void rcpp_set_array_2d_8d_Character(
   CharacterVector x, List out, NumericVector dimcumprod, CharacterVector rp
 ) {
   int n = out.length();
@@ -3861,7 +3861,7 @@ void rcpp_set_array_2d_6d_Character(
 //' @keywords internal
 //' @noRd
 // [[Rcpp::export(.rcpp_set_array_2d_8d_Complex)]]
-void rcpp_set_array_2d_6d_Complex(
+void rcpp_set_array_2d_8d_Complex(
   ComplexVector x, List out, NumericVector dimcumprod, ComplexVector rp
 ) {
   int n = out.length();
@@ -3962,7 +3962,7 @@ void rcpp_set_array_2d_6d_Complex(
 //' @keywords internal
 //' @noRd
 // [[Rcpp::export(.rcpp_set_array_2d_8d_Raw)]]
-void rcpp_set_array_2d_6d_Raw(
+void rcpp_set_array_2d_8d_Raw(
   RawVector x, List out, NumericVector dimcumprod, RawVector rp
 ) {
   int n = out.length();

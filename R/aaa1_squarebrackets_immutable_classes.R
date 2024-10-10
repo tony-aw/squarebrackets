@@ -99,7 +99,7 @@
 #' 
 #' 
 #' 
-#' @example inst/examples/aaa1_squarebrackets_immutable_classes.R
+#' @example inst/examples/aaa_squarebrackets_immutable_classes.R
 #' 
 #' 
 

@@ -145,5 +145,9 @@ tinycodet::import_LL("squarebrackets", selection = ... )
 - 26 September 2024: Overhauled how indexing with complex vectors work.
 - 28 September 2024: Split `sb(2)_setRename()` into `sb_setFlatnames()`,
   `sb_setDimnames()`, and `sb2_setVarnames()`.
+- 10 October 2024: `sb_mod()` now makes partial copies of
+  data.frame-like objects instead of whole copies, for more memory
+  efficiency. Also removed the old `sb_str()` and `sb_a()` functions.
+  Renamed `ci_seq()` to `cp_seq()` (in preparation for the next update).
 
  

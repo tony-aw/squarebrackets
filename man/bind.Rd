@@ -69,7 +69,7 @@ The following implementations are available:
 \item \code{bind_array()} binds atomic arrays and matrices. \cr
 Returns a \link{mutable_atomic} array. \cr
 \item \code{bind2_array()} binds recursive arrays and matrices. \cr
-Returns dimensional lists.
+Returns a recursive array (immutable).
 \item \code{bind2_dt()} binds data.tables and other data.frame-like objects. \cr
 Returns a \code{data.table}. \cr
 Faster than \code{do.call(cbind, ...)} or \code{do.call(rbind, ...)} for regular \code{data.frame} objects. \cr

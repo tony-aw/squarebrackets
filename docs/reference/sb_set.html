@@ -65,7 +65,7 @@ Use sb2_set(x, ...) if x is a recursive object (i.e. data.table).  "><!-- mathja
     <p>This is an S3 Method to replace or transform a subset of a
 <a href="aaa2_squarebrackets_mutable_classes.html">supported mutable object</a>
 using
-<a href="aaa6_squarebrackets_PassByReference.html">pass-by-reference semantics</a> <br>
+<a href="aaa7_squarebrackets_PassByReference.html">pass-by-reference semantics</a> <br>
 Use <code>sb_set(x, ...)</code> if <code>x</code> is an atomic object (i.e. <a href="class_mutable_atomic.html">mutable_atomic</a>). <br>
 Use <code>sb2_set(x, ...)</code> if <code>x</code> is a recursive object (i.e. data.table). <br><br></p>
     </div>
@@ -140,7 +140,7 @@ Use <code>sb2_set(x, ...)</code> if <code>x</code> is a recursive object (i.e. d
 
 
 <dt>...</dt>
-<dd><p>see <a href="aaa5_squarebrackets_method_dispatch.html">squarebrackets_method_dispatch</a>.</p></dd>
+<dd><p>see <a href="aaa4_squarebrackets_method_dispatch.html">squarebrackets_method_dispatch</a>.</p></dd>
 
 
 <dt>i, row, col, sub, dims, filter, vars, inv</dt>
@@ -148,31 +148,12 @@ Use <code>sb2_set(x, ...)</code> if <code>x</code> is a recursive object (i.e. d
 An empty index selection leaves the original object unchanged. <br></p></dd>
 
 
-<dt>rp</dt>
-<dd><p>an object of somewhat the same type as the selected subset of <code>x</code>,
-and the same same length as the selected subset of <code>x</code> or a length of 1. <br>
-To remove recursive subsets of recursive objects, see either <a href="sb2_rec.html">sb2_rec</a> or <a href="sb_rm.html">sb2_rm</a>.</p></dd>
-
-
-<dt>tf</dt>
-<dd><p>the transformation function.</p></dd>
+<dt>rp, tf, .lapply</dt>
+<dd><p>see <a href="aaa5_squarebrackets_modify.html">squarebrackets_modify</a>.</p></dd>
 
 
 <dt>chkdup</dt>
-<dd><p>see <a href="aaa4_squarebrackets_options.html">squarebrackets_options</a>. <br><img src="figures/for_performance-set_to_FALSE-red.svg" alt="[for performance: set to FALSE]"><br></p></dd>
-
-
-<dt>.lapply</dt>
-<dd><p>the generic methods use <a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a>
-for list- and data.frame-like objects
-to compute <code>tf()</code> on every list element or dataset column. <br>
-The user may supply a custom <code><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply()</a></code>-like function
-in this argument to use instead. <br>
-For example, the perform parallel transformation,
-the user may supply <code>future.apply::</code><a href="https://future.apply.futureverse.org/reference/future_lapply.html" class="external-link">future_lapply</a>. <br>
-The supplied function must use the exact same argument convention as
-<a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a>,
-otherwise errors or unexpected behaviour may occur.</p></dd>
+<dd><p>see <a href="aaa6_squarebrackets_options.html">squarebrackets_options</a>. <br><img src="figures/for_performance-set_to_FALSE-red.svg" alt="[for performance: set to FALSE]"><br></p></dd>
 
 </dl></div>
     <div class="section level2">

@@ -52,7 +52,7 @@ z <- bind_array(list(x, y), 1, name_flat = TRUE)
 expect_equal(
   as.character(tolower(z)), as.character(tolower(names(z)))
 )
-
+enumerate <- enumerate + 1
 
 # test errors ====
 x <- array(as.list(1:1e4), dim = c(100,50, 10))
@@ -65,3 +65,6 @@ expect_error(
   bind2_array(list(x,y), along = 3),
   pattern = "non-conformable dimensions"
 )
+enumerate <- enumerate + 2
+
+
