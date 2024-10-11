@@ -178,7 +178,7 @@ enumerate <- enumerate + 2
 x <- matrix(1:20, nrow = 4)
 expect_error(
   sb_mod(x, i = 1:5, rp = as.list(1:5), inv = TRUE),
-  pattern = "`rp` must be non-recursive"
+  pattern = "`rp` must be atomic"
 )
 expect_error(
   sb_mod(x, i = 1:5, rp = 1:6, inv = TRUE),
@@ -194,7 +194,7 @@ enumerate <- enumerate + 4
 x <- array(1:27, dim = c(3,3,3))
 expect_error(
   sb_mod(x, i = 1:5, rp = as.list(1:5), inv = TRUE),
-  pattern = "`rp` must be non-recursive"
+  pattern = "`rp` must be atomic"
 )
 expect_error(
   sb_mod(x, i = 1:5, rp = 1:6, inv = TRUE),

@@ -69,7 +69,7 @@ in the modification methods,
 corresponds to something like the following: \cr
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{x[...] <- tf(x[...]) # for atomic objects
-x[...] <- .lapply(x, tf) # for recursive objects
+x[...] <- .lapply(x[...], tf) # for recursive objects
 
 }\if{html}{\out{</div>}}
 

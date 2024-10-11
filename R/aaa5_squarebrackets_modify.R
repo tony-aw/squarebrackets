@@ -60,7 +60,7 @@
 #' 
 #' ```{r, echo = TRUE, eval = FALSE}
 #' x[...] <- tf(x[...]) # for atomic objects
-#' x[...] <- .lapply(x, tf) # for recursive objects
+#' x[...] <- .lapply(x[...], tf) # for recursive objects
 #' 
 #' ```
 #' where `tf` is a function.

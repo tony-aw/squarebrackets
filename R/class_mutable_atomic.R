@@ -138,10 +138,11 @@ as.mutable_atomic <- function(x, ...) {
 is.mutable_atomic <- function(x) {
   
   if(!couldb.mutable_atomic(x)) return(FALSE)
-  check_protected <- data.table::`%chin%`(
-    .rcpp_address(x),
-    .pkgenv_squarebrackets[["protected"]]
+  check_protected <- collapse::anyv(
+    .pkgenv_squarebrackets[["protected"]],
+    .rcpp_address(x)
   )
+
   if(check_protected) return(FALSE)
   
   check <- .rcpp_is_ma(x)

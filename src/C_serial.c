@@ -11,13 +11,14 @@ double len = Rf_xlength(x);
 double oversized = len - maximum;
 
 double *pres;
-SEXP res = PROTECT(Rf_allocVector(REALSXP, 4));
+SEXP res = PROTECT(Rf_allocVector(REALSXP, 5));
 pres = REAL(res);
 
 pres[0] = type;
 pres[1] = len;
 pres[2] = oversized;
 pres[3] = 0;
+pres[4] = 202326021992;
 
 UNPROTECT(1);
 

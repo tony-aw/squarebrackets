@@ -270,7 +270,7 @@ enumerate <- enumerate + 2
 x <- as.mutable_atomic(matrix(1:10, nrow = 2))
 expect_error(
   sb_set2(x, i = 1:5, rp = as.list(1:5)),
-  pattern = "`rp` must be non-recursive"
+  pattern = "`rp` must be atomic"
 )
 expect_error(
   sb_set2(x, i = 1:5, rp = 1:6),
@@ -286,7 +286,7 @@ enumerate <- enumerate + 4
 x <- as.mutable_atomic(array(1:27, dim = c(3,3,3)))
 expect_error(
   sb_set2(x, i = 1:5, rp = as.list(1:5)),
-  pattern = "`rp` must be non-recursive"
+  pattern = "`rp` must be atomic"
 )
 expect_error(
   sb_set2(x, i = 1:5, rp = 1:6),

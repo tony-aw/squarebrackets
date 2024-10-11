@@ -165,14 +165,16 @@
 
 #' @keywords internal
 #' @noRd
-.internal_get_protected_addresses <- function(env) {
+.internal_get_protected_addresses_base <- function() {
+  env <- baseenv()
   nms <- setdiff(
     ls(env, all.names = TRUE),
     invisible(utils::lsf.str(envir = env, all.names = TRUE))
   )
-  protected_binds <- sapply(
+  protected_binds <- vapply(
     nms,
-    \(x) bindingIsLocked(x, env = env) || bindingIsActive(x, env = env)
+    \(x) bindingIsLocked(x, env = env) || bindingIsActive(x, env = env),
+    logical(1L)
   )
   nms <- setdiff(
     nms[protected_binds],
@@ -185,8 +187,33 @@
 
 #' @keywords internal
 #' @noRd
+.internal_get_protected_addresses <- function(env) {
+  nms <- setdiff(
+    ls(env, all.names = TRUE),
+    invisible(utils::lsf.str(envir = env, all.names = TRUE))
+  )
+  protected_binds <- vapply(
+    nms,
+    \(x) bindingIsLocked(x, env = env) || bindingIsActive(x, env = env),
+    logical(1L)
+  )
+  nms <- setdiff(
+    nms[protected_binds],
+    c(".Last.value", "Last.value")
+  )
+  lst <- as.list(env, all.names = TRUE)[nms]
+  subenvs <- vapply(
+    lst, is.environment, logical(1L)
+  )
+  lst[subenvs] <- lapply(lst[subenvs], as.list)
+  lst <- rapply(lst, .rcpp_address)
+  return(lst)
+}
+
+#' @keywords internal
+#' @noRd
 .protected_addresses <- function() {
-  lst1 <- .internal_get_protected_addresses(baseenv())
+  lst1 <- .internal_get_protected_addresses_base()
   lst2 <- .internal_get_protected_addresses(loadNamespace("utils"))
   lst <- c(unlist(lst1), unlist(lst2))
   return(unlist(lst))

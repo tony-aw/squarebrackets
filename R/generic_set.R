@@ -73,7 +73,6 @@ sb_set.default <- function(
 }
 
 
-
 #' @rdname sb_set
 #' @export
 sb_set.matrix <- function(x, row = NULL, col = NULL, i = NULL, inv = FALSE, ...,  rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)) {

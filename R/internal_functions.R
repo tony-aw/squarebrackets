@@ -155,7 +155,7 @@
 .check_rp_atomic <- function(rp, sslength, abortcall) {
   n.rp <- length(rp)
   if(is.recursive(rp)) {
-    stop(simpleError("`rp` must be non-recursive", call = abortcall))
+    stop(simpleError("`rp` must be atomic", call = abortcall))
   }
   if(n.rp != sslength && n.rp != 1L) {
     stop(simpleError("recycling not allowed", call = abortcall))
