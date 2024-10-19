@@ -10,70 +10,6 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
-// rcpp_seq_rec2_plus
-NumericVector rcpp_seq_rec2_plus(NumericVector inits, int n, NumericVector s, NumericVector m, int form, bool rev);
-RcppExport SEXP _squarebrackets_rcpp_seq_rec2_plus(SEXP initsSEXP, SEXP nSEXP, SEXP sSEXP, SEXP mSEXP, SEXP formSEXP, SEXP revSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type inits(initsSEXP);
-    Rcpp::traits::input_parameter< int >::type n(nSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type s(sSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type m(mSEXP);
-    Rcpp::traits::input_parameter< int >::type form(formSEXP);
-    Rcpp::traits::input_parameter< bool >::type rev(revSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_seq_rec2_plus(inits, n, s, m, form, rev));
-    return rcpp_result_gen;
-END_RCPP
-}
-// rcpp_seq_rec2_min
-NumericVector rcpp_seq_rec2_min(NumericVector inits, int n, NumericVector s, NumericVector m, int form, bool rev);
-RcppExport SEXP _squarebrackets_rcpp_seq_rec2_min(SEXP initsSEXP, SEXP nSEXP, SEXP sSEXP, SEXP mSEXP, SEXP formSEXP, SEXP revSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type inits(initsSEXP);
-    Rcpp::traits::input_parameter< int >::type n(nSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type s(sSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type m(mSEXP);
-    Rcpp::traits::input_parameter< int >::type form(formSEXP);
-    Rcpp::traits::input_parameter< bool >::type rev(revSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_seq_rec2_min(inits, n, s, m, form, rev));
-    return rcpp_result_gen;
-END_RCPP
-}
-// rcpp_seq_rec2_x
-NumericVector rcpp_seq_rec2_x(NumericVector inits, int n, NumericVector s, NumericVector m, int form, bool rev);
-RcppExport SEXP _squarebrackets_rcpp_seq_rec2_x(SEXP initsSEXP, SEXP nSEXP, SEXP sSEXP, SEXP mSEXP, SEXP formSEXP, SEXP revSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type inits(initsSEXP);
-    Rcpp::traits::input_parameter< int >::type n(nSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type s(sSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type m(mSEXP);
-    Rcpp::traits::input_parameter< int >::type form(formSEXP);
-    Rcpp::traits::input_parameter< bool >::type rev(revSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_seq_rec2_x(inits, n, s, m, form, rev));
-    return rcpp_result_gen;
-END_RCPP
-}
-// rcpp_seq_rec2_div
-NumericVector rcpp_seq_rec2_div(NumericVector inits, int n, NumericVector s, NumericVector m, int form, bool rev);
-RcppExport SEXP _squarebrackets_rcpp_seq_rec2_div(SEXP initsSEXP, SEXP nSEXP, SEXP sSEXP, SEXP mSEXP, SEXP formSEXP, SEXP revSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type inits(initsSEXP);
-    Rcpp::traits::input_parameter< int >::type n(nSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type s(sSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type m(mSEXP);
-    Rcpp::traits::input_parameter< int >::type form(formSEXP);
-    Rcpp::traits::input_parameter< bool >::type rev(revSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_seq_rec2_div(inits, n, s, m, form, rev));
-    return rcpp_result_gen;
-END_RCPP
-}
 // rcpp_set_all_Logical
 void rcpp_set_all_Logical(LogicalVector x, LogicalVector rp);
 RcppExport SEXP _squarebrackets_rcpp_set_all_Logical(SEXP xSEXP, SEXP rpSEXP) {
@@ -1664,6 +1600,1086 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
+// rcpp_slcseq_x_Logical
+LogicalVector rcpp_slcseq_x_Logical(const LogicalVector x, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slcseq_x_Logical(SEXP xSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const LogicalVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_slcseq_x_Logical(x, start, end, by, len));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_slcseq_set_Logical
+void rcpp_slcseq_set_Logical(LogicalVector x, const LogicalVector rp, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slcseq_set_Logical(SEXP xSEXP, SEXP rpSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< LogicalVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const LogicalVector >::type rp(rpSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_slcseq_set_Logical(x, rp, start, end, by, len);
+    return R_NilValue;
+END_RCPP
+}
+// rcpp_slcseq_xrev_Logical
+LogicalVector rcpp_slcseq_xrev_Logical(const LogicalVector x, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slcseq_xrev_Logical(SEXP xSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const LogicalVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_slcseq_xrev_Logical(x, start, end, by, len));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_range_slcseq_setrev_Logical
+void rcpp_range_slcseq_setrev_Logical(LogicalVector x, const LogicalVector rp, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_range_slcseq_setrev_Logical(SEXP xSEXP, SEXP rpSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< LogicalVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const LogicalVector >::type rp(rpSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_range_slcseq_setrev_Logical(x, rp, start, end, by, len);
+    return R_NilValue;
+END_RCPP
+}
+// rcpp_slcseq_rm_Logical
+LogicalVector rcpp_slcseq_rm_Logical(const LogicalVector x, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slcseq_rm_Logical(SEXP xSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const LogicalVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_slcseq_rm_Logical(x, start, end, by, len));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_slcseq_setinv_Logical
+void rcpp_slcseq_setinv_Logical(LogicalVector x, const LogicalVector rp, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slcseq_setinv_Logical(SEXP xSEXP, SEXP rpSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< LogicalVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const LogicalVector >::type rp(rpSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_slcseq_setinv_Logical(x, rp, start, end, by, len);
+    return R_NilValue;
+END_RCPP
+}
+// rcpp_slcseq_x_Integer
+IntegerVector rcpp_slcseq_x_Integer(const IntegerVector x, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slcseq_x_Integer(SEXP xSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const IntegerVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_slcseq_x_Integer(x, start, end, by, len));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_slcseq_set_Integer
+void rcpp_slcseq_set_Integer(IntegerVector x, const IntegerVector rp, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slcseq_set_Integer(SEXP xSEXP, SEXP rpSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const IntegerVector >::type rp(rpSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_slcseq_set_Integer(x, rp, start, end, by, len);
+    return R_NilValue;
+END_RCPP
+}
+// rcpp_slcseq_xrev_Integer
+IntegerVector rcpp_slcseq_xrev_Integer(const IntegerVector x, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slcseq_xrev_Integer(SEXP xSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const IntegerVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_slcseq_xrev_Integer(x, start, end, by, len));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_range_slcseq_setrev_Integer
+void rcpp_range_slcseq_setrev_Integer(IntegerVector x, const IntegerVector rp, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_range_slcseq_setrev_Integer(SEXP xSEXP, SEXP rpSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const IntegerVector >::type rp(rpSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_range_slcseq_setrev_Integer(x, rp, start, end, by, len);
+    return R_NilValue;
+END_RCPP
+}
+// rcpp_slcseq_rm_Integer
+IntegerVector rcpp_slcseq_rm_Integer(const IntegerVector x, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slcseq_rm_Integer(SEXP xSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const IntegerVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_slcseq_rm_Integer(x, start, end, by, len));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_slcseq_setinv_Integer
+void rcpp_slcseq_setinv_Integer(IntegerVector x, const IntegerVector rp, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slcseq_setinv_Integer(SEXP xSEXP, SEXP rpSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const IntegerVector >::type rp(rpSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_slcseq_setinv_Integer(x, rp, start, end, by, len);
+    return R_NilValue;
+END_RCPP
+}
+// rcpp_slcseq_x_Numeric
+NumericVector rcpp_slcseq_x_Numeric(const NumericVector x, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slcseq_x_Numeric(SEXP xSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_slcseq_x_Numeric(x, start, end, by, len));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_slcseq_set_Numeric
+void rcpp_slcseq_set_Numeric(NumericVector x, const NumericVector rp, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slcseq_set_Numeric(SEXP xSEXP, SEXP rpSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const NumericVector >::type rp(rpSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_slcseq_set_Numeric(x, rp, start, end, by, len);
+    return R_NilValue;
+END_RCPP
+}
+// rcpp_slcseq_xrev_Numeric
+NumericVector rcpp_slcseq_xrev_Numeric(const NumericVector x, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slcseq_xrev_Numeric(SEXP xSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_slcseq_xrev_Numeric(x, start, end, by, len));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_range_slcseq_setrev_Numeric
+void rcpp_range_slcseq_setrev_Numeric(NumericVector x, const NumericVector rp, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_range_slcseq_setrev_Numeric(SEXP xSEXP, SEXP rpSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const NumericVector >::type rp(rpSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_range_slcseq_setrev_Numeric(x, rp, start, end, by, len);
+    return R_NilValue;
+END_RCPP
+}
+// rcpp_slcseq_rm_Numeric
+NumericVector rcpp_slcseq_rm_Numeric(const NumericVector x, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slcseq_rm_Numeric(SEXP xSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_slcseq_rm_Numeric(x, start, end, by, len));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_slcseq_setinv_Numeric
+void rcpp_slcseq_setinv_Numeric(NumericVector x, const NumericVector rp, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slcseq_setinv_Numeric(SEXP xSEXP, SEXP rpSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const NumericVector >::type rp(rpSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_slcseq_setinv_Numeric(x, rp, start, end, by, len);
+    return R_NilValue;
+END_RCPP
+}
+// rcpp_slcseq_x_Character
+CharacterVector rcpp_slcseq_x_Character(const CharacterVector x, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slcseq_x_Character(SEXP xSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const CharacterVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_slcseq_x_Character(x, start, end, by, len));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_slcseq_set_Character
+void rcpp_slcseq_set_Character(CharacterVector x, const CharacterVector rp, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slcseq_set_Character(SEXP xSEXP, SEXP rpSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< CharacterVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const CharacterVector >::type rp(rpSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_slcseq_set_Character(x, rp, start, end, by, len);
+    return R_NilValue;
+END_RCPP
+}
+// rcpp_slcseq_xrev_Character
+CharacterVector rcpp_slcseq_xrev_Character(const CharacterVector x, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slcseq_xrev_Character(SEXP xSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const CharacterVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_slcseq_xrev_Character(x, start, end, by, len));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_range_slcseq_setrev_Character
+void rcpp_range_slcseq_setrev_Character(CharacterVector x, const CharacterVector rp, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_range_slcseq_setrev_Character(SEXP xSEXP, SEXP rpSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< CharacterVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const CharacterVector >::type rp(rpSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_range_slcseq_setrev_Character(x, rp, start, end, by, len);
+    return R_NilValue;
+END_RCPP
+}
+// rcpp_slcseq_rm_Character
+CharacterVector rcpp_slcseq_rm_Character(const CharacterVector x, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slcseq_rm_Character(SEXP xSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const CharacterVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_slcseq_rm_Character(x, start, end, by, len));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_slcseq_setinv_Character
+void rcpp_slcseq_setinv_Character(CharacterVector x, const CharacterVector rp, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slcseq_setinv_Character(SEXP xSEXP, SEXP rpSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< CharacterVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const CharacterVector >::type rp(rpSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_slcseq_setinv_Character(x, rp, start, end, by, len);
+    return R_NilValue;
+END_RCPP
+}
+// rcpp_slcseq_x_Complex
+ComplexVector rcpp_slcseq_x_Complex(const ComplexVector x, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slcseq_x_Complex(SEXP xSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const ComplexVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_slcseq_x_Complex(x, start, end, by, len));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_slcseq_set_Complex
+void rcpp_slcseq_set_Complex(ComplexVector x, const ComplexVector rp, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slcseq_set_Complex(SEXP xSEXP, SEXP rpSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< ComplexVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const ComplexVector >::type rp(rpSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_slcseq_set_Complex(x, rp, start, end, by, len);
+    return R_NilValue;
+END_RCPP
+}
+// rcpp_slcseq_xrev_Complex
+ComplexVector rcpp_slcseq_xrev_Complex(const ComplexVector x, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slcseq_xrev_Complex(SEXP xSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const ComplexVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_slcseq_xrev_Complex(x, start, end, by, len));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_range_slcseq_setrev_Complex
+void rcpp_range_slcseq_setrev_Complex(ComplexVector x, const ComplexVector rp, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_range_slcseq_setrev_Complex(SEXP xSEXP, SEXP rpSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< ComplexVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const ComplexVector >::type rp(rpSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_range_slcseq_setrev_Complex(x, rp, start, end, by, len);
+    return R_NilValue;
+END_RCPP
+}
+// rcpp_slcseq_rm_Complex
+ComplexVector rcpp_slcseq_rm_Complex(const ComplexVector x, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slcseq_rm_Complex(SEXP xSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const ComplexVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_slcseq_rm_Complex(x, start, end, by, len));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_slcseq_setinv_Complex
+void rcpp_slcseq_setinv_Complex(ComplexVector x, const ComplexVector rp, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slcseq_setinv_Complex(SEXP xSEXP, SEXP rpSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< ComplexVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const ComplexVector >::type rp(rpSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_slcseq_setinv_Complex(x, rp, start, end, by, len);
+    return R_NilValue;
+END_RCPP
+}
+// rcpp_slcseq_x_Raw
+RawVector rcpp_slcseq_x_Raw(const RawVector x, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slcseq_x_Raw(SEXP xSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const RawVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_slcseq_x_Raw(x, start, end, by, len));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_slcseq_set_Raw
+void rcpp_slcseq_set_Raw(RawVector x, const RawVector rp, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slcseq_set_Raw(SEXP xSEXP, SEXP rpSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< RawVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const RawVector >::type rp(rpSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_slcseq_set_Raw(x, rp, start, end, by, len);
+    return R_NilValue;
+END_RCPP
+}
+// rcpp_slcseq_xrev_Raw
+RawVector rcpp_slcseq_xrev_Raw(const RawVector x, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slcseq_xrev_Raw(SEXP xSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const RawVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_slcseq_xrev_Raw(x, start, end, by, len));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_range_slcseq_setrev_Raw
+void rcpp_range_slcseq_setrev_Raw(RawVector x, const RawVector rp, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_range_slcseq_setrev_Raw(SEXP xSEXP, SEXP rpSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< RawVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const RawVector >::type rp(rpSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_range_slcseq_setrev_Raw(x, rp, start, end, by, len);
+    return R_NilValue;
+END_RCPP
+}
+// rcpp_slcseq_rm_Raw
+RawVector rcpp_slcseq_rm_Raw(const RawVector x, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slcseq_rm_Raw(SEXP xSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const RawVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_slcseq_rm_Raw(x, start, end, by, len));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_slcseq_setinv_Raw
+void rcpp_slcseq_setinv_Raw(RawVector x, const RawVector rp, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slcseq_setinv_Raw(SEXP xSEXP, SEXP rpSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< RawVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const RawVector >::type rp(rpSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_slcseq_setinv_Raw(x, rp, start, end, by, len);
+    return R_NilValue;
+END_RCPP
+}
+// rcpp_slice_x_Logical
+LogicalVector rcpp_slice_x_Logical(const LogicalVector x, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slice_x_Logical(SEXP xSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const LogicalVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_slice_x_Logical(x, start, end, by, len));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_slice_set_Logical
+void rcpp_slice_set_Logical(LogicalVector x, const LogicalVector rp, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slice_set_Logical(SEXP xSEXP, SEXP rpSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< LogicalVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const LogicalVector >::type rp(rpSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_slice_set_Logical(x, rp, start, end, by, len);
+    return R_NilValue;
+END_RCPP
+}
+// rcpp_slice_xrev_Logical
+LogicalVector rcpp_slice_xrev_Logical(const LogicalVector x, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slice_xrev_Logical(SEXP xSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const LogicalVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_slice_xrev_Logical(x, start, end, by, len));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_range_slice_setrev_Logical
+void rcpp_range_slice_setrev_Logical(LogicalVector x, const LogicalVector rp, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_range_slice_setrev_Logical(SEXP xSEXP, SEXP rpSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< LogicalVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const LogicalVector >::type rp(rpSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_range_slice_setrev_Logical(x, rp, start, end, by, len);
+    return R_NilValue;
+END_RCPP
+}
+// rcpp_slice_rm_Logical
+LogicalVector rcpp_slice_rm_Logical(const LogicalVector x, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slice_rm_Logical(SEXP xSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const LogicalVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_slice_rm_Logical(x, start, end, by, len));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_slice_setinv_Logical
+void rcpp_slice_setinv_Logical(LogicalVector x, const LogicalVector rp, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slice_setinv_Logical(SEXP xSEXP, SEXP rpSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< LogicalVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const LogicalVector >::type rp(rpSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_slice_setinv_Logical(x, rp, start, end, by, len);
+    return R_NilValue;
+END_RCPP
+}
+// rcpp_slice_x_Integer
+IntegerVector rcpp_slice_x_Integer(const IntegerVector x, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slice_x_Integer(SEXP xSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const IntegerVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_slice_x_Integer(x, start, end, by, len));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_slice_set_Integer
+void rcpp_slice_set_Integer(IntegerVector x, const IntegerVector rp, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slice_set_Integer(SEXP xSEXP, SEXP rpSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const IntegerVector >::type rp(rpSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_slice_set_Integer(x, rp, start, end, by, len);
+    return R_NilValue;
+END_RCPP
+}
+// rcpp_slice_xrev_Integer
+IntegerVector rcpp_slice_xrev_Integer(const IntegerVector x, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slice_xrev_Integer(SEXP xSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const IntegerVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_slice_xrev_Integer(x, start, end, by, len));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_range_slice_setrev_Integer
+void rcpp_range_slice_setrev_Integer(IntegerVector x, const IntegerVector rp, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_range_slice_setrev_Integer(SEXP xSEXP, SEXP rpSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const IntegerVector >::type rp(rpSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_range_slice_setrev_Integer(x, rp, start, end, by, len);
+    return R_NilValue;
+END_RCPP
+}
+// rcpp_slice_rm_Integer
+IntegerVector rcpp_slice_rm_Integer(const IntegerVector x, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slice_rm_Integer(SEXP xSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const IntegerVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_slice_rm_Integer(x, start, end, by, len));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_slice_setinv_Integer
+void rcpp_slice_setinv_Integer(IntegerVector x, const IntegerVector rp, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slice_setinv_Integer(SEXP xSEXP, SEXP rpSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const IntegerVector >::type rp(rpSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_slice_setinv_Integer(x, rp, start, end, by, len);
+    return R_NilValue;
+END_RCPP
+}
+// rcpp_slice_x_Numeric
+NumericVector rcpp_slice_x_Numeric(const NumericVector x, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slice_x_Numeric(SEXP xSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_slice_x_Numeric(x, start, end, by, len));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_slice_set_Numeric
+void rcpp_slice_set_Numeric(NumericVector x, const NumericVector rp, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slice_set_Numeric(SEXP xSEXP, SEXP rpSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const NumericVector >::type rp(rpSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_slice_set_Numeric(x, rp, start, end, by, len);
+    return R_NilValue;
+END_RCPP
+}
+// rcpp_slice_xrev_Numeric
+NumericVector rcpp_slice_xrev_Numeric(const NumericVector x, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slice_xrev_Numeric(SEXP xSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_slice_xrev_Numeric(x, start, end, by, len));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_range_slice_setrev_Numeric
+void rcpp_range_slice_setrev_Numeric(NumericVector x, const NumericVector rp, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_range_slice_setrev_Numeric(SEXP xSEXP, SEXP rpSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const NumericVector >::type rp(rpSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_range_slice_setrev_Numeric(x, rp, start, end, by, len);
+    return R_NilValue;
+END_RCPP
+}
+// rcpp_slice_rm_Numeric
+NumericVector rcpp_slice_rm_Numeric(const NumericVector x, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slice_rm_Numeric(SEXP xSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_slice_rm_Numeric(x, start, end, by, len));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_slice_setinv_Numeric
+void rcpp_slice_setinv_Numeric(NumericVector x, const NumericVector rp, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slice_setinv_Numeric(SEXP xSEXP, SEXP rpSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const NumericVector >::type rp(rpSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_slice_setinv_Numeric(x, rp, start, end, by, len);
+    return R_NilValue;
+END_RCPP
+}
+// rcpp_slice_x_Character
+CharacterVector rcpp_slice_x_Character(const CharacterVector x, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slice_x_Character(SEXP xSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const CharacterVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_slice_x_Character(x, start, end, by, len));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_slice_set_Character
+void rcpp_slice_set_Character(CharacterVector x, const CharacterVector rp, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slice_set_Character(SEXP xSEXP, SEXP rpSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< CharacterVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const CharacterVector >::type rp(rpSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_slice_set_Character(x, rp, start, end, by, len);
+    return R_NilValue;
+END_RCPP
+}
+// rcpp_slice_xrev_Character
+CharacterVector rcpp_slice_xrev_Character(const CharacterVector x, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slice_xrev_Character(SEXP xSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const CharacterVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_slice_xrev_Character(x, start, end, by, len));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_range_slice_setrev_Character
+void rcpp_range_slice_setrev_Character(CharacterVector x, const CharacterVector rp, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_range_slice_setrev_Character(SEXP xSEXP, SEXP rpSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< CharacterVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const CharacterVector >::type rp(rpSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_range_slice_setrev_Character(x, rp, start, end, by, len);
+    return R_NilValue;
+END_RCPP
+}
+// rcpp_slice_rm_Character
+CharacterVector rcpp_slice_rm_Character(const CharacterVector x, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slice_rm_Character(SEXP xSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const CharacterVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_slice_rm_Character(x, start, end, by, len));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_slice_setinv_Character
+void rcpp_slice_setinv_Character(CharacterVector x, const CharacterVector rp, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slice_setinv_Character(SEXP xSEXP, SEXP rpSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< CharacterVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const CharacterVector >::type rp(rpSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_slice_setinv_Character(x, rp, start, end, by, len);
+    return R_NilValue;
+END_RCPP
+}
+// rcpp_slice_x_Complex
+ComplexVector rcpp_slice_x_Complex(const ComplexVector x, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slice_x_Complex(SEXP xSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const ComplexVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_slice_x_Complex(x, start, end, by, len));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_slice_set_Complex
+void rcpp_slice_set_Complex(ComplexVector x, const ComplexVector rp, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slice_set_Complex(SEXP xSEXP, SEXP rpSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< ComplexVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const ComplexVector >::type rp(rpSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_slice_set_Complex(x, rp, start, end, by, len);
+    return R_NilValue;
+END_RCPP
+}
+// rcpp_slice_xrev_Complex
+ComplexVector rcpp_slice_xrev_Complex(const ComplexVector x, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slice_xrev_Complex(SEXP xSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const ComplexVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_slice_xrev_Complex(x, start, end, by, len));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_range_slice_setrev_Complex
+void rcpp_range_slice_setrev_Complex(ComplexVector x, const ComplexVector rp, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_range_slice_setrev_Complex(SEXP xSEXP, SEXP rpSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< ComplexVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const ComplexVector >::type rp(rpSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_range_slice_setrev_Complex(x, rp, start, end, by, len);
+    return R_NilValue;
+END_RCPP
+}
+// rcpp_slice_rm_Complex
+ComplexVector rcpp_slice_rm_Complex(const ComplexVector x, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slice_rm_Complex(SEXP xSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const ComplexVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_slice_rm_Complex(x, start, end, by, len));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_slice_setinv_Complex
+void rcpp_slice_setinv_Complex(ComplexVector x, const ComplexVector rp, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slice_setinv_Complex(SEXP xSEXP, SEXP rpSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< ComplexVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const ComplexVector >::type rp(rpSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_slice_setinv_Complex(x, rp, start, end, by, len);
+    return R_NilValue;
+END_RCPP
+}
+// rcpp_slice_x_Raw
+RawVector rcpp_slice_x_Raw(const RawVector x, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slice_x_Raw(SEXP xSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const RawVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_slice_x_Raw(x, start, end, by, len));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_slice_set_Raw
+void rcpp_slice_set_Raw(RawVector x, const RawVector rp, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slice_set_Raw(SEXP xSEXP, SEXP rpSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< RawVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const RawVector >::type rp(rpSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_slice_set_Raw(x, rp, start, end, by, len);
+    return R_NilValue;
+END_RCPP
+}
+// rcpp_slice_xrev_Raw
+RawVector rcpp_slice_xrev_Raw(const RawVector x, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slice_xrev_Raw(SEXP xSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const RawVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_slice_xrev_Raw(x, start, end, by, len));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_range_slice_setrev_Raw
+void rcpp_range_slice_setrev_Raw(RawVector x, const RawVector rp, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_range_slice_setrev_Raw(SEXP xSEXP, SEXP rpSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< RawVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const RawVector >::type rp(rpSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_range_slice_setrev_Raw(x, rp, start, end, by, len);
+    return R_NilValue;
+END_RCPP
+}
+// rcpp_slice_rm_Raw
+RawVector rcpp_slice_rm_Raw(const RawVector x, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slice_rm_Raw(SEXP xSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const RawVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_slice_rm_Raw(x, start, end, by, len));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_slice_setinv_Raw
+void rcpp_slice_setinv_Raw(RawVector x, const RawVector rp, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slice_setinv_Raw(SEXP xSEXP, SEXP rpSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< RawVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const RawVector >::type rp(rpSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
+    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
+    rcpp_slice_setinv_Raw(x, rp, start, end, by, len);
+    return R_NilValue;
+END_RCPP
+}
 // C_sub2ind_2d_32
 SEXP C_sub2ind_2d_32(const SEXP ind1, const SEXP ind2, SEXP dimcumprod);
 RcppExport SEXP _squarebrackets_C_sub2ind_2d_32(SEXP ind1SEXP, SEXP ind2SEXP, SEXP dimcumprodSEXP) {
@@ -2196,10 +3212,6 @@ RcppExport SEXP C_is_altrep(SEXP);
 RcppExport SEXP C_serial(SEXP);
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_squarebrackets_rcpp_seq_rec2_plus", (DL_FUNC) &_squarebrackets_rcpp_seq_rec2_plus, 6},
-    {"_squarebrackets_rcpp_seq_rec2_min", (DL_FUNC) &_squarebrackets_rcpp_seq_rec2_min, 6},
-    {"_squarebrackets_rcpp_seq_rec2_x", (DL_FUNC) &_squarebrackets_rcpp_seq_rec2_x, 6},
-    {"_squarebrackets_rcpp_seq_rec2_div", (DL_FUNC) &_squarebrackets_rcpp_seq_rec2_div, 6},
     {"_squarebrackets_rcpp_set_all_Logical", (DL_FUNC) &_squarebrackets_rcpp_set_all_Logical, 2},
     {"_squarebrackets_rcpp_set_all_Integer", (DL_FUNC) &_squarebrackets_rcpp_set_all_Integer, 2},
     {"_squarebrackets_rcpp_set_all_Numeric", (DL_FUNC) &_squarebrackets_rcpp_set_all_Numeric, 2},
@@ -2314,6 +3326,78 @@ static const R_CallMethodDef CallEntries[] = {
     {"_squarebrackets_rcpp_setrv_fast_Character", (DL_FUNC) &_squarebrackets_rcpp_setrv_fast_Character, 4},
     {"_squarebrackets_rcpp_setrv_safe_Raw", (DL_FUNC) &_squarebrackets_rcpp_setrv_safe_Raw, 4},
     {"_squarebrackets_rcpp_setrv_fast_Raw", (DL_FUNC) &_squarebrackets_rcpp_setrv_fast_Raw, 4},
+    {"_squarebrackets_rcpp_slcseq_x_Logical", (DL_FUNC) &_squarebrackets_rcpp_slcseq_x_Logical, 5},
+    {"_squarebrackets_rcpp_slcseq_set_Logical", (DL_FUNC) &_squarebrackets_rcpp_slcseq_set_Logical, 6},
+    {"_squarebrackets_rcpp_slcseq_xrev_Logical", (DL_FUNC) &_squarebrackets_rcpp_slcseq_xrev_Logical, 5},
+    {"_squarebrackets_rcpp_range_slcseq_setrev_Logical", (DL_FUNC) &_squarebrackets_rcpp_range_slcseq_setrev_Logical, 6},
+    {"_squarebrackets_rcpp_slcseq_rm_Logical", (DL_FUNC) &_squarebrackets_rcpp_slcseq_rm_Logical, 5},
+    {"_squarebrackets_rcpp_slcseq_setinv_Logical", (DL_FUNC) &_squarebrackets_rcpp_slcseq_setinv_Logical, 6},
+    {"_squarebrackets_rcpp_slcseq_x_Integer", (DL_FUNC) &_squarebrackets_rcpp_slcseq_x_Integer, 5},
+    {"_squarebrackets_rcpp_slcseq_set_Integer", (DL_FUNC) &_squarebrackets_rcpp_slcseq_set_Integer, 6},
+    {"_squarebrackets_rcpp_slcseq_xrev_Integer", (DL_FUNC) &_squarebrackets_rcpp_slcseq_xrev_Integer, 5},
+    {"_squarebrackets_rcpp_range_slcseq_setrev_Integer", (DL_FUNC) &_squarebrackets_rcpp_range_slcseq_setrev_Integer, 6},
+    {"_squarebrackets_rcpp_slcseq_rm_Integer", (DL_FUNC) &_squarebrackets_rcpp_slcseq_rm_Integer, 5},
+    {"_squarebrackets_rcpp_slcseq_setinv_Integer", (DL_FUNC) &_squarebrackets_rcpp_slcseq_setinv_Integer, 6},
+    {"_squarebrackets_rcpp_slcseq_x_Numeric", (DL_FUNC) &_squarebrackets_rcpp_slcseq_x_Numeric, 5},
+    {"_squarebrackets_rcpp_slcseq_set_Numeric", (DL_FUNC) &_squarebrackets_rcpp_slcseq_set_Numeric, 6},
+    {"_squarebrackets_rcpp_slcseq_xrev_Numeric", (DL_FUNC) &_squarebrackets_rcpp_slcseq_xrev_Numeric, 5},
+    {"_squarebrackets_rcpp_range_slcseq_setrev_Numeric", (DL_FUNC) &_squarebrackets_rcpp_range_slcseq_setrev_Numeric, 6},
+    {"_squarebrackets_rcpp_slcseq_rm_Numeric", (DL_FUNC) &_squarebrackets_rcpp_slcseq_rm_Numeric, 5},
+    {"_squarebrackets_rcpp_slcseq_setinv_Numeric", (DL_FUNC) &_squarebrackets_rcpp_slcseq_setinv_Numeric, 6},
+    {"_squarebrackets_rcpp_slcseq_x_Character", (DL_FUNC) &_squarebrackets_rcpp_slcseq_x_Character, 5},
+    {"_squarebrackets_rcpp_slcseq_set_Character", (DL_FUNC) &_squarebrackets_rcpp_slcseq_set_Character, 6},
+    {"_squarebrackets_rcpp_slcseq_xrev_Character", (DL_FUNC) &_squarebrackets_rcpp_slcseq_xrev_Character, 5},
+    {"_squarebrackets_rcpp_range_slcseq_setrev_Character", (DL_FUNC) &_squarebrackets_rcpp_range_slcseq_setrev_Character, 6},
+    {"_squarebrackets_rcpp_slcseq_rm_Character", (DL_FUNC) &_squarebrackets_rcpp_slcseq_rm_Character, 5},
+    {"_squarebrackets_rcpp_slcseq_setinv_Character", (DL_FUNC) &_squarebrackets_rcpp_slcseq_setinv_Character, 6},
+    {"_squarebrackets_rcpp_slcseq_x_Complex", (DL_FUNC) &_squarebrackets_rcpp_slcseq_x_Complex, 5},
+    {"_squarebrackets_rcpp_slcseq_set_Complex", (DL_FUNC) &_squarebrackets_rcpp_slcseq_set_Complex, 6},
+    {"_squarebrackets_rcpp_slcseq_xrev_Complex", (DL_FUNC) &_squarebrackets_rcpp_slcseq_xrev_Complex, 5},
+    {"_squarebrackets_rcpp_range_slcseq_setrev_Complex", (DL_FUNC) &_squarebrackets_rcpp_range_slcseq_setrev_Complex, 6},
+    {"_squarebrackets_rcpp_slcseq_rm_Complex", (DL_FUNC) &_squarebrackets_rcpp_slcseq_rm_Complex, 5},
+    {"_squarebrackets_rcpp_slcseq_setinv_Complex", (DL_FUNC) &_squarebrackets_rcpp_slcseq_setinv_Complex, 6},
+    {"_squarebrackets_rcpp_slcseq_x_Raw", (DL_FUNC) &_squarebrackets_rcpp_slcseq_x_Raw, 5},
+    {"_squarebrackets_rcpp_slcseq_set_Raw", (DL_FUNC) &_squarebrackets_rcpp_slcseq_set_Raw, 6},
+    {"_squarebrackets_rcpp_slcseq_xrev_Raw", (DL_FUNC) &_squarebrackets_rcpp_slcseq_xrev_Raw, 5},
+    {"_squarebrackets_rcpp_range_slcseq_setrev_Raw", (DL_FUNC) &_squarebrackets_rcpp_range_slcseq_setrev_Raw, 6},
+    {"_squarebrackets_rcpp_slcseq_rm_Raw", (DL_FUNC) &_squarebrackets_rcpp_slcseq_rm_Raw, 5},
+    {"_squarebrackets_rcpp_slcseq_setinv_Raw", (DL_FUNC) &_squarebrackets_rcpp_slcseq_setinv_Raw, 6},
+    {"_squarebrackets_rcpp_slice_x_Logical", (DL_FUNC) &_squarebrackets_rcpp_slice_x_Logical, 5},
+    {"_squarebrackets_rcpp_slice_set_Logical", (DL_FUNC) &_squarebrackets_rcpp_slice_set_Logical, 6},
+    {"_squarebrackets_rcpp_slice_xrev_Logical", (DL_FUNC) &_squarebrackets_rcpp_slice_xrev_Logical, 5},
+    {"_squarebrackets_rcpp_range_slice_setrev_Logical", (DL_FUNC) &_squarebrackets_rcpp_range_slice_setrev_Logical, 6},
+    {"_squarebrackets_rcpp_slice_rm_Logical", (DL_FUNC) &_squarebrackets_rcpp_slice_rm_Logical, 5},
+    {"_squarebrackets_rcpp_slice_setinv_Logical", (DL_FUNC) &_squarebrackets_rcpp_slice_setinv_Logical, 6},
+    {"_squarebrackets_rcpp_slice_x_Integer", (DL_FUNC) &_squarebrackets_rcpp_slice_x_Integer, 5},
+    {"_squarebrackets_rcpp_slice_set_Integer", (DL_FUNC) &_squarebrackets_rcpp_slice_set_Integer, 6},
+    {"_squarebrackets_rcpp_slice_xrev_Integer", (DL_FUNC) &_squarebrackets_rcpp_slice_xrev_Integer, 5},
+    {"_squarebrackets_rcpp_range_slice_setrev_Integer", (DL_FUNC) &_squarebrackets_rcpp_range_slice_setrev_Integer, 6},
+    {"_squarebrackets_rcpp_slice_rm_Integer", (DL_FUNC) &_squarebrackets_rcpp_slice_rm_Integer, 5},
+    {"_squarebrackets_rcpp_slice_setinv_Integer", (DL_FUNC) &_squarebrackets_rcpp_slice_setinv_Integer, 6},
+    {"_squarebrackets_rcpp_slice_x_Numeric", (DL_FUNC) &_squarebrackets_rcpp_slice_x_Numeric, 5},
+    {"_squarebrackets_rcpp_slice_set_Numeric", (DL_FUNC) &_squarebrackets_rcpp_slice_set_Numeric, 6},
+    {"_squarebrackets_rcpp_slice_xrev_Numeric", (DL_FUNC) &_squarebrackets_rcpp_slice_xrev_Numeric, 5},
+    {"_squarebrackets_rcpp_range_slice_setrev_Numeric", (DL_FUNC) &_squarebrackets_rcpp_range_slice_setrev_Numeric, 6},
+    {"_squarebrackets_rcpp_slice_rm_Numeric", (DL_FUNC) &_squarebrackets_rcpp_slice_rm_Numeric, 5},
+    {"_squarebrackets_rcpp_slice_setinv_Numeric", (DL_FUNC) &_squarebrackets_rcpp_slice_setinv_Numeric, 6},
+    {"_squarebrackets_rcpp_slice_x_Character", (DL_FUNC) &_squarebrackets_rcpp_slice_x_Character, 5},
+    {"_squarebrackets_rcpp_slice_set_Character", (DL_FUNC) &_squarebrackets_rcpp_slice_set_Character, 6},
+    {"_squarebrackets_rcpp_slice_xrev_Character", (DL_FUNC) &_squarebrackets_rcpp_slice_xrev_Character, 5},
+    {"_squarebrackets_rcpp_range_slice_setrev_Character", (DL_FUNC) &_squarebrackets_rcpp_range_slice_setrev_Character, 6},
+    {"_squarebrackets_rcpp_slice_rm_Character", (DL_FUNC) &_squarebrackets_rcpp_slice_rm_Character, 5},
+    {"_squarebrackets_rcpp_slice_setinv_Character", (DL_FUNC) &_squarebrackets_rcpp_slice_setinv_Character, 6},
+    {"_squarebrackets_rcpp_slice_x_Complex", (DL_FUNC) &_squarebrackets_rcpp_slice_x_Complex, 5},
+    {"_squarebrackets_rcpp_slice_set_Complex", (DL_FUNC) &_squarebrackets_rcpp_slice_set_Complex, 6},
+    {"_squarebrackets_rcpp_slice_xrev_Complex", (DL_FUNC) &_squarebrackets_rcpp_slice_xrev_Complex, 5},
+    {"_squarebrackets_rcpp_range_slice_setrev_Complex", (DL_FUNC) &_squarebrackets_rcpp_range_slice_setrev_Complex, 6},
+    {"_squarebrackets_rcpp_slice_rm_Complex", (DL_FUNC) &_squarebrackets_rcpp_slice_rm_Complex, 5},
+    {"_squarebrackets_rcpp_slice_setinv_Complex", (DL_FUNC) &_squarebrackets_rcpp_slice_setinv_Complex, 6},
+    {"_squarebrackets_rcpp_slice_x_Raw", (DL_FUNC) &_squarebrackets_rcpp_slice_x_Raw, 5},
+    {"_squarebrackets_rcpp_slice_set_Raw", (DL_FUNC) &_squarebrackets_rcpp_slice_set_Raw, 6},
+    {"_squarebrackets_rcpp_slice_xrev_Raw", (DL_FUNC) &_squarebrackets_rcpp_slice_xrev_Raw, 5},
+    {"_squarebrackets_rcpp_range_slice_setrev_Raw", (DL_FUNC) &_squarebrackets_rcpp_range_slice_setrev_Raw, 6},
+    {"_squarebrackets_rcpp_slice_rm_Raw", (DL_FUNC) &_squarebrackets_rcpp_slice_rm_Raw, 5},
+    {"_squarebrackets_rcpp_slice_setinv_Raw", (DL_FUNC) &_squarebrackets_rcpp_slice_setinv_Raw, 6},
     {"_squarebrackets_C_sub2ind_2d_32", (DL_FUNC) &_squarebrackets_C_sub2ind_2d_32, 3},
     {"_squarebrackets_C_sub2ind_3d_32", (DL_FUNC) &_squarebrackets_C_sub2ind_3d_32, 4},
     {"_squarebrackets_C_sub2ind_4d_32", (DL_FUNC) &_squarebrackets_C_sub2ind_4d_32, 5},

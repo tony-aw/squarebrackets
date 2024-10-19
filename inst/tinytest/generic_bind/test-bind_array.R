@@ -26,8 +26,19 @@ for(margin in 1:3) {
   dimnames(newa) <- dimnames2
   dimnames(newl) <- dimnames2
   
+  # default
   out <- bind_array(list(yl, newl, yl), margin)
   expected <- as.mutable_atomic(abind::abind(ya, newa, ya, along = margin))
+  expect_equal(
+    out, expected
+  ) |> errorfun()
+  
+  # comnames_from = 2L
+  out <- bind_array(list(yl, newl, yl), margin, comnames_from = 2L)
+  expected <- as.mutable_atomic(abind::abind(ya, newa, ya, along = margin))
+  dimnms <- dimnames(expected)
+  dimnms[-margin] <- dimnames(newl)[-margin]
+  dimnames(expected) <- dimnms
   expect_equal(
     out, expected
   ) |> errorfun()
@@ -35,6 +46,11 @@ for(margin in 1:3) {
   
   enumerate <- enumerate + 1
 }
+
+
+# test communal names argument ====
+
+
 
 # test name_flat argument ====
 x <- letters

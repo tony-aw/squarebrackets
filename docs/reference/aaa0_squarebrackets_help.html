@@ -67,7 +67,7 @@ flexible and comprehensive sub-setting functionality,
 provided by the square brackets operators (<code>[</code>, <code>[&lt;-</code>). <br>
 But in some situations the square brackets operators
 are occasionally less than optimally convenient <br>
-(see <a href="aaa7_squarebrackets_inconveniences.html">squarebrackets_inconveniences</a>). <br><br>
+(see <a href="aaa8_squarebrackets_inconveniences.html">squarebrackets_inconveniences</a>). <br><br>
 The Goal of the 'squarebrackets' package
 is not to replace the square-brackets operators,
 but to provide <b>alternative</b> sub-setting methods and functions,
@@ -129,12 +129,11 @@ and the various 'collections' classes
 from the 'collections' package - are not supported. <br><br></p>
     </div>
     <div class="section level2">
-    <h2 id="methods-and-functions">Methods and Functions<a class="anchor" aria-label="anchor" href="#methods-and-functions"></a></h2>
+    <h2 id="methods">Methods<a class="anchor" aria-label="anchor" href="#methods"></a></h2>
     
 
 
-<p><img src="figures/generic_methods-darkgreen.svg" alt="[GENERIC METHODS]"><br>
-The main focus of this package is on its generic methods
+<p>The main focus of this package is on its generic methods
 and dimensional binding implementations. <br><br>
 Generic methods for atomic objects
 start with <code>sb_</code>. <br>
@@ -145,32 +144,41 @@ start with <code>bind_</code>. <br>
 The binding implementations for recursive dimensional objects (recursive arrays, data.frames)
 start with <code>bind2_</code>. <br>
 There is also the somewhat separate <a href="idx1.html">idx</a> method,
-which works on both recursive and non-recursive objects. <br><br>
-The available generic methods are the following:</p><ul><li><p><a href="sb_x.html">sb_x</a>, <a href="sb_x.html">sb2_x</a>: extract, exchange, or duplicate subsets.</p></li>
+which works on both recursive and non-recursive objects. <br>
+And finally there are the <code>slcseq_</code> methods, which (currently) only work on atomic vectors. <br><br></p>
+<p><img src="figures/selection_methods-darkgreen.svg" alt="[SELECTION METHODS]"><br></p><ul><li><p><a href="sb_x.html">sb_x</a>, <a href="sb_x.html">sb2_x</a>: extract, exchange, or duplicate subsets.</p></li>
 <li><p><a href="sb_rm.html">sb_rm</a>,  <a href="sb_rm.html">sb2_rm</a>: un-select/remove subsets.</p></li>
-<li><p><a href="sb_set.html">sb_set</a>, <a href="sb_set.html">sb2_set</a>: modify (transform or replace)
-subsets of a <a href="aaa2_squarebrackets_mutable_classes.html">mutable object</a>
-using <a href="aaa7_squarebrackets_PassByReference.html">pass-by-reference semantics</a>.</p></li>
+<li><p><a href="sb2_rec.html">sb2_rec</a>: access recursive subsets of lists.</p></li>
+<li><p><a href="slcseq.html">slcseq_x</a>, <a href="slcseq.html">slcseq_rm</a>: efficiently extract or remove subset from a (long) vector. <br><br></p></li>
+</ul><p><img src="figures/modification_methods-red.svg" alt="[MODIFICATION METHODS]"><br></p><ul><li><p><a href="idx1.html">idx</a>: translate given indices/subscripts,
+for the purpose of copy-on-modify substitution.</p></li>
+<li><p><a href="sb2_rec.html">sb2_recin</a>: replace, transform, remove, or add recursive subsets to a list,
+through R's default Copy-On-Modify semantics.</p></li>
 <li><p><a href="sb_mod.html">sb_mod</a>, <a href="sb_mod.html">sb2_mod</a>: return a <b>(partial) copy</b>
 of an object with modified
 (transformed or replaced) subsets.</p></li>
-<li><p><a href="sb2_rec.html">sb2_rec</a>: access recursive subsets of lists.</p></li>
-<li><p><a href="sb2_rec.html">sb2_reccom</a>: replace, transform, remove, or add recursive subsets to a list,
-through R's default Copy-On-Modify semantics.</p></li>
-<li><p><a href="sb_setRename.html">sb_setFlatnames</a>, <a href="sb_setRename.html">sb_setDimnames</a>, <a href="sb_setRename.html">sb2_setVarnames</a>: change the names of
-a <a href="aaa2_squarebrackets_mutable_classes.html">mutable object</a>
+<li><p><a href="sb_set.html">sb_set</a>, <a href="sb_set.html">sb2_set</a>: modify (transform or replace)
+subsets of a <a href="aaa2_squarebrackets_mutable_classes.html">mutable object</a>
 using <a href="aaa7_squarebrackets_PassByReference.html">pass-by-reference semantics</a>.</p></li>
-<li><p><a href="bind.html">bind_</a>, <a href="bind.html">bind2_</a>:  implementations for binding dimensional objects.</p></li>
-<li><p><a href="idx1.html">idx</a>: translate given indices/subscripts,
-for the purpose of copy-on-modify substitution.</p></li>
-<li><p><a href="cp_seq.html">cp_seq</a>: construct parameters for margin-based sequences. <br></p></li>
+<li><p><a href="slcseq.html">slcseq_set</a>: efficiently modify a (long) vector subset using
+<a href="aaa7_squarebrackets_PassByReference.html">pass-by-reference semantics</a>. <br><br></p></li>
+</ul><p><img src="figures/other_methods-pink.svg" alt="[OTHER METHODS]"><br></p><ul><li><p><a href="bind.html">bind_</a>, <a href="bind.html">bind2_</a>:  implementations for binding dimensional objects.</p></li>
+<li><p><a href="cp_seq.html">cp_seq</a>: construct parameters for margin-based sequences. <br>
+Not actually a method, but can be used to predict the exact sequence lay-out,
+like used in the <a href="slcseq.html">slcseq_</a> methods. <br><br></p></li>
 </ul><p>So for example,
 use <code><a href="sb_rm.html">sb_rm()</a></code> to remove subsets from atomic arrays,
 and use <code><a href="sb_rm.html">sb2_rm()</a></code> to remove subsets from recursive arrays. <br>
 See <a href="aaa4_squarebrackets_method_dispatch.html">squarebrackets_method_dispatch</a> for more information on how 'squarebrackets'
 uses its S3 Method dispatch. <br><br></p>
+    </div>
+    <div class="section level2">
+    <h2 id="functions">Functions<a class="anchor" aria-label="anchor" href="#functions"></a></h2>
+    
+
+
 <p><img src="figures/specialized_functions-darkred.svg" alt="[SPECIALIZED FUNCTIONS]"><br>
-Additional specialized sub-setting functions are provided:</p><ul><li><p><a href="lst.html">lst_untree</a>: unnest tree-like nested list,
+Additional specialized sub-setting functions are provided:</p><ul><li><p><a href="lst.html">lst_untree</a>: unnest tree-like nested list into a recursive array,
 to make vectorized sub-setting on recursive subsets of the list easier.</p></li>
 <li><p>The <a href="dt.html">dt_</a>-functions
 to programmatically perform <code>data.table</code>-specific <code>[</code>-operations,
@@ -179,7 +187,7 @@ with the security measures provided by the 'squarebrackets' package.</p></li>
 using <a href="aaa7_squarebrackets_PassByReference.html">pass-by-reference semantics</a>.</p></li>
 <li><p><a href="ma_setv.html">ma_setv</a>: Find &amp; Replace values in <a href="class_mutable_atomic.html">mutable_atomic</a> objects
 using <a href="aaa7_squarebrackets_PassByReference.html">pass-by-reference semantics</a>. <br>
-This is considerably faster and more memory efficient than using <a href="sb_set.html">sb_set</a> for this.</p></li>
+This is considerably faster and more memory efficient than using <a href="sb_set.html">sb_set</a> for this. <br><br></p></li>
 </ul><p><img src="figures/helper_functions-lightblue.svg" alt="[HELPER FUNCTIONS]"><br>
 A couple of helper functions for creating ranges, sequences, and indices
 (often needed in sub-setting)
@@ -193,9 +201,7 @@ coordinates to flat indices,
 and vice-versa.</p></li>
 <li><p><a href="match_all.html">match_all</a>: Find all matches, of one vector in another,
 taking into account the order and any duplicate values of both vectors.</p></li>
-<li><p>Computing indices: <br><a href="idx_r.html">idx_r</a> to compute an integer index range. <br><a href="idx_by.html">idx_by</a> to compute grouped indices. <br><a href="idx_ord.html">idx_ord_</a>-functions to compute ordered indices. <br></p></li>
-<li><p>Computing sequences: <br><a href="seq_rec2.html">seq_rec2</a> for the recursive sequence generator
-(for example to generate a Fibonacci sequence). <br><br></p></li>
+<li><p>Computing indices: <br><a href="idx_r.html">idx_r</a> to compute an integer index range. <br><a href="idx_by.html">idx_by</a> to compute grouped indices. <br><a href="idx_ord.html">idx_ord_</a>-functions to compute ordered indices. <br><br></p></li>
 </ul><p><img src="figures/developer_functions-pink.svg" alt="[DEVELOPER FUNCTIONS]"><br></p>
 <p>And finally some developer functions for constructing indices. <br>
 These are also used internally by 'squarebrackets',

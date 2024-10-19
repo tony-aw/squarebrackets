@@ -2,16 +2,28 @@
 % Please edit documentation in R/generic_bind.R
 \name{bind}
 \alias{bind}
+\alias{bind_row}
+\alias{bind2_row}
+\alias{bind_col}
+\alias{bind2_col}
 \alias{bind_array}
 \alias{bind2_array}
 \alias{bind2_dt}
 \title{Dimensional Binding of Objects}
 \usage{
+bind_row(arg.list, deparse.level = 1)
+
+bind2_row(arg.list, deparse.level = 1)
+
+bind_col(arg.list, deparse.level = 1)
+
+bind2_col(arg.list, deparse.level = 1)
+
 bind_array(
   arg.list,
   along,
   name_along = TRUE,
-  name_shared = 1L,
+  comnames_from = 1L,
   name_flat = FALSE
 )
 
@@ -19,7 +31,7 @@ bind2_array(
   arg.list,
   along,
   name_along = TRUE,
-  name_shared = 1L,
+  comnames_from = 1L,
   name_flat = FALSE
 )
 
@@ -29,6 +41,8 @@ bind2_dt(arg.list, along)
 \item{arg.list}{a list of only the appropriate objects. \cr
 Do not mix recursive and atomic objects in the same list,
 as that may result in unexpected results. \cr}
+
+\item{deparse.level}{see \link[base]{cbind} and \link[base]{rbind}.}
 
 \item{along}{a single integer,
 indicating the dimension along which to bind the dimensions. \cr
@@ -44,17 +58,17 @@ will create an additional dimension (\code{n+1}) and bind the arrays along that 
 \item{name_along}{Boolean, for \code{bind_array()} and \code{bind2_array()}. \cr
 Indicates if dimension \code{along} should be named. \cr}
 
-\item{name_shared}{integer or \code{NULL}, for \code{bind_array()} and \code{bind2_array()}. \cr
+\item{comnames_from}{integer scalar or \code{NULL}, for \code{bind_array()} and \code{bind2_array()}. \cr
 Indicates which object in \code{arg.list} should be used for naming the shared dimension. \cr
-If \code{NULL}, no shared names will be given. \cr
+If \code{NULL}, no communal names will be given. \cr
 For example: \cr
 When binding columns of atomic matrices,
-\code{name_shared = 1} results in \code{bind_array()} using \code{rownames(arg.list[[1]])} for the row names of the output.}
+\code{comnames_from = 1} results in \code{bind_array()} using \code{rownames(arg.list[[1]])} for the row names of the output.}
 
 \item{name_flat}{Boolean, for \code{bind_array()} and \code{bind2_array()}. \cr
 Indicates if flat indices should be named. \cr
 Note that setting this to \code{TRUE} will reduce performance considerably. \cr
-\ifelse{html}{\figure{for_performance-set_to_FALSE-red.svg}{options: alt='[for performance: set to FALSE]'}}{\link[=squarebrackets_help]{for performance: set to FALSE}} \cr \cr}
+\ifelse{html}{\figure{for_performance-set_to_FALSE-red.svg}{options: alt='[for performance: set to FALSE]'}}{\link[=squarebrackets_help]{for performance: set to FALSE}}}
 }
 \value{
 The new object.
@@ -66,6 +80,10 @@ When possible, the \code{bind_}/\code{bind2_} functions return \link[=squarebrac
 \cr
 The following implementations are available:
 \itemize{
+\item \code{bind_row()}, \code{bind_col()}, \code{bind2_row()}, \code{bind2_col()}
+bind dimensionless vectors row- or column-wise. \cr
+Can also bind matrices. \cr
+When the output is atomic, returns a \link{mutable_atomic} array. \cr
 \item \code{bind_array()} binds atomic arrays and matrices. \cr
 Returns a \link{mutable_atomic} array. \cr
 \item \code{bind2_array()} binds recursive arrays and matrices. \cr

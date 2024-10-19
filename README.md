@@ -46,6 +46,9 @@ the following:
     classes. The ‘squarebrackets’ methods provides explicit
     pass-by-reference and pass-by-value semantics, whilst still
     respecting things like binding-locks and mutability rules.
+6)  ‘squarebrackets’ supports index-less sub-set operations, which is
+    faster and more memory efficient than sub-set operations using the
+    `[` and `[<-` operators.
 
  
 
@@ -149,5 +152,7 @@ tinycodet::import_LL("squarebrackets", selection = ... )
   data.frame-like objects instead of whole copies, for more memory
   efficiency. Also removed the old `sb_str()` and `sb_a()` functions.
   Renamed `ci_seq()` to `cp_seq()` (in preparation for the next update).
+- 19 October 2024: Removed the renaming methods (`sb_setRename`), and
+  `seq_rec2()`. Added `slcseq()`
 
  

@@ -2,12 +2,12 @@
 % Please edit documentation in R/generic_rec.R
 \name{sb2_rec}
 \alias{sb2_rec}
-\alias{sb2_reccom}
+\alias{sb2_recin}
 \title{Access, Replace, Transform, Remove, or Extend Recursive Subsets}
 \usage{
 sb2_rec(x, rec)
 
-sb2_reccom(x, rec, rp, tf)
+sb2_recin(x, rec, rp, tf)
 }
 \arguments{
 \item{x}{a list, or list-like object.}
@@ -30,10 +30,10 @@ Since this is a replacement of a recursive subset,
 \item When specifying \code{rp = NULL}, will \bold{remove} (recursive) subset \code{x[[rec]]}. \cr
 To specify actual \code{NULL} instead of removing a subset, use \code{list(NULL)}.
 \item When \code{rec} is an integer, and specifies an out-of-bounds subset,
-\code{sb2_reccom()} will add value \code{rp} to the list. \cr
+\code{sb2_recin()} will add value \code{rp} to the list. \cr
 Any empty positions in between will be filled with \code{NA}.
 \item When \code{rec} is character, and specifies a non-existing name,
-\code{sb2_reccom()} will add value \code{rp} to the list as a new element at the end.
+\code{sb2_recin()} will add value \code{rp} to the list as a new element at the end.
 }}
 
 \item{tf}{an optional function. If specified, performs \code{x[[rec]] <- tf(x[[rec]])},
@@ -44,24 +44,24 @@ Does not support extending a list like argument \code{rp}.}
 For \code{sb2_rec()}: \cr
 Returns the recursive subset. \cr
 \cr
-For \code{sb2_reccom(..., rp = rp)}: \cr
+For \code{sb2_recin(..., rp = rp)}: \cr
 Returns VOID,
 but replaces, adds, or removes the specified recursive subset,
 using R's default Copy-On-Modify semantics. \cr
 \cr
-For \code{sb2_reccom(..., tf = tf)}: \cr
+For \code{sb2_recin(..., tf = tf)}: \cr
 Returns VOID,
 but transforms the specified recursive subset,
 using R's default Copy-On-Modify semantics. \cr \cr
 }
 \description{
-The \code{sb2_rec()} and \code{sb2_reccom()} methods
+The \code{sb2_rec()} and \code{sb2_recin()} methods
 are essentially convenient wrappers around \code{[[} and \verb{[[<-},
 respectively. \cr
 \cr
 \code{sb2_rec()} will access recursive subsets of lists. \cr
 \cr
-\code{sb2_reccom()} can do the following things: \cr
+\code{sb2_recin()} can do the following things: \cr
 \itemize{
 \item replace or transform recursive subsets of a list,
 using R's default Copy-On-Modify semantics,
@@ -112,7 +112,7 @@ sb2_rec(lst, c("B", "B", "A")) # this gives "BBA"
 # replace recursive subset with R's default in-place semantics ====
 
 # replace "AAB" using R's default in-place semantics:
-sb2_reccom(
+sb2_recin(
   lst, c("A", "A", "B"),
   rp = "THIS IS REPLACED WITH IN-PLACE SEMANTICS"
 )
@@ -124,7 +124,7 @@ print(lst)
 
 # replace shallow subsets with R's default in-place semantics ====
 
-for(i in c("A", "B")) sb2_reccom(lst, i, rp = "AND THEN THERE WERE NONE")
+for(i in c("A", "B")) sb2_recin(lst, i, rp = "AND THEN THERE WERE NONE")
 
 print(lst)
 

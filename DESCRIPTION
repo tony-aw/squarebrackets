@@ -32,6 +32,8 @@ Description: Provides subset methods
     5) The `[<-` operator only supports copy-on-modify semantics for most classes.
     The 'squarebrackets' methods provides explicit pass-by-reference and pass-by-value semantics,
     whilst still respecting things like binding-locks and mutability rules.
+    6) 'squarebrackets' supports index-less sub-set operations,
+    which is faster and more memory efficient than sub-set operations using the `[` and `[<-` operators.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LinkingTo: Rcpp

@@ -230,8 +230,10 @@
   if(identical(parent.frame(n = 1L), globalenv())) {
     stop("DO NOT call this function!!!")
   }
+  if(!"mutable_atomic" %in% class(x)) {
+    data.table::setattr(x, "class", c("mutable_atomic", class(x)))
+  }
   
-  data.table::setattr(x, "class", c("mutable_atomic", class(x)))
   data.table::setattr(x, "serial", .C_serial(x))
 
   return(invisible(NULL))

@@ -19,10 +19,8 @@ void rcpp_set_all_Logical(LogicalVector x, LogicalVector rp) {
   R_xlen_t n = x.length();
 
   if(rp.length() == n) {
-    R_xlen_t counter = 0;
     for(R_xlen_t i = 0; i < n; ++i) {
-      x[i] = rp[counter];
-      counter += 1;
+      x[i] = rp[i];
     }
   }
   else if(rp.length() == 1) {
@@ -46,10 +44,8 @@ void rcpp_set_all_Integer(IntegerVector x, IntegerVector rp) {
   R_xlen_t n = x.length();
 
   if(rp.length() == n) {
-    R_xlen_t counter = 0;
     for(R_xlen_t i = 0; i < n; ++i) {
-      x[i] = rp[counter];
-      counter += 1;
+      x[i] = rp[i];
     }
   }
   else if(rp.length() == 1) {
@@ -73,10 +69,8 @@ void rcpp_set_all_Numeric(NumericVector x, NumericVector rp) {
   R_xlen_t n = x.length();
 
   if(rp.length() == n) {
-    R_xlen_t counter = 0;
     for(R_xlen_t i = 0; i < n; ++i) {
-      x[i] = rp[counter];
-      counter += 1;
+      x[i] = rp[i];
     }
   }
   else if(rp.length() == 1) {
@@ -100,10 +94,8 @@ void rcpp_set_all_Character(CharacterVector x, CharacterVector rp) {
   R_xlen_t n = x.length();
 
   if(rp.length() == n) {
-    R_xlen_t counter = 0;
     for(R_xlen_t i = 0; i < n; ++i) {
-      x[i] = rp[counter];
-      counter += 1;
+      x[i] = rp[i];
     }
   }
   else if(rp.length() == 1) {
@@ -127,10 +119,8 @@ void rcpp_set_all_Complex(ComplexVector x, ComplexVector rp) {
   R_xlen_t n = x.length();
 
   if(rp.length() == n) {
-    R_xlen_t counter = 0;
     for(R_xlen_t i = 0; i < n; ++i) {
-      x[i] = rp[counter];
-      counter += 1;
+      x[i] = rp[i];
     }
   }
   else if(rp.length() == 1) {
@@ -154,10 +144,8 @@ void rcpp_set_all_Raw(RawVector x, RawVector rp) {
   R_xlen_t n = x.length();
 
   if(rp.length() == n) {
-    R_xlen_t counter = 0;
     for(R_xlen_t i = 0; i < n; ++i) {
-      x[i] = rp[counter];
-      counter += 1;
+      x[i] = rp[i];
     }
   }
   else if(rp.length() == 1) {

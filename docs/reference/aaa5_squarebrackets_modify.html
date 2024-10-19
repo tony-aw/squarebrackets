@@ -112,7 +112,8 @@ corresponds to something like the following: <br></p>
 <p></p><div class="sourceCode r"><pre><code><span><span class="va">x</span><span class="op">[</span><span class="va">...</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">tf</span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="va">...</span><span class="op">]</span><span class="op">)</span> <span class="co"># for atomic objects</span></span>
 <span><span class="va">x</span><span class="op">[</span><span class="va">...</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">.lapply</span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="va">...</span><span class="op">]</span>, <span class="va">tf</span><span class="op">)</span> <span class="co"># for recursive objects</span></span>
 <span></span></code></pre><p></p></div>
-<p>where <code>tf</code> is a function.
+<p>where <code>tf</code> is a function that <b>returns</b> an object of appropriate type and size
+(so <code>tf</code> should not be a pass-by-reference function). <br>
 For recursive objects, <code>tf</code> is accompanied by the <code>.lapply</code> argument. <br>
 By default, <code>.lapply = lapply</code>. <br>
 The user may supply a custom <code><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply()</a></code>-like function

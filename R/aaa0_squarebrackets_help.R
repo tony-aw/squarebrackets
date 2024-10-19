@@ -81,9 +81,8 @@
 #' from the 'collections' package - are not supported. \cr \cr
 #
 #'  
-#' @section Methods and Functions:
+#' @section Methods:
 #' 
-#' `r .mybadge_intro_section("GENERIC METHODS", "darkgreen")` \cr
 #' The main focus of this package is on its generic methods
 #' and dimensional binding implementations. \cr
 #' \cr
@@ -97,38 +96,54 @@
 #' start with `bind2_`. \cr
 #' There is also the somewhat separate \link{idx} method,
 #' which works on both recursive and non-recursive objects. \cr
-#' \cr
-#' The available generic methods are the following:
+#' And finally there are the `slcseq_` methods, which (currently) only work on atomic vectors. \cr \cr
+#' 
+#' 
+#' `r .mybadge_intro_section("SELECTION METHODS", "darkgreen")` \cr
 #' 
 #'  * \link{sb_x}, \link{sb2_x}: extract, exchange, or duplicate subsets.
 #'  * \link{sb_rm},  \link{sb2_rm}: un-select/remove subsets.
-#'  * \link{sb_set}, \link{sb2_set}: modify (transform or replace)
-#'  subsets of a \link[=squarebrackets_mutable_classes]{mutable object}
-#'  using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
+#'  * \link{sb2_rec}: access recursive subsets of lists.
+#'  * \link{slcseq_x}, \link{slcseq_rm}: efficiently extract or remove subset from a (long) vector. \cr \cr
+#'  
+#'  
+#' `r .mybadge_intro_section("MODIFICATION METHODS", "red")` \cr
+#'  
+#'  * \link{idx}: translate given indices/subscripts,
+#'  for the purpose of copy-on-modify substitution.
+#'  * \link{sb2_recin}: replace, transform, remove, or add recursive subsets to a list,
+#'  through R's default Copy-On-Modify semantics.
 #'  * \link{sb_mod}, \link{sb2_mod}: return a \bold{(partial) copy}
 #'  of an object with modified
 #'  (transformed or replaced) subsets.
-#'  * \link{sb2_rec}: access recursive subsets of lists.
-#'  * \link{sb2_reccom}: replace, transform, remove, or add recursive subsets to a list,
-#'  through R's default Copy-On-Modify semantics.
-#'  * \link{sb_setFlatnames}, \link{sb_setDimnames}, \link{sb2_setVarnames}: change the names of
-#'  a \link[=squarebrackets_mutable_classes]{mutable object}
+#'  * \link{sb_set}, \link{sb2_set}: modify (transform or replace)
+#'  subsets of a \link[=squarebrackets_mutable_classes]{mutable object}
 #'  using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
-#'  * \link[=bind]{bind_}, \link[=bind]{bind2_}:  implementations for binding dimensional objects.
-#'  * \link{idx}: translate given indices/subscripts,
-#'  for the purpose of copy-on-modify substitution.
-#'  * \link{cp_seq}: construct parameters for margin-based sequences. \cr
+#'  * \link{slcseq_set}: efficiently modify a (long) vector subset using
+#'  \link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr \cr
 #'  
+#' 
+#' `r .mybadge_intro_section("OTHER METHODS", "pink")` \cr
+#'  
+#'  * \link[=bind]{bind_}, \link[=bind]{bind2_}:  implementations for binding dimensional objects.
+#'  * \link{cp_seq}: construct parameters for margin-based sequences. \cr
+#'  Not actually a method, but can be used to predict the exact sequence lay-out,
+#'  like used in the \link[=slcseq_x]{slcseq_} methods. \cr \cr
+#'  
+#' 
 #' So for example,
 #' use `sb_rm()` to remove subsets from atomic arrays,
 #' and use `sb2_rm()` to remove subsets from recursive arrays. \cr
 #' See \link{squarebrackets_method_dispatch} for more information on how 'squarebrackets'
 #' uses its S3 Method dispatch. \cr \cr
 #' 
+#' 
+#' @section Functions: 
+#' 
 #' `r .mybadge_intro_section("SPECIALIZED FUNCTIONS", "darkred")` \cr
 #' Additional specialized sub-setting functions are provided:
 #' 
-#'  * \link{lst_untree}: unnest tree-like nested list,
+#'  * \link{lst_untree}: unnest tree-like nested list into a recursive array,
 #'  to make vectorized sub-setting on recursive subsets of the list easier.
 #'  * The \link[=dt_setcoe]{dt_}-functions
 #'  to programmatically perform `data.table`-specific `[`-operations,
@@ -137,7 +152,7 @@
 #'  using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
 #'  * \link{ma_setv}: Find & Replace values in \link{mutable_atomic} objects
 #'  using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr
-#'  This is considerably faster and more memory efficient than using \link{sb_set} for this.
+#'  This is considerably faster and more memory efficient than using \link{sb_set} for this. \cr \cr
 #'  
 #' 
 #' `r .mybadge_intro_section("HELPER FUNCTIONS", "lightblue")` \cr
@@ -158,10 +173,7 @@
 #'  * Computing indices: \cr
 #'  \link{idx_r} to compute an integer index range. \cr
 #'  \link{idx_by} to compute grouped indices. \cr
-#'  \link[=idx_ord_v]{idx_ord_}-functions to compute ordered indices. \cr
-#'  * Computing sequences: \cr
-#'  \link{seq_rec2} for the recursive sequence generator
-#'  (for example to generate a Fibonacci sequence). \cr  \cr
+#'  \link[=idx_ord_v]{idx_ord_}-functions to compute ordered indices. \cr \cr
 #' 
 #' 
 #' `r .mybadge_intro_section("DEVELOPER FUNCTIONS", "pink")` \cr

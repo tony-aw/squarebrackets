@@ -97,10 +97,9 @@ and the various 'collections' classes
 from the 'collections' package - are not supported. \cr \cr
 }
 
-\section{Methods and Functions}{
+\section{Methods}{
 
 
-\ifelse{html}{\figure{generic_methods-darkgreen.svg}{options: alt='[GENERIC METHODS]'}}{\link[=squarebrackets_help]{GENERIC METHODS}} \cr
 The main focus of this package is on its generic methods
 and dimensional binding implementations. \cr
 \cr
@@ -114,27 +113,38 @@ The binding implementations for recursive dimensional objects (recursive arrays,
 start with \code{bind2_}. \cr
 There is also the somewhat separate \link{idx} method,
 which works on both recursive and non-recursive objects. \cr
-\cr
-The available generic methods are the following:
+And finally there are the \code{slcseq_} methods, which (currently) only work on atomic vectors. \cr \cr
+
+\ifelse{html}{\figure{selection_methods-darkgreen.svg}{options: alt='[SELECTION METHODS]'}}{\link[=squarebrackets_help]{SELECTION METHODS}} \cr
 \itemize{
 \item \link{sb_x}, \link{sb2_x}: extract, exchange, or duplicate subsets.
 \item \link{sb_rm},  \link{sb2_rm}: un-select/remove subsets.
-\item \link{sb_set}, \link{sb2_set}: modify (transform or replace)
-subsets of a \link[=squarebrackets_mutable_classes]{mutable object}
-using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
+\item \link{sb2_rec}: access recursive subsets of lists.
+\item \link{slcseq_x}, \link{slcseq_rm}: efficiently extract or remove subset from a (long) vector. \cr \cr
+}
+
+\ifelse{html}{\figure{modification_methods-red.svg}{options: alt='[MODIFICATION METHODS]'}}{\link[=squarebrackets_help]{MODIFICATION METHODS}} \cr
+\itemize{
+\item \link{idx}: translate given indices/subscripts,
+for the purpose of copy-on-modify substitution.
+\item \link{sb2_recin}: replace, transform, remove, or add recursive subsets to a list,
+through R's default Copy-On-Modify semantics.
 \item \link{sb_mod}, \link{sb2_mod}: return a \bold{(partial) copy}
 of an object with modified
 (transformed or replaced) subsets.
-\item \link{sb2_rec}: access recursive subsets of lists.
-\item \link{sb2_reccom}: replace, transform, remove, or add recursive subsets to a list,
-through R's default Copy-On-Modify semantics.
-\item \link{sb_setFlatnames}, \link{sb_setDimnames}, \link{sb2_setVarnames}: change the names of
-a \link[=squarebrackets_mutable_classes]{mutable object}
+\item \link{sb_set}, \link{sb2_set}: modify (transform or replace)
+subsets of a \link[=squarebrackets_mutable_classes]{mutable object}
 using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
+\item \link{slcseq_set}: efficiently modify a (long) vector subset using
+\link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr \cr
+}
+
+\ifelse{html}{\figure{other_methods-pink.svg}{options: alt='[OTHER METHODS]'}}{\link[=squarebrackets_help]{OTHER METHODS}} \cr
+\itemize{
 \item \link[=bind]{bind_}, \link[=bind]{bind2_}:  implementations for binding dimensional objects.
-\item \link{idx}: translate given indices/subscripts,
-for the purpose of copy-on-modify substitution.
 \item \link{cp_seq}: construct parameters for margin-based sequences. \cr
+Not actually a method, but can be used to predict the exact sequence lay-out,
+like used in the \link[=slcseq_x]{slcseq_} methods. \cr \cr
 }
 
 So for example,
@@ -142,11 +152,15 @@ use \code{sb_rm()} to remove subsets from atomic arrays,
 and use \code{sb2_rm()} to remove subsets from recursive arrays. \cr
 See \link{squarebrackets_method_dispatch} for more information on how 'squarebrackets'
 uses its S3 Method dispatch. \cr \cr
+}
+
+\section{Functions}{
+
 
 \ifelse{html}{\figure{specialized_functions-darkred.svg}{options: alt='[SPECIALIZED FUNCTIONS]'}}{\link[=squarebrackets_help]{SPECIALIZED FUNCTIONS}} \cr
 Additional specialized sub-setting functions are provided:
 \itemize{
-\item \link{lst_untree}: unnest tree-like nested list,
+\item \link{lst_untree}: unnest tree-like nested list into a recursive array,
 to make vectorized sub-setting on recursive subsets of the list easier.
 \item The \link[=dt_setcoe]{dt_}-functions
 to programmatically perform \code{data.table}-specific \code{[}-operations,
@@ -155,7 +169,7 @@ with the security measures provided by the 'squarebrackets' package.
 using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
 \item \link{ma_setv}: Find & Replace values in \link{mutable_atomic} objects
 using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr
-This is considerably faster and more memory efficient than using \link{sb_set} for this.
+This is considerably faster and more memory efficient than using \link{sb_set} for this. \cr \cr
 }
 
 \ifelse{html}{\figure{helper_functions-lightblue.svg}{options: alt='[HELPER FUNCTIONS]'}}{\link[=squarebrackets_help]{HELPER FUNCTIONS}} \cr
@@ -176,10 +190,7 @@ taking into account the order and any duplicate values of both vectors.
 \item Computing indices: \cr
 \link{idx_r} to compute an integer index range. \cr
 \link{idx_by} to compute grouped indices. \cr
-\link[=idx_ord_v]{idx_ord_}-functions to compute ordered indices. \cr
-\item Computing sequences: \cr
-\link{seq_rec2} for the recursive sequence generator
-(for example to generate a Fibonacci sequence). \cr  \cr
+\link[=idx_ord_v]{idx_ord_}-functions to compute ordered indices. \cr \cr
 }
 
 \ifelse{html}{\figure{developer_functions-pink.svg}{options: alt='[DEVELOPER FUNCTIONS]'}}{\link[=squarebrackets_help]{DEVELOPER FUNCTIONS}} \cr

@@ -63,7 +63,8 @@
 #' x[...] <- .lapply(x[...], tf) # for recursive objects
 #' 
 #' ```
-#' where `tf` is a function.
+#' where `tf` is a function that \bold{returns} an object of appropriate type and size
+#' (so `tf` should not be a pass-by-reference function). \cr
 #' For recursive objects, `tf` is accompanied by the `.lapply` argument. \cr
 #' By default, `.lapply = lapply`. \cr
 #' The user may supply a custom `lapply()`-like function

@@ -7,6 +7,10 @@
 #' \cr
 #' The following implementations are available:
 #' 
+#'  - `bind_row()`, `bind_col()`, `bind2_row()`, `bind2_col()`
+#'  bind dimensionless vectors row- or column-wise. \cr
+#'  Can also bind matrices. \cr
+#'  When the output is atomic, returns a \link{mutable_atomic} array. \cr
 #'  - `bind_array()` binds atomic arrays and matrices. \cr
 #'  Returns a \link{mutable_atomic} array. \cr
 #'  - `bind2_array()` binds recursive arrays and matrices. \cr
@@ -30,16 +34,17 @@
 #'  will create an additional dimension (`n+1`) and bind the arrays along that new dimension.
 #' @param name_along Boolean, for `bind_array()` and `bind2_array()`. \cr
 #' Indicates if dimension `along` should be named. \cr
-#' @param name_shared integer or `NULL`, for `bind_array()` and `bind2_array()`. \cr
+#' @param comnames_from integer scalar or `NULL`, for `bind_array()` and `bind2_array()`. \cr
 #' Indicates which object in `arg.list` should be used for naming the shared dimension. \cr
-#' If `NULL`, no shared names will be given. \cr
+#' If `NULL`, no communal names will be given. \cr
 #' For example: \cr
 #' When binding columns of atomic matrices,
-#' `name_shared = 1` results in `bind_array()` using `rownames(arg.list[[1]])` for the row names of the output.
+#' `comnames_from = 1` results in `bind_array()` using `rownames(arg.list[[1]])` for the row names of the output.
 #' @param name_flat Boolean, for `bind_array()` and `bind2_array()`. \cr
 #' Indicates if flat indices should be named. \cr
 #' Note that setting this to `TRUE` will reduce performance considerably. \cr
-#' `r .mybadge_performance_set2("FALSE")` \cr \cr
+#' `r .mybadge_performance_set2("FALSE")`
+#' @param deparse.level see \link[base]{cbind} and \link[base]{rbind}.
 #' 
 #' @details
 #' `bind_array()` and `bind2_array()` are modified versions of the fantastic
@@ -69,14 +74,52 @@ NULL
 
 #' @rdname bind
 #' @export
-bind_array <- function(
-    arg.list, along, name_along = TRUE, name_shared = 1L, name_flat = FALSE
+bind_row <- function(
+    arg.list, deparse.level = 1
 ) {
-  out <- .internal_abind(arg.list, along, TRUE, name_along)
+  out <- do.call(rbind, c(arg.list, n(deparse.level)))
+  if(is.atomic(out)) {
+    .internal_set_ma(out)
+  }
+  return(out)
+}
+
+#' @rdname bind
+#' @export
+bind2_row <- bind_row
+
+
+#' @rdname bind
+#' @export
+bind_col <- function(
+    arg.list, deparse.level = 1
+) {
+  out <- do.call(cbind, c(arg.list, n(deparse.level)))
+  if(is.atomic(out)) {
+    .internal_set_ma(out)
+  }
+  return(out)
+}
+
+#' @rdname bind
+#' @export
+bind2_col <- bind_col
+
+
+
+#' @rdname bind
+#' @export
+bind_array <- function(
+    arg.list, along, name_along = TRUE, comnames_from = 1L, name_flat = FALSE
+) {
+  
+  .bind_checkargs(along, name_along, comnames_from, name_flat, abortcall = sys.call())
+  
+  out <- .internal_abind(arg.list, along, TRUE, name_along, sys.call())
   
   
-  if(!is.null(name_shared)) {
-    .bind_set_sharednames(out, name_shared, arg.list, along)
+  if(!is.null(comnames_from)) {
+    .bind_set_sharednames(out, comnames_from, arg.list, along)
   }
   if(name_flat) {
     names(out) <- .bind_make_flatnames(arg.list, along)
@@ -93,12 +136,15 @@ bind_array <- function(
 #' @rdname bind
 #' @export
 bind2_array <- function(
-    arg.list, along, name_along = TRUE, name_shared = 1L, name_flat = FALSE
+    arg.list, along, name_along = TRUE, comnames_from = 1L, name_flat = FALSE
 ) {
-  out <- .internal_abind(arg.list, along, FALSE, name_along)
   
-  if(!is.null(name_shared)) {
-    .bind_set_sharednames(out, name_shared, arg.list, along)
+  .bind_checkargs(along, name_along, comnames_from, name_flat, abortcall = sys.call())
+  
+  out <- .internal_abind(arg.list, along, FALSE, name_along, sys.call())
+  
+  if(!is.null(comnames_from)) {
+    .bind_set_sharednames(out, comnames_from, arg.list, along)
   }
   if(name_flat) {
     names(out) <- .bind_make_flatnames(arg.list, along)

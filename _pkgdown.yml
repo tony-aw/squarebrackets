@@ -35,9 +35,9 @@ reference:
   - '`sb_mod`'
   - '`sb_set`'
   - '`sb2_rec`'
-  - '`sb_setFlatnames`'
   - '`bind`'
   - '`idx`'
+  - '`slcseq_x`'
   - '`cp_seq`'
 - title: Specialized Functions
   contents:
@@ -54,7 +54,6 @@ reference:
   - '`idx_r`'
   - '`idx_by`'
   - '`idx_ord_v`'
-  - '`seq_rec2`'
 - title: Developer Functions
   contents:
   - '`ci_flat`'

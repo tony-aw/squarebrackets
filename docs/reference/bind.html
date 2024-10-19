@@ -4,6 +4,10 @@ bind_ is for atomic objects, and bind2_ for recursive objects.
 When possible, the bind_/bind2_ functions return mutable classes. 
 
 The following implementations are available:
+bind_row(), bind_col(), bind2_row(), bind2_col()
+bind dimensionless vectors row- or column-wise. 
+Can also bind matrices. 
+When the output is atomic, returns a mutable_atomic array. 
 bind_array() binds atomic arrays and matrices. 
 Returns a mutable_atomic array. 
 bind2_array() binds recursive arrays and matrices. 
@@ -17,6 +21,10 @@ bind_ is for atomic objects, and bind2_ for recursive objects.
 When possible, the bind_/bind2_ functions return mutable classes. 
 
 The following implementations are available:
+bind_row(), bind_col(), bind2_row(), bind2_col()
+bind dimensionless vectors row- or column-wise. 
+Can also bind matrices. 
+When the output is atomic, returns a mutable_atomic array. 
 bind_array() binds atomic arrays and matrices. 
 Returns a mutable_atomic array. 
 bind2_array() binds recursive arrays and matrices. 
@@ -80,7 +88,11 @@ Faster than do.call(cbind, ...) or do.call(rbind, ...) for regular data.frame ob
     <div class="ref-description section level2">
     <p>The <code>bind_</code> and <code>bind2_</code> implementations provide dimensional binding functionalities. <br><code>bind_</code> is for atomic objects, and <code>bind2_</code> for recursive objects. <br>
 When possible, the <code>bind_</code>/<code>bind2_</code> functions return <a href="aaa2_squarebrackets_mutable_classes.html">mutable classes</a>. <br><br>
-The following implementations are available:</p><ul><li><p><code>bind_array()</code> binds atomic arrays and matrices. <br>
+The following implementations are available:</p><ul><li><p><code>bind_row()</code>, <code>bind_col()</code>, <code>bind2_row()</code>, <code>bind2_col()</code>
+bind dimensionless vectors row- or column-wise. <br>
+Can also bind matrices. <br>
+When the output is atomic, returns a <a href="class_mutable_atomic.html">mutable_atomic</a> array. <br></p></li>
+<li><p><code>bind_array()</code> binds atomic arrays and matrices. <br>
 Returns a <a href="class_mutable_atomic.html">mutable_atomic</a> array. <br></p></li>
 <li><p><code>bind2_array()</code> binds recursive arrays and matrices. <br>
 Returns a recursive array (immutable).</p></li>
@@ -91,11 +103,19 @@ Faster than <code>do.call(cbind, ...)</code> or <code>do.call(rbind, ...)</code>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">bind_array</span><span class="op">(</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">bind_row</span><span class="op">(</span><span class="va">arg.list</span>, deparse.level <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">bind2_row</span><span class="op">(</span><span class="va">arg.list</span>, deparse.level <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">bind_col</span><span class="op">(</span><span class="va">arg.list</span>, deparse.level <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">bind2_col</span><span class="op">(</span><span class="va">arg.list</span>, deparse.level <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">bind_array</span><span class="op">(</span></span>
 <span>  <span class="va">arg.list</span>,</span>
 <span>  <span class="va">along</span>,</span>
 <span>  name_along <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  name_shared <span class="op">=</span> <span class="fl">1L</span>,</span>
+<span>  comnames_from <span class="op">=</span> <span class="fl">1L</span>,</span>
 <span>  name_flat <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -103,7 +123,7 @@ Faster than <code>do.call(cbind, ...)</code> or <code>do.call(rbind, ...)</code>
 <span>  <span class="va">arg.list</span>,</span>
 <span>  <span class="va">along</span>,</span>
 <span>  name_along <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  name_shared <span class="op">=</span> <span class="fl">1L</span>,</span>
+<span>  comnames_from <span class="op">=</span> <span class="fl">1L</span>,</span>
 <span>  name_flat <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -116,6 +136,10 @@ Faster than <code>do.call(cbind, ...)</code> or <code>do.call(rbind, ...)</code>
 <dd><p>a list of only the appropriate objects. <br>
 Do not mix recursive and atomic objects in the same list,
 as that may result in unexpected results. <br></p></dd>
+
+
+<dt>deparse.level</dt>
+<dd><p>see <a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a> and <a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a>.</p></dd>
 
 
 <dt>along</dt>
@@ -134,19 +158,19 @@ will create an additional dimension (<code>n+1</code>) and bind the arrays along
 Indicates if dimension <code>along</code> should be named. <br></p></dd>
 
 
-<dt>name_shared</dt>
-<dd><p>integer or <code>NULL</code>, for <code>bind_array()</code> and <code>bind2_array()</code>. <br>
+<dt>comnames_from</dt>
+<dd><p>integer scalar or <code>NULL</code>, for <code>bind_array()</code> and <code>bind2_array()</code>. <br>
 Indicates which object in <code>arg.list</code> should be used for naming the shared dimension. <br>
-If <code>NULL</code>, no shared names will be given. <br>
+If <code>NULL</code>, no communal names will be given. <br>
 For example: <br>
 When binding columns of atomic matrices,
-<code>name_shared = 1</code> results in <code>bind_array()</code> using <code>rownames(arg.list[[1]])</code> for the row names of the output.</p></dd>
+<code>comnames_from = 1</code> results in <code>bind_array()</code> using <code>rownames(arg.list[[1]])</code> for the row names of the output.</p></dd>
 
 
 <dt>name_flat</dt>
 <dd><p>Boolean, for <code>bind_array()</code> and <code>bind2_array()</code>. <br>
 Indicates if flat indices should be named. <br>
-Note that setting this to <code>TRUE</code> will reduce performance considerably. <br><img src="figures/for_performance-set_to_FALSE-red.svg" alt="[for performance: set to FALSE]"><br><br></p></dd>
+Note that setting this to <code>TRUE</code> will reduce performance considerably. <br><img src="figures/for_performance-set_to_FALSE-red.svg" alt="[for performance: set to FALSE]"></p></dd>
 
 </dl></div>
     <div class="section level2">

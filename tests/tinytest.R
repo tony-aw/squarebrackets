@@ -19,7 +19,7 @@ if ( requireNamespace("tinytest", quietly = TRUE) ){
     "squarebrackets", testdir = "tinytest/developer", set_env=list(LC_COLLATE="C")
   )
   tinytest::test_package(
-    "squarebrackets", testdir = "tinytest/cp", set_env=list(LC_COLLATE="C")
+    "squarebrackets", testdir = "tinytest/slice", set_env=list(LC_COLLATE="C")
   )
   
   # the next tests take about 10 minutes
@@ -34,9 +34,6 @@ if ( requireNamespace("tinytest", quietly = TRUE) ){
     )
     tinytest::test_package(
       "squarebrackets", testdir = "tinytest/generic_idx", set_env=list(LC_COLLATE="C")
-    )
-    tinytest::test_package(
-      "squarebrackets", testdir = "tinytest/generic_rename", set_env=list(LC_COLLATE="C")
     )
   }
   

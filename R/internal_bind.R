@@ -3,7 +3,7 @@
 #' @keywords internal
 #' @noRd
 .internal_abind <- function(
-    arg.list, along, atomic, name_along
+    arg.list, along, atomic, name_along, abortcall
 ) {
   N <- max(
     1L,
@@ -23,11 +23,14 @@
   
   ## this next check should be redundant, but keep it here for safety...
   if (length(along) > 1L || along < 1L || along > (N + 1L)) {
-    stop(paste("\"along\" must specify one dimension of the array,",
-               "or interpolate between two dimensions of the array",
-               sep = "\n"))
+    txt <- paste("\"along\" must specify one dimension of the array,",
+                 "or interpolate between two dimensions of the array",
+                 sep = "\n")
+    stop(simpleError(txt, call = abortcall))
   }
-  if (along > N || along < 1L) stop("along must be between 0 and ", N)
+  if (along > N || along < 1L) {
+    stop(simpleError(paste0("`along` must be between 0 and ", N), call = abortcall))
+  }
   
   
   
@@ -62,15 +65,18 @@
       }
     }
     else {
-      stop("arg.list[[", i, "]]  does not fit: should have `length(dim())'=",
-           N, " or ", N - 1L)
+      txt <- paste0(
+        "arg.list[[", i, "]]  does not fit: should have `length(dim())'=",
+        N, " or ", N - 1L
+      )
+      stop(simpleError(txt, call = abortcall))
     }
     
     if (m.changed) {
       arg.list[[i]] <- m
     }
     else if (any(perm != seq_along(perm))) {
-      arg.list[[i]] <- aperm(m, perm)
+      arg.list[[i]] <- aperm.default(m, perm)
     }
   }
   # END CORE FUNCTION
@@ -79,7 +85,7 @@
   ## Make sure all dimensions conform
   conform.dim <- arg.dim[, 1L]
   if(!.rcpp_abind_all_conform_dims(conform.dim, arg.dim, ncol(arg.dim), along)) {
-    stop("non-conformable dimensions")
+    stop(simpleError("non-conformable dimensions", call = abortcall))
   }
   
   # create output array (unordered)
@@ -118,6 +124,32 @@
   return(out)
 }
 
+
+#' @keywords internal
+#' @noRd
+.bind_checkargs <- function(
+    along, name_along, comnames_from, name_flat, abortcall
+) {
+  
+  if(!is.numeric(along) || length(along) != 1) {
+    stop(simpleError("`along` must be an integer scalar", call = abortcall))
+  }
+  
+  if(!is.logical(name_along) || length(name_along) != 1) {
+    stop(simpleError("`name_along` must be a Boolean", call = abortcall))
+  }
+  
+  if(!is.null(comnames_from)) {
+    if(!is.numeric(comnames_from) || length(comnames_from) != 1) {
+      stop(simpleError("`comnames_from` must be an integer scalar or `NULL`", call = abortcall))
+    }
+  }
+  
+  if(!is.logical(name_flat) || length(name_flat) != 1) {
+    stop(simpleError("`name_flat` must be a Boolean", call = abortcall))
+  }
+  
+}
 
 #' @keywords internal
 #' @noRd

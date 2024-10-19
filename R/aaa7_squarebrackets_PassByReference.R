@@ -72,29 +72,14 @@
 #' \cr
 #' 
 #' @section ALTREP:
-#' A more subtle type of (usually) immaterial objects are ALTREP objects. \cr
-#' Although ALTREP can be used in various different ways,
-#' ALTREP objects in base 'R' store instructions on how values are stored,
-#' but do not actually store the values, and so are immaterial. \cr
-#' \cr
-#' For example, `x <- 1:1e6` is an \bold{immaterial} object: \cr
-#' Unlike `rnorm(1e6)`, `1:1e6` does not actually store 1 million values; \cr
-#' Rather, it stores the simple \bold{instruction} that `x[i] = i`. \cr
-#' When `x` is modified, the given instructions obviously don't hold any more,
-#' and so 'R' will materialize `x`, which means `x` will then actually store its values in memory. \cr
-#' So when `x` is materialized,
-#' the size of `x` in the memory will change from a few bytes to a few Mega Bytes. \cr
-#' \cr
-#' The 'stringfish' package also uses ALTREP,
-#' but ALTREP objects in 'stringfish' are actually material objects. \cr
-#' \cr
-#' Clearly, ALTREP objects are difficult to work with when using pass-by-reference. \cr
+#' the \link{mutable_atomic} constructors
+#' (i.e. \link{mutable_atomic}, \link{as.mutable_atomic}, etc.)
+#' will automatically materialize ALTREP objects,
+#' to ensure consistent behaviour for 'pass-by-reference' semanthics. \cr
 #' \cr
 #' A `data.table` can have ALTREP columns. \cr
 #' A `data.tables` will coerce the column to a materialized column when it is modified, even by reference. \cr
 #' This works since a `data.table` is a recursive object. \cr
-#' \cr
-#' The `mutable_atomic` class materializes its input, just to be on the safe side. \cr
 #' \cr
 #' 
 #' 

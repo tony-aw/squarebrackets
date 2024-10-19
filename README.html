@@ -645,6 +645,9 @@ list.</li>
 semantics for most classes. The ‘squarebrackets’ methods provides
 explicit pass-by-reference and pass-by-value semantics, whilst still
 respecting things like binding-locks and mutability rules.</li>
+<li>‘squarebrackets’ supports index-less sub-set operations, which is
+faster and more memory efficient than sub-set operations using the
+<code>[</code> and <code>[&lt;-</code> operators.</li>
 </ol>
 <p> </p>
 <h2 id="get-started">Get Started</h2>
@@ -748,6 +751,9 @@ data.frame-like objects instead of whole copies, for more memory
 efficiency. Also removed the old <code>sb_str()</code> and
 <code>sb_a()</code> functions. Renamed <code>ci_seq()</code> to
 <code>cp_seq()</code> (in preparation for the next update).</li>
+<li>19 October 2024: Removed the renaming methods
+(<code>sb_setRename</code>), and <code>seq_rec2()</code>. Added
+<code>slcseq()</code></li>
 </ul>
 <p> </p>
 

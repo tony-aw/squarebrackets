@@ -16,10 +16,8 @@ void rcpp_set_all_RTYPE(RTYPEVector x, RTYPEVector rp) {
   R_xlen_t n = x.length();
 
   if(rp.length() == n) {
-    R_xlen_t counter = 0;
     for(R_xlen_t i = 0; i < n; ++i) {
-      x[i] = rp[counter];
-      counter += 1;
+      x[i] = rp[i];
     }
   }
   else if(rp.length() == 1) {
@@ -98,10 +96,8 @@ templatecode <- "
 void rcpp_set_vind_64_RTYPE(RTYPEVector x, const NumericVector ind, const RTYPEVector rp) {
   R_xlen_t n = ind.length();
   if(rp.length() == n) {
-    R_xlen_t counter = 0;
     for(R_xlen_t i = 0; i < n; ++i) {
-      x[ind[i]] = rp[counter];
-      counter += 1;
+      x[ind[i]] = rp[i];
     }
   }
   else if(rp.length() == 1) {
@@ -120,10 +116,8 @@ void rcpp_set_vind_32_RTYPE(RTYPEVector x, const IntegerVector ind, const RTYPEV
   R_xlen_t n = ind.length();
   
   if(rp.length() == n) {
-    R_xlen_t counter = 0;
     for(R_xlen_t i = 0; i < n; ++i) {
-      x[ind[i]] = rp[counter];
-      counter += 1;
+      x[ind[i]] = rp[i];
     }
   }
   else if(rp.length() == 1) {

@@ -256,12 +256,16 @@ c.mutable_atomic <- function(..., use.names = TRUE) {
 }
 
 
+
 #' @rdname class_mutable_atomic
 #' @export
 `[.mutable_atomic` <- function(x, ...) {
   y <- NextMethod("[")
   
-  class(y) <- c("mutable_atomic", class(y))
+  if(!inherits(y, "mutable_atomic")) {
+    class(y) <- c("mutable_atomic", class(y))
+  }
+  
   attr(y, "serial") <- .C_serial(y)
   y
 }

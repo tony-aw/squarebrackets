@@ -73,7 +73,8 @@ x[...] <- .lapply(x[...], tf) # for recursive objects
 
 }\if{html}{\out{</div>}}
 
-where \code{tf} is a function.
+where \code{tf} is a function that \bold{returns} an object of appropriate type and size
+(so \code{tf} should not be a pass-by-reference function). \cr
 For recursive objects, \code{tf} is accompanied by the \code{.lapply} argument. \cr
 By default, \code{.lapply = lapply}. \cr
 The user may supply a custom \code{lapply()}-like function

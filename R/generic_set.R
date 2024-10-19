@@ -40,7 +40,7 @@
 #' @export
 sb_set <- function(x, ...) {
   
-  UseMethod("sb_set", x) ## commentary
+  UseMethod("sb_set", x)
 }
 
 

@@ -1,7 +1,7 @@
 #' Unnest Tree-like List to Recursive 2d Array or Flattened Recursive Vector
 #'
 #' @description
-#' `[[`, `[[<-`, \link{sb2_rec}, and \link{sb2_reccom},
+#' `[[`, `[[<-`, \link{sb2_rec}, and \link{sb2_recin},
 #' can performing recursive subset operation on a nested list. \cr
 #' Such recursive subset operations only operate on a single element. \cr
 #' Performing recursive subset operations on multiple elements is not vectorized,

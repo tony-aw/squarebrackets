@@ -27,7 +27,7 @@ sb2_rec(lst, c("B", "B", "A")) # this gives "BBA"
 # replace recursive subset with R's default in-place semantics ====
 
 # replace "AAB" using R's default in-place semantics:
-sb2_reccom(
+sb2_recin(
   lst, c("A", "A", "B"),
   rp = "THIS IS REPLACED WITH IN-PLACE SEMANTICS"
 )
@@ -39,7 +39,7 @@ print(lst)
 
 # replace shallow subsets with R's default in-place semantics ====
 
-for(i in c("A", "B")) sb2_reccom(lst, i, rp = "AND THEN THERE WERE NONE")
+for(i in c("A", "B")) sb2_recin(lst, i, rp = "AND THEN THERE WERE NONE")
 
 print(lst)
 

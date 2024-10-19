@@ -1,13 +1,13 @@
 #' Access, Replace, Transform, Remove, or Extend Recursive Subsets
 #'
 #' @description
-#' The `sb2_rec()` and `sb2_reccom()` methods
+#' The `sb2_rec()` and `sb2_recin()` methods
 #' are essentially convenient wrappers around `[[` and `[[<-`,
 #' respectively. \cr
 #' \cr
 #' `sb2_rec()` will access recursive subsets of lists. \cr
 #' \cr
-#' `sb2_reccom()` can do the following things: \cr
+#' `sb2_recin()` can do the following things: \cr
 #' 
 #'  - replace or transform recursive subsets of a list,
 #'  using R's default Copy-On-Modify semantics,
@@ -41,10 +41,10 @@
 #' - When specifying `rp = NULL`, will \bold{remove} (recursive) subset `x[[rec]]`. \cr
 #' To specify actual `NULL` instead of removing a subset, use `list(NULL)`.
 #' - When `rec` is an integer, and specifies an out-of-bounds subset,
-#' `sb2_reccom()` will add value `rp` to the list. \cr
+#' `sb2_recin()` will add value `rp` to the list. \cr
 #' Any empty positions in between will be filled with `NA`.
 #' - When `rec` is character, and specifies a non-existing name,
-#' `sb2_reccom()` will add value `rp` to the list as a new element at the end.
+#' `sb2_recin()` will add value `rp` to the list as a new element at the end.
 #' @param tf an optional function. If specified, performs `x[[rec]] <- tf(x[[rec]])`,
 #' using R's default Copy-On-Modify semantics. \cr
 #' Does not support extending a list like argument `rp`.
@@ -60,12 +60,12 @@
 #' For `sb2_rec()`: \cr
 #' Returns the recursive subset. \cr
 #' \cr
-#' For `sb2_reccom(..., rp = rp)`: \cr
+#' For `sb2_recin(..., rp = rp)`: \cr
 #' Returns VOID,
 #' but replaces, adds, or removes the specified recursive subset,
 #' using R's default Copy-On-Modify semantics. \cr
 #' \cr
-#' For `sb2_reccom(..., tf = tf)`: \cr
+#' For `sb2_recin(..., tf = tf)`: \cr
 #' Returns VOID,
 #' but transforms the specified recursive subset,
 #' using R's default Copy-On-Modify semantics. \cr \cr
@@ -98,7 +98,7 @@ sb2_rec <- function(x, rec) {
 
 #' @rdname sb2_rec
 #' @export
-sb2_reccom <- function(x, rec, rp, tf) {
+sb2_recin <- function(x, rec, rp, tf) {
   
   # error handling:
   if(!is.list(x)) {
