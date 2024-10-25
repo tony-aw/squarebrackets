@@ -1,50 +1,24 @@
-
-
 #include <Rcpp.h>
 
 using namespace Rcpp;
 
 
 
-
-
-
-
-
-
-//' @keywords internal
-//' @noRd
-// [[Rcpp::export(.rcpp_set_vind_64_Logical)]]
-void rcpp_set_vind_64_Logical(LogicalVector x, const NumericVector ind, const LogicalVector rp) {
-  R_xlen_t n = ind.length();
-  if(rp.length() == n) {
-    for(R_xlen_t i = 0; i < n; ++i) {
-      x[ind[i]] = rp[i];
-    }
-  }
-  else if(rp.length() == 1) {
-    for(R_xlen_t i = 0; i < n; ++i) {
-      x[ind[i]] = rp[0];
-    }
-  }
-  else stop("recycling not allowed");
-}
-
-
-//' @keywords internal
-//' @noRd
-// [[Rcpp::export(.rcpp_set_vind_32_Logical)]]
-void rcpp_set_vind_32_Logical(LogicalVector x, const IntegerVector ind, const LogicalVector rp) {
-  R_xlen_t n = ind.length();
+template<int RTYPE> void rcpp_set_vind_32_template(
+  Vector<RTYPE> x, const SEXP ind, const Vector<RTYPE> rp
+) {
+  R_xlen_t n = Rf_xlength(ind);
+  
+  const int *pind = INTEGER(ind);
   
   if(rp.length() == n) {
     for(R_xlen_t i = 0; i < n; ++i) {
-      x[ind[i]] = rp[i];
+      x[pind[i]] = rp[i];
     }
   }
   else if(rp.length() == 1) {
     for(R_xlen_t i = 0; i < n; ++i) {
-      x[ind[i]] = rp[0];
+      x[pind[i]] = rp[0];
     }
   }
   else stop("recycling not allowed");
@@ -52,217 +26,136 @@ void rcpp_set_vind_32_Logical(LogicalVector x, const IntegerVector ind, const Lo
 
 
 
-
-
-
 //' @keywords internal
 //' @noRd
-// [[Rcpp::export(.rcpp_set_vind_64_Integer)]]
-void rcpp_set_vind_64_Integer(IntegerVector x, const NumericVector ind, const IntegerVector rp) {
-  R_xlen_t n = ind.length();
-  if(rp.length() == n) {
-    for(R_xlen_t i = 0; i < n; ++i) {
-      x[ind[i]] = rp[i];
-    }
+// [[Rcpp::export(.rcpp_set_vind_32_atomic)]]
+void rcpp_set_vind_32_atomic(
+  SEXP x, const SEXP ind, const SEXP rp
+) {
+
+
+switch(TYPEOF(x)){
+
+  case LGLSXP:
+  {
+    rcpp_set_vind_32_template<LGLSXP>(as<LogicalVector>(x), ind, as<LogicalVector>(rp));
+    break;
   }
-  else if(rp.length() == 1) {
-    for(R_xlen_t i = 0; i < n; ++i) {
-      x[ind[i]] = rp[0];
-    }
+
+
+  case INTSXP:
+  {
+    rcpp_set_vind_32_template<INTSXP>(as<IntegerVector>(x), ind, as<IntegerVector>(rp));
+    break;
   }
-  else stop("recycling not allowed");
+
+
+  case REALSXP:
+  {
+    rcpp_set_vind_32_template<REALSXP>(as<NumericVector>(x), ind, as<NumericVector>(rp));
+    break;
+  }
+
+
+  case CPLXSXP:
+  {
+    rcpp_set_vind_32_template<CPLXSXP>(as<ComplexVector>(x), ind, as<ComplexVector>(rp));
+    break;
+  }
+
+
+  case STRSXP:
+  {
+    rcpp_set_vind_32_template<STRSXP>(as<CharacterVector>(x), ind, as<CharacterVector>(rp));
+    break;
+  }
+
+
+  case RAWSXP:
+  {
+    rcpp_set_vind_32_template<RAWSXP>(as<RawVector>(x), ind, as<RawVector>(rp));
+    break;
+  }
+
+}
 }
 
 
-//' @keywords internal
-//' @noRd
-// [[Rcpp::export(.rcpp_set_vind_32_Integer)]]
-void rcpp_set_vind_32_Integer(IntegerVector x, const IntegerVector ind, const IntegerVector rp) {
-  R_xlen_t n = ind.length();
+template<int RTYPE> void rcpp_set_vind_64_template(
+  Vector<RTYPE> x, const SEXP ind, const Vector<RTYPE> rp
+) {
+  R_xlen_t n = Rf_xlength(ind);
+  
+  const double *pind = REAL(ind);
   
   if(rp.length() == n) {
     for(R_xlen_t i = 0; i < n; ++i) {
-      x[ind[i]] = rp[i];
+      x[pind[i]] = rp[i];
     }
   }
   else if(rp.length() == 1) {
     for(R_xlen_t i = 0; i < n; ++i) {
-      x[ind[i]] = rp[0];
+      x[pind[i]] = rp[0];
     }
   }
   else stop("recycling not allowed");
 }
-
-
-
 
 
 
 //' @keywords internal
 //' @noRd
-// [[Rcpp::export(.rcpp_set_vind_64_Numeric)]]
-void rcpp_set_vind_64_Numeric(NumericVector x, const NumericVector ind, const NumericVector rp) {
-  R_xlen_t n = ind.length();
-  if(rp.length() == n) {
-    for(R_xlen_t i = 0; i < n; ++i) {
-      x[ind[i]] = rp[i];
-    }
+// [[Rcpp::export(.rcpp_set_vind_64_atomic)]]
+void rcpp_set_vind_64_atomic(
+  SEXP x, const SEXP ind, const SEXP rp
+) {
+
+
+switch(TYPEOF(x)){
+
+  case LGLSXP:
+  {
+    rcpp_set_vind_64_template<LGLSXP>(as<LogicalVector>(x), ind, as<LogicalVector>(rp));
+    break;
   }
-  else if(rp.length() == 1) {
-    for(R_xlen_t i = 0; i < n; ++i) {
-      x[ind[i]] = rp[0];
-    }
+
+
+  case INTSXP:
+  {
+    rcpp_set_vind_64_template<INTSXP>(as<IntegerVector>(x), ind, as<IntegerVector>(rp));
+    break;
   }
-  else stop("recycling not allowed");
+
+
+  case REALSXP:
+  {
+    rcpp_set_vind_64_template<REALSXP>(as<NumericVector>(x), ind, as<NumericVector>(rp));
+    break;
+  }
+
+
+  case CPLXSXP:
+  {
+    rcpp_set_vind_64_template<CPLXSXP>(as<ComplexVector>(x), ind, as<ComplexVector>(rp));
+    break;
+  }
+
+
+  case STRSXP:
+  {
+    rcpp_set_vind_64_template<STRSXP>(as<CharacterVector>(x), ind, as<CharacterVector>(rp));
+    break;
+  }
+
+
+  case RAWSXP:
+  {
+    rcpp_set_vind_64_template<RAWSXP>(as<RawVector>(x), ind, as<RawVector>(rp));
+    break;
+  }
+
+}
 }
 
-
-//' @keywords internal
-//' @noRd
-// [[Rcpp::export(.rcpp_set_vind_32_Numeric)]]
-void rcpp_set_vind_32_Numeric(NumericVector x, const IntegerVector ind, const NumericVector rp) {
-  R_xlen_t n = ind.length();
-  
-  if(rp.length() == n) {
-    for(R_xlen_t i = 0; i < n; ++i) {
-      x[ind[i]] = rp[i];
-    }
-  }
-  else if(rp.length() == 1) {
-    for(R_xlen_t i = 0; i < n; ++i) {
-      x[ind[i]] = rp[0];
-    }
-  }
-  else stop("recycling not allowed");
-}
-
-
-
-
-
-
-//' @keywords internal
-//' @noRd
-// [[Rcpp::export(.rcpp_set_vind_64_Character)]]
-void rcpp_set_vind_64_Character(CharacterVector x, const NumericVector ind, const CharacterVector rp) {
-  R_xlen_t n = ind.length();
-  if(rp.length() == n) {
-    for(R_xlen_t i = 0; i < n; ++i) {
-      x[ind[i]] = rp[i];
-    }
-  }
-  else if(rp.length() == 1) {
-    for(R_xlen_t i = 0; i < n; ++i) {
-      x[ind[i]] = rp[0];
-    }
-  }
-  else stop("recycling not allowed");
-}
-
-
-//' @keywords internal
-//' @noRd
-// [[Rcpp::export(.rcpp_set_vind_32_Character)]]
-void rcpp_set_vind_32_Character(CharacterVector x, const IntegerVector ind, const CharacterVector rp) {
-  R_xlen_t n = ind.length();
-  
-  if(rp.length() == n) {
-    for(R_xlen_t i = 0; i < n; ++i) {
-      x[ind[i]] = rp[i];
-    }
-  }
-  else if(rp.length() == 1) {
-    for(R_xlen_t i = 0; i < n; ++i) {
-      x[ind[i]] = rp[0];
-    }
-  }
-  else stop("recycling not allowed");
-}
-
-
-
-
-
-
-//' @keywords internal
-//' @noRd
-// [[Rcpp::export(.rcpp_set_vind_64_Complex)]]
-void rcpp_set_vind_64_Complex(ComplexVector x, const NumericVector ind, const ComplexVector rp) {
-  R_xlen_t n = ind.length();
-  if(rp.length() == n) {
-    for(R_xlen_t i = 0; i < n; ++i) {
-      x[ind[i]] = rp[i];
-    }
-  }
-  else if(rp.length() == 1) {
-    for(R_xlen_t i = 0; i < n; ++i) {
-      x[ind[i]] = rp[0];
-    }
-  }
-  else stop("recycling not allowed");
-}
-
-
-//' @keywords internal
-//' @noRd
-// [[Rcpp::export(.rcpp_set_vind_32_Complex)]]
-void rcpp_set_vind_32_Complex(ComplexVector x, const IntegerVector ind, const ComplexVector rp) {
-  R_xlen_t n = ind.length();
-  
-  if(rp.length() == n) {
-    for(R_xlen_t i = 0; i < n; ++i) {
-      x[ind[i]] = rp[i];
-    }
-  }
-  else if(rp.length() == 1) {
-    for(R_xlen_t i = 0; i < n; ++i) {
-      x[ind[i]] = rp[0];
-    }
-  }
-  else stop("recycling not allowed");
-}
-
-
-
-
-
-
-//' @keywords internal
-//' @noRd
-// [[Rcpp::export(.rcpp_set_vind_64_Raw)]]
-void rcpp_set_vind_64_Raw(RawVector x, const NumericVector ind, const RawVector rp) {
-  R_xlen_t n = ind.length();
-  if(rp.length() == n) {
-    for(R_xlen_t i = 0; i < n; ++i) {
-      x[ind[i]] = rp[i];
-    }
-  }
-  else if(rp.length() == 1) {
-    for(R_xlen_t i = 0; i < n; ++i) {
-      x[ind[i]] = rp[0];
-    }
-  }
-  else stop("recycling not allowed");
-}
-
-
-//' @keywords internal
-//' @noRd
-// [[Rcpp::export(.rcpp_set_vind_32_Raw)]]
-void rcpp_set_vind_32_Raw(RawVector x, const IntegerVector ind, const RawVector rp) {
-  R_xlen_t n = ind.length();
-  
-  if(rp.length() == n) {
-    for(R_xlen_t i = 0; i < n; ++i) {
-      x[ind[i]] = rp[i];
-    }
-  }
-  else if(rp.length() == 1) {
-    for(R_xlen_t i = 0; i < n; ++i) {
-      x[ind[i]] = rp[0];
-    }
-  }
-  else stop("recycling not allowed");
-}
 
 

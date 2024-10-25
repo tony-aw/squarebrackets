@@ -9,23 +9,17 @@ library(stringi)
 
 
 DTYPES <- 2:8
-all_args <- stri_c("const SEXP ind", 1:8)
-setlengths <- paste("int len", 1:8, " = Rf_length(ind", 1:8, ");", sep= "")
-make_pointers <- sprintf("const int *pind%d;\npind%d = INTEGER(ind%d);\n", 1:8, 1:8, 1:8)
-all_lengths <- paste("len", 1:8, sep = "")
+all_args <- stri_c("const SEXP ind", 1:16)
+setlengths <- paste("int len", 1:16, " = Rf_length(ind", 1:16, ");", sep= "")
+make_pointers <- sprintf("const int *pind%d;\npind%d = INTEGER(ind%d);\n", 1:16, 1:16, 1:16)
+all_lengths <- paste("len", 1:16, sep = "")
 all_for <- rev(
-  sprintf("\t for(int iter%d = 0; iter%d < len%d; ++iter%d) {\n", 8:1, 8:1, 8:1, 8:1)
+  sprintf("\t for(int iter%d = 0; iter%d < len%d; ++iter%d) {\n", 16:1, 16:1, 16:1, 16:1)
 )
 
 all_parts <- c(
   "pind1[iter1]",
-  "pdim[0] * (pind2[iter2] - 1)",
-  "pdim[1] * (pind3[iter3] - 1)",
-  "pdim[2] * (pind4[iter4] - 1)",
-  "pdim[3] * (pind5[iter5] - 1)",
-  "pdim[4] * (pind6[iter6] - 1)",
-  "pdim[5] * (pind7[iter7] - 1)",
-  "pdim[6] * (pind8[iter8] - 1)"
+  sprintf("pdim[%d] * (pind%d[iter%d] - 1)", 0:14, 2:16, 2:16)
 )
 
 
@@ -69,6 +63,7 @@ return out;
 
 rcpp_scripts <- character(length(DTYPES))
 names(rcpp_scripts) <- DTYPES
+counter <- 1
 for(i in DTYPES) {
   
   current_args <- stri_c(all_args[1:i], collapse = ", ")
@@ -108,7 +103,8 @@ for(i in DTYPES) {
     vectorize_all = FALSE
   )
   
-  rcpp_scripts[[i]] <- out
+  rcpp_scripts[[counter]] <- out
+  counter <- counter + 1
 }
 
 
@@ -462,7 +458,7 @@ close(fileConn)
 ################################################################################
 # rcpp_set_array_d ====
 
-
+DTYES <- 2:8
 RTYPES <- c("Logical", "Integer", "Numeric", "Character", "Complex", "Raw")
 
 templatecode1 <- "

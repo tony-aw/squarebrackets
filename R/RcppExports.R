@@ -471,74 +471,14 @@
 
 #' @keywords internal
 #' @noRd
-.rcpp_set_vind_64_Logical <- function(x, ind, rp) {
-    invisible(.Call(`_squarebrackets_rcpp_set_vind_64_Logical`, x, ind, rp))
+.rcpp_set_vind_32_atomic <- function(x, ind, rp) {
+    invisible(.Call(`_squarebrackets_rcpp_set_vind_32_atomic`, x, ind, rp))
 }
 
 #' @keywords internal
 #' @noRd
-.rcpp_set_vind_32_Logical <- function(x, ind, rp) {
-    invisible(.Call(`_squarebrackets_rcpp_set_vind_32_Logical`, x, ind, rp))
-}
-
-#' @keywords internal
-#' @noRd
-.rcpp_set_vind_64_Integer <- function(x, ind, rp) {
-    invisible(.Call(`_squarebrackets_rcpp_set_vind_64_Integer`, x, ind, rp))
-}
-
-#' @keywords internal
-#' @noRd
-.rcpp_set_vind_32_Integer <- function(x, ind, rp) {
-    invisible(.Call(`_squarebrackets_rcpp_set_vind_32_Integer`, x, ind, rp))
-}
-
-#' @keywords internal
-#' @noRd
-.rcpp_set_vind_64_Numeric <- function(x, ind, rp) {
-    invisible(.Call(`_squarebrackets_rcpp_set_vind_64_Numeric`, x, ind, rp))
-}
-
-#' @keywords internal
-#' @noRd
-.rcpp_set_vind_32_Numeric <- function(x, ind, rp) {
-    invisible(.Call(`_squarebrackets_rcpp_set_vind_32_Numeric`, x, ind, rp))
-}
-
-#' @keywords internal
-#' @noRd
-.rcpp_set_vind_64_Character <- function(x, ind, rp) {
-    invisible(.Call(`_squarebrackets_rcpp_set_vind_64_Character`, x, ind, rp))
-}
-
-#' @keywords internal
-#' @noRd
-.rcpp_set_vind_32_Character <- function(x, ind, rp) {
-    invisible(.Call(`_squarebrackets_rcpp_set_vind_32_Character`, x, ind, rp))
-}
-
-#' @keywords internal
-#' @noRd
-.rcpp_set_vind_64_Complex <- function(x, ind, rp) {
-    invisible(.Call(`_squarebrackets_rcpp_set_vind_64_Complex`, x, ind, rp))
-}
-
-#' @keywords internal
-#' @noRd
-.rcpp_set_vind_32_Complex <- function(x, ind, rp) {
-    invisible(.Call(`_squarebrackets_rcpp_set_vind_32_Complex`, x, ind, rp))
-}
-
-#' @keywords internal
-#' @noRd
-.rcpp_set_vind_64_Raw <- function(x, ind, rp) {
-    invisible(.Call(`_squarebrackets_rcpp_set_vind_64_Raw`, x, ind, rp))
-}
-
-#' @keywords internal
-#' @noRd
-.rcpp_set_vind_32_Raw <- function(x, ind, rp) {
-    invisible(.Call(`_squarebrackets_rcpp_set_vind_32_Raw`, x, ind, rp))
+.rcpp_set_vind_64_atomic <- function(x, ind, rp) {
+    invisible(.Call(`_squarebrackets_rcpp_set_vind_64_atomic`, x, ind, rp))
 }
 
 #' @keywords internal
