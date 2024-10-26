@@ -2,6 +2,17 @@
 
 library(stringi)
 
+SXPTYPES <- c("LGLSXP", "INTSXP", "REALSXP", "CPLXSXP", "STRSXP", "RAWSXP")
+RCPPTYPES <- c("Logical", "Integer", "Numeric", "Complex", "Character", "Raw")
+
+header <- "
+
+#include <Rcpp.h>
+
+using namespace Rcpp;
+
+"
+
 
 
 ################################################################################
@@ -211,19 +222,10 @@ templatecode2 <- stri_replace_all_fixed(
 )
 
 
-headers <- "
-
-#include <Rcpp.h>
-
-using namespace Rcpp;
-
-
-"
 
 
 
-
-rcpp_code <- paste(c(headers, rcpp_scripts, templatecode2), collapse = "\n\n\n")
+rcpp_code <- paste(c(header, rcpp_scripts, templatecode2), collapse = "\n\n\n")
 cat(rcpp_code)
 
 Rcpp::sourceCpp(
@@ -430,17 +432,7 @@ templatecode2 <- stri_replace_all_fixed(
 
 
 
-headers <- "
-
-#include <Rcpp.h>
-
-using namespace Rcpp;
-
-
-"
-
-
-rcpp_code <- paste(c(headers, rcpp_scripts, templatecode2), collapse = "\n\n\n")
+rcpp_code <- paste(c(header, rcpp_scripts, templatecode2), collapse = "\n\n\n")
 cat(rcpp_code)
 
 Rcpp::sourceCpp(
@@ -458,16 +450,61 @@ close(fileConn)
 ################################################################################
 # rcpp_set_array_d ====
 
-DTYES <- 2:8
-RTYPES <- c("Logical", "Integer", "Numeric", "Character", "Complex", "Raw")
+DTYPES <- c(2:8, 16)
+all_inputs <- stri_c("ind", 1:16)
 
-templatecode1 <- "
+switchpiece <- "
+  case TYPESXP:
+  {
+    rcpp_set_array_DTYPEd_template<TYPESXP>(as<RCPPTYPEVector>(x), <inputs>, dimcumprod, as<RCPPTYPEVector>(rp));
+    break;
+  }
+"
+
+switches <- character(6L)
+
+for(i in 1:6) {
+  switches[i] <- stringi::stri_replace_all_fixed(
+    switchpiece, c("TYPESXP", "RCPPTYPE"),  c(SXPTYPES[i], RCPPTYPES[i]),
+    vectorize_all = FALSE
+  )
+}
+
+switches <- stringi::stri_paste(switches, collapse = "\n")
+cat(switches)
+
+
+atomcode <- stri_paste("
 
 //' @keywords internal
 //' @noRd
-// [[Rcpp::export(.rcpp_set_array_DTYPEd_RTYPE)]]
-void rcpp_set_array_DTYPEd_RTYPE(
-  RTYPEVector x, <args>, SEXP dimcumprod, RTYPEVector rp
+// [[Rcpp::export(.rcpp_set_array_DTYPEd_atomic)]]
+void rcpp_set_array_DTYPEd_atomic(
+  SEXP x, <args>, SEXP dimcumprod, const SEXP rp
+) {
+  
+  
+  switch(TYPEOF(x)){
+    ",
+  
+  
+  switches,
+  
+  
+  "
+  }
+}
+
+"
+)
+
+cat(atomcode)
+
+
+templatecode <- "
+
+template<int RTYPE> void rcpp_set_array_DTYPEd_template(
+  Vector<RTYPE> x, <args>, SEXP dimcumprod, Vector<RTYPE> rp
 ) {
 
 <setlengths>
@@ -499,69 +536,73 @@ else stop(\"recycling not allowed\");
 "
 
 
-rcpp_scripts1 <- character(length(DTYPES) + length(RTYPES))
+rcpp_scripts1 <- character(length(DTYPES))
 
 counter <- 1
 
-for(j in RTYPES) {
-  for(i in DTYPES) {
-    
-    current_args <- stri_c(all_args[1:i], collapse = ", ")
-    current_setlengths <- stri_c(setlengths[1:i], collapse = "\n")
-    current_makepointers <- stri_c(make_pointers[1:i], collapse = "\n")
-    current_setlength_mult <- stri_c(all_lengths[1:i], collapse = " * ")
-    current_for <- stri_c(all_for[i:1], collapse = "\n")
-    current_main <- stri_c(all_parts[1:i], collapse = " + ")
-    current_end <- stri_c(rep("\t }", i), collapse = "\n")
-    
-    current_fixed <- c(
-      "RTYPE",
-      "DTYPE",
-      "<args>",
-      "<setlengths>",
-      "<make_pointers>",
-      "<setlength_mult>",
-      "<startfor>",
-      "<main>",
-      "<endfor>"
-    )
-    current_replacement <- c(
-      j,
-      i,
-      current_args,
-      current_setlengths,
-      current_makepointers,
-      current_setlength_mult,
-      current_for,
-      current_main,
-      current_end
-    )
-    
-    out <- stri_replace_all(
-      templatecode1,
-      fixed = current_fixed,
-      replacement = current_replacement,
-      case_insensitive = FALSE,
-      vectorize_all = FALSE
-    )
-    
-    rcpp_scripts1[[counter]] <- out
-    counter <- counter + 1
-    
-  }
+
+for(i in DTYPES) {
+  
+  current_args <- stri_c(all_args[1:i], collapse = ", ")
+  current_inputs <- stri_c(all_inputs[1:i], collapse = ", ")
+  current_setlengths <- stri_c(setlengths[1:i], collapse = "\n")
+  current_makepointers <- stri_c(make_pointers[1:i], collapse = "\n")
+  current_setlength_mult <- stri_c(all_lengths[1:i], collapse = " * ")
+  current_for <- stri_c(all_for[i:1], collapse = "\n")
+  current_main <- stri_c(all_parts[1:i], collapse = " + ")
+  current_end <- stri_c(rep("\t }", i), collapse = "\n")
+  
+  current_fixed <- c(
+    "DTYPE",
+    "<args>",
+    "<inputs>",
+    "<setlengths>",
+    "<make_pointers>",
+    "<setlength_mult>",
+    "<startfor>",
+    "<main>",
+    "<endfor>"
+  )
+  current_replacement <- c(
+    i,
+    current_args,
+    current_inputs,
+    current_setlengths,
+    current_makepointers,
+    current_setlength_mult,
+    current_for,
+    current_main,
+    current_end
+  )
+  
+  out <- stri_replace_all(
+    stri_paste(templatecode, atomcode),
+    fixed = current_fixed,
+    replacement = current_replacement,
+    case_insensitive = FALSE,
+    vectorize_all = FALSE
+  )
+  
+  rcpp_scripts1[[counter]] <- out
+  counter <- counter + 1
   
 }
 
 
+rcpp_scripts1 <- stri_paste(rcpp_scripts1, collapse = "\n\n\n")
+cat(rcpp_scripts1)
+Rcpp::sourceCpp(
+  code = stri_paste(header, rcpp_scripts1, collapse = "\n\n") # no errors, good
+)
 
 
 templatecode2 <- "
 
 //' @keywords internal
 //' @noRd
-// [[Rcpp::export(.rcpp_set_array_2d_8d_RTYPE)]]
-void rcpp_set_array_2d_8d_RTYPE(
-  RTYPEVector x, List out, NumericVector dimcumprod, RTYPEVector rp
+// [[Rcpp::export(.rcpp_set_array_2d_8d_atomic)]]
+void rcpp_set_array_2d_8d_atomic(
+  SEXP x, List out, NumericVector dimcumprod, SEXP rp
 ) {
   int n = out.length();
   
@@ -595,7 +636,7 @@ void rcpp_set_array_2d_8d_RTYPE(
   
   switch(n) {
     case 2:
-      rcpp_set_array_2d_RTYPE(
+      rcpp_set_array_2d_atomic(
         x,
         <args2>,
         dimcumprod,
@@ -603,7 +644,7 @@ void rcpp_set_array_2d_8d_RTYPE(
       );
       break;
     case 3:
-      rcpp_set_array_3d_RTYPE(
+      rcpp_set_array_3d_atomic(
         x,
         <args3>,
         dimcumprod,
@@ -611,7 +652,7 @@ void rcpp_set_array_2d_8d_RTYPE(
       );
       break;
     case 4:
-      rcpp_set_array_4d_RTYPE(
+      rcpp_set_array_4d_atomic(
         x,
         <args4>,
         dimcumprod,
@@ -619,7 +660,7 @@ void rcpp_set_array_2d_8d_RTYPE(
       );
       break;
     case 5:
-      rcpp_set_array_5d_RTYPE(
+      rcpp_set_array_5d_atomic(
         x,
         <args5>,
         dimcumprod,
@@ -627,7 +668,7 @@ void rcpp_set_array_2d_8d_RTYPE(
       );
       break;
     case 6:
-      rcpp_set_array_6d_RTYPE(
+      rcpp_set_array_6d_atomic(
         x,
         <args6>,
         dimcumprod,
@@ -635,7 +676,7 @@ void rcpp_set_array_2d_8d_RTYPE(
       );
       break;
     case 7:
-      rcpp_set_array_7d_RTYPE(
+      rcpp_set_array_7d_atomic(
         x,
         <args7>,
         dimcumprod,
@@ -643,7 +684,7 @@ void rcpp_set_array_2d_8d_RTYPE(
       );
       break;
     case 8:
-      rcpp_set_array_8d_RTYPE(
+      rcpp_set_array_8d_atomic(
         x,
         <args8>,
         dimcumprod,
@@ -666,20 +707,6 @@ templatecode2 <- stri_replace_all_fixed(
   vectorize_all = FALSE
 )
 
-
-rcpp_scripts2 <- character(length(RTYPES))
-
-
-for(i in seq_along(RTYPES)) {
-  rcpp_scripts2[[i]] <- stri_replace_all(
-    templatecode2,
-    fixed = c("RTYPE"),
-    replacement = c(RTYPES[i]),
-    case_insensitive = FALSE,
-    vectorize_all = FALSE
-  )
-}
-
 headers <- "
 
 #include <Rcpp.h>
@@ -690,9 +717,7 @@ using namespace Rcpp;
 "
 
 
-
-
-rcpp_code <- paste(c(headers, rcpp_scripts1, rcpp_scripts2), sep = "", collapse = "\n\n\n")
+rcpp_code <- paste(c(header, rcpp_scripts1, templatecode2), sep = "", collapse = "\n\n\n")
 cat(rcpp_code)
 
 Rcpp::sourceCpp(

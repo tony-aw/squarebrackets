@@ -2,17 +2,26 @@
 
 library(stringi)
 
+SXPTYPES <- c("LGLSXP", "INTSXP", "REALSXP", "CPLXSXP", "STRSXP", "RAWSXP")
+RCPPTYPES <- c("Logical", "Integer", "Numeric", "Complex", "Character", "Raw")
 
+header <- "
+
+#include <Rcpp.h>
+
+using namespace Rcpp;
+
+"
+
+
+################################################################################
 # set all ====
 
-RTYPES <- c("Logical", "Integer", "Numeric", "Character", "Complex", "Raw")
+
 
 templatecode <- "
 
-//' @keywords internal
-//' @noRd
-// [[Rcpp::export(.rcpp_set_all_RTYPE)]]
-void rcpp_set_all_RTYPE(RTYPEVector x, RTYPEVector rp) {
+template<int RTYPE> void rcpp_set_all_template(Vector<RTYPE> x, Vector<RTYPE> rp) {
   R_xlen_t n = x.length();
 
   if(rp.length() == n) {
@@ -29,142 +38,241 @@ void rcpp_set_all_RTYPE(RTYPEVector x, RTYPEVector rp) {
 
 }
 
+
 "
 
 
-rcpp_scripts <- character(length(RTYPES))
-names(rcpp_scripts) <- RTYPES
-for(i in seq_along(RTYPES)) {
-  rcpp_scripts[[i]] <- stri_replace_all(
-    templatecode,
-    fixed = c("RTYPE"),
-    replacement = c(RTYPES[i]),
-    case_insensitive = FALSE,
+switchpiece <- "
+  case TYPESXP:
+  {
+    rcpp_set_all_template<TYPESXP>(as<RCPPTYPEVector>(x), as<RCPPTYPEVector>(rp));
+    break;
+  }
+"
+
+switches <- character(6L)
+
+for(i in 1:6) {
+  switches[i] <- stringi::stri_replace_all_fixed(
+    switchpiece, c("TYPESXP", "RCPPTYPE"),  c(SXPTYPES[i], RCPPTYPES[i]),
     vectorize_all = FALSE
   )
 }
 
-
-headers <- "
-
-#include <Rcpp.h>
-
-using namespace Rcpp;
+switches <- stringi::stri_paste(switches, collapse = "\n")
+cat(switches)
 
 
 
+code <- stri_c(
+  header,
+  
+  templatecode,
+  
+  
+  "
+//' @keywords internal
+//' @noRd
+// [[Rcpp::export(.rcpp_set_all_atomic)]]
+void rcpp_set_all_atomic(
+  SEXP x, const SEXP rp
+) {
 
+
+switch(TYPEOF(x)){
+",
+  
+  
+  switches,
+  
+  
+  "
+}
+}
 "
-rcpp_code <- paste(c(headers, rcpp_scripts), collapse = "\n\n\n")
-cat(rcpp_code)
-
-Rcpp::sourceCpp(
-  code = rcpp_code # no errors, good
 )
 
-fileConn <- file("src/dynamic_rcpp_set_all.cpp")
-writeLines(rcpp_code, fileConn)
-close(fileConn)
+cat(code)
+
+
+
+Rcpp::sourceCpp(code = code)
 
 
 ################################################################################
 
-# set vind ====
-
-Rcpp::cppFunction(
-  "
-  bool rcpp_check_len(
-    NumericVector rp
-  ) {
-    R_xlen_t n_rp = rp.length();
-    bool out = n_rp == 1;
-    return out;
-  }
-  "
-)
-
-rcpp_check_len(rp)
-
-
-RTYPES <- c("Logical", "Integer", "Numeric", "Character", "Complex", "Raw")
+# set vind 32 bit ====
 
 templatecode <- "
 
-//' @keywords internal
-//' @noRd
-// [[Rcpp::export(.rcpp_set_vind_64_RTYPE)]]
-void rcpp_set_vind_64_RTYPE(RTYPEVector x, const NumericVector ind, const RTYPEVector rp) {
-  R_xlen_t n = ind.length();
-  if(rp.length() == n) {
-    for(R_xlen_t i = 0; i < n; ++i) {
-      x[ind[i]] = rp[i];
-    }
-  }
-  else if(rp.length() == 1) {
-    for(R_xlen_t i = 0; i < n; ++i) {
-      x[ind[i]] = rp[0];
-    }
-  }
-  else stop(\"recycling not allowed\");
-}
-
-
-//' @keywords internal
-//' @noRd
-// [[Rcpp::export(.rcpp_set_vind_32_RTYPE)]]
-void rcpp_set_vind_32_RTYPE(RTYPEVector x, const IntegerVector ind, const RTYPEVector rp) {
-  R_xlen_t n = ind.length();
+template<int RTYPE> void rcpp_set_vind_32_template(
+  Vector<RTYPE> x, const SEXP ind, const Vector<RTYPE> rp
+) {
+  R_xlen_t n = Rf_xlength(ind);
+  
+  const int *pind = INTEGER(ind);
   
   if(rp.length() == n) {
     for(R_xlen_t i = 0; i < n; ++i) {
-      x[ind[i]] = rp[i];
+      x[pind[i]] = rp[i];
     }
   }
   else if(rp.length() == 1) {
     for(R_xlen_t i = 0; i < n; ++i) {
-      x[ind[i]] = rp[0];
+      x[pind[i]] = rp[0];
     }
   }
   else stop(\"recycling not allowed\");
 }
+
 
 "
 
 
-rcpp_scripts <- character(length(RTYPES))
-names(rcpp_scripts) <- RTYPES
-for(i in seq_along(RTYPES)) {
-  rcpp_scripts[[i]] <- stri_replace_all(
-    templatecode,
-    fixed = c("RTYPE"),
-    replacement = c(RTYPES[i]),
-    case_insensitive = FALSE,
+switchpiece <- "
+  case TYPESXP:
+  {
+    rcpp_set_vind_32_template<TYPESXP>(as<RCPPTYPEVector>(x), ind, as<RCPPTYPEVector>(rp));
+    break;
+  }
+"
+
+switches <- character(6L)
+
+for(i in 1:6) {
+  switches[i] <- stringi::stri_replace_all_fixed(
+    switchpiece, c("TYPESXP", "RCPPTYPE"),  c(SXPTYPES[i], RCPPTYPES[i]),
     vectorize_all = FALSE
   )
 }
 
-
-headers <- "
-
-#include <Rcpp.h>
-
-using namespace Rcpp;
+switches <- stringi::stri_paste(switches, collapse = "\n")
+cat(switches)
 
 
+
+code <- stri_c(
+  header,
+  
+  templatecode,
+  
+  
+  "
+//' @keywords internal
+//' @noRd
+// [[Rcpp::export(.rcpp_set_vind_32_atomic)]]
+void rcpp_set_vind_32_atomic(
+  SEXP x, const SEXP ind, const SEXP rp
+) {
+
+
+switch(TYPEOF(x)){
+",
+  
+  
+  switches,
+  
+  
+  "
+}
+}
+"
+)
+
+cat(code)
+
+
+
+Rcpp::sourceCpp(code = code)
+
+
+
+################################################################################
+
+# set vind 64 bit ====
+
+
+templatecode <- "
+
+template<int RTYPE> void rcpp_set_vind_64_template(
+  Vector<RTYPE> x, const SEXP ind, const Vector<RTYPE> rp
+) {
+  R_xlen_t n = Rf_xlength(ind);
+  
+  const double *pind = REAL(ind);
+  
+  if(rp.length() == n) {
+    for(R_xlen_t i = 0; i < n; ++i) {
+      x[pind[i]] = rp[i];
+    }
+  }
+  else if(rp.length() == 1) {
+    for(R_xlen_t i = 0; i < n; ++i) {
+      x[pind[i]] = rp[0];
+    }
+  }
+  else stop(\"recycling not allowed\");
+}
 
 
 "
-rcpp_code <- paste(c(headers, rcpp_scripts), collapse = "\n\n\n")
-cat(rcpp_code)
 
-Rcpp::sourceCpp(
-  code = rcpp_code # no errors, good
+
+switchpiece <- "
+  case TYPESXP:
+  {
+    rcpp_set_vind_64_template<TYPESXP>(as<RCPPTYPEVector>(x), ind, as<RCPPTYPEVector>(rp));
+    break;
+  }
+"
+
+switches <- character(6L)
+
+for(i in 1:6) {
+  switches[i] <- stringi::stri_replace_all_fixed(
+    switchpiece, c("TYPESXP", "RCPPTYPE"),  c(SXPTYPES[i], RCPPTYPES[i]),
+    vectorize_all = FALSE
+  )
+}
+
+switches <- stringi::stri_paste(switches, collapse = "\n")
+cat(switches)
+
+
+code <- stri_c(
+  header,
+  
+  templatecode,
+  
+  
+  "
+
+//' @keywords internal
+//' @noRd
+// [[Rcpp::export(.rcpp_set_vind_64_atomic)]]
+void rcpp_set_vind_64_atomic(
+  SEXP x, const SEXP ind, const SEXP rp
+) {
+
+
+switch(TYPEOF(x)){
+",
+  
+  
+  switches,
+  
+  
+  "
+}
+}
+"
 )
 
-fileConn <- file("src/dynamic_rcpp_set_vind.cpp")
-writeLines(rcpp_code, fileConn)
-close(fileConn)
+cat(code)
 
+
+
+Rcpp::sourceCpp(code = code)
 
 
 

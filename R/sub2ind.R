@@ -251,10 +251,10 @@ sub2ind <- function(sub, x.dim, checks = TRUE) {
   
   n <- length(x.dim)
   
-  if(n < 16) {
-    sub[(n+1):16] <- list(1L)
+  if(n < 16L) {
+    sub[(n+1):16L] <- list(1L)
   }
-  dimcumprod <- cumprod(c(x.dim, rep(0, 16 - n))) |> as.double()
+  dimcumprod <- cumprod(c(x.dim, rep(0L, 16L - n))) |> as.double()
   return(.C_sub2ind_16d_64(sub, dimcumprod))
 }
 

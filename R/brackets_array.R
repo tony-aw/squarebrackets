@@ -120,7 +120,7 @@
     return(invisible(NULL))
   }
   
-  # CASE 3: `x` has between 2 and 6 dimensions, and neither all nor empty selection
+  # CASE 3: `x` has between 2 and 8 dimensions, and neither all nor empty selection
   if(ndims <= 8L) {
     if(!missing(tf)) {
       if(!is.function(tf)) stop(simpleError("`tf` must be a function", call = abortcall))
@@ -130,7 +130,17 @@
     return(invisible(NULL))
   }
   
-  # CASE 4: `x` has more than 6 dimension
+  # CASE 4: `x` has between 9 and 16 dimensions, and neither all nor empty selection
+  if(ndims <= 16L) {
+    if(!missing(tf)) {
+      if(!is.function(tf)) stop(simpleError("`tf` must be a function", call = abortcall))
+      rp <- tf(do.call(\(...)x[...], lst))
+    }
+    .rcpp_set_array_16d(x, rp, lst, x.dim, abortcall = abortcall)
+    return(invisible(NULL))
+  }
+  
+  # CASE 4: `x` has more than 16 dimension
   # so default to translating subscripts to flat indices,
   # and treat as vector with the flattened indices.
   elements <- sub2ind(lst, x.dim, checks = FALSE)
@@ -143,31 +153,53 @@
 #' @noRd
 .rcpp_set_array_2d_8d <- function(x, rp, lst, x.dim, abortcall) {
   dimcumprod <- as.double(cumprod(x.dim))
-  if(is.logical(x)) {
-    .rcpp_set_array_2d_8d_Logical(x, lst, dimcumprod, as.logical(rp))
-    return(invisible(NULL))
+  if(typeof(x) != typeof(rp)) {
+    message(sprintf("coercing `rp` to %s", typeof(x)))
+    if(is.logical(x)) rp <- as.logical(rp)
+    else if(is.integer(x)) rp <- as.integer(rp)
+    else if(is.double(x)) rp <- as.double(rp)
+    else if(is.complex(x)) rp <- as.complex(rp)
+    else if(is.character(x)) rp <- as.character(rp)
+    else if(is.raw(x)) rp <- as.raw(rp)
+    else {
+      stop(simpleError(
+        "unsupported atomic type", call = abortcall
+      ))
+    }
   }
-  else if(is.integer(x)) {
-    .rcpp_set_array_2d_8d_Integer(x, lst, dimcumprod, as.integer(rp))
-    return(invisible(NULL))
+  
+  .rcpp_set_array_2d_8d_atomic(x, lst, dimcumprod, rp)
+  return(invisible(NULL))
+  
+}
+
+
+#' @keywords internal
+#' @noRd
+.rcpp_set_array_16d <- function(x, rp, lst, x.dim, abortcall) {
+  if(typeof(x) != typeof(rp)) {
+    message(sprintf("coercing `rp` to %s", typeof(x)))
+    if(is.logical(x)) rp <- as.logical(rp)
+    else if(is.integer(x)) rp <- as.integer(rp)
+    else if(is.double(x)) rp <- as.double(rp)
+    else if(is.complex(x)) rp <- as.complex(rp)
+    else if(is.character(x)) rp <- as.character(rp)
+    else if(is.raw(x)) rp <- as.raw(rp)
+    else {
+      stop(simpleError(
+        "unsupported atomic type", call = abortcall
+      ))
+    }
   }
-  else if(is.double(x)) {
-    .rcpp_set_array_2d_8d_Numeric(x, lst, dimcumprod, as.double(rp))
-    return(invisible(NULL))
+  
+  n <- length(x.dim)
+  
+  if(n < 16L) {
+    lst[(n+1):16L] <- list(1L)
   }
-  else if(is.character(x)) {
-    .rcpp_set_array_2d_8d_Character(x, lst, dimcumprod, as.character(rp))
-    return(invisible(NULL))
-  }
-  else if(is.complex(x)) {
-    .rcpp_set_array_2d_8d_Complex(x, lst, dimcumprod, as.complex(rp))
-    return(invisible(NULL))
-  }
-  else if(is.raw(x)) {
-    .rcpp_set_array_2d_8d_Raw(x, lst, dimcumprod, as.raw(rp))
-    return(invisible(NULL))
-  }
-  else {
-    stop(simpleError("unknown array type given", call = abortcall))
-  }
+  dimcumprod <- cumprod(c(x.dim, rep(0L, 16L - n))) |> as.double()
+  args <- c(list(x), lst, list(dimcumprod, rp))
+  do.call(.rcpp_set_array_16d_atomic, args)
+  return(invisible(NULL))
+  
 }

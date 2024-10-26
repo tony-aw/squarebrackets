@@ -6,16 +6,7 @@ using namespace Rcpp;
 
 
 
-
-
-
-
-
-
-//' @keywords internal
-//' @noRd
-// [[Rcpp::export(.rcpp_set_all_Logical)]]
-void rcpp_set_all_Logical(LogicalVector x, LogicalVector rp) {
+template<int RTYPE> void rcpp_set_all_template(Vector<RTYPE> x, Vector<RTYPE> rp) {
   R_xlen_t n = x.length();
 
   if(rp.length() == n) {
@@ -34,127 +25,56 @@ void rcpp_set_all_Logical(LogicalVector x, LogicalVector rp) {
 
 
 
-
-
-
 //' @keywords internal
 //' @noRd
-// [[Rcpp::export(.rcpp_set_all_Integer)]]
-void rcpp_set_all_Integer(IntegerVector x, IntegerVector rp) {
-  R_xlen_t n = x.length();
+// [[Rcpp::export(.rcpp_set_all_atomic)]]
+void rcpp_set_all_atomic(
+  SEXP x, const SEXP rp
+) {
 
-  if(rp.length() == n) {
-    for(R_xlen_t i = 0; i < n; ++i) {
-      x[i] = rp[i];
-    }
+
+switch(TYPEOF(x)){
+
+  case LGLSXP:
+  {
+    rcpp_set_all_template<LGLSXP>(as<LogicalVector>(x), as<LogicalVector>(rp));
+    break;
   }
-  else if(rp.length() == 1) {
-    for(R_xlen_t i = 0; i < n; ++i){
-      x[i] = rp[0];
-    }
+
+
+  case INTSXP:
+  {
+    rcpp_set_all_template<INTSXP>(as<IntegerVector>(x), as<IntegerVector>(rp));
+    break;
   }
-  else stop("recycling not allowed");
+
+
+  case REALSXP:
+  {
+    rcpp_set_all_template<REALSXP>(as<NumericVector>(x), as<NumericVector>(rp));
+    break;
+  }
+
+
+  case CPLXSXP:
+  {
+    rcpp_set_all_template<CPLXSXP>(as<ComplexVector>(x), as<ComplexVector>(rp));
+    break;
+  }
+
+
+  case STRSXP:
+  {
+    rcpp_set_all_template<STRSXP>(as<CharacterVector>(x), as<CharacterVector>(rp));
+    break;
+  }
+
+
+  case RAWSXP:
+  {
+    rcpp_set_all_template<RAWSXP>(as<RawVector>(x), as<RawVector>(rp));
+    break;
+  }
 
 }
-
-
-
-
-
-
-//' @keywords internal
-//' @noRd
-// [[Rcpp::export(.rcpp_set_all_Numeric)]]
-void rcpp_set_all_Numeric(NumericVector x, NumericVector rp) {
-  R_xlen_t n = x.length();
-
-  if(rp.length() == n) {
-    for(R_xlen_t i = 0; i < n; ++i) {
-      x[i] = rp[i];
-    }
-  }
-  else if(rp.length() == 1) {
-    for(R_xlen_t i = 0; i < n; ++i){
-      x[i] = rp[0];
-    }
-  }
-  else stop("recycling not allowed");
-
 }
-
-
-
-
-
-
-//' @keywords internal
-//' @noRd
-// [[Rcpp::export(.rcpp_set_all_Character)]]
-void rcpp_set_all_Character(CharacterVector x, CharacterVector rp) {
-  R_xlen_t n = x.length();
-
-  if(rp.length() == n) {
-    for(R_xlen_t i = 0; i < n; ++i) {
-      x[i] = rp[i];
-    }
-  }
-  else if(rp.length() == 1) {
-    for(R_xlen_t i = 0; i < n; ++i){
-      x[i] = rp[0];
-    }
-  }
-  else stop("recycling not allowed");
-
-}
-
-
-
-
-
-
-//' @keywords internal
-//' @noRd
-// [[Rcpp::export(.rcpp_set_all_Complex)]]
-void rcpp_set_all_Complex(ComplexVector x, ComplexVector rp) {
-  R_xlen_t n = x.length();
-
-  if(rp.length() == n) {
-    for(R_xlen_t i = 0; i < n; ++i) {
-      x[i] = rp[i];
-    }
-  }
-  else if(rp.length() == 1) {
-    for(R_xlen_t i = 0; i < n; ++i){
-      x[i] = rp[0];
-    }
-  }
-  else stop("recycling not allowed");
-
-}
-
-
-
-
-
-
-//' @keywords internal
-//' @noRd
-// [[Rcpp::export(.rcpp_set_all_Raw)]]
-void rcpp_set_all_Raw(RawVector x, RawVector rp) {
-  R_xlen_t n = x.length();
-
-  if(rp.length() == n) {
-    for(R_xlen_t i = 0; i < n; ++i) {
-      x[i] = rp[i];
-    }
-  }
-  else if(rp.length() == 1) {
-    for(R_xlen_t i = 0; i < n; ++i){
-      x[i] = rp[0];
-    }
-  }
-  else stop("recycling not allowed");
-
-}
-
-

@@ -12,35 +12,23 @@
     rp <- tf(x)
   }
   
-  if(is.logical(x)) {
-    .rcpp_set_all_Logical(x, as.logical(rp))
-    return(invisible(NULL))
+  if(typeof(x) != typeof(rp)) {
+    message(sprintf("coercing `rp` to %s", typeof(x)))
+    if(is.logical(x)) rp <- as.logical(rp)
+    else if(is.integer(x)) rp <- as.integer(rp)
+    else if(is.double(x)) rp <- as.double(rp)
+    else if(is.complex(x)) rp <- as.complex(rp)
+    else if(is.character(x)) rp <- as.character(rp)
+    else if(is.raw(x)) rp <- as.raw(rp)
+    else {
+      stop(simpleError(
+        "unsupported atomic type", call = abortcall
+      ))
+    }
   }
-  else if(is.integer(x)) {
-    .rcpp_set_all_Integer(x, as.integer(rp))
-    return(invisible(NULL))
-  }
-  else if(is.double(x)) {
-    .rcpp_set_all_Numeric(x, as.double(rp))
-    return(invisible(NULL))
-  }
-  else if(is.character(x)) {
-    .rcpp_set_all_Character(x, as.character(rp))
-    return(invisible(NULL))
-  }
-  else if(is.complex(x)) {
-    .rcpp_set_all_Complex(x, as.complex(rp))
-    return(invisible(NULL))
-  }
-  else if(is.raw(x)) {
-    .rcpp_set_all_Raw(x, as.raw(rp))
-    return(invisible(NULL))
-  }
-  else {
-    stop(simpleError(
-      "unsupported atomic type", call = abortcall
-    ))
-  }
+  
+  .rcpp_set_all_atomic(x, rp)
+  return(invisible(NULL))
   
 }
 
