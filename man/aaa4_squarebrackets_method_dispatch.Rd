@@ -19,36 +19,28 @@ For example,
 the \link{array} S3 class and the \link{matrix} S3 class
 (which inherits from the "array" S3 class)
 have both an atomic form, and a recursive form. \cr
-The recursive form of arrays and matrices is sometimes referred to as a "dimensional list". \cr
 \cr
 Atomic and recursive objects are quite different from each other in some ways:
 \itemize{
-\item \strong{homo- or heterogeneous}: atomic object are homogeneous,
-in that they can only contain one data-type
-(logical, integer, double, character, complex, raw). \cr
-In contrast, recursive objects are heterogeneous,
-as they can have any combination of data-types.
-\item \strong{copy semantics}: copying atomic data (almost) always performs a \emph{deep copy}
-(though this statement comes with some technical caveats). \cr
-But since recursive objects are pointers to other data,
-copies of recursive objects are often \emph{shallow copies}.
+\item \strong{homo- or heterogeneous}: an atomic object can only have values of one data type. \cr
+recursive objects can hold values of any combination of data types.
+\item \strong{copy semantics}: One can copy a subset of a recursive object without copying the rest of the object
+(thus saving memory when copying).
+For atomic objects, however, a copy operation copies the entire vector (ignoring attributes). \cr
 \item \strong{vectorization}: most vectorized operations generally work on atomic objects,
-whereas recursive objects often require loops or apply-like functions. \cr
-This is especially relevant for transforming subsets.
+whereas recursive objects often require loops or apply-like functions.
 \item \strong{recursive subsets}: Recursive objects distinguish between "regular" subset operations
 (in base R using \code{[}, \verb{[<-}),
 and recursive subset operations (in base R using \code{[[}, \verb{[[<-}). \cr
-For both forms, atomic objects give atomic objects. \cr
-But for recursive objects,
-these 2 subset operations are significantly different.
-\item \strong{views}: Recursive objects are weird in that they are \emph{pointers} to other objects. \cr
-As such they allow their extracted subsets to be \emph{views} of these pointers
-(see \link{squarebrackets_mutable_classes}
-for more information on how to use "views" of recursive objects). \cr
-Atomic objects do now allow for subset views. \cr
+For atomic objects, these 2 have no meaningful difference
+(safe for perhaps attribute handling).
+\item \strong{views}: For recursive objects,
+one can create a subset \link[=squarebrackets_PassByReference]{view} of a recursive subset. \cr
+Recursive subset views do not exist for atomic objects. \cr \cr
 }
 
-The S3 method dispatch system does not have a built-in method to have separate dispatches for recursive and atomic objects. \cr
+Despite these differences,
+R'S S3 method dispatch system does not have a built-in method to have separate dispatches for recursive and atomic objects. \cr
 Hence, given all the above,
 the 'squarebrackets' package
 has separate methods for recursive and atomic objects. \cr \cr

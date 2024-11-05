@@ -41,7 +41,7 @@ specifies \code{to = 10L}. \cr
 But the sequence doesn't actually end at \code{10}; it ends at \code{9}. \cr
 Therefore, \code{cp_seq(x, m, 1, 10, 2)} will return \code{end = 9}, not \code{end = 10}. \cr
 This allows the user to easily predict where an sequence given in
-\link{idx_r}. \cr
+\link{idx_r}/\link{slice} will actually end. \cr
 \cr
 \bold{\verb{$by}}: \cr
 This will give \code{by}, but with it's sign adjusted, if needed. \cr
@@ -52,7 +52,7 @@ given the translated parameters. \cr \cr
 }
 \description{
 \code{cp_seq()} returns a list of parameters to construct a sequence based on the margins of an object. \cr
-It is internally used by the \link{idx_r} function. \cr \cr
+It is internally used by the \link{idx_r} function and \link{slice} method. \cr \cr
 }
 \section{Arguments Details}{
 

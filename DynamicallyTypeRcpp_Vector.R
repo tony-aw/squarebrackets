@@ -87,6 +87,7 @@ switch(TYPEOF(x)){
   
   
   "
+  default: stop(\"unsupported type given\");
 }
 }
 "
@@ -97,6 +98,10 @@ cat(code)
 
 
 Rcpp::sourceCpp(code = code)
+
+fileConn <- file("src/dynamic_rcpp_set_all.cpp")
+writeLines(code, fileConn)
+close(fileConn)
 
 
 ################################################################################
@@ -151,8 +156,7 @@ cat(switches)
 
 
 
-code <- stri_c(
-  header,
+code32 <- stri_c(
   
   templatecode,
   
@@ -174,17 +178,13 @@ switch(TYPEOF(x)){
   
   
   "
+  default: stop(\"unsupported type given\");
 }
 }
 "
 )
 
-cat(code)
-
-
-
-Rcpp::sourceCpp(code = code)
-
+cat(code32)
 
 
 ################################################################################
@@ -239,8 +239,7 @@ switches <- stringi::stri_paste(switches, collapse = "\n")
 cat(switches)
 
 
-code <- stri_c(
-  header,
+code64 <- stri_c(
   
   templatecode,
   
@@ -263,166 +262,31 @@ switch(TYPEOF(x)){
   
   
   "
+  default: stop(\"unsupported type given\");
 }
 }
 "
 )
 
-cat(code)
-
-
-
-Rcpp::sourceCpp(code = code)
-
+cat(code64)
 
 
 ################################################################################
+# Combine set vind ====
 
-# setrv ====
-
-rtypes <- c("Logical", "Integer", "Numeric", "Character", "Raw")
-
-templatecode <- "
-
-//' @keywords internal
-//' @noRd
-// [[Rcpp::export(.rcpp_setrv_safe_RTYPE)]]
-void rcpp_setrv_safe_RTYPE(RTYPEVector x, RTYPEVector v, RTYPEVector rp, bool invert) {
-  R_xlen_t n = x.length();
-  
-  if(!invert) {
-    for(R_xlen_t i = 0; i < n; ++i) {
-      if(!RTYPEVector::is_na(x[i])) {
-        if(x[i] == v[0]) {
-          x[i] = rp[0];
-        }
-      }
-    }
-  }
-  if(invert) {
-    for(R_xlen_t i = 0; i < n; ++i) {
-      if(!RTYPEVector::is_na(x[i])) {
-        if(x[i] != v[0]) {
-          x[i] = rp[0];
-        }
-      }
-    }
-  }
-  
-}
-
-
-//' @keywords internal
-//' @noRd
-// [[Rcpp::export(.rcpp_setrv_fast_RTYPE)]]
-void rcpp_setrv_fast_RTYPE(RTYPEVector x, RTYPEVector v, RTYPEVector rp, bool invert) {
-  R_xlen_t n = x.length();
-  
-  if(!invert) {
-    for(R_xlen_t i = 0; i < n; ++i) {
-      if(x[i] == v[0]) {
-        x[i] = rp[0];
-      }
-    }
-  }
-  if(invert) {
-    for(R_xlen_t i = 0; i < n; ++i) {
-      if(x[i] != v[0]) {
-          x[i] = rp[0];
-      }
-    }
-  }
-  
-}
-
-"
-
-
-rcpp_scripts <- character(length(rtypes))
-
-for(i in seq_along(rtypes)) {
-  rcpp_scripts[i] <- stri_replace_all(
-    templatecode,
-    fixed = "RTYPE",
-    replacement = rtypes[i],
-    case_insensitive = FALSE,
-    vectorize_all = FALSE
-  )
-}
-
-
-headers <- "
-
-#include <Rcpp.h>
-
-using namespace Rcpp;
-
-
-//' @keywords internal
-//' @noRd
-// [[Rcpp::export(.rcpp_setrv_safe_Complex)]]
-void rcpp_setrv_safe_Complex(ComplexVector x, ComplexVector v, ComplexVector rp, bool invert) {
-  R_xlen_t n = x.length();
-  
-  if(!invert) {
-    for(R_xlen_t i = 0; i < n; ++i) {
-      if(!ComplexVector::is_na(x[i])) {
-        if(x[i] == v[0]) {
-          x[i] = rp[0];
-        }
-      }
-    }
-  }
-  if(invert) {
-    for(R_xlen_t i = 0; i < n; ++i) {
-      if(!ComplexVector::is_na(x[i])) {
-        if(!(x[i] == v[0])) {
-          x[i] = rp[0];
-        }
-      }
-    }
-  }
-  
-}
-
-
-//' @keywords internal
-//' @noRd
-// [[Rcpp::export(.rcpp_setrv_fast_Complex)]]
-void rcpp_setrv_fast_Complex(ComplexVector x, ComplexVector v, ComplexVector rp, bool invert) {
-  R_xlen_t n = x.length();
-  
-  if(!invert) {
-    for(R_xlen_t i = 0; i < n; ++i) {
-      if(x[i] == v[0]) {
-        x[i] = rp[0];
-      }
-    }
-  }
-  if(invert) {
-    for(R_xlen_t i = 0; i < n; ++i) {
-      if(!(x[i] == v[0])) {
-          x[i] = rp[0];
-      }
-    }
-  }
-  
-}
-
-
-
-"
-rcpp_code <- paste(c(headers, rcpp_scripts), collapse = "\n\n\n")
-cat(rcpp_code)
-
-
-Rcpp::sourceCpp(
-  code = rcpp_code # no errors, good
+code <- stri_paste(
+  header,
+  code32,
+  code64,
+  collapse = "\n \n"
 )
 
 
-fileConn <- file("src/dynamic_rcpp_setrv.cpp")
-writeLines(rcpp_code, fileConn)
-close(fileConn)
+cat(code)
 
+Rcpp::sourceCpp(code = code)
+
+fileConn <- file("src/dynamic_rcpp_set_vind.cpp")
+writeLines(code, fileConn)
+close(fileConn)
 

@@ -122,13 +122,13 @@ will remove the dimension attributes of that list. <br><br></p></li>
 
 
 <dt>rec</dt>
-<dd><p>an integer (including negative integers) or character vector of length <code>p</code>,
+<dd><p>a strictly positive integer vector or character vector, of length <code>p</code>,
 such that <code>x[[rec]]</code> is equivalent to <code>x[[ rec[1] ]]...[[ rec[p] ]]</code>,
 providing all but the final indexing results in a list. <br>
 When on a certain subset level of a nested list,
 multiple subsets with the same name exist,
 only the first one will be selected when performing recursive indexing by name,
-due to the recursive nature of this type of subsetting.</p></dd>
+due to the recursive nature of this type of sub-setting.</p></dd>
 
 
 <dt>rp</dt>

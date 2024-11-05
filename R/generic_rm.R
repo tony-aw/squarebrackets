@@ -5,7 +5,7 @@
 #' Use `sb_rm(x, ...)` if `x` is an atomic object. \cr
 #' Use `sb2_rm(x, ...)` if `x` is a recursive object (i.e. list or data.frame-like). \cr \cr
 #'
-#' @param x see \link{squarebrackets_immutable_classes} and \link{squarebrackets_mutable_classes}.
+#' @param x see \link{squarebrackets_supported_structures}.
 #' @param i,row,col,sub,dims,filter,vars See \link{squarebrackets_indx_args}. \cr
 #' An empty index selection results in nothing being removed,
 #' and the entire object is returned. \cr

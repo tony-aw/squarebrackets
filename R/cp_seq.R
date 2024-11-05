@@ -2,7 +2,7 @@
 #' 
 #' @description
 #' `cp_seq()` returns a list of parameters to construct a sequence based on the margins of an object. \cr
-#' It is internally used by the \link{idx_r} function. \cr \cr
+#' It is internally used by the \link{idx_r} function and \link{slice} method. \cr \cr
 #' 
 #' @param x the object for which to compute margin-based sequence parameters.
 #' @param m integer or complex, giving the margin(s). \cr
@@ -62,7 +62,7 @@
 #' But the sequence doesn't actually end at `10`; it ends at `9`. \cr
 #' Therefore, `cp_seq(x, m, 1, 10, 2)` will return `end = 9`, not `end = 10`. \cr
 #' This allows the user to easily predict where an sequence given in
-#' \link{idx_r}. \cr
+#' \link{idx_r}/\link{slice} will actually end. \cr
 #' \cr
 #' \bold{`$by`}: \cr
 #' This will give `by`, but with it's sign adjusted, if needed. \cr

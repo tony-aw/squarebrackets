@@ -81,7 +81,7 @@ use pass-by-reference semantics. <br><br></p>
 <p>The main advantage of pass-by-reference is that much less memory is required to modify objects,
 and modification is also generally faster. <br>
 But it does have several disadvantages. <br><br>
-First, the coercion rules are slightly different: see <a href="aaa2_squarebrackets_mutable_classes.html">squarebrackets_mutable_classes</a>. <br><br>
+First, the coercion rules are slightly different: see <a href="aaa2_squarebrackets_coercion.html">squarebrackets_coercion</a>. <br><br>
 Second, if 2 or more variables refer to exactly the same object,
 changing one variable also changes the other ones. <br>
 I.e. the following code,</p>
@@ -189,13 +189,13 @@ will not work. <br><br></p>
     <h2 id="lock-binding">Lock Binding<a class="anchor" aria-label="anchor" href="#lock-binding"></a></h2>
     
 
-<p><a href="aaa2_squarebrackets_mutable_classes.html">Mutable classes</a> are,
+<p>Mutable classes are,
 as the name suggests,
 meant to be mutable. <br>
 Locking the binding of a mutable object is <b>mostly</b> fruitless
 (but not completely;
 see the <a href="currentBindings.html">currentBindings</a> function). <br>
-To prevent modification of an object's binding, 2 things must be true: <br></p><ul><li><p>the object must be an <a href="aaa1_squarebrackets_immutable_classes.html">immutable class</a>.</p></li>
+To prevent modification of an object's binding, 2 things must be true: <br></p><ul><li><p>the object must be an immutable class.</p></li>
 <li><p>the binding must be <b>locked</b> (see <a href="https://rdrr.io/r/base/bindenv.html" class="external-link">lockBinding</a>).</p></li>
 </ul><p>Some packages that provide pass-by-reference semantics
 tend to ignore the lock of an object's binding. <br>

@@ -5,10 +5,10 @@ sys.source(file.path(getwd(), "source", "functions4testing.R"), envir = environm
 
 
 tempfun1 <- function(x, from = NULL, to = NULL, by = 1L, tf) {
-  myslcseq <- cp_seq(x, 0L, from, to, by)
-  start <- myslcseq$start
-  end <- myslcseq$end
-  by <- myslcseq$by
+  myslice <- cp_seq(x, 0L, from, to, by)
+  start <- myslice$start
+  end <- myslice$end
+  by <- myslice$by
   ind <- seq_along(x)[-seq(start, end, by)]
   x[ind] <- tf(x[ind])
   return(x)
@@ -17,7 +17,7 @@ tempfun1 <- function(x, from = NULL, to = NULL, by = 1L, tf) {
 tempfun2 <- function(x, from = NULL, to = NULL, by = 1L, tf) {
   x <- data.table::copy(x)
   x2 <- x
-  slcseq_set(x, from, to, by, tf = tf, inv = TRUE)
+  slice_set(x, from, to, by, tf = tf, inv = TRUE)
   if(!identical(x, x2)) { stop("PassByReference fail")}
   return(x)
 }

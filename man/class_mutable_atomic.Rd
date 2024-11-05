@@ -119,7 +119,7 @@ x <- as.mutable_atomic(x)
 is.mutable_atomic(x)
 print(x)
 x[, 1]
-x[] <- as.double(x) # notifies the user a copy is being made
+x[] <- as.double(x)
 print(x)
 is.mutable_atomic(x)
 }

@@ -29,7 +29,7 @@
 #' An integer vector of casted indices.
 #' 
 #' 
-#' @example inst/examples/ci.R
+#' @example inst/examples/tci.R
 #' 
 
 
@@ -146,7 +146,7 @@ ci_sub <- function(
     sub <- list(sub)
   }
   
-  .arr_check(x, sub, dims, length(dim(x)), .abortcall)
+  .arr_check(x, sub, dims, ndims(x), .abortcall)
   lst <- .rcpp_seq_mlen(as.integer(dim(x)))
   if(length(dims) > 0L) {
     for(i in seq_along(dims)) {

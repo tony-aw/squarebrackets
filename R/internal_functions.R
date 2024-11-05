@@ -154,7 +154,7 @@
 #' @noRd
 .check_rp_atomic <- function(rp, sslength, abortcall) {
   n.rp <- length(rp)
-  if(is.recursive(rp)) {
+  if(!is.atomic(rp)) {
     stop(simpleError("`rp` must be atomic", call = abortcall))
   }
   if(n.rp != sslength && n.rp != 1L) {
@@ -230,6 +230,10 @@
   if(identical(parent.frame(n = 1L), globalenv())) {
     stop("DO NOT call this function!!!")
   }
+  if(!is.atomic(x)) {
+    stop("input is not atomic")
+  }
+  
   if(!"mutable_atomic" %in% class(x)) {
     data.table::setattr(x, "class", c("mutable_atomic", class(x)))
   }
@@ -248,4 +252,22 @@
   data.table::setattr(y, "serial", .C_serial(y))
   
   return(y)
+}
+
+.internal_coerce_rp <- function(x, rp, abortcall) {
+  if(typeof(x) != typeof(rp)) {
+    message(sprintf("coercing replacement to %s", typeof(x)))
+    if(is.logical(x)) rp <- as.logical(rp)
+    else if(is.integer(x)) rp <- as.integer(rp)
+    else if(is.double(x)) rp <- as.double(rp)
+    else if(is.complex(x)) rp <- as.complex(rp)
+    else if(is.character(x)) rp <- as.character(rp)
+    else if(is.raw(x)) rp <- as.raw(rp)
+    else {
+      stop(simpleError(
+        "unsupported atomic type", call = abortcall
+      ))
+    }
+  }
+  return(rp)
 }

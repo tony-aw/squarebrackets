@@ -2,7 +2,7 @@
 #'
 #' @description
 #' This is an S3 Method to replace or transform a subset of a
-#' \link[=squarebrackets_mutable_classes]{supported mutable object}
+#' \link[=squarebrackets_supported_structures]{supported mutable object}
 #' using
 #' \link[=squarebrackets_PassByReference]{pass-by-reference semantics} \cr
 #' Use `sb_set(x, ...)` if `x` is an atomic object (i.e. \link{mutable_atomic}). \cr
@@ -10,7 +10,7 @@
 #' 
 #'
 #' @param x a \bold{variable} belonging to one of the
-#' \link[=squarebrackets_mutable_classes]{supported mutable classes}. \cr
+#' \link[=squarebrackets_supported_structures]{supported mutable classes}. \cr
 #' @param i,row,col,sub,dims,filter,vars,inv See \link{squarebrackets_indx_args}. \cr
 #' An empty index selection leaves the original object unchanged. \cr
 #' @param ... see \link{squarebrackets_method_dispatch}.
@@ -134,7 +134,7 @@ sb_set.array <- function(
   .check_bindingIsLocked(substitute(x), parent.frame(n = 1), abortcall = sys.call())
   
   # function:
-  if(.all_NULL_indices(list(row, col, i))) {
+  if(.all_NULL_indices(list(sub, dims, i))) {
     .rcpp_set_all(x, rp, tf, abortcall = sys.call())
     return(invisible(NULL))
   }

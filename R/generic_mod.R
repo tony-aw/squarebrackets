@@ -9,7 +9,7 @@
 #' \cr
 #' For modifying subsets using R's default copy-on-modification semantics, see \link{idx}. \cr \cr
 #'
-#' @param x see \link{squarebrackets_immutable_classes} and \link{squarebrackets_mutable_classes}.
+#' @param x see \link{squarebrackets_supported_structures}.
 #' @param i,row,col,sub,dims,filter,vars,inv See \link{squarebrackets_indx_args}. \cr
 #' An empty index selection returns the original object unchanged. \cr
 #' @param ... see \link{squarebrackets_method_dispatch}.

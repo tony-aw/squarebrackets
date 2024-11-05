@@ -1,7 +1,7 @@
 #' Index Arguments in the Generic Sub-setting Methods
 #'
 #' @description
-#' There are 6 types of arguments that can be used
+#' There are several types of arguments that can be used
 #' in the generic methods of 'squarebrackets' to specify the indices to perform operations on:
 #' 
 #'  * `i`: to specify flat (i.e. dimensionless) indices.
@@ -15,7 +15,6 @@
 #' \cr
 #' 
 #' @section Fundamentals:
-#' 
 #' Base 'R' supports indexing through `logical`, `integer`, and `character` vectors. \cr
 #' 'squarebrackets' suppports these also (albeit with some improvements),
 #' but also supports some additional methods of indexing. \cr
@@ -91,7 +90,7 @@
 #' 
 #' @section Argument i:
 #' `r .mybadge_class("atomic vector")` \cr
-#' `r .mybadge_class("factor")` \cr
+#' `r .mybadge_class("derived atomic vector")` \cr
 #' `r .mybadge_class("recursive vector")` \cr
 #' 
 #' 

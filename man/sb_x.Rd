@@ -31,7 +31,7 @@ sb2_x(x, ...)
 \method{sb2_x}{data.frame}(x, row = NULL, col = NULL, filter = NULL, vars = NULL, ...)
 }
 \arguments{
-\item{x}{see \link{squarebrackets_immutable_classes} and \link{squarebrackets_mutable_classes}.}
+\item{x}{see \link{squarebrackets_supported_structures}.}
 
 \item{...}{see \link{squarebrackets_method_dispatch}.}
 

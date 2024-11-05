@@ -94,7 +94,7 @@ Recycling is not allowed in the modifcation methods. \cr
 So, for example, \code{length(rp)} must be equal to the length of the selected subset,
 or equal to \code{1}. \cr
 The user should also take into account the auto-coercion rules of the object's class. \cr
-See \link{squarebrackets_immutable_classes} and \link{squarebrackets_mutable_classes} for details. \cr
+See \link{squarebrackets_coercion} for details. \cr
 \cr
 }
 

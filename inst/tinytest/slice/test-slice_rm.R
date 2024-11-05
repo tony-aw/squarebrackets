@@ -5,10 +5,10 @@ sys.source(file.path(getwd(), "source", "functions4testing.R"), envir = environm
 
 
 tempfun <- function(x, from = NULL, to = NULL, by = 1L) {
-  myslcseq <- cp_seq(x, 0L, from, to, by)
-  start <- myslcseq$start
-  end <- myslcseq$end
-  by <- myslcseq$by
+  myslice <- cp_seq(x, 0L, from, to, by)
+  start <- myslice$start
+  end <- myslice$end
+  by <- myslice$by
   ind <- seq_along(x)[-seq(start, end, by)]
   return(x[ind])
 }
@@ -35,7 +35,7 @@ for(iF in seq_along(list_fromto)) {
       to = list_fromto[[iT]]
       by = list_by[[iB]]
       expected[[counter]] <- tempfun(x, from, to, by)
-      out[[counter]] <- slcseq_rm(x, from, to, by)
+      out[[counter]] <- slice_rm(x, from, to, by)
       counter <- counter + 1L
       enumerate <- enumerate + 1L
     }
@@ -64,7 +64,7 @@ for(iF in seq_along(list_fromto)) {
       to = list_fromto[[iT]]
       by = list_by[[iB]]
       expected[[counter]] <- tempfun(x, from, to, by)
-      out[[counter]] <- slcseq_rm(x, from, to, by)
+      out[[counter]] <- slice_rm(x, from, to, by)
       counter <- counter + 1L
       enumerate <- enumerate + 1L
     }
@@ -93,7 +93,7 @@ for(iF in seq_along(list_fromto)) {
       to = list_fromto[[iT]]
       by = list_by[[iB]]
       expected[[counter]] <- tempfun(x, from, to, by) |> unname()
-      out[[counter]] <- slcseq_rm(x, from, to, by, use.names = FALSE)
+      out[[counter]] <- slice_rm(x, from, to, by, use.names = FALSE)
       counter <- counter + 1L
       enumerate <- enumerate + 1L
     }
@@ -124,7 +124,7 @@ for(i in seq_along(x.data)) {
   x <- data.table::copy(x.data[[i]])
   
   expected[[i]] <- tempfun(x, 3, -3i, -3)
-  out[[i]] <- slcseq_rm(x, 3, -3i, -3)
+  out[[i]] <- slice_rm(x, 3, -3i, -3)
   
 }
 expect_equal(

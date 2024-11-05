@@ -137,11 +137,11 @@ The indexing vector may need to be of type <code>double</code>
 and the indexing vector may need to be very large itself also. <br>
 This is can be quite inefficient,
 as one may need up to twice the memory of the object itself. <br><br>
-'squarebrackets' provides the <a href="slcseq.html">slcseq</a><code>_</code> methods,
+'squarebrackets' provides the <a href="slice.html">slice</a><code>_</code> methods,
 which can perform sub-set operations on large atomic vectors,
 <b>without</b> the need of any indexing vector at all. <br><br>
 Note that dimensional objects, such as arrays and data.frame-like objects,
-are in less dire need of a <code>slcseq_</code> method due to dimensional indexing: <br>
+are in less dire need of a <code>slice_</code> method due to dimensional indexing: <br>
 For example,
 a <code>1500</code> by <code>1500</code> by <code>1500</code> array is already a long vector (<code>1500^3 &gt; (2^31 - 1)</code>),
 yet one does not need indexing vectors longer than 1500 elements or of type <code>double</code>. <br><br></p>

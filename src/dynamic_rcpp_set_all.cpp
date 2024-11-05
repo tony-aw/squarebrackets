@@ -76,5 +76,7 @@ switch(TYPEOF(x)){
     break;
   }
 
+  default: stop("unsupported type given");
 }
 }
+

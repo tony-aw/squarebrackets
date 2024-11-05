@@ -2,11 +2,19 @@ Package: squarebrackets
 Type: Package
 Title: Subset Methods as Alternatives to the Square Brackets Operators for Programming
 Version: 0.0.0.9
-Authors@R: 
+Authors@R: c(
     person("Tony", "Wilkes",
            email = "tony_a_wilkes@outlook.com",
            role = c("aut", "cre", "cph"),
-           comment = c(ORCID = "0000-0001-9498-8379"))
+           comment = c(ORCID = "0000-0001-9498-8379")),
+    person("Tony", "Plate",
+           email = "tplate@acm.org",
+           role = "ctb",
+           comment = "Author of included 'abind' fragments"),
+    person("Richard", "Heiberger",
+            role = "ctb",
+           comment = "Author of included 'abind' fragments")
+  )
 Description: Provides subset methods
     (supporting both atomic and recursive S3 classes)
     that may be more convenient alternatives to the `[` and `[<-` operators,

@@ -50,19 +50,25 @@ setapply <- function(x, MARGIN, FUN) {
   }
   
   if(MARGIN == 1) {
-    testf <- FUN(x[1,])
-    if(typeof(testf) != typeof(x) || length(testf) != ncol(x)) {
+    testf1 <- x[1,]
+    testf2 <- testf1
+    testf1 <- FUN(testf1)
+    if(typeof(testf1) != typeof(x) || length(testf1) != ncol(x) || .rcpp_address(testf1) == .rcpp_address(testf2)) {
       stop("improper function given")
     }
     
     .rcpp_setapply_row(x, FUN, abortcall = sys.call())
+    
   } else if(MARGIN == 2) {
-    testf <- FUN(x[,1])
-    if(typeof(testf) != typeof(x) || length(testf) != nrow(x)) {
+    testf1 <- x[,1]
+    testf2 <- testf1
+    testf1 <- FUN(testf1)
+    if(typeof(testf1) != typeof(x) || length(testf1) != nrow(x) || .rcpp_address(testf1) == .rcpp_address(testf2)) {
       stop("improper function given")
     }
     
     .rcpp_setapply_col(x, FUN, abortcall = sys.call())
+    
   } else {
     stop("`MARGIN` must be 1 or 2")
   }

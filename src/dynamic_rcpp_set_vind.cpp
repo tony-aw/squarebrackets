@@ -1,3 +1,5 @@
+
+
 #include <Rcpp.h>
 
 using namespace Rcpp;
@@ -77,6 +79,7 @@ switch(TYPEOF(x)){
     break;
   }
 
+  default: stop("unsupported type given");
 }
 }
 
@@ -100,6 +103,7 @@ template<int RTYPE> void rcpp_set_vind_64_template(
   }
   else stop("recycling not allowed");
 }
+
 
 
 
@@ -154,8 +158,7 @@ switch(TYPEOF(x)){
     break;
   }
 
+  default: stop("unsupported type given");
 }
 }
-
-
 

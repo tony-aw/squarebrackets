@@ -66,7 +66,7 @@
 #' @section Warning: 
 #' The `currentBindings()` function
 #' only locks \bold{currently existing} bindings
-#' in the \bold{caller environment}; \cr
+#' in the \bold{specified environment}; \cr
 #' bindings that are created \bold{after} calling `currentBindings()`
 #' will not automatically be locked. \cr
 #' Thus, every time the user creates a new binding of the same object,

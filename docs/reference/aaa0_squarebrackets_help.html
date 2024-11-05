@@ -115,18 +115,17 @@ through the use of the 'Rcpp', 'collapse', and 'data.table' R-packages. <br><br>
     <h2 id="supported-classes">Supported Classes<a class="anchor" aria-label="anchor" href="#supported-classes"></a></h2>
     
 
-<p>'squarebrackets' only supports S3 classes,
+<p>'squarebrackets' only supports the most common S3 classes,
 and only those that primarily use square brackets for sub-setting
 (hence the name of the package). <br><br>
-Supported <a href="aaa1_squarebrackets_immutable_classes.html">immutable classes</a>: <br><code>atomic</code>, <code>list</code>, <code>data.frame</code>
+Supported immutable classes: <br><code>atomic</code>, <code>list</code>, <code>data.frame</code>
 (including <code>tibble</code>, <code>sf-data.frame</code>, and <code>sf-tibble</code>). <br><br>
-Supported  <a href="aaa2_squarebrackets_mutable_classes.html">mutable classes</a>: <br><a href="class_mutable_atomic.html">mutable_atomic</a>, <code>data.table</code>
+Supported  mutable classes: <br><a href="class_mutable_atomic.html">mutable_atomic</a>, <code>data.table</code>
 (including <code>tidytable</code>, <code>sf-data.table</code>, and <code>sf-tidytable</code>). <br><br>
-There are, of course, a lot of classes which are not supported by 'squarebrackets'. <br>
-Most notably,
-key-value stores - such as environments,
-and the various 'collections' classes
-from the 'collections' package - are not supported. <br><br></p>
+Key-value storages,
+such as environments,
+and the various classes of the 'collections' package,
+are not supported. <br><br></p>
     </div>
     <div class="section level2">
     <h2 id="methods">Methods<a class="anchor" aria-label="anchor" href="#methods"></a></h2>
@@ -145,12 +144,14 @@ The binding implementations for recursive dimensional objects (recursive arrays,
 start with <code>bind2_</code>. <br>
 There is also the somewhat separate <a href="idx1.html">idx</a> method,
 which works on both recursive and non-recursive objects. <br>
-And finally there are the <code>slcseq_</code> methods, which (currently) only work on atomic vectors. <br><br></p>
-<p><img src="figures/selection_methods-darkgreen.svg" alt="[SELECTION METHODS]"><br></p><ul><li><p><a href="sb_x.html">sb_x</a>, <a href="sb_x.html">sb2_x</a>: extract, exchange, or duplicate subsets.</p></li>
+And finally there are the <code>slice_</code> methods, which (currently) only work on atomic vectors. <br><br></p>
+<p><img src="figures/accessor_methods-darkgreen.svg" alt="[ACCESSOR METHODS]"><br></p>
+<p>Methods to access subsets (i.e. extract selection, or extract all except selection):</p><ul><li><p><a href="sb_x.html">sb_x</a>, <a href="sb_x.html">sb2_x</a>: extract, exchange, or duplicate subsets.</p></li>
 <li><p><a href="sb_rm.html">sb_rm</a>,  <a href="sb_rm.html">sb2_rm</a>: un-select/remove subsets.</p></li>
 <li><p><a href="sb2_rec.html">sb2_rec</a>: access recursive subsets of lists.</p></li>
-<li><p><a href="slcseq.html">slcseq_x</a>, <a href="slcseq.html">slcseq_rm</a>: efficiently extract or remove subset from a (long) vector. <br><br></p></li>
-</ul><p><img src="figures/modification_methods-red.svg" alt="[MODIFICATION METHODS]"><br></p><ul><li><p><a href="idx1.html">idx</a>: translate given indices/subscripts,
+<li><p><a href="slice.html">slice_x</a>, <a href="slice.html">slice_rm</a>: efficiently extract or un-select/remove subset from a (long) vector. <br><br></p></li>
+</ul><p><img src="figures/modification_methods-red.svg" alt="[MODIFICATION METHODS]"><br></p>
+<p>Methods to modify subsets:</p><ul><li><p><a href="idx1.html">idx</a>: translate given indices/subscripts,
 for the purpose of copy-on-modify substitution.</p></li>
 <li><p><a href="sb2_rec.html">sb2_recin</a>: replace, transform, remove, or add recursive subsets to a list,
 through R's default Copy-On-Modify semantics.</p></li>
@@ -158,14 +159,15 @@ through R's default Copy-On-Modify semantics.</p></li>
 of an object with modified
 (transformed or replaced) subsets.</p></li>
 <li><p><a href="sb_set.html">sb_set</a>, <a href="sb_set.html">sb2_set</a>: modify (transform or replace)
-subsets of a <a href="aaa2_squarebrackets_mutable_classes.html">mutable object</a>
+subsets of a <a href="aaa1_squarebrackets_supported_structures.html">mutable object</a>
 using <a href="aaa7_squarebrackets_PassByReference.html">pass-by-reference semantics</a>.</p></li>
-<li><p><a href="slcseq.html">slcseq_set</a>: efficiently modify a (long) vector subset using
+<li><p><a href="slice.html">slice_set</a>: efficiently modify a (long) vector subset using
 <a href="aaa7_squarebrackets_PassByReference.html">pass-by-reference semantics</a>. <br><br></p></li>
-</ul><p><img src="figures/other_methods-pink.svg" alt="[OTHER METHODS]"><br></p><ul><li><p><a href="bind.html">bind_</a>, <a href="bind.html">bind2_</a>:  implementations for binding dimensional objects.</p></li>
-<li><p><a href="cp_seq.html">cp_seq</a>: construct parameters for margin-based sequences. <br>
-Not actually a method, but can be used to predict the exact sequence lay-out,
-like used in the <a href="slcseq.html">slcseq_</a> methods. <br><br></p></li>
+</ul><p><img src="figures/extending_methods-purple.svg" alt="[EXTENDING METHODS]"><br></p>
+<p>Methods to extend or re-arrange an object beyond its current size:</p><ul><li><p><a href="bind.html">bind_</a>, <a href="bind.html">bind2_</a>:  implementations for binding dimensional objects.</p></li>
+<li><p><a href="sb_x.html">sb_x</a>, <a href="sb_x.html">sb2_x</a>: extract, exchange, or duplicate subsets.</p></li>
+<li><p><a href="sb2_rec.html">sb2_recin</a>: replace, transform, remove, or add recursive subsets to a list,
+through R's default Copy-On-Modify semantics.</p></li>
 </ul><p>So for example,
 use <code><a href="sb_rm.html">sb_rm()</a></code> to remove subsets from atomic arrays,
 and use <code><a href="sb_rm.html">sb2_rm()</a></code> to remove subsets from recursive arrays. <br>
@@ -189,12 +191,13 @@ using <a href="aaa7_squarebrackets_PassByReference.html">pass-by-reference seman
 using <a href="aaa7_squarebrackets_PassByReference.html">pass-by-reference semantics</a>. <br>
 This is considerably faster and more memory efficient than using <a href="sb_set.html">sb_set</a> for this. <br><br></p></li>
 </ul><p><img src="figures/helper_functions-lightblue.svg" alt="[HELPER FUNCTIONS]"><br>
-A couple of helper functions for creating ranges, sequences, and indices
+A couple of convenience functions, and helper functions for creating ranges, sequences, and indices
 (often needed in sub-setting)
 are provided:</p><ul><li><p><a href="currentBindings.html">currentBindings</a>: list or lock all currently existing bindings
 that share the share the same address as the input variable.</p></li>
 <li><p><a href="nest.html">n</a>: Nested version of <a href="https://rdrr.io/r/base/c.html" class="external-link">c</a>,
 and short-hand for <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a>.</p></li>
+<li><p><a href="ndims.html">ndims</a>: Get the number of dimensions of an object.</p></li>
 <li><p><a href="sub2ind.html">sub2coord</a>, <a href="sub2ind.html">coord2ind</a>: Convert subscripts
 (array indices) to coordinates,
 coordinates to flat indices,

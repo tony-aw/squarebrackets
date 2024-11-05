@@ -227,7 +227,7 @@ materialize_atomic <- function(x) {
     return(x)
   }
   y <- vector(typeof(x), length(x))
-  .rcpp_set_all(y, rp = x)
+  .rcpp_set_all(y, rp = x, abortcall = sys.call())
   mostattributes(y) <- attributes(x)
   
   .internal_set_ma(y)

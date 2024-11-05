@@ -66,7 +66,7 @@ sb2_set(x, ...)
 }
 \arguments{
 \item{x}{a \bold{variable} belonging to one of the
-\link[=squarebrackets_mutable_classes]{supported mutable classes}. \cr}
+\link[=squarebrackets_supported_structures]{supported mutable classes}. \cr}
 
 \item{...}{see \link{squarebrackets_method_dispatch}.}
 
@@ -85,7 +85,7 @@ Since this function returns void, you'll just get \code{NULL}. \cr \cr
 }
 \description{
 This is an S3 Method to replace or transform a subset of a
-\link[=squarebrackets_mutable_classes]{supported mutable object}
+\link[=squarebrackets_supported_structures]{supported mutable object}
 using
 \link[=squarebrackets_PassByReference]{pass-by-reference semantics} \cr
 Use \code{sb_set(x, ...)} if \code{x} is an atomic object (i.e. \link{mutable_atomic}). \cr

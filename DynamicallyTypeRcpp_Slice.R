@@ -3,19 +3,25 @@
 library(stringi)
 
 
-# slcseq ====
+SXPTYPES <- c("LGLSXP", "INTSXP", "REALSXP", "CPLXSXP", "STRSXP", "RAWSXP")
+RCPPTYPES <- c("Logical", "Integer", "Numeric", "Complex", "Character", "Raw")
 
-RTYPES <- c("Logical", "Integer", "Numeric", "Character", "Complex", "Raw")
+header <- "
+
+#include <Rcpp.h>
+
+using namespace Rcpp;
+
+"
+
+# templates ====
 
 templatecode <- "
 
-//' @keywords internal
-//' @noRd
-// [[Rcpp::export(.rcpp_slcseq_x_RTYPE)]]
-RTYPEVector rcpp_slcseq_x_RTYPE(
-    const RTYPEVector x, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len
+template<int RTYPE> Vector<RTYPE> rcpp_slice_x_template(
+    const Vector<RTYPE> x, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len
   ) {
-  RTYPEVector out(len);
+  Vector<RTYPE> out(len);
   
   if(len == 1) {
     out[0] = x[start];
@@ -32,11 +38,9 @@ RTYPEVector rcpp_slcseq_x_RTYPE(
 }
   
 
-//' @keywords internal
-//' @noRd
-// [[Rcpp::export(.rcpp_slcseq_set_RTYPE)]]
-void rcpp_slcseq_set_RTYPE(
-    RTYPEVector x, const RTYPEVector rp, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len
+
+template<int RTYPE> void rcpp_slice_set_template(
+    Vector<RTYPE> x, const Vector<RTYPE> rp, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len
   ) {
   
   if(len == 1) {
@@ -61,13 +65,10 @@ void rcpp_slcseq_set_RTYPE(
 }
 
 
-//' @keywords internal
-//' @noRd
-// [[Rcpp::export(.rcpp_slcseq_xrev_RTYPE)]]
-RTYPEVector rcpp_slcseq_xrev_RTYPE(
-    const RTYPEVector x, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len
+template<int RTYPE> Vector<RTYPE> rcpp_slice_xrev_template(
+    const Vector<RTYPE> x, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len
   ) {
-  RTYPEVector out(len);
+  Vector<RTYPE> out(len);
   
   if(len == 1) {
     out[0] = x[start];
@@ -84,11 +85,8 @@ RTYPEVector rcpp_slcseq_xrev_RTYPE(
 }
 
 
-//' @keywords internal
-//' @noRd
-// [[Rcpp::export(.rcpp_slcseq_setrev_RTYPE)]]
-void rcpp_range_slcseq_setrev_RTYPE(
-    RTYPEVector x, const RTYPEVector rp, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len
+template<int RTYPE> void rcpp_slice_setrev_template(
+    Vector<RTYPE> x, const Vector<RTYPE> rp, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len
   ) {
   
   if(len == 1) {
@@ -113,13 +111,10 @@ void rcpp_range_slcseq_setrev_RTYPE(
 }
 
 
-//' @keywords internal
-//' @noRd
-// [[Rcpp::export(.rcpp_slcseq_rm_RTYPE)]]
-RTYPEVector rcpp_slcseq_rm_RTYPE(
-    const RTYPEVector x, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len
+template<int RTYPE> Vector<RTYPE> rcpp_slice_rm_template(
+    const Vector<RTYPE> x, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len
   ) {
-  RTYPEVector out(len);
+  Vector<RTYPE> out(len);
   
   R_xlen_t counter = 0;
   if(start > 0) {
@@ -158,11 +153,8 @@ RTYPEVector rcpp_slcseq_rm_RTYPE(
 
 
 
-//' @keywords internal
-//' @noRd
-// [[Rcpp::export(.rcpp_slcseq_setinv_RTYPE)]]
-void rcpp_slcseq_setinv_RTYPE(
-    RTYPEVector x, const RTYPEVector rp, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len
+template<int RTYPE> void rcpp_slice_setinv_template(
+    Vector<RTYPE> x, const Vector<RTYPE> rp, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len
   ) {
   
   
@@ -239,19 +231,138 @@ void rcpp_slcseq_setinv_RTYPE(
 }
 
 "
+cat(templatecode)
 
 
-rcpp_scripts <- character(length(RTYPES))
-names(rcpp_scripts) <- RTYPES
-for(i in seq_along(RTYPES)) {
-  rcpp_scripts[[i]] <- stri_replace_all(
-    templatecode,
-    fixed = c("RTYPE"),
-    replacement = c(RTYPES[i]),
-    case_insensitive = FALSE,
-    vectorize_all = FALSE
+################################################################################
+# atomic switches ====
+
+
+
+
+make_switches <- function(template_return, template_name, template_inputs) {
+  
+  switchpiece <- "
+  case TYPESXP:
+  {
+    <return> template_name<TYPESXP>(template_inputs);
+    break;
+  }
+"
+  switchpiece <- stri_replace_all_fixed(
+    switchpiece, c("<return>", "template_name", "template_inputs"),
+    c(template_return, template_name, template_inputs), vectorize_all = FALSE
   )
+  
+  switches <- character(6L)
+  
+  for(i in 1:6) {
+    switches[i] <- stringi::stri_replace_all_fixed(
+      switchpiece, c("TYPESXP", "RCPPTYPE"),  c(SXPTYPES[i], RCPPTYPES[i]),
+      vectorize_all = FALSE
+    )
+  }
+  
+  switches <- stringi::stri_paste(switches, collapse = "\n")
+  return(switches)
 }
+
+template_names <- c(
+  "rcpp_slice_x_template",
+  "rcpp_slice_set_template",
+  "rcpp_slice_xrev_template",
+  "rcpp_slice_setrev_template",
+  "rcpp_slice_rm_template",
+  "rcpp_slice_setinv_template"
+)
+
+
+template_inputs <- rep(c(
+  "as<RCPPTYPEVector>(x), start, end, by, len",
+  "as<RCPPTYPEVector>(x), as<RCPPTYPEVector>(rp), start, end, by, len"
+), 3L)
+
+template_returns <- rep(c(
+  "return", ""
+), 3L)
+
+atomic_fun_args <- rep(c(
+  "const SEXP x, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len",
+  "SEXP x, const SEXP rp, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len"
+), 3L)
+
+
+atomic_fun_names <- stri_replace_all_fixed(
+  template_names, "_template", "_atomic"
+)
+
+atomic_fun_returntypes <- rep(c(
+  "SEXP", "void"
+), 3L)
+
+atomic_fun_returnoutes <- rep(c(
+  "return R_NilValue;", ""
+), 3L)
+
+atomic_codes <- character(6)
+
+for(i in 1:6) {
+  
+  temp <- stri_c(
+    
+    "
+//' @keywords internal
+//' @noRd
+// [[Rcpp::export(.<ATOMIC_FUN_NAME>)]]
+<returntype> <ATOMIC_FUN_NAME>(
+  <ATOMIC_FUN_ARGS>
+) {
+
+
+switch(TYPEOF(x)){
+",
+    
+    
+    make_switches(template_returns[i], template_names[i], template_inputs[i]),
+    
+    
+    "
+  default: stop(\"unsupported type given\");
+}
+
+<returnout>
+
+}
+"
+  )
+  
+  temp <- stri_replace_all_fixed(
+    temp,
+    c("<returntype>", "<ATOMIC_FUN_NAME>", "<ATOMIC_FUN_ARGS>", "<returnout>"),
+    c(atomic_fun_returntypes[i], atomic_fun_names[i], atomic_fun_args[i], atomic_fun_returnoutes[i]),
+    vectorise_all = FALSE
+  )
+  
+  atomic_codes[i] <- temp
+  
+}
+
+atomic_code <- stri_paste(atomic_codes, collapse = "\n \n")
+
+cat(atomic_code)
+
+
+################################################################################
+# combining code ====
+
+
+final_code <- stri_paste(
+  templatecode,
+  atomic_code,
+  collapse = "\n \n"
+)
+cat(final_code)
+
 
 
 headers <- "
@@ -263,14 +374,14 @@ using namespace Rcpp;
 
 
 "
-rcpp_code <- paste(c(headers, rcpp_scripts), collapse = "\n\n\n")
+rcpp_code <- paste(c(headers, final_code), collapse = "\n\n\n")
 cat(rcpp_code)
 
 Rcpp::sourceCpp(
   code = rcpp_code # no errors, good
 )
 
-fileConn <- file("src/dynamic_rcpp_slcseq.cpp")
+fileConn <- file("src/dynamic_rcpp_slice.cpp")
 writeLines(rcpp_code, fileConn)
 close(fileConn)
 

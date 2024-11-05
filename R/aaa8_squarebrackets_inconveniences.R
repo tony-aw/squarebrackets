@@ -82,12 +82,12 @@
 #' This is can be quite inefficient,
 #' as one may need up to twice the memory of the object itself. \cr
 #' \cr
-#' 'squarebrackets' provides the \link[=slcseq_x]{slcseq}\code{_} methods,
+#' 'squarebrackets' provides the \link[=slice_x]{slice}\code{_} methods,
 #' which can perform sub-set operations on large atomic vectors,
 #' \bold{without} the need of any indexing vector at all. \cr
 #' \cr
 #' Note that dimensional objects, such as arrays and data.frame-like objects,
-#' are in less dire need of a `slcseq_` method due to dimensional indexing: \cr
+#' are in less dire need of a `slice_` method due to dimensional indexing: \cr
 #' For example,
 #' a `1500` by `1500` by `1500` array is already a long vector (`1500^3 > (2^31 - 1)`),
 #' yet one does not need indexing vectors longer than 1500 elements or of type `double`. \cr \cr

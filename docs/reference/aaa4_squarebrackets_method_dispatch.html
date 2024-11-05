@@ -70,32 +70,24 @@ This because some S3 classes are available in both atomic and recursive forms. <
 For example,
 the <a href="https://rdrr.io/r/base/array.html" class="external-link">array</a> S3 class and the <a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a> S3 class
 (which inherits from the "array" S3 class)
-have both an atomic form, and a recursive form. <br>
-The recursive form of arrays and matrices is sometimes referred to as a "dimensional list". <br><br>
-Atomic and recursive objects are quite different from each other in some ways:</p><ul><li><p><strong>homo- or heterogeneous</strong>: atomic object are homogeneous,
-in that they can only contain one data-type
-(logical, integer, double, character, complex, raw). <br>
-In contrast, recursive objects are heterogeneous,
-as they can have any combination of data-types.</p></li>
-<li><p><strong>copy semantics</strong>: copying atomic data (almost) always performs a <em>deep copy</em>
-(though this statement comes with some technical caveats). <br>
-But since recursive objects are pointers to other data,
-copies of recursive objects are often <em>shallow copies</em>.</p></li>
+have both an atomic form, and a recursive form. <br><br>
+Atomic and recursive objects are quite different from each other in some ways:</p><ul><li><p><strong>homo- or heterogeneous</strong>: an atomic object can only have values of one data type. <br>
+recursive objects can hold values of any combination of data types.</p></li>
+<li><p><strong>copy semantics</strong>: One can copy a subset of a recursive object without copying the rest of the object
+(thus saving memory when copying).
+For atomic objects, however, a copy operation copies the entire vector (ignoring attributes). <br></p></li>
 <li><p><strong>vectorization</strong>: most vectorized operations generally work on atomic objects,
-whereas recursive objects often require loops or apply-like functions. <br>
-This is especially relevant for transforming subsets.</p></li>
+whereas recursive objects often require loops or apply-like functions.</p></li>
 <li><p><strong>recursive subsets</strong>: Recursive objects distinguish between "regular" subset operations
 (in base R using <code>[</code>, <code>[&lt;-</code>),
 and recursive subset operations (in base R using <code>[[</code>, <code>[[&lt;-</code>). <br>
-For both forms, atomic objects give atomic objects. <br>
-But for recursive objects,
-these 2 subset operations are significantly different.</p></li>
-<li><p><strong>views</strong>: Recursive objects are weird in that they are <em>pointers</em> to other objects. <br>
-As such they allow their extracted subsets to be <em>views</em> of these pointers
-(see <a href="aaa2_squarebrackets_mutable_classes.html">squarebrackets_mutable_classes</a>
-for more information on how to use "views" of recursive objects). <br>
-Atomic objects do now allow for subset views. <br></p></li>
-</ul><p>The S3 method dispatch system does not have a built-in method to have separate dispatches for recursive and atomic objects. <br>
+For atomic objects, these 2 have no meaningful difference
+(safe for perhaps attribute handling).</p></li>
+<li><p><strong>views</strong>: For recursive objects,
+one can create a subset <a href="aaa7_squarebrackets_PassByReference.html">view</a> of a recursive subset. <br>
+Recursive subset views do not exist for atomic objects. <br><br></p></li>
+</ul><p>Despite these differences,
+R'S S3 method dispatch system does not have a built-in method to have separate dispatches for recursive and atomic objects. <br>
 Hence, given all the above,
 the 'squarebrackets' package
 has separate methods for recursive and atomic objects. <br><br></p>

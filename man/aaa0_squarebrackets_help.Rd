@@ -78,23 +78,22 @@ through the use of the 'Rcpp', 'collapse', and 'data.table' R-packages. \cr \cr
 
 \section{Supported Classes}{
 
-'squarebrackets' only supports S3 classes,
+'squarebrackets' only supports the most common S3 classes,
 and only those that primarily use square brackets for sub-setting
 (hence the name of the package). \cr
 \cr
-Supported \link[=squarebrackets_immutable_classes]{immutable classes}: \cr
+Supported immutable classes: \cr
 \code{atomic}, \code{list}, \code{data.frame}
 (including \code{tibble}, \code{sf-data.frame}, and \code{sf-tibble}). \cr
 \cr
-Supported  \link[=squarebrackets_mutable_classes]{mutable classes}: \cr
+Supported  mutable classes: \cr
 \link{mutable_atomic}, \code{data.table}
 (including \code{tidytable}, \code{sf-data.table}, and \code{sf-tidytable}). \cr
 \cr
-There are, of course, a lot of classes which are not supported by 'squarebrackets'. \cr
-Most notably,
-key-value stores - such as environments,
-and the various 'collections' classes
-from the 'collections' package - are not supported. \cr \cr
+Key-value storages,
+such as environments,
+and the various classes of the 'collections' package,
+are not supported. \cr \cr
 }
 
 \section{Methods}{
@@ -113,17 +112,21 @@ The binding implementations for recursive dimensional objects (recursive arrays,
 start with \code{bind2_}. \cr
 There is also the somewhat separate \link{idx} method,
 which works on both recursive and non-recursive objects. \cr
-And finally there are the \code{slcseq_} methods, which (currently) only work on atomic vectors. \cr \cr
+And finally there are the \code{slice_} methods, which (currently) only work on atomic vectors. \cr \cr
 
-\ifelse{html}{\figure{selection_methods-darkgreen.svg}{options: alt='[SELECTION METHODS]'}}{\link[=squarebrackets_help]{SELECTION METHODS}} \cr
+\ifelse{html}{\figure{accessor_methods-darkgreen.svg}{options: alt='[ACCESSOR METHODS]'}}{\link[=squarebrackets_help]{ACCESSOR METHODS}} \cr
+
+Methods to access subsets (i.e. extract selection, or extract all except selection):
 \itemize{
 \item \link{sb_x}, \link{sb2_x}: extract, exchange, or duplicate subsets.
 \item \link{sb_rm},  \link{sb2_rm}: un-select/remove subsets.
 \item \link{sb2_rec}: access recursive subsets of lists.
-\item \link{slcseq_x}, \link{slcseq_rm}: efficiently extract or remove subset from a (long) vector. \cr \cr
+\item \link{slice_x}, \link{slice_rm}: efficiently extract or un-select/remove subset from a (long) vector. \cr \cr
 }
 
 \ifelse{html}{\figure{modification_methods-red.svg}{options: alt='[MODIFICATION METHODS]'}}{\link[=squarebrackets_help]{MODIFICATION METHODS}} \cr
+
+Methods to modify subsets:
 \itemize{
 \item \link{idx}: translate given indices/subscripts,
 for the purpose of copy-on-modify substitution.
@@ -133,18 +136,20 @@ through R's default Copy-On-Modify semantics.
 of an object with modified
 (transformed or replaced) subsets.
 \item \link{sb_set}, \link{sb2_set}: modify (transform or replace)
-subsets of a \link[=squarebrackets_mutable_classes]{mutable object}
+subsets of a \link[=squarebrackets_supported_structures]{mutable object}
 using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
-\item \link{slcseq_set}: efficiently modify a (long) vector subset using
+\item \link{slice_set}: efficiently modify a (long) vector subset using
 \link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr \cr
 }
 
-\ifelse{html}{\figure{other_methods-pink.svg}{options: alt='[OTHER METHODS]'}}{\link[=squarebrackets_help]{OTHER METHODS}} \cr
+\ifelse{html}{\figure{extending_methods-purple.svg}{options: alt='[EXTENDING METHODS]'}}{\link[=squarebrackets_help]{EXTENDING METHODS}} \cr
+
+Methods to extend or re-arrange an object beyond its current size:
 \itemize{
 \item \link[=bind]{bind_}, \link[=bind]{bind2_}:  implementations for binding dimensional objects.
-\item \link{cp_seq}: construct parameters for margin-based sequences. \cr
-Not actually a method, but can be used to predict the exact sequence lay-out,
-like used in the \link[=slcseq_x]{slcseq_} methods. \cr \cr
+\item \link{sb_x}, \link{sb2_x}: extract, exchange, or duplicate subsets.
+\item \link{sb2_recin}: replace, transform, remove, or add recursive subsets to a list,
+through R's default Copy-On-Modify semantics.
 }
 
 So for example,
@@ -173,7 +178,7 @@ This is considerably faster and more memory efficient than using \link{sb_set} f
 }
 
 \ifelse{html}{\figure{helper_functions-lightblue.svg}{options: alt='[HELPER FUNCTIONS]'}}{\link[=squarebrackets_help]{HELPER FUNCTIONS}} \cr
-A couple of helper functions for creating ranges, sequences, and indices
+A couple of convenience functions, and helper functions for creating ranges, sequences, and indices
 (often needed in sub-setting)
 are provided:
 \itemize{
@@ -181,6 +186,7 @@ are provided:
 that share the share the same address as the input variable.
 \item \link{n}: Nested version of \link[base]{c},
 and short-hand for \link[base]{list}.
+\item \link{ndims}: Get the number of dimensions of an object.
 \item \link{sub2coord}, \link{coord2ind}: Convert subscripts
 (array indices) to coordinates,
 coordinates to flat indices,

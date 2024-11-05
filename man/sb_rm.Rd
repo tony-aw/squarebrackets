@@ -75,7 +75,7 @@ sb2_rm(x, ...)
 )
 }
 \arguments{
-\item{x}{see \link{squarebrackets_immutable_classes} and \link{squarebrackets_mutable_classes}.}
+\item{x}{see \link{squarebrackets_supported_structures}.}
 
 \item{...}{see \link{squarebrackets_method_dispatch}.}
 

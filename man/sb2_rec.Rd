@@ -12,13 +12,13 @@ sb2_recin(x, rec, rp, tf)
 \arguments{
 \item{x}{a list, or list-like object.}
 
-\item{rec}{an integer (including negative integers) or character vector of length \code{p},
+\item{rec}{a strictly positive integer vector or character vector, of length \code{p},
 such that \code{x[[rec]]} is equivalent to \verb{x[[ rec[1] ]]...[[ rec[p] ]]},
 providing all but the final indexing results in a list. \cr
 When on a certain subset level of a nested list,
 multiple subsets with the same name exist,
 only the first one will be selected when performing recursive indexing by name,
-due to the recursive nature of this type of subsetting.}
+due to the recursive nature of this type of sub-setting.}
 
 \item{rp}{optional, and allows for multiple functionalities:
 \itemize{

@@ -40,7 +40,7 @@ Some nice properties of these methods include, but are not limited to, the follo
   3) When selecting names with the `[` and `[<-` operators, only the first occurrence of the names are selected in case of duplicate names. The 'squarebrackets' methods always perform on all names in case of duplicates, not just the first.
   4) The `[[` and `[[<-` operators allow operating on a recursive subset of a nested list. But these only operate on a single recursive subset, and are not vectorized for multiple recursive subsets of a nested list at once. 'squarebrackets' provides a way to reshape a nested list into a 2D recursive array of lists, thereby allowing vectorized operations on recursive subsets of such a nested list.
   5) The `[<-` operator only supports copy-on-modify semantics for most classes. The 'squarebrackets' methods provides explicit pass-by-reference and pass-by-value semantics, whilst still respecting things like binding-locks and mutability rules.
-  6) 'squarebrackets' supports index-less sub-set operations, which is faster and more memory efficient than sub-set operations using the `[` and `[<-` operators.
+  6) 'squarebrackets' supports index-less sub-set operations, which is far more memory efficient for `long vectors` than sub-set operations using the `[` and `[<-` operators.
 
 &nbsp;
 
@@ -104,7 +104,8 @@ tinycodet::import_LL("squarebrackets", selection = ... )
  - 26 September 2024: Overhauled how indexing with complex vectors work.
  - 28 September 2024: Split `sb(2)_setRename()` into `sb_setFlatnames()`, `sb_setDimnames()`, and `sb2_setVarnames()`.
  - 10 October 2024: `sb_mod()` now makes partial copies of data.frame-like objects instead of whole copies, for more memory efficiency. Also removed the old `sb_str()` and `sb_a()` functions. Renamed `ci_seq()` to `cp_seq()` (in preparation for the next update).
- - 19 October 2024: Removed the renaming methods (`sb_setRename`), and `seq_rec2()`. Added `slcseq()`
+ - 19 October 2024: Removed the renaming methods (`sb_setRename`), and `seq_rec2()`. Added `slcseq_`.
+ - 5 November 2024: Renamed `slcseq_` to `slice_`. Re-organized the documentation a bit. Fixed examples of the `ci` and `tci` help pages. Added `bind_mat()` and `bind2_mat()`. Added `ndims()`.
 
 
 

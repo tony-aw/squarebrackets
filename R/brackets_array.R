@@ -153,20 +153,7 @@
 #' @noRd
 .rcpp_set_array_2d_8d <- function(x, rp, lst, x.dim, abortcall) {
   dimcumprod <- as.double(cumprod(x.dim))
-  if(typeof(x) != typeof(rp)) {
-    message(sprintf("coercing `rp` to %s", typeof(x)))
-    if(is.logical(x)) rp <- as.logical(rp)
-    else if(is.integer(x)) rp <- as.integer(rp)
-    else if(is.double(x)) rp <- as.double(rp)
-    else if(is.complex(x)) rp <- as.complex(rp)
-    else if(is.character(x)) rp <- as.character(rp)
-    else if(is.raw(x)) rp <- as.raw(rp)
-    else {
-      stop(simpleError(
-        "unsupported atomic type", call = abortcall
-      ))
-    }
-  }
+  rp <- .internal_coerce_rp(x, rp, abortcall)
   
   .rcpp_set_array_2d_8d_atomic(x, lst, dimcumprod, rp)
   return(invisible(NULL))
@@ -177,20 +164,7 @@
 #' @keywords internal
 #' @noRd
 .rcpp_set_array_16d <- function(x, rp, lst, x.dim, abortcall) {
-  if(typeof(x) != typeof(rp)) {
-    message(sprintf("coercing `rp` to %s", typeof(x)))
-    if(is.logical(x)) rp <- as.logical(rp)
-    else if(is.integer(x)) rp <- as.integer(rp)
-    else if(is.double(x)) rp <- as.double(rp)
-    else if(is.complex(x)) rp <- as.complex(rp)
-    else if(is.character(x)) rp <- as.character(rp)
-    else if(is.raw(x)) rp <- as.raw(rp)
-    else {
-      stop(simpleError(
-        "unsupported atomic type", call = abortcall
-      ))
-    }
-  }
+  rp <- .internal_coerce_rp(x, rp, abortcall)
   
   n <- length(x.dim)
   

@@ -52,6 +52,11 @@
 .rcpp_set_matrix <- function(x, row, col, rp, abortcall) {
   row <- as.integer(row - 1L) 
   col <- as.integer(col - 1L)
+  
+  if(typeof(x) != typeof(rp)) {
+    message(sprintf("coercing replacement to %s", typeof(x)))
+  }
+  
   if(is.logical(x)) {
     .rcpp_set_matrix_Logical(x, row, col, as.logical(rp))
     return(invisible(NULL))

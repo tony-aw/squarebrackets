@@ -2,22 +2,16 @@
 % Please edit documentation in R/generic_bind.R
 \name{bind}
 \alias{bind}
-\alias{bind_row}
-\alias{bind2_row}
-\alias{bind_col}
-\alias{bind2_col}
+\alias{bind_mat}
+\alias{bind2_mat}
 \alias{bind_array}
 \alias{bind2_array}
 \alias{bind2_dt}
 \title{Dimensional Binding of Objects}
 \usage{
-bind_row(arg.list, deparse.level = 1)
+bind_mat(arg.list, along, deparse.level = 1)
 
-bind2_row(arg.list, deparse.level = 1)
-
-bind_col(arg.list, deparse.level = 1)
-
-bind2_col(arg.list, deparse.level = 1)
+bind2_mat(arg.list, along, deparse.level = 1)
 
 bind_array(
   arg.list,
@@ -42,8 +36,6 @@ bind2_dt(arg.list, along)
 Do not mix recursive and atomic objects in the same list,
 as that may result in unexpected results. \cr}
 
-\item{deparse.level}{see \link[base]{cbind} and \link[base]{rbind}.}
-
 \item{along}{a single integer,
 indicating the dimension along which to bind the dimensions. \cr
 I.e. use \code{along = 1} for row-binding, \code{along = 2} for column-binding, etc. \cr
@@ -54,6 +46,8 @@ making \code{along} the new first dimension.
 \item Specifying \code{along = n+1}, with \code{n} being the last available dimension,
 will create an additional dimension (\code{n+1}) and bind the arrays along that new dimension.
 }}
+
+\item{deparse.level}{see \link[base]{cbind} and \link[base]{rbind}.}
 
 \item{name_along}{Boolean, for \code{bind_array()} and \code{bind2_array()}. \cr
 Indicates if dimension \code{along} should be named. \cr}
@@ -76,14 +70,14 @@ The new object.
 \description{
 The \code{bind_} and \code{bind2_} implementations provide dimensional binding functionalities. \cr
 \code{bind_} is for atomic objects, and \code{bind2_} for recursive objects. \cr
-When possible, the \code{bind_}/\code{bind2_} functions return \link[=squarebrackets_mutable_classes]{mutable classes}. \cr
+When possible, the \code{bind_}/\code{bind2_} functions return \link[=squarebrackets_supported_structures]{mutable classes}. \cr
 \cr
 The following implementations are available:
 \itemize{
-\item \code{bind_row()}, \code{bind_col()}, \code{bind2_row()}, \code{bind2_col()}
-bind dimensionless vectors row- or column-wise. \cr
-Can also bind matrices. \cr
-When the output is atomic, returns a \link{mutable_atomic} array. \cr
+\item \code{bind_mat()} binds dimensionless atomic vectors and atomic matrices row- or column-wise. \cr
+Returns a \link{mutable_atomic} matrix. \cr
+\item \code{bind2_mat()} binds dimensionless recursive vectors and recursive matrices row- or column-wise. \cr
+Returns a recursive matrix (immutable). \cr
 \item \code{bind_array()} binds atomic arrays and matrices. \cr
 Returns a \link{mutable_atomic} array. \cr
 \item \code{bind2_array()} binds recursive arrays and matrices. \cr
@@ -92,6 +86,13 @@ Returns a recursive array (immutable).
 Returns a \code{data.table}. \cr
 Faster than \code{do.call(cbind, ...)} or \code{do.call(rbind, ...)} for regular \code{data.frame} objects. \cr
 }
+
+Note that the naming convention of the binding implementations here is
+"bind_"/"bind2_" followed by the \bold{resulting class} (abbreviated). \cr
+I.e. \code{bind_mat} \bold{returns} a matrix, but can bind both matrices and vectors. \cr
+And \code{bind_array} \bold{returns} an array, but can bind both arrays and matrices. \cr
+And \code{bind2_dt} \bold{returns} a data.table, but can bind not only data.tables,
+but also most other data.frame-like objects. \cr \cr
 }
 \details{
 \code{bind_array()} and \code{bind2_array()} are modified versions of the fantastic
@@ -102,7 +103,12 @@ and has more streamlined naming options. \cr
 \code{bind2_array()} also has the streamlined naming options,
 and additionally differs from \code{abind::}\link[abind]{abind}
 in that it can handle recursive arrays properly
-(the original \code{abind::}\link[abind]{abind} function would unlist everything to atomic arrays). \cr \cr
+(the original \code{abind::}\link[abind]{abind} function would unlist everything to atomic arrays). \cr
+\cr
+\code{bind_mat()} and \code{bind2_mat()} are modified versions of \link[base]{rbind}/\link[base]{cbind}. \cr
+The primary differences is that \code{bind_mat()/bin2_mat()}
+give an error when fractional recycling is attempted
+(like binding  \code{1:3} with \code{1:10}). \cr \cr
 }
 \examples{
 

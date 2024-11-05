@@ -84,7 +84,7 @@
 <li>When selecting names with the <code>[</code> and <code>[&lt;-</code> operators, only the first occurrence of the names are selected in case of duplicate names. The ‘squarebrackets’ methods always perform on all names in case of duplicates, not just the first.</li>
 <li>The <code>[[</code> and <code>[[&lt;-</code> operators allow operating on a recursive subset of a nested list. But these only operate on a single recursive subset, and are not vectorized for multiple recursive subsets of a nested list at once. ‘squarebrackets’ provides a way to reshape a nested list into a 2D recursive array of lists, thereby allowing vectorized operations on recursive subsets of such a nested list.</li>
 <li>The <code>[&lt;-</code> operator only supports copy-on-modify semantics for most classes. The ‘squarebrackets’ methods provides explicit pass-by-reference and pass-by-value semantics, whilst still respecting things like binding-locks and mutability rules.</li>
-<li>‘squarebrackets’ supports index-less sub-set operations, which is faster and more memory efficient than sub-set operations using the <code>[</code> and <code>[&lt;-</code> operators.</li>
+<li>‘squarebrackets’ supports index-less sub-set operations, which is far more memory efficient for <code>long vectors</code> than sub-set operations using the <code>[</code> and <code>[&lt;-</code> operators.</li>
 </ol>
 <p> </p>
 </div>
@@ -136,8 +136,8 @@
 <li>26 September 2024: Overhauled how indexing with complex vectors work.</li>
 <li>28 September 2024: Split <code>sb(2)_setRename()</code> into <code>sb_setFlatnames()</code>, <code>sb_setDimnames()</code>, and <code>sb2_setVarnames()</code>.</li>
 <li>10 October 2024: <code><a href="reference/sb_mod.html">sb_mod()</a></code> now makes partial copies of data.frame-like objects instead of whole copies, for more memory efficiency. Also removed the old <code>sb_str()</code> and <code>sb_a()</code> functions. Renamed <code>ci_seq()</code> to <code><a href="reference/cp_seq.html">cp_seq()</a></code> (in preparation for the next update).</li>
-<li>19 October 2024: Removed the renaming methods (<code>sb_setRename</code>), and <code>seq_rec2()</code>. Added <code>slcseq()</code>
-</li>
+<li>19 October 2024: Removed the renaming methods (<code>sb_setRename</code>), and <code>seq_rec2()</code>. Added <code>slcseq_</code>.</li>
+<li>5 November 2024: Renamed <code>slcseq_</code> to <code>slice_</code>. Re-organized the documentation a bit. Fixed examples of the <code>ci</code> and <code>tci</code> help pages. Added <code><a href="reference/bind.html">bind_mat()</a></code> and <code><a href="reference/bind.html">bind2_mat()</a></code>. Added <code><a href="reference/ndims.html">ndims()</a></code>.</li>
 </ul>
 <p> </p>
 </div>
@@ -170,6 +170,7 @@
 <h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
 <li>Tony Wilkes <br><small class="roles"> Author, maintainer, copyright holder </small> <a href="https://orcid.org/0000-0001-9498-8379" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li><a href="authors.html">More about authors...</a></li>
 </ul>
 </div>
 

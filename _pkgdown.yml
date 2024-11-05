@@ -19,8 +19,8 @@ reference:
 - title: Overview Help Pages
   contents:
   - '`squarebrackets_help`'
-  - '`squarebrackets_immutable_classes`'
-  - '`squarebrackets_mutable_classes`'
+  - '`squarebrackets_supported_structures`'
+  - '`squarebrackets_coercion`'
   - '`squarebrackets_indx_args`'
   - '`squarebrackets_method_dispatch`'
   - '`squarebrackets_modify`'
@@ -37,7 +37,7 @@ reference:
   - '`sb2_rec`'
   - '`bind`'
   - '`idx`'
-  - '`slcseq_x`'
+  - '`slice_x`'
   - '`cp_seq`'
 - title: Specialized Functions
   contents:
@@ -48,6 +48,7 @@ reference:
 - title: Helper Functions
   contents:
   - '`n`'
+  - '`ndims`'
   - '`currentBindings`'
   - '`sub2ind`'
   - '`match_all`'

@@ -646,8 +646,9 @@ semantics for most classes. The ‘squarebrackets’ methods provides
 explicit pass-by-reference and pass-by-value semantics, whilst still
 respecting things like binding-locks and mutability rules.</li>
 <li>‘squarebrackets’ supports index-less sub-set operations, which is
-faster and more memory efficient than sub-set operations using the
-<code>[</code> and <code>[&lt;-</code> operators.</li>
+far more memory efficient for <code>long vectors</code> than sub-set
+operations using the <code>[</code> and <code>[&lt;-</code>
+operators.</li>
 </ol>
 <p> </p>
 <h2 id="get-started">Get Started</h2>
@@ -753,7 +754,12 @@ efficiency. Also removed the old <code>sb_str()</code> and
 <code>cp_seq()</code> (in preparation for the next update).</li>
 <li>19 October 2024: Removed the renaming methods
 (<code>sb_setRename</code>), and <code>seq_rec2()</code>. Added
-<code>slcseq()</code></li>
+<code>slcseq_</code>.</li>
+<li>5 November 2024: Renamed <code>slcseq_</code> to
+<code>slice_</code>. Re-organized the documentation a bit. Fixed
+examples of the <code>ci</code> and <code>tci</code> help pages. Added
+<code>bind_mat()</code> and <code>bind2_mat()</code>. Added
+<code>ndims()</code>.</li>
 </ul>
 <p> </p>
 

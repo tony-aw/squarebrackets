@@ -1,5 +1,4 @@
 
-
 #' @keywords internal
 #' @noRd
 .internal_abind <- function(
@@ -7,7 +6,7 @@
 ) {
   N <- max(
     1L,
-    vapply(arg.list, function(x) length(dim(x)), integer(1L))
+    vapply(arg.list, ndims, integer(1L))
   )
   
   extra_dimensional <- FALSE
@@ -59,6 +58,7 @@
     else if (length(new.dim) == (N - 1L)) {
       ## add another dimension
       arg.dim[,i] <- c(new.dim[pre], 1L, new.dim[post])
+      dimnames(m) <- NULL # to prevent errors
       if (any(perm != seq_along(perm))) {
         dim(m) <- c(new.dim[pre], 1L, new.dim[post])
         m.changed <- TRUE

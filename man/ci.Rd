@@ -79,19 +79,21 @@ do not always return the same output for certain data.frame-like objects. \cr
 }
 \examples{
 
-x.dim <- c(10, 10, 3)
-x.len <- prod(x.dim)
-x <- array(1:x.len, x.dim)
-sub <- list(c(4, 3), c(3, 2), c(2, 3))
-coord <- sub2coord(sub, x.dim)
-print(coord)
-ind <- coord2ind(coord, x.dim)
-print(ind)
-all(x[ind] == c(x[c(4, 3), c(3, 2), c(2, 3)])) # TRUE
-coord2 <- ind2coord(ind, x.dim)
-print(coord)
-all(coord == coord2) # TRUE
-sub2 <- coord2sub(coord2)
-sapply(1:3, \(i) sub2[[i]] == sub[[i]]) |> all() # TRUE
+x <- matrix(1:25, 5, 5)
+colnames(x) <- c("a", "a", "b", "c", "d")
+print(x)
+
+bool <- sample(c(TRUE, FALSE), 5, TRUE)
+int <- 1:4
+chr <- c("a", "a")
+cplx <- 1:4 * -1i
+tci_bool(bool, nrow(x))
+tci_int(int, ncol(x), inv = TRUE)
+tci_chr(chr, colnames(x))
+tci_cplx(cplx, nrow(x))
+
+ci_flat(x, 1:10 * -1i)
+ci_margin(x, 1:4, 2)
+ci_sub(x, n(1:5 * -1i, 1:4), 1:2)
 
 }

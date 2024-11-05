@@ -19,7 +19,7 @@ The main advantage of pass-by-reference is that much less memory is required to 
 and modification is also generally faster. \cr
 But it does have several disadvantages. \cr
 \cr
-First, the coercion rules are slightly different: see \link{squarebrackets_mutable_classes}. \cr
+First, the coercion rules are slightly different: see \link{squarebrackets_coercion}. \cr
 \cr
 Second, if 2 or more variables refer to exactly the same object,
 changing one variable also changes the other ones. \cr
@@ -144,7 +144,7 @@ will not work. \cr \cr
 
 \section{Lock Binding}{
 
-\link[=squarebrackets_mutable_classes]{Mutable classes} are,
+Mutable classes are,
 as the name suggests,
 meant to be mutable. \cr
 Locking the binding of a mutable object is \bold{mostly} fruitless
@@ -152,7 +152,7 @@ Locking the binding of a mutable object is \bold{mostly} fruitless
 see the \link{currentBindings} function). \cr
 To prevent modification of an object's binding, 2 things must be true: \cr
 \itemize{
-\item the object must be an \link[=squarebrackets_immutable_classes]{immutable class}.
+\item the object must be an immutable class.
 \item the binding must be \bold{locked} (see \link[base]{lockBinding}).
 }
 

@@ -47,8 +47,8 @@ the following:
     pass-by-reference and pass-by-value semantics, whilst still
     respecting things like binding-locks and mutability rules.
 6)  ‘squarebrackets’ supports index-less sub-set operations, which is
-    faster and more memory efficient than sub-set operations using the
-    `[` and `[<-` operators.
+    far more memory efficient for `long vectors` than sub-set operations
+    using the `[` and `[<-` operators.
 
  
 
@@ -153,6 +153,9 @@ tinycodet::import_LL("squarebrackets", selection = ... )
   efficiency. Also removed the old `sb_str()` and `sb_a()` functions.
   Renamed `ci_seq()` to `cp_seq()` (in preparation for the next update).
 - 19 October 2024: Removed the renaming methods (`sb_setRename`), and
-  `seq_rec2()`. Added `slcseq()`
+  `seq_rec2()`. Added `slcseq_`.
+- 5 November 2024: Renamed `slcseq_` to `slice_`. Re-organized the
+  documentation a bit. Fixed examples of the `ci` and `tci` help pages.
+  Added `bind_mat()` and `bind2_mat()`. Added `ndims()`.
 
  

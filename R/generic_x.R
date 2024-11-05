@@ -6,7 +6,7 @@
 #' Use `sb_x(x, ...)` if `x` is an atomic object. \cr
 #' Use `sb2_x(x, ...)` if `x` is a recursive object (i.e. list or data.frame-like). \cr \cr
 #'
-#' @param x see \link{squarebrackets_immutable_classes} and \link{squarebrackets_mutable_classes}.
+#' @param x see \link{squarebrackets_supported_structures}.
 #' @param i,row,col,sub,dims,filter,vars See \link{squarebrackets_indx_args}. \cr
 #' Duplicates are allowed, resulting in duplicated indices. \cr
 #' An empty index selection results in an empty object of length 0. \cr

@@ -62,23 +62,22 @@
 #'
 #'
 #' @section Supported Classes:
-#' 'squarebrackets' only supports S3 classes,
+#' 'squarebrackets' only supports the most common S3 classes,
 #' and only those that primarily use square brackets for sub-setting
 #' (hence the name of the package). \cr
 #' \cr
-#' Supported \link[=squarebrackets_immutable_classes]{immutable classes}: \cr
+#' Supported immutable classes: \cr
 #' `atomic`, `list`, `data.frame`
 #' (including `tibble`, `sf-data.frame`, and `sf-tibble`). \cr
 #' \cr
-#' Supported  \link[=squarebrackets_mutable_classes]{mutable classes}: \cr
+#' Supported  mutable classes: \cr
 #' \link{mutable_atomic}, `data.table`
 #' (including `tidytable`, `sf-data.table`, and `sf-tidytable`). \cr
 #' \cr
-#' There are, of course, a lot of classes which are not supported by 'squarebrackets'. \cr
-#' Most notably,
-#' key-value stores - such as environments,
-#' and the various 'collections' classes
-#' from the 'collections' package - are not supported. \cr \cr
+#' Key-value storages,
+#' such as environments,
+#' and the various classes of the 'collections' package,
+#' are not supported. \cr \cr
 #
 #'  
 #' @section Methods:
@@ -96,18 +95,22 @@
 #' start with `bind2_`. \cr
 #' There is also the somewhat separate \link{idx} method,
 #' which works on both recursive and non-recursive objects. \cr
-#' And finally there are the `slcseq_` methods, which (currently) only work on atomic vectors. \cr \cr
+#' And finally there are the `slice_` methods, which (currently) only work on atomic vectors. \cr \cr
 #' 
 #' 
-#' `r .mybadge_intro_section("SELECTION METHODS", "darkgreen")` \cr
+#' `r .mybadge_intro_section("ACCESSOR METHODS", "darkgreen")` \cr
+#' 
+#' Methods to access subsets (i.e. extract selection, or extract all except selection):
 #' 
 #'  * \link{sb_x}, \link{sb2_x}: extract, exchange, or duplicate subsets.
 #'  * \link{sb_rm},  \link{sb2_rm}: un-select/remove subsets.
 #'  * \link{sb2_rec}: access recursive subsets of lists.
-#'  * \link{slcseq_x}, \link{slcseq_rm}: efficiently extract or remove subset from a (long) vector. \cr \cr
+#'  * \link{slice_x}, \link{slice_rm}: efficiently extract or un-select/remove subset from a (long) vector. \cr \cr
 #'  
 #'  
 #' `r .mybadge_intro_section("MODIFICATION METHODS", "red")` \cr
+#'  
+#' Methods to modify subsets:
 #'  
 #'  * \link{idx}: translate given indices/subscripts,
 #'  for the purpose of copy-on-modify substitution.
@@ -117,18 +120,20 @@
 #'  of an object with modified
 #'  (transformed or replaced) subsets.
 #'  * \link{sb_set}, \link{sb2_set}: modify (transform or replace)
-#'  subsets of a \link[=squarebrackets_mutable_classes]{mutable object}
+#'  subsets of a \link[=squarebrackets_supported_structures]{mutable object}
 #'  using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
-#'  * \link{slcseq_set}: efficiently modify a (long) vector subset using
+#'  * \link{slice_set}: efficiently modify a (long) vector subset using
 #'  \link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr \cr
 #'  
 #' 
-#' `r .mybadge_intro_section("OTHER METHODS", "pink")` \cr
+#' `r .mybadge_intro_section("EXTENDING METHODS", "purple")` \cr
 #'  
+#' Methods to extend or re-arrange an object beyond its current size:
+#' 
 #'  * \link[=bind]{bind_}, \link[=bind]{bind2_}:  implementations for binding dimensional objects.
-#'  * \link{cp_seq}: construct parameters for margin-based sequences. \cr
-#'  Not actually a method, but can be used to predict the exact sequence lay-out,
-#'  like used in the \link[=slcseq_x]{slcseq_} methods. \cr \cr
+#'  * \link{sb_x}, \link{sb2_x}: extract, exchange, or duplicate subsets.
+#'  * \link{sb2_recin}: replace, transform, remove, or add recursive subsets to a list,
+#'  through R's default Copy-On-Modify semantics.
 #'  
 #' 
 #' So for example,
@@ -156,7 +161,7 @@
 #'  
 #' 
 #' `r .mybadge_intro_section("HELPER FUNCTIONS", "lightblue")` \cr
-#' A couple of helper functions for creating ranges, sequences, and indices
+#' A couple of convenience functions, and helper functions for creating ranges, sequences, and indices
 #' (often needed in sub-setting)
 #' are provided:
 #' 
@@ -164,6 +169,7 @@
 #'  that share the share the same address as the input variable.
 #'  * \link{n}: Nested version of \link[base]{c},
 #'  and short-hand for \link[base]{list}.
+#'  * \link{ndims}: Get the number of dimensions of an object.
 #'  * \link{sub2coord}, \link{coord2ind}: Convert subscripts
 #'  (array indices) to coordinates,
 #'  coordinates to flat indices,

@@ -5,7 +5,7 @@
 \alias{squarebrackets_indx_args}
 \title{Index Arguments in the Generic Sub-setting Methods}
 \description{
-There are 6 types of arguments that can be used
+There are several types of arguments that can be used
 in the generic methods of 'squarebrackets' to specify the indices to perform operations on:
 \itemize{
 \item \code{i}: to specify flat (i.e. dimensionless) indices.
@@ -20,7 +20,6 @@ In this help page \code{x} refers to the object on which subset operations are p
 \cr
 }
 \section{Fundamentals}{
-
 
 Base 'R' supports indexing through \code{logical}, \code{integer}, and \code{character} vectors. \cr
 'squarebrackets' suppports these also (albeit with some improvements),
@@ -99,7 +98,7 @@ in 'squarebrackets' used to select indices. \cr
 \section{Argument i}{
 
 \ifelse{html}{\figure{class-atomic_vector-blue.svg}{options: alt='[class: atomic vector]'}}{\link[=squarebrackets_indx_args]{class: atomic vector}} \cr
-\ifelse{html}{\figure{class-factor-blue.svg}{options: alt='[class: factor]'}}{\link[=squarebrackets_indx_args]{class: factor}} \cr
+\ifelse{html}{\figure{class-derived_atomic_vector-blue.svg}{options: alt='[class: derived atomic vector]'}}{\link[=squarebrackets_indx_args]{class: derived atomic vector}} \cr
 \ifelse{html}{\figure{class-recursive_vector-blue.svg}{options: alt='[class: recursive vector]'}}{\link[=squarebrackets_indx_args]{class: recursive vector}} \cr
 
 Any of the following can be specified for argument \code{i}:
