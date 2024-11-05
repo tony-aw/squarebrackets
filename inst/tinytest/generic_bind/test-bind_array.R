@@ -48,10 +48,6 @@ for(margin in 1:3) {
 }
 
 
-# test communal names argument ====
-
-
-
 # test name_flat argument ====
 x <- letters
 dim(x) <- c(2, 13)

@@ -33,9 +33,7 @@ If desired, one can modify them without copy using
 \item basic \code{atomic} vector classes \cr
 (atomic vectors, matrices, and arrays).
 \item basic list classes \cr
-(recursive vectors, matrices, and arrays) \cr
-(note that lists are merely pointers to other objects,
-and these other objects may be of a different class and may even be mutable).
+(recursive vectors, matrices, and arrays). \cr
 \item \link[base]{data.frame} \cr
 (including the classes \code{tibble}, \code{sf-data.frame} and \code{sf-tibble}). \cr \cr
 }
@@ -47,9 +45,6 @@ and these other objects may be of a different class and may even be mutable).
 \item \link[data.table]{data.table} \cr
 (including the classes \code{tidytable}, \code{sf-data.table}, and \code{sf-tidytable}). \cr \cr
 }
-
-What follows are details on the supported structures,
-and some explanation of some of the terminology. \cr \cr
 }
 \details{
 \bold{Atomic vs Recursive} \cr

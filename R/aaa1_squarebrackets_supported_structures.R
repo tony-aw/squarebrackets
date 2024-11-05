@@ -28,9 +28,7 @@
 #'  * basic `atomic` vector classes \cr
 #'  (atomic vectors, matrices, and arrays).
 #'  * basic list classes \cr
-#'  (recursive vectors, matrices, and arrays) \cr
-#'  (note that lists are merely pointers to other objects,
-#'  and these other objects may be of a different class and may even be mutable).
+#'  (recursive vectors, matrices, and arrays). \cr
 #'  * \link[base]{data.frame} \cr
 #'  (including the classes `tibble`, `sf-data.frame` and `sf-tibble`). \cr \cr
 #' 
@@ -40,13 +38,10 @@
 #'  (`mutable_atomic` vectors, matrices, and arrays);
 #'  * \link[data.table]{data.table} \cr
 #'  (including the classes `tidytable`, `sf-data.table`, and `sf-tidytable`). \cr \cr
-#' 
-#' 
-#' What follows are details on the supported structures,
-#' and some explanation of some of the terminology. \cr \cr
+#'  
+#'  
 #' 
 #' @details
-#' 
 #' 
 #' \bold{Atomic vs Recursive} \cr
 #' The `sb_` methods and `bind_` implementations provided by 'squarebrackets'
