@@ -68,7 +68,7 @@
 #' \cr
 #' Since immaterial objects do not actually store the values in memory,
 #' the values obviously also cannot be changed in memory. \cr
-#' Therefore, Pass-by-Reference semantics \bold{do not work} on immaterial objects. \cr
+#' Therefore, Pass-by-Reference semantics don't work on immaterial objects. \cr
 #' \cr
 #' 
 #' @section ALTREP:
@@ -79,7 +79,6 @@
 #' \cr
 #' A `data.table` can have ALTREP columns. \cr
 #' A `data.tables` will coerce the column to a materialized column when it is modified, even by reference. \cr
-#' This works since a `data.table` is a recursive object. \cr
 #' \cr
 #' 
 #' 
@@ -155,7 +154,7 @@
 #' @section Protection:
 #' 
 #' Due to the properties described above in this help page,
-#' something like the following will not work:
+#' 'squarebrackets' protects the user from do something like the following:
 #' 
 #' ```{r eval = FALSE}
 #' 
@@ -164,7 +163,7 @@
 #' 
 #' ```
 #' 
-#' The above won't work because: 
+#' 'squarebrackets' will give an error when running the code above, because:
 #' 
 #'  1) addresses in `baseenv()` are protected;
 #'  2) immutable objects are disallowed
@@ -173,11 +172,6 @@
 #'  thus keeping the original object safe from modification by reference);
 #'  3) locked bindings are disallowed.
 #'  
-#' Despite the checks made by this package,
-#' the user should never actively try to modify
-#' a \bold{locked} or \bold{protected} object by reference,
-#' as that would defeat the purpose of locking an object. \cr
-#' \cr
 #' 
 #' 
 #' 

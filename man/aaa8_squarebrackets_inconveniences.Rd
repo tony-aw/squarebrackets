@@ -61,21 +61,6 @@ thus solving this issue. \cr
 The 'squarebrackets' package attempts to keep the
 data.frame methods as class agnostic as possible,
 through the class agnostic functionality of the 'collapse' and 'data.table' R-packages. \cr
-This attempt to keep data.frame-like classes consistent does,
-admittedly,
-result in some oddities in how data.frames are treated by 'squarebrackets',
-compared to how other classes are treated by 'squarebrackets':
-\itemize{
-\item Whole-columns will be auto-coerced when replaced/transformed by \link{sb_mod},
-but partial columns will not be auto-coerced by default.
-\item The \link{sb_x} and \link{sb_rm} methods always automatically conserve all attributes
-(though names and dimensions are adjusted accordingly, of course); \cr
-the attributes are not stripped, unlike the other classes.
-\item Giving a data.frame-like object with non-unique column names to the \code{sb_}-methods
-returns an error; \cr
-duplicating columns with \link{sb_x}
-will automatically adjust the column names to make them unique. \cr \cr
-}
 }
 
 \section{Long Vectors}{

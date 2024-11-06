@@ -35,8 +35,6 @@
 #' `by` is stored as `abs(by)`,
 #' and the sign  of `by` is automatically adjusted to ensure a sensible sequence is created. \cr
 #' \cr
-#' So, for example,
-#' to construct the parameters to get `n:1`, one can simply call `cp_seq(x, m, by = -1L)`. \cr
 #' \cr
 #' 
 #' 
@@ -68,7 +66,7 @@
 #' This will give `by`, but with it's sign adjusted, if needed. \cr
 #' \cr
 #' \bold{`$length.out`}: \cr
-#' The actual vector lengths of the sequences would be,
+#' The actual vector lengths the sequences would be,
 #' given the translated parameters. \cr \cr
 #' 
 #' 

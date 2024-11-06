@@ -125,7 +125,7 @@ call a function to generate values on the fly,
 rather than actually storing values. <br><br>
 Since immaterial objects do not actually store the values in memory,
 the values obviously also cannot be changed in memory. <br>
-Therefore, Pass-by-Reference semantics <b>do not work</b> on immaterial objects. <br><br></p>
+Therefore, Pass-by-Reference semantics don't work on immaterial objects. <br><br></p>
     </div>
     <div class="section level2">
     <h2 id="altrep">ALTREP<a class="anchor" aria-label="anchor" href="#altrep"></a></h2>
@@ -136,8 +136,7 @@ Therefore, Pass-by-Reference semantics <b>do not work</b> on immaterial objects.
 will automatically materialize ALTREP objects,
 to ensure consistent behaviour for 'pass-by-reference' semanthics. <br><br>
 A <code>data.table</code> can have ALTREP columns. <br>
-A <code>data.tables</code> will coerce the column to a materialized column when it is modified, even by reference. <br>
-This works since a <code>data.table</code> is a recursive object. <br><br></p>
+A <code>data.tables</code> will coerce the column to a materialized column when it is modified, even by reference. <br><br></p>
     </div>
     <div class="section level2">
     <h2 id="mutability-rules-with-respect-to-recursive-objects">Mutability Rules With Respect To Recursive Objects<a class="anchor" aria-label="anchor" href="#mutability-rules-with-respect-to-recursive-objects"></a></h2>
@@ -208,22 +207,18 @@ in case the user fears the binding locks will not be respected. <br><br></p>
 
 
 <p>Due to the properties described above in this help page,
-something like the following will not work:</p>
+'squarebrackets' protects the user from do something like the following:</p>
 <p></p><div class="sourceCode r"><pre><code><span></span>
 <span><span class="co"># letters = base::letters</span></span>
 <span><span class="fu"><a href="../reference/sb_set.html">sb_set</a></span><span class="op">(</span><span class="va">letters</span>, i <span class="op">=</span> <span class="fl">1</span>, rp <span class="op">=</span> <span class="st">"XXX"</span><span class="op">)</span></span>
 <span></span></code></pre><p></p></div>
-<p>The above won't work because:</p><ol><li><p>addresses in <code><a href="https://rdrr.io/r/base/environment.html" class="external-link">baseenv()</a></code> are protected;</p></li>
+<p>'squarebrackets' will give an error when running the code above, because:</p><ol><li><p>addresses in <code><a href="https://rdrr.io/r/base/environment.html" class="external-link">baseenv()</a></code> are protected;</p></li>
 <li><p>immutable objects are disallowed
 (you'll have to create a mutable object,
 which will create a copy of the original,
 thus keeping the original object safe from modification by reference);</p></li>
 <li><p>locked bindings are disallowed.</p></li>
-</ol><p>Despite the checks made by this package,
-the user should never actively try to modify
-a <b>locked</b> or <b>protected</b> object by reference,
-as that would defeat the purpose of locking an object. <br><br></p>
-    </div>
+</ol></div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>

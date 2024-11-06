@@ -73,7 +73,7 @@ rather than actually storing values. \cr
 \cr
 Since immaterial objects do not actually store the values in memory,
 the values obviously also cannot be changed in memory. \cr
-Therefore, Pass-by-Reference semantics \bold{do not work} on immaterial objects. \cr
+Therefore, Pass-by-Reference semantics don't work on immaterial objects. \cr
 \cr
 }
 
@@ -86,7 +86,6 @@ to ensure consistent behaviour for 'pass-by-reference' semanthics. \cr
 \cr
 A \code{data.table} can have ALTREP columns. \cr
 A \code{data.tables} will coerce the column to a materialized column when it is modified, even by reference. \cr
-This works since a \code{data.table} is a recursive object. \cr
 \cr
 }
 
@@ -166,7 +165,7 @@ in case the user fears the binding locks will not be respected. \cr \cr
 
 
 Due to the properties described above in this help page,
-something like the following will not work:
+'squarebrackets' protects the user from do something like the following:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{
 # letters = base::letters
@@ -174,7 +173,7 @@ sb_set(letters, i = 1, rp = "XXX")
 
 }\if{html}{\out{</div>}}
 
-The above won't work because:
+'squarebrackets' will give an error when running the code above, because:
 \enumerate{
 \item addresses in \code{baseenv()} are protected;
 \item immutable objects are disallowed
@@ -183,12 +182,6 @@ which will create a copy of the original,
 thus keeping the original object safe from modification by reference);
 \item locked bindings are disallowed.
 }
-
-Despite the checks made by this package,
-the user should never actively try to modify
-a \bold{locked} or \bold{protected} object by reference,
-as that would defeat the purpose of locking an object. \cr
-\cr
 }
 
 \examples{

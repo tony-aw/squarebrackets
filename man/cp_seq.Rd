@@ -47,7 +47,7 @@ This allows the user to easily predict where an sequence given in
 This will give \code{by}, but with it's sign adjusted, if needed. \cr
 \cr
 \bold{\verb{$length.out}}: \cr
-The actual vector lengths of the sequences would be,
+The actual vector lengths the sequences would be,
 given the translated parameters. \cr \cr
 }
 \description{
@@ -74,8 +74,6 @@ If \verb{from, to, by} are all specified,
 \code{by} is stored as \code{abs(by)},
 and the sign  of \code{by} is automatically adjusted to ensure a sensible sequence is created. \cr
 \cr
-So, for example,
-to construct the parameters to get \code{n:1}, one can simply call \code{cp_seq(x, m, by = -1L)}. \cr
 \cr
 }
 

@@ -112,20 +112,8 @@ use the same sub-setting rules for all data.frame inherited classes,
 thus solving this issue. <br><br>
 The 'squarebrackets' package attempts to keep the
 data.frame methods as class agnostic as possible,
-through the class agnostic functionality of the 'collapse' and 'data.table' R-packages. <br>
-This attempt to keep data.frame-like classes consistent does,
-admittedly,
-result in some oddities in how data.frames are treated by 'squarebrackets',
-compared to how other classes are treated by 'squarebrackets':</p><ul><li><p>Whole-columns will be auto-coerced when replaced/transformed by <a href="sb_mod.html">sb_mod</a>,
-but partial columns will not be auto-coerced by default.</p></li>
-<li><p>The <a href="sb_x.html">sb_x</a> and <a href="sb_rm.html">sb_rm</a> methods always automatically conserve all attributes
-(though names and dimensions are adjusted accordingly, of course); <br>
-the attributes are not stripped, unlike the other classes.</p></li>
-<li><p>Giving a data.frame-like object with non-unique column names to the <code>sb_</code>-methods
-returns an error; <br>
-duplicating columns with <a href="sb_x.html">sb_x</a>
-will automatically adjust the column names to make them unique. <br><br></p></li>
-</ul></div>
+through the class agnostic functionality of the 'collapse' and 'data.table' R-packages. <br></p>
+    </div>
     <div class="section level2">
     <h2 id="long-vectors">Long Vectors<a class="anchor" aria-label="anchor" href="#long-vectors"></a></h2>
     
