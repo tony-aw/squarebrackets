@@ -149,7 +149,7 @@
 #' Additional specialized sub-setting functions are provided:
 #' 
 #'  * \link{lst_untree}: unnest tree-like nested list into a recursive array,
-#'  to make vectorized sub-setting on recursive subsets of the list easier.
+#'  to speed-up vectorized sub-setting on recursive subsets of the list.
 #'  * The \link[=dt_setcoe]{dt_}-functions
 #'  to programmatically perform `data.table`-specific `[`-operations,
 #'  with the security measures provided by the 'squarebrackets' package.

@@ -111,7 +111,7 @@ dt_setcoe <- function(
   
   if(!is.null(col)) {
     col <- ci_df(
-      x, col, 2L, inv = FALSE, chkdup = chkdup
+      x, col, 2L, inv = FALSE, chkdup = chkdup, uniquely_named = TRUE
     )
     col <- names(x)[col]
   }

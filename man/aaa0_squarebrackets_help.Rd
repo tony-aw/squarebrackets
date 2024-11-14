@@ -166,7 +166,7 @@ uses its S3 Method dispatch. \cr \cr
 Additional specialized sub-setting functions are provided:
 \itemize{
 \item \link{lst_untree}: unnest tree-like nested list into a recursive array,
-to make vectorized sub-setting on recursive subsets of the list easier.
+to speed-up vectorized sub-setting on recursive subsets of the list.
 \item The \link[=dt_setcoe]{dt_}-functions
 to programmatically perform \code{data.table}-specific \code{[}-operations,
 with the security measures provided by the 'squarebrackets' package.

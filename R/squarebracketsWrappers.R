@@ -77,3 +77,10 @@
   .Call("C_sub2ind_16d_64", sub = sub, dimcumprod = dimcumprod)
 }
 
+
+#' @keywords Internal
+#' @noRd
+.C_match_range <- function(o, m) {
+  .Call("C_match_range", o = o, m = m)
+}
+

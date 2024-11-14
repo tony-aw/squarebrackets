@@ -1424,6 +1424,7 @@ RcppExport SEXP C_any_nonpos(SEXP);
 RcppExport SEXP C_convert_cplx_32(SEXP, SEXP);
 RcppExport SEXP C_convert_cplx_64(SEXP, SEXP);
 RcppExport SEXP C_is_altrep(SEXP);
+RcppExport SEXP C_match_range(SEXP, SEXP);
 RcppExport SEXP C_serial(SEXP);
 RcppExport SEXP C_sub2ind_16d_32(SEXP, SEXP);
 RcppExport SEXP C_sub2ind_16d_64(SEXP, SEXP);
@@ -1540,6 +1541,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"C_convert_cplx_32", (DL_FUNC) &C_convert_cplx_32, 2},
     {"C_convert_cplx_64", (DL_FUNC) &C_convert_cplx_64, 2},
     {"C_is_altrep",       (DL_FUNC) &C_is_altrep,       1},
+    {"C_match_range",     (DL_FUNC) &C_match_range,     2},
     {"C_serial",          (DL_FUNC) &C_serial,          1},
     {"C_sub2ind_16d_32",  (DL_FUNC) &C_sub2ind_16d_32,  2},
     {"C_sub2ind_16d_64",  (DL_FUNC) &C_sub2ind_16d_64,  2},

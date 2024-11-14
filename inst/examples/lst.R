@@ -21,7 +21,6 @@ sapply(x, lst_nlists) |> max() # number of rows `y` will have
 y <- lst_untree(x, margin = 2, use.names = TRUE)
 dim(y)
 print(y)
-y[["Y.Z.Y"]] # you can still use names for selecting/replacing
 sb2_x(y, 1:3, 1:2) # vectorized selection of multiple recursive elements
 
 
@@ -30,7 +29,6 @@ sapply(x, lst_nlists) |> max() # number of columns `y` will have
 y <- lst_untree(x, margin = 1, use.names = TRUE)
 dim(y)
 print(y)
-y[["Y.Z.Y"]] # you can still use names for selecting/replacing
 sb2_x(y,1:2, 1:3)  # vectorized selection of multiple recursive elements
 
 

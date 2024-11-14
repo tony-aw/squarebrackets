@@ -74,3 +74,4 @@ expect_error(
   pattern = "non-conformable dimensions"
 )
 enumerate <- enumerate + 2
+

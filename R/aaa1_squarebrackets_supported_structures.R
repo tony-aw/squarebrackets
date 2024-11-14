@@ -25,8 +25,10 @@
 #' 
 #' 'squarebrackets' supports the following immutable structures:
 #' 
-#'  * basic `atomic` vector classes \cr
+#'  * basic `atomic` classes \cr
 #'  (atomic vectors, matrices, and arrays).
+#'  * derived atomic vectors \cr
+#'  (factors, dates, date-time, etc.).
 #'  * basic list classes \cr
 #'  (recursive vectors, matrices, and arrays). \cr
 #'  * \link[base]{data.frame} \cr

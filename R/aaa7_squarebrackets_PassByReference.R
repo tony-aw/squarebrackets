@@ -72,7 +72,7 @@
 #' \cr
 #' 
 #' @section ALTREP:
-#' the \link{mutable_atomic} constructors
+#' The \link{mutable_atomic} constructors
 #' (i.e. \link{mutable_atomic}, \link{as.mutable_atomic}, etc.)
 #' will automatically materialize ALTREP objects,
 #' to ensure consistent behaviour for 'pass-by-reference' semanthics. \cr
@@ -91,7 +91,7 @@
 #' as long as they are part of the object. \cr
 #' On the other hand,
 #' When a recursive object is of an immutable class,
-#' than its recursive subsets retain their original mutability. \cr
+#' its recursive subsets retain their original mutability. \cr
 #' \cr
 #' \bold{Example 1: Mutable data.tables} \cr
 #' A `data.table` is a mutable class. \cr

@@ -30,8 +30,10 @@ If desired, one can modify them without copy using
 
 'squarebrackets' supports the following immutable structures:
 \itemize{
-\item basic \code{atomic} vector classes \cr
+\item basic \code{atomic} classes \cr
 (atomic vectors, matrices, and arrays).
+\item derived atomic vectors \cr
+(factors, dates, date-time, etc.).
 \item basic list classes \cr
 (recursive vectors, matrices, and arrays). \cr
 \item \link[base]{data.frame} \cr

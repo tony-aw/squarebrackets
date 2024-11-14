@@ -25,7 +25,7 @@ Some nice properties of these methods include, but are not limited to,
 the following:
 
 1)  The `[` and `[<-` operators use different rule-sets for different
-    data.frame-like types (data.frames, tibbles, data.tables,
+    data.frame-like types (data.frames, data.tables, tibbles,
     tidytables, etc.). The ‘squarebrackets’ methods use the same
     rule-sets for the different data.frame-like types.
 2)  Performing dimensional subset operations on an array using `[` and
@@ -40,14 +40,14 @@ the following:
     of a nested list. But these only operate on a single recursive
     subset, and are not vectorized for multiple recursive subsets of a
     nested list at once. ‘squarebrackets’ provides a way to reshape a
-    nested list into a 2D recursive array of lists, thereby allowing
-    vectorized operations on recursive subsets of such a nested list.
+    nested list into a recursive matrix, thereby allowing vectorized
+    operations on recursive subsets of such a nested list.
 5)  The `[<-` operator only supports copy-on-modify semantics for most
     classes. The ‘squarebrackets’ methods provides explicit
     pass-by-reference and pass-by-value semantics, whilst still
     respecting things like binding-locks and mutability rules.
 6)  ‘squarebrackets’ supports index-less sub-set operations, which is
-    far more memory efficient for `long vectors` than sub-set operations
+    more memory efficient for `long vectors` than sub-set operations
     using the `[` and `[<-` operators.
 
  
@@ -157,5 +157,6 @@ tinycodet::import_LL("squarebrackets", selection = ... )
 - 5 November 2024: Renamed `slcseq_` to `slice_`. Re-organized the
   documentation a bit. Fixed examples of the `ci` and `tci` help pages.
   Added `bind_mat()` and `bind2_mat()`. Added `ndims()`.
+- 14 Novembr 2024: Performance improvement of `match_all()`.
 
  

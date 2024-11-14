@@ -193,4 +193,3 @@ bind2_dt <- function(
     return(do.call(data.table::data.table, arg.list))
   }
 }
-

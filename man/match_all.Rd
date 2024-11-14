@@ -7,16 +7,18 @@
 match_all(needles, haystack, unlist = TRUE)
 }
 \arguments{
-\item{needles, haystack}{vectors}
+\item{needles, haystack}{vectors of the same type. \cr
+\code{needles} cannot contain \code{NA}/\code{NaN}. \cr
+Long vectors are not supported.}
 
 \item{unlist}{Boolean,
-indicating if the result should be a single integer vector (\code{TRUE}, default),
-or a list (length = \code{length(needles)}) of integer vectors (\code{FALSE}). \cr}
+indicating if the result should be a single unnamed integer vector (\code{TRUE}, default),
+or a named list of integer vectors (\code{FALSE}). \cr}
 }
 \value{
-An integer vector, or list of integer vector. \cr
+An integer vector, or list of integer vectors. \cr
 If a list, each element of the list corresponds to each value of \code{needles}. \cr
-When \code{needles} and/or \code{haystack} is/are empty or fully \code{NA},
+When \code{needles} and/or \code{haystack} is empty, or when \code{haystack} is fully \code{NA},
 \code{match_all()} returns an empty integer vector (if \code{unlist = TRUE}),
 or an empty list (if \code{unlist = FALSE}). \cr
 }
@@ -24,7 +26,7 @@ or an empty list (if \code{unlist = FALSE}). \cr
 Find all indices of vector \code{haystack} that are equal to vector \code{needles},
 taking into account the order of both vectors, and their duplicate values. \cr
 \cr
-It is essentially a much more efficient version of:
+\code{match_all()} is essentially a much more efficient version of:
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{lapply(needles, \\(i) which(haystack == i))
 
@@ -32,6 +34,8 @@ It is essentially a much more efficient version of:
 
 Like \verb{lapply(needles, \\(i) which(haystack == i))}, \code{NA}s are ignored. \cr
 \cr
+\code{match_all()} internally calls \code{collapse::}\link[collapse]{fmatch}
+and \code{collapse::}\link[collapse]{gsplit}. \cr
 Core of the code is based on a suggestion by Sebastian Kranz
 (author of the 'collapse' package). \cr
 \cr

@@ -227,7 +227,7 @@ give an error when fractional recycling is attempted
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "Jan" "Feb" "Mar" "Apr" "May" "Jun" "Jul" "Aug" "Sep" "Oct" "Nov" "Dec"</span>
 <span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">x</span><span class="op">+</span><span class="fl">100</span></span></span>
 <span class="r-in"><span><span class="va">arg.list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">bind_array</span><span class="op">(</span><span class="va">arg.list</span>, along<span class="op">=</span><span class="fl">0</span>, name_flat <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># binds on new dimension before first</span></span></span>
+<span class="r-in"><span><span class="fu">bind_array</span><span class="op">(</span><span class="va">arg.list</span>, along<span class="op">=</span><span class="fl">0</span><span class="op">)</span> <span class="co"># binds on new dimension before first</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> , , A</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     a   b   c</span>
@@ -252,13 +252,9 @@ give an error when fractional recycling is attempted
 <span class="r-out co"><span class="r-pr">#&gt;</span> x  10  11  12</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> y 110 111 112</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"names")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "Jan"  "y.1"  "Feb"  "y.2"  "Mar"  "y.3"  "Apr"  "y.4"  "May"  "y.5" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [11] "Jun"  "y.6"  "Jul"  "y.7"  "Aug"  "y.8"  "Sep"  "y.9"  "Oct"  "y.10"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [21] "Nov"  "y.11" "Dec"  "y.12"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> mutable_atomic </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  double </span>
-<span class="r-in"><span><span class="fu">bind_array</span><span class="op">(</span><span class="va">arg.list</span>, along<span class="op">=</span><span class="fl">1</span>, name_flat <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># binds on first dimension</span></span></span>
+<span class="r-in"><span><span class="fu">bind_array</span><span class="op">(</span><span class="va">arg.list</span>, along<span class="op">=</span><span class="fl">1</span><span class="op">)</span> <span class="co"># binds on first dimension</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     A   B   C   D</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a   1   4   7  10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> b   2   5   8  11</span>
@@ -266,24 +262,16 @@ give an error when fractional recycling is attempted
 <span class="r-out co"><span class="r-pr">#&gt;</span> a 101 104 107 110</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> b 102 105 108 111</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> c 103 106 109 112</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"names")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "Jan"  "Feb"  "Mar"  "y.1"  "y.2"  "y.3"  "Apr"  "May"  "Jun"  "y.4" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [11] "y.5"  "y.6"  "Jul"  "Aug"  "Sep"  "y.7"  "y.8"  "y.9"  "Oct"  "Nov" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [21] "Dec"  "y.10" "y.11" "y.12"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> mutable_atomic </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  double </span>
-<span class="r-in"><span><span class="fu">bind_array</span><span class="op">(</span><span class="va">arg.list</span>, along<span class="op">=</span><span class="fl">2</span>, name_flat <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">bind_array</span><span class="op">(</span><span class="va">arg.list</span>, along<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   A B C  D   A   B   C   D</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a 1 4 7 10 101 104 107 110</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> b 2 5 8 11 102 105 108 111</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> c 3 6 9 12 103 106 109 112</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"names")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "Jan"  "Feb"  "Mar"  "Apr"  "May"  "Jun"  "Jul"  "Aug"  "Sep"  "Oct" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [11] "Nov"  "Dec"  "y.1"  "y.2"  "y.3"  "y.4"  "y.5"  "y.6"  "y.7"  "y.8" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [21] "y.9"  "y.10" "y.11" "y.12"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> mutable_atomic </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  double </span>
-<span class="r-in"><span><span class="fu">bind_array</span><span class="op">(</span><span class="va">arg.list</span>, along<span class="op">=</span><span class="fl">3</span>, name_flat <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># bind on new dimension after last</span></span></span>
+<span class="r-in"><span><span class="fu">bind_array</span><span class="op">(</span><span class="va">arg.list</span>, along<span class="op">=</span><span class="fl">3</span><span class="op">)</span> <span class="co"># bind on new dimension after last</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> , , x</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   A B C  D</span>
@@ -298,10 +286,6 @@ give an error when fractional recycling is attempted
 <span class="r-out co"><span class="r-pr">#&gt;</span> b 102 105 108 111</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> c 103 106 109 112</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"names")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "Jan"  "Feb"  "Mar"  "Apr"  "May"  "Jun"  "Jul"  "Aug"  "Sep"  "Oct" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [11] "Nov"  "Dec"  "y.1"  "y.2"  "y.3"  "y.4"  "y.5"  "y.6"  "y.7"  "y.8" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [21] "y.9"  "y.10" "y.11" "y.12"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> mutable_atomic </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  double </span>
 <span class="r-in"><span></span></span>
@@ -309,7 +293,7 @@ give an error when fractional recycling is attempted
 <span class="r-in"><span><span class="co">################################################################################</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># recursiv arrays ====</span></span></span>
+<span class="r-in"><span><span class="co"># recursive arrays ====</span></span></span>
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">12</span><span class="op">)</span>,<span class="fl">3</span>,<span class="fl">4</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/dimnames.html" class="external-link">dimnames</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="nest.html">n</a></span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>, <span class="va">LETTERS</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">month.abb</span></span></span>
@@ -323,7 +307,7 @@ give an error when fractional recycling is attempted
 <span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">x</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">+</span> <span class="fl">100</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">arg.list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y<span class="op">=</span><span class="va">y</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">bind2_array</span><span class="op">(</span><span class="va">arg.list</span>, along<span class="op">=</span><span class="fl">0</span>, name_flat <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># binds on new dimension before first</span></span></span>
+<span class="r-in"><span><span class="fu">bind2_array</span><span class="op">(</span><span class="va">arg.list</span>, along<span class="op">=</span><span class="fl">0</span><span class="op">)</span> <span class="co"># binds on new dimension before first</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> , , A</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   a   b   c  </span>
@@ -348,11 +332,7 @@ give an error when fractional recycling is attempted
 <span class="r-out co"><span class="r-pr">#&gt;</span> x 10  11  12 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> y 100 100 100</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"names")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "Jan"  "y.1"  "Feb"  "y.2"  "Mar"  "y.3"  "Apr"  "y.4"  "May"  "y.5" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [11] "Jun"  "y.6"  "Jul"  "y.7"  "Aug"  "y.8"  "Sep"  "y.9"  "Oct"  "y.10"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [21] "Nov"  "y.11" "Dec"  "y.12"</span>
-<span class="r-in"><span><span class="fu">bind2_array</span><span class="op">(</span><span class="va">arg.list</span>, along<span class="op">=</span><span class="fl">1</span>, name_flat <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># binds on first dimension</span></span></span>
+<span class="r-in"><span><span class="fu">bind2_array</span><span class="op">(</span><span class="va">arg.list</span>, along<span class="op">=</span><span class="fl">1</span><span class="op">)</span> <span class="co"># binds on first dimension</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     A   B   C   D  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a   1   4   7   10 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> b   2   5   8   11 </span>
@@ -360,20 +340,12 @@ give an error when fractional recycling is attempted
 <span class="r-out co"><span class="r-pr">#&gt;</span> y.1 100 100 100 100</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> y.2 100 100 100 100</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> y.3 100 100 100 100</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"names")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "Jan"  "Feb"  "Mar"  "y.1"  "y.2"  "y.3"  "Apr"  "May"  "Jun"  "y.4" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [11] "y.5"  "y.6"  "Jul"  "Aug"  "Sep"  "y.7"  "y.8"  "y.9"  "Oct"  "Nov" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [21] "Dec"  "y.10" "y.11" "y.12"</span>
-<span class="r-in"><span><span class="fu">bind2_array</span><span class="op">(</span><span class="va">arg.list</span>, along<span class="op">=</span><span class="fl">2</span>, name_flat <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">bind2_array</span><span class="op">(</span><span class="va">arg.list</span>, along<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   A B C D  y.1 y.2 y.3 y.4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a 1 4 7 10 100 100 100 100</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> b 2 5 8 11 100 100 100 100</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> c 3 6 9 12 100 100 100 100</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"names")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "Jan"  "Feb"  "Mar"  "Apr"  "May"  "Jun"  "Jul"  "Aug"  "Sep"  "Oct" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [11] "Nov"  "Dec"  "y.1"  "y.2"  "y.3"  "y.4"  "y.5"  "y.6"  "y.7"  "y.8" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [21] "y.9"  "y.10" "y.11" "y.12"</span>
-<span class="r-in"><span><span class="fu">bind2_array</span><span class="op">(</span><span class="va">arg.list</span>, along<span class="op">=</span><span class="fl">3</span>, name_flat <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># bind on new dimension after last</span></span></span>
+<span class="r-in"><span><span class="fu">bind2_array</span><span class="op">(</span><span class="va">arg.list</span>, along<span class="op">=</span><span class="fl">3</span><span class="op">)</span> <span class="co"># bind on new dimension after last</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> , , x</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   A B C D </span>
@@ -388,10 +360,6 @@ give an error when fractional recycling is attempted
 <span class="r-out co"><span class="r-pr">#&gt;</span> b 100 100 100 100</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> c 100 100 100 100</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"names")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "Jan"  "Feb"  "Mar"  "Apr"  "May"  "Jun"  "Jul"  "Aug"  "Sep"  "Oct" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [11] "Nov"  "Dec"  "y.1"  "y.2"  "y.3"  "y.4"  "y.5"  "y.6"  "y.7"  "y.8" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [21] "y.9"  "y.10" "y.11" "y.12"</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
