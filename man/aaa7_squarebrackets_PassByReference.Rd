@@ -149,16 +149,12 @@ meant to be mutable. \cr
 Locking the binding of a mutable object is \bold{mostly} fruitless
 (but not completely;
 see the \link{currentBindings} function). \cr
-To prevent modification of an object's binding, 2 things must be true: \cr
+To ensure an object cannot be modified by any of the methods/functions from 'squarebrackets',
+2 things must be true: \cr
 \itemize{
 \item the object must be an immutable class.
-\item the binding must be \bold{locked} (see \link[base]{lockBinding}).
+\item the binding must be \bold{locked} (see \link[base]{lockBinding}). \cr \cr
 }
-
-Some packages that provide pass-by-reference semantics
-tend to ignore the lock of an object's binding. \cr
-Use the 'squarebrackets'  methods and (of course) core/base 'R' methods,
-in case the user fears the binding locks will not be respected. \cr \cr
 }
 
 \section{Protection}{
@@ -175,7 +171,7 @@ sb_set(letters, i = 1, rp = "XXX")
 
 'squarebrackets' will give an error when running the code above, because:
 \enumerate{
-\item addresses in \code{baseenv()} are protected;
+\item most addresses in \code{baseenv()} are protected;
 \item immutable objects are disallowed
 (you'll have to create a mutable object,
 which will create a copy of the original,

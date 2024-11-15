@@ -139,15 +139,11 @@
 #' Locking the binding of a mutable object is \bold{mostly} fruitless
 #' (but not completely;
 #' see the \link{currentBindings} function). \cr
-#' To prevent modification of an object's binding, 2 things must be true: \cr
+#' To ensure an object cannot be modified by any of the methods/functions from 'squarebrackets',
+#' 2 things must be true: \cr
 #' 
 #'  - the object must be an immutable class.
-#'  - the binding must be \bold{locked} (see \link[base]{lockBinding}).
-#'
-#' Some packages that provide pass-by-reference semantics
-#' tend to ignore the lock of an object's binding. \cr
-#' Use the 'squarebrackets'  methods and (of course) core/base 'R' methods,
-#' in case the user fears the binding locks will not be respected. \cr \cr
+#'  - the binding must be \bold{locked} (see \link[base]{lockBinding}). \cr \cr
 #' 
 #' 
 #' 
@@ -165,7 +161,7 @@
 #' 
 #' 'squarebrackets' will give an error when running the code above, because:
 #' 
-#'  1) addresses in `baseenv()` are protected;
+#'  1) most addresses in `baseenv()` are protected;
 #'  2) immutable objects are disallowed
 #'  (you'll have to create a mutable object,
 #'  which will create a copy of the original,

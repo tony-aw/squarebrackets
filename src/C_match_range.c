@@ -25,7 +25,7 @@ SEXP C_match_range( SEXP o, SEXP m ) {
   pres = INTEGER(res);
   
   
-  if(n < 20) {
+  if(n < 100) {
     for(int i = 0; i < n; ++i) {
       pres[i] = po[i];
     }

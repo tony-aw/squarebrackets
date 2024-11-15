@@ -122,6 +122,22 @@ expect_equal(
 enumerate <- enumerate + 3
 
 
+
+# as.mutable_atomic vs mutable_atomic vs materialize_atomic - ALTREP ====
+x <- 1:1e6
+expect_true(squarebrackets:::.C_is_altrep(x))
+expect_equal(
+  as.mutable_atomic(x),
+  materialize_atomic(x)
+)
+expect_equal(
+  mutable_atomic(x),
+  materialize_atomic(x)
+)
+
+enumerate <- enumerate + 2L
+
+
 # partial matrix sub-setting ====
 x <- as.mutable_atomic(matrix(1:20, ncol = 4))
 expect_equal(

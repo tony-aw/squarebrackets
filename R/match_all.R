@@ -69,7 +69,7 @@ match_all <- function(needles, haystack, unlist = TRUE) {
   
   
   v <- collapse::funique(needles)
-  is_simple_match <- unlist && length(v) == length(needles)
+  is_simple_match <- unlist && (length(v) == length(needles))
   
   if(length(v) == 1L) {
     out <- collapse::whichv(haystack, v)

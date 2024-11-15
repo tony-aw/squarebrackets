@@ -79,10 +79,9 @@ mutable_atomic <- function(data, names = NULL, dim = NULL, dimnames = NULL) {
   if(!couldb.mutable_atomic(data)) {
     stop("non-atomic data given")
   }
+  
   if(.C_is_altrep(data)) {
-    dataold <- data.table::copy(data)
-    data <- vector(typeof(dataold), length(dataold))
-    .rcpp_set_all(data, rp = dataold)
+    data <- .internal_materialize(data)
   }
   
   if(!is.null(names)) {
@@ -92,13 +91,14 @@ mutable_atomic <- function(data, names = NULL, dim = NULL, dimnames = NULL) {
     dimnames <- data.table::copy(dimnames) # protection against pass-by-reference
   }
   
-  x <- structure(
+  y <- structure(
     as.vector(data),
     names = names, dim = dim, dimnames = dimnames
   )
-  .internal_set_ma(x)
   
-  return(x)
+  .internal_set_ma(y)
+  
+  return(y)
   
 }
 
@@ -118,16 +118,7 @@ as.mutable_atomic <- function(x, ...) {
   }
   y <- .internal_return_ma(x)
   
-  if(!is.null(names(y))) {
-    nms <- data.table::copy(names(y)) # protection against pass-by-reference
-    data.table::setattr(y, "names", NULL)
-    data.table::setattr(y, "names", nms)
-  }
-  if(!is.null(dimnames(y))) {
-    nms <- data.table::copy(dimnames(y)) # protection against pass-by-reference
-    data.table::setattr(y, "dimnames", NULL)
-    data.table::setattr(y, "dimnames", nms)
-  }
+  .internal_ma_set_DimsAndNames(y, names(x), dim(x), dimnames(x))
   
   return(y)
 }
@@ -142,8 +133,8 @@ is.mutable_atomic <- function(x) {
     .pkgenv_squarebrackets[["protected"]],
     .rcpp_address(x)
   )
-
   if(check_protected) return(FALSE)
+  
   
   check <- .rcpp_is_ma(x)
   return(check)
@@ -226,22 +217,11 @@ materialize_atomic <- function(x) {
   if(!.C_is_altrep(x)) {
     return(x)
   }
-  y <- vector(typeof(x), length(x))
-  .rcpp_set_all(y, rp = x, abortcall = sys.call())
-  mostattributes(y) <- attributes(x)
+  y <- .internal_materialize(x)
   
   .internal_set_ma(y)
   
-  if(!is.null(names(y))) {
-    nms <- data.table::copy(names(y)) # protection against pass-by-reference
-    data.table::setattr(y, "names", NULL)
-    data.table::setattr(y, "names", nms)
-  }
-  if(!is.null(dimnames(y))) {
-    nms <- data.table::copy(dimnames(y)) # protection against pass-by-reference
-    data.table::setattr(y, "dimnames", NULL)
-    data.table::setattr(y, "dimnames", nms)
-  }
+  .internal_ma_set_DimsAndNames(y, names(x), dim(x), dimnames(x))
   
   return(y)
 }

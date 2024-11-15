@@ -194,13 +194,10 @@ meant to be mutable. <br>
 Locking the binding of a mutable object is <b>mostly</b> fruitless
 (but not completely;
 see the <a href="currentBindings.html">currentBindings</a> function). <br>
-To prevent modification of an object's binding, 2 things must be true: <br></p><ul><li><p>the object must be an immutable class.</p></li>
-<li><p>the binding must be <b>locked</b> (see <a href="https://rdrr.io/r/base/bindenv.html" class="external-link">lockBinding</a>).</p></li>
-</ul><p>Some packages that provide pass-by-reference semantics
-tend to ignore the lock of an object's binding. <br>
-Use the 'squarebrackets'  methods and (of course) core/base 'R' methods,
-in case the user fears the binding locks will not be respected. <br><br></p>
-    </div>
+To ensure an object cannot be modified by any of the methods/functions from 'squarebrackets',
+2 things must be true: <br></p><ul><li><p>the object must be an immutable class.</p></li>
+<li><p>the binding must be <b>locked</b> (see <a href="https://rdrr.io/r/base/bindenv.html" class="external-link">lockBinding</a>). <br><br></p></li>
+</ul></div>
     <div class="section level2">
     <h2 id="protection">Protection<a class="anchor" aria-label="anchor" href="#protection"></a></h2>
     
@@ -212,7 +209,7 @@ in case the user fears the binding locks will not be respected. <br><br></p>
 <span><span class="co"># letters = base::letters</span></span>
 <span><span class="fu"><a href="../reference/sb_set.html">sb_set</a></span><span class="op">(</span><span class="va">letters</span>, i <span class="op">=</span> <span class="fl">1</span>, rp <span class="op">=</span> <span class="st">"XXX"</span><span class="op">)</span></span>
 <span></span></code></pre><p></p></div>
-<p>'squarebrackets' will give an error when running the code above, because:</p><ol><li><p>addresses in <code><a href="https://rdrr.io/r/base/environment.html" class="external-link">baseenv()</a></code> are protected;</p></li>
+<p>'squarebrackets' will give an error when running the code above, because:</p><ol><li><p>most addresses in <code><a href="https://rdrr.io/r/base/environment.html" class="external-link">baseenv()</a></code> are protected;</p></li>
 <li><p>immutable objects are disallowed
 (you'll have to create a mutable object,
 which will create a copy of the original,

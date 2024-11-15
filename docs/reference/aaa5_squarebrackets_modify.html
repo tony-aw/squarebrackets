@@ -82,16 +82,18 @@ whilst still using R's default copy-on-modification semantics
     <h2 id="explicit-copy">Explicit Copy<a class="anchor" aria-label="anchor" href="#explicit-copy"></a></h2>
     
 
-<p>'squarebrackets' provides the <a href="sb_mod.html">sb_mod</a> method to modify through copy. <br>
+<p>'squarebrackets' provides the <a href="sb_mod.html">sb_mod</a>/<a href="sb_mod.html">sb2_mod</a> method to modify through copy. <br>
 This method always copies the modification. <br>
-For recursive objects, <a href="sb_mod.html">sb_mod</a> returns the original object, where only the modified subsets are copied,
+For recursive objects, <a href="sb_mod.html">sb2_mod</a> returns the original object, where only the modified subsets are copied,
 thus preventing unnecessary usage of memory. <br><br><br></p>
     </div>
     <div class="section level2">
     <h2 id="pass-by-reference">Pass-by-Reference<a class="anchor" aria-label="anchor" href="#pass-by-reference"></a></h2>
     
 
-<p>'squarebrackets' provides the <a href="sb_set.html">sb_set</a> method to modify by reference,
+<p>'squarebrackets' provides
+the <a href="sb_set.html">sb_set</a>/<a href="sb_set.html">sb2_set</a> and <a href="slice.html">slice_set</a> methods
+to modify by reference,
 meaning no copy is made at all. <br>
 Pass-by-Reference is fastest and the most memory efficient. <br>
 But it is also more involved than the other modification forms,
@@ -128,7 +130,7 @@ otherwise errors or unexpected behaviour may occur. <br><br><br></p>
     <h2 id="recycling-and-coercion">Recycling and Coercion<a class="anchor" aria-label="anchor" href="#recycling-and-coercion"></a></h2>
     
 
-<p>Recycling is not allowed in the modifcation methods. <br>
+<p>Recycling is not allowed in the modification methods. <br>
 So, for example, <code>length(rp)</code> must be equal to the length of the selected subset,
 or equal to <code>1</code>. <br>
 The user should also take into account the auto-coercion rules of the object's class. <br>

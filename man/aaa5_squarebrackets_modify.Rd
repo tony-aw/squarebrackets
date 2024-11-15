@@ -35,9 +35,9 @@ whilst still using R's default copy-on-modification semantics
 
 \section{Explicit Copy}{
 
-'squarebrackets' provides the \link{sb_mod} method to modify through copy. \cr
+'squarebrackets' provides the \link{sb_mod}/\link{sb2_mod} method to modify through copy. \cr
 This method always copies the modification. \cr
-For recursive objects, \link{sb_mod} returns the original object, where only the modified subsets are copied,
+For recursive objects, \link{sb2_mod} returns the original object, where only the modified subsets are copied,
 thus preventing unnecessary usage of memory. \cr
 \cr
 \cr
@@ -45,7 +45,9 @@ thus preventing unnecessary usage of memory. \cr
 
 \section{Pass-by-Reference}{
 
-'squarebrackets' provides the \link{sb_set} method to modify by reference,
+'squarebrackets' provides
+the \link{sb_set}/\link{sb2_set} and \link{slice_set} methods
+to modify by reference,
 meaning no copy is made at all. \cr
 Pass-by-Reference is fastest and the most memory efficient. \cr
 But it is also more involved than the other modification forms,
@@ -90,7 +92,7 @@ otherwise errors or unexpected behaviour may occur. \cr
 
 \section{Recycling and Coercion}{
 
-Recycling is not allowed in the modifcation methods. \cr
+Recycling is not allowed in the modification methods. \cr
 So, for example, \code{length(rp)} must be equal to the length of the selected subset,
 or equal to \code{1}. \cr
 The user should also take into account the auto-coercion rules of the object's class. \cr

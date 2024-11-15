@@ -254,6 +254,44 @@
   return(y)
 }
 
+
+#' @keywords internal
+#' @noRd
+.internal_ma_set_DimsAndNames <- function(x, names = NULL, dims = NULL, dimnames = NULL) {
+  
+  # set dims, names, and dimnames of a mutable_atomic object BY REFERENCE
+  
+  if(!is.mutable_atomic(x)) {
+    stop("not mutable_atomic")
+  }
+  
+  
+  if(!is.null(dims)) {
+    data.table::setattr(x, "dim", dims)
+  }
+  if(!is.null(dimnames)) {
+    dimnames <- data.table::copy(dimnames) # protection against pass-by-reference
+    data.table::setattr(x, "dimnames", NULL)
+    data.table::setattr(x, "dimnames", dimnames)
+  }
+  if(!is.null(names)) {
+    names <- data.table::copy(names) # protection against pass-by-reference
+    data.table::setattr(x, "names", NULL)
+    data.table::setattr(x, "names", names)
+  }
+}
+
+#' @keywords internal
+#' @noRd
+.internal_materialize <- function(x) {
+  y <- vector(typeof(x), length(x))
+  .rcpp_set_all(y, rp = x, abortcall = sys.call())
+  mostattributes(y) <- attributes(x)
+  return(y)
+}
+
+#' @keywords internal
+#' @noRd
 .internal_coerce_rp <- function(x, rp, abortcall) {
   if(typeof(x) != typeof(rp)) {
     message(sprintf("coercing replacement to %s", typeof(x)))
