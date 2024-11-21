@@ -45,7 +45,6 @@
     <a class="dropdown-item" href="articles/a_benchmarks_x.html">Benchmarks - sb_x</a>
     <a class="dropdown-item" href="articles/b_benchmarks_tf.html">Benchmarks - transform operations</a>
     <a class="dropdown-item" href="articles/c_benchmarks_lst.html">Benchmarks - Vectorized Recursive Subset Operations On Nested Lists</a>
-    <a class="dropdown-item" href="articles/Extra_Examples.html">Additional Examples</a>
   </div>
 </li>
       </ul>
@@ -91,7 +90,7 @@
 <div class="section level2">
 <h2 id="get-started">Get Started<a class="anchor" aria-label="anchor" href="#get-started"></a>
 </h2>
-<p>To get started see <code><a href="reference/aaa0_squarebrackets_help.html">?squarebrackets_help</a></code></p>
+<p>To get started see <code><a href="reference/aaa00_squarebrackets_help.html">?squarebrackets_help</a></code></p>
 <p> </p>
 </div>
 <div class="section level2">
@@ -114,7 +113,7 @@
 <ul>
 <li>10 March 2024: First GitHub upload - Package is very much experimental.</li>
 <li>12 March 2024: Changed the introduction help page a bit, added <code><a href="reference/dt.html">dt_setadd()</a></code>, and added tests for all <code>dt_</code> - functions. There are slightly over 50,000 tests now.</li>
-<li>15 March 2024: Added the <code>sb_setRename()</code> method, and added tests for this method also.</li>
+<li>15 March 2024: Added the <code><a href="reference/sb_setRename.html">sb_setRename()</a></code> method, and added tests for this method also.</li>
 <li>16 March 2024: Fixed a bug in the “rcpp_set_rowcol” source code. Tweaked the documentation here and there a bit. Improved the tests a bit.</li>
 <li>17 March 2024: Added more tests, and tweaked the documentation a bit.</li>
 <li>19 March 2024: Some methods/functions did not support mutable_atomic type “complex”; this is now fixed. Added support for mutable_atomic type “raw”. Added tests for atomic type handling. Added the functions <code><a href="reference/ma_setv.html">ma_setv()</a></code>, and <code><a href="reference/class_mutable_atomic.html">couldb.mutable_atomic()</a></code>. Added the options “sb.rat” and “sb.chkdup”; argument <code>chkdup</code> is now also set to <code>FALSE</code> by default. Added more badges to the documentation.</li>
@@ -134,11 +133,12 @@
 <li>7 September 2024: Incorporated some ALTREP functionality into the package.</li>
 <li>15 September 2024: Replaced the <code>drop</code> argument with <code>red</code> to avoid confusion with base R’s own <code>drop</code> mechanic. Small performance improvements for <code><a href="reference/sub2ind.html">sub2ind()</a></code> and <code><a href="reference/sb_set.html">sb_set.array()</a></code>.</li>
 <li>26 September 2024: Overhauled how indexing with complex vectors work.</li>
-<li>28 September 2024: Split <code>sb(2)_setRename()</code> into <code>sb_setFlatnames()</code>, <code>sb_setDimnames()</code>, and <code>sb2_setVarnames()</code>.</li>
+<li>28 September 2024: Split <code>sb(2)_setRename()</code> into <code><a href="reference/sb_setRename.html">sb_setFlatnames()</a></code>, <code><a href="reference/sb_setRename.html">sb_setDimnames()</a></code>, and <code><a href="reference/sb_setRename.html">sb2_setVarnames()</a></code>.</li>
 <li>10 October 2024: <code><a href="reference/sb_mod.html">sb_mod()</a></code> now makes partial copies of data.frame-like objects instead of whole copies, for more memory efficiency. Also removed the old <code>sb_str()</code> and <code>sb_a()</code> functions. Renamed <code>ci_seq()</code> to <code><a href="reference/cp_seq.html">cp_seq()</a></code> (in preparation for the next update).</li>
 <li>19 October 2024: Removed the renaming methods (<code>sb_setRename</code>), and <code>seq_rec2()</code>. Added <code>slcseq_</code>.</li>
 <li>5 November 2024: Renamed <code>slcseq_</code> to <code>slice_</code>. Re-organized the documentation a bit. Fixed examples of the <code>ci</code> and <code>tci</code> help pages. Added <code><a href="reference/bind.html">bind_mat()</a></code> and <code><a href="reference/bind.html">bind2_mat()</a></code>. Added <code><a href="reference/ndims.html">ndims()</a></code>.</li>
-<li>14 Novembr 2024: Performance improvement of <code><a href="reference/match_all.html">match_all()</a></code>.</li>
+<li>14 November 2024: Performance improvement of <code><a href="reference/match_all.html">match_all()</a></code>.</li>
+<li>21 November 2024: Improved the documentation. Slightly tweaked array argument usage. Added <code>sticky</code> option. Brought back the renaming methods. Changed behaviour of the <code>use.names</code> argument in <code><a href="reference/lst.html">lst_untree()</a></code>.</li>
 </ul>
 <p> </p>
 </div>

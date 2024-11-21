@@ -13,7 +13,8 @@
   options(
     squarebrackets.cn = FALSE,
     squarebrackets.chkdup = FALSE,
-    squarebrackets.ma_messages = FALSE
+    squarebrackets.ma_messages = FALSE,
+    squarebrackets.sticky = c("difftime", "Date", "POSIXct", "roman", "hexmode", "octmode")
   )
   .pkgenv_squarebrackets[["protected"]] <- .protected_addresses()
 }

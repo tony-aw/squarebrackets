@@ -37,7 +37,6 @@ Use sb2_set(x, ...) if x is a recursive object (i.e. data.table).  "><!-- mathja
     <a class="dropdown-item" href="../articles/a_benchmarks_x.html">Benchmarks - sb_x</a>
     <a class="dropdown-item" href="../articles/b_benchmarks_tf.html">Benchmarks - transform operations</a>
     <a class="dropdown-item" href="../articles/c_benchmarks_lst.html">Benchmarks - Vectorized Recursive Subset Operations On Nested Lists</a>
-    <a class="dropdown-item" href="../articles/Extra_Examples.html">Additional Examples</a>
   </div>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
@@ -63,9 +62,9 @@ Use sb2_set(x, ...) if x is a recursive object (i.e. data.table).  "><!-- mathja
 
     <div class="ref-description section level2">
     <p>This is an S3 Method to replace or transform a subset of a
-<a href="aaa1_squarebrackets_supported_structures.html">supported mutable object</a>
+<a href="aaa01_squarebrackets_supported_structures.html">supported mutable object</a>
 using
-<a href="aaa7_squarebrackets_PassByReference.html">pass-by-reference semantics</a> <br>
+<a href="aaa08_squarebrackets_PassByReference.html">pass-by-reference semantics</a> <br>
 Use <code>sb_set(x, ...)</code> if <code>x</code> is an atomic object (i.e. <a href="class_mutable_atomic.html">mutable_atomic</a>). <br>
 Use <code>sb2_set(x, ...)</code> if <code>x</code> is a recursive object (i.e. data.table). <br><br></p>
     </div>
@@ -136,24 +135,24 @@ Use <code>sb2_set(x, ...)</code> if <code>x</code> is a recursive object (i.e. d
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>x</dt>
 <dd><p>a <b>variable</b> belonging to one of the
-<a href="aaa1_squarebrackets_supported_structures.html">supported mutable classes</a>. <br></p></dd>
+<a href="aaa01_squarebrackets_supported_structures.html">supported mutable classes</a>. <br></p></dd>
 
 
 <dt>...</dt>
-<dd><p>see <a href="aaa4_squarebrackets_method_dispatch.html">squarebrackets_method_dispatch</a>.</p></dd>
+<dd><p>see <a href="aaa05_squarebrackets_method_dispatch.html">squarebrackets_method_dispatch</a>.</p></dd>
 
 
 <dt>i, row, col, sub, dims, filter, vars, inv</dt>
-<dd><p>See <a href="aaa3_squarebrackets_indx_args.html">squarebrackets_indx_args</a>. <br>
+<dd><p>See <a href="aaa04_squarebrackets_indx_args.html">squarebrackets_indx_args</a>. <br>
 An empty index selection leaves the original object unchanged. <br></p></dd>
 
 
 <dt>rp, tf, .lapply</dt>
-<dd><p>see <a href="aaa5_squarebrackets_modify.html">squarebrackets_modify</a>.</p></dd>
+<dd><p>see <a href="aaa06_squarebrackets_modify.html">squarebrackets_modify</a>.</p></dd>
 
 
 <dt>chkdup</dt>
-<dd><p>see <a href="aaa6_squarebrackets_options.html">squarebrackets_options</a>. <br><img src="figures/for_performance-set_to_FALSE-red.svg" alt="[for performance: set to FALSE]"><br></p></dd>
+<dd><p>see <a href="aaa07_squarebrackets_options.html">squarebrackets_options</a>. <br><img src="figures/for_performance-set_to_FALSE-red.svg" alt="[for performance: set to FALSE]"><br></p></dd>
 
 </dl></div>
     <div class="section level2">

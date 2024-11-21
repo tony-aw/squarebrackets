@@ -51,7 +51,6 @@ The setapply() is a bit faster and uses less memory than apply.  "><!-- mathjax 
     <a class="dropdown-item" href="../articles/a_benchmarks_x.html">Benchmarks - sb_x</a>
     <a class="dropdown-item" href="../articles/b_benchmarks_tf.html">Benchmarks - transform operations</a>
     <a class="dropdown-item" href="../articles/c_benchmarks_lst.html">Benchmarks - Vectorized Recursive Subset Operations On Nested Lists</a>
-    <a class="dropdown-item" href="../articles/Extra_Examples.html">Additional Examples</a>
   </div>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
@@ -79,13 +78,13 @@ The setapply() is a bit faster and uses less memory than apply.  "><!-- mathjax 
     <p>The <code>setapply()</code> function
 applies a functions over the rows or columns of a
 <a href="class_mutable_atomic.html">mutable_atomic</a> matrix,
-through <a href="aaa7_squarebrackets_PassByReference.html">pass-by-reference semantics</a>. <br><br>
+through <a href="aaa08_squarebrackets_PassByReference.html">pass-by-reference semantics</a>. <br><br>
 For every iteration, a copy of only a single row or column
 (depending on the margin)
 is made,
 the function is applied on the copy,
 and the original row/column is replaced by the modified copy through
-<a href="aaa7_squarebrackets_PassByReference.html">pass-by-reference semantics</a>. <br><br>
+<a href="aaa08_squarebrackets_PassByReference.html">pass-by-reference semantics</a>. <br><br>
 The <code>setapply()</code> is a bit faster and uses less memory than <a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a>. <br><br></p>
     </div>
 

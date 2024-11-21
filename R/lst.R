@@ -1,4 +1,4 @@
-#' Unnest Tree-like List to Recursive 2d Array or Flattened Recursive Vector
+#' Unnest Tree-like List into a Recursive Matrix or Flattened Recursive Vector
 #'
 #' @description
 #' `[[`, `[[<-`, \link{sb2_rec}, and \link{sb2_recin},
@@ -8,8 +8,8 @@
 #' and requires a (potentially slow) loop. \cr
 #' \cr
 #' The `lst_untree()` function takes a nested tree-like list,
-#' and turns it into a 2d recursive array (i.e. a list-matrix),
-#' allowing vectorized subset operations to be performed on the list. \cr
+#' and turns it into a recursive matrix (a matrix of list-elements),
+#' allowing vectorized subset operations to be performed on the nested list. \cr
 #' `lst_untree()` can also simply flatten the list, making it a non-nested list. \cr
 #' See the Examples section to understand how the list will be arranged and named. \cr
 #' \cr
@@ -18,29 +18,48 @@
 #' @param x a tree-like nested list.
 #' @param margin a single integer, indicating how the result should be arranged:
 #'  * `margin = 0` produces a simple flattened recursive vector (i.e. list) without dimensions.
-#'  * `margin = 1` produces a 2D recursive array (i.e. a matrix of lists), \cr
+#'  * `margin = 1` produces a recursive matrix (i.e. a matrix of list-elements), \cr
 #'  with `length(x)` rows and `n` columns, \cr
 #'  where \code{n = sapply(x, }\link{lst_nlists}\code{) |> max()}. \cr
 #'  Empty elements will be filled with `list(NULL)`.
-#'  * `margin = 2` produces a 2D recursive array (i.e. a matrix of lists), \cr
+#'  * `margin = 2` produces a recursive matrix (i.e. a matrix of list-elements), \cr
 #'  with `length(x)` columns and `n` rows, \cr
 #'  where \code{n = sapply(x, }\link{lst_nlists}\code{) |> max()}. \cr
 #'  Empty elements will be filled with `list(NULL)`.
-#' @param use.names Boolean,
-#'  indicating if the elements returned from `lst_untree()` should be named. \cr
-#'  Names of nested elements, such as `x[[c("A", "B", "C")]]`,
-#'  will become `"A.B.C"`,
-#'  as that is the behaviour of the \link[base]{rapply} function
-#'  (which `lst_untree()` calls internally). \cr
-#'  It is therefore advised not to use dots (`"."`) in your list names,
-#'  and use underscores (`"_"`) instead,
-#'  before calling `lst_untree()`. \cr
-#'  See the \code{rrapply::}\link[rrapply]{rrapply} function
-#'  for renaming
-#'  (and other forms of transforming)
-#'  recursive subsets of lists. \cr \cr
-#'  
+#' @param use.names Boolean, indicating if the result should be named. \cr
+#' See section "use.names" for more information.
 #' 
+#' 
+#' @section use.names:
+#' \bold{`margin = 0` and `use.names = TRUE`} \cr
+#' If `margin = 0` and `use.names = TRUE`,
+#' every element in the flattened list will be named. \cr
+#' Names of nested elements, such as `x[["A"]][["B"]][["C"]]`,
+#' will become `"A.B.C"`,
+#' as that is the behaviour of the \link[base]{rapply} function
+#' (which `lst_untree()` calls internally). \cr
+#' It is therefore advised not to use dots (`"."`) in your list names,
+#' and use underscores (`"_"`) instead,
+#' before calling `lst_untree()`. \cr
+#' See the \code{rrapply::}\link[rrapply]{rrapply} function
+#' for renaming
+#' (and other forms of transforming)
+#' recursive subsets of lists. \cr
+#' \cr
+#' \bold{`margin = 1` and `use.names = TRUE`} \cr
+#' If `margin == 1` and `use.names = TRUE`,
+#' the rows of resulting recursive matrix will be equal to `names(x)`,
+#' but recursive names will not be assigned. \cr
+#' \cr
+#' \bold{`margin = 2` and `use.names = TRUE`} \cr
+#' If `margin == 2` and `use.names = TRUE`,
+#' the columns of resulting recursive matrix will be equal to `names(x)`,
+#' but recursive names will not be assigned. \cr
+#' \cr
+#' \bold{`use.names = FALSE`} \cr
+#' If `use.names = FALSE`, the result will not have any names assigned at all. \cr
+#' \cr
+#'  
 #'
 #' @returns
 #' For `lst_untree()`: \cr
@@ -48,9 +67,8 @@
 #' Note that if `margin = 1` or `margin = 2`, `lst_untree()` returns a recursive matrix
 #' (i.e. a recursive array with 2 dimensions),
 #' \bold{not} a data.frame. \cr
-#' (One advantage of a recursive matrix over a data.frame,
-#' is that a recursive matrix can have separate column names and regular names,
-#' whereas the names of a data.frame are necessarily equal to the column names). \cr
+#' To turn a nested list into a data.frame instead, one option would be to use: \cr
+#' \link[rrapply]{rrapply}\code{(x, how = "melt")} \cr
 #' \cr
 #' For `lst_nlists()`: \cr
 #' A single integer,
@@ -81,10 +99,16 @@ lst_nlists <- function(x) {
 
 #' @rdname lst
 #' @export
-lst_untree <- function(x, margin, use.names = FALSE) {
+lst_untree <- function(x, margin, use.names = TRUE) {
   
   if(!.lst_is.treelist(x)) {
     stop("`x` must be a tree-like nested list")
+  }
+  if(length(margin) != 1L || !is.numeric(margin)) {
+    stop("`margin` must be a single integer")
+  }
+  if(!margin %in% 0:2) {
+    stop("`margin` must be 0, 1, or 2")
   }
   
   if(margin == 0) {
@@ -128,26 +152,13 @@ lst_untree <- function(x, margin, use.names = FALSE) {
   if(margin == 1) {
     
     dim(out) <- c(length(input), maxlen)
-    dimcumprod <- cumprod(dim(out))
     
+    for(i in seq_along(input)) {
+      mypointer <- input[[i]]
+      out[i, seq_along(mypointer)] <- mypointer
+    }
     if(use.names) {
-      
-      names(out) <- character(length(out))
-      
-      for(i in seq_along(input)) {
-        mypointer <- input[[i]]
-        indx <- .C_sub2ind_2d_64(i, seq_along(mypointer), dimcumprod)
-        out[indx] <- mypointer
-        if(!is.null(names(mypointer))) {
-          names(out)[indx] <- names(mypointer)
-        }
-      }
       rownames(out) <- names(input)
-    } else {
-      for(i in seq_along(input)) {
-        mypointer <- input[[i]]
-        out[i, seq_along(mypointer)] <- mypointer
-      }
     }
     
     return(out)
@@ -156,25 +167,13 @@ lst_untree <- function(x, margin, use.names = FALSE) {
   if(margin == 2) {
     
     dim(out) <- c(maxlen, length(input))
-    dimcumprod <- cumprod(dim(out))
     
+    for(i in seq_along(input)) {
+      mypointer <- input[[i]]
+      out[seq_along(mypointer), i] <- mypointer
+    }
     if(use.names) {
-      names(out) <- character(length(out))
-      
-      for(i in seq_along(input)) {
-        mypointer <- input[[i]]
-        indx <- .C_sub2ind_2d_64(seq_along(mypointer), i, dimcumprod)
-        out[indx] <- mypointer
-        if(!is.null(names(mypointer))) {
-          names(out)[indx] <- names(mypointer)
-        }
-      }
       colnames(out) <- names(input)
-    } else {
-      for(i in seq_along(input)) {
-        mypointer <- input[[i]]
-        out[seq_along(mypointer), i] <- mypointer
-      }
     }
     
     return(out)

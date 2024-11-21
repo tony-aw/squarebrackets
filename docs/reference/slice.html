@@ -31,7 +31,6 @@ and are designed for memory efficiency.  "><!-- mathjax --><script src="https://
     <a class="dropdown-item" href="../articles/a_benchmarks_x.html">Benchmarks - sb_x</a>
     <a class="dropdown-item" href="../articles/b_benchmarks_tf.html">Benchmarks - transform operations</a>
     <a class="dropdown-item" href="../articles/c_benchmarks_lst.html">Benchmarks - Vectorized Recursive Subset Operations On Nested Lists</a>
-    <a class="dropdown-item" href="../articles/Extra_Examples.html">Additional Examples</a>
   </div>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
@@ -66,12 +65,28 @@ and are designed for memory efficiency. <br><br></p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">slice_x</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for default</span></span>
-<span><span class="fu">slice_x</span><span class="op">(</span><span class="va">x</span>, from <span class="op">=</span> <span class="cn">NULL</span>, to <span class="op">=</span> <span class="cn">NULL</span>, by <span class="op">=</span> <span class="fl">1L</span>, <span class="va">...</span>, use.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu">slice_x</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  from <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  to <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  by <span class="op">=</span> <span class="fl">1L</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  use.names <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  sticky <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"squarebrackets.sticky"</span>, <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">slice_rm</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for default</span></span>
-<span><span class="fu">slice_rm</span><span class="op">(</span><span class="va">x</span>, from <span class="op">=</span> <span class="cn">NULL</span>, to <span class="op">=</span> <span class="cn">NULL</span>, by <span class="op">=</span> <span class="fl">1L</span>, <span class="va">...</span>, use.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu">slice_rm</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  from <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  to <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  by <span class="op">=</span> <span class="fl">1L</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  use.names <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  sticky <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"squarebrackets.sticky"</span>, <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">slice_set</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
@@ -87,7 +102,7 @@ For <code>slice_set</code> it must be a <a href="class_mutable_atomic.html">muta
 
 
 <dt>...</dt>
-<dd><p>see <a href="aaa4_squarebrackets_method_dispatch.html">squarebrackets_method_dispatch</a>.</p></dd>
+<dd><p>see <a href="aaa05_squarebrackets_method_dispatch.html">squarebrackets_method_dispatch</a>.</p></dd>
 
 
 <dt>from, to, by</dt>
@@ -100,6 +115,10 @@ Note that, since <code>slice</code> operates on flat indices only,
 dimensions and <code>dimnames</code> are always dropped.</p></dd>
 
 
+<dt>sticky</dt>
+<dd><p>see <a href="aaa07_squarebrackets_options.html">squarebrackets_options</a>.</p></dd>
+
+
 <dt>inv</dt>
 <dd><p>Boolean, indicating whether to invert the sequence. <br>
 If <code>TRUE</code>,
@@ -108,7 +127,7 @@ If <code>TRUE</code>,
 
 
 <dt>rp, tf</dt>
-<dd><p>see <a href="aaa5_squarebrackets_modify.html">squarebrackets_modify</a>.</p></dd>
+<dd><p>see <a href="aaa06_squarebrackets_modify.html">squarebrackets_modify</a>.</p></dd>
 
 </dl></div>
     <div class="section level2">

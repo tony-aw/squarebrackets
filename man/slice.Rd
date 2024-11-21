@@ -12,11 +12,27 @@
 \usage{
 slice_x(x, ...)
 
-\method{slice_x}{default}(x, from = NULL, to = NULL, by = 1L, ..., use.names = TRUE)
+\method{slice_x}{default}(
+  x,
+  from = NULL,
+  to = NULL,
+  by = 1L,
+  ...,
+  use.names = TRUE,
+  sticky = getOption("squarebrackets.sticky", FALSE)
+)
 
 slice_rm(x, ...)
 
-\method{slice_rm}{default}(x, from = NULL, to = NULL, by = 1L, ..., use.names = TRUE)
+\method{slice_rm}{default}(
+  x,
+  from = NULL,
+  to = NULL,
+  by = 1L,
+  ...,
+  use.names = TRUE,
+  sticky = getOption("squarebrackets.sticky", FALSE)
+)
 
 slice_set(x, ...)
 
@@ -33,6 +49,8 @@ For \code{slice_set} it must be a \link{mutable_atomic} \bold{variable}.}
 \item{use.names}{Boolean, indicating if flat names should be preserved. \cr
 Note that, since \code{slice} operates on flat indices only,
 dimensions and \code{dimnames} are always dropped.}
+
+\item{sticky}{see \link{squarebrackets_options}.}
 
 \item{inv}{Boolean, indicating whether to invert the sequence. \cr
 If \code{TRUE},

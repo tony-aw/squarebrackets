@@ -14,7 +14,7 @@ x <- list(
   )
 )
 
-y <- lst_untree(x, margin = 0, use.names = TRUE)
+# margin = 0 ====
 y2 <- list(
   A.A.A = "AAA",
   A.A.B = "AAB",
@@ -29,6 +29,10 @@ y2 <- list(
   Y.Y.Y = "YYY",
   Y.X = "YX"
 )
+
+# use.names = TRUE
+y <- lst_untree(x, margin = 0, use.names = TRUE)
+
 expect_equal(
   y,y2
 )
@@ -37,6 +41,15 @@ expect_equal(
   x[[c("Y", "Z", "Y")]]
 )
 
+# use.names = FALSE
+y <- lst_untree(x, margin = 0, use.names = FALSE)
+expect_equal(
+  y, unname(y2)
+)
+
+
+# margin = 1L ====
+# use.names = TRUE
 y <- lst_untree(x, margin = 1, use.names = TRUE)
 expect_equal(
   dim(y),
@@ -46,11 +59,17 @@ expect_equal(
   rownames(y),
   names(x)
 )
+
+# use.names = FALSE
+y <- lst_untree(x, margin = 1, use.names = FALSE)
 expect_equal(
-  y[["Y.Z.Y"]],
-  x[[c("Y", "Z", "Y")]]
+  dim(y),
+  c(length(x), sapply(x, lst_nlists) |> max())
 )
 
+
+# margin = 2 ====
+# use.names = TRUE
 y <- lst_untree(x, margin = 2, use.names = TRUE)
 expect_equal(
   dim(y),
@@ -60,14 +79,20 @@ expect_equal(
   colnames(y),
   names(x)
 )
+
+# use.names = FALSE
+y <- lst_untree(x, margin = 2, use.names = TRUE)
 expect_equal(
-  y[["Y.Z.Y"]],
-  x[[c("Y", "Z", "Y")]]
+  dim(y),
+  c(sapply(x, lst_nlists) |> max(), length(x))
 )
 
 
+# other ====
 x <- lapply(1:10, \(x)list(sample(letters), sample(1:10)))
 y <- lst_untree(x, margin = 0)
 expect_true(
   is.list(y)
 )
+
+enumerate <- 10L

@@ -157,6 +157,10 @@ tinycodet::import_LL("squarebrackets", selection = ... )
 - 5 November 2024: Renamed `slcseq_` to `slice_`. Re-organized the
   documentation a bit. Fixed examples of the `ci` and `tci` help pages.
   Added `bind_mat()` and `bind2_mat()`. Added `ndims()`.
-- 14 Novembr 2024: Performance improvement of `match_all()`.
+- 14 November 2024: Performance improvement of `match_all()`.
+- 21 November 2024: Improved the documentation. Slightly tweaked array
+  argument usage. Added `sticky` option. Brought back the renaming
+  methods. Changed behaviour of the `use.names` argument in
+  `lst_untree()`.
 
  

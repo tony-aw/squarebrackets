@@ -45,7 +45,6 @@
     <a class="dropdown-item" href="../articles/a_benchmarks_x.html">Benchmarks - sb_x</a>
     <a class="dropdown-item" href="../articles/b_benchmarks_tf.html">Benchmarks - transform operations</a>
     <a class="dropdown-item" href="../articles/c_benchmarks_lst.html">Benchmarks - Vectorized Recursive Subset Operations On Nested Lists</a>
-    <a class="dropdown-item" href="../articles/Extra_Examples.html">Additional Examples</a>
   </div>
 </li>
       </ul>
@@ -116,8 +115,8 @@ list transformed by <code><a href="../reference/lst.html">lst_untree()</a></code
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 6</span></span></span>
 <span><span class="co">#&gt;   expression      min   median `itr/sec` mem_alloc `gc/sec`</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:byt&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> original     1.08ms   1.23ms      784.    38.4KB     16.8</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> untree'd      7.4µs    8.2µs   <span style="text-decoration: underline;">112</span>025.    77.6KB     22.4</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> original     1.09ms   1.27ms      753.    38.4KB     16.9</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> untree'd      7.3µs    8.3µs   <span style="text-decoration: underline;">109</span>186.    77.6KB     21.8</span></span>
 <span><span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot</a></span><span class="op">(</span><span class="va">foo</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Loading required namespace: tidyr</span></span></code></pre></div>
 <p><img src="c_benchmarks_lst_files/figure-html/unnamed-chunk-2-1.png" width="768"></p>

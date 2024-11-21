@@ -125,16 +125,10 @@ enumerate <- enumerate + 3
 
 # as.mutable_atomic vs mutable_atomic vs materialize_atomic - ALTREP ====
 x <- 1:1e6
-expect_true(squarebrackets:::.C_is_altrep(x))
-expect_equal(
-  as.mutable_atomic(x),
-  materialize_atomic(x)
-)
-expect_equal(
-  mutable_atomic(x),
-  materialize_atomic(x)
-)
-
+is_altrep <- squarebrackets:::.C_is_altrep
+expect_true(is_altrep(x))
+expect_false(as.mutable_atomic(x) |> is_altrep())
+expect_false(mutable_atomic(x) |> is_altrep())
 enumerate <- enumerate + 2L
 
 

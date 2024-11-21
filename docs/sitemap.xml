@@ -4,18 +4,6 @@
     <loc>https://tony-aw.github.io/squarebrackets/404.html</loc>
   </url>
   <url>
-    <loc>https://tony-aw.github.io/squarebrackets/articles/articles/a_benchmarks_x.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/articles/articles/b_benchmarks_tf.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/articles/articles/c_benchmarks_lst.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/articles/articles/Extra_Examples.html</loc>
-  </url>
-  <url>
     <loc>https://tony-aw.github.io/squarebrackets/articles/a_benchmarks_x.html</loc>
   </url>
   <url>
@@ -23,9 +11,6 @@
   </url>
   <url>
     <loc>https://tony-aw.github.io/squarebrackets/articles/c_benchmarks_lst.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/articles/Extra_Examples.html</loc>
   </url>
   <url>
     <loc>https://tony-aw.github.io/squarebrackets/articles/index.html</loc>
@@ -43,31 +28,34 @@
     <loc>https://tony-aw.github.io/squarebrackets/LICENSE.html</loc>
   </url>
   <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/aaa0_squarebrackets_help.html</loc>
+    <loc>https://tony-aw.github.io/squarebrackets/reference/aaa00_squarebrackets_help.html</loc>
   </url>
   <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/aaa1_squarebrackets_supported_structures.html</loc>
+    <loc>https://tony-aw.github.io/squarebrackets/reference/aaa01_squarebrackets_supported_structures.html</loc>
   </url>
   <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/aaa2_squarebrackets_coercion.html</loc>
+    <loc>https://tony-aw.github.io/squarebrackets/reference/aaa02_squarebrackets_coercion.html</loc>
   </url>
   <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/aaa3_squarebrackets_indx_args.html</loc>
+    <loc>https://tony-aw.github.io/squarebrackets/reference/aaa03_squarebrackets_indx_fundamentals.html</loc>
   </url>
   <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/aaa4_squarebrackets_method_dispatch.html</loc>
+    <loc>https://tony-aw.github.io/squarebrackets/reference/aaa04_squarebrackets_indx_args.html</loc>
   </url>
   <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/aaa5_squarebrackets_modify.html</loc>
+    <loc>https://tony-aw.github.io/squarebrackets/reference/aaa05_squarebrackets_method_dispatch.html</loc>
   </url>
   <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/aaa6_squarebrackets_options.html</loc>
+    <loc>https://tony-aw.github.io/squarebrackets/reference/aaa06_squarebrackets_modify.html</loc>
   </url>
   <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/aaa7_squarebrackets_PassByReference.html</loc>
+    <loc>https://tony-aw.github.io/squarebrackets/reference/aaa07_squarebrackets_options.html</loc>
   </url>
   <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/aaa8_squarebrackets_inconveniences.html</loc>
+    <loc>https://tony-aw.github.io/squarebrackets/reference/aaa08_squarebrackets_PassByReference.html</loc>
+  </url>
+  <url>
+    <loc>https://tony-aw.github.io/squarebrackets/reference/aaa09_squarebrackets_inconveniences.html</loc>
   </url>
   <url>
     <loc>https://tony-aw.github.io/squarebrackets/reference/bind.html</loc>
@@ -134,6 +122,9 @@
   </url>
   <url>
     <loc>https://tony-aw.github.io/squarebrackets/reference/sb_set.html</loc>
+  </url>
+  <url>
+    <loc>https://tony-aw.github.io/squarebrackets/reference/sb_setRename.html</loc>
   </url>
   <url>
     <loc>https://tony-aw.github.io/squarebrackets/reference/sb_x.html</loc>

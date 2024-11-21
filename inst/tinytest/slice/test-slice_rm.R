@@ -105,6 +105,30 @@ expect_equal(
 )
 
 
+# check sticky ====
+x <- as.roman(1:100)
+
+expected <- out <- vector("list", n)
+counter <- 1L
+
+for(iF in seq_along(list_fromto)) {
+  for(iT in seq_along(list_fromto)) {
+    for(iB in seq_along(list_by)) {
+      from = list_fromto[[iF]]
+      to = list_fromto[[iT]]
+      by = list_by[[iB]]
+      expected[[counter]] <- tempfun(x, from, to, by) |> unname()
+      out[[counter]] <- slice_rm(x, from, to, by, use.names = FALSE)
+      counter <- counter + 1L
+      enumerate <- enumerate + 1L
+    }
+  }
+}
+
+expect_equal(
+  expected, out
+)
+
 
 # atomic types checks ====
 x.data <- list(

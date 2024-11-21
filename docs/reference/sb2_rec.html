@@ -67,7 +67,6 @@ will remove the dimension attributes of that list.
     <a class="dropdown-item" href="../articles/a_benchmarks_x.html">Benchmarks - sb_x</a>
     <a class="dropdown-item" href="../articles/b_benchmarks_tf.html">Benchmarks - transform operations</a>
     <a class="dropdown-item" href="../articles/c_benchmarks_lst.html">Benchmarks - Vectorized Recursive Subset Operations On Nested Lists</a>
-    <a class="dropdown-item" href="../articles/Extra_Examples.html">Additional Examples</a>
   </div>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
@@ -123,12 +122,12 @@ will remove the dimension attributes of that list. <br><br></p></li>
 
 <dt>rec</dt>
 <dd><p>a strictly positive integer vector or character vector, of length <code>p</code>,
-such that <code>x[[rec]]</code> is equivalent to <code>x[[ rec[1] ]]...[[ rec[p] ]]</code>,
+such that <code>sb2_rec(x, rec)</code> is equivalent to <code>x[[ rec[1] ]]...[[ rec[p] ]]</code>,
 providing all but the final indexing results in a list. <br>
 When on a certain subset level of a nested list,
 multiple subsets with the same name exist,
 only the first one will be selected when performing recursive indexing by name,
-due to the recursive nature of this type of sub-setting.</p></dd>
+since recursive indexing can only select a single element.</p></dd>
 
 
 <dt>rp</dt>
@@ -189,7 +188,7 @@ using R's default Copy-On-Modify semantics. <br></p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Since recursive objects are pointers to objects,
+    <p>Since recursive objects are references to other objects,
 extending a list or removing an element of a list does not copy the entire list,
 in contrast to atomic vectors. <br><br></p>
     </div>

@@ -18,7 +18,7 @@ x <- list(
 
 # un-tree column-wise:
 sapply(x, lst_nlists) |> max() # number of rows `y` will have
-y <- lst_untree(x, margin = 2, use.names = TRUE)
+y <- lst_untree(x, margin = 2L, use.names = TRUE)
 dim(y)
 print(y)
 sb2_x(y, 1:3, 1:2) # vectorized selection of multiple recursive elements
@@ -26,7 +26,7 @@ sb2_x(y, 1:3, 1:2) # vectorized selection of multiple recursive elements
 
 # un-tree row-wise:
 sapply(x, lst_nlists) |> max() # number of columns `y` will have
-y <- lst_untree(x, margin = 1, use.names = TRUE)
+y <- lst_untree(x, margin = 1L, use.names = TRUE)
 dim(y)
 print(y)
 sb2_x(y,1:2, 1:3)  # vectorized selection of multiple recursive elements
@@ -66,9 +66,9 @@ y <- lst_untree(x, 1)
 
 # getting the first recursive elements in the second level/depth in base R:
 for(i in seq_along(x)) {
-  x[[c(i, c(1,1))]]
+  x[[c(i, c(1,1))]] |> print() # for-loop, slow
 }
 
 # the same, but vectorized using the untree'd list:
-y[seq_len(nrow(y)), 1]
+y[seq_len(nrow(y)), 1] |> print() # vectorized, fast
 

@@ -142,19 +142,27 @@ ci_sub <- function(
   # the maximum of each dimension reduces.
   # Thus, creating sequences here is not so expensive.
   
-  if(length(dims) == 1L && !is.list(sub)) {
-    sub <- list(sub)
+  if(!is.list(sub)) {
+    sub <- rep(list(sub), length(dims))
   }
-  
   .arr_check(x, sub, dims, ndims(x), .abortcall)
-  lst <- .rcpp_seq_mlen(as.integer(dim(x)))
-  if(length(dims) > 0L) {
-    for(i in seq_along(dims)) {
-      lst[[dims[i]]] <- as.integer(ci_margin(
-        x, sub[[i]], dims[i], inv, chkdup, uniquely_named = FALSE, .abortcall
-      ))
+  
+  if(ndims(x) == 1L) {
+    lst <- list(
+      ci_flat(x, sub[[1L]], inv, chkdup, uniquely_named = FALSE, .abortcall)
+    )
+  }
+  else {
+    lst <- .rcpp_seq_mlen(as.integer(dim(x)))
+    if(length(dims) > 0L) {
+      for(i in seq_along(dims)) {
+        lst[[dims[i]]] <- as.integer(ci_margin(
+          x, sub[[i]], dims[i], inv, chkdup, uniquely_named = FALSE, .abortcall
+        ))
+      }
     }
   }
+  
   return(lst)
 }
 
@@ -212,8 +220,8 @@ ci_df <- function(
 #' @keywords internal
 #' @noRd
 .arr_check <- function(x, sub, dims, ndims, .abortcall = sys.call()) {
-  if(!is.list(sub) || !is.numeric(dims)) {
-    stop(simpleError("`sub` must be a list, and `dims` must be a integer vector", call = .abortcall))
+  if(!is.numeric(dims)) {
+    stop(simpleError("`dims` must be a integer vector", call = .abortcall))
   }
   if(length(sub) != length(dims)) {
     stop(simpleError("`length(sub) != length(dims)`", call = .abortcall))

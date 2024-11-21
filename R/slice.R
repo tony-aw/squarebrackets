@@ -16,6 +16,7 @@
 #' @param use.names Boolean, indicating if flat names should be preserved. \cr
 #' Note that, since `slice` operates on flat indices only,
 #' dimensions and `dimnames` are always dropped.
+#' @param sticky see \link{squarebrackets_options}.
 #' @param ... see \link{squarebrackets_method_dispatch}.
 #' 
 #'
@@ -40,7 +41,7 @@ slice_x <- function(x, ...) {
 #' @export
 slice_x.default <- function(
     x, from = NULL, to = NULL, by = 1L, ...,
-    use.names = TRUE
+    use.names = TRUE, sticky = getOption("squarebrackets.sticky", FALSE)
 ) {
   myslice <- cp_seq(x, 0L, from, to, by)
   start <- myslice$start
@@ -62,9 +63,24 @@ slice_x.default <- function(
     nms <- slice_x(names(x), from, to, by, use.names = FALSE)
     data.table::setattr(out, "names", nms)
   }
+  if(is.factor(x)) {
+    data.table::setattr(out, "contrasts", attr(x, "contrasts", exact = TRUE))
+    data.table::setattr(out, "levels", attr(x, "levels", exact = TRUE))
+    data.table::setattr(out, "class", oldClass(x))
+  }
   if(is.mutable_atomic(x)) {
     .internal_set_ma(out)
   }
+  if(is.logical(sticky) && length(sticky) == 1L) {
+    if(sticky) {
+      .internal_set_stickyattr(out, x)
+    }
+  }
+  if(is.character(sticky) && inherits(x, sticky, which = FALSE)) {
+    .internal_set_stickyattr(out, x)
+  }
+  
+  
   
   return(out)
 }
@@ -81,7 +97,7 @@ slice_rm <- function(x, ...) {
 #' @export
 slice_rm.default <- function(
     x, from = NULL, to = NULL, by = 1L, ...,
-    use.names = TRUE
+    use.names = TRUE, sticky = getOption("squarebrackets.sticky", FALSE)
 ) {
   myslice <- cp_seq(x, 0L, from, to, by)
   by <- myslice$by
@@ -114,8 +130,21 @@ slice_rm.default <- function(
     nms <- slice_rm(names(x), from, to, by, use.names = FALSE)
     data.table::setattr(out, "names", nms)
   }
+  if(is.factor(x)) {
+    data.table::setattr(out, "contrasts", attr(x, "contrasts", exact = TRUE))
+    data.table::setattr(out, "levels", attr(x, "levels", exact = TRUE))
+    data.table::setattr(out, "class", oldClass(x))
+  }
   if(is.mutable_atomic(x)) {
     .internal_set_ma(out)
+  }
+  if(is.logical(sticky) && length(sticky) == 1L) {
+    if(sticky) {
+      .internal_set_stickyattr(out, x)
+    }
+  }
+  if(is.character(sticky) && inherits(x, sticky, which = FALSE)) {
+    .internal_set_stickyattr(out, x)
   }
   
   return(out)

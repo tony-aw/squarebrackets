@@ -20,7 +20,7 @@ for(i in seq_along(meths)) {
 
 
 x <- 1:10
-pattern <- "Use the `sb_` methods for non-recursive objects"
+pattern <- "Use the `sb_` methods for atomic objects"
 
 meths <- list(
   sb2_x, sb2_rm, sb2_mod

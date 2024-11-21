@@ -40,6 +40,13 @@
 #' @export
 sb_set <- function(x, ...) {
   
+  if(is.list(x)) {
+    stop("Use the `sb2_` methods for recursive objects")
+  }
+  if(!is.atomic(x)) {
+    stop("unsupported object")
+  }
+  
   UseMethod("sb_set", x)
 }
 
@@ -160,6 +167,13 @@ sb_set.array <- function(
 #' @rdname sb_set
 #' @export
 sb2_set <- function(x, ...) {
+  
+  if(is.atomic(x)) {
+    stop("Use the `sb_` methods for atomic objects")
+  }
+  if(!is.list(x)) {
+    stop("unsupported object")
+  }
   
   UseMethod("sb2_set", x)
 }

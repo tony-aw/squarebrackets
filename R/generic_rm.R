@@ -32,8 +32,11 @@
 #' @export
 sb_rm <- function(x, ...) {
   
-  if(is.recursive(x)) {
+  if(is.list(x)) {
     stop("Use the `sb2_` methods for recursive objects")
+  }
+  if(!is.atomic(x)) {
+    stop("unsupported object")
   }
   
   UseMethod("sb_rm", x)
@@ -87,8 +90,11 @@ sb_rm.array <- function(
 #' @export
 sb2_rm <- function(x, ...) {
   
-  if(!is.recursive(x)) {
-    stop("Use the `sb_` methods for non-recursive objects")
+  if(is.atomic(x)) {
+    stop("Use the `sb_` methods for atomic objects")
+  }
+  if(!is.list(x)) {
+    stop("unsupported object")
   }
   
   UseMethod("sb2_rm", x)

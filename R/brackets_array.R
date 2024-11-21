@@ -92,8 +92,8 @@
 .arr_set <- function(x, sub, dims, chkdup, inv, rp, tf, abortcall) {
   
   # Prep:
-  if(length(dims) == 1L && !is.list(sub)) {
-    sub <- list(sub)
+  if(!is.list(sub)) {
+    sub <- rep(list(sub), length(dims))
   }
   x.dim <- dim(x)
   ndims <- length(x.dim)
@@ -103,7 +103,7 @@
   # CASE 1: `x` is a vector / 1d array, so subscript translation is waste of computation
   if(ndims == 1L) {
     elements <- ci_flat(
-      x, sub[[1]], inv, chkdup, .abortcall = sys.call()
+      x, sub[[1L]], inv, chkdup, .abortcall = sys.call()
     )
     .sb_set_atomic(x, elements, rp = rp, tf = tf, abortcall = abortcall)
     return(invisible(NULL))
@@ -120,7 +120,7 @@
     return(invisible(NULL))
   }
   
-  # CASE 3: `x` has between 2 and 8 dimensions, and neither all nor empty selection
+  # CASE 3: `x` has between 2 and 8 dimensions
   if(ndims <= 8L) {
     if(!missing(tf)) {
       if(!is.function(tf)) stop(simpleError("`tf` must be a function", call = abortcall))
@@ -130,7 +130,7 @@
     return(invisible(NULL))
   }
   
-  # CASE 4: `x` has between 9 and 16 dimensions, and neither all nor empty selection
+  # CASE 4: `x` has between 9 and 16 dimensions
   if(ndims <= 16L) {
     if(!missing(tf)) {
       if(!is.function(tf)) stop(simpleError("`tf` must be a function", call = abortcall))

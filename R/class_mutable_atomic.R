@@ -21,7 +21,6 @@
 #' \link{logical}, \link{integer}, \link{double}, \link{character}, \link{complex}, \link{raw}. \cr
 #' \code{bit64::}\link[bit64]{integer64} type is also supported,
 #' since it is internally defined as \link{double}. \cr
-#'  * `materialize_atomic():` takes an immaterial ALTREP atomic object, and returns a materialized `mutable_atomic` object.
 #'  * `typecast.mutable_atomic()` type-casts and possibly reshapes a (mutable) atomic object,
 #'  and returns a `mutable_atomic` object. \cr
 #'  Does not preserve dimension names if dimensions are changed. \cr \cr
@@ -48,7 +47,7 @@
 #' 
 #' 
 #' @returns
-#' For `mutable_atomic()`, `as.mutable_atomic()`, `materialize_atomic()`, `typecast.mutable_atomic()`: \cr
+#' For `mutable_atomic()`, `as.mutable_atomic()`, `typecast.mutable_atomic()`: \cr
 #' Returns a `mutable_atomic` object. \cr
 #' \cr
 #' For `is.mutable_atomic()`: \cr
@@ -80,21 +79,14 @@ mutable_atomic <- function(data, names = NULL, dim = NULL, dimnames = NULL) {
     stop("non-atomic data given")
   }
   
-  if(.C_is_altrep(data)) {
-    data <- .internal_materialize(data)
-  }
+  y <- as.vector(data)
+  dim(y) <- dim
+  dimnames(y) <- dimnames
+  names(y) <- names
   
-  if(!is.null(names)) {
-    names <- data.table::copy(names) # protection against pass-by-reference
+  if(.C_is_altrep(y)) {
+    y <- .internal_materialize(y)
   }
-  if(!is.null(dimnames)) {
-    dimnames <- data.table::copy(dimnames) # protection against pass-by-reference
-  }
-  
-  y <- structure(
-    as.vector(data),
-    names = names, dim = dim, dimnames = dimnames
-  )
   
   .internal_set_ma(y)
   
@@ -102,10 +94,15 @@ mutable_atomic <- function(data, names = NULL, dim = NULL, dimnames = NULL) {
   
 }
 
-
 #' @rdname class_mutable_atomic
 #' @export
 as.mutable_atomic <- function(x, ...) {
+  UseMethod("as.mutable_atomic", x)
+}
+
+#' @rdname class_mutable_atomic
+#' @export
+as.mutable_atomic.default <- function(x, ...) {
   if(!couldb.mutable_atomic(x)) {
     stop("not atomic")
   }
@@ -113,14 +110,18 @@ as.mutable_atomic <- function(x, ...) {
     return(x)
   }
   
-  if(.C_is_altrep(x)) {
-    return(materialize_atomic(x))
+  y <- x
+  if(.C_is_altrep(y)) {
+    y <- .internal_materialize(y)
   }
-  y <- .internal_return_ma(x)
   
+  y <- data.table::copy(y)
+  
+  .internal_set_ma(y)
   .internal_ma_set_DimsAndNames(y, names(x), dim(x), dimnames(x))
   
   return(y)
+  
 }
 
 
@@ -135,6 +136,8 @@ is.mutable_atomic <- function(x) {
   )
   if(check_protected) return(FALSE)
   
+  # Note: cannot check for altrep,
+  # since things like logical vectors are stored as altrep during package testing
   
   check <- .rcpp_is_ma(x)
   return(check)
@@ -213,22 +216,6 @@ typecast.mutable_atomic <- function(x, type = typeof(x), dims = dim(x)) {
 
 #' @rdname class_mutable_atomic
 #' @export
-materialize_atomic <- function(x) {
-  if(!.C_is_altrep(x)) {
-    return(x)
-  }
-  y <- .internal_materialize(x)
-  
-  .internal_set_ma(y)
-  
-  .internal_ma_set_DimsAndNames(y, names(x), dim(x), dimnames(x))
-  
-  return(y)
-}
-
-
-#' @rdname class_mutable_atomic
-#' @export
 c.mutable_atomic <- function(..., use.names = TRUE) {
   y <- unlist(list(...), recursive = FALSE, use.names = use.names)
   .internal_set_ma(y)
@@ -255,10 +242,6 @@ c.mutable_atomic <- function(..., use.names = TRUE) {
 #' @export
 `[<-.mutable_atomic` <- function(x, ..., value) {
   
-  if(getOption("squarebrackets.ma_messages", TRUE)) {
-    message("copying on modification; for modification by reference, use `sb_set()`")
-  }
-  
   oldtype <- typeof(x)
   
   oc <- oldClass(x)
@@ -268,6 +251,7 @@ c.mutable_atomic <- function(..., use.names = TRUE) {
   
   newtype <- typeof(x)
   if(oldtype != newtype) {
+    message(sprintf("coercing type from `%s` to `%s`", oldtype, newtype))
     attr(x, "serial") <- .C_serial(x)
   }
   

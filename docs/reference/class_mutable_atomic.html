@@ -18,7 +18,6 @@ An objects can become mutable_atomic if it is one of the following types:
 logical, integer, double, character, complex, raw. 
 bit64::integer64 type is also supported,
 since it is internally defined as double. 
-materialize_atomic(): takes an immaterial ALTREP atomic object, and returns a materialized mutable_atomic object.
 typecast.mutable_atomic() type-casts and possibly reshapes a (mutable) atomic object,
 and returns a mutable_atomic object. 
 Does not preserve dimension names if dimensions are changed.  
@@ -42,7 +41,6 @@ An objects can become mutable_atomic if it is one of the following types:
 logical, integer, double, character, complex, raw. 
 bit64::integer64 type is also supported,
 since it is internally defined as double. 
-materialize_atomic(): takes an immaterial ALTREP atomic object, and returns a materialized mutable_atomic object.
 typecast.mutable_atomic() type-casts and possibly reshapes a (mutable) atomic object,
 and returns a mutable_atomic object. 
 Does not preserve dimension names if dimensions are changed.  
@@ -75,7 +73,6 @@ Does not preserve dimension names if dimensions are changed.
     <a class="dropdown-item" href="../articles/a_benchmarks_x.html">Benchmarks - sb_x</a>
     <a class="dropdown-item" href="../articles/b_benchmarks_tf.html">Benchmarks - transform operations</a>
     <a class="dropdown-item" href="../articles/c_benchmarks_lst.html">Benchmarks - Vectorized Recursive Subset Operations On Nested Lists</a>
-    <a class="dropdown-item" href="../articles/Extra_Examples.html">Additional Examples</a>
   </div>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
@@ -107,14 +104,13 @@ The 'squarebrackets' methods and functions that perform modification by referenc
 (basically all methods and functions with "set" in the name)
 accept <code>mutable_atomic</code>,
 but do not accept regular <code>atomic</code>. <br>
-See <a href="aaa7_squarebrackets_PassByReference.html">squarebrackets_PassByReference</a> for details. <br><br>
+See <a href="aaa08_squarebrackets_PassByReference.html">squarebrackets_PassByReference</a> for details. <br><br>
 Like <code>data.table</code>, <code>[&lt;-</code> performs R's default copy-on-modification semantics. <br>
 For modification  by reference, use <a href="sb_set.html">sb_set</a>. <br><br>
 Exposed functions (beside the S3 methods):</p><ul><li><p><code>mutable_atomic()</code>: create a <code>mutable_atomic</code> object from given data.</p></li>
 <li><p><code>couldb.mutable_atomic()</code>: checks if an object could become <code>mutable_atomic</code>. <br>
 An objects can become <code>mutable_atomic</code> if it is one of the following types: <br><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a>, <a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a>, <a href="https://rdrr.io/r/base/double.html" class="external-link">double</a>, <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a>, <a href="https://rdrr.io/r/base/complex.html" class="external-link">complex</a>, <a href="https://rdrr.io/r/base/raw.html" class="external-link">raw</a>. <br><code>bit64::</code><a href="https://rdrr.io/pkg/bit64/man/bit64-package.html" class="external-link">integer64</a> type is also supported,
 since it is internally defined as <a href="https://rdrr.io/r/base/double.html" class="external-link">double</a>. <br></p></li>
-<li><p><code>materialize_atomic():</code> takes an immaterial ALTREP atomic object, and returns a materialized <code>mutable_atomic</code> object.</p></li>
 <li><p><code>typecast.mutable_atomic()</code> type-casts and possibly reshapes a (mutable) atomic object,
 and returns a <code>mutable_atomic</code> object. <br>
 Does not preserve dimension names if dimensions are changed. <br><br></p></li>
@@ -126,13 +122,14 @@ Does not preserve dimension names if dimensions are changed. <br><br></p></li>
 
 as.mutable_atomic(x, ...)
 
+# S3 method for default
+as.mutable_atomic(x, ...)
+
 is.mutable_atomic(x)
 
 couldb.mutable_atomic(x)
 
 typecast.mutable_atomic(x, type = typeof(x), dims = dim(x))
-
-materialize_atomic(x)
 
 # S3 method for mutable_atomic
 c(..., use.names = TRUE)
@@ -188,7 +185,7 @@ print(x, ...)</code></pre></div>
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>For <code>mutable_atomic()</code>, <code>as.mutable_atomic()</code>, <code>materialize_atomic()</code>, <code>typecast.mutable_atomic()</code>: <br></p>
+<p>For <code>mutable_atomic()</code>, <code>as.mutable_atomic()</code>, <code>typecast.mutable_atomic()</code>: <br></p>
 
 
 <p>Returns a <code>mutable_atomic</code> object. <br></p>
@@ -280,6 +277,7 @@ Circumventing these checks may break things! <br><br></p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> mutable_atomic </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  integer </span>
 <span class="r-in"><span><span class="va">x</span><span class="op">[</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/double.html" class="external-link">as.double</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> coercing type from `integer` to `double`</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    1    6</span>

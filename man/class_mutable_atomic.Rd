@@ -4,10 +4,10 @@
 \alias{class_mutable_atomic}
 \alias{mutable_atomic}
 \alias{as.mutable_atomic}
+\alias{as.mutable_atomic.default}
 \alias{is.mutable_atomic}
 \alias{couldb.mutable_atomic}
 \alias{typecast.mutable_atomic}
-\alias{materialize_atomic}
 \alias{c.mutable_atomic}
 \alias{[.mutable_atomic}
 \alias{[<-.mutable_atomic}
@@ -19,13 +19,13 @@ mutable_atomic(data, names = NULL, dim = NULL, dimnames = NULL)
 
 as.mutable_atomic(x, ...)
 
+\method{as.mutable_atomic}{default}(x, ...)
+
 is.mutable_atomic(x)
 
 couldb.mutable_atomic(x)
 
 typecast.mutable_atomic(x, type = typeof(x), dims = dim(x))
-
-materialize_atomic(x)
 
 \method{c}{mutable_atomic}(..., use.names = TRUE)
 
@@ -55,7 +55,7 @@ materialize_atomic(x)
 \item{value}{see \link[base]{Extract}.}
 }
 \value{
-For \code{mutable_atomic()}, \code{as.mutable_atomic()}, \code{materialize_atomic()}, \code{typecast.mutable_atomic()}: \cr
+For \code{mutable_atomic()}, \code{as.mutable_atomic()}, \code{typecast.mutable_atomic()}: \cr
 Returns a \code{mutable_atomic} object. \cr
 \cr
 For \code{is.mutable_atomic()}: \cr
@@ -90,7 +90,6 @@ An objects can become \code{mutable_atomic} if it is one of the following types:
 \link{logical}, \link{integer}, \link{double}, \link{character}, \link{complex}, \link{raw}. \cr
 \code{bit64::}\link[bit64]{integer64} type is also supported,
 since it is internally defined as \link{double}. \cr
-\item \verb{materialize_atomic():} takes an immaterial ALTREP atomic object, and returns a materialized \code{mutable_atomic} object.
 \item \code{typecast.mutable_atomic()} type-casts and possibly reshapes a (mutable) atomic object,
 and returns a \code{mutable_atomic} object. \cr
 Does not preserve dimension names if dimensions are changed. \cr \cr

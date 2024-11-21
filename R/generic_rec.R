@@ -26,12 +26,12 @@
 #' 
 #' @param x a list, or list-like object.
 #' @param rec a strictly positive integer vector or character vector, of length `p`,
-#' such that `x[[rec]]` is equivalent to `x[[ rec[1] ]]...[[ rec[p] ]]`,
+#' such that `sb2_rec(x, rec)` is equivalent to `x[[ rec[1] ]]...[[ rec[p] ]]`,
 #' providing all but the final indexing results in a list. \cr
 #' When on a certain subset level of a nested list,
 #' multiple subsets with the same name exist,
 #' only the first one will be selected when performing recursive indexing by name,
-#' due to the recursive nature of this type of sub-setting.
+#' since recursive indexing can only select a single element.
 #' @param rp optional, and allows for multiple functionalities:
 #'  - In the simplest case, performs `x[[rec]] <- rp`,
 #' using R's default semantics. \cr
@@ -51,7 +51,7 @@
 #' 
 #' 
 #' @details
-#' Since recursive objects are pointers to objects,
+#' Since recursive objects are references to other objects,
 #' extending a list or removing an element of a list does not copy the entire list,
 #' in contrast to atomic vectors. \cr \cr
 #' 

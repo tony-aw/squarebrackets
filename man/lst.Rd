@@ -4,11 +4,11 @@
 \alias{lst}
 \alias{lst_nlists}
 \alias{lst_untree}
-\title{Unnest Tree-like List to Recursive 2d Array or Flattened Recursive Vector}
+\title{Unnest Tree-like List into a Recursive Matrix or Flattened Recursive Vector}
 \usage{
 lst_nlists(x)
 
-lst_untree(x, margin, use.names = FALSE)
+lst_untree(x, margin, use.names = TRUE)
 }
 \arguments{
 \item{x}{a tree-like nested list.}
@@ -16,29 +16,18 @@ lst_untree(x, margin, use.names = FALSE)
 \item{margin}{a single integer, indicating how the result should be arranged:
 \itemize{
 \item \code{margin = 0} produces a simple flattened recursive vector (i.e. list) without dimensions.
-\item \code{margin = 1} produces a 2D recursive array (i.e. a matrix of lists), \cr
+\item \code{margin = 1} produces a recursive matrix (i.e. a matrix of list-elements), \cr
 with \code{length(x)} rows and \code{n} columns, \cr
 where \code{n = sapply(x, }\link{lst_nlists}\code{) |> max()}. \cr
 Empty elements will be filled with \code{list(NULL)}.
-\item \code{margin = 2} produces a 2D recursive array (i.e. a matrix of lists), \cr
+\item \code{margin = 2} produces a recursive matrix (i.e. a matrix of list-elements), \cr
 with \code{length(x)} columns and \code{n} rows, \cr
 where \code{n = sapply(x, }\link{lst_nlists}\code{) |> max()}. \cr
 Empty elements will be filled with \code{list(NULL)}.
 }}
 
-\item{use.names}{Boolean,
-indicating if the elements returned from \code{lst_untree()} should be named. \cr
-Names of nested elements, such as \code{x[[c("A", "B", "C")]]},
-will become \code{"A.B.C"},
-as that is the behaviour of the \link[base]{rapply} function
-(which \code{lst_untree()} calls internally). \cr
-It is therefore advised not to use dots (\code{"."}) in your list names,
-and use underscores (\code{"_"}) instead,
-before calling \code{lst_untree()}. \cr
-See the \code{rrapply::}\link[rrapply]{rrapply} function
-for renaming
-(and other forms of transforming)
-recursive subsets of lists. \cr \cr}
+\item{use.names}{Boolean, indicating if the result should be named. \cr
+See section "use.names" for more information.}
 }
 \value{
 For \code{lst_untree()}: \cr
@@ -46,9 +35,8 @@ A non-nested (dimensional) list. \cr
 Note that if \code{margin = 1} or \code{margin = 2}, \code{lst_untree()} returns a recursive matrix
 (i.e. a recursive array with 2 dimensions),
 \bold{not} a data.frame. \cr
-(One advantage of a recursive matrix over a data.frame,
-is that a recursive matrix can have separate column names and regular names,
-whereas the names of a data.frame are necessarily equal to the column names). \cr
+To turn a nested list into a data.frame instead, one option would be to use: \cr
+\link[rrapply]{rrapply}\code{(x, how = "melt")} \cr
 \cr
 For \code{lst_nlists()}: \cr
 A single integer,
@@ -62,13 +50,45 @@ Performing recursive subset operations on multiple elements is not vectorized,
 and requires a (potentially slow) loop. \cr
 \cr
 The \code{lst_untree()} function takes a nested tree-like list,
-and turns it into a 2d recursive array (i.e. a list-matrix),
-allowing vectorized subset operations to be performed on the list. \cr
+and turns it into a recursive matrix (a matrix of list-elements),
+allowing vectorized subset operations to be performed on the nested list. \cr
 \code{lst_untree()} can also simply flatten the list, making it a non-nested list. \cr
 See the Examples section to understand how the list will be arranged and named. \cr
 \cr
 The \code{lst_nlists()} counts the total number of recursive list-elements inside a list. \cr \cr
 }
+\section{use.names}{
+
+\bold{\code{margin = 0} and \code{use.names = TRUE}} \cr
+If \code{margin = 0} and \code{use.names = TRUE},
+every element in the flattened list will be named. \cr
+Names of nested elements, such as \code{x[["A"]][["B"]][["C"]]},
+will become \code{"A.B.C"},
+as that is the behaviour of the \link[base]{rapply} function
+(which \code{lst_untree()} calls internally). \cr
+It is therefore advised not to use dots (\code{"."}) in your list names,
+and use underscores (\code{"_"}) instead,
+before calling \code{lst_untree()}. \cr
+See the \code{rrapply::}\link[rrapply]{rrapply} function
+for renaming
+(and other forms of transforming)
+recursive subsets of lists. \cr
+\cr
+\bold{\code{margin = 1} and \code{use.names = TRUE}} \cr
+If \code{margin == 1} and \code{use.names = TRUE},
+the rows of resulting recursive matrix will be equal to \code{names(x)},
+but recursive names will not be assigned. \cr
+\cr
+\bold{\code{margin = 2} and \code{use.names = TRUE}} \cr
+If \code{margin == 2} and \code{use.names = TRUE},
+the columns of resulting recursive matrix will be equal to \code{names(x)},
+but recursive names will not be assigned. \cr
+\cr
+\bold{\code{use.names = FALSE}} \cr
+If \code{use.names = FALSE}, the result will not have any names assigned at all. \cr
+\cr
+}
+
 \examples{
 
 # show-casing how the list-elements are arranged and named ====
@@ -90,7 +110,7 @@ x <- list(
 
 # un-tree column-wise:
 sapply(x, lst_nlists) |> max() # number of rows `y` will have
-y <- lst_untree(x, margin = 2, use.names = TRUE)
+y <- lst_untree(x, margin = 2L, use.names = TRUE)
 dim(y)
 print(y)
 sb2_x(y, 1:3, 1:2) # vectorized selection of multiple recursive elements
@@ -98,7 +118,7 @@ sb2_x(y, 1:3, 1:2) # vectorized selection of multiple recursive elements
 
 # un-tree row-wise:
 sapply(x, lst_nlists) |> max() # number of columns `y` will have
-y <- lst_untree(x, margin = 1, use.names = TRUE)
+y <- lst_untree(x, margin = 1L, use.names = TRUE)
 dim(y)
 print(y)
 sb2_x(y,1:2, 1:3)  # vectorized selection of multiple recursive elements
@@ -138,10 +158,10 @@ y <- lst_untree(x, 1)
 
 # getting the first recursive elements in the second level/depth in base R:
 for(i in seq_along(x)) {
-  x[[c(i, c(1,1))]]
+  x[[c(i, c(1,1))]] |> print() # for-loop, slow
 }
 
 # the same, but vectorized using the untree'd list:
-y[seq_len(nrow(y)), 1]
+y[seq_len(nrow(y)), 1] |> print() # vectorized, fast
 
 }
