@@ -71,65 +71,16 @@ sb_set.default <- function(
     .rcpp_set_all(x, rp, tf, abortcall = sys.call())
     return(invisible(NULL))
   }
-  
-  elements <- ci_flat(
-    x, i, inv, chkdup, .abortcall = sys.call()
-  )
-  .sb_set_atomic(x, elements, rp = rp, tf = tf, abortcall = sys.call())
+  .flat_set_atomic(x, i, inv, rp = rp, tf = tf, chkdup, abortcall = sys.call())
   return(invisible(NULL))
 }
 
-
-#' @rdname sb_set
-#' @export
-sb_set.matrix <- function(x, row = NULL, col = NULL, i = NULL, inv = FALSE, ...,  rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)) {
-  
-  # error checks:
-  .internal_check_dots(list(...), sys.call())
-  if(!is.mutable_atomic(x)){
-    stop("`x` is not a (supported) mutable object")
-  }
-  .internal_check_rptf(rp, tf, sys.call())
-  .check_bindingIsLocked(substitute(x), parent.frame(n = 1), abortcall = sys.call())
-  
-  
-  # function:
-  if(.all_NULL_indices(list(row, col, i))) {
-    .rcpp_set_all(x, rp, tf, abortcall = sys.call())
-    return(invisible(NULL))
-  }
-  
-  if(!is.null(i)) {
-    elements <- ci_flat(
-      x, i, inv, chkdup, .abortcall = sys.call()
-    )
-    return(.sb_set_atomic(x, elements, rp = rp, tf = tf, abortcall = sys.call()))
-    
-  }
-
-
-  if(!is.null(row)) {
-    row <- ci_margin(x, row, 1L, inv, chkdup, .abortcall = sys.call())
-  }
-  if(!is.null(col)) {
-    col <- ci_margin(x, col, 2L, inv, chkdup, .abortcall = sys.call())
-  }
-  
-  if(.any_empty_indices(n(row, col))) {
-    return(invisible(NULL))
-  }
-  
-  
-  .set_mat(x, row, col, rp, tf, abortcall = sys.call())
-  return(invisible(NULL))
-
-}
 
 
 #' @rdname sb_set
 #' @export
 sb_set.array <- function(
-    x, sub = NULL, dims = NULL, i = NULL, inv = FALSE, ...,  rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
+    x, sub = NULL, dims = 1:ndims(x), i = NULL, inv = FALSE, ...,  rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
   # error checks:
@@ -140,25 +91,40 @@ sb_set.array <- function(
   .internal_check_rptf(rp, tf, sys.call())
   .check_bindingIsLocked(substitute(x), parent.frame(n = 1), abortcall = sys.call())
   
-  # function:
-  if(.all_NULL_indices(list(sub, dims, i))) {
+  
+  # empty arguments:
+  if(.all_NULL_indices(list(sub, i))) {
     .rcpp_set_all(x, rp, tf, abortcall = sys.call())
     return(invisible(NULL))
   }
   
+  # argument i:
   if(!is.null(i)) {
-    elements <- ci_flat(
-      x, i, inv, chkdup, .abortcall = sys.call()
-    )
-    .sb_set_atomic(x, elements, rp = rp, tf = tf, abortcall = sys.call())
+    .flat_set_atomic(x, i, inv, rp = rp, tf = tf, chkdup, abortcall = sys.call())
     return(invisible(NULL))
   }
   
-  if(length(sub) == 0 && length(dims) == 0) {
+  # zero-length subscripts:
+  if(length(dims) == 0) {
     .rcpp_set_all(x, rp, tf, abortcall = sys.call())
     return(invisible(NULL))
   }
   
+  # 1d:
+  if(ndims(x) == 1L) {
+    i <- .flat_sub2i(x, sub, dims, sys.call())
+    .flat_set_atomic(x, i, inv, rp, tf, chkdup, sys.call())
+    return(invisible(NULL))
+  }
+  
+  # matrix:
+  if(is.matrix(x)) {
+    .mat_set(x, sub, dims, inv, chkdup, rp, tf, sys.call())
+    return(invisible(NULL))
+  }
+  
+  
+  # sub, dims arguments:
   
   .arr_set(x, sub, dims, chkdup, inv, rp, tf, abortcall = sys.call())
   return(invisible(NULL))
@@ -228,7 +194,6 @@ sb2_set.data.table <- function(
     if(!missing(tf)) {
       rp <- .lapply(collapse::ss(x, j = col, check = FALSE), tf)
     }
-    .check_rp_df(rp, abortcall = sys.call())
     data.table::set(x, j = col, value = rp)
   }
   
@@ -237,7 +202,6 @@ sb2_set.data.table <- function(
     if(!missing(tf)) {
       rp <- .lapply(collapse::ss(x, i = row, j = col, check = FALSE), tf)
     }
-    .check_rp_df(rp, abortcall = sys.call())
     data.table::set(x, i = row, j = col, value = rp)
   }
   

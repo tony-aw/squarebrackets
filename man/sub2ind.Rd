@@ -50,12 +50,16 @@ Returns an integer matrix of coordinates
 (with properties as described in argument \code{coord}). \cr
 \cr
 For \code{coord2ind()}: \cr
-Returns an integer vector of flat indices
+Returns an numeric vector of flat indices
 (with properties as described in argument \code{ind}). \cr
 \cr
 For \code{coord2sub()}: \cr
 Returns a list of integer subscripts
 (with properties as described in argument \code{sub}) \cr
+\cr
+For \code{sub2ind()}: \cr
+Returns an integer vector of flat indices(if \code{prod(x.dim) < (2^31 - 1)}),
+or an numeric vector of flat indices (if \code{prod(x.dim) >= (2^31 - 1)}). \cr
 \cr
 }
 \description{
@@ -85,37 +89,6 @@ and \code{ind2coord} is merely a convenient wrapper around \link{arrayInd}. \cr
 \cr
 Note that the equivalent to the \code{sub2ind} function from 'MatLab'
 is actually the \code{coord2ind()} function here. \cr \cr
-}
-\details{
-Subscripts and coordinates only exist for dimensional objects
-(such as arrays). \cr
-Flat indices (or just "indices" for non-dimensional objects)
-exist for all objects
-(in data.frame-like objects, flat indices are actually equal to column indices). \cr
-Thus flat indices are the "default" indices. \cr
-\cr
-The base S3 vector classes in 'R' use the standard Linear Algebraic convention,
-as in academic fields like Mathematics and Statistics,
-in the following sense: \cr
-\itemize{
-\item vectors are \bold{column} vectors (i.e. vertically aligned vectors);
-\item index counting starts at \code{1};
-\item rows are the first dimension/subscript, columns are the second dimension/subscript, etc.
-}
-
-Thus, the orientation of flat indices in, for example, a 4 by 4 matrix, is as follows:
-
-\if{html}{\out{<div class="sourceCode">}}\preformatted{     [,1] [,2] [,3] [,4]
-[1,]    1    5    9   13
-[2,]    2    6   10   14
-[3,]    3    7   11   15
-[4,]    4    8   12   16
-}\if{html}{\out{</div>}}
-
-The subscript \verb{[1,2]} refers to the first row and the second column.
-In a 4 by 4 matrix, subscript \verb{[1,2]} corresponds to flat index \code{5}. \cr
-The functions described here thus follow also this convention. \cr
-\cr
 }
 \note{
 These functions were not specifically designed for duplicate indices per-sé. \cr

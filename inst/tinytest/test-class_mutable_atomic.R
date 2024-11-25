@@ -135,20 +135,20 @@ enumerate <- enumerate + 2L
 # partial matrix sub-setting ====
 x <- as.mutable_atomic(matrix(1:20, ncol = 4))
 expect_equal(
-  sb_x(x, row = 1),
+  sb_x(x, 1, 1),
   x[1, ,drop = FALSE]
 )
 expect_equal(
-  sb_x(x, col = 1),
+  sb_x(x, 1, 2),
   x[, 1, drop = FALSE]
 )
 
 expect_equal(
-  sb_rm(x, row = 1),
+  sb_rm(x, 1, 1),
   x[-1, ,drop = FALSE]
 )
 expect_equal(
-  sb_rm(x, col = 1),
+  sb_rm(x, 1, 2),
   x[, -1, drop = FALSE]
 )
 enumerate <- enumerate + 4
@@ -157,36 +157,36 @@ enumerate <- enumerate + 4
 # partial (n=4)-dim array sub-setting ====
 x <- as.mutable_atomic(array(1:81, dim = c(3,3,3, 3)))
 expect_equal(
-  sb_x(x, sub = n(1), dims = 1),
+  sb_x(x, sub = 1, dims = 1),
   x[1, , ,,drop = FALSE]
 )
 expect_equal(
-  sb_x(x, sub = n(1), dims = 2),
+  sb_x(x, sub = 1, dims = 2),
   x[, 1, ,, drop = FALSE]
 )
 expect_equal(
-  sb_x(x, sub = n(1), dims = 3),
+  sb_x(x, sub = 1, dims = 3),
   x[, , 1 ,, drop = FALSE]
 )
 expect_equal(
-  sb_x(x, sub = n(1), dims = 4),
+  sb_x(x, sub = 1, dims = 4),
   x[, , ,1, drop = FALSE]
 )
 
 expect_equal(
-  sb_rm(x, sub = n(1), dims = 1),
+  sb_rm(x, sub = 1, dims = 1),
   x[-1, , ,,drop = FALSE]
 )
 expect_equal(
-  sb_rm(x, sub = n(1), dims = 2),
+  sb_rm(x, sub = 1, dims = 2),
   x[, -1, ,, drop = FALSE]
 )
 expect_equal(
-  sb_rm(x, sub = n(1), dims = 3),
+  sb_rm(x, sub = 1, dims = 3),
   x[, , -1 ,, drop = FALSE]
 )
 expect_equal(
-  sb_rm(x, sub = n(1), dims = 4),
+  sb_rm(x, sub = 1, dims = 4),
   x[, , ,-1, drop = FALSE]
 )
 

@@ -36,27 +36,6 @@ indx_named <- function(x, dim.i) {
 }
 
 
-temp.fun.matrix <- function(x, row, col, f_expect, f_out) {
-  
-  out <- expected <- vector("list", length(row) * length(col))
-  k <- 1
-  for(i in 1:length(row)) {
-    for(j in 1:length(col)) {
-      
-      len <- length(pre_subset_mat(x, row[[i]], col[[j]]))
-      len <- sample(c(len, 1L), size = 1L)
-      rp <- sample(c(seq_len(len), NA), size = len)
-      
-      expected[[k]] <- f_expect(x, row[[i]], col[[j]])
-      out[[k]] <- f_out(x, row = row[[i]], col = col[[j]])
-      assign("enumerate", enumerate + 2, envir = parent.frame(n = 1))
-      k <- k + 1
-    }
-  }
-  expect_equal(expected, out) |> errorfun()
-  expect_true(all(sapply(out, is.matrix))) |> errorfun()
-}
-
 temp.fun.2d <- function(x, row, col, f_expect, f_out) {
   out <- expected <- vector("list", length(row) * length(col))
   k <- 1
@@ -99,54 +78,6 @@ temp.fun.1d <- function(x, row, f_expect, f_out) {
   }
   expect_equal(expected, out) |> errorfun()
   expect_true(all(sapply(out, is.array))) |> errorfun()
-}
-
-
-
-# uniquely named matrix ====
-x <- matrix(as.double(-sample.int(20)), nrow = 5, ncol=4)
-rownames(x) <- letters[1:5]
-colnames(x) <- letters[1:4]
-row <- indx_named(x, 1)
-col <- indx_named(x, 2)
-temp.fun.matrix(x, row, col, f_expect.matrix, f_out.matrix)
-temp.fun.2d(x, row, col, f_expect.2d, f_out.2d)
-
-
-# unnamed matrix ====
-x <- matrix(as.double(-sample.int(20)), nrow = 5, ncol=4)
-row <- indx_general(x, 1)
-col <- indx_general(x, 2)
-temp.fun.matrix(x, row, col, f_expect.matrix, f_out.matrix)
-temp.fun.2d(x, row, col, f_expect.2d, f_out.2d)
-
-
-# non-uniquely named matrix ====
-x <- matrix(as.double(-sample.int(20)), nrow = 5, ncol=4)
-rownames(x) <- c("a", "a", "b", "", NA)
-colnames(x) <- c("a", "a", "", NA)
-row <- indx_named(x, 1)
-col <- indx_named(x, 2)
-temp.fun.matrix(x, row, col, f_expect.matrix, f_out.matrix)
-temp.fun.2d(x, row, col, f_expect.2d, f_out.2d)
-
-if(isTRUE(test_allow_duplicates)) {
-  expect_equal(
-    sb_x(x, row = c("a", "a", "a")),
-    rep3.bind(x[which(rownames(x) %in% "a"), ], 1)
-  ) |> errorfun()
-  expect_equal(
-    sb_x(x, col = c("a", "a", "a")),
-    rep3.bind(x[, which(colnames(x) %in% "a")], 2)
-  ) |> errorfun()
-  expect_equal(
-    sb_x.array(x, c("a", "a", "a"), 1),
-    rep3.bind(x[which(rownames(x) %in% "a"), ], 1)
-  ) |> errorfun()
-  expect_equal(
-    sb_x.array(x, c("a", "a", "a"), 2),
-    rep3.bind(x[, which(colnames(x) %in% "a")], 2)
-  ) |> errorfun()
 }
 
 
@@ -254,3 +185,61 @@ if(isTRUE(test_allow_duplicates)) {
 }
 enumerate <- enumerate + 3
 
+
+
+# length(dims) === 0 ====
+
+x <- array(as.double(seq_len(10^4)), dim = c(4, 4, 4, 4))
+rownames(x) <- c(letters[1:2], "a", NA)
+
+sub <- list(c("a", "b"), 1:3, c(rep(TRUE, 2), rep(FALSE, 2)))
+dims <- integer(0L)
+expect_equal(
+  sb_test(x, sub, dims),
+  sb_test(x, list(), integer(0L))
+) |> errorfun()
+
+
+enumerate <- enumerate + 1L
+
+
+# early capture sub,dims equivalence checks ====
+
+# 1d
+x <- array(1:20, 120)
+expect_equal(
+  sb_test(x, 1:5),
+  sb_test(x, list(1:5), 1L)
+) |> errorfun()
+
+# matrix
+x <- matrix(1:20, ncol = 4)
+expect_equal(
+  sb_test(x, 1:3),
+  sb_test(x, list(1:3), 1:2)
+) |> errorfun()
+expect_equal(
+  sb_test(x, 1:3),
+  sb_test(x, list(1:3, 1:3), 1:2)
+) |> errorfun()
+expect_equal(
+  sb_test(x, list(1:3, 1:4), 2:1),
+  sb_test(x, list(1:4, 1:3), 1:2)
+) |> errorfun()
+
+# errors
+expect_error(
+  sb_test(x, 1:3, "a"),
+  pattern = "`dims` must be a integer vector"
+)
+expect_error(
+  sb_test(x, n(1:3, 1:3, 1:3), 1:2),
+  pattern = "if `sub` is a list, `length(sub)` must equal `length(dims)`",
+  fixed = TRUE
+)
+expect_error(
+  sb_test(x, 1:3, 1:10),
+  pattern = "`dims` out of range"
+)
+
+enumerate <- enumerate + 7L

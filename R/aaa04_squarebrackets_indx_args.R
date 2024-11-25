@@ -5,11 +5,15 @@
 #' in the generic methods of 'squarebrackets' to specify the indices to perform operations on:
 #' 
 #'  * `i`: to specify flat (i.e. dimensionless) indices.
-#'  * `row, col`: to specify rows and/or columns in tabular objects.
-#'  * `sub, dims`: to specify indices of arbitrary dimensions in arrays.
-#'  * `filter, vars`: to specify rows and/or columns specifically in data.frame-like objects.
-#'  *  `margin, slice`: to specify indices of one particular dimension. \cr \cr
+#'  * `sub, dims`: to specify indices of arbitrary dimensions in arrays
+#'  (including matrices, which inherit from arrays).
+#'  *  `margin, slice`: to specify indices of one particular dimension.
+#'  * `row, col`: to specify rows and/or columns in specifically in data.frame-like objects.
+#'  * `filter, vars`: to specify rows and/or columns specifically in data.frame-like objects. \cr \cr
 #' 
+#' Thus there are essentially 3 APIs: one for vectors, one for arrays and matrices,
+#' and one for data.frame-like objects. \cr
+#' \cr
 #' For the fundamentals of indexing in 'squarebrackets', see \link{squarebrackets_indx_fundamentals}. \cr
 #' In this help page `x` refers to the object on which subset operations are performed. \cr
 #' \cr
@@ -54,45 +58,25 @@
 #' 
 #' 
 #' 
-#' @section Arguments row, col:
+#' @section Argument Pair sub, dims:
 #' `r .mybadge_class("atomic matrix")` \cr
 #' `r .mybadge_class("recursive matrix")` \cr
-#' `r .mybadge_class("data.frame-like")` \cr
-#' 
-#' Any of the following can be specified for the arguments `row` / `col`:
-#' 
-#'  * `NULL` (default), corresponds to a missing argument.
-#'  * a vector of length 0,
-#'  in which case no indices are selected for the operation (i.e. empty selection).
-#'  * a numeric vector of \bold{strictly positive whole numbers} with indices of the specified dimension to select for the operation.
-#'  * a \bold{complex} vector, as explained in \link{squarebrackets_indx_fundamentals}.
-#'  * a \bold{logical} vector of the same length as the corresponding dimension size,
-#'  giving the indices of the specified dimension to select for the operation.
-#'  * a \bold{character} vector giving the `dimnames` to select. \cr
-#'  If a dimension has multiple indices with the given name,
-#'  ALL the corresponding indices will be selected for the operation. \cr
-#'  
-#' NOTE: The arguments `row` and `col` will be ignored if `i` is specified.
-#' 
-#' Using the `row, col` arguments corresponds to doing something like the following:
-#' 
-#' ```{r eval = FALSE, echo = TRUE}
-#'  sb_x(x, row = row, col = col) # ==> x[row, col, drop = FALSE]
-#'  
-#' ```
-#' 
-#' @section Argument Pair sub, dims:
 #' `r .mybadge_class("atomic array")` \cr
 #' `r .mybadge_class("recursive array")` \cr
-#'  The `sub, dims` argument pair is inspired by the
-#'  \code{abind::}\link[abind]{asub} function from the 'abind' package (see reference below). \cr
-#' `dims` must be an integer vector of the same length as `sub`,
-#' giving the dimensions over which to select indices
-#' (i.e. `dims` specifies the "non-missing" index margins). \cr
-#' `sub` must be list of subscripts of the same length as `dims`. \cr
-#' When extracting the same number of indices from dimensions `dims`,
-#' for example like `x[1:2, 1:2, 1:2, 1:2]`,
-#' one can also specify an atomic vector for `sub`. \cr
+#' The `sub, dims` argument pair is inspired by the
+#' \code{abind::}\link[abind]{asub} function from the 'abind' package
+#' (see reference below). \cr
+#' `dims` must be an integer vector,
+#' giving the dimensions for which to specify the
+#' \link[=squarebrackets_indx_fundamentals]{subscripts}.
+#' (i.e. `dims` specifies the "non-missing" margins). \cr \cr
+#' 
+#' `sub` must be either of the following:
+#'  * a list of length `length(dims)`.
+#'  * a list of length 1; \cr
+#'  in this case `sub` will be recycled to `length(dims)`.
+#'  * an atomic vector; \cr
+#'  this is functionally equivalent to specifying `sub` as a list of length 1. \cr \cr
 #' 
 #' Each element of `sub` when `sub` is a list,
 #' or `sub` itself when `sub` is an atomic vector,
@@ -106,33 +90,61 @@
 #'  giving the indices of the specified dimension to select for the operation.
 #'  * a \bold{character} vector giving the `dimnames` to select. \cr
 #'  If a dimension has multiple indices with the given name,
-#'  ALL the corresponding indices will be selected for the operation. \cr
+#'  ALL the corresponding indices will be selected for the operation. \cr \cr
 #'  
 #' Note also the following:
-#'  * When specifying `sub` as an atomic vector,
-#'  `sub` will be internally translated using `rep(list(sub), length(dims))`.
 #'  * As stated, `dims` specifies which index margins are non-missing. \cr
-#'  If `dims` - and thus also `sub` - is of length `0`,
+#'  If `dims` is of length `0`,
 #'  it is taken as "all index margins are missing". \cr
+#'  * The default value for `dims` is \code{1:}\link{ndims}\code{(x)}. \cr \cr
 #'  
 #' To keep the syntax short,
 #' the user can use the \link{n} function instead of `list()` to specify `sub`. \cr
 #' \cr
-#' Using the `sub, dims` arguments,
-#' corresponds to doing something like the following,
-#' here using an example of extracting subsets from a 4-dimensional array:
+#' Here are some examples for clarity,
+#' using an array `x` of 3 dimensions:
+#' 
+#'  * `sb_x(x, n(1:10, 1:5), c(1, 3))` \cr
+#'  extracts the first 10 rows, all columns, and the first 5 layers,
+#'  of array `x`. \cr
+#'  The equivalence in base 'R' is: \cr
+#'  `x[1:10, , 1:5, drop = FALSE]`.
+#'  * `sb_x(x, n(1:10), c(1, 3))`, or equivalently `sb_x(x, 1:10, c(1, 3))`, \cr
+#'  extracts the first 10 rows, all columns, and the first 10 layers,
+#'  of array `x`. \cr
+#'  The equivalence in base 'R' is: \cr
+#'  `x[1:10, , 1:10, drop = FALSE]`.
+#'  * `sb_x(x, n(1:10))`, or equivalently `sb_x(x, 1:10)`, \cr
+#'  extracts the first 10 rows, columns, and layers of array `x`. \cr
+#'  The equivalence in base 'R' is: \cr
+#'  `x[1:10, 1:10, 1:10, drop = FALSE]`. \cr \cr
+#' 
+#' I.e.:
 #' 
 #' ```{r eval = FALSE, echo = TRUE}
-#' sb_x(x, n(1:10, 1:5), c(1, 3)) # ==> x[1:10, , 1:5, , drop = FALSE]
 #' 
+#' sb_x(x, n(1:10, 1:5), c(1, 3)) # ==> x[1:10, , 1:5, drop = FALSE]
+#' 
+#' sb_x(x, n(1:10), c(1, 3))      # ==> x[1:10, , 1:10, drop = FALSE]
+#' sb_x(x, 1:10, c(1, 3))         # ==> x[1:10, , 1:10, drop = FALSE]
+#' 
+#' sb_x(x, n(1:10))               # ==> x[1:10, 1:10, 1:10, drop = FALSE]
+#' sb_x(x, 1:10)                  # ==> x[1:10, 1:10, 1:10, drop = FALSE]
 #' ```
 #' 
+#' Note that specifying a list of length 1 for `sub`
+#' (like `sub = n(1:10)`)
+#' is equivalent to specifying an atomic vector for `sub`
+#' (like `sub = 1:10`). \cr
+#' \cr
 #' For a brief explanation of the relationship between flat indices (`i`),
 #' and dimensional subscripts (`sub`, `dims`),
-#' see the `Details` section in \link{sub2ind}. \cr \cr
+#' see \link{squarebrackets_indx_fundamentals}. \cr \cr
 #' 
 #' 
 #' @section Argument Pair margin, slice:
+#' `r .mybadge_class("atomic matrix")` \cr
+#' `r .mybadge_class("recursive matrix")` \cr
 #' `r .mybadge_class("atomic array")` \cr
 #' `r .mybadge_class("recursive array")` \cr
 #' `r .mybadge_class("data.frame-like")` \cr
@@ -156,8 +168,35 @@
 #' One could also give a vector of length `0` for `slice`; \cr
 #' Argument `slice` is only used in the \link{idx} method ,
 #' and the result of \link{idx} are meant to be used inside the regular `[` and `[<-` operators. \cr
-#' Thus the result of a zero-length index specification depends on the rule-set of
+#' Thus the effect of a zero-length index specification depends on the rule-set of
 #' `[.class(x)` and `[<-.class(x)`. \cr \cr
+#' 
+#' 
+#' 
+#' 
+#' @section Arguments row, col:
+#' `r .mybadge_class("data.frame-like")` \cr
+#' 
+#' Any of the following can be specified for the arguments `row` / `col`:
+#' 
+#'  * `NULL` (default), corresponds to a missing argument.
+#'  * a vector of length 0,
+#'  in which case no indices are selected for the operation (i.e. empty selection).
+#'  * a numeric vector of \bold{strictly positive whole numbers} with indices of the specified dimension to select for the operation.
+#'  * a \bold{complex} vector, as explained in \link{squarebrackets_indx_fundamentals}.
+#'  * a \bold{logical} vector of the same length as the corresponding dimension size,
+#'  giving the indices of the specified dimension to select for the operation.
+#'  * a \bold{character} vector giving the `dimnames` to select. \cr
+#'  If a dimension has multiple indices with the given name,
+#'  ALL the corresponding indices will be selected for the operation. \cr
+#'  
+#' 
+#' Using the `row, col` arguments corresponds to doing something like the following:
+#' 
+#' ```{r eval = FALSE, echo = TRUE}
+#'  sb_x(x, row, col) # ==> x[row, col, drop = FALSE]
+#'  
+#' ```
 #' 
 #' 
 #' 
@@ -192,7 +231,7 @@
 #' By default, `inv = FALSE`, which translates the indices like normally. \cr
 #' When `inv = TRUE`, the inverse of the indices is taken. \cr
 #' Consider, for example, an atomic matrix `x`; \cr
-#' using `sb_mod(x, col = 1:2, tf = tf)`
+#' using `sb_mod(x, 1:2, 2L, tf = tf)`
 #' corresponds to something like the following:
 #' 
 #' ```{r eval = FALSE, echo = TRUE}
@@ -246,10 +285,10 @@
 #' The above is true \bold{even if} `inv = TRUE` and/or `red = TRUE`. \cr \cr
 #' 
 #' 
-#' @section Out-of-Bounds Integers, Non-Existing Names/Levels, and NAs:
+#' @section Out-of-Bounds Integers, Non-Existing Names, and NAs:
 #' 
 #'  - Integer indices that are out of bounds (including `NaN` and `NA_integer_`) always give an error.
-#'  - Specifying non-existing names/levels (including `NA_character_`) as indices
+#'  - Specifying non-existing names (including `NA_character_`) as indices
 #'  is considered a form of zero-length indexing.
 #'  - Logical indices are translated internally to integers using \link[base]{which},
 #'  and so `NA`s are ignored. \cr \cr

@@ -26,7 +26,7 @@
 #' 
 #'
 #' @returns
-#' An integer vector of casted indices.
+#' An integer vector of constructed indices.
 #' 
 #' 
 #' @example inst/examples/tci.R
@@ -142,10 +142,23 @@ ci_sub <- function(
   # the maximum of each dimension reduces.
   # Thus, creating sequences here is not so expensive.
   
-  if(!is.list(sub)) {
-    sub <- rep(list(sub), length(dims))
+  if(is.atomic(sub)) {
+    return(.ci_sub.atomic(x, sub, dims, inv, chkdup, uniquely_named, .abortcall))
   }
-  .arr_check(x, sub, dims, ndims(x), .abortcall)
+  if(is.recursive(sub)) {
+    return(.ci_sub.recursive(x, sub, dims, inv, chkdup, uniquely_named, .abortcall))
+  }
+}
+
+
+#' @keywords internal
+#' @noRd
+.ci_sub.recursive <- function(
+    x, sub, dims, inv, chkdup, uniquely_named, .abortcall
+) {
+  
+  .ci_array_check(x, sub, dims, ndims(x), .abortcall)
+  sub <- .ci_array_make_sub(sub, dims)
   
   if(ndims(x) == 1L) {
     lst <- list(
@@ -153,19 +166,42 @@ ci_sub <- function(
     )
   }
   else {
-    lst <- .rcpp_seq_mlen(as.integer(dim(x)))
-    if(length(dims) > 0L) {
-      for(i in seq_along(dims)) {
-        lst[[dims[i]]] <- as.integer(ci_margin(
-          x, sub[[i]], dims[i], inv, chkdup, uniquely_named = FALSE, .abortcall
-        ))
-      }
+    lst <- lapply(dim(x), \(y) 1:y ) # create list of ALTREP integers
+    for(i in seq_along(dims)) {
+      lst[[dims[i]]] <- as.integer(ci_margin(
+        x, sub[[i]], dims[i], inv, chkdup, uniquely_named = FALSE, .abortcall
+      ))
     }
   }
   
   return(lst)
 }
 
+
+#' @keywords internal
+#' @noRd
+.ci_sub.atomic <- function(
+    x, sub, dims, inv, chkdup, uniquely_named, .abortcall
+) {
+  
+  .ci_array_check(x, sub, dims, ndims(x), .abortcall)
+
+  if(ndims(x) == 1L) {
+    lst <- list(
+      ci_flat(x, sub, inv, chkdup, uniquely_named = FALSE, .abortcall)
+    )
+  }
+  else {
+    lst <- lapply(dim(x), \(y) 1:y ) # create list of ALTREP integers
+    for(i in dims) {
+      lst[[i]] <- as.integer(ci_margin(
+        x, sub, i, inv, chkdup, uniquely_named = FALSE, .abortcall
+      ))
+    }
+  }
+  
+  return(lst)
+}
 
 #' @rdname ci
 #' @export
@@ -215,16 +251,32 @@ ci_df <- function(
 }
 
 
+#' @keywords internal
+#' @noRd
+.ci_array_make_sub <- function(sub, dims) {
+  if(!is.list(sub)) {
+    sub <- rep(list(sub), length(dims))
+  }
+  if(length(sub) == 1L && length(dims) != 1L) {
+    sub <- rep(sub, length(dims))
+  }
+  return(sub)
+}
+
 
 
 #' @keywords internal
 #' @noRd
-.arr_check <- function(x, sub, dims, ndims, .abortcall = sys.call()) {
+.ci_array_check <- function(x, sub, dims, ndims, .abortcall) {
+  if(length(dims) == 0L) {
+    stop(simpleError("length(dims) == 0L has not been captured", call = .abortcall))
+  }
   if(!is.numeric(dims)) {
     stop(simpleError("`dims` must be a integer vector", call = .abortcall))
   }
-  if(length(sub) != length(dims)) {
-    stop(simpleError("`length(sub) != length(dims)`", call = .abortcall))
+  badlen <- length(sub) != 1L && length(sub) != length(dims)
+  if(is.list(sub) && badlen) {
+    stop(simpleError("if `sub` is a list, `length(sub)` must equal `length(dims)`", call = .abortcall))
   }
   if(.any_badindx(as.integer(dims), ndims)) {
     stop(simpleError("`dims` out of range", call = .abortcall))

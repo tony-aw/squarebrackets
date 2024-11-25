@@ -150,7 +150,7 @@
 #' `r .mybadge_intro_section("SPECIALIZED FUNCTIONS", "darkred")` \cr
 #' Additional specialized sub-setting functions are provided:
 #' 
-#'  * \link{lst_untree}: unnest tree-like nested list into a recursive array,
+#'  * \link{lst_untree}: unnest tree-like nested list into a recursive matrix,
 #'  to speed-up vectorized sub-setting on recursive subsets of the list.
 #'  * The \link[=dt_setcoe]{dt_}-functions
 #'  to programmatically perform `data.table`-specific `[`-operations,

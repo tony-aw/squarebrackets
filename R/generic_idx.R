@@ -23,8 +23,8 @@
 #' 
 #' ```{r eval = FALSE, echo = TRUE}
 #' x <- array(...)
-#' my_indices <- idx(x, sub, dims)
-#' x[my_indices] <- value
+#' my_sub2ind <- idx(x, sub, dims)
+#' x[my_sub2ind] <- value
 #' 
 #' y <- data.frame(...)
 #' rows <- idx(y, 1:10, 1, inv = TRUE)
@@ -89,7 +89,7 @@ idx.default <- function(
 #' @rdname idx1
 #' @export
 idx.array <- function(
-    x, sub = NULL, dims = NULL, slice = NULL, margin = NULL, i = NULL, inv = FALSE,
+    x, sub = NULL, dims = 1:ndims(x), slice = NULL, margin = NULL, i = NULL, inv = FALSE,
     ...,
     chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
@@ -104,7 +104,7 @@ idx.array <- function(
   if(sum(check_args) > 1L) {
     stop("incorrect combination of arguments given")
   }
-  check_args <- is.null(sub) == is.null(dims) && is.null(slice) == is.null(margin)
+  check_args <- is.null(slice) == is.null(margin)
   if(!check_args) {
     stop("incorrect combination of arguments given")
   }

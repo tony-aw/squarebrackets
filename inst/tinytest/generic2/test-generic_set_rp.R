@@ -129,14 +129,6 @@ for (i in 1:length(xlist)) {
 }
 
 
-x <- data.table::data.table(a = 1:10, b = letters[1:10])
-expect_error(
-  sb2_set2(x, row = 1:5, rp = 1:10),
-  pattern = "`rp` must be a data.frame-like object or a list"
-)
-enumerate <- enumerate + 2
-
-
 
 # report number of tests
 enumerate <- enumerate * 2 # pass-by-reference mechanism was also tested simultaneously

@@ -180,8 +180,8 @@ for(i in 1:length(xlist)) {
 if(!test_PassByReference) {
   x <- array(as.list(1:27), c(3,3,3))
   expect_error(
-    sb_test(x, sub = list(1:10), dims = c(1,3)),
-    pattern = "`length(sub) != length(dims)`",
+    sb_test(x, sub = list(1:10, 2:5), dims = c(1:3)),
+    pattern = "if `sub` is a list, `length(sub)` must equal `length(dims)`",
     fixed = TRUE
   )
   

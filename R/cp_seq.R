@@ -49,7 +49,7 @@
 #' \cr
 #' \bold{`$end`}: \cr
 #' The \bold{actual} ending point of the sequence. \cr
-#' This is \bold{not} the same as `to`, not even whe translated to regular numeric. \cr
+#' This is \bold{not} the same as `to`, not even when translated to regular numeric. \cr
 #' For example, the following code:
 #' 
 #' ```{r eval = TRUE, echo = TRUE}

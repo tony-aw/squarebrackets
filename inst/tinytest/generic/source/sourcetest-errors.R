@@ -91,138 +91,12 @@ for(i in 1:length(xlist)) {
 }
 
 
-# row ====
-xlist <- list(
-  as.mutable_atomic(matrix(1:10, ncol=2))
-)
-
-for(i in 1:length(xlist)) {
-  expect_error(
-    sb_test(xlist[[i]], row = -1:-5),
-    pattern = "integers must be >= 1 and <= bounds",
-    fixed = TRUE
-  )|> errorfun()
-  enumerate <- enumerate + 1
-}
-
-for(i in 1:length(xlist)) {
-  expect_error(
-    sb_test(xlist[[i]], row = 0),
-    pattern = "integers must be >= 1 and <= bounds",
-    fixed = TRUE
-  )|> errorfun()
-  enumerate <- enumerate + 1
-}
-
-for(i in 1:length(xlist)) {
-  expect_error(
-    sb_test(xlist[[i]], row = 1000),
-    pattern = "integers must be >= 1 and <= bounds",
-    fixed = TRUE
-  )|> errorfun()
-  enumerate <- enumerate + 1
-}
-
-for(i in 1:length(xlist)) {
-  expect_error(
-    sb_test(xlist[[i]], row = sample(c(TRUE, FALSE), size = nrow(xlist[[i]]) - 1, replace = TRUE)),
-    pattern = "incorrect length of logical indices",
-    fixed = TRUE
-  )|> errorfun()
-  enumerate <- enumerate + 1
-}
-
-for(i in 1:length(xlist)) {
-  expect_error(
-    sb_test(xlist[[i]], row = sample(c(TRUE, FALSE), size = nrow(xlist[[i]]) + 1, replace = TRUE)),
-    pattern = "incorrect length of logical indices",
-    fixed = TRUE
-  )|> errorfun()
-  enumerate <- enumerate + 1
-}
-
-
-xlist <- list(
-  as.mutable_atomic(matrix(1:10, ncol=2))
-)
-
-for(i in 1:length(xlist)) {
-  expect_error(
-    sb_test(xlist[[i]], row = "a"),
-    pattern = "no names present",
-    fixed = TRUE
-  )|> errorfun()
-  enumerate <- enumerate + 1
-}
-
-# col ====
-xlist <- list(
-  as.mutable_atomic(matrix(1:10, ncol=5))
-)
-
-for(i in 1:length(xlist)) {
-  expect_error(
-    sb_test(xlist[[i]], col = -1:-5),
-    pattern = "integers must be >= 1 and <= bounds",
-    fixed = TRUE
-  )|> errorfun()
-  enumerate <- enumerate + 1
-}
-
-for(i in 1:length(xlist)) {
-  expect_error(
-    sb_test(xlist[[i]], col = 0),
-    pattern = "integers must be >= 1 and <= bounds",
-    fixed = TRUE
-  )|> errorfun()
-  enumerate <- enumerate + 1
-}
-
-for(i in 1:length(xlist)) {
-  expect_error(
-    sb_test(xlist[[i]], col = 1000),
-    pattern = "integers must be >= 1 and <= bounds",
-    fixed = TRUE
-  )|> errorfun()
-  enumerate <- enumerate + 1
-}
-
-for(i in 1:length(xlist)) {
-  expect_error(
-    sb_test(xlist[[i]], col = sample(c(TRUE, FALSE), size = ncol(xlist[[i]]) - 1, replace = TRUE)),
-    pattern = "incorrect length of logical indices",
-    fixed = TRUE
-  )|> errorfun()
-  enumerate <- enumerate + 1
-}
-
-for(i in 1:length(xlist)) {
-  expect_error(
-    sb_test(xlist[[i]], col = sample(c(TRUE, FALSE), size = ncol(xlist[[i]]) + 1, replace = TRUE)),
-    pattern = "incorrect length of logical indices",
-    fixed = TRUE
-  )|> errorfun()
-  enumerate <- enumerate + 1
-}
-
-xlist <- list(
-  as.mutable_atomic(matrix(1:10, ncol=2))
-)
-
-for(i in 1:length(xlist)) {
-  expect_error(
-    sb_test(xlist[[i]], col = "a"),
-    pattern =  "no names present",
-    fixed = TRUE
-  )|> errorfun()
-  enumerate <- enumerate + 1
-}
 
 # dimensions ==== 
 x <- as.mutable_atomic(array(1:27, c(3,3,3)))
 expect_error(
-  sb_test(x, sub = list(1:10), dims = c(1,3)),
-  pattern = "`length(sub) != length(dims)`",
+  sb_test(x, sub = list(1:10, 2:5), dims = c(1:3)),
+  pattern = "if `sub` is a list, `length(sub)` must equal `length(dims)`",
   fixed = TRUE
 )
 expect_error(
@@ -307,28 +181,12 @@ if(!test_allow_duplicates) {
     pattern = "duplicate integers or names not allowed"
   ) |> errorfun()
   
-  rownames(x) <- letters[1:5]
-  colnames(x) <- letters[1:2]
-  row <- list(NULL, c(1,1,1), c("a", "a", "a"))
-  col <- list(NULL, c(1,1), c("a", "a"))
-  for(i in 1:length(row)) {
-    for(j in 1:length(col)) {
-      if(!is.null(row[[i]]) || !is.null(col[[j]])) {
-        expect_error(
-          sb_test(x, row = row[[i]], col = col[[j]], chkdup = TRUE),
-          pattern = "duplicate integers or names not allowed"
-        ) |> errorfun()
-        enumerate <- enumerate + 1
-      }
-    }
-  }
-  
   expect_error(
-    sb_test(x, col = c(1,1,1), chkdup = TRUE),
+    sb_test(x, c(1,1,1), 2L, chkdup = TRUE),
     pattern = "duplicate integers or names not allowed"
   ) |> errorfun()
   expect_error(
-    sb_test(x, row = c(1,1,1), col = c(1,1,1), chkdup = TRUE),
+    sb_test(x, c(1,1,1), chkdup = TRUE),
     pattern = "duplicate integers or names not allowed"
   ) |> errorfun()
   

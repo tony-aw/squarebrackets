@@ -63,22 +63,25 @@ used in 'squarebrackets'. <br><br></p>
     
 
 <p>Atomic and recursive objects are quite different from each other in some ways:</p><ul><li><p><strong>homo- or heterogeneous</strong>: an atomic object can only have values of one data type. <br>
-recursive objects can hold values of any combination of data types.</p></li>
+recursive objects can hold values of any combination of data types. <br></p></li>
 <li><p><strong>nesting</strong>: Recursive objects can be nested, while atomic objects cannot be nested.</p></li>
-<li><p><strong>copy semantics</strong>: One can copy a subset of a recursive object without copying the rest of the object
-(thus saving memory when copying).
-For atomic objects, however, a copy operation copies the entire vector (ignoring attributes). <br></p></li>
+<li><p><strong>copy and coercion effect</strong>: One can coerce or copy a subset of a recursive object,
+without copying the rest of the object. <br>
+For atomic objects, however, a coercion or copy operation coerces or copies the entire vector
+(ignoring attributes). <br></p></li>
 <li><p><strong>vectorization</strong>: most vectorized operations generally work on atomic objects,
-whereas recursive objects often require loops or apply-like functions.</p></li>
+whereas recursive objects often require loops or apply-like functions. <br>
+Hence the presence of the <code>.lapply</code> argument in the <a href="sb_mod.html">sb2_mod</a> and <a href="sb_set.html">sb2_set</a> methods.</p></li>
 <li><p><strong>recursive subsets</strong>: Recursive objects distinguish between "regular" subset operations
 (in base R using <code>[</code>, <code>[&lt;-</code>),
 and recursive subset operations (in base R using <code>[[</code>, <code>[[&lt;-</code>). <br>
+See for example the <a href="sb2_rec.html">sb2_rec</a> method,
+or the <code>red = TRUE</code> argument in the <a href="sb_x.html">sb2_x</a> and <a href="sb_rm.html">sb2_rm</a> methods. <br>
 For atomic objects, these 2 have no meaningful difference
-(safe for perhaps attribute handling). <br>
-See also <a href="aaa03_squarebrackets_indx_fundamentals.html">squarebrackets_indx_fundamentals</a>.</p></li>
+(safe for perhaps some minor attribute handling). <br></p></li>
 <li><p><strong>views</strong>: For recursive objects,
 one can create a subset <a href="aaa08_squarebrackets_PassByReference.html">view</a> of a recursive subset. <br>
-Recursive subset views do not exist for atomic objects. <br><br></p></li>
+Subset views do not exist for atomic objects. <br><br></p></li>
 </ul><p>Most of these differences primarily come down to the following: <br>
 An atomic object holds its own value,
 while the elements of a recursive object references to other objects. <br><br>
@@ -89,50 +92,22 @@ The <a href="idx1.html">idx</a> method operates on the indices of an object,
 but does not operate on the object itself,
 and so has no distinction between the atomic and recursive form. <br><br>
 The split between the atomic and recursive forms of the method dispatches
-is done for several reasons:</p><ul><li><p>Some S3 classes, like the <code>array</code> and <code>matrix</code> classes,
+is done for several reasons:</p><ul><li><p>By giving atomic and recursive separate methods,
+it becomes syntactically clear what the consequences are for a subset-operation: <br>
+will the entire object be coerced or copied?
+will a transformation function go through <code>lapply</code>?
+is an operation only affecting shallow subsets?
+etc.</p></li>
+<li><p>Some S3 classes, like the <code>array</code> and <code>matrix</code> classes,
 are available in both atomic and recursive forms. <br>
 But the S3 method dispatch does not distinguish between atomic and recursive objects,
 despite the aforementioned differences between the 2. <br>
 So 'squarebrackets' uses a separate method dispatch for the atomic and recursive form.</p></li>
-<li><p>The differences between atomic and recursive objects
-result in differences in the behaviour of sub-set operations. <br>
-Using a separate dispatch for atomic and recursive objects
-makes this disticntion more syntactically clear,
-and also forces some more careful thought from the user on handling objects.</p></li>
-<li><p>Recursive matrices and array can be extremely powerful in tackling
-difficult problems that deal with nesting. <br>
-Yet there sometimes seem to be (in my experience) some confusion,
-especially among beginners, regarding recursive vs atomic objects,
-and (atomic and recursive) matrices vs data.frames. <br>
-By splitting the method dispatches so strictly,
-I hope to make sub-setting more beginner friendly, at least in the long run. <br><br></p></li>
+<li><p>The distinction between the 2 sets of methods
+forces some more careful thought from the user on handling objects.</p></li>
+<li><p>Package authors can create separate methods for
+atomic and recursive objects using 'squarebrackets'. <br><br></p></li>
 </ul></div>
-    <div class="section level2">
-    <h2 id="manual-dispatch">Manual Dispatch<a class="anchor" aria-label="anchor" href="#manual-dispatch"></a></h2>
-    
-
-<p>The 'squarebrackets' package intentionally exports each function in its S3 method dispatch system. <br>
-This is handy for programming purposes. <br>
-For example: atomic matrices and atomic arrays each have their own dispatch. <br>
-Thus, when looping though matrices and arrays to extract some elements,
-it may be easier to treat them all as arrays (remember that matrices inherit from arrays). <br>
-Thus one can use <code><a href="sb_x.html">sb_x.array()</a></code>/ <code><a href="sb_x.html">sb2_x.array()</a></code> to ensure the "array" method is used,
-instead of the "matrix" method. <br><br>
-Another advantage is that one can explicitly alias a specific dispatch of a method,
-if one so desires. <br>
-For example like so: <br></p>
-<p></p><div class="sourceCode r"><pre><code><span></span>
-<span><span class="va">array_x</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
-<span>   <span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/is.recursive.html" class="external-link">is.atomic</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>     <span class="fu"><a href="../reference/sb_x.html">sb_x.array</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
-<span>   <span class="op">}</span></span>
-<span>   <span class="kw">else</span> <span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/is.recursive.html" class="external-link">is.recursive</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>     <span class="fu"><a href="../reference/sb_x.html">sb2_x.array</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
-<span>   <span class="op">}</span></span>
-<span><span class="op">}</span></span>
-<span></span></code></pre><p></p></div>
-<p>Under certain circumstances, this might help your code to be more clear. <br><br></p>
-    </div>
     <div class="section level2">
     <h2 id="ellipsis">Ellipsis<a class="anchor" aria-label="anchor" href="#ellipsis"></a></h2>
     

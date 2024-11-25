@@ -10,11 +10,12 @@
 #' @param i,row,col,sub,dims,filter,vars See \link{squarebrackets_indx_args}. \cr
 #' Duplicates are allowed, resulting in duplicated indices. \cr
 #' An empty index selection results in an empty object of length 0. \cr
-#' @param red Boolean, for lists only, indicating if the result should be reduced. \cr
+#' @param red Boolean, for recursive objects only,
+#' indicating if the result should be reduced. \cr
 #' If `red = TRUE`,
-#' selecting a single element with non-empty arguments will give the simplified result,
+#' selecting a single element will give the simplified result,
 #' like using `[[]]`. \cr
-#' If `red = FALSE`, a list is always returned regardless of the number of elements.
+#' If `red = FALSE`, a list is always returned regardless of the number of elements. \cr
 #' @param ... see \link{squarebrackets_method_dispatch}.
 #'
 #'
@@ -58,19 +59,8 @@ sb_x.default <- function(x, i = NULL, ...) {
 
 #' @rdname sb_x
 #' @export
-sb_x.matrix <- function(
-    x, row = NULL, col = NULL, i = NULL, ...
-) {
-  
-  .internal_check_dots(list(...), sys.call())
-  return(.sb_x_matrix(x, row, col, i, FALSE, FALSE, FALSE, sys.call()))
-}
-
-
-#' @rdname sb_x
-#' @export
 sb_x.array <- function(
-    x, sub = NULL, dims = NULL, i = NULL, ...
+    x, sub = NULL, dims = 1:ndims(x), i = NULL, ...
 ) {
   
   .internal_check_dots(list(...), sys.call())
@@ -108,33 +98,15 @@ sb2_x.default <- function(x, i = NULL, red = FALSE, ...) {
     return(x)
   }
   
-  elements <- ci_flat(x, i, .abortcall = sys.call())
-  
-  n.i <- length(elements)
-  
-  if(n.i == 1 && red) {
-    return(x[[elements]])
-  }
-  
-  return(x[elements])
+  return(.flat_x(x, i, FALSE, red, FALSE, sys.call()))
 }
 
-
-#' @rdname sb_x
-#' @export
-sb2_x.matrix <- function(
-    x, row = NULL, col = NULL, i = NULL, red = FALSE, ...
-) {
-  
-  .internal_check_dots(list(...), sys.call())
-  return(.sb_x_matrix(x, row, col, i, FALSE, red, FALSE, sys.call()))
-}
 
 
 #' @rdname sb_x
 #' @export
 sb2_x.array <- function(
-    x, sub = NULL, dims = NULL, i = NULL, red = FALSE, ...
+    x, sub = NULL, dims = 1:ndims(x), i = NULL, red = FALSE, ...
 ) {
   
   .internal_check_dots(list(...), sys.call())
@@ -187,29 +159,36 @@ sb2_x.data.frame <- function(
 
 #' @keywords internal
 #' @noRd
+#' @keywords internal
+#' @noRd
 .sb_x_array <- function(
     x, sub = NULL, dims = NULL, i = NULL, inv = FALSE, red = FALSE, chkdup = FALSE, abortcall
 ) {
   
   # empty arguments:
-  if(.all_NULL_indices(list(sub, dims, i))) {
+  if(.all_NULL_indices(list(sub, i))) {
     return(x)
   }
-  
   
   # argument i:
   if(!is.null(i)) {
-    elements <- ci_flat(x, i, inv = inv, chkdup = chkdup, .abortcall = abortcall)
-    if(red && length(elements) == 1L) {
-      return(x[[elements]])
-    }
-    return(x[elements])
+    return(.flat_x(x, i, inv, red, chkdup, abortcall))
   }
   
-  
   # zero-length subscripts:
-  if(length(sub) == 0L && length(dims) == 0L) {
+  if(length(dims) == 0L) {
     return(x)
+  }
+  
+  # 1d:
+  if(ndims(x) == 1L) {
+    i <- .flat_sub2i(x, sub, dims, abortcall)
+    return(.flat_a1d_x(x, i, inv, red, chkdup, abortcall))
+  }
+  
+  # matrix:
+  if(is.matrix(x)) {
+    return(.mat_x(x, sub, dims, inv, red, chkdup, sys.call()))
   }
   
   
@@ -229,72 +208,3 @@ sb2_x.data.frame <- function(
 }
 
 
-#' @keywords internal
-#' @noRd
-.sb_x_matrix <- function(
-    x, row = NULL, col = NULL, i = NULL, inv = FALSE, red = FALSE, chkdup = FALSE, abortcall
-) {
-  
-  # empty arguments:
-  if(.all_NULL_indices(list(row, col, i))) {
-    return(x)
-  }
-  
-  
-  # argument i:
-  if(!is.null(i)) {
-    elements <- ci_flat(x, i, inv = inv, chkdup = chkdup, .abortcall = abortcall)
-    if(red && length(elements) == 1L) {
-      return(x[[elements]])
-    }
-    return(x[elements])
-  }
-  
-  # prep row, col:
-  if(!is.null(row)) {
-    row <- ci_margin(x, row, 1L, inv = inv, chkdup = chkdup, .abortcall = abortcall)
-  }
-  if(!is.null(col)) {
-    col <- ci_margin(x, col, 2L, inv = inv, chkdup = chkdup, .abortcall = abortcall)
-  }
-  
-  
-  # col:
-  if(is.null(row)) {
-    if(red && length(col) == 1L && nrow(x) == 1L) {
-      return(x[[, col]])
-    }
-    else if(is.null(names(x))) {
-      return(x[, col, drop = FALSE])
-    }
-    else {
-      return(.internal_fix_names(x, \(x)x[, col, drop = FALSE]))
-    }
-  }
-  
-  
-  # row:
-  if(is.null(col)) {
-    if(red && length(row) == 1L && ncol(x) == 1L) {
-      return(x[[row, ]])
-    }
-    else if(is.null(names(x))) {
-      return(x[row, , drop = FALSE])
-    }
-    else {
-      return(.internal_fix_names(x, \(x)x[row, , drop = FALSE]))
-    }
-  }
-  
-  
-  # row & col:
-  if(red && length(row) == 1L && length(col) == 1L) {
-    return(x[[row, col]])
-  }
-  else if(is.null(names(x))) {
-    return(x[row, col, drop = FALSE])
-  }
-  else {
-    return(.internal_fix_names(x, \(x)x[row, col, drop = FALSE]))
-  }
-}

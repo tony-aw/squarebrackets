@@ -53,7 +53,7 @@ If set to \code{TRUE}, speed may increase. \cr
 But specifying \code{TRUE} when the relevant names are not unique will result in incorrect output.}
 }
 \value{
-An integer vector of casted indices.
+An integer vector of type-cast indices.
 }
 \description{
 These functions typecast indices to proper integer indices. \cr

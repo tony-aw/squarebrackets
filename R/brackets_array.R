@@ -65,8 +65,8 @@
     x[...] <- rp
     return(x)
   }
-  out <- do.call(temp.fun, lst)
-  return(out)
+  x <- do.call(temp.fun, lst)
+  return(x)
 }
 
 #' @keywords internal
@@ -82,8 +82,8 @@
     x[...] <- rp
     return(x)
   }
-  out <- do.call(temp.fun, lst)
-  return(out)
+  x <- do.call(temp.fun, lst)
+  return(x)
 }
 
 
@@ -92,35 +92,16 @@
 .arr_set <- function(x, sub, dims, chkdup, inv, rp, tf, abortcall) {
   
   # Prep:
-  if(!is.list(sub)) {
-    sub <- rep(list(sub), length(dims))
-  }
   x.dim <- dim(x)
   ndims <- length(x.dim)
-  .arr_check(x, sub, dims, ndims, .abortcall = abortcall)
-  
-  
-  # CASE 1: `x` is a vector / 1d array, so subscript translation is waste of computation
-  if(ndims == 1L) {
-    elements <- ci_flat(
-      x, sub[[1L]], inv, chkdup, .abortcall = sys.call()
-    )
-    .sb_set_atomic(x, elements, rp = rp, tf = tf, abortcall = abortcall)
-    return(invisible(NULL))
-  }
-  
+  .ci_array_check(x, sub, dims, ndims, .abortcall = abortcall)
   
   lst <- ci_sub(
     x, sub, dims, inv, chkdup, .abortcall = abortcall
   ) # Note: ci_sub will already ensure the subs are integers.
   
   
-  # CASE 2: all list elements are integer(0), so nothing to change
-  if(.any_empty_indices(lst)) {
-    return(invisible(NULL))
-  }
-  
-  # CASE 3: `x` has between 2 and 8 dimensions
+  # CASE 1: `x` has between 3 and 8 dimensions (0d, 1, and 2d already captured earlier)
   if(ndims <= 8L) {
     if(!missing(tf)) {
       if(!is.function(tf)) stop(simpleError("`tf` must be a function", call = abortcall))
@@ -130,7 +111,7 @@
     return(invisible(NULL))
   }
   
-  # CASE 4: `x` has between 9 and 16 dimensions
+  # CASE 2: `x` has between 9 and 16 dimensions
   if(ndims <= 16L) {
     if(!missing(tf)) {
       if(!is.function(tf)) stop(simpleError("`tf` must be a function", call = abortcall))
@@ -140,7 +121,7 @@
     return(invisible(NULL))
   }
   
-  # CASE 4: `x` has more than 16 dimension
+  # CASE 2: `x` has more than 16 dimension
   # so default to translating subscripts to flat indices,
   # and treat as vector with the flattened indices.
   elements <- sub2ind(lst, x.dim, checks = FALSE)

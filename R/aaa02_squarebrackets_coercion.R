@@ -27,7 +27,7 @@
 #' \cr
 #' There are highly specialized packages to handle objects derived from atomic objects. \cr
 #' For example the 'forcats' package for handling factors, and the 'anytime' package
-#' to handle ddate-time objects. \cr
+#' to handle date-time objects. \cr
 #' \cr
 #' \cr
 #' \bold{List} \cr

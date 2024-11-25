@@ -14,7 +14,7 @@ idx(x, ...)
 \method{idx}{array}(
   x,
   sub = NULL,
-  dims = NULL,
+  dims = 1:ndims(x),
   slice = NULL,
   margin = NULL,
   i = NULL,
@@ -74,8 +74,8 @@ can be used inside the regular square-brackets operators. \cr
 For example like so:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{x <- array(...)
-my_indices <- idx(x, sub, dims)
-x[my_indices] <- value
+my_sub2ind <- idx(x, sub, dims)
+x[my_sub2ind] <- value
 
 y <- data.frame(...)
 rows <- idx(y, 1:10, 1, inv = TRUE)

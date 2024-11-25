@@ -3,11 +3,9 @@
 \name{sb_mod}
 \alias{sb_mod}
 \alias{sb_mod.default}
-\alias{sb_mod.matrix}
 \alias{sb_mod.array}
 \alias{sb2_mod}
 \alias{sb2_mod.default}
-\alias{sb2_mod.matrix}
 \alias{sb2_mod.array}
 \alias{sb2_mod.data.frame}
 \title{Method to Return a Copy of an Object With Modified Subsets}
@@ -24,22 +22,10 @@ sb_mod(x, ...)
   chkdup = getOption("squarebrackets.chkdup", FALSE)
 )
 
-\method{sb_mod}{matrix}(
-  x,
-  row = NULL,
-  col = NULL,
-  i = NULL,
-  inv = FALSE,
-  ...,
-  rp,
-  tf,
-  chkdup = getOption("squarebrackets.chkdup", FALSE)
-)
-
 \method{sb_mod}{array}(
   x,
   sub = NULL,
-  dims = NULL,
+  dims = 1:ndims(x),
   i = NULL,
   inv = FALSE,
   ...,
@@ -61,23 +47,10 @@ sb2_mod(x, ...)
   .lapply = lapply
 )
 
-\method{sb2_mod}{matrix}(
-  x,
-  row = NULL,
-  col = NULL,
-  i = NULL,
-  inv = FALSE,
-  ...,
-  rp,
-  tf,
-  chkdup = getOption("squarebrackets.chkdup", FALSE),
-  .lapply = lapply
-)
-
 \method{sb2_mod}{array}(
   x,
   sub = NULL,
-  dims = NULL,
+  dims = 1:ndims(x),
   i = NULL,
   inv = FALSE,
   ...,
@@ -174,32 +147,22 @@ obj <- matrix(1:16, ncol = 4)
 colnames(obj) <- c("a", "b", "c", "a")
 print(obj)
 rp <- -1:-9
-sb_mod(obj, 1:3, 1:3, rp = rp)
+sb_mod(obj, 1:3, rp = rp)
 # above is equivalent to  obj[1:3, 1:3] <- -1:-9; obj
 sb_mod(obj, i = \(x)x<=5, rp = -1:-5)
 # above is equivalent to  obj[obj <= 5] <- -1:-5; obj
-sb_mod(obj, col = "a", rp = -1:-8)
+sb_mod(obj, "a", 2L, rp = -1:-8)
 # above is equivalent to  obj[, which(colnames(obj) \%in\% "a")] <- -1:-8; obj
-sb_mod(obj, 1:3, 1:3, tf = \(x) -x)
+sb_mod(obj, 1:3, tf = \(x) -x)
 # above is equivalent to  obj[1:3, 1:3] <- (-1 * obj[1:3, 1:3]); obj
 sb_mod(obj, i = \(x)x<=5, tf = \(x) -x)
 # above is equivalent to  obj[obj <= 5] <- (-1 * obj[obj <= 5]); obj
 
-obj <- matrix(1:16, ncol = 4)
-colnames(obj) <- c("a", "b", "c", "a")
-print(obj)
-sb_mod(obj, 1:3, 1:3, tf = \(x) -x)
-# above is equivalent to  obj[1:3, 1:3] <- -1 * obj[1:3, 1:3]
-sb_mod(obj, i = \(x)x<=5, tf = \(x) -x)
-# above is equivalent to  obj[obj <= 5] <- -1:-5; obj
-sb_mod(obj, col = "a", tf = \(x) -x)
-# above is equivalent to  obj[, which(colnames(obj) \%in\% "a")] <- -1:-8; obj
-
 obj <- array(1:64, c(4,4,3))
 print(obj)
-sb_mod(obj, list(1:3, 1:2), c(1,3), rp = -1:-24)
+sb_mod(obj, n(1:3, 1:2), c(1,3), rp = -1:-24)
 # above is equivalent to obj[1:3, , 1:2] <- -1:-24
-sb_mod(obj, i = \(x)x<=5, rp = -1:-5)
+sb_mod(obj, i = \(x)x <= 5, rp = -1:-5)
 # above is equivalent to obj[obj <= 5] <- -1:-5
 
 #############################################################################
@@ -214,10 +177,6 @@ sb2_mod(obj, "a", rp = list(1L))
 sb2_mod(obj, is.numeric, rp = list(-1:-10, -11:-20))
 # above is equivalent to  obj[which(sapply(obj, is.numeric))] <- list(-1:-10, -11:-20); obj
 
-#############################################################################
-
-
-# dimensional lists ====
 obj <- rbind(
   lapply(1:4, \(x)sample(c(TRUE, FALSE, NA))),
   lapply(1:4, \(x)sample(1:10)),
@@ -226,20 +185,20 @@ obj <- rbind(
 )
 colnames(obj) <- c("a", "b", "c", "a")
 print(obj)
-sb2_mod(obj, 1:3, 1:3, rp = n(-1))
+sb2_mod(obj, 1:3, rp = n(-1))
 # above is equivalent to obj[1:3, 1:3] <- list(-1)
 sb2_mod(obj, i = is.numeric, rp = n(-1))
 # above is equivalent to obj[sapply(obj, is.numeric)] <- list(-1)
-sb2_mod(obj, col = c("a"), rp = n(-1))
+sb2_mod(obj, "a", 2L, rp = n(-1))
 # above is equivalent to
 # obj[, lapply(c("a", "a"), \(i) which(colnames(obj) == i)) |> unlist()] <- list(-1)
 
 
 obj <- array(as.list(1:64), c(4,4,3))
 print(obj)
-sb2_mod(obj, list(1:3, 1:2), c(1,3), rp = as.list(-1:-24))
+sb2_mod(obj, n(1:3, 1:2), c(1,3), rp = as.list(-1:-24))
 # above is equivalent to obj[1:3, , 1:2] <- as.list(-1:-24)
-sb2_mod(obj, i = \(x)x<=5, rp = as.list(-1:-5))
+sb2_mod(obj, i = \(x) x <= 5, rp = as.list(-1:-5))
 # above is equivalent to obj[sapply(onj, \(x) x <= 5)] <- as.list(-1:-5)
 
 

@@ -49,7 +49,7 @@ to perform \bold{grouped} subset operations. \cr
 
 # get the last element of `a` for each group in `grp`:
 i <- idx_by(a, 0L, last, grp)
-sb_x(cbind(a, grp), row = i)
+sb_x(cbind(a, grp), i, 1L)
 
 
 # data.frame ====

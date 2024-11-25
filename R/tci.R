@@ -25,7 +25,7 @@
 #' 
 #'
 #' @returns
-#' An integer vector of casted indices.
+#' An integer vector of type-cast indices.
 #'
 #'
 #' @example inst/examples/tci.R

@@ -100,77 +100,46 @@ sb_mod.default <- function(
 
 #' @rdname sb_mod
 #' @export
-sb_mod.matrix <- function(
-    x, row = NULL, col = NULL, i = NULL, inv = FALSE, ...,
-    rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
-) {
-  
-  .internal_check_dots(list(...), sys.call())
-  
-  .internal_check_rptf(rp, tf, sys.call())
-  
-  if(.all_NULL_indices(list(row, col, i))) {
-    return(.sb_mod_all(x, rp, tf, NULL, sys.call()))
-  }
-  
-  if(!is.null(i)) {
-    return(.flat_mod_atomic(x, i, inv, rp, tf, chkdup, sys.call()))
-  }
-  
-  if(!is.null(row)) {
-    row <- ci_margin(x, row, 1L, inv, chkdup, .abortcall = sys.call())
-  }
-  if(!is.null(col)) {
-    col <- ci_margin(x, col, 2L, inv, chkdup, .abortcall = sys.call())
-  }
-  
-  if(.any_empty_indices(n(row, col))) {
-    return(x)
-  }
-  
-  if(is.null(row)) row <- 1:nrow(x)
-  if(is.null(col)) col <- 1:ncol(x)
-  if(!missing(tf)) {
-    rp <- tf(x[row, col, drop = FALSE])
-  }
-  
-  .check_rp_atomic(rp, (length(row) * length(col)), abortcall = sys.call())
-  x[row, col] <- rp
-  
-  return(x)
-}
-
-
-#' @rdname sb_mod
-#' @export
 sb_mod.array <- function(
-    x, sub = NULL, dims = NULL, i = NULL, inv = FALSE, ...,
+    x, sub = NULL, dims = 1:ndims(x), i = NULL, inv = FALSE, ...,
     rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
+  # checks:
   .internal_check_dots(list(...), sys.call())
-  
   .internal_check_rptf(rp, tf, sys.call())
   
-  if(.all_NULL_indices(list(sub, dims, i))) {
+  # all empty indices:
+  if(.all_NULL_indices(list(sub, i))) {
     return(.sb_mod_all(x, rp, tf, NULL, sys.call()))
   }
   
+  # argument i:
   if(!is.null(i)) {
     return(.flat_mod_atomic(x, i, inv, rp, tf, chkdup, sys.call()))
   }
   
-  if(length(sub) == 0 && length(dims) == 0) {
+  # zero-length subscripts:
+  if(length(dims) == 0) {
     return(.sb_mod_all(x, rp, tf, NULL, sys.call()))
   }
   
-  lst <- ci_sub(x, sub, dims, inv, chkdup, .abortcall = sys.call())
-  if(.any_empty_indices(lst)) {
-    return(x)
+  # 1d:
+  if(ndims(x) == 1L) {
+    i <- .flat_sub2i(x, sub, dims)
+    return(.flat_mod_atomic(x, i, inv, rp, tf, chkdup, sys.call()))
   }
   
+  # matrix:
+  if(is.matrix(x)) {
+    return(.mat_mod_atomic(x, sub, dims, inv, rp, tf, chkdup, sys.call()))
+  }
+  
+  # sub, dims arguments:
+  lst <- ci_sub(x, sub, dims, inv, chkdup, .abortcall = sys.call())
+
   if(!missing(rp)) {
-    if(is.recursive(rp)) stop("`rp` must be non-recursive")
+    if(!is.atomic(rp)) stop("`rp` must be atomic")
     return(.arr_repl(x, lst, rp, abortcall = sys.call()))
   }
   if(!missing(tf)) {
@@ -214,76 +183,45 @@ sb2_mod.default <- function(
 }
 
 
-#' @rdname sb_mod
-#' @export
-sb2_mod.matrix <- function(
-    x, row = NULL, col = NULL, i = NULL, inv = FALSE, ...,
-    rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE), .lapply = lapply
-) {
-  
-  .internal_check_dots(list(...), sys.call())
-  
-  .internal_check_rptf(rp, tf, sys.call())
-  
-  if(.all_NULL_indices(list(row, col, i))) {
-    return(.sb_mod_all(x, rp, tf, .lapply, sys.call()))
-  }
-  
-  if(!is.null(i)) {
-    return(.flat_mod_list(x, i, inv, rp, tf, chkdup, .lapply, sys.call()))
-  }
-  
-  if(!is.null(row)) {
-    row <- ci_margin(x, row, 1L, inv, chkdup, .abortcall = sys.call())
-  }
-  if(!is.null(col)) {
-    col <- ci_margin(x, col, 2L, inv, chkdup, .abortcall = sys.call())
-  }
-  
-  if(.any_empty_indices(n(row, col))) {
-    return(x)
-  }
-  
-  if(is.null(row)) row <- 1:nrow(x)
-  if(is.null(col)) col <- 1:ncol(x)
-  if(!missing(tf)) {
-    rp <- lapply(x[row, col, drop = FALSE], tf)
-  }
-  
-  .check_rp_list(rp, (length(row) * length(col)), abortcall = sys.call())
-  x[row, col] <- rp
-  
-  return(x)
-}
-
 
 #' @rdname sb_mod
 #' @export
 sb2_mod.array <- function(
-    x, sub = NULL, dims = NULL, i = NULL, inv = FALSE, ...,
+    x, sub = NULL, dims = 1:ndims(x), i = NULL, inv = FALSE, ...,
     rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE), .lapply = lapply
 ) {
   
+  # checks:
   .internal_check_dots(list(...), sys.call())
-  
   .internal_check_rptf(rp, tf, sys.call())
   
-  if(.all_NULL_indices(list(sub, dims, i))) {
+  # all empty indices:
+  if(.all_NULL_indices(list(sub, i))) {
     return(.sb_mod_all(x, rp, tf, .lapply, sys.call()))
   }
   
+  # argument i:
   if(!is.null(i)) {
     return(.flat_mod_list(x, i, inv, rp, tf, chkdup, .lapply, sys.call()))
   }
   
-  if(length(sub) == 0 && length(dims) == 0) {
+  # zero-length subscripts:
+  if(length(dims) == 0) {
     return(.sb_mod_all(x, rp, tf, .lapply, sys.call()))
   }
   
-  lst <- ci_sub(x, sub, dims, inv, chkdup, .abortcall = sys.call())
-  if(.any_empty_indices(lst)) {
-    return(x)
+  # 1d:
+  if(ndims(x) == 1L) {
+    i <- .flat_sub2i(x, sub, dims)
+    return(.flat_mod_list(x, i, inv, rp, tf, chkdup, .lapply, sys.call()))
   }
+  
+  # matrix:
+  if(is.matrix(x)) {
+    return(.mat_mod_list(x, sub, dims, inv, rp, tf, chkdup, .lapply, sys.call()))
+  }
+  
+  lst <- ci_sub(x, sub, dims, inv, chkdup, .abortcall = sys.call())
   
   if(!missing(rp)) {
     if(!is.list(rp)) stop("`rp` must be a list")
@@ -379,7 +317,6 @@ sb2_mod.data.frame <- function(
     rp <- .lapply(collapse::ss(x, i = row, j = col, check = FALSE), tf)
   }
   
-  .check_rp_df(rp, abortcall = abortcall)
   data.table::set(x, i = row, j = col, value = rp)
   
   return(x)
@@ -400,7 +337,6 @@ sb2_mod.data.frame <- function(
   if(!missing(tf)) {
     rp <- .lapply(collapse::ss(extraction, i = row, check = FALSE), tf)
   }
-  .check_rp_df(rp, abortcall = abortcall)
   
   extraction[row, ] <- rp
   
@@ -430,4 +366,9 @@ sb2_mod.data.frame <- function(
   .check_rp_atomic(rp, length(x), abortcall = sys.call())
   x[] <- rp
   return(x)
+}
+
+
+.sb_mod_array <- function(x, sub, dims, inv, rp, tf, .lapply, chkdup, abortcall) {
+  
 }

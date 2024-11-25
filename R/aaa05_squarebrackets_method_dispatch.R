@@ -10,22 +10,25 @@
 #' Atomic and recursive objects are quite different from each other in some ways:
 #' 
 #'  - **homo- or heterogeneous**: an atomic object can only have values of one data type. \cr
-#'  recursive objects can hold values of any combination of data types.
+#'  recursive objects can hold values of any combination of data types. \cr
 #'  - **nesting**: Recursive objects can be nested, while atomic objects cannot be nested.
-#'  - **copy semantics**: One can copy a subset of a recursive object without copying the rest of the object
-#'  (thus saving memory when copying).
-#'  For atomic objects, however, a copy operation copies the entire vector (ignoring attributes). \cr
+#'  - **copy and coercion effect**: One can coerce or copy a subset of a recursive object,
+#'  without copying the rest of the object. \cr
+#'  For atomic objects, however, a coercion or copy operation coerces or copies the entire vector
+#'  (ignoring attributes). \cr
 #'  - **vectorization**: most vectorized operations generally work on atomic objects,
-#'  whereas recursive objects often require loops or apply-like functions.
+#'  whereas recursive objects often require loops or apply-like functions. \cr
+#'  Hence the presence of the `.lapply` argument in the \link{sb2_mod} and \link{sb2_set} methods.
 #'  - **recursive subsets**: Recursive objects distinguish between "regular" subset operations
 #'  (in base R using `[`, `[<-`),
 #'  and recursive subset operations (in base R using `[[`, `[[<-`). \cr
+#'  See for example the \link{sb2_rec} method,
+#'  or the `red = TRUE` argument in the \link{sb2_x} and \link{sb2_rm} methods. \cr
 #'  For atomic objects, these 2 have no meaningful difference
-#'  (safe for perhaps attribute handling). \cr
-#'  See also \link{squarebrackets_indx_fundamentals}.
+#'  (safe for perhaps some minor attribute handling). \cr
 #'  - **views**: For recursive objects,
 #'  one can create a subset \link[=squarebrackets_PassByReference]{view} of a recursive subset. \cr
-#'  Recursive subset views do not exist for atomic objects. \cr \cr
+#'  Subset views do not exist for atomic objects. \cr \cr
 #' 
 #' Most of these differences primarily come down to the following: \cr
 #' An atomic object holds its own value,
@@ -41,53 +44,21 @@
 #' The split between the atomic and recursive forms of the method dispatches
 #' is done for several reasons:
 #' 
+#'  - By giving atomic and recursive separate methods,
+#'  it becomes syntactically clear what the consequences are for a subset-operation: \cr
+#'  will the entire object be coerced or copied?
+#'  will a transformation function go through `lapply`?
+#'  is an operation only affecting shallow subsets?
+#'  etc.
 #'  - Some S3 classes, like the `array` and `matrix` classes,
 #'  are available in both atomic and recursive forms. \cr
 #'  But the S3 method dispatch does not distinguish between atomic and recursive objects,
 #'  despite the aforementioned differences between the 2. \cr
 #'  So 'squarebrackets' uses a separate method dispatch for the atomic and recursive form.
-#'  - The differences between atomic and recursive objects
-#'  result in differences in the behaviour of sub-set operations. \cr
-#'  Using a separate dispatch for atomic and recursive objects
-#'  makes this disticntion more syntactically clear,
-#'  and also forces some more careful thought from the user on handling objects.
-#'  - Recursive matrices and array can be extremely powerful in tackling
-#'  difficult problems that deal with nesting. \cr
-#'  Yet there sometimes seem to be (in my experience) some confusion,
-#'  especially among beginners, regarding recursive vs atomic objects,
-#'  and (atomic and recursive) matrices vs data.frames. \cr
-#'  By splitting the method dispatches so strictly,
-#'  I hope to make sub-setting more beginner friendly, at least in the long run. \cr \cr
-#' 
-#' 
-#' @section Manual Dispatch:
-#' The 'squarebrackets' package intentionally exports each function in its S3 method dispatch system. \cr
-#' This is handy for programming purposes. \cr
-#' For example: atomic matrices and atomic arrays each have their own dispatch. \cr
-#' Thus, when looping though matrices and arrays to extract some elements,
-#' it may be easier to treat them all as arrays (remember that matrices inherit from arrays). \cr
-#' Thus one can use `sb_x.array()`/ `sb2_x.array()` to ensure the "array" method is used,
-#' instead of the "matrix" method. \cr
-#' \cr
-#' Another advantage is that one can explicitly alias a specific dispatch of a method,
-#' if one so desires. \cr
-#' For example like so: \cr
-#' 
-#' ```{r eval = FALSE, echo = TRUE}
-#' 
-#' array_x <- function(x, ...) {
-#'    if(is.atomic(x)) {
-#'      sb_x.array(x, ...)
-#'    }
-#'    else if(is.recursive(x)) {
-#'      sb2_x.array(x, ...)
-#'    }
-#' }
-#' 
-#' ```
-#' 
-#' Under certain circumstances, this might help your code to be more clear. \cr
-#' \cr
+#'  - The distinction between the 2 sets of methods
+#'  forces some more careful thought from the user on handling objects.
+#'  - Package authors can create separate methods for
+#'  atomic and recursive objects using 'squarebrackets'. \cr \cr
 #' 
 #' 
 #' @section Ellipsis:

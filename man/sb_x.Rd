@@ -3,11 +3,9 @@
 \name{sb_x}
 \alias{sb_x}
 \alias{sb_x.default}
-\alias{sb_x.matrix}
 \alias{sb_x.array}
 \alias{sb2_x}
 \alias{sb2_x.default}
-\alias{sb2_x.matrix}
 \alias{sb2_x.array}
 \alias{sb2_x.data.frame}
 \title{Method to Extract, Exchange, or Duplicate Subsets of an Object}
@@ -16,17 +14,13 @@ sb_x(x, ...)
 
 \method{sb_x}{default}(x, i = NULL, ...)
 
-\method{sb_x}{matrix}(x, row = NULL, col = NULL, i = NULL, ...)
-
-\method{sb_x}{array}(x, sub = NULL, dims = NULL, i = NULL, ...)
+\method{sb_x}{array}(x, sub = NULL, dims = 1:ndims(x), i = NULL, ...)
 
 sb2_x(x, ...)
 
 \method{sb2_x}{default}(x, i = NULL, red = FALSE, ...)
 
-\method{sb2_x}{matrix}(x, row = NULL, col = NULL, i = NULL, red = FALSE, ...)
-
-\method{sb2_x}{array}(x, sub = NULL, dims = NULL, i = NULL, red = FALSE, ...)
+\method{sb2_x}{array}(x, sub = NULL, dims = 1:ndims(x), i = NULL, red = FALSE, ...)
 
 \method{sb2_x}{data.frame}(x, row = NULL, col = NULL, filter = NULL, vars = NULL, ...)
 }
@@ -39,11 +33,12 @@ sb2_x(x, ...)
 Duplicates are allowed, resulting in duplicated indices. \cr
 An empty index selection results in an empty object of length 0. \cr}
 
-\item{red}{Boolean, for lists only, indicating if the result should be reduced. \cr
+\item{red}{Boolean, for recursive objects only,
+indicating if the result should be reduced. \cr
 If \code{red = TRUE},
-selecting a single element with non-empty arguments will give the simplified result,
+selecting a single element will give the simplified result,
 like using \verb{[[]]}. \cr
-If \code{red = FALSE}, a list is always returned regardless of the number of elements.}
+If \code{red = FALSE}, a list is always returned regardless of the number of elements. \cr}
 }
 \value{
 Returns a copy of the sub-setted object.
@@ -62,18 +57,18 @@ Use \code{sb2_x(x, ...)} if \code{x} is a recursive object (i.e. list or data.fr
 obj <- matrix(1:16, ncol = 4)
 colnames(obj) <- c("a", "b", "c", "a")
 print(obj)
-sb_x(obj, 1:3, 1:3)
+sb_x(obj, 1:3)
 # above is equivalent to obj[1:3, 1:3, drop = FALSE]
 sb_x(obj, i = \(x)x>5)
 # above is equivalent to obj[obj > 5]
-sb_x(obj, col = c("a", "a"))
+sb_x(obj, c("a", "a"), 2L)
 # above is equivalent to obj[, lapply(c("a", "a"), \(i) which(colnames(obj) == i)) |> unlist()]
 
 obj <- array(1:64, c(4,4,3))
 print(obj)
 sb_x(obj, n(1:3, 1:2), c(1,3))
 # above is equivalent to obj[1:3, , 1:2, drop = FALSE]
-sb_x(obj, i = \(x)x>5)
+sb_x(obj, i = \(x)x > 5)
 # above is equivalent to obj[obj > 5]
 
 
@@ -91,10 +86,6 @@ sb2_x(obj, is.numeric) # obj[sapply(obj, is.numeric)]
 # for recursive subsets, see sb2_rec()
 
 
-################################################################################
-
-# dimensional lists ====
-
 obj <- rbind(
   lapply(1:4, \(x)sample(c(TRUE, FALSE, NA))),
   lapply(1:4, \(x)sample(1:10)),
@@ -103,18 +94,18 @@ obj <- rbind(
 )
 colnames(obj) <- c("a", "b", "c", "a")
 print(obj)
-sb2_x(obj, 1:3, 1:3)
+sb2_x(obj, 1:3)
 # above is equivalent to obj[1:3, 1:3, drop = FALSE]
 sb2_x(obj, i = is.numeric)
 # above is equivalent to obj[sapply(obj, is.numeric)]
-sb2_x(obj, col = c("a", "a"))
+sb2_x(obj, c("a", "a"), 2L)
 # above is equivalent to obj[, lapply(c("a", "a"), \(i) which(colnames(obj) == i)) |> unlist()]
 
 obj <- array(as.list(1:64), c(4,4,3))
 print(obj)
 sb2_x(obj, n(1:3, 1:2), c(1,3))
 # above is equivalent to obj[1:3, , 1:2, drop = FALSE]
-sb2_x(obj, i = \(x)x>5)
+sb2_x(obj, i = \(x)x > 5)
 # above is equivalent to obj[sapply(obj, \(x) x > 5)]
 
 #############################################################################

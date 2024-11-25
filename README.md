@@ -162,5 +162,7 @@ tinycodet::import_LL("squarebrackets", selection = ... )
   argument usage. Added `sticky` option. Brought back the renaming
   methods. Changed behaviour of the `use.names` argument in
   `lst_untree()`.
+- 24 November 2024: Matrices now use the same API as arrays. Adjusted
+  the documentation accordingly. Cleaned up the internal code a bit.
 
  

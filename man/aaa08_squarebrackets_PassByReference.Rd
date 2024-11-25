@@ -82,7 +82,7 @@ Therefore, Pass-by-Reference semantics don't work on immaterial objects. \cr
 The \link{mutable_atomic} constructors
 (i.e. \link{mutable_atomic}, \link{as.mutable_atomic}, etc.)
 will automatically materialize ALTREP objects,
-to ensure consistent behaviour for 'pass-by-reference' semanthics. \cr
+to ensure consistent behaviour for 'pass-by-reference' semantics. \cr
 \cr
 A \code{data.table} can have ALTREP columns. \cr
 A \code{data.tables} will coerce the column to a materialized column when it is modified, even by reference. \cr

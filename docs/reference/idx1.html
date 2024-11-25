@@ -19,8 +19,8 @@ The result of the idx() method
 can be used inside the regular square-brackets operators. 
 For example like so:
 x &amp;lt;- array(...)
-my_indices &amp;lt;- idx(x, sub, dims)
-x[my_indices] &amp;lt;- value
+my_sub2ind &amp;lt;- idx(x, sub, dims)
+x[my_sub2ind] &amp;lt;- value
 
 y &amp;lt;- data.frame(...)
 rows &amp;lt;- idx(y, 1:10, 1, inv = TRUE)
@@ -50,8 +50,8 @@ The result of the idx() method
 can be used inside the regular square-brackets operators. 
 For example like so:
 x &amp;lt;- array(...)
-my_indices &amp;lt;- idx(x, sub, dims)
-x[my_indices] &amp;lt;- value
+my_sub2ind &amp;lt;- idx(x, sub, dims)
+x[my_sub2ind] &amp;lt;- value
 
 y &amp;lt;- data.frame(...)
 rows &amp;lt;- idx(y, 1:10, 1, inv = TRUE)
@@ -129,8 +129,8 @@ The result of the <code>idx()</code> method
 can be used inside the regular square-brackets operators. <br>
 For example like so:</p>
 <p></p><div class="sourceCode r"><pre><code><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/array.html" class="external-link">array</a></span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span>
-<span><span class="va">my_indices</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/idx1.html">idx</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">sub</span>, <span class="va">dims</span><span class="op">)</span></span>
-<span><span class="va">x</span><span class="op">[</span><span class="va">my_indices</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
+<span><span class="va">my_sub2ind</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/idx1.html">idx</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">sub</span>, <span class="va">dims</span><span class="op">)</span></span>
+<span><span class="va">x</span><span class="op">[</span><span class="va">my_sub2ind</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
 <span></span>
 <span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span>
 <span><span class="va">rows</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/idx1.html">idx</a></span><span class="op">(</span><span class="va">y</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">1</span>, inv <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
@@ -152,7 +152,7 @@ whilst still using R's default copy-on-modification semantics
 <span><span class="fu">idx</span><span class="op">(</span></span>
 <span>  <span class="va">x</span>,</span>
 <span>  sub <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  dims <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  dims <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="ndims.html">ndims</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span>
 <span>  slice <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  margin <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  i <span class="op">=</span> <span class="cn">NULL</span>,</span>

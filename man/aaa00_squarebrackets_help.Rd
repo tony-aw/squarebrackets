@@ -167,7 +167,7 @@ uses its S3 Method dispatch. \cr \cr
 \ifelse{html}{\figure{specialized_functions-darkred.svg}{options: alt='[SPECIALIZED FUNCTIONS]'}}{\link[=squarebrackets_help]{SPECIALIZED FUNCTIONS}} \cr
 Additional specialized sub-setting functions are provided:
 \itemize{
-\item \link{lst_untree}: unnest tree-like nested list into a recursive array,
+\item \link{lst_untree}: unnest tree-like nested list into a recursive matrix,
 to speed-up vectorized sub-setting on recursive subsets of the list.
 \item The \link[=dt_setcoe]{dt_}-functions
 to programmatically perform \code{data.table}-specific \code{[}-operations,

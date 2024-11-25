@@ -9,12 +9,16 @@ There are several types of arguments that can be used
 in the generic methods of 'squarebrackets' to specify the indices to perform operations on:
 \itemize{
 \item \code{i}: to specify flat (i.e. dimensionless) indices.
-\item \verb{row, col}: to specify rows and/or columns in tabular objects.
-\item \verb{sub, dims}: to specify indices of arbitrary dimensions in arrays.
-\item \verb{filter, vars}: to specify rows and/or columns specifically in data.frame-like objects.
-\item \verb{margin, slice}: to specify indices of one particular dimension. \cr \cr
+\item \verb{sub, dims}: to specify indices of arbitrary dimensions in arrays
+(including matrices, which inherit from arrays).
+\item \verb{margin, slice}: to specify indices of one particular dimension.
+\item \verb{row, col}: to specify rows and/or columns in specifically in data.frame-like objects.
+\item \verb{filter, vars}: to specify rows and/or columns specifically in data.frame-like objects. \cr \cr
 }
 
+Thus there are essentially 3 APIs: one for vectors, one for arrays and matrices,
+and one for data.frame-like objects. \cr
+\cr
 For the fundamentals of indexing in 'squarebrackets', see \link{squarebrackets_indx_fundamentals}. \cr
 In this help page \code{x} refers to the object on which subset operations are performed. \cr
 \cr
@@ -55,48 +59,28 @@ Using the \code{i} arguments corresponds to doing something like the following:
 }\if{html}{\out{</div>}}
 }
 
-\section{Arguments row, col}{
+\section{Argument Pair sub, dims}{
 
 \ifelse{html}{\figure{class-atomic_matrix-blue.svg}{options: alt='[class: atomic matrix]'}}{\link[=squarebrackets_indx_args]{class: atomic matrix}} \cr
 \ifelse{html}{\figure{class-recursive_matrix-blue.svg}{options: alt='[class: recursive matrix]'}}{\link[=squarebrackets_indx_args]{class: recursive matrix}} \cr
-\ifelse{html}{\figure{class-data.frame-like-blue.svg}{options: alt='[class: data.frame-like]'}}{\link[=squarebrackets_indx_args]{class: data.frame-like}} \cr
-
-Any of the following can be specified for the arguments \code{row} / \code{col}:
-\itemize{
-\item \code{NULL} (default), corresponds to a missing argument.
-\item a vector of length 0,
-in which case no indices are selected for the operation (i.e. empty selection).
-\item a numeric vector of \bold{strictly positive whole numbers} with indices of the specified dimension to select for the operation.
-\item a \bold{complex} vector, as explained in \link{squarebrackets_indx_fundamentals}.
-\item a \bold{logical} vector of the same length as the corresponding dimension size,
-giving the indices of the specified dimension to select for the operation.
-\item a \bold{character} vector giving the \code{dimnames} to select. \cr
-If a dimension has multiple indices with the given name,
-ALL the corresponding indices will be selected for the operation. \cr
-}
-
-NOTE: The arguments \code{row} and \code{col} will be ignored if \code{i} is specified.
-
-Using the \verb{row, col} arguments corresponds to doing something like the following:
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{ sb_x(x, row = row, col = col) # ==> x[row, col, drop = FALSE]
- 
-}\if{html}{\out{</div>}}
-}
-
-\section{Argument Pair sub, dims}{
-
 \ifelse{html}{\figure{class-atomic_array-blue.svg}{options: alt='[class: atomic array]'}}{\link[=squarebrackets_indx_args]{class: atomic array}} \cr
 \ifelse{html}{\figure{class-recursive_array-blue.svg}{options: alt='[class: recursive array]'}}{\link[=squarebrackets_indx_args]{class: recursive array}} \cr
 The \verb{sub, dims} argument pair is inspired by the
-\code{abind::}\link[abind]{asub} function from the 'abind' package (see reference below). \cr
-\code{dims} must be an integer vector of the same length as \code{sub},
-giving the dimensions over which to select indices
-(i.e. \code{dims} specifies the "non-missing" index margins). \cr
-\code{sub} must be list of subscripts of the same length as \code{dims}. \cr
-When extracting the same number of indices from dimensions \code{dims},
-for example like \code{x[1:2, 1:2, 1:2, 1:2]},
-one can also specify an atomic vector for \code{sub}. \cr
+\code{abind::}\link[abind]{asub} function from the 'abind' package
+(see reference below). \cr
+\code{dims} must be an integer vector,
+giving the dimensions for which to specify the
+\link[=squarebrackets_indx_fundamentals]{subscripts}.
+(i.e. \code{dims} specifies the "non-missing" margins). \cr \cr
+
+\code{sub} must be either of the following:
+\itemize{
+\item a list of length \code{length(dims)}.
+\item a list of length 1; \cr
+in this case \code{sub} will be recycled to \code{length(dims)}.
+\item an atomic vector; \cr
+this is functionally equivalent to specifying \code{sub} as a list of length 1. \cr \cr
+}
 
 Each element of \code{sub} when \code{sub} is a list,
 or \code{sub} itself when \code{sub} is an atomic vector,
@@ -110,36 +94,65 @@ in which case no indices are selected for the operation (i.e. empty selection).
 giving the indices of the specified dimension to select for the operation.
 \item a \bold{character} vector giving the \code{dimnames} to select. \cr
 If a dimension has multiple indices with the given name,
-ALL the corresponding indices will be selected for the operation. \cr
+ALL the corresponding indices will be selected for the operation. \cr \cr
 }
 
 Note also the following:
 \itemize{
-\item When specifying \code{sub} as an atomic vector,
-\code{sub} will be internally translated using \code{rep(list(sub), length(dims))}.
 \item As stated, \code{dims} specifies which index margins are non-missing. \cr
-If \code{dims} - and thus also \code{sub} - is of length \code{0},
+If \code{dims} is of length \code{0},
 it is taken as "all index margins are missing". \cr
+\item The default value for \code{dims} is \code{1:}\link{ndims}\code{(x)}. \cr \cr
 }
 
 To keep the syntax short,
 the user can use the \link{n} function instead of \code{list()} to specify \code{sub}. \cr
 \cr
-Using the \verb{sub, dims} arguments,
-corresponds to doing something like the following,
-here using an example of extracting subsets from a 4-dimensional array:
+Here are some examples for clarity,
+using an array \code{x} of 3 dimensions:
+\itemize{
+\item \code{sb_x(x, n(1:10, 1:5), c(1, 3))} \cr
+extracts the first 10 rows, all columns, and the first 5 layers,
+of array \code{x}. \cr
+The equivalence in base 'R' is: \cr
+\code{x[1:10, , 1:5, drop = FALSE]}.
+\item \code{sb_x(x, n(1:10), c(1, 3))}, or equivalently \code{sb_x(x, 1:10, c(1, 3))}, \cr
+extracts the first 10 rows, all columns, and the first 10 layers,
+of array \code{x}. \cr
+The equivalence in base 'R' is: \cr
+\code{x[1:10, , 1:10, drop = FALSE]}.
+\item \code{sb_x(x, n(1:10))}, or equivalently \code{sb_x(x, 1:10)}, \cr
+extracts the first 10 rows, columns, and layers of array \code{x}. \cr
+The equivalence in base 'R' is: \cr
+\code{x[1:10, 1:10, 1:10, drop = FALSE]}. \cr \cr
+}
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{sb_x(x, n(1:10, 1:5), c(1, 3)) # ==> x[1:10, , 1:5, , drop = FALSE]
+I.e.:
 
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{
+sb_x(x, n(1:10, 1:5), c(1, 3)) # ==> x[1:10, , 1:5, drop = FALSE]
+
+sb_x(x, n(1:10), c(1, 3))      # ==> x[1:10, , 1:10, drop = FALSE]
+sb_x(x, 1:10, c(1, 3))         # ==> x[1:10, , 1:10, drop = FALSE]
+
+sb_x(x, n(1:10))               # ==> x[1:10, 1:10, 1:10, drop = FALSE]
+sb_x(x, 1:10)                  # ==> x[1:10, 1:10, 1:10, drop = FALSE]
 }\if{html}{\out{</div>}}
 
+Note that specifying a list of length 1 for \code{sub}
+(like \code{sub = n(1:10)})
+is equivalent to specifying an atomic vector for \code{sub}
+(like \code{sub = 1:10}). \cr
+\cr
 For a brief explanation of the relationship between flat indices (\code{i}),
 and dimensional subscripts (\code{sub}, \code{dims}),
-see the \code{Details} section in \link{sub2ind}. \cr \cr
+see \link{squarebrackets_indx_fundamentals}. \cr \cr
 }
 
 \section{Argument Pair margin, slice}{
 
+\ifelse{html}{\figure{class-atomic_matrix-blue.svg}{options: alt='[class: atomic matrix]'}}{\link[=squarebrackets_indx_args]{class: atomic matrix}} \cr
+\ifelse{html}{\figure{class-recursive_matrix-blue.svg}{options: alt='[class: recursive matrix]'}}{\link[=squarebrackets_indx_args]{class: recursive matrix}} \cr
 \ifelse{html}{\figure{class-atomic_array-blue.svg}{options: alt='[class: atomic array]'}}{\link[=squarebrackets_indx_args]{class: atomic array}} \cr
 \ifelse{html}{\figure{class-recursive_array-blue.svg}{options: alt='[class: recursive array]'}}{\link[=squarebrackets_indx_args]{class: recursive array}} \cr
 \ifelse{html}{\figure{class-data.frame-like-blue.svg}{options: alt='[class: data.frame-like]'}}{\link[=squarebrackets_indx_args]{class: data.frame-like}} \cr
@@ -164,8 +177,33 @@ ALL the corresponding indices will be selected for the operation. \cr
 One could also give a vector of length \code{0} for \code{slice}; \cr
 Argument \code{slice} is only used in the \link{idx} method ,
 and the result of \link{idx} are meant to be used inside the regular \code{[} and \verb{[<-} operators. \cr
-Thus the result of a zero-length index specification depends on the rule-set of
+Thus the effect of a zero-length index specification depends on the rule-set of
 \verb{[.class(x)} and \verb{[<-.class(x)}. \cr \cr
+}
+
+\section{Arguments row, col}{
+
+\ifelse{html}{\figure{class-data.frame-like-blue.svg}{options: alt='[class: data.frame-like]'}}{\link[=squarebrackets_indx_args]{class: data.frame-like}} \cr
+
+Any of the following can be specified for the arguments \code{row} / \code{col}:
+\itemize{
+\item \code{NULL} (default), corresponds to a missing argument.
+\item a vector of length 0,
+in which case no indices are selected for the operation (i.e. empty selection).
+\item a numeric vector of \bold{strictly positive whole numbers} with indices of the specified dimension to select for the operation.
+\item a \bold{complex} vector, as explained in \link{squarebrackets_indx_fundamentals}.
+\item a \bold{logical} vector of the same length as the corresponding dimension size,
+giving the indices of the specified dimension to select for the operation.
+\item a \bold{character} vector giving the \code{dimnames} to select. \cr
+If a dimension has multiple indices with the given name,
+ALL the corresponding indices will be selected for the operation. \cr
+}
+
+Using the \verb{row, col} arguments corresponds to doing something like the following:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{ sb_x(x, row, col) # ==> x[row, col, drop = FALSE]
+ 
+}\if{html}{\out{</div>}}
 }
 
 \section{Arguments filter, vars}{
@@ -200,7 +238,7 @@ and \link{idx} methods. \cr
 By default, \code{inv = FALSE}, which translates the indices like normally. \cr
 When \code{inv = TRUE}, the inverse of the indices is taken. \cr
 Consider, for example, an atomic matrix \code{x}; \cr
-using \code{sb_mod(x, col = 1:2, tf = tf)}
+using \code{sb_mod(x, 1:2, 2L, tf = tf)}
 corresponds to something like the following:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{
@@ -251,11 +289,11 @@ x[] <- tf(x) # for transformation
 The above is true \bold{even if} \code{inv = TRUE} and/or \code{red = TRUE}. \cr \cr
 }
 
-\section{Out-of-Bounds Integers, Non-Existing Names/Levels, and NAs}{
+\section{Out-of-Bounds Integers, Non-Existing Names, and NAs}{
 
 \itemize{
 \item Integer indices that are out of bounds (including \code{NaN} and \code{NA_integer_}) always give an error.
-\item Specifying non-existing names/levels (including \code{NA_character_}) as indices
+\item Specifying non-existing names (including \code{NA_character_}) as indices
 is considered a form of zero-length indexing.
 \item Logical indices are translated internally to integers using \link[base]{which},
 and so \code{NA}s are ignored. \cr \cr

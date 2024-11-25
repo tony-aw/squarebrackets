@@ -3,11 +3,9 @@
 \name{sb_rm}
 \alias{sb_rm}
 \alias{sb_rm.default}
-\alias{sb_rm.matrix}
 \alias{sb_rm.array}
 \alias{sb2_rm}
 \alias{sb2_rm.default}
-\alias{sb2_rm.matrix}
 \alias{sb2_rm.array}
 \alias{sb2_rm.data.frame}
 \title{Method to Un-Select/Remove Subsets of an Object}
@@ -16,19 +14,10 @@ sb_rm(x, ...)
 
 \method{sb_rm}{default}(x, i = NULL, ..., chkdup = getOption("squarebrackets.chkdup", FALSE))
 
-\method{sb_rm}{matrix}(
-  x,
-  row = NULL,
-  col = NULL,
-  i = NULL,
-  ...,
-  chkdup = getOption("squarebrackets.chkdup", FALSE)
-)
-
 \method{sb_rm}{array}(
   x,
   sub = NULL,
-  dims = NULL,
+  dims = 1:ndims(x),
   i = NULL,
   ...,
   chkdup = getOption("squarebrackets.chkdup", FALSE)
@@ -44,20 +33,10 @@ sb2_rm(x, ...)
   chkdup = getOption("squarebrackets.chkdup", FALSE)
 )
 
-\method{sb2_rm}{matrix}(
-  x,
-  row = NULL,
-  col = NULL,
-  i = NULL,
-  red = FALSE,
-  ...,
-  chkdup = getOption("squarebrackets.chkdup", FALSE)
-)
-
 \method{sb2_rm}{array}(
   x,
   sub = NULL,
-  dims = NULL,
+  dims = 1:ndims(x),
   i = NULL,
   red = FALSE,
   ...,
@@ -86,11 +65,12 @@ and the entire object is returned. \cr}
 \item{chkdup}{see \link{squarebrackets_options}. \cr
 \ifelse{html}{\figure{for_performance-set_to_FALSE-red.svg}{options: alt='[for performance: set to FALSE]'}}{\link[=squarebrackets_help]{for performance: set to FALSE}} \cr}
 
-\item{red}{Boolean, for list only. \cr
-I f \code{red = TRUE},
-selecting a single element with non-empty arguments will give the simplified result,
+\item{red}{Boolean, for recursive objects only,
+indicating if the result should be reduced. \cr
+If \code{red = TRUE},
+selecting a single element will give the simplified result,
 like using \verb{[[]]}. \cr
-If \code{red = FALSE}, a list is always returned regardless of the number of elements.}
+If \code{red = FALSE}, a list is always returned regardless of the number of elements. \cr}
 }
 \value{
 A copy of the sub-setted object.
@@ -107,18 +87,18 @@ Use \code{sb2_rm(x, ...)} if \code{x} is a recursive object (i.e. list or data.f
 obj <- matrix(1:16, ncol = 4)
 colnames(obj) <- c("a", "b", "c", "a")
 print(obj)
-sb_rm(obj, 1:3, 1:3)
+sb_rm(obj, 1:3)
 # above is equivalent to  obj[-1:-3, -1:-3, drop = FALSE]
-sb_rm(obj, i = \(x)x>5)
+sb_rm(obj, i = \(x) x > 5)
 # above is equivalent to  obj[!obj > 5]
-sb_rm(obj, col = "a")
+sb_rm(obj, "a", 2L)
 # above is equivalent to  obj[, which(!colnames(obj) \%in\% "a")]
 
 obj <- array(1:64, c(4,4,3))
 print(obj)
 sb_rm(obj, n(1, c(1, 3)), c(1, 3))
 # above is equivalent to obj[-1, , c(-1, -3), drop = FALSE]
-sb_rm(obj, i = \(x)x>5)
+sb_rm(obj, i = \(x)x > 5)
 # above is equivalent to obj[!obj > 5]
 
 
@@ -143,11 +123,6 @@ sb2_rm(obj, is.numeric)
 # for recusive indexing, see sb2_rec()
 
 
-#############################################################################
-
-
-# dimensional lists ====
-
 obj <- rbind(
   lapply(1:4, \(x)sample(c(TRUE, FALSE, NA))),
   lapply(1:4, \(x)sample(1:10)),
@@ -156,11 +131,11 @@ obj <- rbind(
 )
 colnames(obj) <- c("a", "b", "c", "a")
 print(obj)
-sb2_rm(obj, 1:3, 1:3)
+sb2_rm(obj, 1:3)
 # above is equivalent to obj[1:3, 1:3, drop = FALSE]
 sb2_rm(obj, i = is.numeric)
 # above is equivalent to obj[sapply(obj, is.numeric)]
-sb2_rm(obj, col = c("a", "a"))
+sb2_rm(obj, c("a", "a"), 2L)
 # above is equivalent to obj[, lapply(c("a", "a"), \(i) which(colnames(obj) == i)) |> unlist()]
 
 obj <- array(as.list(1:64), c(4,4,3))

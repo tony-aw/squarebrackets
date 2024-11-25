@@ -4,18 +4,18 @@
 obj <- matrix(1:16, ncol = 4)
 colnames(obj) <- c("a", "b", "c", "a")
 print(obj)
-sb_rm(obj, 1:3, 1:3)
+sb_rm(obj, 1:3)
 # above is equivalent to  obj[-1:-3, -1:-3, drop = FALSE]
-sb_rm(obj, i = \(x)x>5)
+sb_rm(obj, i = \(x) x > 5)
 # above is equivalent to  obj[!obj > 5]
-sb_rm(obj, col = "a")
+sb_rm(obj, "a", 2L)
 # above is equivalent to  obj[, which(!colnames(obj) %in% "a")]
 
 obj <- array(1:64, c(4,4,3))
 print(obj)
 sb_rm(obj, n(1, c(1, 3)), c(1, 3))
 # above is equivalent to obj[-1, , c(-1, -3), drop = FALSE]
-sb_rm(obj, i = \(x)x>5)
+sb_rm(obj, i = \(x)x > 5)
 # above is equivalent to obj[!obj > 5]
 
 
@@ -40,11 +40,6 @@ sb2_rm(obj, is.numeric)
 # for recusive indexing, see sb2_rec()
 
 
-#############################################################################
-
-
-# dimensional lists ====
-
 obj <- rbind(
   lapply(1:4, \(x)sample(c(TRUE, FALSE, NA))),
   lapply(1:4, \(x)sample(1:10)),
@@ -53,11 +48,11 @@ obj <- rbind(
 )
 colnames(obj) <- c("a", "b", "c", "a")
 print(obj)
-sb2_rm(obj, 1:3, 1:3)
+sb2_rm(obj, 1:3)
 # above is equivalent to obj[1:3, 1:3, drop = FALSE]
 sb2_rm(obj, i = is.numeric)
 # above is equivalent to obj[sapply(obj, is.numeric)]
-sb2_rm(obj, col = c("a", "a"))
+sb2_rm(obj, c("a", "a"), 2L)
 # above is equivalent to obj[, lapply(c("a", "a"), \(i) which(colnames(obj) == i)) |> unlist()]
 
 obj <- array(as.list(1:64), c(4,4,3))

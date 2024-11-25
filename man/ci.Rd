@@ -62,7 +62,7 @@ But specifying \code{TRUE} when the relevant names are not unique will result in
 \item{.abortcall}{environment where the error message is passed to.}
 }
 \value{
-An integer vector of casted indices.
+An integer vector of constructed indices.
 }
 \description{
 These functions construct flat or dimensional indices. \cr

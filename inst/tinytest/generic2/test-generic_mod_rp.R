@@ -255,13 +255,6 @@ expect_error(
 enumerate <- enumerate + 5
 
 
-x <- data.frame(a = 1:10, b = letters[1:10])
-expect_error(
-  sb2_mod(x, row = 1:5, rp = 1:10),
-  pattern = "`rp` must be a data.frame-like object or a list"
-)
-enumerate <- enumerate + 2
-
 
 # report number of tests
 
