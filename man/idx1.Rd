@@ -126,4 +126,5 @@ rows <- idx(x, 1:5, 1, inv = TRUE)
 cols <- idx(x, c("b", "a"), 2)
 x[rows, cols] <- NA
 print(x)
+
 }

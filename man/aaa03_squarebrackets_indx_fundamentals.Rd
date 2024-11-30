@@ -11,7 +11,7 @@ This help page explains the fundamentals regarding how 'squarebrackets' treats i
 \section{Indexing Types}{
 
 Base 'R' supports indexing through \code{logical}, \code{integer}, and \code{character} vectors. \cr
-'squarebrackets' suppports these also (albeit with some improvements),
+'squarebrackets' supports these also (albeit with some improvements),
 but also supports some additional methods of indexing. \cr
 \cr
 \cr
@@ -34,7 +34,7 @@ Thus the logical vector must be of the correct length
 \bold{Characters} \cr
 When selecting indices using a character vector,
 base 'R' only selects the first matches in the names. \cr
-'squarebrackets', however, selects ALL matches. \cr
+'squarebrackets', however, selects all matches. \cr
 Character indices are internally translated to integer indices using
 \link{match_all}. \cr
 \cr

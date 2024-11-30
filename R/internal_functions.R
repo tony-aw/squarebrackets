@@ -63,15 +63,14 @@
 
 #' @keywords internal
 #' @noRd
-.check_args_array <- function(x, sub, dims, i, abortcall) {
+.check_args_array <- function(x, sub, dims, abortcall) {
   
-  present_dims <- !is.null(sub) || !is.null(dims)
-  if(present_dims && !is.null(i)) {
-    stop(simpleError(
-      "cannot specify both `sub`/`dims` and elements",
-      call = abortcall
-    ))
+  dims_explicit <- length(dims) != ndims(x) && length(dims) != 0L
+  
+  if(dims_explicit && is.null(sub)) {
+    stop(simpleError("improper combination of `sub` and `dims` specified"))
   }
+  
 }
 
 

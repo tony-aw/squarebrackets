@@ -36,7 +36,7 @@ Provides subset methods (supporting both atomic and recursive S3 classes) that m
 Some nice properties of these methods include, but are not limited to, the following:
 
   1) The `[` and `[<-` operators use different rule-sets for different data.frame-like types (data.frames, data.tables, tibbles, tidytables, etc.). The 'squarebrackets' methods use the same rule-sets for the different data.frame-like types.
-  2) Performing dimensional subset operations on an array using `[` and `[<-`, requires a-priori knowledge of the number of dimensions the array has. The 'squarebrackets' methods work on any arbitrary dimensions without requiring such prior knowledge.
+  2) Performing dimensional subset operations on an array using `[` and `[<-`, requires a-priori knowledge on the number of dimensions the array has. The 'squarebrackets' methods work on any arbitrary dimensions without requiring such prior knowledge.
   3) When selecting names with the `[` and `[<-` operators, only the first occurrence of the names are selected in case of duplicate names. The 'squarebrackets' methods always perform on all names in case of duplicates, not just the first.
   4) The `[[` and `[[<-` operators allow operating on a recursive subset of a nested list. But these only operate on a single recursive subset, and are not vectorized for multiple recursive subsets of a nested list at once. 'squarebrackets' provides a way to reshape a nested list into a recursive matrix, thereby allowing vectorized operations on recursive subsets of such a nested list.
   5) The `[<-` operator only supports copy-on-modify semantics for most classes. The 'squarebrackets' methods provides explicit pass-by-reference and pass-by-value semantics, whilst still respecting things like binding-locks and mutability rules.
@@ -109,6 +109,7 @@ tinycodet::import_LL("squarebrackets", selection = ... )
  - 14 November 2024: Performance improvement of `match_all()`.
  - 21 November 2024: Improved the documentation. Slightly tweaked array argument usage. Added `sticky` option. Brought back the renaming methods. Changed behaviour of the `use.names` argument in `lst_untree()`.
  - 24 November 2024: Matrices now use the same API as arrays. Adjusted the documentation accordingly. Cleaned up the internal code a bit.
+ - 30 November 2024: The binding implementations can now bind mixtures of atomic and recursive objects.
 
 
 

@@ -626,7 +626,7 @@ rule-sets for different data.frame-like types (data.frames, data.tables,
 tibbles, tidytables, etc.). The ‘squarebrackets’ methods use the same
 rule-sets for the different data.frame-like types.</li>
 <li>Performing dimensional subset operations on an array using
-<code>[</code> and <code>[&lt;-</code>, requires a-priori knowledge of
+<code>[</code> and <code>[&lt;-</code>, requires a-priori knowledge on
 the number of dimensions the array has. The ‘squarebrackets’ methods
 work on any arbitrary dimensions without requiring such prior
 knowledge.</li>
@@ -767,6 +767,8 @@ renaming methods. Changed behaviour of the <code>use.names</code>
 argument in <code>lst_untree()</code>.</li>
 <li>24 November 2024: Matrices now use the same API as arrays. Adjusted
 the documentation accordingly. Cleaned up the internal code a bit.</li>
+<li>30 November 2024: The binding implementations can now bind mixtures
+of atomic and recursive objects.</li>
 </ul>
 <p> </p>
 

@@ -94,8 +94,8 @@ idx.array <- function(
     chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
+  # error checks:
   .internal_check_dots(list(...), sys.call())
-  
   check_args <- c(
     !is.null(sub) && !is.null(dims),
     !is.null(slice) && !is.null(margin),
@@ -109,6 +109,7 @@ idx.array <- function(
     stop("incorrect combination of arguments given")
   }
   
+  # flat indices:
   if(!is.null(i)) {
     elements <- elements <- ci_flat(
       x, i, inv, chkdup, .abortcall = sys.call()
@@ -116,10 +117,13 @@ idx.array <- function(
     return(elements)
   }
   
+  # slice, margin:
   if(!is.null(slice) && !is.null(margin)) {
     return(ci_margin(x, slice, margin, inv, chkdup, .abortcall = sys.call()))
   }
   
+  # sub, dims:
+  .check_args_array(x, sub, dims, sys.call())
   x.dim <- dim(x)
   lst <- ci_sub(
     x, sub, dims, inv, chkdup, .abortcall = sys.call()

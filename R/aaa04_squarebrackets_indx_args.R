@@ -52,10 +52,18 @@
 #' Using the `i` arguments corresponds to doing something like the following:
 #' 
 #' ```{r eval = FALSE, echo = TRUE}
-#'  sb_x(x, i = i) # ==> x[i]
+#'  sb_x(x, i = i) # ==> x[i]   # if `x` is atomic
+#'  sb2_x(x, i = i) # ==> x[i]  # if `x` is recursive
 #'  
 #' ```
 #' 
+#' If `i` is a function, it corresponds to the following:
+#' 
+#' ```{r eval = FALSE, echo = TRUE}
+#'  sb_x(x, i = i) # ==> x[i(x)] # if `x` is atomic
+#'  sb2_x(x, i = i) # ==> x[lapply(x, i)] # if `x` is recursive
+#'  
+#' ```
 #' 
 #' 
 #' @section Argument Pair sub, dims:
@@ -95,7 +103,7 @@
 #' Note also the following:
 #'  * As stated, `dims` specifies which index margins are non-missing. \cr
 #'  If `dims` is of length `0`,
-#'  it is taken as "all index margins are missing". \cr
+#'  it is taken as "all index margins are missing".
 #'  * The default value for `dims` is \code{1:}\link{ndims}\code{(x)}. \cr \cr
 #'  
 #' To keep the syntax short,
@@ -126,9 +134,9 @@
 #' sb_x(x, n(1:10, 1:5), c(1, 3)) # ==> x[1:10, , 1:5, drop = FALSE]
 #' 
 #' sb_x(x, n(1:10), c(1, 3))      # ==> x[1:10, , 1:10, drop = FALSE]
-#' sb_x(x, 1:10, c(1, 3))         # ==> x[1:10, , 1:10, drop = FALSE]
+#' sb2_x(x, 1:10, c(1, 3))        # ==> x[1:10, , 1:10, drop = FALSE]
 #' 
-#' sb_x(x, n(1:10))               # ==> x[1:10, 1:10, 1:10, drop = FALSE]
+#' sb2_x(x, n(1:10))              # ==> x[1:10, 1:10, 1:10, drop = FALSE]
 #' sb_x(x, 1:10)                  # ==> x[1:10, 1:10, 1:10, drop = FALSE]
 #' ```
 #' 
@@ -194,7 +202,7 @@
 #' Using the `row, col` arguments corresponds to doing something like the following:
 #' 
 #' ```{r eval = FALSE, echo = TRUE}
-#'  sb_x(x, row, col) # ==> x[row, col, drop = FALSE]
+#'  sb2_x(x, row, col) # ==> x[row, col, drop = FALSE]
 #'  
 #' ```
 #' 

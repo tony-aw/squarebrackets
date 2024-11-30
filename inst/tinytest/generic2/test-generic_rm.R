@@ -75,7 +75,7 @@ enumerate <- enumerate + 2
 # test matrix & arrays ====
 
 rep3.bind <- function(x, dim) {
-  return(bind2_array(n(x, x, x), along = dim))
+  return(bind_array(n(x, x, x), along = dim))
 }
 
 pre_subset_mat <- function(x, row = NULL, col = NULL) {

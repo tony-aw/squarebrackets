@@ -62,7 +62,7 @@
     
 
 <p>Base 'R' supports indexing through <code>logical</code>, <code>integer</code>, and <code>character</code> vectors. <br>
-'squarebrackets' suppports these also (albeit with some improvements),
+'squarebrackets' supports these also (albeit with some improvements),
 but also supports some additional methods of indexing. <br><br><br><b>Whole numbers</b> <br>
 Whole numbers are the most basic form on index selection. <br>
 All forms of indexing in 'squarebrackets' are internally translated to integer
@@ -76,7 +76,7 @@ Thus the logical vector must be of the correct length
 (i.e. <code>length(x)</code> or <code>dim(x)[L]</code>, depending on the situation). <br><br><br><b>Characters</b> <br>
 When selecting indices using a character vector,
 base 'R' only selects the first matches in the names. <br>
-'squarebrackets', however, selects ALL matches. <br>
+'squarebrackets', however, selects all matches. <br>
 Character indices are internally translated to integer indices using
 <a href="match_all.html">match_all</a>. <br><br><br><b>Imaginary Numbers</b> <br>
 A <a href="https://rdrr.io/r/base/complex.html" class="external-link">complex</a> vector <code>y</code> is structured as <br><code>y = a + b * i</code> <br>

@@ -3,8 +3,37 @@
 #' @description
 #' squarebrackets: Subset Methods as Alternatives to the Square Brackets Operators for Programming \cr \cr
 #' 
+#' Provides subset methods
+#' (supporting both atomic and recursive S3 classes)
+#' that may be more convenient alternatives to the `[` and `[<-` operators,
+#' whilst maintaining similar performance. \cr
+#' Some nice properties of these methods include, but are not limited to, the following.
+#'  
+#'  1) The `[` and `[<-` operators use different rule-sets for different data.frame-like types
+#'  (data.frames, data.tables, tibbles, tidytables, etc.). \cr
+#'  The 'squarebrackets' methods use the same rule-sets for the different data.frame-like types.
+#'  2) Performing dimensional subset operations on an array using `[` and `[<-`,
+#'  requires a-priori knowledge on the number of dimensions the array has. \cr
+#'  The 'squarebrackets' methods work on any arbitrary dimensions without requiring such prior knowledge.
+#'  3) When selecting names with the `[` and `[<-` operators,
+#'  only the first occurrence of the names are selected in case of duplicate names. \cr
+#'  The 'squarebrackets' methods always perform on all names in case of duplicates,
+#'  not just the first.
+#'  4) The `[[` and `[[<-` operators
+#'  allow operating on a recursive subset of a nested list. \cr
+#'  But these only operate on a single recursive subset,
+#'  and are not vectorized for multiple recursive subsets of a nested list at once. \cr
+#'  'squarebrackets' provides a way to reshape a nested list
+#'  into a recursive matrix,
+#'  thereby allowing vectorized operations on recursive subsets of such a nested list.
+#'  5) The `[<-` operator only supports copy-on-modify semantics for most classes. \cr
+#'  The 'squarebrackets' methods provides explicit pass-by-reference and pass-by-value semantics,
+#'  whilst still respecting things like binding-locks and mutability rules.
+#'  6) 'squarebrackets' supports index-less sub-set operations,
+#'  which is more memory efficient than sub-set operations using the `[` and `[<-` operators. \cr \cr
 #' 
-#' @section Goal & Properties:
+#' 
+#' @section Goal:
 #' 
 #' Among programming languages,
 #' 'R' has perhaps one of the most
@@ -19,68 +48,35 @@
 #' but to provide \bold{alternative} sub-setting methods and functions,
 #' to be used in situations where the square bracket operators are inconvenient. \cr
 #' \cr
-#' These alternative sub-setting methods and functions have the following properties:
-#' 
-#'  * \bold{Programmatically friendly}:
-#'    * Unlike base `[`,
-#'    it's not required to know the number of dimensions of an array a-priori,
-#'    to perform subset-operations on an array.
-#'    * Missing arguments can be filled with `NULL`,
-#'    instead of using dark magic like `base::quote(expr =    )`.
-#'    * No Non-standard evaluation.
-#'    * Functions are pipe-friendly.
-#'    * No (silent) vector recycling.
-#'    * Extracting and removing subsets uses the same syntax.
-#'  * \bold{Class consistent}: 
-#'    * sub-setting of multi-dimensional objects by specifying dimensions
-#'    (i.e. rows, columns, ...)
-#'    use `drop = FALSE`. \cr
-#'    So matrix in, matrix out.
-#'    * The methods deliver the same results for
-#'    data.frames, data.tables, tibbles, and tidytables. \cr
-#'    No longer does one have to re-learn the different brackets-based sub-setting rules
-#'    for different types of data.frame-like objects. \cr
-#'    Powered by the subclass agnostic 'C'-code from 'collapse' and 'data.table'.
-#'  * \bold{Explicit copy semantics}:
-#'    * Sub-set operations that change its memory allocations,
-#'    always return a modified (partial) copy of the object. \cr
-#'    * For sub-set operations that just change values in-place
-#'    (similar to the `[<-` and `[[<-` methods)
-#'    the user can choose a method that modifies the object by \bold{reference},
-#'    or choose a method that returns a \bold{(partial) copy}.
-#'  * \bold{Careful handling of names}:
-#'    * Sub-setting an object by index names returns ALL matches with the given names,
-#'    not just the first.
-#'    * Data.frame-like objects (see supported classes below)
-#'    are forced to have unique column names.
-#'    * Sub-setting arrays using `x[indx1, indx2, etc.]` will drop `names(x)`. \cr
-#'    The methods from 'squarebrackets' will not drop `names(x)`.
-#'  * \bold{Concise function and argument names}.
-#'  * \bold{Performance aware}: \cr
-#'  Despite the many checks performed, the functions are kept reasonably speedy,
-#'  through the use of the 'Rcpp', 'collapse', and 'data.table' R-packages. \cr \cr
 #'
 #'
-#' @section Supported Classes:
+#' @section Supported Structures:
 #' 'squarebrackets' only supports the most common S3 classes,
 #' and only those that primarily use square brackets for sub-setting
 #' (hence the name of the package). \cr
 #' \cr
-#' Supported immutable classes: \cr
-#' `atomic`, `list`, `data.frame`
-#' (including `tibble`, `sf-data.frame`, and `sf-tibble`). \cr
-#' \cr
-#' Supported  mutable classes: \cr
-#' \link{mutable_atomic}, `data.table`
-#' (including `tidytable`, `sf-data.table`, and `sf-tidytable`). \cr
-#' \cr
-#' Key-value storages,
-#' such as environments,
-#' and the various classes of the 'collections' package,
-#' are not supported. \cr \cr
+#' 
+#' 'squarebrackets' supports the following immutable structures:
+#' 
+#'  * basic `atomic` classes \cr
+#'  (atomic vectors, matrices, and arrays).
+#'  * \link{factor}. \cr
+#'  * basic list classes \cr
+#'  (recursive vectors, matrices, and arrays). \cr
+#'  * \link[base]{data.frame} \cr
+#'  (including the classes `tibble`, `sf-data.frame` and `sf-tibble`). \cr \cr
+#' 
+#' 'squarebrackets' supports the following mutable structures:
+#' 
+#'  * \link{mutable_atomic} \cr
+#'  (`mutable_atomic` vectors, matrices, and arrays);
+#'  * \link[data.table]{data.table} \cr
+#'  (including the classes `tidytable`, `sf-data.table`, and `sf-tidytable`). \cr \cr
+#' 
+#' See \link{squarebrackets_supported_structures} for more details. \cr \cr
 #
 #'  
-#' @section Methods:
+#' @section Sub-set Operation Methods & Binding Implementations:
 #' 
 #' The main focus of this package is on its generic methods
 #' and dimensional binding implementations. \cr
@@ -89,16 +85,16 @@
 #' start with `sb_`. \cr
 #' Generic methods for recursive objects (list, data.frame, etc.)
 #' start with `sb2_`. \cr
-#' The binding implementations for atomic dimensional objects (atomic arrays)
-#' start with `bind_`. \cr
-#' The binding implementations for recursive dimensional objects (recursive arrays, data.frames)
-#' start with `bind2_`. \cr
 #' There is also the somewhat separate \link{idx} method,
 #' which works on both recursive and non-recursive objects. \cr
-#' And finally there are the `slice_` methods, which (currently) only work on atomic vectors. \cr \cr
+#' The binding implementations for dimensional objects
+#' start with `bind_`. \cr
+#' And finally there are the `slice_` methods,
+#' which (currently) only work on (mutable) atomic vectors. \cr
+#' \cr
 #' 
 #' 
-#' `r .mybadge_intro_section("ACCESSOR METHODS", "darkgreen")` \cr
+#' `r .mybadge_intro_section("ACCESS SUBSETS", "darkgreen")` \cr
 #' 
 #' Methods to access subsets (i.e. extract selection, or extract all except selection):
 #' 
@@ -108,7 +104,7 @@
 #'  * \link{slice_x}, \link{slice_rm}: efficiently extract or un-select/remove subset from a (long) vector. \cr \cr
 #'  
 #'  
-#' `r .mybadge_intro_section("MODIFICATION METHODS", "red")` \cr
+#' `r .mybadge_intro_section("MODIFY SUBSETS", "red")` \cr
 #'  
 #' Methods to modify subsets:
 #'  
@@ -128,19 +124,17 @@
 #'  \link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr \cr
 #'  
 #' 
-#' `r .mybadge_intro_section("EXTENDING METHODS", "purple")` \cr
+#' `r .mybadge_intro_section("EXTEND BEYOND", "purple")` \cr
 #'  
-#' Methods to extend or re-arrange an object beyond its current size:
+#' Methods and binding implementations,
+#' to extend or re-arrange an object beyond its current size:
 #' 
-#'  * \link[=bind]{bind_}, \link[=bind]{bind2_}:  implementations for binding dimensional objects.
+#'  * \link[=bind]{bind_}:  implementations for binding dimensional objects.
 #'  * \link{sb_x}, \link{sb2_x}: extract, exchange, or duplicate subsets.
 #'  * \link{sb2_recin}: replace, transform, remove, or add recursive subsets to a list,
 #'  through R's default Copy-On-Modify semantics.
 #'  
 #' 
-#' So for example,
-#' use `sb_rm()` to remove subsets from atomic arrays,
-#' and use `sb2_rm()` to remove subsets from recursive arrays. \cr
 #' See \link{squarebrackets_method_dispatch} for more information on how 'squarebrackets'
 #' uses its S3 Method dispatch. \cr \cr
 #' 
@@ -193,10 +187,55 @@
 #' 
 #'  * \link[=tci_bool]{tci_} functions, for type-casting indices.
 #'  * \link[=ci_flat]{ci_} functions, for constructing indices.
-#'  * \link{indx_x} and \link{indx_rm}, for testing methods.
+#'  * \link{indx_x} and \link{indx_rm}, for testing methods. \cr \cr
 #' 
 #' 
-#' @author \strong{Maintainer}: Tony Wilkes \email{tony_a_wilkes@outlook.com} (\href{https://orcid.org/0000-0001-9498-8379}{ORCID})
+#' @section Properties Details:
+#' The alternative sub-setting methods and functions provided by 'squarebrackets'
+#' have the following properties:
+#' 
+#'  * \bold{Programmatically friendly}:
+#'    * Unlike base `[`,
+#'    it's not required to know the number of dimensions of an array a-priori,
+#'    to perform subset-operations on an array.
+#'    * Missing arguments can be filled with `NULL`,
+#'    instead of using dark magic like `base::quote(expr =    )`.
+#'    * No Non-standard evaluation.
+#'    * Functions are pipe-friendly.
+#'    * No (silent) vector recycling.
+#'    * Extracting and removing subsets uses the same syntax.
+#'  * \bold{Class consistent}: 
+#'    * sub-setting of multi-dimensional objects by specifying dimensions
+#'    (i.e. rows, columns, ...)
+#'    use `drop = FALSE`. \cr
+#'    So matrix in, matrix out.
+#'    * The methods deliver the same results for
+#'    data.frames, data.tables, tibbles, and tidytables. \cr
+#'    No longer does one have to re-learn the different brackets-based sub-setting rules
+#'    for different types of data.frame-like objects. \cr
+#'    Powered by the subclass agnostic 'C'-code from 'collapse' and 'data.table'.
+#'  * \bold{Explicit copy semantics}:
+#'    * Sub-set operations that change its memory allocations,
+#'    always return a modified (partial) copy of the object. \cr
+#'    * For sub-set operations that just change values in-place
+#'    (similar to the `[<-` and `[[<-` methods)
+#'    the user can choose a method that modifies the object by \bold{reference},
+#'    or choose a method that returns a \bold{(partial) copy}.
+#'  * \bold{Careful handling of names}:
+#'    * Sub-setting an object by index names returns ALL matches with the given names,
+#'    not just the first.
+#'    * Data.frame-like objects (see supported classes below)
+#'    are forced to have unique column names.
+#'    * Sub-setting arrays using `x[indx1, indx2, etc.]` will drop `names(x)`. \cr
+#'    The methods from 'squarebrackets' will not drop `names(x)`.
+#'  * \bold{Concise function and argument names}.
+#'  * \bold{Performance aware}: \cr
+#'  Despite the many checks performed, the functions are kept reasonably speedy,
+#'  through the use of the 'Rcpp', 'collapse', and 'data.table' R-packages. \cr \cr
+#'
+#' 
+#' 
+#' @author \strong{Author, Maintainer}: Tony Wilkes \email{tony_a_wilkes@outlook.com} (\href{https://orcid.org/0000-0001-9498-8379}{ORCID})
 #' 
 #' 
 #' @references The badges shown in the documentation of this R-package were made using the services of: \url{https://shields.io/}

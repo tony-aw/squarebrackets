@@ -160,7 +160,7 @@ If <code>red = FALSE</code>, a list is always returned regardless of the number 
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 2 6 10 14</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 3 7 11 15</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [4,] 4 8 12 16</span>
-<span class="r-in"><span><span class="fu">sb_rm</span><span class="op">(</span><span class="va">obj</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">sb_rm</span><span class="op">(</span><span class="va">obj</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="ndims.html">ndims</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       a</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 16</span>
 <span class="r-in"><span><span class="co"># above is equivalent to  obj[-1:-3, -1:-3, drop = FALSE]</span></span></span>
@@ -281,38 +281,38 @@ If <code>red = FALSE</code>, a list is always returned regardless of the number 
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,] integer,10   integer,10   integer,10   integer,10  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,] numeric,10   numeric,10   numeric,10   numeric,10  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [4,] character,26 character,26 character,26 character,26</span>
-<span class="r-in"><span><span class="fu">sb2_rm</span><span class="op">(</span><span class="va">obj</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">sb2_rm</span><span class="op">(</span><span class="va">obj</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="ndims.html">ndims</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      a           </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,] character,26</span>
 <span class="r-in"><span><span class="co"># above is equivalent to obj[1:3, 1:3, drop = FALSE]</span></span></span>
 <span class="r-in"><span><span class="fu">sb2_rm</span><span class="op">(</span><span class="va">obj</span>, i <span class="op">=</span> <span class="va">is.numeric</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1]    NA FALSE  TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [[2]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "x" "g" "k" "c" "s" "q" "m" "o" "d" "t" "p" "n" "v" "r" "b" "e" "y" "z" "i"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [20] "a" "f" "w" "u" "h" "j" "l"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [[3]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE  TRUE    NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [[4]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "h" "f" "z" "r" "y" "j" "o" "c" "w" "t" "g" "q" "a" "s" "k" "v" "n" "e" "i"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [20] "u" "l" "p" "m" "x" "b" "d"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [[2]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "o" "f" "j" "v" "q" "e" "l" "w" "t" "m" "s" "d" "u" "k" "x" "y" "n" "c" "h"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [20] "g" "z" "b" "i" "a" "p" "r"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [[5]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [[3]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE    NA  TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [[4]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "e" "q" "d" "b" "v" "f" "y" "w" "a" "c" "j" "z" "s" "g" "i" "p" "o" "r" "h"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [20] "n" "m" "u" "x" "t" "l" "k"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [[5]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  TRUE FALSE    NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[6]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "r" "x" "c" "z" "v" "p" "n" "y" "o" "w" "q" "i" "k" "b" "j" "d" "m" "t" "l"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [20] "u" "e" "g" "s" "f" "a" "h"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "c" "p" "e" "q" "o" "z" "l" "j" "f" "y" "b" "k" "r" "a" "s" "n" "h" "t" "w"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [20] "i" "u" "d" "g" "x" "v" "m"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[7]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1]    NA  TRUE FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  TRUE    NA FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[8]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "r" "y" "d" "c" "i" "x" "n" "l" "z" "p" "a" "u" "h" "t" "v" "j" "m" "e" "s"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [20] "w" "g" "k" "q" "f" "b" "o"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "i" "s" "p" "c" "e" "g" "x" "d" "o" "j" "r" "q" "u" "l" "b" "k" "m" "f" "h"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [20] "n" "y" "t" "v" "z" "a" "w"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="co"># above is equivalent to obj[sapply(obj, is.numeric)]</span></span></span>
 <span class="r-in"><span><span class="fu">sb2_rm</span><span class="op">(</span><span class="va">obj</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"a"</span><span class="op">)</span>, <span class="fl">2L</span><span class="op">)</span></span></span>

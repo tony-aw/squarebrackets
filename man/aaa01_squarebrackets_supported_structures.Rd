@@ -20,7 +20,7 @@ Whether an object is a vector, matrix, array, or data.frame.
 \item mutability: \cr
 Base R's S3 classes (except Environments) are generally immutable: \cr
 Modifying the object will create a copy (called 'copy-on-modify'). \cr
-'squabrackets also supports \code{data.tables} and \link{mutable_atomic} objects,
+'squarebrackets also supports \code{data.tables} and \link{mutable_atomic} objects,
 which are mutable: \cr
 If desired, one can modify them without copy using
 \link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr \cr
@@ -49,9 +49,9 @@ If desired, one can modify them without copy using
 }
 \details{
 \bold{Atomic vs Recursive} \cr
-The \code{sb_} methods and \code{bind_} implementations provided by 'squarebrackets'
+The \code{sb_} methods provided by 'squarebrackets'
 work on \bold{atomic} (see \link[base]{is.atomic}) objects. \cr
-The \code{sb2_} methods and \code{bind2_} implementations provided by 'squarebrackets'
+The \code{sb2_} methods provided by 'squarebrackets'
 work on \bold{recursive} (see \link[base]{is.recursive}) objects. \cr
 See \link{squarebrackets_method_dispatch}
 for more details on the method dispatch used by 'squarebrackets'. \cr
@@ -88,7 +88,7 @@ but they are not supported by 'squarebrackets'. \cr
 'squarebrackets' supports the mutable \code{data.table} class
 (and thus also \code{tidytable}, which inherits from \code{data.table}). \cr
 \cr
-'squarbrackets' also includes a new class of mutable objects:
+'squarebrackets' also includes a new class of mutable objects:
 \link{mutable_atomic} objects. \cr
 \code{mutable_atomic} objects are the same as atomic objects, except they are mutable (hence the name). \cr
 \cr
@@ -110,8 +110,7 @@ But they have attributes and special methods that make them behave differently. 
 \cr
 'squarebrackets' treats derived atomic classes as regular atomic vectors. \cr
 There are highly specialized packages to handle objects derived from atomic objects. \cr
-For example the 'forcats' package for handling factors, and the 'anytime' package
-to handle date-time objects. \cr
+For example, the 'anytime' package to handle date-time objects. \cr
 \cr
 'squarebrackets does provide some more explicit support for factors. \cr
 \cr

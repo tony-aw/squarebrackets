@@ -4,7 +4,7 @@
 obj <- matrix(1:16, ncol = 4)
 colnames(obj) <- c("a", "b", "c", "a")
 print(obj)
-sb_rm(obj, 1:3)
+sb_rm(obj, 1:3, 1:ndims(obj))
 # above is equivalent to  obj[-1:-3, -1:-3, drop = FALSE]
 sb_rm(obj, i = \(x) x > 5)
 # above is equivalent to  obj[!obj > 5]
@@ -48,7 +48,7 @@ obj <- rbind(
 )
 colnames(obj) <- c("a", "b", "c", "a")
 print(obj)
-sb2_rm(obj, 1:3)
+sb2_rm(obj, 1:3, 1:ndims(obj))
 # above is equivalent to obj[1:3, 1:3, drop = FALSE]
 sb2_rm(obj, i = is.numeric)
 # above is equivalent to obj[sapply(obj, is.numeric)]

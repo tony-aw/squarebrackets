@@ -20,10 +20,6 @@
 #' @noRd
 .arr_tf <- function(x, lst, tf, abortcall) {
   
-  if(.any_empty_indices(lst)) {
-    return(x)
-  }
-  
   temp.fun <- function(...) {
     rp <- tf(x[..., drop = FALSE])
     .check_rp_atomic(rp, prod(collapse::vlengths(lst)), abortcall)
@@ -37,10 +33,6 @@
 #' @keywords internal
 #' @noRd
 .arr_tf_list <- function(x, lst, tf, .lapply, abortcall) {
-  
-  if(.any_empty_indices(lst)) {
-    return(x)
-  }
   
   temp.fun <- function(...) {
     rp <- .lapply(x[..., drop = FALSE], tf)
@@ -56,9 +48,6 @@
 #' @keywords internal
 #' @noRd
 .arr_repl <- function(x, lst, rp, abortcall) {
-  if(.any_empty_indices(lst)) {
-    return(x)
-  }
   
   temp.fun <- function(...) {
     .check_rp_atomic(rp, prod(collapse::vlengths(lst)), abortcall) # used to be.arr_length(x, lst, dims)
@@ -72,10 +61,6 @@
 #' @keywords internal
 #' @noRd
 .arr_repl_list <- function(x, lst, rp, abortcall) {
-  
-  if(.any_empty_indices(lst)) {
-    return(x)
-  }
   
   temp.fun <- function(...) {
     .check_rp_list(rp, prod(collapse::vlengths(lst)), abortcall) # used to be.arr_length(x, lst, dims)
@@ -101,7 +86,7 @@
   ) # Note: ci_sub will already ensure the subs are integers.
   
   
-  # CASE 1: `x` has between 3 and 8 dimensions (0d, 1, and 2d already captured earlier)
+  # CASE 1: `x` has between 3 and 8 dimensions (emtpy args, 1d, and 2d already captured earlier)
   if(ndims <= 8L) {
     if(!missing(tf)) {
       if(!is.function(tf)) stop(simpleError("`tf` must be a function", call = abortcall))

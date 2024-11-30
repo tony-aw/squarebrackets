@@ -120,7 +120,12 @@ giving the element indices to select for the operation. <br>
 For atomic objects, <code>i</code> is interpreted as <code>i(x)</code>. <br>
 For recursive objects, <code>i</code> is interpreted as <code>lapply(x, i)</code>. <br><br></p></li>
 </ul><p>Using the <code>i</code> arguments corresponds to doing something like the following:</p>
-<p></p><div class="sourceCode r"><pre><code><span> <span class="fu"><a href="../reference/sb_x.html">sb_x</a></span><span class="op">(</span><span class="va">x</span>, i <span class="op">=</span> <span class="va">i</span><span class="op">)</span> <span class="co"># ==&gt; x[i]</span></span>
+<p></p><div class="sourceCode r"><pre><code><span> <span class="fu"><a href="../reference/sb_x.html">sb_x</a></span><span class="op">(</span><span class="va">x</span>, i <span class="op">=</span> <span class="va">i</span><span class="op">)</span> <span class="co"># ==&gt; x[i]   # if `x` is atomic</span></span>
+<span> <span class="fu"><a href="../reference/sb_x.html">sb2_x</a></span><span class="op">(</span><span class="va">x</span>, i <span class="op">=</span> <span class="va">i</span><span class="op">)</span> <span class="co"># ==&gt; x[i]  # if `x` is recursive</span></span>
+<span> </span></code></pre><p></p></div>
+<p>If <code>i</code> is a function, it corresponds to the following:</p>
+<p></p><div class="sourceCode r"><pre><code><span> <span class="fu"><a href="../reference/sb_x.html">sb_x</a></span><span class="op">(</span><span class="va">x</span>, i <span class="op">=</span> <span class="va">i</span><span class="op">)</span> <span class="co"># ==&gt; x[i(x)] # if `x` is atomic</span></span>
+<span> <span class="fu"><a href="../reference/sb_x.html">sb2_x</a></span><span class="op">(</span><span class="va">x</span>, i <span class="op">=</span> <span class="va">i</span><span class="op">)</span> <span class="co"># ==&gt; x[lapply(x, i)] # if `x` is recursive</span></span>
 <span> </span></code></pre><p></p></div>
     </div>
     <div class="section level2">
@@ -152,7 +157,7 @@ If a dimension has multiple indices with the given name,
 ALL the corresponding indices will be selected for the operation. <br><br></p></li>
 </ul><p>Note also the following:</p><ul><li><p>As stated, <code>dims</code> specifies which index margins are non-missing. <br>
 If <code>dims</code> is of length <code>0</code>,
-it is taken as "all index margins are missing". <br></p></li>
+it is taken as "all index margins are missing".</p></li>
 <li><p>The default value for <code>dims</code> is <code>1:</code><a href="ndims.html">ndims</a><code>(x)</code>. <br><br></p></li>
 </ul><p>To keep the syntax short,
 the user can use the <a href="nest.html">n</a> function instead of <code><a href="https://rdrr.io/r/base/list.html" class="external-link">list()</a></code> to specify <code>sub</code>. <br><br>
@@ -173,9 +178,9 @@ The equivalence in base 'R' is: <br><code>x[1:10, 1:10, 1:10, drop = FALSE]</cod
 <span><span class="fu"><a href="../reference/sb_x.html">sb_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="../reference/nest.html">n</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="co"># ==&gt; x[1:10, , 1:5, drop = FALSE]</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/sb_x.html">sb_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="../reference/nest.html">n</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span>      <span class="co"># ==&gt; x[1:10, , 1:10, drop = FALSE]</span></span>
-<span><span class="fu"><a href="../reference/sb_x.html">sb_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span>         <span class="co"># ==&gt; x[1:10, , 1:10, drop = FALSE]</span></span>
+<span><span class="fu"><a href="../reference/sb_x.html">sb2_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span>        <span class="co"># ==&gt; x[1:10, , 1:10, drop = FALSE]</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/sb_x.html">sb_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="../reference/nest.html">n</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span>               <span class="co"># ==&gt; x[1:10, 1:10, 1:10, drop = FALSE]</span></span>
+<span><span class="fu"><a href="../reference/sb_x.html">sb2_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="../reference/nest.html">n</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span>              <span class="co"># ==&gt; x[1:10, 1:10, 1:10, drop = FALSE]</span></span>
 <span><span class="fu"><a href="../reference/sb_x.html">sb_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span>                  <span class="co"># ==&gt; x[1:10, 1:10, 1:10, drop = FALSE]</span></span></code></pre><p></p></div>
 <p>Note that specifying a list of length 1 for <code>sub</code>
 (like <code>sub = n(1:10)</code>)
@@ -224,7 +229,7 @@ giving the indices of the specified dimension to select for the operation.</p></
 If a dimension has multiple indices with the given name,
 ALL the corresponding indices will be selected for the operation. <br></p></li>
 </ul><p>Using the <code>row, col</code> arguments corresponds to doing something like the following:</p>
-<p></p><div class="sourceCode r"><pre><code><span> <span class="fu"><a href="../reference/sb_x.html">sb_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">row</span>, <span class="va">col</span><span class="op">)</span> <span class="co"># ==&gt; x[row, col, drop = FALSE]</span></span>
+<p></p><div class="sourceCode r"><pre><code><span> <span class="fu"><a href="../reference/sb_x.html">sb2_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">row</span>, <span class="va">col</span><span class="op">)</span> <span class="co"># ==&gt; x[row, col, drop = FALSE]</span></span>
 <span> </span></code></pre><p></p></div>
     </div>
     <div class="section level2">

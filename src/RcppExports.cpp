@@ -1420,6 +1420,7 @@ END_RCPP
 RcppExport SEXP C_any_badindx(SEXP, SEXP);
 RcppExport SEXP C_any_badmargin(SEXP, SEXP);
 RcppExport SEXP C_any_neg(SEXP);
+RcppExport SEXP C_any_nonNULL(SEXP);
 RcppExport SEXP C_any_nonpos(SEXP);
 RcppExport SEXP C_convert_cplx_32(SEXP, SEXP);
 RcppExport SEXP C_convert_cplx_64(SEXP, SEXP);
@@ -1537,6 +1538,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"C_any_badindx",     (DL_FUNC) &C_any_badindx,     2},
     {"C_any_badmargin",   (DL_FUNC) &C_any_badmargin,   2},
     {"C_any_neg",         (DL_FUNC) &C_any_neg,         1},
+    {"C_any_nonNULL",     (DL_FUNC) &C_any_nonNULL,     1},
     {"C_any_nonpos",      (DL_FUNC) &C_any_nonpos,      1},
     {"C_convert_cplx_32", (DL_FUNC) &C_convert_cplx_32, 2},
     {"C_convert_cplx_64", (DL_FUNC) &C_convert_cplx_64, 2},

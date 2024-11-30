@@ -21,7 +21,6 @@ For atomic objects, however, a coercion or copy operation coerces or copies the 
 (ignoring attributes). \cr
 \item \strong{vectorization}: most vectorized operations generally work on atomic objects,
 whereas recursive objects often require loops or apply-like functions. \cr
-Hence the presence of the \code{.lapply} argument in the \link{sb2_mod} and \link{sb2_set} methods.
 \item \strong{recursive subsets}: Recursive objects distinguish between "regular" subset operations
 (in base R using \code{[}, \verb{[<-}),
 and recursive subset operations (in base R using \code{[[}, \verb{[[<-}). \cr
@@ -30,17 +29,13 @@ or the \code{red = TRUE} argument in the \link{sb2_x} and \link{sb2_rm} methods.
 For atomic objects, these 2 have no meaningful difference
 (safe for perhaps some minor attribute handling). \cr
 \item \strong{views}: For recursive objects,
-one can create a subset \link[=squarebrackets_PassByReference]{view} of a recursive subset. \cr
+one can create a \link[=squarebrackets_PassByReference]{view} of a recursive subset. \cr
 Subset views do not exist for atomic objects. \cr \cr
 }
 
-Most of these differences primarily come down to the following: \cr
-An atomic object holds its own value,
-while the elements of a recursive object references to other objects. \cr
-\cr
-All methods and binding implementations
-that perform subset/bind operation on an object,
-come in the atomic (\code{sb_}/\code{bind_}) and recursive (\code{sb2_}, \code{bind2_}) form. \cr
+The main S3 methods
+that perform subset operation on an object,
+come in the atomic (\code{sb_}) and recursive (\code{sb2_}) form. \cr
 The \link{idx} method operates on the indices of an object,
 but does not operate on the object itself,
 and so has no distinction between the atomic and recursive form. \cr
@@ -61,9 +56,35 @@ despite the aforementioned differences between the 2. \cr
 So 'squarebrackets' uses a separate method dispatch for the atomic and recursive form.
 \item The distinction between the 2 sets of methods
 forces some more careful thought from the user on handling objects.
-\item Package authors can create separate methods for
+\item Package authors can create separate sub-set operation methods for
 atomic and recursive objects using 'squarebrackets'. \cr \cr
 }
+}
+
+\section{Manual Dispatch}{
+
+The 'squarebrackets' package intentionally exports each function in its S3 method dispatch system. \cr
+This is handy for programming purposes. \cr
+For example: one can explicitly alias a specific dispatch of a method,
+if one so desires. \cr
+For example like so: \cr
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{
+array_x <- function(x, ...) \{
+
+   if(is.atomic(x)) \{
+     sb_x.array(x, ...)
+   \}
+   else if(is.recursive(x)) \{
+     sb2_x.array(x, ...)
+   \}
+   
+\}
+
+}\if{html}{\out{</div>}}
+
+Under certain circumstances, this might help your code to be more clear. \cr
+\cr
 }
 
 \section{Ellipsis}{

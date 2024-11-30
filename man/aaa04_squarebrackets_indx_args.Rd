@@ -54,7 +54,15 @@ For recursive objects, \code{i} is interpreted as \code{lapply(x, i)}. \cr
 
 Using the \code{i} arguments corresponds to doing something like the following:
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{ sb_x(x, i = i) # ==> x[i]
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{ sb_x(x, i = i) # ==> x[i]   # if `x` is atomic
+ sb2_x(x, i = i) # ==> x[i]  # if `x` is recursive
+ 
+}\if{html}{\out{</div>}}
+
+If \code{i} is a function, it corresponds to the following:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{ sb_x(x, i = i) # ==> x[i(x)] # if `x` is atomic
+ sb2_x(x, i = i) # ==> x[lapply(x, i)] # if `x` is recursive
  
 }\if{html}{\out{</div>}}
 }
@@ -101,7 +109,7 @@ Note also the following:
 \itemize{
 \item As stated, \code{dims} specifies which index margins are non-missing. \cr
 If \code{dims} is of length \code{0},
-it is taken as "all index margins are missing". \cr
+it is taken as "all index margins are missing".
 \item The default value for \code{dims} is \code{1:}\link{ndims}\code{(x)}. \cr \cr
 }
 
@@ -133,9 +141,9 @@ I.e.:
 sb_x(x, n(1:10, 1:5), c(1, 3)) # ==> x[1:10, , 1:5, drop = FALSE]
 
 sb_x(x, n(1:10), c(1, 3))      # ==> x[1:10, , 1:10, drop = FALSE]
-sb_x(x, 1:10, c(1, 3))         # ==> x[1:10, , 1:10, drop = FALSE]
+sb2_x(x, 1:10, c(1, 3))        # ==> x[1:10, , 1:10, drop = FALSE]
 
-sb_x(x, n(1:10))               # ==> x[1:10, 1:10, 1:10, drop = FALSE]
+sb2_x(x, n(1:10))              # ==> x[1:10, 1:10, 1:10, drop = FALSE]
 sb_x(x, 1:10)                  # ==> x[1:10, 1:10, 1:10, drop = FALSE]
 }\if{html}{\out{</div>}}
 
@@ -201,7 +209,7 @@ ALL the corresponding indices will be selected for the operation. \cr
 
 Using the \verb{row, col} arguments corresponds to doing something like the following:
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{ sb_x(x, row, col) # ==> x[row, col, drop = FALSE]
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{ sb2_x(x, row, col) # ==> x[row, col, drop = FALSE]
  
 }\if{html}{\out{</div>}}
 }

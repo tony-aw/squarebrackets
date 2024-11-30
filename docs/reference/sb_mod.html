@@ -227,7 +227,7 @@ The default, <code>coe = FALSE</code>, uses the least amount of memory. <br><br>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 3 7 11 15</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [4,] 4 8 12 16</span>
 <span class="r-in"><span><span class="va">rp</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">1</span><span class="op">:</span><span class="op">-</span><span class="fl">9</span></span></span>
-<span class="r-in"><span><span class="fu">sb_mod</span><span class="op">(</span><span class="va">obj</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, rp <span class="op">=</span> <span class="va">rp</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">sb_mod</span><span class="op">(</span><span class="va">obj</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="ndims.html">ndims</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span>, rp <span class="op">=</span> <span class="va">rp</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       a  b  c  a</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -1 -4 -7 13</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -2 -5 -8 14</span>
@@ -248,7 +248,7 @@ The default, <code>coe = FALSE</code>, uses the least amount of memory. <br><br>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,] -3 7 11 -7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [4,] -4 8 12 -8</span>
 <span class="r-in"><span><span class="co"># above is equivalent to  obj[, which(colnames(obj) %in% "a")] &lt;- -1:-8; obj</span></span></span>
-<span class="r-in"><span><span class="fu">sb_mod</span><span class="op">(</span><span class="va">obj</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, tf <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">-</span><span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">sb_mod</span><span class="op">(</span><span class="va">obj</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="ndims.html">ndims</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span>,tf <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">-</span><span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       a  b   c  a</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -1 -5  -9 13</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -2 -6 -10 14</span>
@@ -394,7 +394,7 @@ The default, <code>coe = FALSE</code>, uses the least amount of memory. <br><br>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,] integer,10   integer,10   integer,10   integer,10  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,] numeric,10   numeric,10   numeric,10   numeric,10  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [4,] character,26 character,26 character,26 character,26</span>
-<span class="r-in"><span><span class="fu">sb2_mod</span><span class="op">(</span><span class="va">obj</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, rp <span class="op">=</span> <span class="fu"><a href="nest.html">n</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">sb2_mod</span><span class="op">(</span><span class="va">obj</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="ndims.html">ndims</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span>,rp <span class="op">=</span> <span class="fu"><a href="nest.html">n</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      a            b            c            a           </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -1           -1           -1           logical,3   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -1           -1           -1           integer,10  </span>

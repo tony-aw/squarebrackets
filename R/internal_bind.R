@@ -1,8 +1,9 @@
 
+
 #' @keywords internal
 #' @noRd
 .internal_abind <- function(
-    arg.list, along, atomic, name_along, abortcall
+    arg.list, along, name_along, abortcall
 ) {
   N <- max(
     1L,
@@ -38,6 +39,8 @@
   if(name_along && !extra_dimensional) {
     arg.dimnames <- .rcpp_abind_get_dimnames(arg.list, along)
     arg.marginlen <- vapply(arg.list, \(x)dim(x)[along], integer(1L))
+
+    name_along <- .bind_name_along_reasonable(arg.list, arg.dimnames)
   }
   
   
@@ -89,17 +92,10 @@
   }
   
   # create output array (unordered)
-  if(atomic) {
-    out <- array(
-      unlist(arg.list, use.names = FALSE, recursive = FALSE),
-      dim = c(arg.dim[-along, 1L], sum(arg.dim[along, ]))
-    )
-  } else {
-    out <- array(
-      do.call(c, c(arg.list, use.names = FALSE)),
-      dim = c(arg.dim[-along, 1L], sum(arg.dim[along, ]))
-    )
-  }
+  out <- array(
+    unlist(arg.list, use.names = FALSE, recursive = FALSE),
+    dim = c(arg.dim[-along, 1L], sum(arg.dim[along, ]))
+  )
   
   
   ## permute the output array to put the join dimension back in the right place
@@ -110,7 +106,7 @@
   # name_along:
   if(name_along) {
     if(!extra_dimensional) {
-      .bind_set_dimnames(out, along, arg.list, arg.dimnames, arg.marginlen)
+      .bind_set_alongnames(out, along, arg.list, arg.dimnames, arg.marginlen)
     }
     if(extra_dimensional) {
       if(!is.null(names(arg.list))) {
@@ -151,9 +147,17 @@
   
 }
 
+
 #' @keywords internal
 #' @noRd
-.bind_set_dimnames <- function(
+.bind_name_along_reasonable <- function(arg.list, arg.dimnames) {
+  return(.C_any_nonNULL(arg.dimnames) || !is.null(names(arg.list)))
+}
+
+
+#' @keywords internal
+#' @noRd
+.bind_set_alongnames <- function(
     out, along, arg.list, arg.dimnames, arg.marginlen
 ) {
   name_along <- vector(mode = "character", length = dim(out)[along])
@@ -245,10 +249,15 @@
     temp.names <- main.names
   }
   else if(!is.null(arg.name)) {
-    temp.names <- stringi::stri_c(arg.name, ".", seq_len(size))
+    if(size > 1L) {
+      temp.names <- stringi::stri_c(arg.name, ".", seq_len(size))
+    }
+    else {
+      temp.names <- arg.name
+    }
   }
   else {
-    temp.names <- stringi::stri_c("X", seq_len(size))
+    temp.names <- ""
   }
   return(temp.names)
 }

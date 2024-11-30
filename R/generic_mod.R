@@ -108,6 +108,7 @@ sb_mod.array <- function(
   # checks:
   .internal_check_dots(list(...), sys.call())
   .internal_check_rptf(rp, tf, sys.call())
+  .check_args_array(x, sub, dims, sys.call())
   
   # all empty indices:
   if(.all_NULL_indices(list(sub, i))) {
@@ -194,6 +195,7 @@ sb2_mod.array <- function(
   # checks:
   .internal_check_dots(list(...), sys.call())
   .internal_check_rptf(rp, tf, sys.call())
+  .check_args_array(x, sub, dims, sys.call())
   
   # all empty indices:
   if(.all_NULL_indices(list(sub, i))) {
@@ -368,7 +370,3 @@ sb2_mod.data.frame <- function(
   return(x)
 }
 
-
-.sb_mod_array <- function(x, sub, dims, inv, rp, tf, .lapply, chkdup, abortcall) {
-  
-}

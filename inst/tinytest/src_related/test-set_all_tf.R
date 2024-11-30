@@ -5,7 +5,7 @@ sys.source(file.path(getwd(), "source", "functions4testing.R"), envir = environm
 enumerate <- 0
 tempfun2 <- function(x, tf) {
   x <- data.table::copy(x)
-  sb_set.array(x, tf = tf)
+  sb_set(x, tf = tf)
   return(x)
 }
 tempfun1 <- function(x, tf) {

@@ -131,7 +131,7 @@ If <code>red = FALSE</code>, a list is always returned regardless of the number 
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 2 6 10 14</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 3 7 11 15</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [4,] 4 8 12 16</span>
-<span class="r-in"><span><span class="fu">sb_x</span><span class="op">(</span><span class="va">obj</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">sb_x</span><span class="op">(</span><span class="va">obj</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="ndims.html">ndims</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      a b  c</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 1 5  9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 2 6 10</span>
@@ -248,7 +248,7 @@ If <code>red = FALSE</code>, a list is always returned regardless of the number 
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,] integer,10   integer,10   integer,10   integer,10  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,] numeric,10   numeric,10   numeric,10   numeric,10  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [4,] character,26 character,26 character,26 character,26</span>
-<span class="r-in"><span><span class="fu">sb2_x</span><span class="op">(</span><span class="va">obj</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">sb2_x</span><span class="op">(</span><span class="va">obj</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="ndims.html">ndims</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      a          b          c         </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,] logical,3  logical,3  logical,3 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,] integer,10 integer,10 integer,10</span>
@@ -256,32 +256,32 @@ If <code>red = FALSE</code>, a list is always returned regardless of the number 
 <span class="r-in"><span><span class="co"># above is equivalent to obj[1:3, 1:3, drop = FALSE]</span></span></span>
 <span class="r-in"><span><span class="fu">sb2_x</span><span class="op">(</span><span class="va">obj</span>, i <span class="op">=</span> <span class="va">is.numeric</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 10  9  2  7  6  5  1  8  4  3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  6 10  3  8  9  5  1  2  4  7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[2]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] -0.72386911  1.33058037 -0.81133302  1.79503611  0.68662633  0.08937800</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7]  0.32454774  0.07131812  0.23304838  1.98637658</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  0.5068670  0.4600684  1.4843919  0.8819632 -0.5367022  1.2855537</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7]  0.5878485 -1.3084820  0.3167263  1.1941583</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[3]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  4  9  3  7  6 10  5  1  2  8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  2  8  3  4  5  1  6  7 10  9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[4]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] -0.95167079 -0.55864232  0.25581454 -0.19807617  0.42878914  0.07077011</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] -1.53665380  0.45398437  0.87439857 -1.29773757</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  0.9130571 -0.7867530 -0.4109297  0.4763737  0.1859159 -1.3247163</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7]  1.1723711  0.2314928  0.4830719 -0.5353196</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[5]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  2  3  7  1  4  8  6 10  5  9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  7  8  5  4 10  3  1  2  9  6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[6]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] -1.07896524 -1.13484994  0.02261431 -0.02146122 -0.27877244 -0.02420641</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7]  0.82502030 -0.75018278  0.53621047 -1.57271748</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  1.37813582 -1.30267167  0.63485754  0.99965516 -0.33774895 -0.08603361</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] -1.71881758 -0.92912157  0.81367605  0.52641355</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[7]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  9  6  2  1  4  3  5 10  8  7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  7  2  1  8  9  3  4 10  6  5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[8]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] -0.9864274  1.9835123 -1.8513784 -0.9097882 -1.9514400 -0.8002765</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] -1.8693616 -0.7505715 -0.5909384 -0.7420993</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  1.0119574  0.8313798  0.4151341 -0.6612571  0.5488113 -0.5393678</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] -0.1713184 -0.7667346 -0.6065748  1.6473128</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="co"># above is equivalent to obj[sapply(obj, is.numeric)]</span></span></span>
 <span class="r-in"><span><span class="fu">sb2_x</span><span class="op">(</span><span class="va">obj</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"a"</span><span class="op">)</span>, <span class="fl">2L</span><span class="op">)</span></span></span>

@@ -186,7 +186,7 @@ if(!test_allow_duplicates) {
     pattern = "duplicate integers or names not allowed"
   ) |> errorfun()
   expect_error(
-    sb_test(x, c(1,1,1), chkdup = TRUE),
+    sb_test(x, c(1,1,1), 1L, chkdup = TRUE),
     pattern = "duplicate integers or names not allowed"
   ) |> errorfun()
   

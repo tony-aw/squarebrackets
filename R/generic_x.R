@@ -162,8 +162,11 @@ sb2_x.data.frame <- function(
 #' @keywords internal
 #' @noRd
 .sb_x_array <- function(
-    x, sub = NULL, dims = NULL, i = NULL, inv = FALSE, red = FALSE, chkdup = FALSE, abortcall
+    x, sub = NULL, dims = 1:ndims(x), i = NULL, inv = FALSE, red = FALSE, chkdup = FALSE, abortcall
 ) {
+  
+  # check arguments:
+  .check_args_array(x, sub, dims, abortcall)
   
   # empty arguments:
   if(.all_NULL_indices(list(sub, i))) {

@@ -293,11 +293,11 @@ expect_error(
   pattern = "recycling not allowed"
 )
 expect_error(
-  sb_set2(x, list(1:2, 1:2), c(1,3), rp = 1:6),
+  sb_set2(x, n(1:2, 1:2), c(1,3), rp = 1:6),
   pattern = "recycling not allowed"
 )
 expect_error(
-  sb_set2(x, list(1:2, 1:2), c(2,3), rp = 1:6),
+  sb_set2(x, n(1:2, 1:2), c(2,3), rp = 1:6),
   pattern = "recycling not allowed"
 )
 enumerate <- enumerate + 5

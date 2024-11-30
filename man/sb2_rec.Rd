@@ -2,15 +2,23 @@
 % Please edit documentation in R/generic_rec.R
 \name{sb2_rec}
 \alias{sb2_rec}
+\alias{sb2_rec.default}
 \alias{sb2_recin}
+\alias{sb2_recin.default}
 \title{Access, Replace, Transform, Remove, or Extend Recursive Subsets}
 \usage{
-sb2_rec(x, rec)
+sb2_rec(x, ...)
 
-sb2_recin(x, rec, rp, tf)
+\method{sb2_rec}{default}(x, rec, ...)
+
+sb2_recin(x, ...)
+
+\method{sb2_recin}{default}(x, rec, ..., rp, tf)
 }
 \arguments{
 \item{x}{a list, or list-like object.}
+
+\item{...}{see \link{squarebrackets_method_dispatch}.}
 
 \item{rec}{a strictly positive integer vector or character vector, of length \code{p},
 such that \code{sb2_rec(x, rec)} is equivalent to \verb{x[[ rec[1] ]]...[[ rec[p] ]]},
@@ -27,8 +35,8 @@ using R's default semantics. \cr
 Since this is a replacement of a recursive subset,
 \code{rp} does not necessarily have to be a list itself; \cr
 \code{rp} can be any type of object.
-\item When specifying \code{rp = NULL}, will \bold{remove} (recursive) subset \code{x[[rec]]}. \cr
-To specify actual \code{NULL} instead of removing a subset, use \code{list(NULL)}.
+\item Specifying \code{rp = NULL} will \bold{remove} (recursive) subset \code{sb(x, rec)}. \cr
+To specify actual \code{NULL} instead of removing a subset, use \code{rp = list(NULL)}.
 \item When \code{rec} is an integer, and specifies an out-of-bounds subset,
 \code{sb2_recin()} will add value \code{rp} to the list. \cr
 Any empty positions in between will be filled with \code{NA}.
@@ -58,6 +66,8 @@ using R's default Copy-On-Modify semantics. \cr \cr
 The \code{sb2_rec()} and \code{sb2_recin()} methods
 are essentially convenient wrappers around \code{[[} and \verb{[[<-},
 respectively. \cr
+Unlike \code{[[} and \verb{[[<-}, these are actually S3 methods,
+so package authors can create additional method dispatches. \cr
 \cr
 \code{sb2_rec()} will access recursive subsets of lists. \cr
 \cr

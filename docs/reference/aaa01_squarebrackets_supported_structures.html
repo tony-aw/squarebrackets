@@ -13,7 +13,7 @@ Whether an object is a vector, matrix, array, or data.frame.
 mutability: 
 Base R's S3 classes (except Environments) are generally immutable: 
 Modifying the object will create a copy (called 'copy-on-modify'). 
-'squabrackets also supports data.tables and mutable_atomic objects,
+'squarebrackets also supports data.tables and mutable_atomic objects,
 which are mutable: 
 If desired, one can modify them without copy using
 pass-by-reference semantics.  
@@ -50,7 +50,7 @@ Whether an object is a vector, matrix, array, or data.frame.
 mutability: 
 Base R's S3 classes (except Environments) are generally immutable: 
 Modifying the object will create a copy (called 'copy-on-modify'). 
-'squabrackets also supports data.tables and mutable_atomic objects,
+'squarebrackets also supports data.tables and mutable_atomic objects,
 which are mutable: 
 If desired, one can modify them without copy using
 pass-by-reference semantics.  
@@ -137,7 +137,7 @@ Whether an object is a vector, matrix, array, or data.frame.</p></li>
 <li><p>mutability: <br>
 Base R's S3 classes (except Environments) are generally immutable: <br>
 Modifying the object will create a copy (called 'copy-on-modify'). <br>
-'squabrackets also supports <code>data.tables</code> and <a href="class_mutable_atomic.html">mutable_atomic</a> objects,
+'squarebrackets also supports <code>data.tables</code> and <a href="class_mutable_atomic.html">mutable_atomic</a> objects,
 which are mutable: <br>
 If desired, one can modify them without copy using
 <a href="aaa08_squarebrackets_PassByReference.html">pass-by-reference semantics</a>. <br><br></p></li>
@@ -159,9 +159,9 @@ If desired, one can modify them without copy using
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p><b>Atomic vs Recursive</b> <br>
-The <code>sb_</code> methods and <code>bind_</code> implementations provided by 'squarebrackets'
+The <code>sb_</code> methods provided by 'squarebrackets'
 work on <b>atomic</b> (see <a href="https://rdrr.io/r/base/is.recursive.html" class="external-link">is.atomic</a>) objects. <br>
-The <code>sb2_</code> methods and <code>bind2_</code> implementations provided by 'squarebrackets'
+The <code>sb2_</code> methods provided by 'squarebrackets'
 work on <b>recursive</b> (see <a href="https://rdrr.io/r/base/is.recursive.html" class="external-link">is.recursive</a>) objects. <br>
 See <a href="aaa05_squarebrackets_method_dispatch.html">squarebrackets_method_dispatch</a>
 for more details on the method dispatch used by 'squarebrackets'. <br><br></p>
@@ -188,7 +188,7 @@ Environments do have <a href="aaa08_squarebrackets_PassByReference.html">pass-by
 but they are not supported by 'squarebrackets'. <br><br>
 'squarebrackets' supports the mutable <code>data.table</code> class
 (and thus also <code>tidytable</code>, which inherits from <code>data.table</code>). <br><br>
-'squarbrackets' also includes a new class of mutable objects:
+'squarebrackets' also includes a new class of mutable objects:
 <a href="class_mutable_atomic.html">mutable_atomic</a> objects. <br><code>mutable_atomic</code> objects are the same as atomic objects, except they are mutable (hence the name). <br><br>
 The supported immutable structures are: <br>
 Atomic and recursive vectors/matrices/arrays, data.frames, and tibbles. <br><br>
@@ -204,8 +204,7 @@ Factors, datetime, POSIXct and so on are derived from atomic vectors. <br>
 But they have attributes and special methods that make them behave differently. <br><br>
 'squarebrackets' treats derived atomic classes as regular atomic vectors. <br>
 There are highly specialized packages to handle objects derived from atomic objects. <br>
-For example the 'forcats' package for handling factors, and the 'anytime' package
-to handle date-time objects. <br><br>
+For example, the 'anytime' package to handle date-time objects. <br><br>
 'squarebrackets does provide some more explicit support for factors. <br><br></p>
 <p><b>Not Supported S3 structures</b> <br>
 Key-Values storage S3 structures,

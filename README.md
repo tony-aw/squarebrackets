@@ -29,7 +29,7 @@ the following:
     tidytables, etc.). The ‘squarebrackets’ methods use the same
     rule-sets for the different data.frame-like types.
 2)  Performing dimensional subset operations on an array using `[` and
-    `[<-`, requires a-priori knowledge of the number of dimensions the
+    `[<-`, requires a-priori knowledge on the number of dimensions the
     array has. The ‘squarebrackets’ methods work on any arbitrary
     dimensions without requiring such prior knowledge.
 3)  When selecting names with the `[` and `[<-` operators, only the
@@ -164,5 +164,7 @@ tinycodet::import_LL("squarebrackets", selection = ... )
   `lst_untree()`.
 - 24 November 2024: Matrices now use the same API as arrays. Adjusted
   the documentation accordingly. Cleaned up the internal code a bit.
+- 30 November 2024: The binding implementations can now bind mixtures of
+  atomic and recursive objects.
 
  

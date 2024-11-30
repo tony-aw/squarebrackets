@@ -8,8 +8,38 @@
 \title{squarebrackets: Subset Methods as Alternatives to the Square Brackets Operators for Programming}
 \description{
 squarebrackets: Subset Methods as Alternatives to the Square Brackets Operators for Programming \cr \cr
+
+Provides subset methods
+(supporting both atomic and recursive S3 classes)
+that may be more convenient alternatives to the \code{[} and \verb{[<-} operators,
+whilst maintaining similar performance. \cr
+Some nice properties of these methods include, but are not limited to, the following.
+\enumerate{
+\item The \code{[} and \verb{[<-} operators use different rule-sets for different data.frame-like types
+(data.frames, data.tables, tibbles, tidytables, etc.). \cr
+The 'squarebrackets' methods use the same rule-sets for the different data.frame-like types.
+\item Performing dimensional subset operations on an array using \code{[} and \verb{[<-},
+requires a-priori knowledge on the number of dimensions the array has. \cr
+The 'squarebrackets' methods work on any arbitrary dimensions without requiring such prior knowledge.
+\item When selecting names with the \code{[} and \verb{[<-} operators,
+only the first occurrence of the names are selected in case of duplicate names. \cr
+The 'squarebrackets' methods always perform on all names in case of duplicates,
+not just the first.
+\item The \code{[[} and \verb{[[<-} operators
+allow operating on a recursive subset of a nested list. \cr
+But these only operate on a single recursive subset,
+and are not vectorized for multiple recursive subsets of a nested list at once. \cr
+'squarebrackets' provides a way to reshape a nested list
+into a recursive matrix,
+thereby allowing vectorized operations on recursive subsets of such a nested list.
+\item The \verb{[<-} operator only supports copy-on-modify semantics for most classes. \cr
+The 'squarebrackets' methods provides explicit pass-by-reference and pass-by-value semantics,
+whilst still respecting things like binding-locks and mutability rules.
+\item 'squarebrackets' supports index-less sub-set operations,
+which is more memory efficient than sub-set operations using the \code{[} and \verb{[<-} operators. \cr \cr
 }
-\section{Goal & Properties}{
+}
+\section{Goal}{
 
 
 Among programming languages,
@@ -25,78 +55,38 @@ is not to replace the square-brackets operators,
 but to provide \bold{alternative} sub-setting methods and functions,
 to be used in situations where the square bracket operators are inconvenient. \cr
 \cr
-These alternative sub-setting methods and functions have the following properties:
-\itemize{
-\item \bold{Programmatically friendly}:
-\itemize{
-\item Unlike base \code{[},
-it's not required to know the number of dimensions of an array a-priori,
-to perform subset-operations on an array.
-\item Missing arguments can be filled with \code{NULL},
-instead of using dark magic like \code{base::quote(expr =    )}.
-\item No Non-standard evaluation.
-\item Functions are pipe-friendly.
-\item No (silent) vector recycling.
-\item Extracting and removing subsets uses the same syntax.
-}
-\item \bold{Class consistent}:
-\itemize{
-\item sub-setting of multi-dimensional objects by specifying dimensions
-(i.e. rows, columns, ...)
-use \code{drop = FALSE}. \cr
-So matrix in, matrix out.
-\item The methods deliver the same results for
-data.frames, data.tables, tibbles, and tidytables. \cr
-No longer does one have to re-learn the different brackets-based sub-setting rules
-for different types of data.frame-like objects. \cr
-Powered by the subclass agnostic 'C'-code from 'collapse' and 'data.table'.
-}
-\item \bold{Explicit copy semantics}:
-\itemize{
-\item Sub-set operations that change its memory allocations,
-always return a modified (partial) copy of the object. \cr
-\item For sub-set operations that just change values in-place
-(similar to the \verb{[<-} and \verb{[[<-} methods)
-the user can choose a method that modifies the object by \bold{reference},
-or choose a method that returns a \bold{(partial) copy}.
-}
-\item \bold{Careful handling of names}:
-\itemize{
-\item Sub-setting an object by index names returns ALL matches with the given names,
-not just the first.
-\item Data.frame-like objects (see supported classes below)
-are forced to have unique column names.
-\item Sub-setting arrays using \code{x[indx1, indx2, etc.]} will drop \code{names(x)}. \cr
-The methods from 'squarebrackets' will not drop \code{names(x)}.
-}
-\item \bold{Concise function and argument names}.
-\item \bold{Performance aware}: \cr
-Despite the many checks performed, the functions are kept reasonably speedy,
-through the use of the 'Rcpp', 'collapse', and 'data.table' R-packages. \cr \cr
-}
 }
 
-\section{Supported Classes}{
+\section{Supported Structures}{
 
 'squarebrackets' only supports the most common S3 classes,
 and only those that primarily use square brackets for sub-setting
 (hence the name of the package). \cr
 \cr
-Supported immutable classes: \cr
-\code{atomic}, \code{list}, \code{data.frame}
-(including \code{tibble}, \code{sf-data.frame}, and \code{sf-tibble}). \cr
-\cr
-Supported  mutable classes: \cr
-\link{mutable_atomic}, \code{data.table}
-(including \code{tidytable}, \code{sf-data.table}, and \code{sf-tidytable}). \cr
-\cr
-Key-value storages,
-such as environments,
-and the various classes of the 'collections' package,
-are not supported. \cr \cr
+
+'squarebrackets' supports the following immutable structures:
+\itemize{
+\item basic \code{atomic} classes \cr
+(atomic vectors, matrices, and arrays).
+\item \link{factor}. \cr
+\item basic list classes \cr
+(recursive vectors, matrices, and arrays). \cr
+\item \link[base]{data.frame} \cr
+(including the classes \code{tibble}, \code{sf-data.frame} and \code{sf-tibble}). \cr \cr
 }
 
-\section{Methods}{
+'squarebrackets' supports the following mutable structures:
+\itemize{
+\item \link{mutable_atomic} \cr
+(\code{mutable_atomic} vectors, matrices, and arrays);
+\item \link[data.table]{data.table} \cr
+(including the classes \code{tidytable}, \code{sf-data.table}, and \code{sf-tidytable}). \cr \cr
+}
+
+See \link{squarebrackets_supported_structures} for more details. \cr \cr
+}
+
+\section{Sub-set Operation Methods & Binding Implementations}{
 
 
 The main focus of this package is on its generic methods
@@ -106,15 +96,15 @@ Generic methods for atomic objects
 start with \code{sb_}. \cr
 Generic methods for recursive objects (list, data.frame, etc.)
 start with \code{sb2_}. \cr
-The binding implementations for atomic dimensional objects (atomic arrays)
-start with \code{bind_}. \cr
-The binding implementations for recursive dimensional objects (recursive arrays, data.frames)
-start with \code{bind2_}. \cr
 There is also the somewhat separate \link{idx} method,
 which works on both recursive and non-recursive objects. \cr
-And finally there are the \code{slice_} methods, which (currently) only work on atomic vectors. \cr \cr
+The binding implementations for dimensional objects
+start with \code{bind_}. \cr
+And finally there are the \code{slice_} methods,
+which (currently) only work on (mutable) atomic vectors. \cr
+\cr
 
-\ifelse{html}{\figure{accessor_methods-darkgreen.svg}{options: alt='[ACCESSOR METHODS]'}}{\link[=squarebrackets_help]{ACCESSOR METHODS}} \cr
+\ifelse{html}{\figure{access_subsets-darkgreen.svg}{options: alt='[ACCESS SUBSETS]'}}{\link[=squarebrackets_help]{ACCESS SUBSETS}} \cr
 
 Methods to access subsets (i.e. extract selection, or extract all except selection):
 \itemize{
@@ -124,7 +114,7 @@ Methods to access subsets (i.e. extract selection, or extract all except selecti
 \item \link{slice_x}, \link{slice_rm}: efficiently extract or un-select/remove subset from a (long) vector. \cr \cr
 }
 
-\ifelse{html}{\figure{modification_methods-red.svg}{options: alt='[MODIFICATION METHODS]'}}{\link[=squarebrackets_help]{MODIFICATION METHODS}} \cr
+\ifelse{html}{\figure{modify_subsets-red.svg}{options: alt='[MODIFY SUBSETS]'}}{\link[=squarebrackets_help]{MODIFY SUBSETS}} \cr
 
 Methods to modify subsets:
 \itemize{
@@ -144,19 +134,17 @@ using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
 \link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr \cr
 }
 
-\ifelse{html}{\figure{extending_methods-purple.svg}{options: alt='[EXTENDING METHODS]'}}{\link[=squarebrackets_help]{EXTENDING METHODS}} \cr
+\ifelse{html}{\figure{extend_beyond-purple.svg}{options: alt='[EXTEND BEYOND]'}}{\link[=squarebrackets_help]{EXTEND BEYOND}} \cr
 
-Methods to extend or re-arrange an object beyond its current size:
+Methods and binding implementations,
+to extend or re-arrange an object beyond its current size:
 \itemize{
-\item \link[=bind]{bind_}, \link[=bind]{bind2_}:  implementations for binding dimensional objects.
+\item \link[=bind]{bind_}:  implementations for binding dimensional objects.
 \item \link{sb_x}, \link{sb2_x}: extract, exchange, or duplicate subsets.
 \item \link{sb2_recin}: replace, transform, remove, or add recursive subsets to a list,
 through R's default Copy-On-Modify semantics.
 }
 
-So for example,
-use \code{sb_rm()} to remove subsets from atomic arrays,
-and use \code{sb2_rm()} to remove subsets from recursive arrays. \cr
 See \link{squarebrackets_method_dispatch} for more information on how 'squarebrackets'
 uses its S3 Method dispatch. \cr \cr
 }
@@ -210,7 +198,61 @@ or even entirely new subset-related functions.
 \itemize{
 \item \link[=tci_bool]{tci_} functions, for type-casting indices.
 \item \link[=ci_flat]{ci_} functions, for constructing indices.
-\item \link{indx_x} and \link{indx_rm}, for testing methods.
+\item \link{indx_x} and \link{indx_rm}, for testing methods. \cr \cr
+}
+}
+
+\section{Properties Details}{
+
+The alternative sub-setting methods and functions provided by 'squarebrackets'
+have the following properties:
+\itemize{
+\item \bold{Programmatically friendly}:
+\itemize{
+\item Unlike base \code{[},
+it's not required to know the number of dimensions of an array a-priori,
+to perform subset-operations on an array.
+\item Missing arguments can be filled with \code{NULL},
+instead of using dark magic like \code{base::quote(expr =    )}.
+\item No Non-standard evaluation.
+\item Functions are pipe-friendly.
+\item No (silent) vector recycling.
+\item Extracting and removing subsets uses the same syntax.
+}
+\item \bold{Class consistent}:
+\itemize{
+\item sub-setting of multi-dimensional objects by specifying dimensions
+(i.e. rows, columns, ...)
+use \code{drop = FALSE}. \cr
+So matrix in, matrix out.
+\item The methods deliver the same results for
+data.frames, data.tables, tibbles, and tidytables. \cr
+No longer does one have to re-learn the different brackets-based sub-setting rules
+for different types of data.frame-like objects. \cr
+Powered by the subclass agnostic 'C'-code from 'collapse' and 'data.table'.
+}
+\item \bold{Explicit copy semantics}:
+\itemize{
+\item Sub-set operations that change its memory allocations,
+always return a modified (partial) copy of the object. \cr
+\item For sub-set operations that just change values in-place
+(similar to the \verb{[<-} and \verb{[[<-} methods)
+the user can choose a method that modifies the object by \bold{reference},
+or choose a method that returns a \bold{(partial) copy}.
+}
+\item \bold{Careful handling of names}:
+\itemize{
+\item Sub-setting an object by index names returns ALL matches with the given names,
+not just the first.
+\item Data.frame-like objects (see supported classes below)
+are forced to have unique column names.
+\item Sub-setting arrays using \code{x[indx1, indx2, etc.]} will drop \code{names(x)}. \cr
+The methods from 'squarebrackets' will not drop \code{names(x)}.
+}
+\item \bold{Concise function and argument names}.
+\item \bold{Performance aware}: \cr
+Despite the many checks performed, the functions are kept reasonably speedy,
+through the use of the 'Rcpp', 'collapse', and 'data.table' R-packages. \cr \cr
 }
 }
 
@@ -218,5 +260,5 @@ or even entirely new subset-related functions.
 The badges shown in the documentation of this R-package were made using the services of: \url{https://shields.io/}
 }
 \author{
-\strong{Maintainer}: Tony Wilkes \email{tony_a_wilkes@outlook.com} (\href{https://orcid.org/0000-0001-9498-8379}{ORCID})
+\strong{Author, Maintainer}: Tony Wilkes \email{tony_a_wilkes@outlook.com} (\href{https://orcid.org/0000-0001-9498-8379}{ORCID})
 }

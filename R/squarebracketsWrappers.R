@@ -34,6 +34,12 @@
 
 #' @keywords Internal
 #' @noRd
+.C_any_nonNULL <- function(x) {
+  .Call("C_any_nonNULL", x = x)
+}
+
+#' @keywords Internal
+#' @noRd
 .C_convert_cplx_32 <- function(x, val) {
   .Call("C_convert_cplx_32", x = x, val = as.integer(val))
 }

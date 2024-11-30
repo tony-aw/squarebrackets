@@ -201,11 +201,11 @@ expect_error(
   pattern = "recycling not allowed"
 )
 expect_error(
-  sb_mod(x, list(1:2, 1:2), c(1,3), rp = 1:6, inv = TRUE),
+  sb_mod(x, n(1:2, 1:2), c(1,3), rp = 1:6, inv = TRUE),
   pattern = "recycling not allowed"
 )
 expect_error(
-  sb_mod(x, list(1:2, 1:2), c(2,3), rp = 1:6, inv = TRUE),
+  sb_mod(x, n(1:2, 1:2), c(2,3), rp = 1:6, inv = TRUE),
   pattern = "recycling not allowed"
 )
 enumerate <- enumerate + 5

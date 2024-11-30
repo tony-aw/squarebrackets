@@ -70,8 +70,7 @@ without copying the rest of the object. <br>
 For atomic objects, however, a coercion or copy operation coerces or copies the entire vector
 (ignoring attributes). <br></p></li>
 <li><p><strong>vectorization</strong>: most vectorized operations generally work on atomic objects,
-whereas recursive objects often require loops or apply-like functions. <br>
-Hence the presence of the <code>.lapply</code> argument in the <a href="sb_mod.html">sb2_mod</a> and <a href="sb_set.html">sb2_set</a> methods.</p></li>
+whereas recursive objects often require loops or apply-like functions. <br></p></li>
 <li><p><strong>recursive subsets</strong>: Recursive objects distinguish between "regular" subset operations
 (in base R using <code>[</code>, <code>[&lt;-</code>),
 and recursive subset operations (in base R using <code>[[</code>, <code>[[&lt;-</code>). <br>
@@ -80,14 +79,11 @@ or the <code>red = TRUE</code> argument in the <a href="sb_x.html">sb2_x</a> and
 For atomic objects, these 2 have no meaningful difference
 (safe for perhaps some minor attribute handling). <br></p></li>
 <li><p><strong>views</strong>: For recursive objects,
-one can create a subset <a href="aaa08_squarebrackets_PassByReference.html">view</a> of a recursive subset. <br>
+one can create a <a href="aaa08_squarebrackets_PassByReference.html">view</a> of a recursive subset. <br>
 Subset views do not exist for atomic objects. <br><br></p></li>
-</ul><p>Most of these differences primarily come down to the following: <br>
-An atomic object holds its own value,
-while the elements of a recursive object references to other objects. <br><br>
-All methods and binding implementations
-that perform subset/bind operation on an object,
-come in the atomic (<code>sb_</code>/<code>bind_</code>) and recursive (<code>sb2_</code>, <code>bind2_</code>) form. <br>
+</ul><p>The main S3 methods
+that perform subset operation on an object,
+come in the atomic (<code>sb_</code>) and recursive (<code>sb2_</code>) form. <br>
 The <a href="idx1.html">idx</a> method operates on the indices of an object,
 but does not operate on the object itself,
 and so has no distinction between the atomic and recursive form. <br><br>
@@ -105,9 +101,32 @@ despite the aforementioned differences between the 2. <br>
 So 'squarebrackets' uses a separate method dispatch for the atomic and recursive form.</p></li>
 <li><p>The distinction between the 2 sets of methods
 forces some more careful thought from the user on handling objects.</p></li>
-<li><p>Package authors can create separate methods for
+<li><p>Package authors can create separate sub-set operation methods for
 atomic and recursive objects using 'squarebrackets'. <br><br></p></li>
 </ul></div>
+    <div class="section level2">
+    <h2 id="manual-dispatch">Manual Dispatch<a class="anchor" aria-label="anchor" href="#manual-dispatch"></a></h2>
+    
+
+<p>The 'squarebrackets' package intentionally exports each function in its S3 method dispatch system. <br>
+This is handy for programming purposes. <br>
+For example: one can explicitly alias a specific dispatch of a method,
+if one so desires. <br>
+For example like so: <br></p>
+<p></p><div class="sourceCode r"><pre><code><span></span>
+<span><span class="va">array_x</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
+<span></span>
+<span>   <span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/is.recursive.html" class="external-link">is.atomic</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>     <span class="fu"><a href="../reference/sb_x.html">sb_x.array</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span>   <span class="op">}</span></span>
+<span>   <span class="kw">else</span> <span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/is.recursive.html" class="external-link">is.recursive</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>     <span class="fu"><a href="../reference/sb_x.html">sb2_x.array</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span>   <span class="op">}</span></span>
+<span>   </span>
+<span><span class="op">}</span></span>
+<span></span></code></pre><p></p></div>
+<p>Under certain circumstances, this might help your code to be more clear. <br><br></p>
+    </div>
     <div class="section level2">
     <h2 id="ellipsis">Ellipsis<a class="anchor" aria-label="anchor" href="#ellipsis"></a></h2>
     

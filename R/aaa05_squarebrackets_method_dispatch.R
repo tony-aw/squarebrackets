@@ -18,7 +18,6 @@
 #'  (ignoring attributes). \cr
 #'  - **vectorization**: most vectorized operations generally work on atomic objects,
 #'  whereas recursive objects often require loops or apply-like functions. \cr
-#'  Hence the presence of the `.lapply` argument in the \link{sb2_mod} and \link{sb2_set} methods.
 #'  - **recursive subsets**: Recursive objects distinguish between "regular" subset operations
 #'  (in base R using `[`, `[<-`),
 #'  and recursive subset operations (in base R using `[[`, `[[<-`). \cr
@@ -27,16 +26,12 @@
 #'  For atomic objects, these 2 have no meaningful difference
 #'  (safe for perhaps some minor attribute handling). \cr
 #'  - **views**: For recursive objects,
-#'  one can create a subset \link[=squarebrackets_PassByReference]{view} of a recursive subset. \cr
+#'  one can create a \link[=squarebrackets_PassByReference]{view} of a recursive subset. \cr
 #'  Subset views do not exist for atomic objects. \cr \cr
 #' 
-#' Most of these differences primarily come down to the following: \cr
-#' An atomic object holds its own value,
-#' while the elements of a recursive object references to other objects. \cr
-#' \cr
-#' All methods and binding implementations
-#' that perform subset/bind operation on an object,
-#' come in the atomic (`sb_`/`bind_`) and recursive (`sb2_`, `bind2_`) form. \cr
+#' The main S3 methods
+#' that perform subset operation on an object,
+#' come in the atomic (`sb_`) and recursive (`sb2_`) form. \cr
 #' The \link{idx} method operates on the indices of an object,
 #' but does not operate on the object itself,
 #' and so has no distinction between the atomic and recursive form. \cr
@@ -57,8 +52,36 @@
 #'  So 'squarebrackets' uses a separate method dispatch for the atomic and recursive form.
 #'  - The distinction between the 2 sets of methods
 #'  forces some more careful thought from the user on handling objects.
-#'  - Package authors can create separate methods for
+#'  - Package authors can create separate sub-set operation methods for
 #'  atomic and recursive objects using 'squarebrackets'. \cr \cr
+#'  
+#'  
+#'  
+#'  
+#' @section Manual Dispatch:
+#' The 'squarebrackets' package intentionally exports each function in its S3 method dispatch system. \cr
+#' This is handy for programming purposes. \cr
+#' For example: one can explicitly alias a specific dispatch of a method,
+#' if one so desires. \cr
+#' For example like so: \cr
+#' 
+#' ```{r eval = FALSE, echo = TRUE}
+#' 
+#' array_x <- function(x, ...) {
+#' 
+#'    if(is.atomic(x)) {
+#'      sb_x.array(x, ...)
+#'    }
+#'    else if(is.recursive(x)) {
+#'      sb2_x.array(x, ...)
+#'    }
+#'    
+#' }
+#' 
+#' ```
+#' 
+#' Under certain circumstances, this might help your code to be more clear. \cr
+#' \cr
 #' 
 #' 
 #' @section Ellipsis:

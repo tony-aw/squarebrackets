@@ -90,8 +90,9 @@ sb_set.array <- function(
   }
   .internal_check_rptf(rp, tf, sys.call())
   .check_bindingIsLocked(substitute(x), parent.frame(n = 1), abortcall = sys.call())
-  
-  
+  .check_args_array(x, sub, dims, sys.call())
+
+    
   # empty arguments:
   if(.all_NULL_indices(list(sub, i))) {
     .rcpp_set_all(x, rp, tf, abortcall = sys.call())

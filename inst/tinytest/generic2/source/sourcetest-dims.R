@@ -193,21 +193,33 @@ enumerate <- enumerate + 3
 # early capture sub,dims equivalence checks ====
 
 # 1d
-x <- array(1:20, 120)
+x <- array(as.list(1:20), 120)
 expect_equal(
   sb_test(x, 1:5),
   sb_test(x, list(1:5), 1L)
 ) |> errorfun()
+expect_equal(
+  sb_test(x, 1:5, 1L),
+  sb_test(x, list(1:5))
+) |> errorfun()
 
 # matrix
-x <- matrix(1:20, ncol = 4)
+x <- matrix(as.list(1:20), ncol = 4)
 expect_equal(
   sb_test(x, 1:3),
   sb_test(x, list(1:3), 1:2)
 ) |> errorfun()
 expect_equal(
+  sb_test(x, 1:3, 1:2),
+  sb_test(x, list(1:3))
+) |> errorfun()
+expect_equal(
   sb_test(x, 1:3),
   sb_test(x, list(1:3, 1:3), 1:2)
+) |> errorfun()
+expect_equal(
+  sb_test(x, 1:3, 1:2),
+  sb_test(x, list(1:3, 1:3))
 ) |> errorfun()
 expect_equal(
   sb_test(x, list(1:3, 1:4), 2:1),
