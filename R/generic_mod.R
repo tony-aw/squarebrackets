@@ -91,7 +91,7 @@ sb_mod.default <- function(
   .internal_check_rptf(rp, tf, sys.call())
   
   if(is.null(i)) {
-    return(.sb_mod_all(x, rp, tf, NULL, sys.call()))
+    return(.all_mod_atomic(x, rp, tf, sys.call()))
   }
   
   return(.flat_mod_atomic(x, i, inv, rp, tf, chkdup, sys.call()))
@@ -112,7 +112,7 @@ sb_mod.array <- function(
   
   # all empty indices:
   if(.all_NULL_indices(list(sub, i))) {
-    return(.sb_mod_all(x, rp, tf, NULL, sys.call()))
+    return(.all_mod_atomic(x, rp, tf,sys.call()))
   }
   
   # argument i:
@@ -122,7 +122,7 @@ sb_mod.array <- function(
   
   # zero-length subscripts:
   if(length(dims) == 0) {
-    return(.sb_mod_all(x, rp, tf, NULL, sys.call()))
+    return(.all_mod_atomic(x, rp, tf, sys.call()))
   }
   
   # 1d:
@@ -140,7 +140,7 @@ sb_mod.array <- function(
   lst <- ci_sub(x, sub, dims, inv, chkdup, .abortcall = sys.call())
 
   if(!missing(rp)) {
-    if(!is.atomic(rp)) stop("`rp` must be atomic")
+    if(!is.atomic(rp)) stop("replacement must be atomic")
     return(.arr_repl(x, lst, rp, abortcall = sys.call()))
   }
   if(!missing(tf)) {
@@ -177,7 +177,7 @@ sb2_mod.default <- function(
   
   
   if(is.null(i)) {
-    return(.sb_mod_all(x, rp, tf, .lapply, sys.call()))
+    return(.all_mod_list(x, rp, tf, .lapply, sys.call()))
   }
   
   return(.flat_mod_list(x, i, inv, rp, tf, chkdup, .lapply, sys.call()))
@@ -199,7 +199,7 @@ sb2_mod.array <- function(
   
   # all empty indices:
   if(.all_NULL_indices(list(sub, i))) {
-    return(.sb_mod_all(x, rp, tf, .lapply, sys.call()))
+    return(.all_mod_list(x, rp, tf, .lapply, sys.call()))
   }
   
   # argument i:
@@ -209,7 +209,7 @@ sb2_mod.array <- function(
   
   # zero-length subscripts:
   if(length(dims) == 0) {
-    return(.sb_mod_all(x, rp, tf, .lapply, sys.call()))
+    return(.all_mod_list(x, rp, tf, .lapply, sys.call()))
   }
   
   # 1d:
@@ -226,7 +226,7 @@ sb2_mod.array <- function(
   lst <- ci_sub(x, sub, dims, inv, chkdup, .abortcall = sys.call())
   
   if(!missing(rp)) {
-    if(!is.list(rp)) stop("`rp` must be a list")
+    if(!is.list(rp)) stop("replacement must be a list")
     return(.arr_repl_list(x, lst, rp, abortcall = sys.call()))
   }
   if(!missing(tf)) {
@@ -348,25 +348,4 @@ sb2_mod.data.frame <- function(
 }
 
 
-#' @keywords internal
-#' @noRd
-.sb_mod_all <- function(x, rp, tf, .lapply, abortcall) {
-  
-  if(is.list(x)) {
-    if(!missing(tf) && !is.null(tf)) {
-      rp <- .lapply(x, tf)
-    }
-    
-    .check_rp_list(rp, length(x), abortcall = sys.call())
-    x[] <- rp
-    return(x)
-  }
-  
-  if(!missing(tf) && !is.null(tf)) {
-    rp <- tf(x)
-  }
-  .check_rp_atomic(rp, length(x), abortcall = sys.call())
-  x[] <- rp
-  return(x)
-}
 

@@ -44,7 +44,7 @@ giving the total number of recursive list-elements in the given list. \cr \cr
 }
 \description{
 \code{[[}, \verb{[[<-}, \link{sb2_rec}, and \link{sb2_recin},
-can performing recursive subset operation on a nested list. \cr
+can perform recursive subset operations on a nested list. \cr
 Such recursive subset operations only operate on a single element. \cr
 Performing recursive subset operations on multiple elements is not vectorized,
 and requires a (potentially slow) loop. \cr

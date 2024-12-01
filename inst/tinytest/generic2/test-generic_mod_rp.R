@@ -230,7 +230,7 @@ sys.source(file.path(getwd(), "source", "sourcetest-errors.R"), envir = environm
 x <- as.list(1:10)
 expect_error(
   sb2_mod(x, i = 1:5, rp = 1:10),
-  pattern = "`rp` must be a list"
+  pattern = "replacement must be a list"
 )
 expect_error(
   sb2_mod(x, i = 1:5, rp = as.list(1:6)),

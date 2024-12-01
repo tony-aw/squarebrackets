@@ -11,19 +11,19 @@ x <- mutable_atomic(1:10)
 
 expect_error(
   ma_setv(x, v = ~1, rp = 1),
-  pattern = "`v` and  `rp` must be atomic scalars"
+  pattern = "`v` and  replacement must be atomic scalars"
 )
 expect_error(
   ma_setv(x, v = 1, rp = ~1),
-  pattern = "`v` and  `rp` must be atomic scalars"
+  pattern = "`v` and  replacement must be atomic scalars"
 )
 expect_error(
   ma_setv(x, v = 1:10, rp = 1),
-  pattern = "`v` and  `rp` must be atomic scalars"
+  pattern = "`v` and  replacement must be atomic scalars"
 )
 expect_error(
   ma_setv(x, v = 1, rp = 1:10),
-  pattern = "`v` and  `rp` must be atomic scalars"
+  pattern = "`v` and  replacement must be atomic scalars"
 )
 expect_error(
   ma_setv(x, v = NA, rp = 1),

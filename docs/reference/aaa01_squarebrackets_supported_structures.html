@@ -140,7 +140,7 @@ Modifying the object will create a copy (called 'copy-on-modify'). <br>
 'squarebrackets also supports <code>data.tables</code> and <a href="class_mutable_atomic.html">mutable_atomic</a> objects,
 which are mutable: <br>
 If desired, one can modify them without copy using
-<a href="aaa08_squarebrackets_PassByReference.html">pass-by-reference semantics</a>. <br><br></p></li>
+<a href="aaa07_squarebrackets_PassByReference.html">pass-by-reference semantics</a>. <br><br></p></li>
 </ul><p><b>Supported Structures</b> <br></p>
 <p>'squarebrackets' supports the following immutable structures:</p><ul><li><p>basic <code>atomic</code> classes <br>
 (atomic vectors, matrices, and arrays).</p></li>
@@ -163,7 +163,7 @@ The <code>sb_</code> methods provided by 'squarebrackets'
 work on <b>atomic</b> (see <a href="https://rdrr.io/r/base/is.recursive.html" class="external-link">is.atomic</a>) objects. <br>
 The <code>sb2_</code> methods provided by 'squarebrackets'
 work on <b>recursive</b> (see <a href="https://rdrr.io/r/base/is.recursive.html" class="external-link">is.recursive</a>) objects. <br>
-See <a href="aaa05_squarebrackets_method_dispatch.html">squarebrackets_method_dispatch</a>
+See <a href="aaa04_squarebrackets_method_dispatch.html">squarebrackets_method_dispatch</a>
 for more details on the method dispatch used by 'squarebrackets'. <br><br></p>
 <p><b>Dimensionality</b> <br>
 'squarebrackets' supports dimensionless or vector objects (i.e. <a href="ndims.html">ndims</a><code> == 0L</code>). <br>
@@ -183,8 +183,8 @@ For any array/matrix <code>x</code>, it holds that <code>length(x) == prod(dim(x
 But for any data.frame <code>x</code>, it is the case that <code>length(x) == ncol(x)</code>. <br><br></p>
 <p><b>Mutable vs Immutable</b> <br>
 Most S3 objects in base 'R' are immutable: <br>
-They have no explicit <a href="aaa08_squarebrackets_PassByReference.html">pass-by-reference</a> semantics. <br>
-Environments do have <a href="aaa08_squarebrackets_PassByReference.html">pass-by-reference</a> semantics,
+They have no explicit <a href="aaa07_squarebrackets_PassByReference.html">pass-by-reference</a> semantics. <br>
+Environments do have <a href="aaa07_squarebrackets_PassByReference.html">pass-by-reference</a> semantics,
 but they are not supported by 'squarebrackets'. <br><br>
 'squarebrackets' supports the mutable <code>data.table</code> class
 (and thus also <code>tidytable</code>, which inherits from <code>data.table</code>). <br><br>
@@ -193,7 +193,7 @@ but they are not supported by 'squarebrackets'. <br><br>
 The supported immutable structures are: <br>
 Atomic and recursive vectors/matrices/arrays, data.frames, and tibbles. <br><br>
 All the functions in the 'squarebrackets' package with the word "set" in their name
-perform <a href="aaa08_squarebrackets_PassByReference.html">pass-by-reference</a> modification,
+perform <a href="aaa07_squarebrackets_PassByReference.html">pass-by-reference</a> modification,
 and thus only work on mutable structures. <br>
 All other functions work the same way for both mutable and immutable structures. <br><br></p>
 <p><b>Derived Atomic Vector</b> <br>

@@ -37,9 +37,10 @@
   elements <- ci_flat(
     x, i, inv, chkdup, .abortcall = abortcall
   )
-  
   n.i <- length(elements)
   if(n.i == 0) return(x)
+  
+  
   
   if(!missing(tf)) {
     rp <- tf(x[elements])

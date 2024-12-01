@@ -106,7 +106,7 @@ but also most other data.frame-like objects. <br><br></p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">bind_mat</span><span class="op">(</span><span class="va">arg.list</span>, <span class="va">along</span>, name_along <span class="op">=</span> <span class="cn">TRUE</span>, comnames_from <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">bind_mat</span><span class="op">(</span><span class="va">arg.list</span>, <span class="va">along</span>, name_deparse <span class="op">=</span> <span class="cn">TRUE</span>, comnames_from <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">bind_array</span><span class="op">(</span></span>
 <span>  <span class="va">arg.list</span>,</span>
@@ -139,9 +139,10 @@ will create an additional dimension (<code>n+1</code>) and bind the arrays along
 </ul></dd>
 
 
-<dt>name_along</dt>
-<dd><p>Boolean, for <code>bind_array()</code> and <code>bind_mat()</code>. <br>
-Indicates if dimension <code>along</code> should be named.</p></dd>
+<dt>name_deparse</dt>
+<dd><p>Boolean, for <code>bind_mat()</code>. <br>
+Indicates if dimension <code>along</code> should be named. <br>
+Uses the naming method from <a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a>/<a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a> itself.</p></dd>
 
 
 <dt>comnames_from</dt>
@@ -152,6 +153,11 @@ For example: <br>
 When binding columns of matrices, the matrices will share the same rownames. <br>
 Using <code>comnames_from = 10</code> will then result in <code>bind_array()</code> using
 <code>rownames(arg.list[[10]])</code> for the rownames of the output.</p></dd>
+
+
+<dt>name_along</dt>
+<dd><p>Boolean, for <code>bind_array()</code>. <br>
+Indicates if dimension <code>along</code> should be named.</p></dd>
 
 
 <dt>name_flat</dt>

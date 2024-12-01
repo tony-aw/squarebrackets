@@ -7,7 +7,7 @@
 \alias{bind_dt}
 \title{Dimensional Binding of Objects}
 \usage{
-bind_mat(arg.list, along, name_along = TRUE, comnames_from = 1L)
+bind_mat(arg.list, along, name_deparse = TRUE, comnames_from = 1L)
 
 bind_array(
   arg.list,
@@ -36,8 +36,9 @@ making \code{along} the new first dimension.
 will create an additional dimension (\code{n+1}) and bind the arrays along that new dimension.
 }}
 
-\item{name_along}{Boolean, for \code{bind_array()} and \code{bind_mat()}. \cr
-Indicates if dimension \code{along} should be named.}
+\item{name_deparse}{Boolean, for \code{bind_mat()}. \cr
+Indicates if dimension \code{along} should be named. \cr
+Uses the naming method from \link[base]{rbind}/\link[base]{cbind} itself.}
 
 \item{comnames_from}{integer scalar or \code{NULL}, for \code{bind_array()}. \cr
 Indicates which object in \code{arg.list} should be used for naming the shared dimension. \cr
@@ -46,6 +47,9 @@ For example: \cr
 When binding columns of matrices, the matrices will share the same rownames. \cr
 Using \code{comnames_from = 10} will then result in \code{bind_array()} using
 \code{rownames(arg.list[[10]])} for the rownames of the output.}
+
+\item{name_along}{Boolean, for \code{bind_array()}. \cr
+Indicates if dimension \code{along} should be named.}
 
 \item{name_flat}{Boolean, for \code{bind_array()}. \cr
 Indicates if flat indices should be named. \cr

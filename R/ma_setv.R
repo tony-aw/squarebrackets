@@ -51,7 +51,7 @@ ma_setv <- function(x, v, rp, invert = FALSE, NA.safety = TRUE) {
   }
   .check_bindingIsLocked(substitute(x), parent.frame(n = 1), abortcall = sys.call())
   if(length(v) != 1 || length(rp) != 1 || !is.atomic(v) || !is.atomic(rp)) {
-    stop("`v` and  `rp` must be atomic scalars")
+    stop("`v` and  replacement must be atomic scalars")
   }
   if(is.na(v)) {
     stop("`NA`/ `NaN` not allowed for `v`")

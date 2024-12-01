@@ -98,7 +98,7 @@
 #' \cr
 #' \cr
 #' 
-#' @rdname aaa07_squarebrackets_options
-#' @name aaa07_squarebrackets_options
+#' @rdname aaa06_squarebrackets_options
+#' @name aaa06_squarebrackets_options
 #' @aliases squarebrackets_options
 NULL

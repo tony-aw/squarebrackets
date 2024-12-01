@@ -35,7 +35,7 @@
 .arr_tf_list <- function(x, lst, tf, .lapply, abortcall) {
   
   temp.fun <- function(...) {
-    rp <- .lapply(x[..., drop = FALSE], tf)
+    rp <-  .lapply(x[..., drop = FALSE], tf)
     .check_rp_list(rp, prod(collapse::vlengths(lst)), abortcall)
     x[...] <- rp
     return(x)

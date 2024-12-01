@@ -170,8 +170,8 @@
 #' 
 #' 
 #' 
-#' @rdname aaa03_squarebrackets_indx_fundamentals
-#' @name aaa03_squarebrackets_indx_fundamentals
+#' @rdname aaa02_squarebrackets_indx_fundamentals
+#' @name aaa02_squarebrackets_indx_fundamentals
 #' @aliases squarebrackets_indx_fundamentals
 NULL
 

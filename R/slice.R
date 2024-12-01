@@ -60,7 +60,7 @@ slice_x.default <- function(
   }
   
   if(!is.null(names(x)) && use.names && len != 0L) {
-    nms <- slice_x(names(x), from, to, by, use.names = FALSE)
+    nms <- slice_x.default(names(x), from, to, by, use.names = FALSE)
     data.table::setattr(out, "names", nms)
   }
   if(is.factor(x)) {

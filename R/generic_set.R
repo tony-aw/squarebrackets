@@ -68,7 +68,7 @@ sb_set.default <- function(
   
   # function:
   if(is.null(i)) {
-    .rcpp_set_all(x, rp, tf, abortcall = sys.call())
+    .all_set_atomic(x, rp, tf, abortcall = sys.call())
     return(invisible(NULL))
   }
   .flat_set_atomic(x, i, inv, rp = rp, tf = tf, chkdup, abortcall = sys.call())
@@ -95,7 +95,7 @@ sb_set.array <- function(
     
   # empty arguments:
   if(.all_NULL_indices(list(sub, i))) {
-    .rcpp_set_all(x, rp, tf, abortcall = sys.call())
+    .all_set_atomic(x, rp, tf, abortcall = sys.call())
     return(invisible(NULL))
   }
   
@@ -107,7 +107,7 @@ sb_set.array <- function(
   
   # zero-length subscripts:
   if(length(dims) == 0) {
-    .rcpp_set_all(x, rp, tf, abortcall = sys.call())
+    .all_set_atomic(x, rp, tf, abortcall = sys.call())
     return(invisible(NULL))
   }
   

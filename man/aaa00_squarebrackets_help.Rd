@@ -48,12 +48,12 @@ flexible and comprehensive sub-setting functionality,
 provided by the square brackets operators (\code{[}, \verb{[<-}). \cr
 But in some situations the square brackets operators
 are occasionally less than optimally convenient \cr
-(see \link{squarebrackets_inconveniences}). \cr
 \cr
 The Goal of the 'squarebrackets' package
 is not to replace the square-brackets operators,
 but to provide \bold{alternative} sub-setting methods and functions,
 to be used in situations where the square bracket operators are inconvenient. \cr
+\cr
 \cr
 }
 
@@ -122,8 +122,7 @@ Methods to modify subsets:
 for the purpose of copy-on-modify substitution.
 \item \link{sb2_recin}: replace, transform, remove, or add recursive subsets to a list,
 through R's default Copy-On-Modify semantics.
-\item \link{sb_mod}, \link{sb2_mod}: return a \bold{(partial) copy}
-of an object with modified
+\item \link{sb_mod}, \link{sb2_mod}: return the object with modified
 (transformed or replaced) subsets.
 \item Methods to \link[=sb_setRename]{rename a mutable object} using
 \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.

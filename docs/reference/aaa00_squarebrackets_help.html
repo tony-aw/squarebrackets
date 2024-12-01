@@ -149,12 +149,11 @@ which is more memory efficient than sub-set operations using the <code>[</code> 
 flexible and comprehensive sub-setting functionality,
 provided by the square brackets operators (<code>[</code>, <code>[&lt;-</code>). <br>
 But in some situations the square brackets operators
-are occasionally less than optimally convenient <br>
-(see <a href="aaa09_squarebrackets_inconveniences.html">squarebrackets_inconveniences</a>). <br><br>
+are occasionally less than optimally convenient <br><br>
 The Goal of the 'squarebrackets' package
 is not to replace the square-brackets operators,
 but to provide <b>alternative</b> sub-setting methods and functions,
-to be used in situations where the square bracket operators are inconvenient. <br><br></p>
+to be used in situations where the square bracket operators are inconvenient. <br><br><br></p>
     </div>
     <div class="section level2">
     <h2 id="supported-structures">Supported Structures<a class="anchor" aria-label="anchor" href="#supported-structures"></a></h2>
@@ -203,23 +202,22 @@ which (currently) only work on (mutable) atomic vectors. <br><br></p>
 for the purpose of copy-on-modify substitution.</p></li>
 <li><p><a href="sb2_rec.html">sb2_recin</a>: replace, transform, remove, or add recursive subsets to a list,
 through R's default Copy-On-Modify semantics.</p></li>
-<li><p><a href="sb_mod.html">sb_mod</a>, <a href="sb_mod.html">sb2_mod</a>: return a <b>(partial) copy</b>
-of an object with modified
+<li><p><a href="sb_mod.html">sb_mod</a>, <a href="sb_mod.html">sb2_mod</a>: return the object with modified
 (transformed or replaced) subsets.</p></li>
 <li><p>Methods to <a href="sb_setRename.html">rename a mutable object</a> using
-<a href="aaa08_squarebrackets_PassByReference.html">pass-by-reference semantics</a>.</p></li>
+<a href="aaa07_squarebrackets_PassByReference.html">pass-by-reference semantics</a>.</p></li>
 <li><p><a href="sb_set.html">sb_set</a>, <a href="sb_set.html">sb2_set</a>: modify (transform or replace)
 subsets of a <a href="aaa01_squarebrackets_supported_structures.html">mutable object</a>
-using <a href="aaa08_squarebrackets_PassByReference.html">pass-by-reference semantics</a>.</p></li>
+using <a href="aaa07_squarebrackets_PassByReference.html">pass-by-reference semantics</a>.</p></li>
 <li><p><a href="slice.html">slice_set</a>: efficiently modify a (long) vector subset using
-<a href="aaa08_squarebrackets_PassByReference.html">pass-by-reference semantics</a>. <br><br></p></li>
+<a href="aaa07_squarebrackets_PassByReference.html">pass-by-reference semantics</a>. <br><br></p></li>
 </ul><p><img src="figures/extend_beyond-purple.svg" alt="[EXTEND BEYOND]"><br></p>
 <p>Methods and binding implementations,
 to extend or re-arrange an object beyond its current size:</p><ul><li><p><a href="bind.html">bind_</a>:  implementations for binding dimensional objects.</p></li>
 <li><p><a href="sb_x.html">sb_x</a>, <a href="sb_x.html">sb2_x</a>: extract, exchange, or duplicate subsets.</p></li>
 <li><p><a href="sb2_rec.html">sb2_recin</a>: replace, transform, remove, or add recursive subsets to a list,
 through R's default Copy-On-Modify semantics.</p></li>
-</ul><p>See <a href="aaa05_squarebrackets_method_dispatch.html">squarebrackets_method_dispatch</a> for more information on how 'squarebrackets'
+</ul><p>See <a href="aaa04_squarebrackets_method_dispatch.html">squarebrackets_method_dispatch</a> for more information on how 'squarebrackets'
 uses its S3 Method dispatch. <br><br></p>
     </div>
     <div class="section level2">
@@ -234,9 +232,9 @@ to speed-up vectorized sub-setting on recursive subsets of the list.</p></li>
 to programmatically perform <code>data.table</code>-specific <code>[</code>-operations,
 with the security measures provided by the 'squarebrackets' package.</p></li>
 <li><p><a href="setapply.html">setapply</a>: apply functions over mutable matrix margins
-using <a href="aaa08_squarebrackets_PassByReference.html">pass-by-reference semantics</a>.</p></li>
+using <a href="aaa07_squarebrackets_PassByReference.html">pass-by-reference semantics</a>.</p></li>
 <li><p><a href="ma_setv.html">ma_setv</a>: Find &amp; Replace values in <a href="class_mutable_atomic.html">mutable_atomic</a> objects
-using <a href="aaa08_squarebrackets_PassByReference.html">pass-by-reference semantics</a>. <br>
+using <a href="aaa07_squarebrackets_PassByReference.html">pass-by-reference semantics</a>. <br>
 This is considerably faster and more memory efficient than using <a href="sb_set.html">sb_set</a> for this. <br><br></p></li>
 </ul><p><img src="figures/helper_functions-lightblue.svg" alt="[HELPER FUNCTIONS]"><br>
 A couple of convenience functions, and helper functions for creating ranges, sequences, and indices

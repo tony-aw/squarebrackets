@@ -332,8 +332,8 @@
 #' 
 
 
-#' @rdname aaa04_squarebrackets_indx_args
-#' @name aaa04_squarebrackets_indx_args
+#' @rdname aaa03_squarebrackets_indx_args
+#' @name aaa03_squarebrackets_indx_args
 #' @aliases squarebrackets_indx_args
 NULL
 

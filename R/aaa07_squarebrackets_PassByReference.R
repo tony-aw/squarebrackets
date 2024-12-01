@@ -175,7 +175,7 @@
 #' @example inst/examples/aaa_squarebrackets_PassByReference.R
 #' 
 #' 
-#' @rdname aaa08_squarebrackets_PassByReference
-#' @name aaa08_squarebrackets_PassByReference
+#' @rdname aaa07_squarebrackets_PassByReference
+#' @name aaa07_squarebrackets_PassByReference
 #' @aliases squarebrackets_PassByReference
 NULL

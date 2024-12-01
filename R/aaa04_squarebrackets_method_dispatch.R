@@ -39,6 +39,9 @@
 #' The split between the atomic and recursive forms of the method dispatches
 #' is done for several reasons:
 #' 
+#'  - There are too many nuances to keep track of for the user between atomic and recursive objects. \cr
+#'  By splitting the methods into atomic and recursive objects,
+#'  the user only has to choose `sb_` or `sb2_`, and 'squarebrackets' can handle most of the rest for the user.
 #'  - By giving atomic and recursive separate methods,
 #'  it becomes syntactically clear what the consequences are for a subset-operation: \cr
 #'  will the entire object be coerced or copied?
@@ -50,8 +53,6 @@
 #'  But the S3 method dispatch does not distinguish between atomic and recursive objects,
 #'  despite the aforementioned differences between the 2. \cr
 #'  So 'squarebrackets' uses a separate method dispatch for the atomic and recursive form.
-#'  - The distinction between the 2 sets of methods
-#'  forces some more careful thought from the user on handling objects.
 #'  - Package authors can create separate sub-set operation methods for
 #'  atomic and recursive objects using 'squarebrackets'. \cr \cr
 #'  
@@ -99,7 +100,7 @@
 #' 
 #' 
 
-#' @rdname aaa05_squarebrackets_method_dispatch
-#' @name aaa05_squarebrackets_method_dispatch
+#' @rdname aaa04_squarebrackets_method_dispatch
+#' @name aaa04_squarebrackets_method_dispatch
 #' @aliases squarebrackets_method_dispatch
 NULL

@@ -154,7 +154,7 @@
 .check_rp_atomic <- function(rp, sslength, abortcall) {
   n.rp <- length(rp)
   if(!is.atomic(rp)) {
-    stop(simpleError("`rp` must be atomic", call = abortcall))
+    stop(simpleError("replacement must be atomic", call = abortcall))
   }
   if(n.rp != sslength && n.rp != 1L) {
     stop(simpleError("recycling not allowed", call = abortcall))
@@ -178,7 +178,7 @@
 .check_rp_list <- function(rp, sslength, abortcall) {
   n.rp <- length(rp)
   if(!is.list(rp)) {
-    stop(simpleError("`rp` must be a list", call = abortcall))
+    stop(simpleError("replacement must be a list", call = abortcall))
   }
   if(sslength != n.rp && n.rp != 1L) {
     stop(simpleError("recycling not allowed", call = abortcall))
@@ -258,7 +258,7 @@
 #' @noRd
 .internal_materialize <- function(x) {
   y <- vector(typeof(x), length(x))
-  .rcpp_set_all(y, rp = x, abortcall = sys.call())
+  .rcpp_set_all_atomic(y, rp = x)
   mostattributes(y) <- attributes(x)
   return(y)
 }
@@ -266,7 +266,8 @@
 #' @keywords internal
 #' @noRd
 .internal_coerce_rp <- function(x, rp, abortcall) {
-  if(typeof(x) != typeof(rp)) {
+  rp_na <- length(rp) == 1L && is.na(rp)
+  if(!rp_na && typeof(x) != typeof(rp)) {
     message(sprintf("coercing replacement to %s", typeof(x)))
     if(is.logical(x)) rp <- as.logical(rp)
     else if(is.integer(x)) rp <- as.integer(rp)

@@ -36,7 +36,10 @@
 #'  making `along` the new first dimension.
 #'  * Specifying `along = n+1`, with `n` being the last available dimension,
 #'  will create an additional dimension (`n+1`) and bind the arrays along that new dimension.
-#' @param name_along Boolean, for `bind_array()` and `bind_mat()`. \cr
+#' @param name_deparse Boolean, for `bind_mat()`. \cr
+#' Indicates if dimension `along` should be named. \cr
+#' Uses the naming method from \link[base]{rbind}/\link[base]{cbind} itself.
+#' @param name_along Boolean, for `bind_array()`. \cr
 #' Indicates if dimension `along` should be named.
 #' @param comnames_from integer scalar or `NULL`, for `bind_array()`. \cr
 #' Indicates which object in `arg.list` should be used for naming the shared dimension. \cr
@@ -93,11 +96,11 @@ NULL
 #' @rdname bind
 #' @export
 bind_mat <- function(
-    arg.list, along, name_along = TRUE, comnames_from = 1L
+    arg.list, along, name_deparse = TRUE, comnames_from = 1L
 ) {
   
   # error checks:
-  .bind_checkargs(along, name_along, comnames_from, FALSE, abortcall = sys.call())
+  .bind_checkargs(along, name_deparse, comnames_from, FALSE, abortcall = sys.call())
   if(any(vapply(arg.list, is.data.frame, logical(1L)))) {
     stop("use `bind_dt to bind data.frame-like objects")
   }
@@ -118,13 +121,13 @@ bind_mat <- function(
   }
   
   
-  name_along <- as.integer(name_along)
+  name_deparse <- as.integer(name_deparse)
   if(along == 1L) {
-    out <- do.call(rbind, c(arg.list, n(deparse.level = name_along)))
+    out <- do.call(rbind, c(arg.list, n(deparse.level = name_deparse)))
     not_along <- 2L
   }
   if(along == 2L) {
-    out <- do.call(cbind, c(arg.list, n(deparse.level = name_along)))
+    out <- do.call(cbind, c(arg.list, n(deparse.level = name_deparse)))
     not_along <- 1L
   }
   
