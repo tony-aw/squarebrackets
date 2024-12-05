@@ -387,8 +387,8 @@
 
 #' @keywords internal
 #' @noRd
-.rcpp_slice_rm_atomic <- function(x, start, end, by, len) {
-    .Call(`_squarebrackets_rcpp_slice_rm_atomic`, x, start, end, by, len)
+.rcpp_slice_wo_atomic <- function(x, start, end, by, len) {
+    .Call(`_squarebrackets_rcpp_slice_wo_atomic`, x, start, end, by, len)
 }
 
 #' @keywords internal
@@ -563,6 +563,12 @@
 #' @noRd
 .rcpp_coord2ind <- function(ind, coord, xdim) {
     .Call(`_squarebrackets_rcpp_coord2ind`, ind, coord, xdim)
+}
+
+#' @keywords internal
+#' @noRd
+.rcpp_dt_needcoe <- function(x, col, rp) {
+    .Call(`_squarebrackets_rcpp_dt_needcoe`, x, col, rp)
 }
 
 #' @keywords internal

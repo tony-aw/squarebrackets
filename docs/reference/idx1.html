@@ -179,7 +179,7 @@ whilst still using R's default copy-on-modification semantics
 
 
 <dt>...</dt>
-<dd><p>see <a href="aaa04_squarebrackets_method_dispatch.html">squarebrackets_method_dispatch</a>.</p></dd>
+<dd><p>see <a href="aaa06_squarebrackets_method_dispatch.html">squarebrackets_method_dispatch</a>.</p></dd>
 
 
 <dt>i, sub, dims, margin, slice, inv</dt>
@@ -188,7 +188,7 @@ Duplicates are not allowed.</p></dd>
 
 
 <dt>chkdup</dt>
-<dd><p>see <a href="aaa06_squarebrackets_options.html">squarebrackets_options</a>. <br><img src="figures/for_performance-set_to_FALSE-red.svg" alt="[for performance: set to FALSE]"><br></p></dd>
+<dd><p>see <a href="aaa05_squarebrackets_options.html">squarebrackets_options</a>. <br><img src="figures/for_performance-set_to_FALSE-red.svg" alt="[for performance: set to FALSE]"><br></p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -327,17 +327,17 @@ for the dimension specified in <code>margin</code>. <br></p>
 <span class="r-in"><span><span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu">idx</span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"b"</span>, <span class="st">"a"</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">x</span><span class="op">[</span><span class="va">rows</span>, <span class="va">cols</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        a  b           c d e</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   TRUE  1  0.07105336 a k</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  FALSE  2 -0.63953477 b l</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  FALSE  3 -0.84519574 c m</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4   TRUE  4  0.67524470 d n</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  FALSE  5  1.15337579 e o</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6     NA NA -1.68650474 f p</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7     NA NA -0.90281495 g q</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8     NA NA  1.31763370 h r</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9     NA NA  1.10018974 i s</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10    NA NA  1.20376784 j t</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        a  b          c d e</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  FALSE  1  0.3720032 a k</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  FALSE  2 -0.6098583 b l</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  FALSE  3  1.0439389 c m</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   TRUE  4 -0.3027063 d n</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   TRUE  5  1.4172813 e o</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6     NA NA -0.8671011 f p</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7     NA NA -2.2181411 g q</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8     NA NA -0.2753020 h r</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9     NA NA  0.3766451 i s</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10    NA NA  0.9721363 j t</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

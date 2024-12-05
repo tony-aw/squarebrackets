@@ -69,15 +69,29 @@ All forms of indexing in 'squarebrackets' are internally translated to integer
 (or double if<code> &gt; (2^31 - 1)</code>) indexing first,
 ensuring consistency. <br>
 Indexing through integer/numeric indices in 'squarebrackets' works the same as in base 'R',
-except that negative values are not allowed. <br><br><br><b>Logical</b> <br>
+except that negative values are not allowed. <br>
+So indexing starts at <code>1</code>, and is inclusive (all matching indices are selected). <br><br><br><b>Logical</b> <br>
 Selecting indices with a logical vector in 'squarebrackets' works the same as in base 'R',
-except that recycling is not allowed. <br>
-Thus the logical vector must be of the correct length
-(i.e. <code>length(x)</code> or <code>dim(x)[L]</code>, depending on the situation). <br><br><br><b>Characters</b> <br>
+except that recycling is not allowed. <br><br><br><b>Characters</b> <br>
 When selecting indices using a character vector,
 base 'R' only selects the first matches in the names. <br>
-'squarebrackets', however, selects all matches. <br>
-Character indices are internally translated to integer indices using
+'squarebrackets', however, selects all matches:</p>
+<p></p><div class="sourceCode r"><pre><code><span></span>
+<span><span class="va">nms</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="va">letters</span><span class="op">[</span><span class="fl">4</span><span class="op">:</span><span class="fl">1</span><span class="op">]</span>, <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">nms</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="co">#' `x` has multiple elements with the name "a"</span></span>
+<span><span class="co">#&gt;  a  d  c  b  a  a  b  c  d  e </span></span>
+<span><span class="co">#&gt;  1  2  3  4  5  6  7  8  9 10</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/sb_x.html">sb_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"a"</span><span class="op">)</span> <span class="co"># extracts all indices with the name "a"</span></span>
+<span><span class="co">#&gt; a a a </span></span>
+<span><span class="co">#&gt; 1 5 6</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/sb_x.html">sb_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"a"</span><span class="op">)</span><span class="op">)</span> <span class="co"># repeats all indices with the name "a"</span></span>
+<span><span class="co">#&gt; a a a a a a </span></span>
+<span><span class="co">#&gt; 1 5 6 1 5 6</span></span></code></pre><p></p></div>
+<p>Character indices are internally translated to integer indices using
 <a href="match_all.html">match_all</a>. <br><br><br><b>Imaginary Numbers</b> <br>
 A <a href="https://rdrr.io/r/base/complex.html" class="external-link">complex</a> vector <code>y</code> is structured as <br><code>y = a + b * i</code> <br>
 where <code>Re(y)</code> returns <code>a</code>, and <code>Im(y)</code> returns <code>b</code>. <br>
@@ -88,11 +102,7 @@ Imaginary numbers that are positive integers,
 like <code>1:10 * 1i</code>, work the same as regular integers. <br>
 Imaginary numbers that are negative integers,
 like <code>1:10 * -1i</code>,
-index by counting backwards (i.e. from the end),
-where the integer indices are computed as <code>n + Im(y) + 1L</code>. <br>
-Here <code>n</code> is the maximum possible integer
-(i.e. <code>length(x)</code>, or <code>dim(x)[L]</code>, depending on the situation),
-and <code>Im(y)</code> is negative. <br>
+index by counting backwards (i.e. from the end). <br>
 Note that <b>only</b> the <code>Imaginary</code> part of a complex vector is used (<code>Im(y)</code>); <br>
 the <code>Real</code> part (<code>Re(y)</code>) is <b>ignored</b>. <br><br>
 See the results of the following code as an example:</p>
@@ -109,23 +119,33 @@ See the results of the following code as an example:</p>
 <span><span class="co">#&gt;  [1] 21 22 23 24 25 26 27 28 29 30</span></span></code></pre><p></p></div>
 <p>Thus complex vectors allow the user to choose between counting from the beginning,
 like regular integers,
-or counting from the end. <br><br><br></p>
+or backwards counting from the end. <br><br><br></p>
     </div>
     <div class="section level2">
-    <h2 id="subscripts">Subscripts<a class="anchor" aria-label="anchor" href="#subscripts"></a></h2>
+    <h2 id="basic-indexing-in-dimensionless-vectors">Basic Indexing in Dimensionless Vectors<a class="anchor" aria-label="anchor" href="#basic-indexing-in-dimensionless-vectors"></a></h2>
     
 
-<p>One can distinguish between flat indices, array subscripts, and data.frame subscripts. <br><br>
+<p>Indexing in a vector is straight-forward, and very similar to base 'R'. <br>
+An expression like <a href="sb_x.html">sb_x</a><code>(x, i)</code>, for example, is equivalent to <code>x[i]</code>. <br><br><br></p>
+    </div>
+    <div class="section level2">
+    <h2 id="basic-indexing-in-arrays">Basic Indexing in Arrays<a class="anchor" aria-label="anchor" href="#basic-indexing-in-arrays"></a></h2>
+    
+
+<p>Arrays and matrices (matrices are simply arrays with 2 dimensions)
+distinguish between flat indices and subscripts. <br><br>
 Flat indices, also called linear indices,
-specifies the index of a vector, ignoring dimensions (if any are present). <br>
-So in an expression like <code>x[i]</code>, where <code>i</code> is a vector, <code>i</code> specifies flat indices. <br><br>
-Matrices and arrays also have array subscripts. <br>
-Array subscripts works by specifying multiple indexing vectors,
+specifies the indices of an array as-if it is vector,
+thus ignoring dimensions. <br>
+So in an expression like <a href="sb_x.html">sb_x</a><code>(x, i)</code> (equivalent to <code>x[i]</code>),
+where <code>i</code> is a vector, <code>i</code> specifies flat indices. <br><br>
+Matrices and arrays also have subscripts. <br>
+Array subscripts work by specifying multiple indexing vectors,
 which can be of different sizes,
 where each vector specifies positions in a specific dimension. <br>
 Given, for example, a 3-dimensional array,
-the subscript <code>[1:10, 2:5, 3:9]</code>
-refers to rows 1 to 10, columns 2 to 5, and layers 3 to 9. <br>
+the subscript <code>(1:10, 2:5, 3:9)</code>,
+refers to rows 1 to 10, columns 2 to 5, and layers 3 to 9. <br><br>
 The base S3 vector classes in 'R' use the standard Linear Algebraic convention,
 as in academic fields like Mathematics and Statistics,
 in the following sense: <br></p><ul><li><p>vectors are <b>column</b> vectors (i.e. vertically aligned vectors);</p></li>
@@ -138,62 +158,136 @@ a 4-rows-by-5-columns matrix, is as follows:</p>
 <span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>[<span class="dv">2</span>,]    <span class="dv">2</span>    <span class="dv">6</span>   <span class="dv">10</span>   <span class="dv">14</span>   <span class="dv">18</span></span>
 <span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>[<span class="dv">3</span>,]    <span class="dv">3</span>    <span class="dv">7</span>   <span class="dv">11</span>   <span class="dv">15</span>   <span class="dv">19</span></span>
 <span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>[<span class="dv">4</span>,]    <span class="dv">4</span>    <span class="dv">8</span>   <span class="dv">12</span>   <span class="dv">16</span>   <span class="dv">20</span></span></code></pre><p></p></div>
-<p>In a 4 by 4 matrix, subscript <code>[1,2]</code> corresponds to flat index <code>5</code>. <br>
+<p>In a 4 by 4 matrix, subscript <code>(1, 2)</code> corresponds to flat index <code>5</code>. <br>
 All array subscripts in 'squarebrackets' also follow this convention. <br><br>
-Data.frame-like objects use data.frame subscripts. <br>
-At first glance this may seem the same as the array subscripts of matrices,
-but they are not: <br>
-The column indices of a data.frame-like object is equal to its flat indices. <br>
-I.e. for a data.frame, <code>x[i]</code> is essentially the same as <code>x[, i]</code>, safe for some attribute handling. <br>
-To avoid confusion,
-'squarebrackets' does not have an argument for flat indices in its data.frame methods. <br><br>
-Flat indices (or just "indices" for non-dimensional objects)
-exist for all objects
-(in data.frame-like objects, flat indices are actually equal to column indices). <br>
-Thus flat indices are the "default" indices, and are usually just referred to as simply "indices". <br><br><br></p>
+The S3 methods in 'squarebrackets' implement subscripts through
+the <a href="aaa03_squarebrackets_indx_args.html">sub, dims</a> argument pair. <br>
+This argument pair allows specifying indices of an array,
+without requiring a-priori knowledge on the number of dimensions the array has. <br><br><br></p>
     </div>
     <div class="section level2">
-    <h2 id="indexing-in-recursive-subsets">Indexing in Recursive Subsets<a class="anchor" aria-label="anchor" href="#indexing-in-recursive-subsets"></a></h2>
+    <h2 id="basic-indexing-in-data-frame-like-objects">Basic Indexing in data.frame-like Objects<a class="anchor" aria-label="anchor" href="#basic-indexing-in-data-frame-like-objects"></a></h2>
     
 
-<p>One of the differences between atomic and recursive objects,
-is that recursive objects support recursive subsets, while atomic objects do not. <br><br>
-Bear in mind that every element in a recursive object is a reference to another object. <br>
-Consider the following list <code>x</code>:</p>
+<p>Data.frames distinguish between row- and column indices. <br>
+These are very equivalent to base 'R'. <br><br>
+Technically speaking, the column indices of a data.frame-like object is equal to its flat indices. <br>
+I.e. for a data.frame, <code>x[i]</code> is essentially the same as <code>x[, i]</code>, safe for some attribute handling. <br>
+To avoid confusion,
+'squarebrackets' does not have an argument for flat indices in its data.frame methods. <br><br><br></p>
+    </div>
+    <div class="section level2">
+    <h2 id="inverting">Inverting<a class="anchor" aria-label="anchor" href="#inverting"></a></h2>
+    
+
+<p>Inverting indices entails to specify all elements <b>except</b> the given indices. <br>
+Consider for example the atomic vector <code>month.abb</code> (abbreviate month names). <br>
+Given this vector, indices <code>1:5</code> gives <code>c("Jan" "Feb" "Mar" "Apr", "May")</code>. <br>
+Inverting those same indices will give <code>c("Jun" "Jul" "Aug" "Sep" "Oct" "Nov" "Dec")</code>. <br><br>
+In base 'R', inverting an index is done in different ways. <br>
+(negative numbers for numeric indexing, negation for logical indexing,
+manually un-matching for character vectors). <br><br>
+'squarebrackets' provides a (somewhat) consistent syntax to invert indices: <br></p><ul><li><p>The methods that end with <code>_x</code> perform extraction; <br>
+to invert extraction,
+i.e. return the object <b>without</b> the specified subset,
+use the methods that end with <code>_wo</code>. <br></p></li>
+<li><p>In the modification methods (<code>_mod_</code>/<code>_set_</code>) one can set the argument
+<a href="aaa03_squarebrackets_indx_args.html">inv</a><code> = TRUE</code> to invert indices. <br><br></p></li>
+</ul><p><b>NOTE ABOUT ORDERING</b> <br>
+The order in which the user gives indices when inverting indices generally does not matter. <br>
+The order of the indices as they appear in the original object <code>x</code> is maintained,
+just like in base 'R'. <br>
+Therefore, when replacing multiple values where the order of the replacement matters,
+it is better to keep <code>inv = FALSE</code>, which is the default. <br>
+For replacement with a single value or with a transformation function,
+<code>inv = TRUE</code> can be used without considering the ordering. <br><br><b>EXAMPLES</b></p>
 <p></p><div class="sourceCode r"><pre><code><span></span>
-<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>A <span class="op">=</span> <span class="va">letters</span>, B <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, C <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">11</span><span class="op">:</span><span class="fl">20</span>, B <span class="op">=</span> <span class="va">LETTERS</span><span class="op">)</span><span class="op">)</span></span>
-<span></span></code></pre><p></p></div>
-<p>Regular subsets, AKA surface-level subset operations (<code>[</code>, <code>[&lt;-</code> in base 'R'),
-operate on the recursive object itself. <br>
-I.e. <a href="sb_x.html">sb2_x</a><code>(x, 1)</code>, or equivalently <code>x[1]</code>,
-returns the list <code>list(A = letters)</code>. <br>
-Recursive subset operations (<code>[[</code>, <code>[[&lt;-</code> in base 'R'), on the other hand,
-operate on an object a subset of the recursive object references to. <br>
-I.e. <a href="sb2_rec.html">sb2_rec</a><code>(x, 1)</code>, or equivalently <code>x[[1]]</code>,
-returns the <b>character vector</b> <code>letters</code>. <br><br>
-Recursive objects can refer to other recursive objects,
-which can themselves refer to recursive objects, and so on. <br>
-Recursive subsets can go however deep you want. <br>
-So, for example,
-to extract the character vector <code>LETTERS</code> from the aforementioned list <code>x</code>,
-one would need to do: <br><a href="sb2_rec.html">sb2_rec</a><code>(x, c("C","B"))</code>, or equivalently, <code>x[["C"]][["B"]]</code>. <br>
-You can also do this using integers of course: <a href="sb2_rec.html">sb2_rec</a><code>(x, c(3, 2))</code>. <br><br>
-Note that recursive subset operations
-using <a href="sb2_rec.html">sb2_rec</a>/<a href="sb2_rec.html">sb2_recin</a>
-only support positive integer vectors and character vectors; <br>
-imaginary numbers (using complex vectors) and logical vectors are not supported. <br>
-Moreover, since a recursive subset operation only operates on a single element,
-specifying the index with a character vector only selects the first matching element
-(just like base 'R'), not all matches. <br><br><br></p>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">month.abb</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] "Jan" "Feb" "Mar" "Apr" "May" "Jun" "Jul" "Aug" "Sep" "Oct" "Nov" "Dec"</span></span>
+<span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/sb_x.html">sb_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span> <span class="co"># extract first 5 elements</span></span>
+<span><span class="co">#&gt; [1] "Jan" "Feb" "Mar" "Apr" "May"</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/sb_wo.html">sb_wo</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span> <span class="co"># return WITHOUT first 5 elements</span></span>
+<span><span class="co">#&gt; [1] "Jun" "Jul" "Aug" "Sep" "Oct" "Nov" "Dec"</span></span>
+<span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/sb_mod.html">sb_mod</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, rp <span class="op">=</span> <span class="st">"XXX"</span><span class="op">)</span> <span class="co"># copy, replace first 5 elements, return result</span></span>
+<span><span class="co">#&gt;  [1] "XXX" "XXX" "XXX" "XXX" "XXX" "Jun" "Jul" "Aug" "Sep" "Oct" "Nov" "Dec"</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/sb_mod.html">sb_mod</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, inv <span class="op">=</span> <span class="cn">T</span>, rp <span class="op">=</span> <span class="st">"XXX"</span><span class="op">)</span> <span class="co"># same, but for all except first 5 elements</span></span>
+<span><span class="co">#&gt;  [1] "Jan" "Feb" "Mar" "Apr" "May" "XXX" "XXX" "XXX" "XXX" "XXX" "XXX" "XXX"</span></span></code></pre><p></p></div>
+<p>___ <br><br><br></p>
     </div>
     <div class="section level2">
     <h2 id="regarding-performance">Regarding Performance<a class="anchor" aria-label="anchor" href="#regarding-performance"></a></h2>
     
 
-<p>Integer indices and logical indices are the fastest. <br>
+<p>Integer vectors created through the <code>:</code> operator are "ALTREP" integer vectors,
+and provide the fastest way to specify indices. <br>
 Indexing through names (i.e. character vectors) is the slowest. <br>
-Thus if performance is important, use integer or logical indices. <br><br><br></p>
+Complex vectors of imaginary numbers are somewhat in the middle
+in terms of speed.
+So if performance is important, use ALTREP integer indices. <br><br><br></p>
     </div>
+    <div class="section level2">
+    <h2 id="indexing-in-recursive-subsets">Indexing in Recursive Subsets<a class="anchor" aria-label="anchor" href="#indexing-in-recursive-subsets"></a></h2>
+    
+
+<p>Until now this help page focussed on indexing for regular (or "shallow") subsets. <br>
+This section will discuss indexing in recursive subsets. <br><br>
+One of the differences between atomic and recursive objects,
+is that recursive objects support recursive subsets, while atomic objects do not. <br><br>
+Bear in mind that every element in a recursive object is a reference to another object. <br>
+Consider the following list <code>x</code>:</p>
+<p></p><div class="sourceCode r"><pre><code><span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>   A <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,</span>
+<span>   B <span class="op">=</span> <span class="va">letters</span>,</span>
+<span>   C <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">11</span><span class="op">:</span><span class="fl">20</span>, B <span class="op">=</span> <span class="va">month.abb</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre><p></p></div>
+<p>Regular subsets, AKA surface-level subset operations (<code>[</code>, <code>[&lt;-</code> in base 'R'),
+operate on the recursive object itself. <br>
+I.e. <a href="sb_x.html">sb2_x</a><code>(x, 1)</code>, or equivalently <code>x[1]</code>,
+returns the <b>list</b> <code>list(A = 1:10)</code>:</p>
+<p></p><div class="sourceCode r"><pre><code><span></span>
+<span><span class="fu"><a href="../reference/sb_x.html">sb2_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">)</span> <span class="co"># equivalent to x[1]; returns list(A = 1:10)</span></span>
+<span><span class="co">#&gt; $A</span></span>
+<span><span class="co">#&gt;  [1]  1  2  3  4  5  6  7  8  9 10</span></span></code></pre><p></p></div>
+<p>Recursive subset operations (<code>[[</code>, <code>[[&lt;-</code> in base 'R'), on the other hand,
+operate on an object a subset of the recursive object references to. <br>
+I.e. <a href="sb2_rec.html">sb2_rec</a><code>(x, 1)</code>, or equivalently <code>x[[1]]</code>,
+returns the <b>integer vector</b> <code>1:10</code>:</p>
+<p></p><div class="sourceCode r"><pre><code><span></span>
+<span><span class="fu"><a href="../reference/sb2_rec.html">sb2_rec</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">)</span> <span class="co"># equivalent to x[[1]]; returns 1:10</span></span>
+<span><span class="co">#&gt;  [1]  1  2  3  4  5  6  7  8  9 10</span></span></code></pre><p></p></div>
+<p>Recursive objects can refer to other recursive objects,
+which can themselves refer to recursive objects, and so on. <br>
+Recursive subsets can go however deep you want. <br>
+So, for example,
+to extract the character vector <code>month.abb</code> from the aforementioned list <code>x</code>,
+one would need to do: <br><a href="sb2_rec.html">sb2_rec</a><code>(x, c("C","B"))</code>, (in base R: <code>x[["C"]][["B"]]</code>):</p>
+<p></p><div class="sourceCode r"><pre><code><span></span>
+<span><span class="fu"><a href="../reference/sb2_rec.html">sb2_rec</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"C"</span>,<span class="st">"B"</span><span class="op">)</span><span class="op">)</span> <span class="co"># equivalent to x[["C"]][["B"]]</span></span>
+<span><span class="co">#&gt;  [1] "Jan" "Feb" "Mar" "Apr" "May" "Jun" "Jul" "Aug" "Sep" "Oct" "Nov" "Dec"</span></span>
+<span></span>
+<span><span class="co"># or:</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/sb2_rec.html">sb2_rec</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span> <span class="co"># equivalent to x[[3]][[2]]</span></span>
+<span><span class="co">#&gt;  [1] "Jan" "Feb" "Mar" "Apr" "May" "Jun" "Jul" "Aug" "Sep" "Oct" "Nov" "Dec"</span></span></code></pre><p></p></div>
+<p><b>IMPORTANT</b> <br>
+Indexing in recursive subsets is significantly more limited than in regular
+(or "shallow") subsets:</p><ul><li><p>Recursive subset operations
+using <a href="sb2_rec.html">sb2_rec</a>/<a href="sb2_rec.html">sb2_recin</a>
+only support positive integer vectors and character vectors.</p></li>
+<li><p>Imaginary numbers (using complex vectors) and logical vectors are not supported.</p></li>
+<li><p>Since a recursive subset operation only operates on a single element,
+specifying the index with a character vector only selects the first matching element
+(just like base 'R'), not all matches.</p></li>
+<li><p>Inverting indices is also <b>not</b> available for recursive indexing. <br><br></p></li>
+</ul></div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>

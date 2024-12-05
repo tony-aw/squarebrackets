@@ -154,8 +154,8 @@ lst_untree <- function(x, margin, use.names = TRUE) {
     dim(out) <- c(length(input), maxlen)
     
     for(i in seq_along(input)) {
-      mypointer <- input[[i]]
-      out[i, seq_along(mypointer)] <- mypointer
+      myref <- input[[i]]
+      out[i, seq_along(myref)] <- myref
     }
     if(use.names) {
       rownames(out) <- names(input)
@@ -169,8 +169,8 @@ lst_untree <- function(x, margin, use.names = TRUE) {
     dim(out) <- c(maxlen, length(input))
     
     for(i in seq_along(input)) {
-      mypointer <- input[[i]]
-      out[seq_along(mypointer), i] <- mypointer
+      myref <- input[[i]]
+      out[seq_along(myref), i] <- myref
     }
     if(use.names) {
       colnames(out) <- names(input)

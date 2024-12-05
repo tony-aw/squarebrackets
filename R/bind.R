@@ -41,7 +41,8 @@
 #' Uses the naming method from \link[base]{rbind}/\link[base]{cbind} itself.
 #' @param name_along Boolean, for `bind_array()`. \cr
 #' Indicates if dimension `along` should be named.
-#' @param comnames_from integer scalar or `NULL`, for `bind_array()`. \cr
+#' @param comnames_from either integer scalar or `NULL`,
+#' for `bind_mat()` and  `bind_array()`. \cr
 #' Indicates which object in `arg.list` should be used for naming the shared dimension. \cr
 #' If `NULL`, no communal names will be given. \cr
 #' For example: \cr
@@ -52,7 +53,9 @@
 #' Indicates if flat indices should be named. \cr
 #' Note that setting this to `TRUE` will reduce performance considerably. \cr
 #' `r .mybadge_performance_set2("FALSE")`
+#' @param ... arguments to be passed to \link[data.table]{rbindlist}. \cr \cr
 #' 
+#'  
 #' 
 #' @details
 #' `bind_array()` is a modified version of the fantastic
@@ -183,16 +186,14 @@ bind_array <- function(
 #' @rdname bind
 #' @export
 bind_dt <- function(
-    arg.list, along
+    arg.list, along, ...
 ) {
   if(along == 1) {
-    out <- data.table::rbindlist(arg.list)
+    out <- data.table::rbindlist(arg.list, ...)
   }
   if(along == 2) {
-    out <- do.call(data.table::data.table, arg.list)
+    out <- do.call(data.table::data.table, c(arg.list, check.names = TRUE))
   }
-  
-  names(out) <- make.unique(names(out))
   return(out)
   
 }

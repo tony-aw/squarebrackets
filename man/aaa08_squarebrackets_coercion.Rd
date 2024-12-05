@@ -3,106 +3,18 @@
 \name{aaa08_squarebrackets_coercion}
 \alias{aaa08_squarebrackets_coercion}
 \alias{squarebrackets_coercion}
-\title{Auto-Coercion Rules}
+\title{Auto-Coercion Rules for Mutable Objects}
 \description{
-This help page describes the auto-coercion rules of the supported classes,
-as they are handled by the 'squarebrackets' package. \cr \cr
+This help page describes the auto-coercion rules of the mutable classes,
+as they are handled by the 'squarebrackets' package. \cr
+This useful information for users who wish to intend to employ
+\link[=squarebrackets_PassByReference]{Pass-by-Reference semantics}
+as provided by 'squarebrackets'. \cr
+\cr
+\cr
 }
-\section{Coercion Rules for Immutable Classes}{
+\section{mutable_atomic}{
 
-\bold{Atomic} \cr
-\ifelse{html}{\figure{coercion_through_copy-YES-darkgreen.svg}{options: alt='[coercion_through_copy: YES]'}}{\link[=squarebrackets_coercion]{coercion_through_copy: YES}} \cr
-Atomic objects are automatically coerced to fit the modified subset values,
-when modifying through copy. \cr
-For example, replacing one or multiple values in an integer vector
-(type \code{int})
-with a decimal number
-(type \code{dbl})
-will coerce the entire vector to type \code{dbl}. \cr
-\cr
-\cr
-\bold{Derived From Atomic} \cr
-\ifelse{html}{\figure{coercion_through_copy-depends-lightblue.svg}{options: alt='[coercion_through_copy: depends]'}}{\link[=squarebrackets_coercion]{coercion_through_copy: depends}} \cr
-Factors, datetime, POSIXct and so on are derived from atomic vectors,
-but have attributes and special methods that make them behave differently. \cr
-Depending on their behaviour, they may or may not allow coercion. \cr
-Factors, for example, only accept values that are part of their levels,
-and thus do not support coercion on modification. \cr
-\cr
-There are highly specialized packages to handle objects derived from atomic objects. \cr
-For example the 'anytime' package to handle date-time objects. \cr
-\cr
-\cr
-\bold{List} \cr
-\ifelse{html}{\figure{coercion_through_copy-depends-lightblue.svg}{options: alt='[coercion_through_copy: depends]'}}{\link[=squarebrackets_coercion]{coercion_through_copy: depends}} \cr
-Lists themselves allow complete change of their elements,
-since lists are merely pointers. \cr
-For example, the following code performs full coercion:
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{x <- list(factor(letters), factor(letters))
-sb_mod(x, 1, rp = list(1))
-}\if{html}{\out{</div>}}
-
-However, a recursive subset of a list which itself is not a list,
-follows the coercion rules of whatever class the recursive subset is. \cr
-For example the following code:
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{x <- list(1:10, 1:10)
-sb_rec(x, 1, rp = "a") # coerces to character
-}\if{html}{\out{</div>}}
-
-transforms recursive subsets according to the - in this case -
-atomic auto-coercion rules. \cr
-\cr
-\cr
-\bold{Data.frames when replacing/transforming whole columns} \cr
-\ifelse{html}{\figure{coercion_through_copy-YES-darkgreen.svg}{options: alt='[coercion_through_copy: YES]'}}{\link[=squarebrackets_coercion]{coercion_through_copy: YES}} \cr
-A data.frame is actually a list, where each column is itself a list.
-As such, replacing/transforming whole columns,
-so \code{row = NULL} and \code{filter = NULL},
-allows completely changing the type of the column. \cr
-Note that coercion of columns needs arguments
-\code{row = NULL} and \code{filter = NULL}
-in the \link{sb_mod} and \link{sb_set} methods;
-no auto-coercion will take place when specifying something like \code{row = 1:nrow(x)}
-(see next section). \cr
-\cr
-\cr
-\bold{Data.frames, when partially replacing/transforming columns} \cr
-\ifelse{html}{\figure{coercion_through_copy-NO-red.svg}{options: alt='[coercion_through_copy: NO]'}}{\link[=squarebrackets_coercion]{coercion_through_copy: NO}} \cr
-If rows are specified in the \link{sb_mod} and \link{sb_set} methods,
-and thus not whole columns but parts of columns are replaced or transformed,
-no auto-coercion takes place. \cr
-I.e.: replacing/transforming a value in an integer (\code{int}) column to become \code{1.5},
-will not coerce the column to the decimal type (\code{dbl});
-instead, the replacement value \code{1.5} is coerced to integer \code{1}. \cr
-The \code{coe} argument in the \link{sb_mod} method
-allows the user to enforce coercion,
-even if subsets of columns are replaced/transformed instead of whole columns. \cr
-Specifically, the \code{coe} arguments allows the user to specify a coercive function
-to be applied on the entirety of every column specified in \code{col} or \code{vars};
-columns outside this subset are not affected. \cr
-This coercion function is, of course,
-applied before replacement (\code{rp}) or transformation (\code{tf()}). \cr
-\cr \cr
-\cr \cr
-}
-
-\section{Coercion Rules for Mutable Classes}{
-
-\bold{Coercion Semantics} \cr
-The mutable classes support "copy-on-modify" semantics like the immutable classes,
-but - unlike the immutable classes - they also support "pass-by-reference" semantics. \cr
-The \link{sb_mod} method
-modify subsets of an object through a \bold{(partial) copy}. \cr
-The \link{sb_set} method and \link{dt_setcoe} function
-modify subsets of an object \bold{by reference}. \cr
-These 2 copy semantics - "pass by reference" or "modify copy" -
-have slightly different auto-coercion rules. \cr
-These are explained in this section. \cr
-\cr
-\cr
-\bold{mutable_atomic} \cr
 \ifelse{html}{\figure{coercion_through_copy-YES-darkgreen.svg}{options: alt='[coercion_through_copy: YES]'}}{\link[=squarebrackets_coercion]{coercion_through_copy: YES}} \cr
 \ifelse{html}{\figure{coercion_by_reference-NO-red.svg}{options: alt='[coercion_by_reference: NO]'}}{\link[=squarebrackets_coercion]{coercion_by_reference: NO}} \cr
 Mutable atomic objects are automatically coerced to fit the modified subset values,
@@ -117,16 +29,24 @@ Replacing or transforming subsets of mutable atomic objects \bold{by reference}
 does not support coercion.
 Thus, for example, the following code,
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{x <- 1:16
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{
+x <- mutable_atomic(1:16)
 sb_set(x, i = 1:6, rp = 8.5)
-x
+#> coercing replacement to integer
+print(x)
+#>  [1]  8  8  8  8  8  8  7  8  9 10 11 12 13 14 15 16
+#> mutable_atomic 
+#> typeof:  integer
 }\if{html}{\out{</div>}}
 
 gives \verb{c(rep(8, 6) 7:16)} instead of \code{c(rep(8.5, 6), 7:16)},
 because \code{x} is of type \code{integer}, so \code{rp} is interpreted as type \code{integer} also. \cr
 \cr
 \cr
-\bold{data.table, when replacing/transforming whole columns} \cr
+}
+
+\section{data.table, when replacing/transforming whole columns}{
+
 \ifelse{html}{\figure{coercion_through_copy-YES-darkgreen.svg}{options: alt='[coercion_through_copy: YES]'}}{\link[=squarebrackets_coercion]{coercion_through_copy: YES}} \cr
 \ifelse{html}{\figure{coercion_by_reference-YES-darkgreen.svg}{options: alt='[coercion_by_reference: YES]'}}{\link[=squarebrackets_coercion]{coercion_by_reference: YES}} \cr
 A data.table is actually a list made mutable,
@@ -134,37 +54,33 @@ where each column is itself a list.
 As such, replacing/transforming whole columns,
 so \code{row = NULL} and \code{filter = NULL},
 allows completely changing the type of the column. \cr
-Note that coercion of columns needs arguments
-\code{row = NULL} and \code{filter = NULL}
-in the \link{sb_mod} and \link{sb_set} methods;
-no auto-coercion will take place when specifying something like \code{row = 1:nrow(x)}
-(see next section). \cr
 \cr
 \cr
-\bold{data.table, when partially replacing/transforming columns} \cr
-\ifelse{html}{\figure{coercion_through_copy-NO-red.svg}{options: alt='[coercion_through_copy: NO]'}}{\link[=squarebrackets_coercion]{coercion_through_copy: NO}} \cr
+}
+
+\section{data.table, when partially replacing/transforming columns}{
+
+\ifelse{html}{\figure{coercion_through_copy-YES-darkgreen.svg}{options: alt='[coercion_through_copy: YES]'}}{\link[=squarebrackets_coercion]{coercion_through_copy: YES}} \cr
 \ifelse{html}{\figure{coercion_by_reference-NO-red.svg}{options: alt='[coercion_by_reference: NO]'}}{\link[=squarebrackets_coercion]{coercion_by_reference: NO}} \cr
-If rows are specified in the \link{sb_mod} and \link{sb_set} methods,
+If rows are specified in the \link{sb2_set} method,
 and thus not whole columns but parts of columns are replaced or transformed,
 no auto-coercion takes place. \cr
 I.e.: replacing/transforming a value in an integer (\code{int}) column to become \code{1.5},
 will not coerce the column to the decimal type (\code{dbl});
 instead, the replacement value \code{1.5} is coerced to integer \code{1}. \cr
-The \code{coe} argument in the \link{sb_mod} method
-allows the user to enforce coercion,
-even if subsets of columns are replaced/transformed instead of whole columns. \cr
-Specifically, the \code{coe} arguments allows the user to specify a coercive function
-to be applied on the entirety of every column specified in \code{col} or \code{vars};
-columns outside this subset are not affected. \cr
-This coercion function is, of course,
-applied before replacement (\code{rp}) or transformation (\code{tf()}). \cr
+\cr
+The \link{sb2_mod} method, however,
+allows for coercion just like regular data.frame objects. \cr
 \cr
 \cr
-\bold{Views of Lists} \cr
-\ifelse{html}{\figure{coercion_by_reference-depends-lightblue.svg}{options: alt='[coercion_by_reference: depends]'}}{\link[=squarebrackets_coercion]{coercion_by_reference: depends}} \cr
-Regular lists themselves are not treated as mutable objects by 'squarebrackets'. \cr
-However, lists are not actually really objects,
-merely a (potentially hierarchical) structure of pointers. \cr
+}
+
+\section{Views of Lists}{
+
+Regular lists are treated as immutable by 'squarebrackets'. \cr
+But remember that a list is a
+(potentially hierarchical)
+structure of references to other objects. \cr
 Thus, even if a list itself is not treated as mutable,
 subsets of a list which are themselves mutable classes, are mutable. \cr
 For example,
@@ -172,21 +88,21 @@ if you have a list of \code{data.table} objects,
 the data.tables themselves are mutable. \cr
 Therefore, the following will work: \cr
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{x <- list(
- a = data.table(cola = 1:10, colb = letters[1:10]),
- b = data.table(cola = 11:20, colb = letters[11:20])
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{
+x <- list(
+ a = data.table::data.table(cola = 1:10, colb = letters[1:10]),
+ b = data.table::data.table(cola = 11:20, colb = letters[11:20])
 )
-mypointer <- x$a
-sb_set(mypointer, col = "cola", tf = \\(x)x^2)
-
+myref <- x$a
+sb2_set(myref, col = "cola", tf = \\(x)x^2)
 }\if{html}{\out{</div>}}
 
-Notice in the above code that \code{mypointer} is not a copy of \code{x$a},
+Notice in the above code that \code{myref} is not a copy of \code{x$a},
 since they have the same address. \cr
-Thus changing \code{mypointer} also changes \code{x$a}. \cr
-In other words: \code{mypointer} is what could be called a "view" of \code{x$a}. \cr
-Notice also that \code{sb_set(x$a, ...)} will not work,
-since \code{sb_set()} requires \bold{actual variables},
+Thus changing \code{myref} also changes \code{x$a}. \cr
+In other words: \code{myref} is what could be called a "view" of \code{x$a}. \cr
+Notice also that \link{sb2_set}\verb{(x$a, ...)} will not work,
+since \link{sb_set}/\link{sb2_set} requires \bold{actual variables},
 similar to in-place functions in the style of \code{`myfun()<-`}. \cr
 \cr
 The auto-coercion rules of Views of Lists,
@@ -240,12 +156,7 @@ str(obj) # notice that columns "a" and "c" are INTEGER (`int`)
 
 sb2_mod(
   obj, filter = ~ (a >= 2) & (c <= 17), vars = is.numeric,
-  tf = sqrt
-  # WARNING: sqrt() results in `dbl`, but columns are `int`, so decimals lost
-) 
-sb2_mod(
-  obj, filter = ~ (a >= 2) & (c <= 17), vars = is.numeric,
-  coe = as.double, tf = sqrt # SAFE: coercion performed
+  tf = sqrt # SAFE: coercion performed
 )
 
 # sb_set():
@@ -282,9 +193,9 @@ x <- list(
  b = data.table::data.table(cola = 11:20, colb = letters[11:20])
 )
 print(x)
-mypointer <- x$a
-address(mypointer) == address(x$a) # they are the same
-sb2_set(mypointer, col = "cola", tf = \(x)x^2)
+myref <- x$a
+address(myref) == address(x$a) # they are the same
+sb2_set(myref, col = "cola", tf = \(x)x^2)
 print(x) # notice x has been changed
 
 

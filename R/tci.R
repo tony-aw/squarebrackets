@@ -31,8 +31,10 @@
 #' @example inst/examples/tci.R
 #' 
 
+#' @name developer_tci
+NULL
 
-#' @rdname tci
+#' @rdname developer_tci
 #' @export
 tci_bool <- function(indx, n, inv = FALSE, .abortcall = sys.call()) {
   if(length(indx) != n) {
@@ -43,7 +45,7 @@ tci_bool <- function(indx, n, inv = FALSE, .abortcall = sys.call()) {
 }
 
 
-#' @rdname tci
+#' @rdname developer_tci
 #' @export
 tci_int <- function(indx, n, inv = FALSE, chkdup = FALSE, .abortcall = sys.call()) {
   
@@ -62,7 +64,7 @@ tci_int <- function(indx, n, inv = FALSE, chkdup = FALSE, .abortcall = sys.call(
 }
 
 
-#' @rdname tci
+#' @rdname developer_tci
 #' @export
 tci_chr <- function(
     indx, nms, inv = FALSE, chkdup = FALSE, uniquely_named = FALSE, .abortcall = sys.call()
@@ -91,7 +93,7 @@ tci_chr <- function(
 }
 
 
-#' @rdname tci
+#' @rdname developer_tci
 #' @export
 tci_cplx <- function(indx, n, inv = FALSE, chkdup = FALSE, .abortcall = sys.call()) {
   

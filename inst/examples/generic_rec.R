@@ -53,9 +53,9 @@ x <- list(
  b = data.table::data.table(cola = 11:20, colb = letters[11:20])
 )
 print(x)
-mypointer <- sb2_rec(x, "a")
-address(mypointer) == address(x$a) # they are the same
-sb2_set(mypointer, col = "cola", tf = \(x)x^2)
+myref <- sb2_rec(x, "a")
+address(myref) == address(x$a) # they are the same
+sb2_set(myref, col = "cola", tf = \(x)x^2)
 print(x) # notice x has been changed
 
 

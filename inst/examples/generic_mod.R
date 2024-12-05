@@ -68,7 +68,7 @@ obj <- data.frame(a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:1
 str(obj) # notice that columns "a" and "c" are INTEGER (`int`)
 sb2_mod(
   obj, vars = is.numeric,
-  tf = sqrt # SAFE: row=NULL & filter = NULL, so coercion performed
+  tf = sqrt
 )
 
 #############################################################################
@@ -80,15 +80,15 @@ str(obj) # notice that columns "a" and "c" are INTEGER (`int`)
 
 sb2_mod(
   obj, filter = ~ (a >= 2) & (c <= 17), vars = is.numeric,
-  tf = sqrt # WARNING: sqrt() results in `dbl`, but columns are `int`, so decimals lost
+  tf = sqrt
 ) 
 sb2_mod(
   obj, filter = ~ (a >= 2) & (c <= 17), vars = is.numeric,
-  coe = as.double, tf = sqrt # SAFE: coercion performed
+  tf = sqrt
 ) 
 sb2_mod(
   obj, filter = ~ (a >= 2) & (c <= 17), vars = is.numeric,
-  coe = TRUE, tf = sqrt # SAFE: coercion performed
+  tf = sqrt
 ) 
 
 

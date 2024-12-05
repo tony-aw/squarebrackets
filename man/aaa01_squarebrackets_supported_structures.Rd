@@ -61,14 +61,14 @@ for more details on the method dispatch used by 'squarebrackets'. \cr
 'squarebrackets' supports dimensionless or vector objects (i.e. \link{ndims}\code{ == 0L}). \cr
 squarebrackets' supports arrays (see \link[base]{is.array} and \link[base]{is.matrix});
 note that a matrix is simply an array with 2 dimensions. \cr
-squarebrackets' also supports data.frame-like objects (see \link{is.data.frame}). \cr
+'squarebrackets' also supports data.frame-like objects (see \link{is.data.frame}). \cr
 Specifically, squarebrackets' supports a wide variety of data.frame classes: \cr
 \code{data.frame}, \code{data.table}, \code{tibble}, \code{tidytable}; \cr
 'squarebrackets' also supports their 'sf'-package compatible counter-parts: \cr
 \code{sf-data.frame}, \code{sf-data.table}, \code{sf-tibble}, \code{sf-tidytable}. \cr
 \cr
 Dimensionless vectors and dimensional arrays are supported in both their atomic and recursive forms. \cr
-Data.frame-like objects, in contrast, \bold{only} exist in the \bold{recursive} form
+Data.frame-like objects, in contrast, only exist in the recursive form
 (and, as stated, are supported by 'squarebrackets'). \cr
 Recursive vectors, recursive matrices, and recursive arrays,
 are collectively referred to as "lists" in the 'squarebrackets' documentation. \cr
@@ -80,8 +80,10 @@ But for any data.frame \code{x}, it is the case that \code{length(x) == ncol(x)}
 \cr
 
 \bold{Mutable vs Immutable} \cr
-Most S3 objects in base 'R' are immutable: \cr
+Most of base R's S3 classes (except Environments) are generally immutable: \cr
+Modifying the object will create a copy (called 'copy-on-modify'). \cr
 They have no explicit \link[=squarebrackets_PassByReference]{pass-by-reference} semantics. \cr
+Most S3 objects in base 'R' are immutable: \cr
 Environments do have \link[=squarebrackets_PassByReference]{pass-by-reference} semantics,
 but they are not supported by 'squarebrackets'. \cr
 \cr

@@ -1,9 +1,10 @@
 #' squarebrackets: Subset Methods as Alternatives to the Square Brackets Operators for Programming
 #' 
 #' @description
-#' squarebrackets: Subset Methods as Alternatives to the Square Brackets Operators for Programming \cr \cr
-#' 
-#' Provides subset methods
+#' squarebrackets: \cr
+#' Subset Methods as Alternatives to the Square Brackets Operators for Programming. \cr
+#' \cr
+#' 'squarebrackets' provides subset methods
 #' (supporting both atomic and recursive S3 classes)
 #' that may be more convenient alternatives to the `[` and `[<-` operators,
 #' whilst maintaining similar performance. \cr
@@ -55,21 +56,17 @@
 #' and only those that primarily use square brackets for sub-setting
 #' (hence the name of the package). \cr
 #' \cr
-#' 
-#' 'squarebrackets' supports the following immutable structures:
+#' 'squarebrackets' supports the following structures:
 #' 
 #'  * basic `atomic` classes \cr
 #'  (atomic vectors, matrices, and arrays).
+#'  * \link{mutable_atomic} classes \cr
+#'  (\link{mutable_atomic} vectors, matrices, and arrays).
 #'  * \link{factor}. \cr
 #'  * basic list classes \cr
 #'  (recursive vectors, matrices, and arrays). \cr
 #'  * \link[base]{data.frame} \cr
-#'  (including the classes `tibble`, `sf-data.frame` and `sf-tibble`). \cr \cr
-#' 
-#' 'squarebrackets' supports the following mutable structures:
-#' 
-#'  * \link{mutable_atomic} \cr
-#'  (`mutable_atomic` vectors, matrices, and arrays);
+#'  (including the classes `tibble`, `sf-data.frame` and `sf-tibble`).
 #'  * \link[data.table]{data.table} \cr
 #'  (including the classes `tidytable`, `sf-data.table`, and `sf-tidytable`). \cr \cr
 #' 
@@ -99,9 +96,10 @@
 #' Methods to access subsets (i.e. extract selection, or extract all except selection):
 #' 
 #'  * \link{sb_x}, \link{sb2_x}: extract, exchange, or duplicate subsets.
-#'  * \link{sb_rm},  \link{sb2_rm}: un-select/remove subsets.
+#'  * \link{sb_wo},  \link{sb2_wo}: return an object without the specified subset.
 #'  * \link{sb2_rec}: access recursive subsets of lists.
-#'  * \link{slice_x}, \link{slice_rm}: efficiently extract or un-select/remove subset from a (long) vector. \cr \cr
+#'  * \link{slice_x}, \link{slice_wo}: efficiently extract subset from long vector,
+#'   or return long vector without subset. \cr \cr
 #'  
 #'  
 #' `r .mybadge_intro_section("MODIFY SUBSETS", "red")` \cr
@@ -177,16 +175,44 @@
 #'  \link[=idx_ord_v]{idx_ord_}-functions to compute ordered indices. \cr \cr
 #' 
 #' 
-#' `r .mybadge_intro_section("DEVELOPER FUNCTIONS", "pink")` \cr
+#' @section Overview Help Pages:
 #' 
-#' And finally some developer functions for constructing indices. \cr
-#' These are also used internally by 'squarebrackets',
-#' and package authors can use these to create additional sb_/sb2_ S3 methods,
-#' or even entirely new subset-related functions.
+#' Besides the website,
+#' 'squarebrackets' comes with several help pages
+#' that can be accessed from within 'R'. \cr
 #' 
-#'  * \link[=tci_bool]{tci_} functions, for type-casting indices.
-#'  * \link[=ci_flat]{ci_} functions, for constructing indices.
-#'  * \link{indx_x} and \link{indx_rm}, for testing methods. \cr \cr
+#' MAIN DOCUMENTATION:
+#' 
+#'  - \link{squarebrackets_supported_structures}: \cr
+#'  lists the structures that are supported by 'squarebrackets',
+#'  and explains some related terminology.
+#'  - \link{squarebrackets_indx_fundamentals}: \cr
+#'  explains the essential fundamentals of the indexing forms in 'squarebrackets'.
+#'  - \link{squarebrackets_indx_args}: \cr
+#'  explains the common indexing arguments used in the main S3 methods.
+#'  - \link{squarebrackets_modify}: \cr
+#'  explains the essentials of modification in 'squarebrackets'
+#'  - \link{squarebrackets_options}: \cr
+#'  lists and explains the options the user can specify in 'squarebrackets'.
+#'  - \link{squarebrackets_method_dispatch}: \cr
+#'  gives details regarding the S3 method dispatch in 'squarebrackets'. \cr \cr
+#'  
+#' 
+#' PASS-BY-REFERENCE DOCUMENTATION:
+#' 
+#' If you are not planning on using the pass-by-reference functionality
+#' in 'squarebrackets', you do not need to read the following help pages:
+#' 
+#' - \link{squarebrackets_PassByReference}: \cr
+#' explains Pass-by-Reference semantics, and its important consequences. \cr
+#' - \link{squarebrackets_coercion}: \cr
+#' explains the difference in coercion rules between
+#' modification through Pass-by-Reference semantics and
+#' modification through copy (i.e. pass-by-value)
+#' for the supported mutable structures. \cr \cr
+#' 
+#'  
+#' 
 #' 
 #' 
 #' @section Properties Details:
@@ -247,7 +273,7 @@
 #' @useDynLib squarebrackets, .registration=TRUE
 #' @importFrom Rcpp evalCpp
 #' @exportPattern "^sb_x"
-#' @exportPattern "^sb_rm"
+#' @exportPattern "^sb_wo"
 #' @exportPattern "^sb_set"
 #' @exportPattern "^sb_mod"
 #' @exportPattern "^sb_coe"
@@ -255,7 +281,7 @@
 #' @exportPattern "^sb_setDimnames"
 #' @exportPattern "^currentBindings"
 #' @exportPattern "^sb2_x"
-#' @exportPattern "^sb2_rm"
+#' @exportPattern "^sb2_wo"
 #' @exportPattern "^sb2_set"
 #' @exportPattern "^sb2_mod"
 #' @exportPattern "^sb2_rec"

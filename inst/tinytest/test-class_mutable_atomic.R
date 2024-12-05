@@ -144,11 +144,11 @@ expect_equal(
 )
 
 expect_equal(
-  sb_rm(x, 1, 1),
+  sb_wo(x, 1, 1),
   x[-1, ,drop = FALSE]
 )
 expect_equal(
-  sb_rm(x, 1, 2),
+  sb_wo(x, 1, 2),
   x[, -1, drop = FALSE]
 )
 enumerate <- enumerate + 4
@@ -174,19 +174,19 @@ expect_equal(
 )
 
 expect_equal(
-  sb_rm(x, sub = 1, dims = 1),
+  sb_wo(x, sub = 1, dims = 1),
   x[-1, , ,,drop = FALSE]
 )
 expect_equal(
-  sb_rm(x, sub = 1, dims = 2),
+  sb_wo(x, sub = 1, dims = 2),
   x[, -1, ,, drop = FALSE]
 )
 expect_equal(
-  sb_rm(x, sub = 1, dims = 3),
+  sb_wo(x, sub = 1, dims = 3),
   x[, , -1 ,, drop = FALSE]
 )
 expect_equal(
-  sb_rm(x, sub = 1, dims = 4),
+  sb_wo(x, sub = 1, dims = 4),
   x[, , ,-1, drop = FALSE]
 )
 

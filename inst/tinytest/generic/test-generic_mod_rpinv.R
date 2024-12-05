@@ -31,13 +31,13 @@ sys.source(file.path(getwd(), "source", "sourcetest-missingargs.R"), envir = env
 
 test_sb <- function(x, i, rp) {
   if(!is.list(x)) {
-    i <- indx_rm(i, x, names(x), length(x))
+    i <- indx_wo(i, x, names(x), length(x))
     if(length(i) == 0) return(x)
     x[i] <- rp
     return(x)
   }
   if(is.list(x)) {
-    i <- indx_rm(i, x, names(x), length(x))
+    i <- indx_wo(i, x, names(x), length(x))
     if(length(i) == 0) return(x)
     if(length(i) != 1)  x[i] <- as.list(rp)
     if(length(i) == 1) x[[i]] <- rp
@@ -47,7 +47,7 @@ test_sb <- function(x, i, rp) {
 
 temp.fun <- function(x, elements) {
   for (i in 1:length(elements)) {
-    rp1 <- rp2 <- rep(1, length(indx_rm(elements[[i]], x, names(x), length(x))))
+    rp1 <- rp2 <- rep(1, length(indx_wo(elements[[i]], x, names(x), length(x))))
     if(is.list(x)) rp1 <- as.list(rp1)
     if(is.list(x) && length(rep) != 1) rp2 <- as.list(rp)
     expect_equal(
@@ -70,8 +70,8 @@ rep3.bind <- function(x, dim) {
 
 pre_subset_mat <- function(x, row = NULL, col = NULL) {
   
-  if(!is.null(row)) row <- indx_rm(row, x, rownames(x), nrow(x))
-  if(!is.null(col)) col <- indx_rm(col, x, colnames(x), ncol(x))
+  if(!is.null(row)) row <- indx_wo(row, x, rownames(x), nrow(x))
+  if(!is.null(col)) col <- indx_wo(col, x, colnames(x), ncol(x))
   
   if(any_empty_indices(row, col)) {
     return(x)
@@ -87,8 +87,8 @@ f_expect.matrix <- f_expect.2d <- function(x, row = NULL, col = NULL) {
   
   rp <- parent.frame()$rp
   
-  if(!is.null(row)) row <- indx_rm(row, x, rownames(x), nrow(x))
-  if(!is.null(col)) col <- indx_rm(col, x, colnames(x), ncol(x))
+  if(!is.null(row)) row <- indx_wo(row, x, rownames(x), nrow(x))
+  if(!is.null(col)) col <- indx_wo(col, x, colnames(x), ncol(x))
   
   if(any_empty_indices(row, col)) {
     return(x)
@@ -117,14 +117,14 @@ f_out.2d <- function(x, sub, dims) {
 
 
 pre_subset_1d <- function(x, i) {
-  return(indx_rm(i, x, names(x), length(x)))
+  return(indx_wo(i, x, names(x), length(x)))
 }
 
 f_expect.1d <- function(x, i) {
   
   rp <- parent.frame()$rp
   
-  i <- indx_rm(i, x, dimnames(x)[[1]], length(x))
+  i <- indx_wo(i, x, dimnames(x)[[1]], length(x))
   
   if(any_empty_indices(i)) {
     return(x)
@@ -143,15 +143,15 @@ f_out.1d <- function(x, sub, dims) {
 
 
 sb_test <- function(x, ...) {
-  rp <- sb_rm.array(x, ...) * -1
+  rp <- sb_wo.array(x, ...) * -1
   return(sb_mod.array(x, ..., inv = TRUE, rp = rp))
 }
 
 f_expect.arbitrary <- function(x, i, j, l) {
   tf <- mean
-  i <- indx_rm(i, x, rownames(x), nrow(x))
-  j <- indx_rm(j, x, colnames(x), ncol(x))
-  l <- indx_rm(l, x, dimnames(x)[4], dim(x)[4])
+  i <- indx_wo(i, x, rownames(x), nrow(x))
+  j <- indx_wo(j, x, colnames(x), ncol(x))
+  l <- indx_wo(l, x, dimnames(x)[4], dim(x)[4])
   rp <- x[i, j, , l] * -1
   x[i, j, , l] <- rp
   return(x)

@@ -104,7 +104,7 @@ template<int RTYPE> void rcpp_slice_setrev_template(
 }
 
 
-template<int RTYPE> Vector<RTYPE> rcpp_slice_rm_template(
+template<int RTYPE> Vector<RTYPE> rcpp_slice_wo_template(
     const Vector<RTYPE> x, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len
   ) {
   Vector<RTYPE> out(len);
@@ -466,8 +466,8 @@ switch(TYPEOF(x)){
 
 //' @keywords internal
 //' @noRd
-// [[Rcpp::export(.rcpp_slice_rm_atomic)]]
-SEXP rcpp_slice_rm_atomic(
+// [[Rcpp::export(.rcpp_slice_wo_atomic)]]
+SEXP rcpp_slice_wo_atomic(
   const SEXP x, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len
 ) {
 
@@ -476,42 +476,42 @@ switch(TYPEOF(x)){
 
   case LGLSXP:
   {
-    return rcpp_slice_rm_template<LGLSXP>(as<LogicalVector>(x), start, end, by, len);
+    return rcpp_slice_wo_template<LGLSXP>(as<LogicalVector>(x), start, end, by, len);
     break;
   }
 
 
   case INTSXP:
   {
-    return rcpp_slice_rm_template<INTSXP>(as<IntegerVector>(x), start, end, by, len);
+    return rcpp_slice_wo_template<INTSXP>(as<IntegerVector>(x), start, end, by, len);
     break;
   }
 
 
   case REALSXP:
   {
-    return rcpp_slice_rm_template<REALSXP>(as<NumericVector>(x), start, end, by, len);
+    return rcpp_slice_wo_template<REALSXP>(as<NumericVector>(x), start, end, by, len);
     break;
   }
 
 
   case CPLXSXP:
   {
-    return rcpp_slice_rm_template<CPLXSXP>(as<ComplexVector>(x), start, end, by, len);
+    return rcpp_slice_wo_template<CPLXSXP>(as<ComplexVector>(x), start, end, by, len);
     break;
   }
 
 
   case STRSXP:
   {
-    return rcpp_slice_rm_template<STRSXP>(as<CharacterVector>(x), start, end, by, len);
+    return rcpp_slice_wo_template<STRSXP>(as<CharacterVector>(x), start, end, by, len);
     break;
   }
 
 
   case RAWSXP:
   {
-    return rcpp_slice_rm_template<RAWSXP>(as<RawVector>(x), start, end, by, len);
+    return rcpp_slice_wo_template<RAWSXP>(as<RawVector>(x), start, end, by, len);
     break;
   }
 

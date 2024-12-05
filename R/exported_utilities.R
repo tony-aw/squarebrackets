@@ -17,7 +17,7 @@
 #' x <- 1:10
 #' names(x) <- letters[1:10]
 #' indx_x(1:5, x, names(x), length(x))
-#' indx_rm(1:5, x, names(x), length(x))
+#' indx_wo(1:5, x, names(x), length(x))
 #'
 #'
 
@@ -47,7 +47,7 @@ indx_x <- function(i, x, xnames, xsize) {
 
 #' @rdname exported_uilities
 #' @export
-indx_rm <- function(i, x, xnames, xsize) {
+indx_wo <- function(i, x, xnames, xsize) {
   if(is.null(i)) return(base::quote(expr = ))
   if(is.function(i)) return(which(!(lapply(x, i) |> unname() |> unlist())))
   if(length(i)==0) return(seq_len(xsize)) 

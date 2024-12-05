@@ -63,7 +63,7 @@ and how it affects the functionality. <br><br></p>
     
 
 <p><img src="figures/argument-chkdup-blue.svg" alt="[argument: chkdup]"><br><img src="figures/option-squarebrackets_dot_chkdup-blue.svg" alt="[option: squarebrackets.chkdup]"><br>
-The <a href="sb_x.html">sb_x</a> method is the only method where providing duplicate indices actually make sense. <br>
+The <a href="sb_x.html">sb_x</a>/<a href="sb_x.html">sb2_x</a> method is the only method where providing duplicate indices actually make sense. <br>
 For the other methods, it doesn't make sense. <br>
 Giving duplicate indices usually won't break anything;
 however, when replacing/transforming or removing subsets,
@@ -84,11 +84,11 @@ The default can be changed in the <code>squarebrackets.chkdup</code> option. <br
     
 
 <p><img src="figures/argument-sticky-blue.svg" alt="[argument: sticky]"><br><img src="figures/option-squarebrackets_dot_sticky-blue.svg" alt="[option: squarebrackets.sticky]"><br>
-The <a href="slice.html">slice_x</a> and <a href="slice.html">slice_rm</a> methods can already handle names,
+The <a href="slice.html">slice_x</a> and <a href="slice.html">slice_wo</a> methods can already handle names,
 attributes specific to the <a href="class_mutable_atomic.html">mutable_atomic</a> class,
 and attributes specific to the <a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a> class. <br><br>
 When <code>sticky = FALSE</code>, which is arguably the safest setting,
-the <a href="slice.html">slice_x</a> and <a href="slice.html">slice_rm</a> methods
+the <a href="slice.html">slice_x</a> and <a href="slice.html">slice_wo</a> methods
 will drop all <b>other</b> attributes. <br><br>
 By setting <code>sticky = TRUE</code>,
 all attributes except <code>comment</code> and <code>tsp</code>
@@ -97,7 +97,7 @@ name-related attributes are separate and are handled by the <code>use.names</cod
 The key advantage for this, is that classes that use <code>static</code> attributes
 (i.e. classes that use attributes that do not change when sub-setting),
 are automatically supported if <code>sticky = TRUE</code>,
-and no separate methods have to written for <a href="slice.html">slice_x</a> and <a href="slice.html">slice_rm</a>. <br>
+and no separate methods have to written for <a href="slice.html">slice_x</a> and <a href="slice.html">slice_wo</a>. <br>
 Attributes specific to classes like
 <code>difftime</code>, <code>Date</code>, <code>POSIXct</code>, <code>roman</code>, <code>hexmode</code>, <code>octmode</code>,
 and more,
@@ -119,21 +119,21 @@ the <code>squarebrackets.sticky</code> option is set as follows:</p>
 Also in the above default setting,
 <code>sticky = FALSE</code> for other classes. <br>
 Note, again, that <a href="class_mutable_atomic.html">mutable_atomic</a> and and <a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a> are already handled by
-<a href="slice.html">slice_x</a> and <a href="slice.html">slice_rm</a>,
+<a href="slice.html">slice_x</a> and <a href="slice.html">slice_wo</a>,
 and their handling is <b>not</b> affected by the <code>sticky</code> argument/option. <br><br>
-The reason the <a href="slice.html">slice_x</a> and <a href="slice.html">slice_rm</a> need the <code>sticky</code> option,
+The reason the <a href="slice.html">slice_x</a> and <a href="slice.html">slice_wo</a> need the <code>sticky</code> option,
 is because of the following. <br>
 Unlike most <code>sb_</code>/<code>sb2_</code> methods,
-the <a href="slice.html">slice_x</a> and <a href="slice.html">slice_rm</a> methods
+the <a href="slice.html">slice_x</a> and <a href="slice.html">slice_wo</a> methods
 are not wrappers around the <code>[</code> and <code>[&lt;-</code> operators. <br>
 Therefore,
 most <code>[</code> - S3 methods for highly specialized classes are not readily available for
-the <a href="slice.html">slice_x</a> and <a href="slice.html">slice_rm</a> methods. <br>
+the <a href="slice.html">slice_x</a> and <a href="slice.html">slice_wo</a> methods. <br>
 And therefore, important class-specific attributes are not automatically preserved. <br>
 The <code>sticky</code> option is a convenient way to support a large number of classes,
 without having to write specific methods for them. <br><br>
-For specialized class that use attributes that <b>do</b> change when sub-setting,
-separate <a href="slice.html">slice_x</a> and <a href="slice.html">slice_rm</a> methods need to be written. <br>
+For specialized classes that use attributes that <b>do</b> change when sub-setting,
+separate <a href="slice.html">slice_x</a> and <a href="slice.html">slice_wo</a> methods need to be written. <br>
 Package authors are welcome to create method dispatches for their own classes for these methods. <br><br>
 As a final note, the name "sticky" is inspired by <code>sticky::</code><a href="https://rdrr.io/pkg/sticky/man/sticky.html" class="external-link">sticky</a>. <br><br><br></p>
     </div>

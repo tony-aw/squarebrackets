@@ -33,8 +33,11 @@
 #' 
 
 
+#' @name developer_ci
+NULL
 
-#' @rdname ci
+
+#' @rdname developer_ci
 #' @export
 ci_flat <- function(
     x, i, inv = FALSE, chkdup = FALSE, uniquely_named = FALSE, .abortcall = sys.call()
@@ -88,7 +91,7 @@ ci_flat <- function(
 
 
 
-#' @rdname ci
+#' @rdname developer_ci
 #' @export
 ci_margin <- function(
     x, slice, margin, inv = FALSE, chkdup = FALSE, uniquely_named = FALSE, .abortcall = sys.call()
@@ -132,7 +135,7 @@ ci_margin <- function(
 }
 
 
-#' @rdname ci
+#' @rdname developer_ci
 #' @export
 ci_sub <- function(
     x, sub, dims, inv = FALSE, chkdup = FALSE, uniquely_named = FALSE, .abortcall = sys.call()
@@ -203,7 +206,7 @@ ci_sub <- function(
   return(lst)
 }
 
-#' @rdname ci
+#' @rdname developer_ci
 #' @export
 ci_df <- function(
     x, slice, margin, inv = FALSE, chkdup = FALSE, uniquely_named = FALSE, .abortcall = sys.call()

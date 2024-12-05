@@ -69,7 +69,7 @@
     }
     else {
       txt <- paste0(
-        "arg.list[[", i, "]]  does not fit: should have `length(dim())'=",
+        "arg.list[[", i, "]]  does not fit: should have `ndims()` = ",
         N, " or ", N - 1L
       )
       stop(simpleError(txt, call = abortcall))

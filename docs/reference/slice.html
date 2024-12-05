@@ -75,10 +75,10 @@ and are designed for memory efficiency. <br><br></p>
 <span>  sticky <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"squarebrackets.sticky"</span>, <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">slice_rm</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">slice_wo</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for default</span></span>
-<span><span class="fu">slice_rm</span><span class="op">(</span></span>
+<span><span class="fu">slice_wo</span><span class="op">(</span></span>
 <span>  <span class="va">x</span>,</span>
 <span>  from <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  to <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -102,7 +102,7 @@ For <code>slice_set</code> it must be a <a href="class_mutable_atomic.html">muta
 
 
 <dt>...</dt>
-<dd><p>see <a href="aaa04_squarebrackets_method_dispatch.html">squarebrackets_method_dispatch</a>.</p></dd>
+<dd><p>see <a href="aaa06_squarebrackets_method_dispatch.html">squarebrackets_method_dispatch</a>.</p></dd>
 
 
 <dt>from, to, by</dt>
@@ -116,7 +116,7 @@ dimensions and <code>dimnames</code> are always dropped.</p></dd>
 
 
 <dt>sticky</dt>
-<dd><p>see <a href="aaa06_squarebrackets_options.html">squarebrackets_options</a>.</p></dd>
+<dd><p>see <a href="aaa05_squarebrackets_options.html">squarebrackets_options</a>.</p></dd>
 
 
 <dt>inv</dt>
@@ -127,7 +127,7 @@ If <code>TRUE</code>,
 
 
 <dt>rp, tf</dt>
-<dd><p>see <a href="aaa05_squarebrackets_modify.html">squarebrackets_modify</a>.</p></dd>
+<dd><p>see <a href="aaa04_squarebrackets_modify.html">squarebrackets_modify</a>.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -156,7 +156,7 @@ If <code>TRUE</code>,
 <span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  integer </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># remove:</span></span></span>
-<span class="r-in"><span><span class="fu">slice_rm</span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span>, <span class="op">-</span><span class="fl">11i</span><span class="op">)</span> <span class="co"># all elements except the last 10</span></span></span>
+<span class="r-in"><span><span class="fu">slice_wo</span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span>, <span class="op">-</span><span class="fl">11i</span><span class="op">)</span> <span class="co"># all elements except the last 10</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  9999991  9999992  9999993  9999994  9999995  9999996  9999997  9999998</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [9]  9999999 10000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> mutable_atomic </span>

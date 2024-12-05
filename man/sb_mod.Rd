@@ -67,7 +67,6 @@ sb2_mod(x, ...)
   filter = NULL,
   vars = NULL,
   inv = FALSE,
-  coe = FALSE,
   ...,
   rp,
   tf,
@@ -86,13 +85,7 @@ An empty index selection returns the original object unchanged. \cr}
 \item{rp, tf, .lapply}{see \link{squarebrackets_modify}.}
 
 \item{chkdup}{see \link{squarebrackets_options}. \cr
-\ifelse{html}{\figure{for_performance-set_to_FALSE-red.svg}{options: alt='[for performance: set to FALSE]'}}{\link[=squarebrackets_help]{for performance: set to FALSE}} \cr}
-
-\item{coe}{Either \code{FALSE} (default), \code{TRUE}, or a function. \cr
-The argument \code{coe} is ignored
-if both the \code{row} and \code{filter} arguments are set to \code{NULL}. \cr
-See Details section for more info. \cr
-\ifelse{html}{\figure{for_performance-set_to_FALSE-red.svg}{options: alt='[for performance: set to FALSE]'}}{\link[=squarebrackets_help]{for performance: set to FALSE}} \cr}
+\ifelse{html}{\figure{for_performance-set_to_FALSE-red.svg}{options: alt='[for performance: set to FALSE]'}}{\link[=squarebrackets_help]{for performance: set to FALSE}}}
 }
 \value{
 A copy of the object with replaced/transformed values. \cr \cr
@@ -112,32 +105,6 @@ Specifying argument \code{tf} will transform the subset. \cr
 Specifying \code{rp} will replace the subset. \cr
 One cannot specify both \code{tf} and \code{rp}. It's either one set or the other. \cr
 \cr
-\bold{Argument \code{coe}} \cr
-For data.frame-like objects,
-\code{sb_mod()} can only auto-coerce whole columns, not subsets of columns. \cr
-So it does not automatically coerce column types
-when \code{row} or \code{filter} is also specified. \cr
-The \code{coe} arguments provides 2 ways to circumvent this:
-\enumerate{
-\item The user can supply a coercion function to argument \code{coe}. \cr
-The function is applied on the entirety of every column specified in \code{col} or \code{vars};
-columns outside this subset are not affected. \cr
-This coercion function is, of course,
-applied before replacement (\code{rp}) or transformation (\code{tf()}).
-\item The user can set \code{coe = TRUE}. \cr
-In this case,
-the whole columns specified in \code{col} or \code{vars} are extracted and copied to a list. \cr
-Subsets of each list element,
-corresponding to the selected rows,
-are modified with \code{rp} or \code{tf()},
-using R's regular auto-coercion rules. \cr
-The modified list is then returned to the data.frame-like object,
-replacing the original columns.
-}
-
-Note that coercion required additional memory. \cr
-The larger the data.frame-like object, the larger the memory. \cr
-The default, \code{coe = FALSE}, uses the least amount of memory. \cr \cr
 }
 \examples{
 
@@ -210,7 +177,7 @@ obj <- data.frame(a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:1
 str(obj) # notice that columns "a" and "c" are INTEGER (`int`)
 sb2_mod(
   obj, vars = is.numeric,
-  tf = sqrt # SAFE: row=NULL & filter = NULL, so coercion performed
+  tf = sqrt
 )
 
 #############################################################################
@@ -222,15 +189,15 @@ str(obj) # notice that columns "a" and "c" are INTEGER (`int`)
 
 sb2_mod(
   obj, filter = ~ (a >= 2) & (c <= 17), vars = is.numeric,
-  tf = sqrt # WARNING: sqrt() results in `dbl`, but columns are `int`, so decimals lost
+  tf = sqrt
 ) 
 sb2_mod(
   obj, filter = ~ (a >= 2) & (c <= 17), vars = is.numeric,
-  coe = as.double, tf = sqrt # SAFE: coercion performed
+  tf = sqrt
 ) 
 sb2_mod(
   obj, filter = ~ (a >= 2) & (c <= 17), vars = is.numeric,
-  coe = TRUE, tf = sqrt # SAFE: coercion performed
+  tf = sqrt
 ) 
 
 

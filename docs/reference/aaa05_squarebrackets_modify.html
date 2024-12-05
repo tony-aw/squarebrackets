@@ -154,7 +154,10 @@ otherwise errors or unexpected behaviour may occur. <br><br><br></p>
 
 <p>Replacement and transformations in data.frame-like objects are a bit more flexible than in Lists. <br><br><code>rp</code> is not always demanded to be a list for data.frame-like objects,
 only when appropriate
-(for example, when replacing multiple columns, or when the column itself is a list.) <br><br>
+(for example, when replacing multiple columns, or when the column itself is a list.) <br>
+When <code>rp</code> <b>is</b> given as a list,
+it is unclassed and unnamed before being used to replace values. <br>
+This is to ensure consistency accross all supported data.frame types. <br><br>
 Bear in mind that every column in a data.frame is like an element in a list; <br>
 so <code>.lapply</code> is used for transformations across multiple columns. <br><br><br></p>
     </div>
@@ -164,8 +167,9 @@ so <code>.lapply</code> is used for transformations across multiple columns. <br
 
 <p>Recycling is not allowed in the modification methods. <br>
 So, for example, <code>length(rp)</code> must be equal to the length of the selected subset,
-or equal to <code>1</code>. <br>
-The user should also take into account the auto-coercion rules of the object's class. <br>
+or equal to <code>1</code>. <br><br>
+When using <a href="aaa07_squarebrackets_PassByReference.html">Pass-by-Reference semantics</a>,
+the user should be extra mindful of the auto-coercion rules. <br>
 See <a href="aaa08_squarebrackets_coercion.html">squarebrackets_coercion</a> for details. <br><br></p>
     </div>
     <div class="section level2">

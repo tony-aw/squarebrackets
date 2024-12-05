@@ -163,17 +163,17 @@ The <code>sb_</code> methods provided by 'squarebrackets'
 work on <b>atomic</b> (see <a href="https://rdrr.io/r/base/is.recursive.html" class="external-link">is.atomic</a>) objects. <br>
 The <code>sb2_</code> methods provided by 'squarebrackets'
 work on <b>recursive</b> (see <a href="https://rdrr.io/r/base/is.recursive.html" class="external-link">is.recursive</a>) objects. <br>
-See <a href="aaa04_squarebrackets_method_dispatch.html">squarebrackets_method_dispatch</a>
+See <a href="aaa06_squarebrackets_method_dispatch.html">squarebrackets_method_dispatch</a>
 for more details on the method dispatch used by 'squarebrackets'. <br><br></p>
 <p><b>Dimensionality</b> <br>
 'squarebrackets' supports dimensionless or vector objects (i.e. <a href="ndims.html">ndims</a><code> == 0L</code>). <br>
 squarebrackets' supports arrays (see <a href="https://rdrr.io/r/base/array.html" class="external-link">is.array</a> and <a href="https://rdrr.io/r/base/matrix.html" class="external-link">is.matrix</a>);
 note that a matrix is simply an array with 2 dimensions. <br>
-squarebrackets' also supports data.frame-like objects (see <a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">is.data.frame</a>). <br>
+'squarebrackets' also supports data.frame-like objects (see <a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">is.data.frame</a>). <br>
 Specifically, squarebrackets' supports a wide variety of data.frame classes: <br><code>data.frame</code>, <code>data.table</code>, <code>tibble</code>, <code>tidytable</code>; <br>
 'squarebrackets' also supports their 'sf'-package compatible counter-parts: <br><code>sf-data.frame</code>, <code>sf-data.table</code>, <code>sf-tibble</code>, <code>sf-tidytable</code>. <br><br>
 Dimensionless vectors and dimensional arrays are supported in both their atomic and recursive forms. <br>
-Data.frame-like objects, in contrast, <b>only</b> exist in the <b>recursive</b> form
+Data.frame-like objects, in contrast, only exist in the recursive form
 (and, as stated, are supported by 'squarebrackets'). <br>
 Recursive vectors, recursive matrices, and recursive arrays,
 are collectively referred to as "lists" in the 'squarebrackets' documentation. <br><br>
@@ -182,8 +182,10 @@ Note that the dimensionality of data.frame-like objects is not the same as the d
 For any array/matrix <code>x</code>, it holds that <code>length(x) == prod(dim(x))</code>. <br>
 But for any data.frame <code>x</code>, it is the case that <code>length(x) == ncol(x)</code>. <br><br></p>
 <p><b>Mutable vs Immutable</b> <br>
-Most S3 objects in base 'R' are immutable: <br>
+Most of base R's S3 classes (except Environments) are generally immutable: <br>
+Modifying the object will create a copy (called 'copy-on-modify'). <br>
 They have no explicit <a href="aaa07_squarebrackets_PassByReference.html">pass-by-reference</a> semantics. <br>
+Most S3 objects in base 'R' are immutable: <br>
 Environments do have <a href="aaa07_squarebrackets_PassByReference.html">pass-by-reference</a> semantics,
 but they are not supported by 'squarebrackets'. <br><br>
 'squarebrackets' supports the mutable <code>data.table</code> class

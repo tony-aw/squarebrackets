@@ -108,19 +108,20 @@
 #' the data.tables themselves remain mutable. \cr
 #' Therefore, the following pass-by-reference modification will work without issue: \cr
 #' 
-#' ```{r eval = FALSE}
+#' ```{r}
+#' 
 #' x <- list(
-#'  a = data.table(cola = 1:10, colb = letters[1:10]),
-#'  b = data.table(cola = 11:20, colb = letters[11:20])
+#'  a = data.table::data.table(cola = 1:10, colb = letters[1:10]),
+#'  b = data.table::data.table(cola = 11:20, colb = letters[11:20])
 #' )
-#' mypointer <- x$a
-#' sb_set(mypointer, col = "cola", tf = \(x)x^2)
+#' myref <- x$a
+#' sb2_set(myref, col = "cola", tf = \(x)x^2)
 #' 
 #' ```
-#' Notice in the above code that `mypointer` has the same address as `x$a`,
+#' Notice in the above code that `myref` has the same address as `x$a`,
 #' and is therefore not a copy of `x$a`. \cr
-#' Thus changing `mypointer` also changes `x$a`. \cr
-#' In other words: `mypointer` is what could be called a "\bold{View}" of `x$a`. \cr \cr
+#' Thus changing `myref` also changes `x$a`. \cr
+#' In other words: `myref` is what could be called a "\bold{View}" of `x$a`. \cr \cr
 #' 
 #' 
 #' @section Input Variable:

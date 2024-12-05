@@ -76,11 +76,15 @@ If \code{i} is a function, it corresponds to the following:
 The \verb{sub, dims} argument pair is inspired by the
 \code{abind::}\link[abind]{asub} function from the 'abind' package
 (see reference below). \cr
-\code{dims} must be an integer vector,
-giving the dimensions for which to specify the
-\link[=squarebrackets_indx_fundamentals]{subscripts}.
-(i.e. \code{dims} specifies the "non-missing" margins). \cr \cr
-
+\cr
+The \code{sub} argument specifies the
+\link[=squarebrackets_indx_fundamentals]{subscripts}. \cr
+The \code{dims} argument gives the dimensions for which the
+\link[=squarebrackets_indx_fundamentals]{subscripts} \code{sub} holds
+(i.e. \code{dims} specifies the "non-missing" margins). \cr
+\cr
+The \code{dims} argument must be an integer vector. \cr
+\cr
 \code{sub} must be either of the following:
 \itemize{
 \item a list of length \code{length(dims)}.
@@ -117,22 +121,26 @@ To keep the syntax short,
 the user can use the \link{n} function instead of \code{list()} to specify \code{sub}. \cr
 \cr
 Here are some examples for clarity,
-using an array \code{x} of 3 dimensions:
+using an atomic array \code{x} of 3 dimensions:
 \itemize{
 \item \code{sb_x(x, n(1:10, 1:5), c(1, 3))} \cr
 extracts the first 10 rows, all columns, and the first 5 layers,
 of array \code{x}. \cr
 The equivalence in base 'R' is: \cr
-\code{x[1:10, , 1:5, drop = FALSE]}.
-\item \code{sb_x(x, n(1:10), c(1, 3))}, or equivalently \code{sb_x(x, 1:10, c(1, 3))}, \cr
+\code{x[1:10, , 1:5, drop = FALSE]}. \cr
+\item \code{sb_x(x, 1:10, 2)} \cr
+extracts the first 10 columns of array \code{x}. \cr
+The equivalence in base 'R' is: \cr
+\code{x[, 1:10, , drop = FALSE]} \cr
+\item \code{sb_x(x, 1:10)}, \cr
+extracts the first 10 rows, columns, and layers of array \code{x}. \cr
+The equivalence in base 'R' is: \cr
+\code{x[1:10, 1:10, 1:10, drop = FALSE]}. \cr
+\item \code{sb_x(x, 1:10, c(1, 3))}, \cr
 extracts the first 10 rows, all columns, and the first 10 layers,
 of array \code{x}. \cr
 The equivalence in base 'R' is: \cr
-\code{x[1:10, , 1:10, drop = FALSE]}.
-\item \code{sb_x(x, n(1:10))}, or equivalently \code{sb_x(x, 1:10)}, \cr
-extracts the first 10 rows, columns, and layers of array \code{x}. \cr
-The equivalence in base 'R' is: \cr
-\code{x[1:10, 1:10, 1:10, drop = FALSE]}. \cr \cr
+\code{x[1:10, , 1:10, drop = FALSE]}. \cr \cr
 }
 
 I.e.:
@@ -140,11 +148,12 @@ I.e.:
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{
 sb_x(x, n(1:10, 1:5), c(1, 3)) # ==> x[1:10, , 1:5, drop = FALSE]
 
-sb_x(x, n(1:10), c(1, 3))      # ==> x[1:10, , 1:10, drop = FALSE]
-sb2_x(x, 1:10, c(1, 3))        # ==> x[1:10, , 1:10, drop = FALSE]
+sb_x(x, 1:10, 2)               # ==> x[ , 1:10, , drop = FALSE]
 
-sb2_x(x, n(1:10))              # ==> x[1:10, 1:10, 1:10, drop = FALSE]
 sb_x(x, 1:10)                  # ==> x[1:10, 1:10, 1:10, drop = FALSE]
+
+sb_x(x, 1:10, c(1, 3))         # ==> x[1:10, , 1:10, drop = FALSE]
+
 }\if{html}{\out{</div>}}
 
 Note that specifying a list of length 1 for \code{sub}
@@ -277,7 +286,7 @@ For replacement with a single value or with a transformation function,
 \section{All NULL indices}{
 
 \code{NULL} in the indexing arguments corresponds to a missing argument. \cr
-Thus, for \bold{both} \link{sb_x} and \link{sb_rm},
+Thus, for \bold{both} \link{sb_x}/\link{sb2_x} and \link{sb_wo}/\link{sb2_wo},
 using \code{NULL} for all indexing arguments corresponds to something like the following:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{
@@ -285,7 +294,7 @@ x[]
 
 }\if{html}{\out{</div>}}
 
-Similarly, for \link{sb_mod} and \link{sb_set},
+Similarly, for \link{sb_mod}/\link{sb2_mod} and \link{sb_set}/\link{sb2_set},
 using \code{NULL} corresponds to something like the following:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{
@@ -327,12 +336,12 @@ In the above cases it holds that if one set is specified, the other is set is ig
 \section{Drop}{
 
 Sub-setting with the generic methods from the 'squarebrackets' R-package using dimensional arguments
-(\verb{row, col, lyr, sub, dims, filter, vars})
+(\verb{sub, dims, row, col filter, vars})
 always use \code{drop = FALSE}. \cr
 To drop potentially redundant (i.e. single level) dimensions,
 use the \link[base]{drop} function, like so:
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{ sb_x(x, row = row, col = col) |> drop() # ==> x[row, col, drop = TRUE]
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{ sb_x(x, sub, dims) |> drop() # ==> x[..., drop = TRUE]
  
 }\if{html}{\out{</div>}}
 }

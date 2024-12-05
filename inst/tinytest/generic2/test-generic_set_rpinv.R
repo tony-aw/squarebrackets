@@ -22,14 +22,14 @@ sb2_set2 <- function(x, ...) {
 # test datasets ====
 
 
-pre_subset_df <- sb2_rm.data.frame
+pre_subset_df <- sb2_wo.data.frame
 
 f_expect.data.frame <- function(x, row = NULL, col = NULL, filter = NULL, get_vars = NULL) {
   
   rp <- parent.frame()$rp
   
-  if(!is.null(row)) row <- indx_rm(row, x, rownames(x), nrow(x))
-  if(!is.null(col)) col <- indx_rm(col, x, names(x), ncol(x))
+  if(!is.null(row)) row <- indx_wo(row, x, rownames(x), nrow(x))
+  if(!is.null(col)) col <- indx_wo(col, x, names(x), ncol(x))
   if(!is.null(filter)) {
     row <- model.frame(as.formula(filter), data = x)[, 1] |> as.logical()
     row <- which(!row)

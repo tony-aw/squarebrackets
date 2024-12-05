@@ -99,9 +99,9 @@ But sometimes one would like explicit control when to create a copy,
 and when to modify using pass-by-reference semantics. \cr
 \cr
 The 'squarebrackets' package
-provides the \link{sb_mod} method
+provides the \link{sb_mod}/\link{sb2_mod} methods
 to return a copy of an object with modified subsets,
-and the  \link{sb_set} method
+and the \link{sb_set}/\link{sb2_set} and \link{slice_set} methods
 to modify using pass-by-reference semantics. \cr
 The \link{idx} method can be used in combination with R's own \verb{[<-} operator
 for R's default copy-on-modify semantics. \cr \cr

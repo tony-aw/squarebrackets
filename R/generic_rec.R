@@ -1,4 +1,4 @@
-#' Access, Replace, Transform, Remove, or Extend Recursive Subsets
+#' Access, Replace, Transform, Delete, or Extend Recursive Subsets
 #'
 #' @description
 #' The `sb2_rec()` and `sb2_recin()` methods
@@ -14,7 +14,7 @@
 #'  - replace or transform recursive subsets of a list,
 #'  using R's default Copy-On-Modify semantics,
 #'  by specifying the `rp` or `tf` argument, respectively.
-#'  - remove a recursive subset of a list,
+#'  - delete a recursive subset of a list,
 #'  using R's default Copy-On-Modify semantics,
 #'  by specifying argument `rp = NULL`.
 #'  - extending a list with additional recursive elements,
@@ -22,7 +22,7 @@
 #'  This is done by specifying an out-of-bounds index in argument `rec`,
 #'  and entering the new values in argument `rp`. \cr
 #'  Note that adding surface level elements of a dimensional list
-#'  will remove the dimension attributes of that list. \cr \cr
+#'  will delete the dimension attributes of that list. \cr \cr
 #' 
 #' 
 #' 
@@ -41,8 +41,8 @@
 #' Since this is a replacement of a recursive subset,
 #' `rp` does not necessarily have to be a list itself; \cr
 #' `rp` can be any type of object.
-#' - Specifying `rp = NULL` will \bold{remove} (recursive) subset `sb(x, rec)`. \cr
-#' To specify actual `NULL` instead of removing a subset, use `rp = list(NULL)`.
+#' - Specifying `rp = NULL` will \bold{delete} (recursive) subset `sb(x, rec)`. \cr
+#' To specify actual `NULL` instead of deleting a subset, use `rp = list(NULL)`.
 #' - When `rec` is an integer, and specifies an out-of-bounds subset,
 #' `sb2_recin()` will add value `rp` to the list. \cr
 #' Any empty positions in between will be filled with `NA`.
@@ -55,7 +55,7 @@
 #' 
 #' @details
 #' Since recursive objects are references to other objects,
-#' extending a list or removing an element of a list does not copy the entire list,
+#' extending a list or deleting an element of a list does not copy the entire list,
 #' in contrast to atomic vectors. \cr \cr
 #' 
 #'
@@ -65,7 +65,7 @@
 #' \cr
 #' For `sb2_recin(..., rp = rp)`: \cr
 #' Returns VOID,
-#' but replaces, adds, or removes the specified recursive subset,
+#' but replaces, adds, or deletes the specified recursive subset,
 #' using R's default Copy-On-Modify semantics. \cr
 #' \cr
 #' For `sb2_recin(..., tf = tf)`: \cr

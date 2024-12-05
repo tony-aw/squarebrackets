@@ -116,19 +116,19 @@ If you have a list of \code{data.table} objects, for example,
 the data.tables themselves remain mutable. \cr
 Therefore, the following pass-by-reference modification will work without issue: \cr
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{x <- list(
- a = data.table(cola = 1:10, colb = letters[1:10]),
- b = data.table(cola = 11:20, colb = letters[11:20])
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{
+x <- list(
+ a = data.table::data.table(cola = 1:10, colb = letters[1:10]),
+ b = data.table::data.table(cola = 11:20, colb = letters[11:20])
 )
-mypointer <- x$a
-sb_set(mypointer, col = "cola", tf = \\(x)x^2)
-
+myref <- x$a
+sb2_set(myref, col = "cola", tf = \\(x)x^2)
 }\if{html}{\out{</div>}}
 
-Notice in the above code that \code{mypointer} has the same address as \code{x$a},
+Notice in the above code that \code{myref} has the same address as \code{x$a},
 and is therefore not a copy of \code{x$a}. \cr
-Thus changing \code{mypointer} also changes \code{x$a}. \cr
-In other words: \code{mypointer} is what could be called a "\bold{View}" of \code{x$a}. \cr \cr
+Thus changing \code{myref} also changes \code{x$a}. \cr
+In other words: \code{myref} is what could be called a "\bold{View}" of \code{x$a}. \cr \cr
 }
 
 \section{Input Variable}{
@@ -190,27 +190,27 @@ thus keeping the original object safe from modification by reference);
 # are being safe-guarded
 
 x <- list(a = base::letters)
-mypointer <- x$a # view of a list
-address(mypointer) == address(base::letters) # TRUE: point to the same memory
+myref <- x$a # view of a list
+address(myref) == address(base::letters) # TRUE: point to the same memory
 bindingIsLocked("letters", baseenv()) # base::letters is locked ...
-bindingIsLocked("mypointer", environment()) # ... but this pointer is not!
+bindingIsLocked("myref", environment()) # ... but this pointer is not!
 
 if(requireNamespace("tinytest")) {
   tinytest::expect_error(
-    sb_set(mypointer, i = 1, rp = "XXX") # this still gives an error though ...
+    sb_set(myref, i = 1, rp = "XXX") # this still gives an error though ...
   )
 }
 
-is.mutable_atomic(mypointer) # ... because it's not of class `mutable_atomic`
+is.mutable_atomic(myref) # ... because it's not of class `mutable_atomic`
 
 
 x <- list(
   a = as.mutable_atomic(base::letters) # `as.mutable_atomic()` makes a copy
 )
-mypointer <- x$a # view of a list
-address(mypointer) == address(base::letters) # FALSE: it's a copy
+myref <- x$a # view of a list
+address(myref) == address(base::letters) # FALSE: it's a copy
 sb_set(
-  mypointer, i = 1, rp = "XXX"  # modifies x, does NOT modify `base::letters`
+  myref, i = 1, rp = "XXX"  # modifies x, does NOT modify `base::letters`
 )
 print(x) # x is modified
 base::letters # but this still the same

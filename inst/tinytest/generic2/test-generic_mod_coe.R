@@ -13,7 +13,7 @@ obj1 <- obj2 <- data.frame(
 obj2[1:5, "a"] <- letters[1:5] 
 
 expect_equal(
-  sb2_mod(obj1, 1:5, "a", rp = n(letters[1:5]), coe = TRUE),
+  sb2_mod(obj1, 1:5, "a", rp = n(letters[1:5])),
   obj2
 )
 
@@ -24,7 +24,7 @@ obj1 <- obj2 <- data.frame(
 )
 obj2[1:5, "a"] <- sqrt(1:5)
 expect_equal(
-  sb2_mod(obj1, 1:5, "a", rp = n(sqrt(1:5)), coe = as.numeric),
+  sb2_mod(obj1, 1:5, "a", rp = n(sqrt(1:5))),
   obj2
 )
 

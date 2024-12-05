@@ -158,7 +158,7 @@ sb2_set.data.table <- function(
     ..., rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE), .lapply = lapply
 ) {
   
-  # error checks:
+  # checks:
   .internal_check_dots(list(...), sys.call())
   if(!data.table::is.data.table(x)) {
     stop("`x` is not a (supported) mutable object")
@@ -168,7 +168,7 @@ sb2_set.data.table <- function(
   .check_bindingIsLocked(substitute(x), parent.frame(n = 1), abortcall = sys.call())
   
   
-  # function:
+  # make args:
   if(!is.null(row)) { row <- ci_df(
     x,  row, 1L, inv, chkdup, .abortcall = sys.call()
   )}
@@ -183,30 +183,40 @@ sb2_set.data.table <- function(
     col <- .indx_make_vars(x, vars, inv = inv, abortcall = sys.call())
   }
   
+  # empty return:
   if(.any_empty_indices(n(row, col))) {
     return(invisible(NULL))
   }
   
-  if(is.null(col)) col <- collapse::seq_col(x)
-  col <- as.integer(col)
-  
-  
-  if(is.null(row)) {
-    if(!missing(tf)) {
-      rp <- .lapply(collapse::ss(x, j = col, check = FALSE), tf)
-    }
-    data.table::set(x, j = col, value = rp)
+  # prep col:
+  if(is.null(col)) {
+    col <- as.integer(1:ncol(x))
   }
   
-  if(!is.null(row)) {
+  # prep replacement just in case:
+  if(!missing(rp)) {
+    rp <- .dt_prep_rp(rp)
+  }
+  
+  # tramsformation:
+  if(!missing(tf)) {
+    rp <- .dt_transform(x, row, col, tf, .lapply)
+  }
+  
+  
+  # SET:
+  if(is.null(row)) {
+    data.table::set(x, j = col, value = rp)
+    return(invisible(NULL))
+  }
+  else {
     row <- as.integer(row)
-    if(!missing(tf)) {
-      rp <- .lapply(collapse::ss(x, i = row, j = col, check = FALSE), tf)
-    }
     data.table::set(x, i = row, j = col, value = rp)
+    return(invisible(NULL))
   }
   
   return(invisible(NULL))
+  
 }
 
 

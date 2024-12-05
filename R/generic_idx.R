@@ -123,6 +123,9 @@ idx.array <- function(
   }
   
   # sub, dims:
+  if(is.null(sub) || is.null(dims)) {
+    stop("`sub` and/or `dims` not specified")
+  }
   .check_args_array(x, sub, dims, sys.call())
   x.dim <- dim(x)
   lst <- ci_sub(

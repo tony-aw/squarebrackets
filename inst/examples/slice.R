@@ -9,7 +9,7 @@ slice_x(x, 1, 10)
 slice_x(x, -1i, 1) |> head()
 
 # remove:
-slice_rm(x, 1, -11i) # all elements except the last 10
+slice_wo(x, 1, -11i) # all elements except the last 10
 
 # replace every other element:
 x <- mutable_atomic(1:1e7)

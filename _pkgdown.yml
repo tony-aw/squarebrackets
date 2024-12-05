@@ -22,9 +22,9 @@ reference:
   - '`aaa01_squarebrackets_supported_structures`'
   - '`aaa02_squarebrackets_indx_fundamentals`'
   - '`aaa03_squarebrackets_indx_args`'
-  - '`aaa04_squarebrackets_method_dispatch`'
-  - '`aaa05_squarebrackets_modify`'
-  - '`aaa06_squarebrackets_options`'
+  - '`aaa04_squarebrackets_modify`'
+  - '`aaa05_squarebrackets_options`'
+  - '`aaa06_squarebrackets_method_dispatch`'
   - '`aaa07_squarebrackets_PassByReference`'
   - '`aaa08_squarebrackets_coercion`'
   - '`aaa09_squarebrackets_inconveniences`'
@@ -32,7 +32,7 @@ reference:
 - title: Generic Methods
   contents:
   - '`sb_x`'
-  - '`sb_rm`'
+  - '`sb_wo`'
   - '`sb_mod`'
   - '`sb_set`'
   - '`sb2_rec`'

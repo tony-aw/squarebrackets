@@ -75,11 +75,11 @@ whereas recursive objects often require loops or apply-like functions. <br></p><
 (in base R using <code>[</code>, <code>[&lt;-</code>),
 and recursive subset operations (in base R using <code>[[</code>, <code>[[&lt;-</code>). <br>
 See for example the <a href="sb2_rec.html">sb2_rec</a> method,
-or the <code>red = TRUE</code> argument in the <a href="sb_x.html">sb2_x</a> and <a href="sb_rm.html">sb2_rm</a> methods. <br>
+or the <code>red = TRUE</code> argument in the <a href="sb_x.html">sb2_x</a> and <a href="sb_wo.html">sb2_wo</a> methods. <br>
 For atomic objects, these 2 have no meaningful difference
 (safe for perhaps some minor attribute handling). <br></p></li>
 <li><p><strong>views</strong>: For recursive objects,
-one can create a <a href="aaa07_squarebrackets_PassByReference.html">view</a> of a recursive subset. <br>
+one can create a <a href="aaa08_squarebrackets_coercion.html">view</a> of a recursive subset. <br>
 Subset views do not exist for atomic objects. <br><br></p></li>
 </ul><p>The main S3 methods
 that perform subset operation on an object,

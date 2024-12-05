@@ -39,12 +39,7 @@ str(obj) # notice that columns "a" and "c" are INTEGER (`int`)
 
 sb2_mod(
   obj, filter = ~ (a >= 2) & (c <= 17), vars = is.numeric,
-  tf = sqrt
-  # WARNING: sqrt() results in `dbl`, but columns are `int`, so decimals lost
-) 
-sb2_mod(
-  obj, filter = ~ (a >= 2) & (c <= 17), vars = is.numeric,
-  coe = as.double, tf = sqrt # SAFE: coercion performed
+  tf = sqrt # SAFE: coercion performed
 )
 
 # sb_set():
@@ -81,9 +76,9 @@ x <- list(
  b = data.table::data.table(cola = 11:20, colb = letters[11:20])
 )
 print(x)
-mypointer <- x$a
-address(mypointer) == address(x$a) # they are the same
-sb2_set(mypointer, col = "cola", tf = \(x)x^2)
+myref <- x$a
+address(myref) == address(x$a) # they are the same
+sb2_set(myref, col = "cola", tf = \(x)x^2)
 print(x) # notice x has been changed
 
 

@@ -5,7 +5,7 @@
 \alias{sb2_rec.default}
 \alias{sb2_recin}
 \alias{sb2_recin.default}
-\title{Access, Replace, Transform, Remove, or Extend Recursive Subsets}
+\title{Access, Replace, Transform, Delete, or Extend Recursive Subsets}
 \usage{
 sb2_rec(x, ...)
 
@@ -35,8 +35,8 @@ using R's default semantics. \cr
 Since this is a replacement of a recursive subset,
 \code{rp} does not necessarily have to be a list itself; \cr
 \code{rp} can be any type of object.
-\item Specifying \code{rp = NULL} will \bold{remove} (recursive) subset \code{sb(x, rec)}. \cr
-To specify actual \code{NULL} instead of removing a subset, use \code{rp = list(NULL)}.
+\item Specifying \code{rp = NULL} will \bold{delete} (recursive) subset \code{sb(x, rec)}. \cr
+To specify actual \code{NULL} instead of deleting a subset, use \code{rp = list(NULL)}.
 \item When \code{rec} is an integer, and specifies an out-of-bounds subset,
 \code{sb2_recin()} will add value \code{rp} to the list. \cr
 Any empty positions in between will be filled with \code{NA}.
@@ -54,7 +54,7 @@ Returns the recursive subset. \cr
 \cr
 For \code{sb2_recin(..., rp = rp)}: \cr
 Returns VOID,
-but replaces, adds, or removes the specified recursive subset,
+but replaces, adds, or deletes the specified recursive subset,
 using R's default Copy-On-Modify semantics. \cr
 \cr
 For \code{sb2_recin(..., tf = tf)}: \cr
@@ -76,7 +76,7 @@ so package authors can create additional method dispatches. \cr
 \item replace or transform recursive subsets of a list,
 using R's default Copy-On-Modify semantics,
 by specifying the \code{rp} or \code{tf} argument, respectively.
-\item remove a recursive subset of a list,
+\item delete a recursive subset of a list,
 using R's default Copy-On-Modify semantics,
 by specifying argument \code{rp = NULL}.
 \item extending a list with additional recursive elements,
@@ -84,12 +84,12 @@ using R's default Copy-On-Modify semantics. \cr
 This is done by specifying an out-of-bounds index in argument \code{rec},
 and entering the new values in argument \code{rp}. \cr
 Note that adding surface level elements of a dimensional list
-will remove the dimension attributes of that list. \cr \cr
+will delete the dimension attributes of that list. \cr \cr
 }
 }
 \details{
 Since recursive objects are references to other objects,
-extending a list or removing an element of a list does not copy the entire list,
+extending a list or deleting an element of a list does not copy the entire list,
 in contrast to atomic vectors. \cr \cr
 }
 \examples{
@@ -148,9 +148,9 @@ x <- list(
  b = data.table::data.table(cola = 11:20, colb = letters[11:20])
 )
 print(x)
-mypointer <- sb2_rec(x, "a")
-address(mypointer) == address(x$a) # they are the same
-sb2_set(mypointer, col = "cola", tf = \(x)x^2)
+myref <- sb2_rec(x, "a")
+address(myref) == address(x$a) # they are the same
+sb2_set(myref, col = "cola", tf = \(x)x^2)
 print(x) # notice x has been changed
 
 

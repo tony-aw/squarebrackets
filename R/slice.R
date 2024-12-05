@@ -87,27 +87,27 @@ slice_x.default <- function(
 
 #' @rdname slice
 #' @export
-slice_rm <- function(x, ...) {
+slice_wo <- function(x, ...) {
   
-  UseMethod("slice_rm", x)
+  UseMethod("slice_wo", x)
 }
 
 
 #' @rdname slice
 #' @export
-slice_rm.default <- function(
+slice_wo.default <- function(
     x, from = NULL, to = NULL, by = 1L, ...,
     use.names = TRUE, sticky = getOption("squarebrackets.sticky", FALSE)
 ) {
   myslice <- cp_seq(x, 0L, from, to, by)
   by <- myslice$by
-  len_rm <- myslice$length.out
+  len_wo <- myslice$length.out
   len_x <- length(x) - myslice$length.out
   
-  if(len_rm == 0L) {
+  if(len_wo == 0L) {
     return(x)
   }
-  else if(len_rm == length(x)) {
+  else if(len_wo == length(x)) {
     out <- vector(typeof(x), length = 0L)
   }
   else {
@@ -119,7 +119,7 @@ slice_rm.default <- function(
       start <- myslice$start
       end <- myslice$end
     }
-    out <- .rcpp_slice_rm_atomic(
+    out <- .rcpp_slice_wo_atomic(
       x, start - 1L, end - 1L, abs(by), len_x
     )
     
@@ -127,7 +127,7 @@ slice_rm.default <- function(
   
   
   if(!is.null(names(x)) && use.names) {
-    nms <- slice_rm(names(x), from, to, by, use.names = FALSE)
+    nms <- slice_wo(names(x), from, to, by, use.names = FALSE)
     data.table::setattr(out, "names", nms)
   }
   if(is.factor(x)) {
@@ -255,15 +255,15 @@ slice_set.default <- function(
     end <- oldstart
   }
   
-  len_rm <- len
-  len_mod <- length(x) - len_rm
+  len_wo <- len
+  len_mod <- length(x) - len_wo
   
   if(len_mod == 0) {
     return(invisible(NULL))
   }
   
   if(!missing(tf)) {
-    rp <- tf(slice_rm(x, start, end, by))
+    rp <- tf(slice_wo(x, start, end, by))
   }
   
   rp <- .internal_coerce_rp(x, rp, abortcall)

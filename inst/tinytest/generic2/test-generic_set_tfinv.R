@@ -28,8 +28,8 @@ f_expect.data.frame <- function(x, row = NULL, col = NULL, filter = NULL, get_va
   
   tf <- \(x)x[1]
   
-  if(!is.null(row)) row <- indx_rm(row, x, rownames(x), nrow(x))
-  if(!is.null(col)) col <- indx_rm(col, x, names(x), ncol(x))
+  if(!is.null(row)) row <- indx_wo(row, x, rownames(x), nrow(x))
+  if(!is.null(col)) col <- indx_wo(col, x, names(x), ncol(x))
   if(!is.null(filter)) {
     row <- model.frame(as.formula(filter), data = x)[, 1] |> as.logical()
     row <- which(!row)

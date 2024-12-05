@@ -45,7 +45,7 @@ for(iF in seq_along(list_fromto)) {
       from = list_fromto[[iF]]
       to = list_fromto[[iT]]
       by = list_by[[iB]]
-      rp <- slice_rm(x, from, to, by)
+      rp <- slice_wo(x, from, to, by)
       expected[[counter]] <- tempfun1(x, from, to, by, rp)
       out[[counter]] <- tempfun2(x, from, to, by, rp)
       counter <- counter + 1L
@@ -103,7 +103,7 @@ expected <- out <- list(8)
 for(i in seq_along(x.data)) {
   x <- data.table::copy(x.data[[i]])
   
-  rp <- rev(slice_rm(x, 3, -3i, -3))
+  rp <- rev(slice_wo(x, 3, -3i, -3))
   expected[[i]] <- tempfun1(x, 3, -3i, -3, rp)
   out[[i]] <- tempfun2(x, 3, -3i, -3, rp = rp)
   

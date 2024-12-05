@@ -76,13 +76,6 @@ functions to the namespace - using:
 library(squarebrackets)
 ```
 
-Should the user wish to expose specific functions from ‘squarebrackets’
-only within the current/local environment, one can use the following:
-
-``` r
-tinycodet::import_LL("squarebrackets", selection = ... )
-```
-
  
 
 ## Changelog (EXPERIMENTAL VERSIONS)
@@ -166,5 +159,10 @@ tinycodet::import_LL("squarebrackets", selection = ... )
   the documentation accordingly. Cleaned up the internal code a bit.
 - 30 November 2024: The binding implementations can now bind mixtures of
   atomic and recursive objects.
+- 5 December 2024: replaced the `_rm` post-fixes with `_wo` in all
+  methods, to avoid confusion. Coercion for data.frame-like objects now
+  happens automatically, and only when needed, in the `sb2_mod()`
+  method, and updated the documentation accordingly. Slightly
+  re-organized the documentation.
 
  

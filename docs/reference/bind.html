@@ -116,7 +116,7 @@ but also most other data.frame-like objects. <br><br></p>
 <span>  name_flat <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">bind_dt</span><span class="op">(</span><span class="va">arg.list</span>, <span class="va">along</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">bind_dt</span><span class="op">(</span><span class="va">arg.list</span>, <span class="va">along</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -146,7 +146,8 @@ Uses the naming method from <a href="https://rdrr.io/r/base/cbind.html" class="e
 
 
 <dt>comnames_from</dt>
-<dd><p>integer scalar or <code>NULL</code>, for <code>bind_array()</code>. <br>
+<dd><p>either integer scalar or <code>NULL</code>,
+for <code>bind_mat()</code> and  <code>bind_array()</code>. <br>
 Indicates which object in <code>arg.list</code> should be used for naming the shared dimension. <br>
 If <code>NULL</code>, no communal names will be given. <br>
 For example: <br>
@@ -164,6 +165,10 @@ Indicates if dimension <code>along</code> should be named.</p></dd>
 <dd><p>Boolean, for <code>bind_array()</code>. <br>
 Indicates if flat indices should be named. <br>
 Note that setting this to <code>TRUE</code> will reduce performance considerably. <br><img src="figures/for_performance-set_to_FALSE-red.svg" alt="[for performance: set to FALSE]"></p></dd>
+
+
+<dt>...</dt>
+<dd><p>arguments to be passed to <a href="https://rdrr.io/pkg/data.table/man/rbindlist.html" class="external-link">rbindlist</a>. <br><br></p></dd>
 
 </dl></div>
     <div class="section level2">

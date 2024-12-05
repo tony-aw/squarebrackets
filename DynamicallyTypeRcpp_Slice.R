@@ -111,7 +111,7 @@ template<int RTYPE> void rcpp_slice_setrev_template(
 }
 
 
-template<int RTYPE> Vector<RTYPE> rcpp_slice_rm_template(
+template<int RTYPE> Vector<RTYPE> rcpp_slice_wo_template(
     const Vector<RTYPE> x, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len
   ) {
   Vector<RTYPE> out(len);
@@ -272,7 +272,7 @@ template_names <- c(
   "rcpp_slice_set_template",
   "rcpp_slice_xrev_template",
   "rcpp_slice_setrev_template",
-  "rcpp_slice_rm_template",
+  "rcpp_slice_wo_template",
   "rcpp_slice_setinv_template"
 )
 

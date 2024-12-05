@@ -853,9 +853,9 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
-// rcpp_slice_rm_atomic
-SEXP rcpp_slice_rm_atomic(const SEXP x, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
-RcppExport SEXP _squarebrackets_rcpp_slice_rm_atomic(SEXP xSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+// rcpp_slice_wo_atomic
+SEXP rcpp_slice_wo_atomic(const SEXP x, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
+RcppExport SEXP _squarebrackets_rcpp_slice_wo_atomic(SEXP xSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -864,7 +864,7 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
     Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
     Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_slice_rm_atomic(x, start, end, by, len));
+    rcpp_result_gen = Rcpp::wrap(rcpp_slice_wo_atomic(x, start, end, by, len));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -1281,6 +1281,19 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// rcpp_dt_needcoe
+bool rcpp_dt_needcoe(List x, IntegerVector col, List rp);
+RcppExport SEXP _squarebrackets_rcpp_dt_needcoe(SEXP xSEXP, SEXP colSEXP, SEXP rpSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< List >::type x(xSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type col(colSEXP);
+    Rcpp::traits::input_parameter< List >::type rp(rpSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_dt_needcoe(x, col, rp));
+    return rcpp_result_gen;
+END_RCPP
+}
 // rcpp_seq_mlen
 List rcpp_seq_mlen(IntegerVector x);
 RcppExport SEXP _squarebrackets_rcpp_seq_mlen(SEXP xSEXP) {
@@ -1495,7 +1508,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_squarebrackets_rcpp_slice_set_atomic", (DL_FUNC) &_squarebrackets_rcpp_slice_set_atomic, 6},
     {"_squarebrackets_rcpp_slice_xrev_atomic", (DL_FUNC) &_squarebrackets_rcpp_slice_xrev_atomic, 5},
     {"_squarebrackets_rcpp_slice_setrev_atomic", (DL_FUNC) &_squarebrackets_rcpp_slice_setrev_atomic, 6},
-    {"_squarebrackets_rcpp_slice_rm_atomic", (DL_FUNC) &_squarebrackets_rcpp_slice_rm_atomic, 5},
+    {"_squarebrackets_rcpp_slice_wo_atomic", (DL_FUNC) &_squarebrackets_rcpp_slice_wo_atomic, 5},
     {"_squarebrackets_rcpp_slice_setinv_atomic", (DL_FUNC) &_squarebrackets_rcpp_slice_setinv_atomic, 6},
     {"_squarebrackets_C_sub2ind_2d_32", (DL_FUNC) &_squarebrackets_C_sub2ind_2d_32, 3},
     {"_squarebrackets_C_sub2ind_3d_32", (DL_FUNC) &_squarebrackets_C_sub2ind_3d_32, 4},
@@ -1525,6 +1538,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_squarebrackets_C_prod_int", (DL_FUNC) &_squarebrackets_C_prod_int, 3},
     {"_squarebrackets_C_pre_coord2ind", (DL_FUNC) &_squarebrackets_C_pre_coord2ind, 3},
     {"_squarebrackets_rcpp_coord2ind", (DL_FUNC) &_squarebrackets_rcpp_coord2ind, 3},
+    {"_squarebrackets_rcpp_dt_needcoe", (DL_FUNC) &_squarebrackets_rcpp_dt_needcoe, 3},
     {"_squarebrackets_rcpp_seq_mlen", (DL_FUNC) &_squarebrackets_rcpp_seq_mlen, 1},
     {"_squarebrackets_rcpp_recycle_seq_mlen", (DL_FUNC) &_squarebrackets_rcpp_recycle_seq_mlen, 2},
     {"_squarebrackets_rcpp_serial", (DL_FUNC) &_squarebrackets_rcpp_serial, 1},

@@ -17,7 +17,7 @@ bind_array(
   name_flat = FALSE
 )
 
-bind_dt(arg.list, along)
+bind_dt(arg.list, along, ...)
 }
 \arguments{
 \item{arg.list}{a list of only the appropriate objects. \cr
@@ -40,7 +40,8 @@ will create an additional dimension (\code{n+1}) and bind the arrays along that 
 Indicates if dimension \code{along} should be named. \cr
 Uses the naming method from \link[base]{rbind}/\link[base]{cbind} itself.}
 
-\item{comnames_from}{integer scalar or \code{NULL}, for \code{bind_array()}. \cr
+\item{comnames_from}{either integer scalar or \code{NULL},
+for \code{bind_mat()} and  \code{bind_array()}. \cr
 Indicates which object in \code{arg.list} should be used for naming the shared dimension. \cr
 If \code{NULL}, no communal names will be given. \cr
 For example: \cr
@@ -55,6 +56,8 @@ Indicates if dimension \code{along} should be named.}
 Indicates if flat indices should be named. \cr
 Note that setting this to \code{TRUE} will reduce performance considerably. \cr
 \ifelse{html}{\figure{for_performance-set_to_FALSE-red.svg}{options: alt='[for performance: set to FALSE]'}}{\link[=squarebrackets_help]{for performance: set to FALSE}}}
+
+\item{...}{arguments to be passed to \link[data.table]{rbindlist}. \cr \cr}
 }
 \value{
 The bound object.

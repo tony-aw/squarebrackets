@@ -74,12 +74,17 @@
 #' The `sub, dims` argument pair is inspired by the
 #' \code{abind::}\link[abind]{asub} function from the 'abind' package
 #' (see reference below). \cr
-#' `dims` must be an integer vector,
-#' giving the dimensions for which to specify the
-#' \link[=squarebrackets_indx_fundamentals]{subscripts}.
-#' (i.e. `dims` specifies the "non-missing" margins). \cr \cr
-#' 
+#' \cr
+#' The `sub` argument specifies the
+#' \link[=squarebrackets_indx_fundamentals]{subscripts}. \cr
+#' The `dims` argument gives the dimensions for which the 
+#' \link[=squarebrackets_indx_fundamentals]{subscripts} `sub` holds
+#' (i.e. `dims` specifies the "non-missing" margins). \cr
+#' \cr
+#' The `dims` argument must be an integer vector. \cr
+#' \cr
 #' `sub` must be either of the following:
+#' 
 #'  * a list of length `length(dims)`.
 #'  * a list of length 1; \cr
 #'  in this case `sub` will be recycled to `length(dims)`.
@@ -110,22 +115,26 @@
 #' the user can use the \link{n} function instead of `list()` to specify `sub`. \cr
 #' \cr
 #' Here are some examples for clarity,
-#' using an array `x` of 3 dimensions:
+#' using an atomic array `x` of 3 dimensions:
 #' 
 #'  * `sb_x(x, n(1:10, 1:5), c(1, 3))` \cr
 #'  extracts the first 10 rows, all columns, and the first 5 layers,
 #'  of array `x`. \cr
 #'  The equivalence in base 'R' is: \cr
-#'  `x[1:10, , 1:5, drop = FALSE]`.
-#'  * `sb_x(x, n(1:10), c(1, 3))`, or equivalently `sb_x(x, 1:10, c(1, 3))`, \cr
+#'  `x[1:10, , 1:5, drop = FALSE]`. \cr
+#'  * `sb_x(x, 1:10, 2)` \cr
+#'  extracts the first 10 columns of array `x`. \cr
+#'  The equivalence in base 'R' is: \cr
+#'  `x[, 1:10, , drop = FALSE]` \cr
+#'  * `sb_x(x, 1:10)`, \cr
+#'  extracts the first 10 rows, columns, and layers of array `x`. \cr
+#'  The equivalence in base 'R' is: \cr
+#'  `x[1:10, 1:10, 1:10, drop = FALSE]`. \cr
+#'  * `sb_x(x, 1:10, c(1, 3))`, \cr
 #'  extracts the first 10 rows, all columns, and the first 10 layers,
 #'  of array `x`. \cr
 #'  The equivalence in base 'R' is: \cr
-#'  `x[1:10, , 1:10, drop = FALSE]`.
-#'  * `sb_x(x, n(1:10))`, or equivalently `sb_x(x, 1:10)`, \cr
-#'  extracts the first 10 rows, columns, and layers of array `x`. \cr
-#'  The equivalence in base 'R' is: \cr
-#'  `x[1:10, 1:10, 1:10, drop = FALSE]`. \cr \cr
+#'  `x[1:10, , 1:10, drop = FALSE]`. \cr \cr
 #' 
 #' I.e.:
 #' 
@@ -133,11 +142,12 @@
 #' 
 #' sb_x(x, n(1:10, 1:5), c(1, 3)) # ==> x[1:10, , 1:5, drop = FALSE]
 #' 
-#' sb_x(x, n(1:10), c(1, 3))      # ==> x[1:10, , 1:10, drop = FALSE]
-#' sb2_x(x, 1:10, c(1, 3))        # ==> x[1:10, , 1:10, drop = FALSE]
+#' sb_x(x, 1:10, 2)               # ==> x[ , 1:10, , drop = FALSE]
 #' 
-#' sb2_x(x, n(1:10))              # ==> x[1:10, 1:10, 1:10, drop = FALSE]
 #' sb_x(x, 1:10)                  # ==> x[1:10, 1:10, 1:10, drop = FALSE]
+#' 
+#' sb_x(x, 1:10, c(1, 3))         # ==> x[1:10, , 1:10, drop = FALSE]
+#' 
 #' ```
 #' 
 #' Note that specifying a list of length 1 for `sub`
@@ -271,7 +281,7 @@
 #' 
 #' @section All NULL indices:
 #' `NULL` in the indexing arguments corresponds to a missing argument. \cr
-#' Thus, for \bold{both} \link{sb_x} and \link{sb_rm},
+#' Thus, for \bold{both} \link{sb_x}/\link{sb2_x} and \link{sb_wo}/\link{sb2_wo},
 #' using `NULL` for all indexing arguments corresponds to something like the following:
 #' 
 #' ```{r eval = FALSE, echo = TRUE}
@@ -280,7 +290,7 @@
 #' 
 #' ```
 #' 
-#' Similarly, for \link{sb_mod} and \link{sb_set},
+#' Similarly, for \link{sb_mod}/\link{sb2_mod} and \link{sb_set}/\link{sb2_set},
 #' using `NULL` corresponds to something like the following:
 #' 
 #' ```{r eval = FALSE, echo = TRUE}
@@ -317,13 +327,13 @@
 #' 
 #' @section Drop:
 #' Sub-setting with the generic methods from the 'squarebrackets' R-package using dimensional arguments
-#' (`row, col, lyr, sub, dims, filter, vars`)
+#' (`sub, dims, row, col filter, vars`)
 #' always use `drop = FALSE`. \cr
 #' To drop potentially redundant (i.e. single level) dimensions,
 #' use the \link[base]{drop} function, like so:
 #' 
 #' ```{r eval = FALSE, echo = TRUE}
-#'  sb_x(x, row = row, col = col) |> drop() # ==> x[row, col, drop = TRUE]
+#'  sb_x(x, sub, dims) |> drop() # ==> x[..., drop = TRUE]
 #'  
 #' ```
 #' 

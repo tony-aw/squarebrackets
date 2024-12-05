@@ -4,8 +4,8 @@
 \alias{slice}
 \alias{slice_x}
 \alias{slice_x.default}
-\alias{slice_rm}
-\alias{slice_rm.default}
+\alias{slice_wo}
+\alias{slice_wo.default}
 \alias{slice_set}
 \alias{slice_set.default}
 \title{Efficient Sequence-based Subset Methods on (Long) Vectors}
@@ -22,9 +22,9 @@ slice_x(x, ...)
   sticky = getOption("squarebrackets.sticky", FALSE)
 )
 
-slice_rm(x, ...)
+slice_wo(x, ...)
 
-\method{slice_rm}{default}(
+\method{slice_wo}{default}(
   x,
   from = NULL,
   to = NULL,
@@ -79,7 +79,7 @@ slice_x(x, 1, 10)
 slice_x(x, -1i, 1) |> head()
 
 # remove:
-slice_rm(x, 1, -11i) # all elements except the last 10
+slice_wo(x, 1, -11i) # all elements except the last 10
 
 # replace every other element:
 x <- mutable_atomic(1:1e7)

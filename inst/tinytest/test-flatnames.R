@@ -15,7 +15,7 @@ expect_equal(
   x2
 )
 expect_equal(
-  sb_rm(x, n(3:5, 3:4)),
+  sb_wo(x, n(3:5, 3:4)),
   x2
 )
 
@@ -35,7 +35,7 @@ expect_equal(
   x2
 )
 expect_equal(
-  sb_rm(x, list(3:4, 3:4, 3:4), 1:3),
+  sb_wo(x, list(3:4, 3:4, 3:4), 1:3),
   x2
 )
 
@@ -55,7 +55,7 @@ expect_equal(
   x2
 )
 expect_equal(
-  sb_rm(x, rep(list(3:4), 7), 1:7),
+  sb_wo(x, rep(list(3:4), 7), 1:7),
   x2
 )
 
@@ -75,7 +75,7 @@ expect_equal(
   x2
 )
 expect_equal(
-  sb2_rm(x, n(3:5, 3:4)),
+  sb2_wo(x, n(3:5, 3:4)),
   x2
 )
 
@@ -97,7 +97,7 @@ expect_equal(
   x2
 )
 expect_equal(
-  sb2_rm(x, n(3:4, 3:4), 1:2),
+  sb2_wo(x, n(3:4, 3:4), 1:2),
   x2
 )
 

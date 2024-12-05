@@ -51,7 +51,7 @@ sys.source(file.path(getwd(), "source", "sourcetest-missingargs.R"), envir = env
 
 test_sb <- function(x, i) {
   if(is.atomic(x)) x <- as.mutable_atomic(x)
-  i <- indx_rm(i, x, names(x), length(x))
+  i <- indx_wo(i, x, names(x), length(x))
   if(length(i) == 0) return(x)
   x[i] <- min(x[i])
   return(x)
@@ -81,8 +81,8 @@ rep3.bind <- function(x, dim) {
 
 pre_subset_mat <- function(x, row = NULL, col = NULL) {
   
-  if(!is.null(row)) row <- indx_rm(row, x, rownames(x), nrow(x))
-  if(!is.null(col)) col <- indx_rm(col, x, colnames(x), ncol(x))
+  if(!is.null(row)) row <- indx_wo(row, x, rownames(x), nrow(x))
+  if(!is.null(col)) col <- indx_wo(col, x, colnames(x), ncol(x))
   
   if(any_empty_indices(row, col)) {
     return(x)
@@ -98,8 +98,8 @@ f_expect.matrix <- f_expect.2d <- function(x, row = NULL, col = NULL) {
   
   if(is.atomic(x)) x <- as.mutable_atomic(x)
   
-  if(!is.null(row)) row <- indx_rm(row, x, rownames(x), nrow(x))
-  if(!is.null(col)) col <- indx_rm(col, x, colnames(x), ncol(x))
+  if(!is.null(row)) row <- indx_wo(row, x, rownames(x), nrow(x))
+  if(!is.null(col)) col <- indx_wo(col, x, colnames(x), ncol(x))
   
   if(any_empty_indices(row, col)) {
     return(x)
@@ -127,13 +127,13 @@ f_out.2d <- function(x, sub, dims) {
 
 
 pre_subset_1d <- function(x, i) {
-  return(indx_rm(i, x, names(x), length(x)))
+  return(indx_wo(i, x, names(x), length(x)))
 }
 
 f_expect.1d <- function(x, i) {
   
   if(is.atomic(x)) x <- as.mutable_atomic(x)
-  i <- indx_rm(i, x, dimnames(x)[[1]], length(x))
+  i <- indx_wo(i, x, dimnames(x)[[1]], length(x))
   
   if(any_empty_indices(i)) {
     return(x)
@@ -158,9 +158,9 @@ sb_test <- function(x, ...) {
 f_expect.arbitrary <- function(x, i, j, l) {
   if(is.atomic(x)) x <- as.mutable_atomic(x)
   tf <- mean
-  i <- indx_rm(i, x, rownames(x), nrow(x))
-  j <- indx_rm(j, x, colnames(x), ncol(x))
-  l <- indx_rm(l, x, dimnames(x)[4], dim(x)[4])
+  i <- indx_wo(i, x, rownames(x), nrow(x))
+  j <- indx_wo(j, x, colnames(x), ncol(x))
+  l <- indx_wo(l, x, dimnames(x)[4], dim(x)[4])
   tf <- mean
   x[i, j, , l] <- tf(x[i, j, , l])
   return(x)
@@ -174,9 +174,9 @@ sys.source(file.path(getwd(), "source", "sourcetest-dims.R"), envir = environmen
 # test arbitrary dimensions ====
 
 subset_arr <- function(x, i, j, l, tf) {
-  i <- indx_rm(i, x, rownames(x), nrow(x))
-  j <- indx_rm(j, x, colnames(x), ncol(x))
-  l <- indx_rm(l, x, dimnames(x)[4], dim(x)[4])
+  i <- indx_wo(i, x, rownames(x), nrow(x))
+  j <- indx_wo(j, x, colnames(x), ncol(x))
+  l <- indx_wo(l, x, dimnames(x)[4], dim(x)[4])
   x[i, j, , l] <- tf(x[i, j, , l, drop = FALSE])
   return(x)
 }

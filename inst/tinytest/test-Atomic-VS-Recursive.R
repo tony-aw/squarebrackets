@@ -7,7 +7,7 @@ x <- as.list(1:10)
 pattern <- "Use the `sb2_` methods for recursive objects"
 
 meths <- list(
-  sb_x, sb_rm, sb_mod
+  sb_x, sb_wo, sb_mod
 )
 for(i in seq_along(meths)) {
   expect_error(
@@ -23,7 +23,7 @@ x <- 1:10
 pattern <- "Use the `sb_` methods for atomic objects"
 
 meths <- list(
-  sb2_x, sb2_rm, sb2_mod
+  sb2_x, sb2_wo, sb2_mod
 )
 for(i in seq_along(meths)) {
   expect_error(

@@ -102,9 +102,6 @@
 <p>Special care has been taken to make sure the function names are clear, and that the function names are unlikely to conflict with core R, the recommended R packages, the rstudioapi package, or major packages from the fastverse. So one can attach the package - thus exposing its functions to the namespace - using:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tony-aw/squarebrackets/" class="external-link">squarebrackets</a></span><span class="op">)</span></span></code></pre></div>
-<p>Should the user wish to expose specific functions from ‘squarebrackets’ only within the current/local environment, one can use the following:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">tinycodet</span><span class="fu">::</span><span class="fu"><a href="https://tony-aw.github.io/tinycodet/reference/import_misc.html" class="external-link">import_LL</a></span><span class="op">(</span><span class="st">"squarebrackets"</span>, selection <span class="op">=</span> <span class="va">...</span> <span class="op">)</span></span></code></pre></div>
 <p> </p>
 </div>
 <div class="section level2">
@@ -141,6 +138,7 @@
 <li>21 November 2024: Improved the documentation. Slightly tweaked array argument usage. Added <code>sticky</code> option. Brought back the renaming methods. Changed behaviour of the <code>use.names</code> argument in <code><a href="reference/lst.html">lst_untree()</a></code>.</li>
 <li>24 November 2024: Matrices now use the same API as arrays. Adjusted the documentation accordingly. Cleaned up the internal code a bit.</li>
 <li>30 November 2024: The binding implementations can now bind mixtures of atomic and recursive objects.</li>
+<li>5 December 2024: replaced the <code>_rm</code> post-fixes with <code>_wo</code> in all methods, to avoid confusion. Coercion for data.frame-like objects now happens automatically, and only when needed, in the <code><a href="reference/sb_mod.html">sb2_mod()</a></code> method, and updated the documentation accordingly. Slightly re-organized the documentation.</li>
 </ul>
 <p> </p>
 </div>

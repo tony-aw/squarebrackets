@@ -135,11 +135,13 @@ For recursive objects, <code>i</code> is interpreted as <code>lapply(x, i)</code
 <p><img src="figures/class-atomic_matrix-blue.svg" alt="[class: atomic matrix]"><br><img src="figures/class-recursive_matrix-blue.svg" alt="[class: recursive matrix]"><br><img src="figures/class-atomic_array-blue.svg" alt="[class: atomic array]"><br><img src="figures/class-recursive_array-blue.svg" alt="[class: recursive array]"><br>
 The <code>sub, dims</code> argument pair is inspired by the
 <code>abind::</code><a href="https://rdrr.io/pkg/abind/man/asub.html" class="external-link">asub</a> function from the 'abind' package
-(see reference below). <br><code>dims</code> must be an integer vector,
-giving the dimensions for which to specify the
-<a href="aaa02_squarebrackets_indx_fundamentals.html">subscripts</a>.
-(i.e. <code>dims</code> specifies the "non-missing" margins). <br><br></p>
-<p><code>sub</code> must be either of the following:</p><ul><li><p>a list of length <code>length(dims)</code>.</p></li>
+(see reference below). <br><br>
+The <code>sub</code> argument specifies the
+<a href="aaa02_squarebrackets_indx_fundamentals.html">subscripts</a>. <br>
+The <code>dims</code> argument gives the dimensions for which the
+<a href="aaa02_squarebrackets_indx_fundamentals.html">subscripts</a> <code>sub</code> holds
+(i.e. <code>dims</code> specifies the "non-missing" margins). <br><br>
+The <code>dims</code> argument must be an integer vector. <br><br><code>sub</code> must be either of the following:</p><ul><li><p>a list of length <code>length(dims)</code>.</p></li>
 <li><p>a list of length 1; <br>
 in this case <code>sub</code> will be recycled to <code>length(dims)</code>.</p></li>
 <li><p>an atomic vector; <br>
@@ -162,26 +164,30 @@ it is taken as "all index margins are missing".</p></li>
 </ul><p>To keep the syntax short,
 the user can use the <a href="nest.html">n</a> function instead of <code><a href="https://rdrr.io/r/base/list.html" class="external-link">list()</a></code> to specify <code>sub</code>. <br><br>
 Here are some examples for clarity,
-using an array <code>x</code> of 3 dimensions:</p><ul><li><p><code>sb_x(x, n(1:10, 1:5), c(1, 3))</code> <br>
+using an atomic array <code>x</code> of 3 dimensions:</p><ul><li><p><code>sb_x(x, n(1:10, 1:5), c(1, 3))</code> <br>
 extracts the first 10 rows, all columns, and the first 5 layers,
 of array <code>x</code>. <br>
-The equivalence in base 'R' is: <br><code>x[1:10, , 1:5, drop = FALSE]</code>.</p></li>
-<li><p><code>sb_x(x, n(1:10), c(1, 3))</code>, or equivalently <code>sb_x(x, 1:10, c(1, 3))</code>, <br>
+The equivalence in base 'R' is: <br><code>x[1:10, , 1:5, drop = FALSE]</code>. <br></p></li>
+<li><p><code>sb_x(x, 1:10, 2)</code> <br>
+extracts the first 10 columns of array <code>x</code>. <br>
+The equivalence in base 'R' is: <br><code>x[, 1:10, , drop = FALSE]</code> <br></p></li>
+<li><p><code>sb_x(x, 1:10)</code>, <br>
+extracts the first 10 rows, columns, and layers of array <code>x</code>. <br>
+The equivalence in base 'R' is: <br><code>x[1:10, 1:10, 1:10, drop = FALSE]</code>. <br></p></li>
+<li><p><code>sb_x(x, 1:10, c(1, 3))</code>, <br>
 extracts the first 10 rows, all columns, and the first 10 layers,
 of array <code>x</code>. <br>
-The equivalence in base 'R' is: <br><code>x[1:10, , 1:10, drop = FALSE]</code>.</p></li>
-<li><p><code>sb_x(x, n(1:10))</code>, or equivalently <code>sb_x(x, 1:10)</code>, <br>
-extracts the first 10 rows, columns, and layers of array <code>x</code>. <br>
-The equivalence in base 'R' is: <br><code>x[1:10, 1:10, 1:10, drop = FALSE]</code>. <br><br></p></li>
+The equivalence in base 'R' is: <br><code>x[1:10, , 1:10, drop = FALSE]</code>. <br><br></p></li>
 </ul><p>I.e.:</p>
 <p></p><div class="sourceCode r"><pre><code><span></span>
 <span><span class="fu"><a href="../reference/sb_x.html">sb_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="../reference/nest.html">n</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="co"># ==&gt; x[1:10, , 1:5, drop = FALSE]</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/sb_x.html">sb_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="../reference/nest.html">n</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span>      <span class="co"># ==&gt; x[1:10, , 1:10, drop = FALSE]</span></span>
-<span><span class="fu"><a href="../reference/sb_x.html">sb2_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span>        <span class="co"># ==&gt; x[1:10, , 1:10, drop = FALSE]</span></span>
+<span><span class="fu"><a href="../reference/sb_x.html">sb_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">2</span><span class="op">)</span>               <span class="co"># ==&gt; x[ , 1:10, , drop = FALSE]</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/sb_x.html">sb2_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="../reference/nest.html">n</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span>              <span class="co"># ==&gt; x[1:10, 1:10, 1:10, drop = FALSE]</span></span>
-<span><span class="fu"><a href="../reference/sb_x.html">sb_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span>                  <span class="co"># ==&gt; x[1:10, 1:10, 1:10, drop = FALSE]</span></span></code></pre><p></p></div>
+<span><span class="fu"><a href="../reference/sb_x.html">sb_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span>                  <span class="co"># ==&gt; x[1:10, 1:10, 1:10, drop = FALSE]</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/sb_x.html">sb_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span>         <span class="co"># ==&gt; x[1:10, , 1:10, drop = FALSE]</span></span>
+<span></span></code></pre><p></p></div>
 <p>Note that specifying a list of length 1 for <code>sub</code>
 (like <code>sub = n(1:10)</code>)
 is equivalent to specifying an atomic vector for <code>sub</code>
@@ -285,12 +291,12 @@ For replacement with a single value or with a transformation function,
     
 
 <p><code>NULL</code> in the indexing arguments corresponds to a missing argument. <br>
-Thus, for <b>both</b> <a href="sb_x.html">sb_x</a> and <a href="sb_rm.html">sb_rm</a>,
+Thus, for <b>both</b> <a href="sb_x.html">sb_x</a>/<a href="sb_x.html">sb2_x</a> and <a href="sb_wo.html">sb_wo</a>/<a href="sb_wo.html">sb2_wo</a>,
 using <code>NULL</code> for all indexing arguments corresponds to something like the following:</p>
 <p></p><div class="sourceCode r"><pre><code><span></span>
 <span><span class="va">x</span><span class="op">[</span><span class="op">]</span></span>
 <span></span></code></pre><p></p></div>
-<p>Similarly, for <a href="sb_mod.html">sb_mod</a> and <a href="sb_set.html">sb_set</a>,
+<p>Similarly, for <a href="sb_mod.html">sb_mod</a>/<a href="sb_mod.html">sb2_mod</a> and <a href="sb_set.html">sb_set</a>/<a href="sb_set.html">sb2_set</a>,
 using <code>NULL</code> corresponds to something like the following:</p>
 <p></p><div class="sourceCode r"><pre><code><span></span>
 <span><span class="va">x</span><span class="op">[</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">rp</span> <span class="co"># for replacement</span></span>
@@ -328,11 +334,11 @@ In the above cases it holds that if one set is specified, the other is set is ig
     
 
 <p>Sub-setting with the generic methods from the 'squarebrackets' R-package using dimensional arguments
-(<code>row, col, lyr, sub, dims, filter, vars</code>)
+(<code>sub, dims, row, col filter, vars</code>)
 always use <code>drop = FALSE</code>. <br>
 To drop potentially redundant (i.e. single level) dimensions,
 use the <a href="https://rdrr.io/r/base/drop.html" class="external-link">drop</a> function, like so:</p>
-<p></p><div class="sourceCode r"><pre><code><span> <span class="fu"><a href="../reference/sb_x.html">sb_x</a></span><span class="op">(</span><span class="va">x</span>, row <span class="op">=</span> <span class="va">row</span>, col <span class="op">=</span> <span class="va">col</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/drop.html" class="external-link">drop</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># ==&gt; x[row, col, drop = TRUE]</span></span>
+<p></p><div class="sourceCode r"><pre><code><span> <span class="fu"><a href="../reference/sb_x.html">sb_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">sub</span>, <span class="va">dims</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/drop.html" class="external-link">drop</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># ==&gt; x[..., drop = TRUE]</span></span>
 <span> </span></code></pre><p></p></div>
     </div>
     <div class="section level2">
