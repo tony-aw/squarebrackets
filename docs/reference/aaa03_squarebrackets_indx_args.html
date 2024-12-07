@@ -305,16 +305,6 @@ using <code>NULL</code> corresponds to something like the following:</p>
 <p>The above is true <b>even if</b> <code>inv = TRUE</code> and/or <code>red = TRUE</code>. <br><br></p>
     </div>
     <div class="section level2">
-    <h2 id="out-of-bounds-integers-non-existing-names-and-nas">Out-of-Bounds Integers, Non-Existing Names, and NAs<a class="anchor" aria-label="anchor" href="#out-of-bounds-integers-non-existing-names-and-nas"></a></h2>
-    
-
-<ul><li><p>Integer indices that are out of bounds (including <code>NaN</code> and <code>NA_integer_</code>) always give an error.</p></li>
-<li><p>Specifying non-existing names (including <code>NA_character_</code>) as indices
-is considered a form of zero-length indexing.</p></li>
-<li><p>Logical indices are translated internally to integers using <a href="https://rdrr.io/r/base/which.html" class="external-link">which</a>,
-and so <code>NA</code>s are ignored. <br><br></p></li>
-</ul></div>
-    <div class="section level2">
     <h2 id="disallowed-combinations-of-index-arguments">Disallowed Combinations of Index Arguments<a class="anchor" aria-label="anchor" href="#disallowed-combinations-of-index-arguments"></a></h2>
     
 
