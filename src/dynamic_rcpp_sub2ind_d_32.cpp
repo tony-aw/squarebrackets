@@ -9,10 +9,6 @@ using namespace Rcpp;
 
 
 
-
-
-
-
 //' @keywords internal
 //' @noRd
 // [[Rcpp::export(.C_sub2ind_2d_32)]]
@@ -506,20 +502,20 @@ return out;
 //' @keywords internal
 //' @noRd
 // [[Rcpp::export(.rcpp_sub2ind_2d_8d_32)]]
-IntegerVector rcpp_sub2ind_2d_8d_32(
+SEXP rcpp_sub2ind_2d_8d_32(
   List sub, SEXP dimcumprod
 ) {
   int n = sub.length();
   
-  IntegerVector ind1 = sub[0];
-  IntegerVector ind2 = sub[1];
-  IntegerVector ind3;
-  IntegerVector ind4;
-  IntegerVector ind5;
-  IntegerVector ind6;
-  IntegerVector ind7;
-  IntegerVector ind8;
-  IntegerVector out;
+  SEXP ind1 = sub[0];
+  SEXP ind2 = sub[1];
+  SEXP ind3;
+  SEXP ind4;
+  SEXP ind5;
+  SEXP ind6;
+  SEXP ind7;
+  SEXP ind8;
+  SEXP out;
 
   if(n > 2) {
     ind3 = sub[2];

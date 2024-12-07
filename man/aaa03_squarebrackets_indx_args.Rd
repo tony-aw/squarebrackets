@@ -306,17 +306,6 @@ x[] <- tf(x) # for transformation
 The above is true \bold{even if} \code{inv = TRUE} and/or \code{red = TRUE}. \cr \cr
 }
 
-\section{Out-of-Bounds Integers, Non-Existing Names, and NAs}{
-
-\itemize{
-\item Integer indices that are out of bounds (including \code{NaN} and \code{NA_integer_}) always give an error.
-\item Specifying non-existing names (including \code{NA_character_}) as indices
-is considered a form of zero-length indexing.
-\item Logical indices are translated internally to integers using \link[base]{which},
-and so \code{NA}s are ignored. \cr \cr
-}
-}
-
 \section{Disallowed Combinations of Index Arguments}{
 
 

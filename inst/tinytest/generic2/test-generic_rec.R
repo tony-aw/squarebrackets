@@ -43,6 +43,25 @@ expect_equal(
 
 enumerate <- enumerate + 5
 
+
+# error checks ====
+expect_error(
+  sb2_rec(x, NA),
+  pattern = "`rec` cannot contain `NA`"
+)
+expect_error(
+  sb2_rec(x, c("a", NA)),
+  pattern = "`rec` cannot contain `NA`"
+)
+expect_error(
+  sb2_rec(x, c(1L, NA)),
+  pattern = "`rec` cannot contain `NA`"
+)
+expect_error(
+  sb2_rec(x, TRUE),
+  pattern = "`rec` must be an integer vector or a character vector"
+)
+
 print(enumerate)
 
 

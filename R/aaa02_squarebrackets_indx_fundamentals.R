@@ -163,15 +163,7 @@
 #'  - In the modification methods (`_mod_`/`_set_`) one can set the argument
 #'  \link[=squarebrackets_indx_args]{inv}\code{ = TRUE} to invert indices. \cr \cr
 #' 
-#' \bold{NOTE ABOUT ORDERING} \cr
-#' The order in which the user gives indices when inverting indices generally does not matter. \cr
-#' The order of the indices as they appear in the original object `x` is maintained,
-#' just like in base 'R'. \cr
-#' Therefore, when replacing multiple values where the order of the replacement matters,
-#' it is better to keep `inv = FALSE`, which is the default. \cr
-#' For replacement with a single value or with a transformation function,
-#' `inv = TRUE` can be used without considering the ordering. \cr
-#' \cr
+#' 
 #' \bold{EXAMPLES}
 #' 
 #' 
@@ -192,9 +184,29 @@
 #' 
 #' ```
 #' 
-#' ___ \cr
+#' \bold{ABOUT ORDERING} \cr
+#' The order in which the user gives indices when inverting indices generally does not matter. \cr
+#' The order of the indices as they appear in the original object `x` is maintained,
+#' just like in base 'R'. \cr
+#' Therefore, when replacing multiple values where the order of the replacement matters,
+#' it is better to keep `inv = FALSE`, which is the default. \cr
+#' For replacement with a single value or with a transformation function,
+#' `inv = TRUE` can be used without considering the ordering. \cr
 #' \cr
 #' \cr
+#' \cr
+#' 
+#' 
+#' @section Out-of-Bounds Integers, Non-Existing Names, and NAs:
+#' 
+#'  - Integer indices that are out of bounds (including `NaN` and `NA_integer_`) always give an error.
+#'  - Character indices that specify non-existing names
+#'  is considered a form of zero-length indexing. \cr
+#'  Specifying `NA` names returns an error. \cr
+#'  - Logical indices are translated internally to integers using \link[base]{which},
+#'  and so `NA`s are ignored. \cr \cr
+#'  
+#'  
 #' 
 #' @section Regarding Performance:
 #' Integer vectors created through the `:` operator are "ALTREP" integer vectors,
@@ -239,7 +251,7 @@
 #' 
 #' 
 #' 
-#' Recursive subset operations (`[[`, `[[<-` in base 'R'), on the other hand,
+#' Recursive subset operations (`[[`, `[[<-`, and `$` in base 'R'), on the other hand,
 #' operate on an object a subset of the recursive object references to. \cr
 #' I.e. \link{sb2_rec}`(x, 1)`, or equivalently `x[[1]]`,
 #' returns the \bold{integer vector} `1:10`:
@@ -256,11 +268,11 @@
 #' So, for example,
 #' to extract the character vector `month.abb` from the aforementioned list `x`,
 #' one would need to do: \cr
-#' \link{sb2_rec}`(x, c("C","B"))`, (in base R: `x[["C"]][["B"]]`):
+#' \link{sb2_rec}`(x, c("C","B"))`, (in base R: `x$C$B`):
 #' 
 #' ```{r}
 #' 
-#' sb2_rec(x, c("C","B")) # equivalent to x[["C"]][["B"]]
+#' sb2_rec(x, c("C","B")) # equivalent to x$C$B
 #' 
 #' # or:
 #' 
@@ -269,7 +281,7 @@
 #' ```
 #' 
 #' 
-#' \bold{IMPORTANT} \cr
+#' \bold{LIMITATIONS} \cr
 #' Indexing in recursive subsets is significantly more limited than in regular
 #' (or "shallow") subsets: 
 #' 
@@ -280,7 +292,9 @@
 #'  - Since a recursive subset operation only operates on a single element,
 #'  specifying the index with a character vector only selects the first matching element
 #' (just like base 'R'), not all matches.
-#'  - Inverting indices is also \bold{not} available for recursive indexing. \cr \cr
+#'  - Inverting indices is also \bold{not} available for recursive indexing.
+#'  - Unlike regular sub-setting, out-of-bounds specification for indices is acceptable,
+#'  as it can be used to add new values to lists. \cr \cr
 #' 
 #' 
 #' 

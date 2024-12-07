@@ -303,13 +303,6 @@
 #' The above is true \bold{even if} `inv = TRUE` and/or `red = TRUE`. \cr \cr
 #' 
 #' 
-#' @section Out-of-Bounds Integers, Non-Existing Names, and NAs:
-#' 
-#'  - Integer indices that are out of bounds (including `NaN` and `NA_integer_`) always give an error.
-#'  - Specifying non-existing names (including `NA_character_`) as indices
-#'  is considered a form of zero-length indexing.
-#'  - Logical indices are translated internally to integers using \link[base]{which},
-#'  and so `NA`s are ignored. \cr \cr
 #' 
 #' @section Disallowed Combinations of Index Arguments:
 #' 

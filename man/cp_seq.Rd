@@ -30,7 +30,7 @@ This is simply \code{from} translated to regular numeric. \cr
 \cr
 \bold{\verb{$end}}: \cr
 The \bold{actual} ending point of the sequence. \cr
-This is \bold{not} the same as \code{to}, not even when translated to regular numeric. \cr
+This is not the same as \code{to}. \cr
 For example, the following code:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{seq(from = 1L, to = 10L, by = 2L)

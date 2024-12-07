@@ -31,7 +31,9 @@
 #'  The 'squarebrackets' methods provides explicit pass-by-reference and pass-by-value semantics,
 #'  whilst still respecting things like binding-locks and mutability rules.
 #'  6) 'squarebrackets' supports index-less sub-set operations,
-#'  which is more memory efficient than sub-set operations using the `[` and `[<-` operators. \cr \cr
+#'  which is more memory efficient
+#'  (and better for the environment)
+#'  for `long vectors` than sub-set operations using the `[` and `[<-` operators. \cr \cr
 #' 
 #' 
 #' @section Goal:
@@ -254,9 +256,11 @@
 #'    * Sub-setting arrays using `x[indx1, indx2, etc.]` will drop `names(x)`. \cr
 #'    The methods from 'squarebrackets' will not drop `names(x)`.
 #'  * \bold{Concise function and argument names}.
-#'  * \bold{Performance aware}: \cr
+#'  * \bold{Performance & Energy aware}: \cr
 #'  Despite the many checks performed, the functions are kept reasonably speedy,
-#'  through the use of the 'Rcpp', 'collapse', and 'data.table' R-packages. \cr \cr
+#'  through the use of the 'Rcpp', 'collapse', and 'data.table' R-packages. \cr
+#'  The functions were also made to be as memory efficient as reasonably possible,
+#'  to lower the carbon footprint of this package. \cr \cr
 #'
 #' 
 #' 

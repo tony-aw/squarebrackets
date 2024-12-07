@@ -125,20 +125,20 @@ templatecode2 <- "
 //' @keywords internal
 //' @noRd
 // [[Rcpp::export(.rcpp_sub2ind_2d_8d_32)]]
-IntegerVector rcpp_sub2ind_2d_8d_32(
+SEXP rcpp_sub2ind_2d_8d_32(
   List sub, SEXP dimcumprod
 ) {
   int n = sub.length();
   
-  IntegerVector ind1 = sub[0];
-  IntegerVector ind2 = sub[1];
-  IntegerVector ind3;
-  IntegerVector ind4;
-  IntegerVector ind5;
-  IntegerVector ind6;
-  IntegerVector ind7;
-  IntegerVector ind8;
-  IntegerVector out;
+  SEXP ind1 = sub[0];
+  SEXP ind2 = sub[1];
+  SEXP ind3;
+  SEXP ind4;
+  SEXP ind5;
+  SEXP ind6;
+  SEXP ind7;
+  SEXP ind8;
+  SEXP out;
 
   if(n > 2) {
     ind3 = sub[2];
@@ -334,20 +334,20 @@ templatecode2 <- "
 //' @keywords internal
 //' @noRd
 // [[Rcpp::export(.rcpp_sub2ind_2d_8d_64)]]
-NumericVector rcpp_sub2ind_2d_8d_64(
+SEXP rcpp_sub2ind_2d_8d_64(
   List sub, SEXP dimcumprod
 ) {
   int n = sub.length();
   
-  IntegerVector ind1 = sub[0];
-  IntegerVector ind2 = sub[1];
-  IntegerVector ind3;
-  IntegerVector ind4;
-  IntegerVector ind5;
-  IntegerVector ind6;
-  IntegerVector ind7;
-  IntegerVector ind8;
-  NumericVector out;
+  SEXP ind1 = sub[0];
+  SEXP ind2 = sub[1];
+  SEXP ind3;
+  SEXP ind4;
+  SEXP ind5;
+  SEXP ind6;
+  SEXP ind7;
+  SEXP ind8;
+  SEXP out;
 
   if(n > 2) {
     ind3 = sub[2];
@@ -600,18 +600,18 @@ templatecode2 <- "
 //' @noRd
 // [[Rcpp::export(.rcpp_set_array_2d_8d_atomic)]]
 void rcpp_set_array_2d_8d_atomic(
-  SEXP x, List out, NumericVector dimcumprod, SEXP rp
+  SEXP x, List out, SEXP dimcumprod, SEXP rp
 ) {
   int n = out.length();
   
-  IntegerVector ind1 = out[0];
-  IntegerVector ind2 = out[1];
-  IntegerVector ind3;
-  IntegerVector ind4;
-  IntegerVector ind5;
-  IntegerVector ind6;
-  IntegerVector ind7;
-  IntegerVector ind8;
+  SEXP ind1 = out[0];
+  SEXP ind2 = out[1];
+  SEXP ind3;
+  SEXP ind4;
+  SEXP ind5;
+  SEXP ind6;
+  SEXP ind7;
+  SEXP ind8;
 
   if(n > 2) {
     ind3 = out[2];
@@ -888,14 +888,14 @@ void rcpp_set_array_2d_8d_atomic(
 ) {
   int n = out.length();
   
-  IntegerVector ind1 = out[0];
-  IntegerVector ind2 = out[1];
-  IntegerVector ind3;
-  IntegerVector ind4;
-  IntegerVector ind5;
-  IntegerVector ind6;
-  IntegerVector ind7;
-  IntegerVector ind8;
+  SEXP ind1 = out[0];
+  SEXP ind2 = out[1];
+  SEXP ind3;
+  SEXP ind4;
+  SEXP ind5;
+  SEXP ind6;
+  SEXP ind7;
+  SEXP ind8;
 
   if(n > 2) {
     ind3 = out[2];

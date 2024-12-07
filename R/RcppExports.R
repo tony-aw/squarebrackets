@@ -597,6 +597,12 @@
 
 #' @keywords internal
 #' @noRd
+.rcpp_set_array_general_atomic <- function(x, s, xdims, rp) {
+    invisible(.Call(`_squarebrackets_rcpp_set_array_general_atomic`, x, s, xdims, rp))
+}
+
+#' @keywords internal
+#' @noRd
 .rcpp_set_namepointer <- function(nms, ind, rp) {
     invisible(.Call(`_squarebrackets_rcpp_set_namepointer`, nms, ind, rp))
 }

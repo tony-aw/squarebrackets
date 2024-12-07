@@ -996,7 +996,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // rcpp_sub2ind_2d_8d_32
-IntegerVector rcpp_sub2ind_2d_8d_32(List sub, SEXP dimcumprod);
+SEXP rcpp_sub2ind_2d_8d_32(List sub, SEXP dimcumprod);
 RcppExport SEXP _squarebrackets_rcpp_sub2ind_2d_8d_32(SEXP subSEXP, SEXP dimcumprodSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -1120,7 +1120,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // rcpp_sub2ind_2d_8d_64
-NumericVector rcpp_sub2ind_2d_8d_64(List sub, SEXP dimcumprod);
+SEXP rcpp_sub2ind_2d_8d_64(List sub, SEXP dimcumprod);
 RcppExport SEXP _squarebrackets_rcpp_sub2ind_2d_8d_64(SEXP subSEXP, SEXP dimcumprodSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -1339,6 +1339,19 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// rcpp_set_array_general_atomic
+void rcpp_set_array_general_atomic(SEXP x, const SEXP s, const SEXP xdims, const SEXP rp);
+RcppExport SEXP _squarebrackets_rcpp_set_array_general_atomic(SEXP xSEXP, SEXP sSEXP, SEXP xdimsSEXP, SEXP rpSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const SEXP >::type s(sSEXP);
+    Rcpp::traits::input_parameter< const SEXP >::type xdims(xdimsSEXP);
+    Rcpp::traits::input_parameter< const SEXP >::type rp(rpSEXP);
+    rcpp_set_array_general_atomic(x, s, xdims, rp);
+    return R_NilValue;
+END_RCPP
+}
 // rcpp_set_namepointer
 void rcpp_set_namepointer(CharacterVector nms, IntegerVector ind, CharacterVector rp);
 RcppExport SEXP _squarebrackets_rcpp_set_namepointer(SEXP nmsSEXP, SEXP indSEXP, SEXP rpSEXP) {
@@ -1543,6 +1556,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_squarebrackets_rcpp_recycle_seq_mlen", (DL_FUNC) &_squarebrackets_rcpp_recycle_seq_mlen, 2},
     {"_squarebrackets_rcpp_serial", (DL_FUNC) &_squarebrackets_rcpp_serial, 1},
     {"_squarebrackets_rcpp_is_ma", (DL_FUNC) &_squarebrackets_rcpp_is_ma, 1},
+    {"_squarebrackets_rcpp_set_array_general_atomic", (DL_FUNC) &_squarebrackets_rcpp_set_array_general_atomic, 4},
     {"_squarebrackets_rcpp_set_namepointer", (DL_FUNC) &_squarebrackets_rcpp_set_namepointer, 3},
     {"_squarebrackets_rcpp_sub2coord", (DL_FUNC) &_squarebrackets_rcpp_sub2coord, 6},
     {"_squarebrackets_C_sub2ind_setrange64", (DL_FUNC) &_squarebrackets_C_sub2ind_setrange64, 6},

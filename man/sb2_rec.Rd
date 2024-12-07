@@ -26,7 +26,8 @@ providing all but the final indexing results in a list. \cr
 When on a certain subset level of a nested list,
 multiple subsets with the same name exist,
 only the first one will be selected when performing recursive indexing by name,
-since recursive indexing can only select a single element.}
+since recursive indexing can only select a single element. \cr
+\verb{NA, NaN, Inf, -Inf} are not valid values for \code{rec}.}
 
 \item{rp}{optional, and allows for multiple functionalities:
 \itemize{

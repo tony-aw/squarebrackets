@@ -85,32 +85,28 @@
     x, sub, dims, inv, chkdup, .abortcall = abortcall
   ) # Note: ci_sub will already ensure the subs are integers.
   
+  if(!missing(tf)) {
+    if(!is.function(tf)) stop(simpleError("`tf` must be a function", call = abortcall))
+    rp <- tf(do.call(\(...)x[...], lst))
+  }
+  rp <- .internal_coerce_rp(x, rp, abortcall)
+  
   
   # CASE 1: `x` has between 3 and 8 dimensions (emtpy args, 1d, and 2d already captured earlier)
   if(ndims <= 8L) {
-    if(!missing(tf)) {
-      if(!is.function(tf)) stop(simpleError("`tf` must be a function", call = abortcall))
-      rp <- tf(do.call(\(...)x[...], lst))
-    }
     .rcpp_set_array_2d_8d(x, rp, lst, x.dim, abortcall = abortcall)
     return(invisible(NULL))
   }
   
   # CASE 2: `x` has between 9 and 16 dimensions
   if(ndims <= 16L) {
-    if(!missing(tf)) {
-      if(!is.function(tf)) stop(simpleError("`tf` must be a function", call = abortcall))
-      rp <- tf(do.call(\(...)x[...], lst))
-    }
     .rcpp_set_array_16d(x, rp, lst, x.dim, abortcall = abortcall)
     return(invisible(NULL))
   }
   
-  # CASE 2: `x` has more than 16 dimension
-  # so default to translating subscripts to flat indices,
-  # and treat as vector with the flattened indices.
-  elements <- sub2ind(lst, x.dim, checks = FALSE)
-  .sb_set_atomic(x, elements, rp = rp, tf = tf, abortcall = sys.call())
+  # CASE 3:  `x` has more 16 dimensions
+  # use generalized array code (inspired by R's own internal code)
+  .rcpp_set_array_general_atomic(x, lst, x.dim, rp)
   return(invisible(NULL))
   
 }
@@ -119,7 +115,6 @@
 #' @noRd
 .rcpp_set_array_2d_8d <- function(x, rp, lst, x.dim, abortcall) {
   dimcumprod <- as.double(cumprod(x.dim))
-  rp <- .internal_coerce_rp(x, rp, abortcall)
   
   .rcpp_set_array_2d_8d_atomic(x, lst, dimcumprod, rp)
   return(invisible(NULL))
@@ -130,8 +125,6 @@
 #' @keywords internal
 #' @noRd
 .rcpp_set_array_16d <- function(x, rp, lst, x.dim, abortcall) {
-  rp <- .internal_coerce_rp(x, rp, abortcall)
-  
   n <- length(x.dim)
   
   if(n < 16L) {
@@ -143,3 +136,4 @@
   return(invisible(NULL))
   
 }
+

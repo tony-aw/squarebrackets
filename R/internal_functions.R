@@ -205,11 +205,18 @@
 .internal_check_dots <- function(dots.list, abortcall) {
   # this check will not take much performance
   if(length(dots.list) > 0L) {
-    error.txt <- paste0(
-      "unknown arguments given:",
-      "\n",
-      paste(names(dots.list), collapse = ", ")
-    )
+    if(!is.null(names(dots.list))) {
+      error.txt <- paste0(
+        "unknown arguments given:",
+        "\n",
+        paste(names(dots.list), collapse = ", ")
+      )
+    }
+    else {
+      error.txt <- paste0(
+        "unknown arguments given (unnamed)"
+      )
+    }
     stop(simpleError(error.txt, call = abortcall))
   }
 }

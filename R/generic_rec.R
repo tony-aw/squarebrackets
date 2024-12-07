@@ -33,7 +33,8 @@
 #' When on a certain subset level of a nested list,
 #' multiple subsets with the same name exist,
 #' only the first one will be selected when performing recursive indexing by name,
-#' since recursive indexing can only select a single element.
+#' since recursive indexing can only select a single element. \cr
+#' `NA, NaN, Inf, -Inf` are not valid values for `rec`.
 #' @param ... see \link{squarebrackets_method_dispatch}.
 #' @param rp optional, and allows for multiple functionalities:
 #'  - In the simplest case, performs `x[[rec]] <- rp`,
@@ -103,8 +104,11 @@ sb2_rec <- function(x, ...) {
 #' @export
 sb2_rec.default <- function(x, rec, ...) {
   
+  # error handling:
   .internal_check_dots(list(...), sys.call())
-  
+  if(anyNA(rec)) {
+    stop("`rec` cannot contain `NA`")
+  }
   if(!is.numeric(rec) && !is.character(rec)) {
     stop("`rec` must be an integer vector or a character vector")
   }
@@ -135,6 +139,9 @@ sb2_recin.default <- function(x, rec, ..., rp, tf) {
   
   # error handling:
   .internal_check_dots(list(...), sys.call())
+  if(anyNA(rec)) {
+    stop("`rec` cannot contain `NA`")
+  }
   if(!is.numeric(rec) && !is.character(rec)) {
     stop("`rec` must be an integer vector or a character vector")
   }

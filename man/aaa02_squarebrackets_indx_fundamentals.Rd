@@ -185,15 +185,6 @@ use the methods that end with \verb{_wo}. \cr
 \link[=squarebrackets_indx_args]{inv}\code{ = TRUE} to invert indices. \cr \cr
 }
 
-\bold{NOTE ABOUT ORDERING} \cr
-The order in which the user gives indices when inverting indices generally does not matter. \cr
-The order of the indices as they appear in the original object \code{x} is maintained,
-just like in base 'R'. \cr
-Therefore, when replacing multiple values where the order of the replacement matters,
-it is better to keep \code{inv = FALSE}, which is the default. \cr
-For replacement with a single value or with a transformation function,
-\code{inv = TRUE} can be used without considering the ordering. \cr
-\cr
 \bold{EXAMPLES}
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{
@@ -216,9 +207,29 @@ sb_mod(x, 1:5, inv = T, rp = "XXX") # same, but for all except first 5 elements
 #>  [1] "Jan" "Feb" "Mar" "Apr" "May" "XXX" "XXX" "XXX" "XXX" "XXX" "XXX" "XXX"
 }\if{html}{\out{</div>}}
 
-___ \cr
+\bold{ABOUT ORDERING} \cr
+The order in which the user gives indices when inverting indices generally does not matter. \cr
+The order of the indices as they appear in the original object \code{x} is maintained,
+just like in base 'R'. \cr
+Therefore, when replacing multiple values where the order of the replacement matters,
+it is better to keep \code{inv = FALSE}, which is the default. \cr
+For replacement with a single value or with a transformation function,
+\code{inv = TRUE} can be used without considering the ordering. \cr
 \cr
 \cr
+\cr
+}
+
+\section{Out-of-Bounds Integers, Non-Existing Names, and NAs}{
+
+\itemize{
+\item Integer indices that are out of bounds (including \code{NaN} and \code{NA_integer_}) always give an error.
+\item Character indices that specify non-existing names
+is considered a form of zero-length indexing. \cr
+Specifying \code{NA} names returns an error. \cr
+\item Logical indices are translated internally to integers using \link[base]{which},
+and so \code{NA}s are ignored. \cr \cr
+}
 }
 
 \section{Regarding Performance}{
@@ -263,7 +274,7 @@ sb2_x(x, 1) # equivalent to x[1]; returns list(A = 1:10)
 #>  [1]  1  2  3  4  5  6  7  8  9 10
 }\if{html}{\out{</div>}}
 
-Recursive subset operations (\code{[[}, \verb{[[<-} in base 'R'), on the other hand,
+Recursive subset operations (\code{[[}, \verb{[[<-}, and \code{$} in base 'R'), on the other hand,
 operate on an object a subset of the recursive object references to. \cr
 I.e. \link{sb2_rec}\verb{(x, 1)}, or equivalently \code{x[[1]]},
 returns the \bold{integer vector} \code{1:10}:
@@ -279,10 +290,10 @@ Recursive subsets can go however deep you want. \cr
 So, for example,
 to extract the character vector \code{month.abb} from the aforementioned list \code{x},
 one would need to do: \cr
-\link{sb2_rec}\verb{(x, c("C","B"))}, (in base R: \code{x[["C"]][["B"]]}):
+\link{sb2_rec}\verb{(x, c("C","B"))}, (in base R: \code{x$C$B}):
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{
-sb2_rec(x, c("C","B")) # equivalent to x[["C"]][["B"]]
+sb2_rec(x, c("C","B")) # equivalent to x$C$B
 #>  [1] "Jan" "Feb" "Mar" "Apr" "May" "Jun" "Jul" "Aug" "Sep" "Oct" "Nov" "Dec"
 
 # or:
@@ -291,7 +302,7 @@ sb2_rec(x, c(3, 2)) # equivalent to x[[3]][[2]]
 #>  [1] "Jan" "Feb" "Mar" "Apr" "May" "Jun" "Jul" "Aug" "Sep" "Oct" "Nov" "Dec"
 }\if{html}{\out{</div>}}
 
-\bold{IMPORTANT} \cr
+\bold{LIMITATIONS} \cr
 Indexing in recursive subsets is significantly more limited than in regular
 (or "shallow") subsets:
 \itemize{
@@ -302,7 +313,9 @@ only support positive integer vectors and character vectors.
 \item Since a recursive subset operation only operates on a single element,
 specifying the index with a character vector only selects the first matching element
 (just like base 'R'), not all matches.
-\item Inverting indices is also \bold{not} available for recursive indexing. \cr \cr
+\item Inverting indices is also \bold{not} available for recursive indexing.
+\item Unlike regular sub-setting, out-of-bounds specification for indices is acceptable,
+as it can be used to add new values to lists. \cr \cr
 }
 }
 

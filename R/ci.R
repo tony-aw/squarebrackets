@@ -45,6 +45,10 @@ ci_flat <- function(
   
   is_list <- is.list(x)
   
+  if(is.matrix(i)) {
+    stop(simpleError("coordinate matrix not supported for `i`", call = .abortcall))
+  }
+  
   if(is.function(i)) {
     if(is_list){
       i <- vapply(x, i, FUN.VALUE = logical(1L), USE.NAMES = FALSE) |> unlist()

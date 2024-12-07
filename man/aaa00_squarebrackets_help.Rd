@@ -37,7 +37,9 @@ thereby allowing vectorized operations on recursive subsets of such a nested lis
 The 'squarebrackets' methods provides explicit pass-by-reference and pass-by-value semantics,
 whilst still respecting things like binding-locks and mutability rules.
 \item 'squarebrackets' supports index-less sub-set operations,
-which is more memory efficient than sub-set operations using the \code{[} and \verb{[<-} operators. \cr \cr
+which is more memory efficient
+(and better for the environment)
+for \verb{long vectors} than sub-set operations using the \code{[} and \verb{[<-} operators. \cr \cr
 }
 }
 \section{Goal}{
@@ -273,9 +275,11 @@ are forced to have unique column names.
 The methods from 'squarebrackets' will not drop \code{names(x)}.
 }
 \item \bold{Concise function and argument names}.
-\item \bold{Performance aware}: \cr
+\item \bold{Performance & Energy aware}: \cr
 Despite the many checks performed, the functions are kept reasonably speedy,
-through the use of the 'Rcpp', 'collapse', and 'data.table' R-packages. \cr \cr
+through the use of the 'Rcpp', 'collapse', and 'data.table' R-packages. \cr
+The functions were also made to be as memory efficient as reasonably possible,
+to lower the carbon footprint of this package. \cr \cr
 }
 }
 

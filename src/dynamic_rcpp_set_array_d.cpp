@@ -1207,14 +1207,14 @@ void rcpp_set_array_2d_8d_atomic(
 ) {
   int n = out.length();
   
-  IntegerVector ind1 = out[0];
-  IntegerVector ind2 = out[1];
-  IntegerVector ind3;
-  IntegerVector ind4;
-  IntegerVector ind5;
-  IntegerVector ind6;
-  IntegerVector ind7;
-  IntegerVector ind8;
+  SEXP ind1 = out[0];
+  SEXP ind2 = out[1];
+  SEXP ind3;
+  SEXP ind4;
+  SEXP ind5;
+  SEXP ind6;
+  SEXP ind7;
+  SEXP ind8;
 
   if(n > 2) {
     ind3 = out[2];
