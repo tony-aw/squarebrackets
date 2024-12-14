@@ -222,6 +222,10 @@ in contrast to atomic vectors. <br><br></p>
 <span class="r-in"><span>  B <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>    A <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>A <span class="op">=</span> <span class="st">"BAA"</span>, B <span class="op">=</span> <span class="st">"BAB"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>    B <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>A <span class="op">=</span> <span class="st">"BBA"</span>, B <span class="op">=</span> <span class="st">"BBB"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span>,</span></span>
+<span class="r-in"><span>  C <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    A <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>,</span></span>
+<span class="r-in"><span>    B <span class="op">=</span> <span class="fl">11</span><span class="op">:</span><span class="fl">20</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
@@ -293,21 +297,193 @@ in contrast to atomic vectors. <br><br></p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $C</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $C$A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  1  2  3  4  5  6  7  8  9 10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $C$B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 11 12 13 14 15 16 17 18 19 20</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#############################################################################</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># replace shallow subsets with R's default in-place semantics ====</span></span></span>
+<span class="r-in"><span><span class="co"># transform recursive subsets with R's default in-place semantics ====</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span><span class="op">)</span><span class="op">)</span> <span class="fu">sb2_recin</span><span class="op">(</span><span class="va">lst</span>, <span class="va">i</span>, rp <span class="op">=</span> <span class="st">"AND THEN THERE WERE NONE"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">sb2_recin</span><span class="op">(</span><span class="va">lst</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"C"</span>, <span class="st">"A"</span><span class="op">)</span>, tf <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span> <span class="co"># transforms lst$C$A</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">lst</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $A</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "AND THEN THERE WERE NONE"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $A$A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $A$A$A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "AAA"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $A$A$B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "THIS IS REPLACED WITH IN-PLACE SEMANTICS"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $A$A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $A$A$A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "AA2A"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $A$A$B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "AA2B"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $A$B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $A$B$A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "ABA"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $A$B$B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "ABB"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $B</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "AND THEN THERE WERE NONE"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $B$A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $B$A$A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "BAA"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $B$A$B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "BAB"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $B$B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $B$B$A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "BBA"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $B$B$B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "BBB"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $C</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $C$A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]   1   4   9  16  25  36  49  64  81 100</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $C$B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 11 12 13 14 15 16 17 18 19 20</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">#############################################################################</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># add/remove new recursive subsets with R's default in-place semantics ====</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">sb2_recin</span><span class="op">(</span><span class="va">lst</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"C"</span>, <span class="st">"D"</span><span class="op">)</span>, rp <span class="op">=</span> <span class="st">"NEW VALUE"</span><span class="op">)</span> <span class="co"># adds lst$C$D</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">lst</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $A$A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $A$A$A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "AAA"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $A$A$B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "THIS IS REPLACED WITH IN-PLACE SEMANTICS"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $A$A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $A$A$A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "AA2A"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $A$A$B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "AA2B"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $A$B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $A$B$A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "ABA"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $A$B$B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "ABB"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $B$A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $B$A$A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "BAA"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $B$A$B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "BAB"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $B$B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $B$B$A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "BBA"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $B$B$B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "BBB"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $C</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $C$A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]   1   4   9  16  25  36  49  64  81 100</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $C$B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 11 12 13 14 15 16 17 18 19 20</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $C$D</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "NEW VALUE"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">sb2_recin</span><span class="op">(</span><span class="va">lst</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"C"</span>, <span class="st">"A"</span><span class="op">)</span>, rp <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="co"># removes lst$C$A</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">lst</span><span class="op">)</span> <span class="co"># notice lst$C$A is GONE</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $A$A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $A$A$A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "AAA"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $A$A$B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "THIS IS REPLACED WITH IN-PLACE SEMANTICS"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $A$A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $A$A$A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "AA2A"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $A$A$B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "AA2B"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $A$B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $A$B$A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "ABA"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $A$B$B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "ABB"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $B$A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $B$A$A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "BAA"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $B$A$B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "BAB"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $B$B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $B$B$A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "BBA"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $B$B$B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "BBB"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $C</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $C$B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 11 12 13 14 15 16 17 18 19 20</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $C$D</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "NEW VALUE"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>

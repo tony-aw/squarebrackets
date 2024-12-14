@@ -103,7 +103,8 @@ library(squarebrackets)
  - 21 November 2024: Improved the documentation. Slightly tweaked array argument usage. Added `sticky` option. Brought back the renaming methods. Changed behaviour of the `use.names` argument in `lst_untree()`.
  - 24 November 2024: Matrices now use the same API as arrays. Adjusted the documentation accordingly. Cleaned up the internal code a bit.
  - 30 November 2024: The binding implementations can now bind mixtures of atomic and recursive objects.
- - 5 December 2024: replaced the `_rm` post-fixes with `_wo` in all methods, to avoid confusion. Coercion for data.frame-like objects now happens automatically, and only when needed, in the `sb2_mod()` method, and updated the documentation accordingly. Slightly re-organized the documentation.
+ - 5 December 2024: Replaced the `_rm` post-fixes with `_wo` in all methods, to avoid confusion. Coercion for data.frame-like objects now happens automatically, and only when needed, in the `sb2_mod()` method, and updated the documentation accordingly. Slightly re-organized the documentation.
+ - 14 December 2024: Removed the `ma_setv()` function in favour of the new `slicev_` set of methods. Changed the documentation accordingly.
 
 
 

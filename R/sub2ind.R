@@ -17,8 +17,7 @@
 #'  it performs a very simple (one might even say naive) conversion. \cr
 #'  * `sub2ind()`
 #'  is a faster and more memory efficient version of \cr
-#'  `coord2ind(sub2coord(sub, x.dims), x.dims)` \cr
-#'  (especially for up to 8 dimensions). \cr
+#'  `coord2ind(sub2coord(sub, x.dims), x.dims)` \cr \cr
 #' 
 #' 
 #' All of these functions are written to be memory-efficient. \cr
@@ -51,6 +50,24 @@
 #' Can be set to `FALSE` for minor speed improvements. \cr
 #' `r .mybadge_performance_set2("FALSE")` \cr
 #' 
+#' @details
+#' The base S3 vector and array classes in 'R' use the standard Linear Algebraic convention,
+#' as in academic fields like Mathematics and Statistics,
+#' in the following sense: \cr
+#'  * vectors are \bold{column} vectors (i.e. vertically aligned vectors);
+#'  * index counting starts at `1`;
+#'  * rows are the first dimension/subscript, columns are the second dimension/subscript, etc.
+#' 
+#' Thus, the orientation of flat indices in, for example,
+#' a 4-rows-by-5-columns matrix, is as follows:
+#' 
+#' ```{r echo = FALSE, eval = TRUE, comment = NA}
+#' matrix(1:20, ncol = 5)
+#' ```
+#' 
+#' In a 4 by 4 matrix, subscript `[1, 2]` corresponds to flat index `5`. \cr
+#' All array subscripts in 'squarebrackets' also follow this convention. \cr
+#' \cr
 #' 
 #' 
 #' @note

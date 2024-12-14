@@ -18,6 +18,7 @@ An objects can become mutable_atomic if it is one of the following types:
 logical, integer, double, character, complex, raw. 
 bit64::integer64 type is also supported,
 since it is internally defined as double. 
+Factors can never be mutable_atomic.
 typecast.mutable_atomic() type-casts and possibly reshapes a (mutable) atomic object,
 and returns a mutable_atomic object. 
 Does not preserve dimension names if dimensions are changed.  
@@ -41,6 +42,7 @@ An objects can become mutable_atomic if it is one of the following types:
 logical, integer, double, character, complex, raw. 
 bit64::integer64 type is also supported,
 since it is internally defined as double. 
+Factors can never be mutable_atomic.
 typecast.mutable_atomic() type-casts and possibly reshapes a (mutable) atomic object,
 and returns a mutable_atomic object. 
 Does not preserve dimension names if dimensions are changed.  
@@ -110,7 +112,8 @@ For modification  by reference, use <a href="sb_set.html">sb_set</a>. <br><br>
 Exposed functions (beside the S3 methods):</p><ul><li><p><code>mutable_atomic()</code>: create a <code>mutable_atomic</code> object from given data.</p></li>
 <li><p><code>couldb.mutable_atomic()</code>: checks if an object could become <code>mutable_atomic</code>. <br>
 An objects can become <code>mutable_atomic</code> if it is one of the following types: <br><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a>, <a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a>, <a href="https://rdrr.io/r/base/double.html" class="external-link">double</a>, <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a>, <a href="https://rdrr.io/r/base/complex.html" class="external-link">complex</a>, <a href="https://rdrr.io/r/base/raw.html" class="external-link">raw</a>. <br><code>bit64::</code><a href="https://rdrr.io/pkg/bit64/man/bit64-package.html" class="external-link">integer64</a> type is also supported,
-since it is internally defined as <a href="https://rdrr.io/r/base/double.html" class="external-link">double</a>. <br></p></li>
+since it is internally defined as <a href="https://rdrr.io/r/base/double.html" class="external-link">double</a>. <br>
+Factors can never be <code>mutable_atomic</code>.</p></li>
 <li><p><code>typecast.mutable_atomic()</code> type-casts and possibly reshapes a (mutable) atomic object,
 and returns a <code>mutable_atomic</code> object. <br>
 Does not preserve dimension names if dimensions are changed. <br><br></p></li>

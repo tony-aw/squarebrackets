@@ -6,6 +6,7 @@
 \title{Indexing Fundamentals}
 \description{
 This help page explains the fundamentals regarding how 'squarebrackets' treats indexing. \cr
+Some familiarity with base R's \code{[} and \verb{[<-} operators is required to follow this help page. \cr
 \cr
 }
 \section{Indexing Types}{
@@ -94,15 +95,7 @@ or backwards counting from the end. \cr
 \cr
 }
 
-\section{Basic Indexing in Dimensionless Vectors}{
-
-Indexing in a vector is straight-forward, and very similar to base 'R'. \cr
-An expression like \link{sb_x}\verb{(x, i)}, for example, is equivalent to \code{x[i]}. \cr
-\cr
-\cr
-}
-
-\section{Basic Indexing in Arrays}{
+\section{Flat Indices and Subscripts in Arrays}{
 
 Arrays and matrices (matrices are simply arrays with 2 dimensions)
 distinguish between flat indices and subscripts. \cr
@@ -110,63 +103,30 @@ distinguish between flat indices and subscripts. \cr
 Flat indices, also called linear indices,
 specifies the indices of an array as-if it is vector,
 thus ignoring dimensions. \cr
-So in an expression like \link{sb_x}\verb{(x, i)} (equivalent to \code{x[i]}),
+Flat indices are specified through the \link[=squarebrackets_indx_args]{i} argument. \cr
+So in an expression like \link{sb_x}\verb{(x, i = i)} (equivalent to \code{x[i]}),
 where \code{i} is a vector, \code{i} specifies flat indices. \cr
 \cr
-Matrices and arrays also have subscripts. \cr
-Array subscripts work by specifying multiple indexing vectors,
+Array subscripts work by specifying one or more indexing vectors,
 which can be of different sizes,
 where each vector specifies positions in a specific dimension. \cr
 Given, for example, a 3-dimensional array,
-the subscript \verb{(1:10, 2:5, 3:9)},
+the subscript \verb{[1:10, 2:5, 3:9]},
 refers to rows 1 to 10, columns 2 to 5, and layers 3 to 9. \cr
-\cr
-The base S3 vector classes in 'R' use the standard Linear Algebraic convention,
-as in academic fields like Mathematics and Statistics,
-in the following sense: \cr
-\itemize{
-\item vectors are \bold{column} vectors (i.e. vertically aligned vectors);
-\item index counting starts at \code{1};
-\item rows are the first dimension/subscript, columns are the second dimension/subscript, etc.
-}
-
-Thus, the orientation of flat indices in, for example,
-a 4-rows-by-5-columns matrix, is as follows:
-
-\if{html}{\out{<div class="sourceCode">}}\preformatted{     [,1] [,2] [,3] [,4] [,5]
-[1,]    1    5    9   13   17
-[2,]    2    6   10   14   18
-[3,]    3    7   11   15   19
-[4,]    4    8   12   16   20
-}\if{html}{\out{</div>}}
-
-In a 4 by 4 matrix, subscript \verb{(1, 2)} corresponds to flat index \code{5}. \cr
-All array subscripts in 'squarebrackets' also follow this convention. \cr
-\cr
 The S3 methods in 'squarebrackets' implement subscripts through
 the \link[=squarebrackets_indx_args]{sub, dims} argument pair. \cr
 This argument pair allows specifying indices of an array,
 without requiring a-priori knowledge on the number of dimensions the array has. \cr
 \cr
-\cr
-}
-
-\section{Basic Indexing in data.frame-like Objects}{
-
-Data.frames distinguish between row- and column indices. \cr
-These are very equivalent to base 'R'. \cr
-\cr
-Technically speaking, the column indices of a data.frame-like object is equal to its flat indices. \cr
-I.e. for a data.frame, \code{x[i]} is essentially the same as \code{x[, i]}, safe for some attribute handling. \cr
-To avoid confusion,
-'squarebrackets' does not have an argument for flat indices in its data.frame methods. \cr
+For the relationship between flat indices and subscripts for arrays,
+see the \link{sub2ind} help page. \cr
 \cr
 \cr
 }
 
 \section{Inverting}{
 
-Inverting indices entails to specify all elements \bold{except} the given indices. \cr
+Inverting indices means to specify all elements \bold{except} the given indices. \cr
 Consider for example the atomic vector \code{month.abb} (abbreviate month names). \cr
 Given this vector, indices \code{1:5} gives \verb{c("Jan" "Feb" "Mar" "Apr", "May")}. \cr
 Inverting those same indices will give \verb{c("Jun" "Jul" "Aug" "Sep" "Oct" "Nov" "Dec")}. \cr
@@ -211,11 +171,6 @@ sb_mod(x, 1:5, inv = T, rp = "XXX") # same, but for all except first 5 elements
 The order in which the user gives indices when inverting indices generally does not matter. \cr
 The order of the indices as they appear in the original object \code{x} is maintained,
 just like in base 'R'. \cr
-Therefore, when replacing multiple values where the order of the replacement matters,
-it is better to keep \code{inv = FALSE}, which is the default. \cr
-For replacement with a single value or with a transformation function,
-\code{inv = TRUE} can be used without considering the ordering. \cr
-\cr
 \cr
 \cr
 }
@@ -232,14 +187,43 @@ and so \code{NA}s are ignored. \cr \cr
 }
 }
 
+\section{Index-less Sub-set Operations}{
+
+Until now this help page focussed on performing sub-set operations with an indexing vector. \cr
+\cr
+Performing sub-set operations on a long vector using a index vector
+(which may itself also be a long vector)
+is not very memory-efficient. \cr
+'squarebrackets' therefore introduces index-less sub-set operations,
+through the \link{slice}\code{_} and \link{slicev}\code{_} methods. \cr
+These methods are much more memory and computationally efficient than index-based sub-set methods
+(and so also a bit better for the environment!). \cr
+\cr
+The \link{slice}\code{_} methods perform sequence based sub-set operations. \cr
+\cr
+The \link{slicev}\code{_} methods
+(notice the "v" at the end)
+perform value-based sub-set operations. \cr
+Though this method is intentionally kept relatively simple,
+it is still involved enough to warrant its own help page; \cr
+for the details on value-based index-less sub-set operations,
+please see \link{squarebrackets_slicev}. \cr
+\cr
+\cr
+}
+
 \section{Regarding Performance}{
 
-Integer vectors created through the \code{:} operator are "ALTREP" integer vectors,
+Integer vectors created through the \code{:} operator are "compact ALTREP" integer vectors,
 and provide the fastest way to specify indices. \cr
 Indexing through names (i.e. character vectors) is the slowest. \cr
 Complex vectors of imaginary numbers are somewhat in the middle
-in terms of speed.
-So if performance is important, use ALTREP integer indices. \cr
+in terms of speed. \cr
+\cr
+Index-less sub-set operations are usually faster and more memory efficient
+than any index-based sub-set operation. \cr
+So if performance is important, use index-less sub-set operations,
+or use compact ALTREP integer indices. \cr
 \cr
 \cr
 }

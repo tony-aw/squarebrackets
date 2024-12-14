@@ -645,9 +645,9 @@ semantics for most classes. The ‘squarebrackets’ methods provides
 explicit pass-by-reference and pass-by-value semantics, whilst still
 respecting things like binding-locks and mutability rules.</li>
 <li>‘squarebrackets’ supports index-less sub-set operations, which is
-more memory efficient for <code>long vectors</code> than sub-set
-operations using the <code>[</code> and <code>[&lt;-</code>
-operators.</li>
+more memory efficient (and better for the environment) for
+<code>long vectors</code> than sub-set operations using the
+<code>[</code> and <code>[&lt;-</code> operators.</li>
 </ol>
 <p> </p>
 <h2 id="get-started">Get Started</h2>
@@ -765,11 +765,14 @@ argument in <code>lst_untree()</code>.</li>
 the documentation accordingly. Cleaned up the internal code a bit.</li>
 <li>30 November 2024: The binding implementations can now bind mixtures
 of atomic and recursive objects.</li>
-<li>5 December 2024: replaced the <code>_rm</code> post-fixes with
+<li>5 December 2024: Replaced the <code>_rm</code> post-fixes with
 <code>_wo</code> in all methods, to avoid confusion. Coercion for
 data.frame-like objects now happens automatically, and only when needed,
 in the <code>sb2_mod()</code> method, and updated the documentation
 accordingly. Slightly re-organized the documentation.</li>
+<li>14 December 2024: Removed the <code>ma_setv()</code> function in
+favour of the new <code>slicev_</code> set of methods. Changed the
+documentation accordingly.</li>
 </ul>
 <p> </p>
 

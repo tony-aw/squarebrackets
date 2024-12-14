@@ -24,6 +24,9 @@ if ( requireNamespace("tinytest", quietly = TRUE) ){
   tinytest::test_package(
     "squarebrackets", testdir = "tinytest/slice", set_env=list(LC_COLLATE="C")
   )
+  tinytest::test_package(
+    "squarebrackets", testdir = "tinytest/slicev", set_env=list(LC_COLLATE="C")
+  )
   
   # the next tests take about 10 minutes
   # (these are almost 100,000 tests)

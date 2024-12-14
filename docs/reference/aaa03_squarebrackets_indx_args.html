@@ -4,12 +4,12 @@ in the generic methods of 'squarebrackets' to specify the indices to perform ope
 i: to specify flat (i.e. dimensionless) indices.
 sub, dims: to specify indices of arbitrary dimensions in arrays
 (including matrices, which inherit from arrays).
-margin, slice: to specify indices of one particular dimension.
+margin, slice: to specify indices of one particular dimension (for arrays and data.frame-like objects).
 row, col: to specify rows and/or columns in specifically in data.frame-like objects.
 filter, vars: to specify rows and/or columns specifically in data.frame-like objects.  
 
 
-Thus there are essentially 3 APIs: one for vectors, one for arrays and matrices,
+Thus there are essentially 3 APIs: one for vectors, one for arrays (which includes matrices),
 and one for data.frame-like objects. 
 
 For the fundamentals of indexing in 'squarebrackets', see squarebrackets_indx_fundamentals. 
@@ -20,12 +20,12 @@ in the generic methods of 'squarebrackets' to specify the indices to perform ope
 i: to specify flat (i.e. dimensionless) indices.
 sub, dims: to specify indices of arbitrary dimensions in arrays
 (including matrices, which inherit from arrays).
-margin, slice: to specify indices of one particular dimension.
+margin, slice: to specify indices of one particular dimension (for arrays and data.frame-like objects).
 row, col: to specify rows and/or columns in specifically in data.frame-like objects.
 filter, vars: to specify rows and/or columns specifically in data.frame-like objects.  
 
 
-Thus there are essentially 3 APIs: one for vectors, one for arrays and matrices,
+Thus there are essentially 3 APIs: one for vectors, one for arrays (which includes matrices),
 and one for data.frame-like objects. 
 
 For the fundamentals of indexing in 'squarebrackets', see squarebrackets_indx_fundamentals. 
@@ -87,10 +87,10 @@ In this help page x refers to the object on which subset operations are performe
 in the generic methods of 'squarebrackets' to specify the indices to perform operations on:</p><ul><li><p><code>i</code>: to specify flat (i.e. dimensionless) indices.</p></li>
 <li><p><code>sub, dims</code>: to specify indices of arbitrary dimensions in arrays
 (including matrices, which inherit from arrays).</p></li>
-<li><p><code>margin, slice</code>: to specify indices of one particular dimension.</p></li>
+<li><p><code>margin, slice</code>: to specify indices of one particular dimension (for arrays and data.frame-like objects).</p></li>
 <li><p><code>row, col</code>: to specify rows and/or columns in specifically in data.frame-like objects.</p></li>
 <li><p><code>filter, vars</code>: to specify rows and/or columns specifically in data.frame-like objects. <br><br></p></li>
-</ul><p>Thus there are essentially 3 APIs: one for vectors, one for arrays and matrices,
+</ul><p>Thus there are essentially 3 APIs: one for vectors, one for arrays (which includes matrices),
 and one for data.frame-like objects. <br><br>
 For the fundamentals of indexing in 'squarebrackets', see <a href="aaa02_squarebrackets_indx_fundamentals.html">squarebrackets_indx_fundamentals</a>. <br>
 In this help page <code>x</code> refers to the object on which subset operations are performed. <br><br><br></p>
@@ -150,7 +150,8 @@ this is functionally equivalent to specifying <code>sub</code> as a list of leng
 or <code>sub</code> itself when <code>sub</code> is an atomic vector,
 can be any of the following:</p><ul><li><p>a vector of length 0,
 in which case no indices are selected for the operation (i.e. empty selection).</p></li>
-<li><p>a numeric vector of <b>strictly positive whole numbers</b> with indices of the specified dimension to select for the operation.</p></li>
+<li><p>a numeric vector of <b>strictly positive whole numbers</b>
+with indices of the specified dimension to select for the operation.</p></li>
 <li><p>a <b>complex</b> vector, as explained in <a href="aaa02_squarebrackets_indx_fundamentals.html">squarebrackets_indx_fundamentals</a>.</p></li>
 <li><p>a <b>logical</b> vector of the same length as the corresponding dimension size,
 giving the indices of the specified dimension to select for the operation.</p></li>
@@ -192,9 +193,9 @@ The equivalence in base 'R' is: <br><code>x[1:10, , 1:10, drop = FALSE]</code>. 
 (like <code>sub = n(1:10)</code>)
 is equivalent to specifying an atomic vector for <code>sub</code>
 (like <code>sub = 1:10</code>). <br><br>
-For a brief explanation of the relationship between flat indices (<code>i</code>),
-and dimensional subscripts (<code>sub</code>, <code>dims</code>),
-see <a href="aaa02_squarebrackets_indx_fundamentals.html">squarebrackets_indx_fundamentals</a>. <br><br></p>
+For a brief explanation of the relationship between flat indices (<code>i</code>)
+and subscripts (<code>sub</code>, <code>dims</code>) in arrays,
+see <a href="sub2ind.html">sub2ind</a>. <br><br></p>
     </div>
     <div class="section level2">
     <h2 id="argument-pair-margin-slice">Argument Pair margin, slice<a class="anchor" aria-label="anchor" href="#argument-pair-margin-slice"></a></h2>
@@ -206,7 +207,8 @@ The <code>margin</code> argument specifies the dimension on which argument <code
 I.e. when <code>margin = 1</code>, <code>slice</code> selects rows; <br>
 when <code>margin = 2</code>, <code>slice</code> selects columns; <br>
 etc. <br><br>
-The <code>slice</code> argument can be any of the following:</p><ul><li><p>a numeric vector of <b>strictly positive whole numbers</b> with dimension indices to select for the operation.</p></li>
+The <code>slice</code> argument can be any of the following:</p><ul><li><p>a numeric vector of <b>strictly positive whole numbers</b>
+with dimension indices to select for the operation.</p></li>
 <li><p>a <b>complex</b> vector, as explained in <a href="aaa02_squarebrackets_indx_fundamentals.html">squarebrackets_indx_fundamentals</a>.</p></li>
 <li><p>a <b>logical</b> vector of the same length as the corresponding dimension size,
 giving the dimension indices to select for the operation.</p></li>
@@ -227,7 +229,8 @@ Thus the effect of a zero-length index specification depends on the rule-set of
 <p>Any of the following can be specified for the arguments <code>row</code> / <code>col</code>:</p><ul><li><p><code>NULL</code> (default), corresponds to a missing argument.</p></li>
 <li><p>a vector of length 0,
 in which case no indices are selected for the operation (i.e. empty selection).</p></li>
-<li><p>a numeric vector of <b>strictly positive whole numbers</b> with indices of the specified dimension to select for the operation.</p></li>
+<li><p>a numeric vector of <b>strictly positive whole numbers</b>
+with indices of the specified dimension to select for the operation.</p></li>
 <li><p>a <b>complex</b> vector, as explained in <a href="aaa02_squarebrackets_indx_fundamentals.html">squarebrackets_indx_fundamentals</a>.</p></li>
 <li><p>a <b>logical</b> vector of the same length as the corresponding dimension size,
 giving the indices of the specified dimension to select for the operation.</p></li>
@@ -333,7 +336,8 @@ use the <a href="https://rdrr.io/r/base/drop.html" class="external-link">drop</a
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
-    <p>Plate T, Heiberger R (2016). <em>abind: Combine Multidimensional Arrays</em>. R package version 1.4-5, <a href="https://CRAN.R-project.org/package=abind" class="external-link">https://CRAN.R-project.org/package=abind</a>.</p>
+    <p>Plate T, Heiberger R (2016). <em>abind: Combine Multidimensional Arrays</em>.
+R package version 1.4-5, <a href="https://CRAN.R-project.org/package=abind" class="external-link">https://CRAN.R-project.org/package=abind</a>.</p>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

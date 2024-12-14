@@ -207,8 +207,12 @@ which (currently) only work on (mutable) atomic vectors. <br><br></p>
 <p>Methods to access subsets (i.e. extract selection, or extract all except selection):</p><ul><li><p><a href="sb_x.html">sb_x</a>, <a href="sb_x.html">sb2_x</a>: extract, exchange, or duplicate subsets.</p></li>
 <li><p><a href="sb_wo.html">sb_wo</a>,  <a href="sb_wo.html">sb2_wo</a>: return an object without the specified subset.</p></li>
 <li><p><a href="sb2_rec.html">sb2_rec</a>: access recursive subsets of lists.</p></li>
-<li><p><a href="slice.html">slice_x</a>, <a href="slice.html">slice_wo</a>: efficiently extract subset from long vector,
-or return long vector without subset. <br><br></p></li>
+<li><p><a href="slice.html">slice_x</a>: index-less and efficient,
+sequence-based extraction of a subset from a long vector.</p></li>
+<li><p><a href="slice.html">slice_wo</a>: index-less and efficient,
+sequence-based returning a long vector without the specified subset.</p></li>
+<li><p><a href="slicev.html">slicev_x</a>: index-less and efficient,
+value-based extraction of a subset from a long vector. <br><br></p></li>
 </ul><p><img src="figures/modify_subsets-red.svg" alt="[MODIFY SUBSETS]"><br></p>
 <p>Methods to modify subsets:</p><ul><li><p><a href="idx1.html">idx</a>: translate given indices/subscripts,
 for the purpose of copy-on-modify substitution.</p></li>
@@ -221,7 +225,11 @@ through R's default Copy-On-Modify semantics.</p></li>
 <li><p><a href="sb_set.html">sb_set</a>, <a href="sb_set.html">sb2_set</a>: modify (transform or replace)
 subsets of a <a href="aaa01_squarebrackets_supported_structures.html">mutable object</a>
 using <a href="aaa07_squarebrackets_PassByReference.html">pass-by-reference semantics</a>.</p></li>
-<li><p><a href="slice.html">slice_set</a>: efficiently modify a (long) vector subset using
+<li><p><a href="slice.html">slice_set</a>: index-less and efficient,
+sequence-based modification of a (long) vector subset using
+<a href="aaa07_squarebrackets_PassByReference.html">pass-by-reference semantics</a>.</p></li>
+<li><p><a href="slicev.html">slicev_set</a>: index-less and efficient,
+value-based modification of a (long) vector subset using
 <a href="aaa07_squarebrackets_PassByReference.html">pass-by-reference semantics</a>. <br><br></p></li>
 </ul><p><img src="figures/extend_beyond-purple.svg" alt="[EXTEND BEYOND]"><br></p>
 <p>Methods and binding implementations,
@@ -244,10 +252,7 @@ to speed-up vectorized sub-setting on recursive subsets of the list.</p></li>
 to programmatically perform <code>data.table</code>-specific <code>[</code>-operations,
 with the security measures provided by the 'squarebrackets' package.</p></li>
 <li><p><a href="setapply.html">setapply</a>: apply functions over mutable matrix margins
-using <a href="aaa07_squarebrackets_PassByReference.html">pass-by-reference semantics</a>.</p></li>
-<li><p><a href="ma_setv.html">ma_setv</a>: Find &amp; Replace values in <a href="class_mutable_atomic.html">mutable_atomic</a> objects
-using <a href="aaa07_squarebrackets_PassByReference.html">pass-by-reference semantics</a>. <br>
-This is considerably faster and more memory efficient than using <a href="sb_set.html">sb_set</a> for this. <br><br></p></li>
+using <a href="aaa07_squarebrackets_PassByReference.html">pass-by-reference semantics</a>. <br><br></p></li>
 </ul><p><img src="figures/helper_functions-lightblue.svg" alt="[HELPER FUNCTIONS]"><br>
 A couple of convenience functions, and helper functions for creating ranges, sequences, and indices
 (often needed in sub-setting)
@@ -273,27 +278,36 @@ taking into account the order and any duplicate values of both vectors.</p></li>
 'squarebrackets' comes with several help pages
 that can be accessed from within 'R'. <br></p>
 <p>MAIN DOCUMENTATION:</p><ul><li><p><a href="aaa01_squarebrackets_supported_structures.html">squarebrackets_supported_structures</a>: <br>
-lists the structures that are supported by 'squarebrackets',
+Lists the structures that are supported by 'squarebrackets',
 and explains some related terminology.</p></li>
 <li><p><a href="aaa02_squarebrackets_indx_fundamentals.html">squarebrackets_indx_fundamentals</a>: <br>
-explains the essential fundamentals of the indexing forms in 'squarebrackets'.</p></li>
+Explains the essential fundamentals of the indexing forms in 'squarebrackets'.</p></li>
 <li><p><a href="aaa03_squarebrackets_indx_args.html">squarebrackets_indx_args</a>: <br>
-explains the common indexing arguments used in the main S3 methods.</p></li>
+Explains the common indexing arguments used in the main S3 methods.</p></li>
 <li><p><a href="aaa04_squarebrackets_modify.html">squarebrackets_modify</a>: <br>
-explains the essentials of modification in 'squarebrackets'</p></li>
+Explains the essentials of modification in 'squarebrackets'</p></li>
 <li><p><a href="aaa05_squarebrackets_options.html">squarebrackets_options</a>: <br>
-lists and explains the options the user can specify in 'squarebrackets'.</p></li>
+Lists and explains the options the user can specify in 'squarebrackets'.</p></li>
 <li><p><a href="aaa06_squarebrackets_method_dispatch.html">squarebrackets_method_dispatch</a>: <br>
-gives details regarding the S3 method dispatch in 'squarebrackets'. <br><br></p></li>
-</ul><p>PASS-BY-REFERENCE DOCUMENTATION:</p>
-<p>If you are not planning on using the pass-by-reference functionality
-in 'squarebrackets', you do not need to read the following help pages:</p><ul><li><p><a href="aaa07_squarebrackets_PassByReference.html">squarebrackets_PassByReference</a>: <br>
-explains Pass-by-Reference semantics, and its important consequences. <br></p></li>
+Gives details regarding the S3 method dispatch in 'squarebrackets'. <br><br></p></li>
+</ul><p>ADDITIONAL DOCUMENTATION:</p>
+<p>the following help pages:</p><ul><li><p><a href="aaa07_squarebrackets_PassByReference.html">squarebrackets_PassByReference</a>: <br>
+Explains Pass-by-Reference semantics, and its important consequences. <br>
+If you are not planning on using the pass-by-reference functionality
+in 'squarebrackets',
+you do not need to read this help page.</p></li>
 <li><p><a href="aaa08_squarebrackets_coercion.html">squarebrackets_coercion</a>: <br>
-explains the difference in coercion rules between
+Explains the difference in coercion rules between
 modification through Pass-by-Reference semantics and
 modification through copy (i.e. pass-by-value)
-for the supported mutable structures. <br><br></p></li>
+for the supported mutable structures. <br>
+If you are not planning on using the pass-by-reference functionality
+in 'squarebrackets',
+you do not need to read this help page.</p></li>
+<li><p><a href="aaa09_squarebrackets_slicev.html">squarebrackets_slicev</a>: <br>
+Explains the arguments for the <a href="slicev.html">slicev</a> set of methods. <br>
+If you are not planning to use the <a href="slicev.html">slicev</a> methods,
+you do not need to read this help page. <br><br></p></li>
 </ul></div>
     <div class="section level2">
     <h2 id="properties-details">Properties Details<a class="anchor" aria-label="anchor" href="#properties-details"></a></h2>

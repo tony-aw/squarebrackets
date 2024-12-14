@@ -399,6 +399,30 @@
 
 #' @keywords internal
 #' @noRd
+.rcpp_countv <- function(y, v, na, invert, start, end, by, len) {
+    .Call(`_squarebrackets_rcpp_countv`, y, v, na, invert, start, end, by, len)
+}
+
+#' @keywords internal
+#' @noRd
+.rcpp_whichv_32 <- function(y, v, na, invert, start, end, by, len) {
+    .Call(`_squarebrackets_rcpp_whichv_32`, y, v, na, invert, start, end, by, len)
+}
+
+#' @keywords internal
+#' @noRd
+.rcpp_slicev_x_atomic <- function(x, y, v, na, invert, start, end, by, len) {
+    .Call(`_squarebrackets_rcpp_slicev_x_atomic`, x, y, v, na, invert, start, end, by, len)
+}
+
+#' @keywords internal
+#' @noRd
+.rcpp_slicev_set_atomic <- function(x, y, v, na, invert, start, end, by, len, rp) {
+    invisible(.Call(`_squarebrackets_rcpp_slicev_set_atomic`, x, y, v, na, invert, start, end, by, len, rp))
+}
+
+#' @keywords internal
+#' @noRd
 .C_sub2ind_2d_32 <- function(ind1, ind2, dimcumprod) {
     .Call(`_squarebrackets_C_sub2ind_2d_32`, ind1, ind2, dimcumprod)
 }

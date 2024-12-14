@@ -27,7 +27,7 @@ reference:
   - '`aaa06_squarebrackets_method_dispatch`'
   - '`aaa07_squarebrackets_PassByReference`'
   - '`aaa08_squarebrackets_coercion`'
-  - '`aaa09_squarebrackets_inconveniences`'
+  - '`aaa09_squarebrackets_slicev`'
   - '`class_mutable_atomic`'
 - title: Generic Methods
   contents:
@@ -40,13 +40,13 @@ reference:
   - '`bind`'
   - '`idx`'
   - '`slice_x`'
+  - '`slicev_x`'
   - '`cp_seq`'
 - title: Specialized Functions
   contents:
   - '`lst`'
   - '`dt`'
   - '`setapply`'
-  - '`ma_setv`'
 - title: Helper Functions
   contents:
   - '`n`'

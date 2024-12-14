@@ -12,7 +12,8 @@ and how it affects the functionality. \cr \cr
 
 \ifelse{html}{\figure{argument-chkdup-blue.svg}{options: alt='[argument: chkdup]'}}{\link[=squarebrackets_options]{argument: chkdup}} \cr
 \ifelse{html}{\figure{option-squarebrackets_dot_chkdup-blue.svg}{options: alt='[option: squarebrackets.chkdup]'}}{\link[=squarebrackets_options]{option: squarebrackets.chkdup}} \cr
-The \link{sb_x}/\link{sb2_x} method is the only method where providing duplicate indices actually make sense. \cr
+The \link{sb_x}/\link{sb2_x} methods are the only methods
+where providing duplicate indices actually make sense. \cr
 For the other methods, it doesn't make sense. \cr
 Giving duplicate indices usually won't break anything;
 however, when replacing/transforming or removing subsets,
@@ -38,22 +39,33 @@ The default can be changed in the \code{squarebrackets.chkdup} option. \cr
 
 \ifelse{html}{\figure{argument-sticky-blue.svg}{options: alt='[argument: sticky]'}}{\link[=squarebrackets_options]{argument: sticky}} \cr
 \ifelse{html}{\figure{option-squarebrackets_dot_sticky-blue.svg}{options: alt='[option: squarebrackets.sticky]'}}{\link[=squarebrackets_options]{option: squarebrackets.sticky}} \cr
-The \link{slice_x} and \link{slice_wo} methods can already handle names,
+The \link{slice_x}, \link{slice_wo}, and \link{slicev_x} methods
+can already handle names
+(through the \code{use.names} argument),
 attributes specific to the \link{mutable_atomic} class,
 and attributes specific to the \link{factor} class. \cr
 \cr
-When \code{sticky = FALSE}, which is arguably the safest setting,
-the \link{slice_x} and \link{slice_wo} methods
+Attributes which are not names,
+and not specific to \link{mutable_atomic} class,
+and not specific to the \link{factor} class -
+henceforth referred to as "other attributes" -
+are treated differently. \cr
+How the \link{slice_x}, \link{slice_wo}, and \link{slicev_x} methods
+handle these "other" attributes,
+is determined by the \code{sticky} option and argument. \cr
+\cr
+When \code{sticky = FALSE},
+the \link{slice_x}, \link{slice_wo}, and \link{slicev_x} methods
 will drop all \bold{other} attributes. \cr
 \cr
 By setting \code{sticky = TRUE},
-all attributes except \code{comment} and \code{tsp}
+all these \bold{other} attributes, except \code{comment} and \code{tsp},
 will be preserved; \cr
-name-related attributes are separate and are handled by the \code{use.names} argument. \cr
 The key advantage for this, is that classes that use \code{static} attributes
 (i.e. classes that use attributes that do not change when sub-setting),
 are automatically supported if \code{sticky = TRUE},
-and no separate methods have to written for \link{slice_x} and \link{slice_wo}. \cr
+and no separate methods have to written for
+the \link{slice_x}, \link{slice_wo}, and \link{slicev_x} methods. \cr
 Attributes specific to classes like
 \code{difftime}, \code{Date}, \code{POSIXct}, \code{roman}, \code{hexmode}, \code{octmode},
 and more,
@@ -62,8 +74,7 @@ use static attributes. \cr
 Instead of setting \code{sticky = TRUE} or \code{sticky = FALSE},
 one can also specify all classes that use static attributes
 that you'll be using in the current R session. \cr
-In fact, when 'squarebrackets' is loaded
-(\bold{loaded}, attaching is not necessary),
+In fact, when 'squarebrackets' is \bold{loaded},
 the \code{squarebrackets.sticky} option is set as follows:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{
@@ -78,27 +89,26 @@ So in the above default setting,
 "difftime", "Date", "POSIXct", "roman", "hexmode", "octmode". \cr
 Also in the above default setting,
 \code{sticky = FALSE} for other classes. \cr
-Note, again, that \link{mutable_atomic} and and \link{factor} are already handled by
-\link{slice_x} and \link{slice_wo},
-and their handling is \bold{not} affected by the \code{sticky} argument/option. \cr
 \cr
-The reason the \link{slice_x} and \link{slice_wo} need the \code{sticky} option,
+The reason
+the \link{slice_x}, \link{slice_wo}, and \link{slicev_x} methods
+need the \code{sticky} option,
 is because of the following. \cr
 Unlike most \code{sb_}/\code{sb2_} methods,
-the \link{slice_x} and \link{slice_wo} methods
+the \link{slice_x}, \link{slice_wo}, and \link{slicev_x} methods
 are not wrappers around the \code{[} and \verb{[<-} operators. \cr
 Therefore,
 most \code{[} - S3 methods for highly specialized classes are not readily available for
-the \link{slice_x} and \link{slice_wo} methods. \cr
-And therefore, important class-specific attributes are not automatically preserved. \cr
+the \link{slice_x}, \link{slice_wo}, and \link{slicev_x} methods. \cr
+Which in turn means important class-specific attributes are not automatically preserved. \cr
 The \code{sticky} option is a convenient way to support a large number of classes,
 without having to write specific methods for them. \cr
 \cr
 For specialized classes that use attributes that \bold{do} change when sub-setting,
-separate \link{slice_x} and \link{slice_wo} methods need to be written. \cr
+separate dispatches for
+the \link{slice_x}, \link{slice_wo}, and \link{slicev_x} methods
+need to be written. \cr
 Package authors are welcome to create method dispatches for their own classes for these methods. \cr
-\cr
-As a final note, the name "sticky" is inspired by \code{sticky::}\link[sticky]{sticky}. \cr
 \cr
 \cr
 }

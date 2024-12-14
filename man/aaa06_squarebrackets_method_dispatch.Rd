@@ -33,33 +33,14 @@ one can create a \link[=squarebrackets_coercion]{view} of a recursive subset. \c
 Subset views do not exist for atomic objects. \cr \cr
 }
 
-The main S3 methods
-that perform subset operation on an object,
+Due to these non-trivial differences,
+the main S3 methods
+that perform subset operations on an object,
 come in the atomic (\code{sb_}) and recursive (\code{sb2_}) form. \cr
 The \link{idx} method operates on the indices of an object,
 but does not operate on the object itself,
 and so has no distinction between the atomic and recursive form. \cr
 \cr
-The split between the atomic and recursive forms of the method dispatches
-is done for several reasons:
-\itemize{
-\item There are too many nuances to keep track of for the user between atomic and recursive objects. \cr
-By splitting the methods into atomic and recursive objects,
-the user only has to choose \code{sb_} or \code{sb2_}, and 'squarebrackets' can handle most of the rest for the user.
-\item By giving atomic and recursive separate methods,
-it becomes syntactically clear what the consequences are for a subset-operation: \cr
-will the entire object be coerced or copied?
-will a transformation function go through \code{lapply}?
-is an operation only affecting shallow subsets?
-etc.
-\item Some S3 classes, like the \code{array} and \code{matrix} classes,
-are available in both atomic and recursive forms. \cr
-But the S3 method dispatch does not distinguish between atomic and recursive objects,
-despite the aforementioned differences between the 2. \cr
-So 'squarebrackets' uses a separate method dispatch for the atomic and recursive form.
-\item Package authors can create separate sub-set operation methods for
-atomic and recursive objects using 'squarebrackets'. \cr \cr
-}
 }
 
 \section{Manual Dispatch}{

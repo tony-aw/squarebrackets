@@ -81,30 +81,14 @@ For atomic objects, these 2 have no meaningful difference
 <li><p><strong>views</strong>: For recursive objects,
 one can create a <a href="aaa08_squarebrackets_coercion.html">view</a> of a recursive subset. <br>
 Subset views do not exist for atomic objects. <br><br></p></li>
-</ul><p>The main S3 methods
-that perform subset operation on an object,
+</ul><p>Due to these non-trivial differences,
+the main S3 methods
+that perform subset operations on an object,
 come in the atomic (<code>sb_</code>) and recursive (<code>sb2_</code>) form. <br>
 The <a href="idx1.html">idx</a> method operates on the indices of an object,
 but does not operate on the object itself,
-and so has no distinction between the atomic and recursive form. <br><br>
-The split between the atomic and recursive forms of the method dispatches
-is done for several reasons:</p><ul><li><p>There are too many nuances to keep track of for the user between atomic and recursive objects. <br>
-By splitting the methods into atomic and recursive objects,
-the user only has to choose <code>sb_</code> or <code>sb2_</code>, and 'squarebrackets' can handle most of the rest for the user.</p></li>
-<li><p>By giving atomic and recursive separate methods,
-it becomes syntactically clear what the consequences are for a subset-operation: <br>
-will the entire object be coerced or copied?
-will a transformation function go through <code>lapply</code>?
-is an operation only affecting shallow subsets?
-etc.</p></li>
-<li><p>Some S3 classes, like the <code>array</code> and <code>matrix</code> classes,
-are available in both atomic and recursive forms. <br>
-But the S3 method dispatch does not distinguish between atomic and recursive objects,
-despite the aforementioned differences between the 2. <br>
-So 'squarebrackets' uses a separate method dispatch for the atomic and recursive form.</p></li>
-<li><p>Package authors can create separate sub-set operation methods for
-atomic and recursive objects using 'squarebrackets'. <br><br></p></li>
-</ul></div>
+and so has no distinction between the atomic and recursive form. <br><br></p>
+    </div>
     <div class="section level2">
     <h2 id="manual-dispatch">Manual Dispatch<a class="anchor" aria-label="anchor" href="#manual-dispatch"></a></h2>
     

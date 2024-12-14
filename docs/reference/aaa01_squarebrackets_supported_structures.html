@@ -9,7 +9,8 @@ atomic vs recursive:
 Types logical, integer, double, complex, character, and raw are atomic. 
 Lists and data.frames are recursive.
 dimensionality: 
-Whether an object is a vector, matrix, array, or data.frame.
+Whether an object is a vector, array, or data.frame. 
+Note that a matrix is simply an array with 2 dimensions.
 mutability: 
 Base R's S3 classes (except Environments) are generally immutable: 
 Modifying the object will create a copy (called 'copy-on-modify'). 
@@ -22,17 +23,17 @@ pass-by-reference semantics.
 Supported Structures 
 'squarebrackets' supports the following immutable structures:
 basic atomic classes 
-(atomic vectors, matrices, and arrays).
+(atomic vectors and arrays).
 factor. 
 basic list classes 
-(recursive vectors, matrices, and arrays). 
+(recursive vectors and arrays). 
 data.frame 
 (including the classes tibble, sf-data.frame and sf-tibble).  
 
 
 'squarebrackets' supports the following mutable structures:
 mutable_atomic 
-(mutable_atomic vectors, matrices, and arrays);
+(mutable_atomic vectors arrays);
 data.table 
 (including the classes tidytable, sf-data.table, and sf-tidytable).  
 
@@ -46,7 +47,8 @@ atomic vs recursive:
 Types logical, integer, double, complex, character, and raw are atomic. 
 Lists and data.frames are recursive.
 dimensionality: 
-Whether an object is a vector, matrix, array, or data.frame.
+Whether an object is a vector, array, or data.frame. 
+Note that a matrix is simply an array with 2 dimensions.
 mutability: 
 Base R's S3 classes (except Environments) are generally immutable: 
 Modifying the object will create a copy (called 'copy-on-modify'). 
@@ -59,17 +61,17 @@ pass-by-reference semantics.
 Supported Structures 
 'squarebrackets' supports the following immutable structures:
 basic atomic classes 
-(atomic vectors, matrices, and arrays).
+(atomic vectors and arrays).
 factor. 
 basic list classes 
-(recursive vectors, matrices, and arrays). 
+(recursive vectors and arrays). 
 data.frame 
 (including the classes tibble, sf-data.frame and sf-tibble).  
 
 
 'squarebrackets' supports the following mutable structures:
 mutable_atomic 
-(mutable_atomic vectors, matrices, and arrays);
+(mutable_atomic vectors arrays);
 data.table 
 (including the classes tidytable, sf-data.table, and sf-tidytable).  
 
@@ -133,7 +135,8 @@ along 3 key properties:</p><ul><li><p>atomic vs recursive: <br>
 Types <code>logical</code>, <code>integer</code>, <code>double</code>, <code>complex</code>, <code>character</code>, and <code>raw</code> are <code><a href="https://rdrr.io/r/base/is.recursive.html" class="external-link">atomic</a></code>. <br>
 Lists and data.frames are <code><a href="https://rdrr.io/r/base/is.recursive.html" class="external-link">recursive</a></code>.</p></li>
 <li><p>dimensionality: <br>
-Whether an object is a vector, matrix, array, or data.frame.</p></li>
+Whether an object is a vector, array, or data.frame. <br>
+Note that a matrix is simply an array with 2 dimensions.</p></li>
 <li><p>mutability: <br>
 Base R's S3 classes (except Environments) are generally immutable: <br>
 Modifying the object will create a copy (called 'copy-on-modify'). <br>
@@ -143,14 +146,14 @@ If desired, one can modify them without copy using
 <a href="aaa07_squarebrackets_PassByReference.html">pass-by-reference semantics</a>. <br><br></p></li>
 </ul><p><b>Supported Structures</b> <br></p>
 <p>'squarebrackets' supports the following immutable structures:</p><ul><li><p>basic <code>atomic</code> classes <br>
-(atomic vectors, matrices, and arrays).</p></li>
+(atomic vectors and arrays).</p></li>
 <li><p><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a>. <br></p></li>
 <li><p>basic list classes <br>
-(recursive vectors, matrices, and arrays). <br></p></li>
+(recursive vectors and arrays). <br></p></li>
 <li><p><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> <br>
 (including the classes <code>tibble</code>, <code>sf-data.frame</code> and <code>sf-tibble</code>). <br><br></p></li>
 </ul><p>'squarebrackets' supports the following mutable structures:</p><ul><li><p><a href="class_mutable_atomic.html">mutable_atomic</a> <br>
-(<code>mutable_atomic</code> vectors, matrices, and arrays);</p></li>
+(<code>mutable_atomic</code> vectors arrays);</p></li>
 <li><p><a href="https://rdrr.io/pkg/data.table/man/data.table.html" class="external-link">data.table</a> <br>
 (including the classes <code>tidytable</code>, <code>sf-data.table</code>, and <code>sf-tidytable</code>). <br><br></p></li>
 </ul></div>
@@ -179,6 +182,7 @@ Recursive vectors, recursive matrices, and recursive arrays,
 are collectively referred to as "lists" in the 'squarebrackets' documentation. <br><br>
 Note that the dimensionality of data.frame-like objects is not the same as the dimensionality of
 (recursive) arrays/matrices. <br>
+For example: <br>
 For any array/matrix <code>x</code>, it holds that <code>length(x) == prod(dim(x))</code>. <br>
 But for any data.frame <code>x</code>, it is the case that <code>length(x) == ncol(x)</code>. <br><br></p>
 <p><b>Mutable vs Immutable</b> <br>

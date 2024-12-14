@@ -12,7 +12,8 @@
 #'  Types `logical`, `integer`, `double`, `complex`, `character`, and `raw` are \code{\link[base:is.atomic]{atomic}}. \cr
 #'  Lists and data.frames are \code{\link[base:is.atomic]{recursive}}.
 #'  * dimensionality: \cr
-#'  Whether an object is a vector, matrix, array, or data.frame.
+#'  Whether an object is a vector, array, or data.frame. \cr
+#'  Note that a matrix is simply an array with 2 dimensions.
 #'  * mutability: \cr
 #'  Base R's S3 classes (except Environments) are generally immutable: \cr
 #'  Modifying the object will create a copy (called 'copy-on-modify'). \cr
@@ -26,17 +27,17 @@
 #' 'squarebrackets' supports the following immutable structures:
 #' 
 #'  * basic `atomic` classes \cr
-#'  (atomic vectors, matrices, and arrays).
+#'  (atomic vectors and arrays).
 #'  * \link{factor}. \cr
 #'  * basic list classes \cr
-#'  (recursive vectors, matrices, and arrays). \cr
+#'  (recursive vectors and arrays). \cr
 #'  * \link[base]{data.frame} \cr
 #'  (including the classes `tibble`, `sf-data.frame` and `sf-tibble`). \cr \cr
 #' 
 #' 'squarebrackets' supports the following mutable structures:
 #' 
 #'  * \link{mutable_atomic} \cr
-#'  (`mutable_atomic` vectors, matrices, and arrays);
+#'  (`mutable_atomic` vectors arrays);
 #'  * \link[data.table]{data.table} \cr
 #'  (including the classes `tidytable`, `sf-data.table`, and `sf-tidytable`). \cr \cr
 #'  
@@ -72,6 +73,7 @@
 #' \cr
 #' Note that the dimensionality of data.frame-like objects is not the same as the dimensionality of
 #' (recursive) arrays/matrices. \cr
+#' For example: \cr
 #' For any array/matrix `x`, it holds that `length(x) == prod(dim(x))`. \cr
 #' But for any data.frame `x`, it is the case that `length(x) == ncol(x)`. \cr
 #' \cr

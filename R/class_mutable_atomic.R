@@ -21,6 +21,7 @@
 #' \link{logical}, \link{integer}, \link{double}, \link{character}, \link{complex}, \link{raw}. \cr
 #' \code{bit64::}\link[bit64]{integer64} type is also supported,
 #' since it is internally defined as \link{double}. \cr
+#' Factors can never be `mutable_atomic`.
 #'  * `typecast.mutable_atomic()` type-casts and possibly reshapes a (mutable) atomic object,
 #'  and returns a `mutable_atomic` object. \cr
 #'  Does not preserve dimension names if dimensions are changed. \cr \cr

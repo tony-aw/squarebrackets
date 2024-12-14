@@ -100,8 +100,12 @@
 #'  * \link{sb_x}, \link{sb2_x}: extract, exchange, or duplicate subsets.
 #'  * \link{sb_wo},  \link{sb2_wo}: return an object without the specified subset.
 #'  * \link{sb2_rec}: access recursive subsets of lists.
-#'  * \link{slice_x}, \link{slice_wo}: efficiently extract subset from long vector,
-#'   or return long vector without subset. \cr \cr
+#'  * \link{slice_x}: index-less and efficient,
+#'  sequence-based extraction of a subset from a long vector.
+#'  * \link{slice_wo}: index-less and efficient,
+#'  sequence-based returning a long vector without the specified subset.
+#'  * \link{slicev_x}: index-less and efficient,
+#'  value-based extraction of a subset from a long vector. \cr \cr
 #'  
 #'  
 #' `r .mybadge_intro_section("MODIFY SUBSETS", "red")` \cr
@@ -119,7 +123,11 @@
 #'  * \link{sb_set}, \link{sb2_set}: modify (transform or replace)
 #'  subsets of a \link[=squarebrackets_supported_structures]{mutable object}
 #'  using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
-#'  * \link{slice_set}: efficiently modify a (long) vector subset using
+#'  * \link{slice_set}: index-less and efficient,
+#'  sequence-based modification of a (long) vector subset using
+#'  \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
+#'  * \link{slicev_set}: index-less and efficient,
+#'  value-based modification of a (long) vector subset using
 #'  \link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr \cr
 #'  
 #' 
@@ -149,10 +157,7 @@
 #'  to programmatically perform `data.table`-specific `[`-operations,
 #'  with the security measures provided by the 'squarebrackets' package.
 #'  * \link{setapply}: apply functions over mutable matrix margins
-#'  using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
-#'  * \link{ma_setv}: Find & Replace values in \link{mutable_atomic} objects
-#'  using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr
-#'  This is considerably faster and more memory efficient than using \link{sb_set} for this. \cr \cr
+#'  using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr \cr
 #'  
 #' 
 #' `r .mybadge_intro_section("HELPER FUNCTIONS", "lightblue")` \cr
@@ -186,36 +191,43 @@
 #' MAIN DOCUMENTATION:
 #' 
 #'  - \link{squarebrackets_supported_structures}: \cr
-#'  lists the structures that are supported by 'squarebrackets',
+#'  Lists the structures that are supported by 'squarebrackets',
 #'  and explains some related terminology.
 #'  - \link{squarebrackets_indx_fundamentals}: \cr
-#'  explains the essential fundamentals of the indexing forms in 'squarebrackets'.
+#'  Explains the essential fundamentals of the indexing forms in 'squarebrackets'.
 #'  - \link{squarebrackets_indx_args}: \cr
-#'  explains the common indexing arguments used in the main S3 methods.
+#'  Explains the common indexing arguments used in the main S3 methods.
 #'  - \link{squarebrackets_modify}: \cr
-#'  explains the essentials of modification in 'squarebrackets'
+#'  Explains the essentials of modification in 'squarebrackets'
 #'  - \link{squarebrackets_options}: \cr
-#'  lists and explains the options the user can specify in 'squarebrackets'.
+#'  Lists and explains the options the user can specify in 'squarebrackets'.
 #'  - \link{squarebrackets_method_dispatch}: \cr
-#'  gives details regarding the S3 method dispatch in 'squarebrackets'. \cr \cr
+#'  Gives details regarding the S3 method dispatch in 'squarebrackets'. \cr \cr
 #'  
 #' 
-#' PASS-BY-REFERENCE DOCUMENTATION:
+#' ADDITIONAL DOCUMENTATION:
 #' 
-#' If you are not planning on using the pass-by-reference functionality
-#' in 'squarebrackets', you do not need to read the following help pages:
+#'  the following help pages:
 #' 
 #' - \link{squarebrackets_PassByReference}: \cr
-#' explains Pass-by-Reference semantics, and its important consequences. \cr
+#' Explains Pass-by-Reference semantics, and its important consequences. \cr
+#' If you are not planning on using the pass-by-reference functionality
+#' in 'squarebrackets',
+#' you do not need to read this help page.
 #' - \link{squarebrackets_coercion}: \cr
-#' explains the difference in coercion rules between
+#' Explains the difference in coercion rules between
 #' modification through Pass-by-Reference semantics and
 #' modification through copy (i.e. pass-by-value)
-#' for the supported mutable structures. \cr \cr
+#' for the supported mutable structures. \cr
+#' If you are not planning on using the pass-by-reference functionality
+#' in 'squarebrackets',
+#' you do not need to read this help page.
+#' - \link{squarebrackets_slicev}: \cr
+#' Explains the arguments for the \link{slicev} set of methods. \cr
+#' If you are not planning to use the \link{slicev} methods,
+#' you do not need to read this help page. \cr \cr
 #' 
 #'  
-#' 
-#' 
 #' 
 #' @section Properties Details:
 #' The alternative sub-setting methods and functions provided by 'squarebrackets'

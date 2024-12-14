@@ -9,7 +9,8 @@
 #' @section Check Duplicates:
 #' `r .mybadge_option("argument", "chkdup")` \cr
 #' `r .mybadge_option("option", "chkdup")` \cr
-#' The \link{sb_x}/\link{sb2_x} method is the only method where providing duplicate indices actually make sense. \cr
+#' The \link{sb_x}/\link{sb2_x} methods are the only methods
+#' where providing duplicate indices actually make sense. \cr
 #' For the other methods, it doesn't make sense. \cr
 #' Giving duplicate indices usually won't break anything;
 #' however, when replacing/transforming or removing subsets,
@@ -33,22 +34,33 @@
 #' @section Sticky:
 #' `r .mybadge_option("argument", "sticky")` \cr
 #' `r .mybadge_option("option", "sticky")` \cr
-#' The \link{slice_x} and \link{slice_wo} methods can already handle names,
+#' The \link{slice_x}, \link{slice_wo}, and \link{slicev_x} methods
+#' can already handle names
+#' (through the `use.names` argument),
 #' attributes specific to the \link{mutable_atomic} class,
 #' and attributes specific to the \link{factor} class. \cr
 #' \cr
-#' When `sticky = FALSE`, which is arguably the safest setting,
-#' the \link{slice_x} and \link{slice_wo} methods
+#' Attributes which are not names,
+#' and not specific to \link{mutable_atomic} class,
+#' and not specific to the \link{factor} class - 
+#' henceforth referred to as "other attributes" -
+#' are treated differently. \cr
+#' How the \link{slice_x}, \link{slice_wo}, and \link{slicev_x} methods
+#' handle these "other" attributes,
+#' is determined by the `sticky` option and argument. \cr
+#' \cr
+#' When `sticky = FALSE`,
+#' the \link{slice_x}, \link{slice_wo}, and \link{slicev_x} methods
 #' will drop all \bold{other} attributes. \cr
 #' \cr
 #' By setting `sticky = TRUE`,
-#' all attributes except `comment` and `tsp`
+#' all these \bold{other} attributes, except `comment` and `tsp`,
 #' will be preserved; \cr
-#' name-related attributes are separate and are handled by the `use.names` argument. \cr
 #' The key advantage for this, is that classes that use `static` attributes
 #' (i.e. classes that use attributes that do not change when sub-setting),
 #' are automatically supported if `sticky = TRUE`,
-#' and no separate methods have to written for \link{slice_x} and \link{slice_wo}. \cr
+#' and no separate methods have to written for
+#' the \link{slice_x}, \link{slice_wo}, and \link{slicev_x} methods. \cr
 #' Attributes specific to classes like
 #' `difftime`, `Date`, `POSIXct`, `roman`, `hexmode`, `octmode`,
 #' and more,
@@ -57,8 +69,7 @@
 #' Instead of setting `sticky = TRUE` or `sticky = FALSE`,
 #' one can also specify all classes that use static attributes
 #' that you'll be using in the current R session. \cr
-#' In fact, when 'squarebrackets' is loaded
-#' (\bold{loaded}, attaching is not necessary),
+#' In fact, when 'squarebrackets' is \bold{loaded},
 #' the `squarebrackets.sticky` option is set as follows:
 #' 
 #' ```{r eval = FALSE, echo = TRUE}
@@ -74,27 +85,26 @@
 #' "difftime", "Date", "POSIXct", "roman", "hexmode", "octmode". \cr
 #' Also in the above default setting,
 #' `sticky = FALSE` for other classes. \cr
-#' Note, again, that \link{mutable_atomic} and and \link{factor} are already handled by
-#' \link{slice_x} and \link{slice_wo},
-#' and their handling is \bold{not} affected by the `sticky` argument/option. \cr
 #' \cr
-#' The reason the \link{slice_x} and \link{slice_wo} need the `sticky` option,
+#' The reason
+#' the \link{slice_x}, \link{slice_wo}, and \link{slicev_x} methods
+#' need the `sticky` option,
 #' is because of the following. \cr
 #' Unlike most `sb_`/`sb2_` methods,
-#' the \link{slice_x} and \link{slice_wo} methods
+#' the \link{slice_x}, \link{slice_wo}, and \link{slicev_x} methods
 #' are not wrappers around the `[` and `[<-` operators. \cr
 #' Therefore,
 #' most `[` - S3 methods for highly specialized classes are not readily available for 
-#' the \link{slice_x} and \link{slice_wo} methods. \cr
-#' And therefore, important class-specific attributes are not automatically preserved. \cr
+#' the \link{slice_x}, \link{slice_wo}, and \link{slicev_x} methods. \cr
+#' Which in turn means important class-specific attributes are not automatically preserved. \cr
 #' The `sticky` option is a convenient way to support a large number of classes,
 #' without having to write specific methods for them. \cr
 #' \cr
 #' For specialized classes that use attributes that \bold{do} change when sub-setting,
-#' separate \link{slice_x} and \link{slice_wo} methods need to be written. \cr
+#' separate dispatches for
+#' the \link{slice_x}, \link{slice_wo}, and \link{slicev_x} methods
+#' need to be written. \cr
 #' Package authors are welcome to create method dispatches for their own classes for these methods. \cr
-#' \cr
-#' As a final note, the name "sticky" is inspired by \code{sticky::}\link[sticky]{sticky}. \cr
 #' \cr
 #' \cr
 #' 

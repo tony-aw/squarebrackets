@@ -79,8 +79,7 @@ converts an integer matrix of coordinates to a list of integer subscripts; \cr
 it performs a very simple (one might even say naive) conversion. \cr
 \item \code{sub2ind()}
 is a faster and more memory efficient version of \cr
-\code{coord2ind(sub2coord(sub, x.dims), x.dims)} \cr
-(especially for up to 8 dimensions). \cr
+\code{coord2ind(sub2coord(sub, x.dims), x.dims)} \cr \cr
 }
 
 All of these functions are written to be memory-efficient. \cr
@@ -89,6 +88,30 @@ and \code{ind2coord} is merely a convenient wrapper around \link{arrayInd}. \cr
 \cr
 Note that the equivalent to the \code{sub2ind} function from 'MatLab'
 is actually the \code{coord2ind()} function here. \cr \cr
+}
+\details{
+The base S3 vector and array classes in 'R' use the standard Linear Algebraic convention,
+as in academic fields like Mathematics and Statistics,
+in the following sense: \cr
+\itemize{
+\item vectors are \bold{column} vectors (i.e. vertically aligned vectors);
+\item index counting starts at \code{1};
+\item rows are the first dimension/subscript, columns are the second dimension/subscript, etc.
+}
+
+Thus, the orientation of flat indices in, for example,
+a 4-rows-by-5-columns matrix, is as follows:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{     [,1] [,2] [,3] [,4] [,5]
+[1,]    1    5    9   13   17
+[2,]    2    6   10   14   18
+[3,]    3    7   11   15   19
+[4,]    4    8   12   16   20
+}\if{html}{\out{</div>}}
+
+In a 4 by 4 matrix, subscript \verb{[1, 2]} corresponds to flat index \code{5}. \cr
+All array subscripts in 'squarebrackets' also follow this convention. \cr
+\cr
 }
 \note{
 These functions were not specifically designed for duplicate indices per-sé. \cr

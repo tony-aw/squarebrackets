@@ -16,7 +16,8 @@ along 3 key properties:
 Types \code{logical}, \code{integer}, \code{double}, \code{complex}, \code{character}, and \code{raw} are \code{\link[base:is.atomic]{atomic}}. \cr
 Lists and data.frames are \code{\link[base:is.atomic]{recursive}}.
 \item dimensionality: \cr
-Whether an object is a vector, matrix, array, or data.frame.
+Whether an object is a vector, array, or data.frame. \cr
+Note that a matrix is simply an array with 2 dimensions.
 \item mutability: \cr
 Base R's S3 classes (except Environments) are generally immutable: \cr
 Modifying the object will create a copy (called 'copy-on-modify'). \cr
@@ -31,10 +32,10 @@ If desired, one can modify them without copy using
 'squarebrackets' supports the following immutable structures:
 \itemize{
 \item basic \code{atomic} classes \cr
-(atomic vectors, matrices, and arrays).
+(atomic vectors and arrays).
 \item \link{factor}. \cr
 \item basic list classes \cr
-(recursive vectors, matrices, and arrays). \cr
+(recursive vectors and arrays). \cr
 \item \link[base]{data.frame} \cr
 (including the classes \code{tibble}, \code{sf-data.frame} and \code{sf-tibble}). \cr \cr
 }
@@ -42,7 +43,7 @@ If desired, one can modify them without copy using
 'squarebrackets' supports the following mutable structures:
 \itemize{
 \item \link{mutable_atomic} \cr
-(\code{mutable_atomic} vectors, matrices, and arrays);
+(\code{mutable_atomic} vectors arrays);
 \item \link[data.table]{data.table} \cr
 (including the classes \code{tidytable}, \code{sf-data.table}, and \code{sf-tidytable}). \cr \cr
 }
@@ -75,6 +76,7 @@ are collectively referred to as "lists" in the 'squarebrackets' documentation. \
 \cr
 Note that the dimensionality of data.frame-like objects is not the same as the dimensionality of
 (recursive) arrays/matrices. \cr
+For example: \cr
 For any array/matrix \code{x}, it holds that \code{length(x) == prod(dim(x))}. \cr
 But for any data.frame \code{x}, it is the case that \code{length(x) == ncol(x)}. \cr
 \cr

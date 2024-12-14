@@ -11,12 +11,12 @@ in the generic methods of 'squarebrackets' to specify the indices to perform ope
 \item \code{i}: to specify flat (i.e. dimensionless) indices.
 \item \verb{sub, dims}: to specify indices of arbitrary dimensions in arrays
 (including matrices, which inherit from arrays).
-\item \verb{margin, slice}: to specify indices of one particular dimension.
+\item \verb{margin, slice}: to specify indices of one particular dimension (for arrays and data.frame-like objects).
 \item \verb{row, col}: to specify rows and/or columns in specifically in data.frame-like objects.
 \item \verb{filter, vars}: to specify rows and/or columns specifically in data.frame-like objects. \cr \cr
 }
 
-Thus there are essentially 3 APIs: one for vectors, one for arrays and matrices,
+Thus there are essentially 3 APIs: one for vectors, one for arrays (which includes matrices),
 and one for data.frame-like objects. \cr
 \cr
 For the fundamentals of indexing in 'squarebrackets', see \link{squarebrackets_indx_fundamentals}. \cr
@@ -100,7 +100,8 @@ can be any of the following:
 \itemize{
 \item a vector of length 0,
 in which case no indices are selected for the operation (i.e. empty selection).
-\item a numeric vector of \bold{strictly positive whole numbers} with indices of the specified dimension to select for the operation.
+\item a numeric vector of \bold{strictly positive whole numbers}
+with indices of the specified dimension to select for the operation.
 \item a \bold{complex} vector, as explained in \link{squarebrackets_indx_fundamentals}.
 \item a \bold{logical} vector of the same length as the corresponding dimension size,
 giving the indices of the specified dimension to select for the operation.
@@ -161,9 +162,9 @@ Note that specifying a list of length 1 for \code{sub}
 is equivalent to specifying an atomic vector for \code{sub}
 (like \code{sub = 1:10}). \cr
 \cr
-For a brief explanation of the relationship between flat indices (\code{i}),
-and dimensional subscripts (\code{sub}, \code{dims}),
-see \link{squarebrackets_indx_fundamentals}. \cr \cr
+For a brief explanation of the relationship between flat indices (\code{i})
+and subscripts (\code{sub}, \code{dims}) in arrays,
+see \link{sub2ind}. \cr \cr
 }
 
 \section{Argument Pair margin, slice}{
@@ -182,7 +183,8 @@ etc. \cr
 \cr
 The \code{slice} argument can be any of the following:
 \itemize{
-\item a numeric vector of \bold{strictly positive whole numbers} with dimension indices to select for the operation.
+\item a numeric vector of \bold{strictly positive whole numbers}
+with dimension indices to select for the operation.
 \item a \bold{complex} vector, as explained in \link{squarebrackets_indx_fundamentals}.
 \item a \bold{logical} vector of the same length as the corresponding dimension size,
 giving the dimension indices to select for the operation.
@@ -207,7 +209,8 @@ Any of the following can be specified for the arguments \code{row} / \code{col}:
 \item \code{NULL} (default), corresponds to a missing argument.
 \item a vector of length 0,
 in which case no indices are selected for the operation (i.e. empty selection).
-\item a numeric vector of \bold{strictly positive whole numbers} with indices of the specified dimension to select for the operation.
+\item a numeric vector of \bold{strictly positive whole numbers}
+with indices of the specified dimension to select for the operation.
 \item a \bold{complex} vector, as explained in \link{squarebrackets_indx_fundamentals}.
 \item a \bold{logical} vector of the same length as the corresponding dimension size,
 giving the indices of the specified dimension to select for the operation.
@@ -336,5 +339,6 @@ use the \link[base]{drop} function, like so:
 }
 
 \references{
-Plate T, Heiberger R (2016). \emph{abind: Combine Multidimensional Arrays}. R package version 1.4-5, \url{https://CRAN.R-project.org/package=abind}.
+Plate T, Heiberger R (2016). \emph{abind: Combine Multidimensional Arrays}.
+R package version 1.4-5, \url{https://CRAN.R-project.org/package=abind}.
 }

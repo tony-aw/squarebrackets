@@ -47,8 +47,9 @@ the following:
     pass-by-reference and pass-by-value semantics, whilst still
     respecting things like binding-locks and mutability rules.
 6)  ‘squarebrackets’ supports index-less sub-set operations, which is
-    more memory efficient for `long vectors` than sub-set operations
-    using the `[` and `[<-` operators.
+    more memory efficient (and better for the environment) for
+    `long vectors` than sub-set operations using the `[` and `[<-`
+    operators.
 
  
 
@@ -159,10 +160,12 @@ library(squarebrackets)
   the documentation accordingly. Cleaned up the internal code a bit.
 - 30 November 2024: The binding implementations can now bind mixtures of
   atomic and recursive objects.
-- 5 December 2024: replaced the `_rm` post-fixes with `_wo` in all
+- 5 December 2024: Replaced the `_rm` post-fixes with `_wo` in all
   methods, to avoid confusion. Coercion for data.frame-like objects now
   happens automatically, and only when needed, in the `sb2_mod()`
   method, and updated the documentation accordingly. Slightly
   re-organized the documentation.
+- 14 December 2024: Removed the `ma_setv()` function in favour of the
+  new `slicev_` set of methods. Changed the documentation accordingly.
 
  

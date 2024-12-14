@@ -47,7 +47,7 @@ For \code{slice_set} it must be a \link{mutable_atomic} \bold{variable}.}
 \item{from, to, by}{see \link{cp_seq}.}
 
 \item{use.names}{Boolean, indicating if flat names should be preserved. \cr
-Note that, since \code{slice} operates on flat indices only,
+Note that, since the \code{slice_} methods operates on flat indices only,
 dimensions and \code{dimnames} are always dropped.}
 
 \item{sticky}{see \link{squarebrackets_options}.}

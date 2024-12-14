@@ -7,11 +7,11 @@
 #'  * `i`: to specify flat (i.e. dimensionless) indices.
 #'  * `sub, dims`: to specify indices of arbitrary dimensions in arrays
 #'  (including matrices, which inherit from arrays).
-#'  *  `margin, slice`: to specify indices of one particular dimension.
+#'  *  `margin, slice`: to specify indices of one particular dimension (for arrays and data.frame-like objects).
 #'  * `row, col`: to specify rows and/or columns in specifically in data.frame-like objects.
 #'  * `filter, vars`: to specify rows and/or columns specifically in data.frame-like objects. \cr \cr
 #' 
-#' Thus there are essentially 3 APIs: one for vectors, one for arrays and matrices,
+#' Thus there are essentially 3 APIs: one for vectors, one for arrays (which includes matrices),
 #' and one for data.frame-like objects. \cr
 #' \cr
 #' For the fundamentals of indexing in 'squarebrackets', see \link{squarebrackets_indx_fundamentals}. \cr
@@ -97,7 +97,8 @@
 #' 
 #'  * a vector of length 0,
 #'  in which case no indices are selected for the operation (i.e. empty selection).
-#'  * a numeric vector of \bold{strictly positive whole numbers} with indices of the specified dimension to select for the operation.
+#'  * a numeric vector of \bold{strictly positive whole numbers}
+#'  with indices of the specified dimension to select for the operation.
 #'  * a \bold{complex} vector, as explained in \link{squarebrackets_indx_fundamentals}.
 #'  * a \bold{logical} vector of the same length as the corresponding dimension size,
 #'  giving the indices of the specified dimension to select for the operation.
@@ -155,9 +156,9 @@
 #' is equivalent to specifying an atomic vector for `sub`
 #' (like `sub = 1:10`). \cr
 #' \cr
-#' For a brief explanation of the relationship between flat indices (`i`),
-#' and dimensional subscripts (`sub`, `dims`),
-#' see \link{squarebrackets_indx_fundamentals}. \cr \cr
+#' For a brief explanation of the relationship between flat indices (`i`)
+#' and subscripts (`sub`, `dims`) in arrays,
+#' see \link{sub2ind}. \cr \cr
 #' 
 #' 
 #' @section Argument Pair margin, slice:
@@ -175,7 +176,8 @@
 #' \cr
 #' The `slice` argument can be any of the following:
 #' 
-#'  * a numeric vector of \bold{strictly positive whole numbers} with dimension indices to select for the operation.
+#'  * a numeric vector of \bold{strictly positive whole numbers}
+#'  with dimension indices to select for the operation.
 #'  * a \bold{complex} vector, as explained in \link{squarebrackets_indx_fundamentals}.
 #'  * a \bold{logical} vector of the same length as the corresponding dimension size,
 #'  giving the dimension indices to select for the operation.
@@ -200,7 +202,8 @@
 #'  * `NULL` (default), corresponds to a missing argument.
 #'  * a vector of length 0,
 #'  in which case no indices are selected for the operation (i.e. empty selection).
-#'  * a numeric vector of \bold{strictly positive whole numbers} with indices of the specified dimension to select for the operation.
+#'  * a numeric vector of \bold{strictly positive whole numbers}
+#'  with indices of the specified dimension to select for the operation.
 #'  * a \bold{complex} vector, as explained in \link{squarebrackets_indx_fundamentals}.
 #'  * a \bold{logical} vector of the same length as the corresponding dimension size,
 #'  giving the indices of the specified dimension to select for the operation.
@@ -331,7 +334,8 @@
 #' ```
 #' 
 #' 
-#' @references Plate T, Heiberger R (2016). \emph{abind: Combine Multidimensional Arrays}. R package version 1.4-5, \url{https://CRAN.R-project.org/package=abind}.
+#' @references Plate T, Heiberger R (2016). \emph{abind: Combine Multidimensional Arrays}.
+#' R package version 1.4-5, \url{https://CRAN.R-project.org/package=abind}.
 #' 
 
 

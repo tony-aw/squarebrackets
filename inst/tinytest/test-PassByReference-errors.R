@@ -9,6 +9,17 @@ expect_error(
   pattern = pattern,
   fixed = TRUE
 )
+expect_error(
+  slice_set(x, 1, 10, rp = -1),
+  pattern = pattern,
+  fixed = TRUE
+)
+expect_error(
+  slicev_set(x, v = 1, rp = -1),
+  pattern = pattern,
+  fixed = TRUE
+)
+
 x <- matrix(1:20, ncol = 4)
 colnames(x) <- letters[1:4]
 expect_error(
@@ -43,15 +54,19 @@ expect_error(
   sb_set(as.mutable_atomic(1:10), i = 1, rp = -1),
   pattern = "only existing variables can be modified by reference"
 )
-
+expect_error(
+  slice_set(as.mutable_atomic(1:10), 1, 10, rp = -1),
+  pattern = "only existing variables can be modified by reference"
+)
+expect_error(
+  slicev_set(as.mutable_atomic(1:10), v = 1, rp = -1),
+  pattern = "only existing variables can be modified by reference"
+)
 expect_error(
   setapply(mutable_atomic(1:10, dim = c(2, 5)), 1, sum),
   pattern = "only existing variables can be modified by reference"
 )
-expect_error(
-  ma_setv(as.mutable_atomic(1:10), 1, 10),
-  pattern = "only existing variables can be modified by reference"
-)
+
 enumerate <- enumerate + 4
 
 
@@ -63,11 +78,15 @@ expect_error(
   pattern = "object is locked"
 )
 expect_error(
-  setapply(x, 1, sum),
+  slice_set(x, 1, 10, rp = -1),
   pattern = "object is locked"
 )
 expect_error(
-  ma_setv(x, 1, 1),
+  slicev_set(x, v = 1, rp = -1),
+  pattern = "object is locked"
+)
+expect_error(
+  setapply(x, 1, sum),
   pattern = "object is locked"
 )
 
@@ -111,7 +130,3 @@ enumerate <- enumerate + 1
 
 # setapply() ====
 # see the script test-setapply.R
-
-
-# ma_setv ====
-# see the script test-ma_setv.R

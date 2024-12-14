@@ -14,7 +14,7 @@
 #' `slice_set()` will apply replacement/transformation on all elements of the vector,
 #' \bold{except} for the elements of the specified sequence.
 #' @param use.names Boolean, indicating if flat names should be preserved. \cr
-#' Note that, since `slice` operates on flat indices only,
+#' Note that, since the `slice_` methods operates on flat indices only,
 #' dimensions and `dimnames` are always dropped.
 #' @param sticky see \link{squarebrackets_options}.
 #' @param ... see \link{squarebrackets_method_dispatch}.

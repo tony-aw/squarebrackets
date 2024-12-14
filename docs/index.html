@@ -83,7 +83,7 @@
 <li>When selecting names with the <code>[</code> and <code>[&lt;-</code> operators, only the first occurrence of the names are selected in case of duplicate names. The ‘squarebrackets’ methods always perform on all names in case of duplicates, not just the first.</li>
 <li>The <code>[[</code> and <code>[[&lt;-</code> operators allow operating on a recursive subset of a nested list. But these only operate on a single recursive subset, and are not vectorized for multiple recursive subsets of a nested list at once. ‘squarebrackets’ provides a way to reshape a nested list into a recursive matrix, thereby allowing vectorized operations on recursive subsets of such a nested list.</li>
 <li>The <code>[&lt;-</code> operator only supports copy-on-modify semantics for most classes. The ‘squarebrackets’ methods provides explicit pass-by-reference and pass-by-value semantics, whilst still respecting things like binding-locks and mutability rules.</li>
-<li>‘squarebrackets’ supports index-less sub-set operations, which is more memory efficient for <code>long vectors</code> than sub-set operations using the <code>[</code> and <code>[&lt;-</code> operators.</li>
+<li>‘squarebrackets’ supports index-less sub-set operations, which is more memory efficient (and better for the environment) for <code>long vectors</code> than sub-set operations using the <code>[</code> and <code>[&lt;-</code> operators.</li>
 </ol>
 <p> </p>
 </div>
@@ -113,7 +113,7 @@
 <li>15 March 2024: Added the <code><a href="reference/sb_setRename.html">sb_setRename()</a></code> method, and added tests for this method also.</li>
 <li>16 March 2024: Fixed a bug in the “rcpp_set_rowcol” source code. Tweaked the documentation here and there a bit. Improved the tests a bit.</li>
 <li>17 March 2024: Added more tests, and tweaked the documentation a bit.</li>
-<li>19 March 2024: Some methods/functions did not support mutable_atomic type “complex”; this is now fixed. Added support for mutable_atomic type “raw”. Added tests for atomic type handling. Added the functions <code><a href="reference/ma_setv.html">ma_setv()</a></code>, and <code><a href="reference/class_mutable_atomic.html">couldb.mutable_atomic()</a></code>. Added the options “sb.rat” and “sb.chkdup”; argument <code>chkdup</code> is now also set to <code>FALSE</code> by default. Added more badges to the documentation.</li>
+<li>19 March 2024: Some methods/functions did not support mutable_atomic type “complex”; this is now fixed. Added support for mutable_atomic type “raw”. Added tests for atomic type handling. Added the functions <code>ma_setv()</code>, and <code><a href="reference/class_mutable_atomic.html">couldb.mutable_atomic()</a></code>. Added the options “sb.rat” and “sb.chkdup”; argument <code>chkdup</code> is now also set to <code>FALSE</code> by default. Added more badges to the documentation.</li>
 <li>20 March 2024: The user can now also specify <code>coe = TRUE</code> in <code>sb_mod.data.frame()</code>.</li>
 <li>24 March 2024: Methods are now split between methods for non-recursive objects (<code>sb_</code>), and methods for recursive objects (<code>sb2_</code>).</li>
 <li>26 March 2024: Replaced <code>seq_rec()</code> with <code>seq_rec2()</code>.</li>
@@ -138,7 +138,8 @@
 <li>21 November 2024: Improved the documentation. Slightly tweaked array argument usage. Added <code>sticky</code> option. Brought back the renaming methods. Changed behaviour of the <code>use.names</code> argument in <code><a href="reference/lst.html">lst_untree()</a></code>.</li>
 <li>24 November 2024: Matrices now use the same API as arrays. Adjusted the documentation accordingly. Cleaned up the internal code a bit.</li>
 <li>30 November 2024: The binding implementations can now bind mixtures of atomic and recursive objects.</li>
-<li>5 December 2024: replaced the <code>_rm</code> post-fixes with <code>_wo</code> in all methods, to avoid confusion. Coercion for data.frame-like objects now happens automatically, and only when needed, in the <code><a href="reference/sb_mod.html">sb2_mod()</a></code> method, and updated the documentation accordingly. Slightly re-organized the documentation.</li>
+<li>5 December 2024: Replaced the <code>_rm</code> post-fixes with <code>_wo</code> in all methods, to avoid confusion. Coercion for data.frame-like objects now happens automatically, and only when needed, in the <code><a href="reference/sb_mod.html">sb2_mod()</a></code> method, and updated the documentation accordingly. Slightly re-organized the documentation.</li>
+<li>14 December 2024: Removed the <code>ma_setv()</code> function in favour of the new <code>slicev_</code> set of methods. Changed the documentation accordingly.</li>
 </ul>
 <p> </p>
 </div>
