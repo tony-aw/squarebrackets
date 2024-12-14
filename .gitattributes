@@ -18,6 +18,7 @@ DynamicallyTypeC_Array.R -linguist-vendored
 DynamicallyTypeRcpp_Array.R -linguist-vendored
 DynamicallyTypeRcpp_Matrix.R -linguist-vendored
 DynamicallyTypeRcpp_slice.R -linguist-vendored
+DynamicallyTypeRcpp_slicev.R -linguist-vendored
 DynamicallyTypeRcpp_Vector.R -linguist-vendored
 R/reexports.R -linguist-documentation
 R/meta_functions.R -linguist-documentation
