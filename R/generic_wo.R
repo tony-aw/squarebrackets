@@ -7,7 +7,7 @@
 #' Use `sb2_wo(x, ...)` if `x` is a recursive object (i.e. list or data.frame-like). \cr \cr
 #'
 #' @param x see \link{squarebrackets_supported_structures}.
-#' @param i,row,col,sub,dims,filter,vars See \link{squarebrackets_indx_args}. \cr
+#' @param i,row,col,s,d,filter,vars See \link{squarebrackets_indx_args}. \cr
 #' An empty index selection results in nothing being removed,
 #' and the entire object is returned. \cr
 #' @param red Boolean, for recursive objects only,
@@ -66,13 +66,13 @@ sb_wo.default <- function(
 #' @rdname sb_wo
 #' @export
 sb_wo.array <- function(
-    x, sub = NULL, dims = 1:ndims(x), i = NULL, ...,
+    x, s = NULL, d = 1:ndims(x), i = NULL, ...,
     chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
   .internal_check_dots(list(...), sys.call())
   
-  return(.sb_x_array(x, sub, dims, i, TRUE, FALSE, chkdup, sys.call()))
+  return(.sb_x_array(x, s, d, i, TRUE, FALSE, chkdup, sys.call()))
 }
 
 
@@ -115,7 +115,7 @@ sb2_wo.default <- function(
 #' @rdname sb_wo
 #' @export
 sb2_wo.array <- function(
-    x, sub = NULL, dims = 1:ndims(x), i = NULL, red = FALSE, ...,
+    x, s = NULL, d = 1:ndims(x), i = NULL, red = FALSE, ...,
     chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
@@ -125,7 +125,7 @@ sb2_wo.array <- function(
     stop("`red` must be either `TRUE` or `FALSE`")
   }
   
-  return(.sb_x_array(x, sub, dims, i, TRUE, red, chkdup, sys.call()))
+  return(.sb_x_array(x, s, d, i, TRUE, red, chkdup, sys.call()))
 }
 
 

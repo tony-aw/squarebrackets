@@ -10,7 +10,7 @@
 #' For modifying subsets using R's default copy-on-modification semantics, see \link{idx}. \cr \cr
 #'
 #' @param x see \link{squarebrackets_supported_structures}.
-#' @param i,row,col,sub,dims,filter,vars,inv See \link{squarebrackets_indx_args}. \cr
+#' @param i,row,col,s,d,filter,vars,inv See \link{squarebrackets_indx_args}. \cr
 #' An empty index selection returns the original object unchanged. \cr
 #' @param ... see \link{squarebrackets_method_dispatch}.
 #' @param rp,tf,.lapply see \link{squarebrackets_modify}.
@@ -70,17 +70,17 @@ sb_mod.default <- function(
 #' @rdname sb_mod
 #' @export
 sb_mod.array <- function(
-    x, sub = NULL, dims = 1:ndims(x), i = NULL, inv = FALSE, ...,
+    x, s = NULL, d = 1:ndims(x), i = NULL, inv = FALSE, ...,
     rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
   # checks:
   .internal_check_dots(list(...), sys.call())
   .internal_check_rptf(rp, tf, sys.call())
-  .check_args_array(x, sub, dims, sys.call())
+  .check_args_array(x, s, d, sys.call())
   
   # all empty indices:
-  if(.all_NULL_indices(list(sub, i))) {
+  if(.all_NULL_indices(list(s, i))) {
     return(.all_mod_atomic(x, rp, tf,sys.call()))
   }
   
@@ -90,23 +90,23 @@ sb_mod.array <- function(
   }
   
   # zero-length subscripts:
-  if(length(dims) == 0) {
+  if(length(d) == 0) {
     return(.all_mod_atomic(x, rp, tf, sys.call()))
   }
   
   # 1d:
   if(ndims(x) == 1L) {
-    i <- .flat_sub2i(x, sub, dims)
+    i <- .flat_s2i(x, s, d)
     return(.flat_mod_atomic(x, i, inv, rp, tf, chkdup, sys.call()))
   }
   
   # matrix:
   if(is.matrix(x)) {
-    return(.mat_mod_atomic(x, sub, dims, inv, rp, tf, chkdup, sys.call()))
+    return(.mat_mod_atomic(x, s, d, inv, rp, tf, chkdup, sys.call()))
   }
   
-  # sub, dims arguments:
-  lst <- ci_sub(x, sub, dims, inv, chkdup, .abortcall = sys.call())
+  # s, d arguments:
+  lst <- ci_sub(x, s, d, inv, chkdup, .abortcall = sys.call())
 
   if(!missing(rp)) {
     if(!is.atomic(rp)) stop("replacement must be atomic")
@@ -157,17 +157,17 @@ sb2_mod.default <- function(
 #' @rdname sb_mod
 #' @export
 sb2_mod.array <- function(
-    x, sub = NULL, dims = 1:ndims(x), i = NULL, inv = FALSE, ...,
+    x, s = NULL, d = 1:ndims(x), i = NULL, inv = FALSE, ...,
     rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE), .lapply = lapply
 ) {
   
   # checks:
   .internal_check_dots(list(...), sys.call())
   .internal_check_rptf(rp, tf, sys.call())
-  .check_args_array(x, sub, dims, sys.call())
+  .check_args_array(x, s, d, sys.call())
   
   # all empty indices:
-  if(.all_NULL_indices(list(sub, i))) {
+  if(.all_NULL_indices(list(s, i))) {
     return(.all_mod_list(x, rp, tf, .lapply, sys.call()))
   }
   
@@ -177,22 +177,22 @@ sb2_mod.array <- function(
   }
   
   # zero-length subscripts:
-  if(length(dims) == 0) {
+  if(length(d) == 0) {
     return(.all_mod_list(x, rp, tf, .lapply, sys.call()))
   }
   
   # 1d:
   if(ndims(x) == 1L) {
-    i <- .flat_sub2i(x, sub, dims)
+    i <- .flat_s2i(x, s, d)
     return(.flat_mod_list(x, i, inv, rp, tf, chkdup, .lapply, sys.call()))
   }
   
   # matrix:
   if(is.matrix(x)) {
-    return(.mat_mod_list(x, sub, dims, inv, rp, tf, chkdup, .lapply, sys.call()))
+    return(.mat_mod_list(x, s, d, inv, rp, tf, chkdup, .lapply, sys.call()))
   }
   
-  lst <- ci_sub(x, sub, dims, inv, chkdup, .abortcall = sys.call())
+  lst <- ci_sub(x, s, d, inv, chkdup, .abortcall = sys.call())
   
   if(!missing(rp)) {
     if(!is.list(rp)) stop("replacement must be a list")

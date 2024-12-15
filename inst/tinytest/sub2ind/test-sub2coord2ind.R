@@ -4,21 +4,21 @@ source(file.path(getwd(), "source", "functions4testing.R"))
 enumerate <- 0
 
 # 4D array ==== 
-dims <- c(10, 10, 10, 10)
-len <- prod(dims)
+d <- c(10, 10, 10, 10)
+len <- prod(d)
 temp.fun <- function(...) {
   return(x[...])
 }
 
 for(i in 1:10) {
-  x <- array(sample(seq_len(len*10), len, FALSE), dims)
+  x <- array(sample(seq_len(len*10), len, FALSE), d)
   ind1 <- sample(1:10, 3, FALSE)
   ind2 <- sample(1:10, 3, FALSE)
   ind3 <- sample(1:10, 3, FALSE)
   ind4 <- sample(1:10, 3, FALSE)
   subs <- list(ind1, ind2, ind3, ind4)
-  coords <- sub2coord(subs, dims)
-  ind <- coord2ind(coords, dims)
+  coords <- sub2coord(subs, d)
+  ind <- coord2ind(coords, d)
   x.coord <- numeric(length(ind))
   for(i in 1:length(x.coord)) {
     x.coord[i] <- x[coords[i,1], coords[i,2], coords[i,3], coords[i,4]]
@@ -26,7 +26,7 @@ for(i in 1:10) {
   expect_equal(
     x[ind], x.coord
   ) |> errorfun()
-  coords <- ind2coord(ind, dims)
+  coords <- ind2coord(ind, d)
   for(i in 1:length(x.coord)) {
     x.coord[i] <- x[coords[i,1], coords[i,2], coords[i,3], coords[i,4]]
   }
@@ -41,24 +41,24 @@ for(i in 1:10) {
 
 
 # 3D array ==== 
-dims <- c(10, 10, 10)
-len <- prod(dims)
+d <- c(10, 10, 10)
+len <- prod(d)
 temp.fun <- function(...) {
   return(x[...])
 }
 
 for(i in 1:10) {
-  x <- array(sample(seq_len(len*10), len, FALSE), dims)
+  x <- array(sample(seq_len(len*10), len, FALSE), d)
   ind1 <- sample(1:10, 3, FALSE)
   ind2 <- sample(1:10, 3, FALSE)
   ind3 <- sample(1:10, 3, FALSE)
   subs <- list(ind1, ind2, ind3)
   expect_equal(
-    coord2ind(sub2coord(subs, dims), dims),
-    sub2ind(subs, dims)
+    coord2ind(sub2coord(subs, d), d),
+    sub2ind(subs, d)
   ) |> errorfun()
-  coords <- coords <- sub2coord(subs, dims)
-  ind <- coord2ind(coords, dims)
+  coords <- coords <- sub2coord(subs, d)
+  ind <- coord2ind(coords, d)
   x.coord <- numeric(length(ind))
   for(i in 1:length(x.coord)) {
     x.coord[i] <- x[coords[i,1], coords[i,2], coords[i,3]]
@@ -66,7 +66,7 @@ for(i in 1:10) {
   expect_equal(
     x[ind], x.coord
   ) |> errorfun()
-  coords <- ind2coord(ind, dims)
+  coords <- ind2coord(ind, d)
   for(i in 1:length(x.coord)) {
     x.coord[i] <- x[coords[i,1], coords[i,2], coords[i,3]]
   }
@@ -82,8 +82,8 @@ for(i in 1:10) {
 
 
 # matrix ==== 
-dims <- c(10, 10)
-len <- prod(dims)
+d <- c(10, 10)
+len <- prod(d)
 temp.fun <- function(...) {
   return(x[...])
 }
@@ -94,11 +94,11 @@ for(i in 1:10) {
   ind2 <- sample(1:10, 3, FALSE)
   subs <- list(ind1, ind2)
   expect_equal(
-    coord2ind(sub2coord(subs, dims), dims),
-    sub2ind(subs, dims)
+    coord2ind(sub2coord(subs, d), d),
+    sub2ind(subs, d)
   ) |> errorfun()
-  coords <- coords <- sub2coord(subs, dims)
-  ind <- coord2ind(coords, dims)
+  coords <- coords <- sub2coord(subs, d)
+  ind <- coord2ind(coords, d)
   x.coord <- numeric(length(ind))
   for(i in 1:length(x.coord)) {
     x.coord[i] <- x[coords[i,1], coords[i,2]]
@@ -106,7 +106,7 @@ for(i in 1:10) {
   expect_equal(
     x[ind], x.coord
   ) |> errorfun()
-  coords <- ind2coord(ind, dims)
+  coords <- ind2coord(ind, d)
   for(i in 1:length(x.coord)) {
     x.coord[i] <- x[coords[i,1], coords[i,2]]
   }
@@ -122,9 +122,9 @@ for(i in 1:10) {
 
 
 # error checks ====
-dims <- c(1000, 1000, 4, 4)
-len <- prod(dims)
-x <- array(1:len, dims)
+d <- c(1000, 1000, 4, 4)
+len <- prod(d)
+x <- array(1:len, d)
 coords <- rbind(c(4:1), 1:4)
 subs <- list(4:1, 1:4)
 expect_error(
@@ -138,7 +138,7 @@ expect_error(
   fixed = TRUE
 )
 expect_error(
-  coord2ind(coords, c(1, dims)),
+  coord2ind(coords, c(1, d)),
   pattern = "`ncol(coord) != length(x.dim)`",
   fixed = TRUE
 )
@@ -147,10 +147,6 @@ expect_error(
   pattern = "`length(sub) != length(x.dim)`",
   fixed = TRUE
 )
-# expect_error(
-#   coord2ind(coords, dims, 1),
-#   pattern = "length of object does not correspond to the given dimensions"
-# )
 enumerate <- enumerate + 5
 
 

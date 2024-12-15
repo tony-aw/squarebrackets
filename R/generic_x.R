@@ -7,7 +7,7 @@
 #' Use `sb2_x(x, ...)` if `x` is a recursive object (i.e. list or data.frame-like). \cr \cr
 #'
 #' @param x see \link{squarebrackets_supported_structures}.
-#' @param i,row,col,sub,dims,filter,vars See \link{squarebrackets_indx_args}. \cr
+#' @param i,row,col,s,d,filter,vars See \link{squarebrackets_indx_args}. \cr
 #' Duplicates are allowed, resulting in duplicated indices. \cr
 #' An empty index selection results in an empty object of length 0. \cr
 #' @param red Boolean, for recursive objects only,
@@ -60,12 +60,12 @@ sb_x.default <- function(x, i = NULL, ...) {
 #' @rdname sb_x
 #' @export
 sb_x.array <- function(
-    x, sub = NULL, dims = 1:ndims(x), i = NULL, ...
+    x, s = NULL, d = 1:ndims(x), i = NULL, ...
 ) {
   
   .internal_check_dots(list(...), sys.call())
   
-  return(.sb_x_array(x, sub, dims, i, FALSE, FALSE, FALSE, sys.call()))
+  return(.sb_x_array(x, s, d, i, FALSE, FALSE, FALSE, sys.call()))
   
 }
 
@@ -106,7 +106,7 @@ sb2_x.default <- function(x, i = NULL, red = FALSE, ...) {
 #' @rdname sb_x
 #' @export
 sb2_x.array <- function(
-    x, sub = NULL, dims = 1:ndims(x), i = NULL, red = FALSE, ...
+    x, s = NULL, d = 1:ndims(x), i = NULL, red = FALSE, ...
 ) {
   
   .internal_check_dots(list(...), sys.call())
@@ -115,7 +115,7 @@ sb2_x.array <- function(
     stop("`red` must be either `TRUE` or `FALSE`")
   }
   
-  return(.sb_x_array(x, sub, dims, i, FALSE, red, FALSE, abortcall = sys.call()))
+  return(.sb_x_array(x, s, d, i, FALSE, red, FALSE, abortcall = sys.call()))
   
 }
 
@@ -162,14 +162,14 @@ sb2_x.data.frame <- function(
 #' @keywords internal
 #' @noRd
 .sb_x_array <- function(
-    x, sub = NULL, dims = 1:ndims(x), i = NULL, inv = FALSE, red = FALSE, chkdup = FALSE, abortcall
+    x, s = NULL, d = 1:ndims(x), i = NULL, inv = FALSE, red = FALSE, chkdup = FALSE, abortcall
 ) {
   
   # check arguments:
-  .check_args_array(x, sub, dims, abortcall)
+  .check_args_array(x, s, d, abortcall)
   
   # empty arguments:
-  if(.all_NULL_indices(list(sub, i))) {
+  if(.all_NULL_indices(list(s, i))) {
     return(x)
   }
   
@@ -179,24 +179,24 @@ sb2_x.data.frame <- function(
   }
   
   # zero-length subscripts:
-  if(length(dims) == 0L) {
+  if(length(d) == 0L) {
     return(x)
   }
   
   # 1d:
   if(ndims(x) == 1L) {
-    i <- .flat_sub2i(x, sub, dims, abortcall)
+    i <- .flat_s2i(x, s, d, abortcall)
     return(.flat_a1d_x(x, i, inv, red, chkdup, abortcall))
   }
   
   # matrix:
   if(is.matrix(x)) {
-    return(.mat_x(x, sub, dims, inv, red, chkdup, sys.call()))
+    return(.mat_x(x, s, d, inv, red, chkdup, sys.call()))
   }
   
   
-  # sub, dims arguments:
-  lst <- ci_sub(x, sub, dims, inv = inv, chkdup, .abortcall = abortcall)
+  # s, d arguments:
+  lst <- ci_sub(x, s, d, inv = inv, chkdup, .abortcall = abortcall)
   
   if(red && collapse::allv(collapse::vlengths(lst), 1L)) {
     x <- .arr_x(x, lst, abortcall = abortcall)

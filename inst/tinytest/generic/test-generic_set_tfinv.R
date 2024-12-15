@@ -120,9 +120,9 @@ f_out.matrix <- function(x, row, col) {
   return(sb_set2(x, row = row, col = col, tf = mean))
 }
 
-f_out.2d <- function(x, sub, dims) {
+f_out.2d <- function(x, s, d) {
   
-  return(sb_set2.array(x, sub, dims, tf = mean))
+  return(sb_set2.array(x, s, d, tf = mean))
 }
 
 
@@ -145,9 +145,9 @@ f_expect.1d <- function(x, i) {
   return(x)
 }
 
-f_out.1d <- function(x, sub, dims) {
+f_out.1d <- function(x, s, d) {
   
-  return(sb_set2(x, sub, dims, tf = mean))
+  return(sb_set2(x, s, d, tf = mean))
 }
 
 
@@ -186,25 +186,25 @@ x <- as.mutable_atomic(array(seq_len(10^4), dim = c(10, 10, 10, 10)))
 rownames(x) <- c(letters[1:8], "a", NA)
 tf <- function(x) -x
 
-sub <- list(c("a"), c(1:3), c(rep(TRUE, 5), rep(FALSE, 5)))
-dims <- c(1,2,4)
+s <- list(c("a"), c(1:3), c(rep(TRUE, 5), rep(FALSE, 5)))
+d <- c(1,2,4)
 expect_equal(
-  sb_set2(x, sub, dims, tf = tf),
-  subset_arr(x, sub[[1]], sub[[2]], sub[[3]], tf)
+  sb_set2(x, s, d, tf = tf),
+  subset_arr(x, s[[1]], s[[2]], s[[3]], tf)
 )
 
-sub <- list(c("a"), logical(0), c(rep(TRUE, 5), rep(FALSE, 5)))
-dims <- c(1,2,4)
+s <- list(c("a"), logical(0), c(rep(TRUE, 5), rep(FALSE, 5)))
+d <- c(1,2,4)
 expect_equal(
-  sb_set2(x, sub, dims, tf = tf),
-  subset_arr(x, sub[[1]], sub[[2]], sub[[3]], tf)
+  sb_set2(x, s, d, tf = tf),
+  subset_arr(x, s[[1]], s[[2]], s[[3]], tf)
 )
 
-sub <- list(c("a"), c(1:4), rep(FALSE, 10))
-dims <- c(1,2,4)
+s <- list(c("a"), c(1:4), rep(FALSE, 10))
+d <- c(1,2,4)
 expect_equal(
-  sb_set2(x, sub, dims, tf = tf),
-  subset_arr(x, sub[[1]], sub[[2]], sub[[3]], tf)
+  sb_set2(x, s, d, tf = tf),
+  subset_arr(x, s[[1]], s[[2]], s[[3]], tf)
 )
 
 enumerate <- enumerate + 3

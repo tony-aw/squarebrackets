@@ -3,7 +3,7 @@
 The type of output depends on the type of input index arguments given:
 idx(x, i = i, ...)
 converts linear indices to a strictly positive integer vector of linear indices.
-idx(x, sub = sub, dims = dims, ...)
+idx(x, s = s, d = dims, ...)
 converts dimensional indices to a strictly positive integer vector of linear indices.
 idx(x, slice = slice, margin = margin, ...)
 converts indices of one dimension to a strictly positive integer vector of
@@ -12,14 +12,14 @@ indices for that specific dimension.
 
 Vectors (both atomic and recursive) only have index argument i. 
 Data.frame-like objects only have the slice, margin index argument pair. 
-Arrays (both atomic and recursive) have the sub, dims index argument pair,
+Arrays (both atomic and recursive) have the s, d index argument pair,
 as well as the arguments i and slice, margin. 
 
 The result of the idx() method
 can be used inside the regular square-brackets operators. 
 For example like so:
 x &amp;lt;- array(...)
-my_sub2ind &amp;lt;- idx(x, sub, dims)
+my_sub2ind &amp;lt;- idx(x, s, d)
 x[my_sub2ind] &amp;lt;- value
 
 y &amp;lt;- data.frame(...)
@@ -34,7 +34,7 @@ whilst still using R's default copy-on-modification semantics
 The type of output depends on the type of input index arguments given:
 idx(x, i = i, ...)
 converts linear indices to a strictly positive integer vector of linear indices.
-idx(x, sub = sub, dims = dims, ...)
+idx(x, s = s, d = dims, ...)
 converts dimensional indices to a strictly positive integer vector of linear indices.
 idx(x, slice = slice, margin = margin, ...)
 converts indices of one dimension to a strictly positive integer vector of
@@ -43,14 +43,14 @@ indices for that specific dimension.
 
 Vectors (both atomic and recursive) only have index argument i. 
 Data.frame-like objects only have the slice, margin index argument pair. 
-Arrays (both atomic and recursive) have the sub, dims index argument pair,
+Arrays (both atomic and recursive) have the s, d index argument pair,
 as well as the arguments i and slice, margin. 
 
 The result of the idx() method
 can be used inside the regular square-brackets operators. 
 For example like so:
 x &amp;lt;- array(...)
-my_sub2ind &amp;lt;- idx(x, sub, dims)
+my_sub2ind &amp;lt;- idx(x, s, d)
 x[my_sub2ind] &amp;lt;- value
 
 y &amp;lt;- data.frame(...)
@@ -116,20 +116,20 @@ whilst still using R's default copy-on-modification semantics
     <p>The <code>idx()</code> method converts indices. <br>
 The type of output depends on the type of input index arguments given:</p><ul><li><p><code>idx(x, i = i, ...)</code>
 converts linear indices to a strictly positive integer vector of linear indices.</p></li>
-<li><p><code>idx(x, sub = sub, dims = dims, ...)</code>
+<li><p><code>idx(x, s = s, d = dims, ...)</code>
 converts dimensional indices to a strictly positive integer vector of linear indices.</p></li>
 <li><p><code>idx(x, slice = slice, margin = margin, ...)</code>
 converts indices of one dimension to a strictly positive integer vector of
 indices for that specific dimension.</p></li>
 </ul><p>Vectors (both atomic and recursive) only have index argument <code>i</code>. <br>
 Data.frame-like objects only have the <code>slice, margin</code> index argument pair. <br>
-Arrays (both atomic and recursive) have the <code>sub, dims</code> index argument pair,
+Arrays (both atomic and recursive) have the <code>s, d</code> index argument pair,
 as well as the arguments <code>i</code> and <code>slice, margin</code>. <br><br>
 The result of the <code>idx()</code> method
 can be used inside the regular square-brackets operators. <br>
 For example like so:</p>
 <p></p><div class="sourceCode r"><pre><code><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/array.html" class="external-link">array</a></span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span>
-<span><span class="va">my_sub2ind</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/idx1.html">idx</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">sub</span>, <span class="va">dims</span><span class="op">)</span></span>
+<span><span class="va">my_sub2ind</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/idx1.html">idx</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">s</span>, <span class="va">d</span><span class="op">)</span></span>
 <span><span class="va">x</span><span class="op">[</span><span class="va">my_sub2ind</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
 <span></span>
 <span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span>
@@ -151,8 +151,8 @@ whilst still using R's default copy-on-modification semantics
 <span><span class="co"># S3 method for array</span></span>
 <span><span class="fu">idx</span><span class="op">(</span></span>
 <span>  <span class="va">x</span>,</span>
-<span>  sub <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  dims <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="ndims.html">ndims</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span>
+<span>  s <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  d <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="ndims.html">ndims</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span>
 <span>  slice <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  margin <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  i <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -182,7 +182,7 @@ whilst still using R's default copy-on-modification semantics
 <dd><p>see <a href="aaa06_squarebrackets_method_dispatch.html">squarebrackets_method_dispatch</a>.</p></dd>
 
 
-<dt>i, sub, dims, margin, slice, inv</dt>
+<dt>i, s, d, margin, slice, inv</dt>
 <dd><p>See <a href="aaa03_squarebrackets_indx_args.html">squarebrackets_indx_args</a>. <br>
 Duplicates are not allowed.</p></dd>
 
@@ -195,7 +195,7 @@ Duplicates are not allowed.</p></dd>
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>For <code>idx(x, i = i, ...)</code> and <code>idx(x, sub = sub, dims = dims, ...)</code>: <br></p>
+<p>For <code>idx(x, i = i, ...)</code> and <code>idx(x, s = s, d = dims, ...)</code>: <br></p>
 
 
 <p>A strictly positive integer vector of flat indices. <br></p>

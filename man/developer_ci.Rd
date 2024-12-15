@@ -29,8 +29,8 @@ ci_margin(
 
 ci_sub(
   x,
-  sub,
-  dims,
+  s,
+  d,
   inv = FALSE,
   chkdup = FALSE,
   uniquely_named = FALSE,
@@ -50,7 +50,7 @@ ci_df(
 \arguments{
 \item{x}{the object for which the indices are meant.}
 
-\item{i, slice, margin, sub, dims, inv}{See \link{squarebrackets_indx_args}. \cr}
+\item{i, slice, margin, s, d, inv}{See \link{squarebrackets_indx_args}. \cr}
 
 \item{chkdup}{see \link{squarebrackets_options}. \cr
 \ifelse{html}{\figure{for_performance-set_to_FALSE-red.svg}{options: alt='[for performance: set to FALSE]'}}{\link[=squarebrackets_help]{for performance: set to FALSE}} \cr}

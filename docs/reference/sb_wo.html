@@ -72,8 +72,8 @@ Use <code>sb2_wo(x, ...)</code> if <code>x</code> is a recursive object (i.e. li
 <span><span class="co"># S3 method for array</span></span>
 <span><span class="fu">sb_wo</span><span class="op">(</span></span>
 <span>  <span class="va">x</span>,</span>
-<span>  sub <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  dims <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="ndims.html">ndims</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span>
+<span>  s <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  d <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="ndims.html">ndims</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span>
 <span>  i <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  <span class="va">...</span>,</span>
 <span>  chkdup <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"squarebrackets.chkdup"</span>, <span class="cn">FALSE</span><span class="op">)</span></span>
@@ -93,8 +93,8 @@ Use <code>sb2_wo(x, ...)</code> if <code>x</code> is a recursive object (i.e. li
 <span><span class="co"># S3 method for array</span></span>
 <span><span class="fu">sb2_wo</span><span class="op">(</span></span>
 <span>  <span class="va">x</span>,</span>
-<span>  sub <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  dims <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="ndims.html">ndims</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span>
+<span>  s <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  d <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="ndims.html">ndims</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span>
 <span>  i <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  red <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  <span class="va">...</span>,</span>
@@ -123,7 +123,7 @@ Use <code>sb2_wo(x, ...)</code> if <code>x</code> is a recursive object (i.e. li
 <dd><p>see <a href="aaa06_squarebrackets_method_dispatch.html">squarebrackets_method_dispatch</a>.</p></dd>
 
 
-<dt>i, row, col, sub, dims, filter, vars</dt>
+<dt>i, row, col, s, d, filter, vars</dt>
 <dd><p>See <a href="aaa03_squarebrackets_indx_args.html">squarebrackets_indx_args</a>. <br>
 An empty index selection results in nothing being removed,
 and the entire object is returned. <br></p></dd>

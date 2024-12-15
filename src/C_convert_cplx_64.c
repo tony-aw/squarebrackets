@@ -6,51 +6,49 @@
 SEXP C_convert_cplx_64 ( SEXP x, SEXP val ) {
 
 
+R_xlen_t n = xlength(x);
 
+SEXP res = PROTECT(allocVector(REALSXP, n));
+double *pres;
+pres = REAL(res);
+
+const Rcomplex *px;
+px = COMPLEX(x);
+
+if(Rf_length(val) == 1) {
   
-  R_xlen_t n = xlength(x);
+  double v;
+  v = asReal(val);
   
-  SEXP res = PROTECT(allocVector(REALSXP, n));
-  double *pres;
-  pres = REAL(res);
-  
-  const double *px;
-  px = REAL(x);
-  
-  if(Rf_length(val) == 1) {
-    
-    double v;
-    v = asReal(val);
-    
-    for(int i = 0; i != n; ++i) {
-      if(px[i] < 0) {
-        pres[i] = v + px[i] + 1;
-      }
-      else {
-        pres[i] = px[i];
-      }
+  for(int j = 0; j != n; ++j) {
+    if(px[j].i < 0) {
+      pres[j] = v + px[j].i + 1;
     }
-    
-  }
-  else if(Rf_length(val) == n) {
-    const double *pv;
-    pv = REAL(val);
-    
-    for(int i = 0; i != n; ++i) {
-      if(px[i] < 0) {
-        pres[i] = pv[i] + px[i] + 1;
-      }
-      else {
-        pres[i] = px[i];
-      }
+    else {
+      pres[j] = px[j].i;
     }
   }
-  else {
-    error("unsupported type");
-  }
   
-  UNPROTECT(1);
-  return(res);
+}
+else if(Rf_length(val) == n) {
+  const double *pv;
+  pv = REAL(val);
+  
+  for(int j = 0; j != n; ++j) {
+    if(px[j].i < 0) {
+      pres[j] = pv[j] + px[j].i + 1;
+    }
+    else {
+      pres[j] = px[j].i;
+    }
+  }
+}
+else {
+  error("recycling not allowed");
+}
+
+UNPROTECT(1);
+return(res);  
 
 
 }

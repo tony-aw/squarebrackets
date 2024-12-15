@@ -1,45 +1,45 @@
 
 #' @keywords internal
 #' @noRd
-.mat_prepsub2 <- function(x, sub, dims) {
-  if(is.atomic(sub)) {
-    return(sub)
+.mat_prepsub2 <- function(x, s, d) {
+  if(is.atomic(s)) {
+    return(s)
   }
-  if(is.list(sub)) {
-    if(length(sub) == 1L) {
-      return(sub[[1L]])
+  if(is.list(s)) {
+    if(length(s) == 1L) {
+      return(s[[1L]])
     }
     else {
-      return(sub[dims])
+      return(s[d])
     }
   }
 }
 
 #' @keywords internal
 #' @noRd
-.mat_rowcol <- function(x, sub, dims, inv, chkdup, abortcall) {
-  if(length(dims) == 1L) {
-    if(is.list(sub)) {
-      sub <- sub[[1L]]
+.mat_rowcol <- function(x, s, d, inv, chkdup, abortcall) {
+  if(length(d) == 1L) {
+    if(is.list(s)) {
+      s <- s[[1L]]
     }
-    if(dims == 1L) {
-      row <- ci_margin(x, sub, 1L, inv, chkdup, FALSE, sys.call())
+    if(d == 1L) {
+      row <- ci_margin(x, s, 1L, inv, chkdup, FALSE, sys.call())
       col <- NULL
     }
-    if(dims == 2L) {
-      col <- ci_margin(x, sub, 2L, inv, chkdup, FALSE, sys.call())
+    if(d == 2L) {
+      col <- ci_margin(x, s, 2L, inv, chkdup, FALSE, sys.call())
       row <- NULL
     }
   }
   else {
-    sub <- .mat_prepsub2(x, sub, dims)
-    if(is.atomic(sub)) {
-      row <- ci_margin(x, sub, 1L, inv, chkdup, FALSE, sys.call())
-      col <- ci_margin(x, sub, 2L, inv, chkdup, FALSE, sys.call())
+    s <- .mat_prepsub2(x, s, d)
+    if(is.atomic(s)) {
+      row <- ci_margin(x, s, 1L, inv, chkdup, FALSE, sys.call())
+      col <- ci_margin(x, s, 2L, inv, chkdup, FALSE, sys.call())
     }
-    if(is.list(sub)) {
-      row <- ci_margin(x, sub[[1L]], 1L, inv, chkdup, FALSE, sys.call())
-      col <- ci_margin(x, sub[[2L]], 2L, inv, chkdup, FALSE, sys.call())
+    if(is.list(s)) {
+      row <- ci_margin(x, s[[1L]], 1L, inv, chkdup, FALSE, sys.call())
+      col <- ci_margin(x, s[[2L]], 2L, inv, chkdup, FALSE, sys.call())
     }
   }
   
@@ -50,11 +50,11 @@
 
 #' @keywords internal
 #' @noRd
-.mat_x <- function(x, sub, dims, inv, red, chkdup, abortcall) {
+.mat_x <- function(x, s, d, inv, red, chkdup, abortcall) {
   
-  .ci_array_check(x, sub, dims, ndims(x), abortcall)
+  .ci_array_check(x, s, d, ndims(x), abortcall)
   
-  rowcol <- .mat_rowcol(x, sub, dims, inv, chkdup, abortcall)
+  rowcol <- .mat_rowcol(x, s, d, inv, chkdup, abortcall)
   row <- rowcol[[1L]]
   col <- rowcol[[2L]]
   
@@ -100,10 +100,10 @@
 
 #' @keywords internal
 #' @noRd
-.mat_mod_atomic <- function(x, sub, dims, inv, rp, tf, chkdup, abortcall) {
+.mat_mod_atomic <- function(x, s, d, inv, rp, tf, chkdup, abortcall) {
   
-  .ci_array_check(x, sub, dims, ndims(x), abortcall)
-  rowcol <- .mat_rowcol(x, sub, dims, inv, chkdup, abortcall)
+  .ci_array_check(x, s, d, ndims(x), abortcall)
+  rowcol <- .mat_rowcol(x, s, d, inv, chkdup, abortcall)
   row <- rowcol$row
   col <- rowcol$col
   
@@ -124,10 +124,10 @@
 
 #' @keywords internal
 #' @noRd
-.mat_mod_list <- function(x, sub, dims, inv, rp, tf, chkdup, .lapply, abortcall) {
+.mat_mod_list <- function(x, s, d, inv, rp, tf, chkdup, .lapply, abortcall) {
   
-  .ci_array_check(x, sub, dims, ndims(x), abortcall)
-  rowcol <- .mat_rowcol(x, sub, dims, inv, chkdup, abortcall)
+  .ci_array_check(x, s, d, ndims(x), abortcall)
+  rowcol <- .mat_rowcol(x, s, d, inv, chkdup, abortcall)
   row <- rowcol$row
   col <- rowcol$col
   
@@ -149,10 +149,10 @@
 
 #' @keywords internal
 #' @noRd
-.mat_set <- function(x, sub, dims, inv, chkdup, rp, tf, abortcall) {
+.mat_set <- function(x, s, d, inv, chkdup, rp, tf, abortcall) {
   
-  .ci_array_check(x, sub, dims, ndims(x), abortcall)
-  rowcol <- .mat_rowcol(x, sub, dims, inv, chkdup, abortcall)
+  .ci_array_check(x, s, d, ndims(x), abortcall)
+  rowcol <- .mat_rowcol(x, s, d, inv, chkdup, abortcall)
   row <- rowcol$row
   col <- rowcol$col
   

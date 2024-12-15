@@ -6,17 +6,11 @@
 #' \link{mutable_atomic} matrix,
 #' through \link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr
 #' \cr
-#' For every iteration, a copy of only a single row or column
-#' (depending on the margin)
-#' is made,
-#' the function is applied on the copy,
-#' and the original row/column is replaced by the modified copy through
-#' \link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr
-#' \cr
 #' The `setapply()` is a bit faster and uses less memory than \link[base]{apply}. \cr \cr
 #' 
 #' 
-#' @param x a \link{mutable_atomic} matrix. Arrays are not supported.
+#' @param x a \link{mutable_atomic} 2-dimensional array (i.e. a matrix). \cr
+#' Arrays of other than 2 dimensions are not supported.
 #' @param MARGIN a single integer scalar, giving the subscript to apply the function over. \cr
 #' `1` indicates rows, `2` indicates columns. \cr
 #' @param FUN the function to be applied. \cr
@@ -58,6 +52,7 @@ setapply <- function(x, MARGIN, FUN) {
     }
     
     .rcpp_setapply_row(x, FUN, abortcall = sys.call())
+    return(invisible(NULL))
     
   } else if(MARGIN == 2) {
     testf1 <- x[,1]
@@ -68,6 +63,7 @@ setapply <- function(x, MARGIN, FUN) {
     }
     
     .rcpp_setapply_col(x, FUN, abortcall = sys.call())
+    return(invisible(NULL))
     
   } else {
     stop("`MARGIN` must be 1 or 2")

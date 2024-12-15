@@ -14,13 +14,13 @@ sb_x(x, ...)
 
 \method{sb_x}{default}(x, i = NULL, ...)
 
-\method{sb_x}{array}(x, sub = NULL, dims = 1:ndims(x), i = NULL, ...)
+\method{sb_x}{array}(x, s = NULL, d = 1:ndims(x), i = NULL, ...)
 
 sb2_x(x, ...)
 
 \method{sb2_x}{default}(x, i = NULL, red = FALSE, ...)
 
-\method{sb2_x}{array}(x, sub = NULL, dims = 1:ndims(x), i = NULL, red = FALSE, ...)
+\method{sb2_x}{array}(x, s = NULL, d = 1:ndims(x), i = NULL, red = FALSE, ...)
 
 \method{sb2_x}{data.frame}(x, row = NULL, col = NULL, filter = NULL, vars = NULL, ...)
 }
@@ -29,7 +29,7 @@ sb2_x(x, ...)
 
 \item{...}{see \link{squarebrackets_method_dispatch}.}
 
-\item{i, row, col, sub, dims, filter, vars}{See \link{squarebrackets_indx_args}. \cr
+\item{i, row, col, s, d, filter, vars}{See \link{squarebrackets_indx_args}. \cr
 Duplicates are allowed, resulting in duplicated indices. \cr
 An empty index selection results in an empty object of length 0. \cr}
 

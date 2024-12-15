@@ -45,16 +45,16 @@ temp.fun.2d <- function(x, row, col, f_expect, f_out) {
       len <- length(pre_subset_mat(x, row[[i]], col[[j]]))
       rp <- sample(c(seq_len(len), NA), size = len)
       
-      sub <- n(row[[i]], col[[j]])
-      dims <- 1:2
-      rem <- which(vapply(sub, is.null, logical(1L)))
+      s <- n(row[[i]], col[[j]])
+      d <- 1:2
+      rem <- which(vapply(s, is.null, logical(1L)))
       if(length(rem) > 0L) {
-        sub <- sub[-rem]
-        dims <- dims[-rem]
+        s <- s[-rem]
+        d <- d[-rem]
       }
       
       expected[[k]] <- f_expect(x, row[[i]], col[[j]])
-      out[[k]] <- f_out(x, sub, dims)
+      out[[k]] <- f_out(x, s, d)
       assign("enumerate", enumerate + 2, envir = parent.frame(n = 1))
       k <- k + 1
     }
@@ -138,64 +138,64 @@ if(isTRUE(test_allow_duplicates)) {
 x <- array(as.double(seq_len(10^4)), dim = c(10, 10, 10, 10))
 rownames(x) <- c(letters[1:8], "a", NA)
 
-sub <- list(c("a", "b"), 1:3, c(rep(TRUE, 5), rep(FALSE, 5)))
-dims <- c(1,2,4)
+s <- list(c("a", "b"), 1:3, c(rep(TRUE, 5), rep(FALSE, 5)))
+d <- c(1,2,4)
 expect_equal(
-  sb_test(x, sub, dims),
-  f_expect.arbitrary(x, sub[[1]], sub[[2]], sub[[3]])
+  sb_test(x, s, d),
+  f_expect.arbitrary(x, s[[1]], s[[2]], s[[3]])
 ) |> errorfun()
 
-sub <- list(c("a", "b"), logical(0), c(rep(TRUE, 5), rep(FALSE, 5)))
-dims <- c(1,2,4)
+s <- list(c("a", "b"), logical(0), c(rep(TRUE, 5), rep(FALSE, 5)))
+d <- c(1,2,4)
 expect_equal(
-  sb_test(x, sub, dims),
-  f_expect.arbitrary(x, sub[[1]], sub[[2]], sub[[3]])
+  sb_test(x, s, d),
+  f_expect.arbitrary(x, s[[1]], s[[2]], s[[3]])
 ) |> errorfun()
 
-sub <- list(c("a", "b"), 1:4, rep(FALSE, 10))
-dims <- c(1,2,4)
+s <- list(c("a", "b"), 1:4, rep(FALSE, 10))
+d <- c(1,2,4)
 expect_equal(
-  sb_test(x, sub, dims),
-  f_expect.arbitrary(x, sub[[1]], sub[[2]], sub[[3]])
+  sb_test(x, s, d),
+  f_expect.arbitrary(x, s[[1]], s[[2]], s[[3]])
 ) |> errorfun()
 enumerate <- enumerate + 3
 
 
 if(isTRUE(test_allow_duplicates)) {
-  sub <- list(c("a", "a"), c(1, 1:3), c(rep(TRUE, 5), rep(FALSE, 5)))
-  dims <- c(1,2,4)
+  s <- list(c("a", "a"), c(1, 1:3), c(rep(TRUE, 5), rep(FALSE, 5)))
+  d <- c(1,2,4)
   expect_equal(
-    sb_test(x, sub, dims),
-    f_expect.arbitrary(x, sub[[1]], sub[[2]], sub[[3]])
+    sb_test(x, s, d),
+    f_expect.arbitrary(x, s[[1]], s[[2]], s[[3]])
   ) |> errorfun()
   
-  sub <- list(c("a", "a"), logical(0), c(rep(TRUE, 5), rep(FALSE, 5)))
-  dims <- c(1,2,4)
+  s <- list(c("a", "a"), logical(0), c(rep(TRUE, 5), rep(FALSE, 5)))
+  d <- c(1,2,4)
   expect_equal(
-    sb_test(x, sub, dims),
-    f_expect.arbitrary(x, sub[[1]], sub[[2]], sub[[3]])
+    sb_test(x, s, d),
+    f_expect.arbitrary(x, s[[1]], s[[2]], s[[3]])
   ) |> errorfun()
   
-  sub <- list(c("a", "a"), c(1, 1:4), rep(FALSE, 10))
-  dims <- c(1,2,4)
+  s <- list(c("a", "a"), c(1, 1:4), rep(FALSE, 10))
+  d <- c(1,2,4)
   expect_equal(
-    sb_test(x, sub, dims),
-    f_expect.arbitrary(x, sub[[1]], sub[[2]], sub[[3]])
+    sb_test(x, s, d),
+    f_expect.arbitrary(x, s[[1]], s[[2]], s[[3]])
   ) |> errorfun()
 }
 enumerate <- enumerate + 3
 
 
 
-# length(dims) === 0 ====
+# length(d) === 0 ====
 
 x <- array(as.double(seq_len(10^4)), dim = c(4, 4, 4, 4))
 rownames(x) <- c(letters[1:2], "a", NA)
 
-sub <- list(c("a", "b"), 1:3, c(rep(TRUE, 2), rep(FALSE, 2)))
-dims <- integer(0L)
+s <- list(c("a", "b"), 1:3, c(rep(TRUE, 2), rep(FALSE, 2)))
+d <- integer(0L)
 expect_equal(
-  sb_test(x, sub, dims),
+  sb_test(x, s, d),
   sb_test(x, list(), integer(0L))
 ) |> errorfun()
 
@@ -203,7 +203,7 @@ expect_equal(
 enumerate <- enumerate + 1L
 
 
-# early capture sub,dims equivalence checks ====
+# early capture s,d equivalence checks ====
 
 # 1d
 x <- array(1:20, 120)
@@ -242,16 +242,16 @@ expect_equal(
 # errors
 expect_error(
   sb_test(x, 1:3, "a"),
-  pattern = "`dims` must be a integer vector"
+  pattern = "`d` must be a integer vector"
 )
 expect_error(
   sb_test(x, n(1:3, 1:3, 1:3), 1:2),
-  pattern = "if `sub` is a list, `length(sub)` must equal `length(dims)`",
+  pattern = "if `s` is a list, `length(s)` must equal `length(d)`",
   fixed = TRUE
 )
 expect_error(
   sb_test(x, 1:3, 1:10),
-  pattern = "`dims` out of range"
+  pattern = "`d` out of range"
 )
 
 enumerate <- enumerate + 7L

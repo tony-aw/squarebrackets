@@ -71,7 +71,7 @@ Use <code>sb2_x(x, ...)</code> if <code>x</code> is a recursive object (i.e. lis
 <span><span class="fu">sb_x</span><span class="op">(</span><span class="va">x</span>, i <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for array</span></span>
-<span><span class="fu">sb_x</span><span class="op">(</span><span class="va">x</span>, sub <span class="op">=</span> <span class="cn">NULL</span>, dims <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="ndims.html">ndims</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, i <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">sb_x</span><span class="op">(</span><span class="va">x</span>, s <span class="op">=</span> <span class="cn">NULL</span>, d <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="ndims.html">ndims</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, i <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">sb2_x</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
@@ -79,7 +79,7 @@ Use <code>sb2_x(x, ...)</code> if <code>x</code> is a recursive object (i.e. lis
 <span><span class="fu">sb2_x</span><span class="op">(</span><span class="va">x</span>, i <span class="op">=</span> <span class="cn">NULL</span>, red <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for array</span></span>
-<span><span class="fu">sb2_x</span><span class="op">(</span><span class="va">x</span>, sub <span class="op">=</span> <span class="cn">NULL</span>, dims <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="ndims.html">ndims</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, i <span class="op">=</span> <span class="cn">NULL</span>, red <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">sb2_x</span><span class="op">(</span><span class="va">x</span>, s <span class="op">=</span> <span class="cn">NULL</span>, d <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="ndims.html">ndims</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, i <span class="op">=</span> <span class="cn">NULL</span>, red <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for data.frame</span></span>
 <span><span class="fu">sb2_x</span><span class="op">(</span><span class="va">x</span>, row <span class="op">=</span> <span class="cn">NULL</span>, col <span class="op">=</span> <span class="cn">NULL</span>, filter <span class="op">=</span> <span class="cn">NULL</span>, vars <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
@@ -95,7 +95,7 @@ Use <code>sb2_x(x, ...)</code> if <code>x</code> is a recursive object (i.e. lis
 <dd><p>see <a href="aaa06_squarebrackets_method_dispatch.html">squarebrackets_method_dispatch</a>.</p></dd>
 
 
-<dt>i, row, col, sub, dims, filter, vars</dt>
+<dt>i, row, col, s, d, filter, vars</dt>
 <dd><p>See <a href="aaa03_squarebrackets_indx_args.html">squarebrackets_indx_args</a>. <br>
 Duplicates are allowed, resulting in duplicated indices. <br>
 An empty index selection results in an empty object of length 0. <br></p></dd>

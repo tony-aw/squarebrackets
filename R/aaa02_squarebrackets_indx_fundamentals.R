@@ -103,7 +103,7 @@
 #' the subscript `[1:10, 2:5, 3:9]`,
 #' refers to rows 1 to 10, columns 2 to 5, and layers 3 to 9. \cr
 #' The S3 methods in 'squarebrackets' implement subscripts through
-#' the \link[=squarebrackets_indx_args]{sub, dims} argument pair. \cr
+#' the \link[=squarebrackets_indx_args]{s, d} argument pair. \cr
 #' This argument pair allows specifying indices of an array,
 #' without requiring a-priori knowledge on the number of dimensions the array has. \cr
 #' \cr

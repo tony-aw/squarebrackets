@@ -29,39 +29,39 @@ for(iSample in 1:10) {
     x.data <- generate_data(x.len)
     for(iType in seq_along(x.data)) {
       x <- array(x.data[[iType]], x.dim)
-      sub <- lapply(x.dim, \(x) sample(1:x, max(c(1, x)), FALSE))
-      dims <- 1:length(x.dim)
+      s <- lapply(x.dim, \(x) sample(1:x, max(c(1, x)), FALSE))
+      d <- 1:length(x.dim)
       
-      ind <- idx(x, sub = sub, dims = dims)
+      ind <- idx(x, s = s, d = d)
       
-      expected[[i]] <- temp.fun(x, sub) |> as.vector()
+      expected[[i]] <- temp.fun(x, s) |> as.vector()
       out[[i]] <- x[ind]
       
-      enumerate <- enumerate + 1
       i <- i + 1
     }
   }
 }
 
 expect_equal(expected, out)
-
+enumerate <- enumerate + i
 
 
 # 1D array ====
-dims <- rep(10, 1)
-len <- prod(dims)
+d <- rep(10, 1)
+len <- prod(d)
+expected <- out <- list()
+i <- 1
 
 for(i in 1:10) {
-  x <- array(sample(seq_len(len*10), len, FALSE), dims)
+  x <- array(sample(seq_len(len*10), len, FALSE), d)
   ind1 <- sample(1:10, 4, FALSE)
-  subs <- list(ind1)
-  ind <- sub2ind(subs, dims)
+  s <- list(ind1)
   
-  expect_equal(
-    as.vector(x[ind]), as.vector(x[ind1])
-  ) |> errorfun()
+  expected[[i]] <- as.vector(x[ind1])
+  out[[i]] <- as.vector(x[idx(x, s)])
 }
-enumerate <- enumerate + 1
+expect_equal(expected, out)
+enumerate <- enumerate + 10L
 
 
 # error checks ====

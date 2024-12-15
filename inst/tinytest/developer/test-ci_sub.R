@@ -16,7 +16,7 @@ expect_equal(
 )
 expect_error(
   ci_sub(x, n(1:3, 1:4, 1:5, 1:6), 1:4, FALSE, FALSE, .abortcall = sys.call()),
-  pattern = "`dims` out of range",
+  pattern = "`d` out of range",
   fixed = TRUE
 )
 
@@ -30,7 +30,7 @@ expect_equal(
 )
 expect_error(
   ci_sub(x, n(1:3, 1:4, 1:5, 1:6), 1:4, FALSE, inv = TRUE, .abortcall = sys.call()),
-  pattern = "`dims` out of range",
+  pattern = "`d` out of range",
   fixed = TRUE
 )
 
@@ -60,16 +60,16 @@ enumerate <- enumerate + 3L
 
 expect_error(
   ci_sub(x, 1:3, "a"),
-  pattern = "`dims` must be a integer vector"
+  pattern = "`d` must be a integer vector"
 )
 expect_error(
   ci_sub(x, n(1:3, 1:3, 1:3), 1:2),
-  pattern = "if `sub` is a list, `length(sub)` must equal `length(dims)`",
+  pattern = "if `s` is a list, `length(s)` must equal `length(d)`",
   fixed = TRUE
 )
 expect_error(
   ci_sub(x, 1:3, 1:10),
-  pattern = "`dims` out of range"
+  pattern = "`d` out of range"
 )
 
 enumerate <- enumerate + 3L

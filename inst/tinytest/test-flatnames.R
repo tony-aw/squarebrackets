@@ -21,8 +21,8 @@ expect_equal(
 
 
 # atomic 3d array ====
-dims <- c(4,4,4)
-x <- array(1:prod(dims), dim =dims)
+x.dim <- c(4,4,4)
+x <- array(1:prod(x.dim), dim = x.dim)
 nms <- c("a", "b", 'c', "d")
 dimnames(x) <- list(nms, nms, nms)
 x.names <- array(sample(letters, length(x), TRUE), c(4,4,4))
@@ -41,8 +41,8 @@ expect_equal(
 
 
 # atomic 7d array ====
-dims <- rep(4, 7)
-x <- array(1:prod(dims), dim =dims)
+x.dim <- rep(4, 7)
+x <- array(1:prod(x.dim), dim = x.dim)
 nms <- c("a", "b", 'c', "d")
 dimnames(x) <- rep(list(nms), 7)
 x.names <- array(sample(letters, length(x), TRUE), rep(4, 7))
@@ -102,3 +102,4 @@ expect_equal(
 )
 
 enumerate <- 8
+

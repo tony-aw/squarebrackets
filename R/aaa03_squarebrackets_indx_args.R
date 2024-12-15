@@ -5,7 +5,7 @@
 #' in the generic methods of 'squarebrackets' to specify the indices to perform operations on:
 #' 
 #'  * `i`: to specify flat (i.e. dimensionless) indices.
-#'  * `sub, dims`: to specify indices of arbitrary dimensions in arrays
+#'  * `s, d`: to specify indices of arbitrary dimensions in arrays
 #'  (including matrices, which inherit from arrays).
 #'  *  `margin, slice`: to specify indices of one particular dimension (for arrays and data.frame-like objects).
 #'  * `row, col`: to specify rows and/or columns in specifically in data.frame-like objects.
@@ -66,33 +66,33 @@
 #' ```
 #' 
 #' 
-#' @section Argument Pair sub, dims:
+#' @section Argument Pair s, d:
 #' `r .mybadge_class("atomic matrix")` \cr
 #' `r .mybadge_class("recursive matrix")` \cr
 #' `r .mybadge_class("atomic array")` \cr
 #' `r .mybadge_class("recursive array")` \cr
-#' The `sub, dims` argument pair is inspired by the
+#' The `s, d` argument pair is inspired by the
 #' \code{abind::}\link[abind]{asub} function from the 'abind' package
 #' (see reference below). \cr
 #' \cr
-#' The `sub` argument specifies the
+#' The `s` argument specifies the
 #' \link[=squarebrackets_indx_fundamentals]{subscripts}. \cr
-#' The `dims` argument gives the dimensions for which the 
-#' \link[=squarebrackets_indx_fundamentals]{subscripts} `sub` holds
-#' (i.e. `dims` specifies the "non-missing" margins). \cr
+#' The `d` argument gives the dimensions for which the 
+#' \link[=squarebrackets_indx_fundamentals]{subscripts} `s` holds
+#' (i.e. `d` specifies the "non-missing" margins). \cr
 #' \cr
-#' The `dims` argument must be an integer vector. \cr
+#' The `d` argument must be an integer vector. \cr
 #' \cr
-#' `sub` must be either of the following:
+#' `s` must be either of the following:
 #' 
-#'  * a list of length `length(dims)`.
+#'  * a list of length `length(d)`.
 #'  * a list of length 1; \cr
-#'  in this case `sub` will be recycled to `length(dims)`.
+#'  in this case `s` will be recycled to `length(d)`.
 #'  * an atomic vector; \cr
-#'  this is functionally equivalent to specifying `sub` as a list of length 1. \cr \cr
+#'  this is functionally equivalent to specifying `s` as a list of length 1. \cr \cr
 #' 
-#' Each element of `sub` when `sub` is a list,
-#' or `sub` itself when `sub` is an atomic vector,
+#' Each element of `s` when `s` is a list,
+#' or `s` itself when `s` is an atomic vector,
 #' can be any of the following:
 #' 
 #'  * a vector of length 0,
@@ -107,13 +107,13 @@
 #'  ALL the corresponding indices will be selected for the operation. \cr \cr
 #'  
 #' Note also the following:
-#'  * As stated, `dims` specifies which index margins are non-missing. \cr
-#'  If `dims` is of length `0`,
+#'  * As stated, `d` specifies which index margins are non-missing. \cr
+#'  If `d` is of length `0`,
 #'  it is taken as "all index margins are missing".
-#'  * The default value for `dims` is \code{1:}\link{ndims}\code{(x)}. \cr \cr
+#'  * The default value for `d` is \code{1:}\link{ndims}\code{(x)}. \cr \cr
 #'  
 #' To keep the syntax short,
-#' the user can use the \link{n} function instead of `list()` to specify `sub`. \cr
+#' the user can use the \link{n} function instead of `list()` to specify `s`. \cr
 #' \cr
 #' Here are some examples for clarity,
 #' using an atomic array `x` of 3 dimensions:
@@ -151,13 +151,13 @@
 #' 
 #' ```
 #' 
-#' Note that specifying a list of length 1 for `sub`
-#' (like `sub = n(1:10)`)
-#' is equivalent to specifying an atomic vector for `sub`
-#' (like `sub = 1:10`). \cr
+#' Note that specifying a list of length 1 for `s`
+#' (like `s = n(1:10)`)
+#' is equivalent to specifying an atomic vector for `s`
+#' (like `s = 1:10`). \cr
 #' \cr
 #' For a brief explanation of the relationship between flat indices (`i`)
-#' and subscripts (`sub`, `dims`) in arrays,
+#' and subscripts (`s`, `d`) in arrays,
 #' see \link{sub2ind}. \cr \cr
 #' 
 #' 
@@ -316,20 +316,20 @@
 #' it's either one or the other. \cr
 #' One cannot specify `col` and `vars` simultaneously;
 #' it's either one or the other. \cr
-#' One cannot specify the `sub, dims` pair and `slice, margin` pair simultaneously;
+#' One cannot specify the `s, d` pair and `slice, margin` pair simultaneously;
 #' it's either one pair or the other pair. \cr
 #' In the above cases it holds that if one set is specified, the other is set is ignored. \cr
 #' \cr
 #' 
 #' @section Drop:
 #' Sub-setting with the generic methods from the 'squarebrackets' R-package using dimensional arguments
-#' (`sub, dims, row, col filter, vars`)
+#' (`s, d, row, col filter, vars`)
 #' always use `drop = FALSE`. \cr
 #' To drop potentially redundant (i.e. single level) dimensions,
 #' use the \link[base]{drop} function, like so:
 #' 
 #' ```{r eval = FALSE, echo = TRUE}
-#'  sb_x(x, sub, dims) |> drop() # ==> x[..., drop = TRUE]
+#'  sb_x(x, s, d) |> drop() # ==> x[..., drop = TRUE]
 #'  
 #' ```
 #' 

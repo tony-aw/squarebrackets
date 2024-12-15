@@ -87,8 +87,8 @@ Use <code>sb2_set(x, ...)</code> if <code>x</code> is a recursive object (i.e. d
 <span><span class="co"># S3 method for array</span></span>
 <span><span class="fu">sb_set</span><span class="op">(</span></span>
 <span>  <span class="va">x</span>,</span>
-<span>  sub <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  dims <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="ndims.html">ndims</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span>
+<span>  s <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  d <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="ndims.html">ndims</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span>
 <span>  i <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  inv <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  <span class="va">...</span>,</span>
@@ -129,7 +129,7 @@ Use <code>sb2_set(x, ...)</code> if <code>x</code> is a recursive object (i.e. d
 <dd><p>see <a href="aaa06_squarebrackets_method_dispatch.html">squarebrackets_method_dispatch</a>.</p></dd>
 
 
-<dt>i, row, col, sub, dims, filter, vars, inv</dt>
+<dt>i, row, col, s, d, filter, vars, inv</dt>
 <dd><p>See <a href="aaa03_squarebrackets_indx_args.html">squarebrackets_indx_args</a>. <br>
 An empty index selection leaves the original object unchanged. <br></p></dd>
 

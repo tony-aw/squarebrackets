@@ -95,17 +95,17 @@ for(i in 1:length(xlist)) {
 # dimensions ==== 
 x <- as.mutable_atomic(array(1:27, c(3,3,3)))
 expect_error(
-  sb_test(x, sub = list(1:10, 2:5), dims = c(1:3)),
-  pattern = "if `sub` is a list, `length(sub)` must equal `length(dims)`",
+  sb_test(x, s = list(1:10, 2:5), d = c(1:3)),
+  pattern = "if `s` is a list, `length(s)` must equal `length(d)`",
   fixed = TRUE
 )
 expect_error(
-  sb_test(x, sub = list(1:3, 1:3), dims = c(1,6)),
-  pattern = "`dims` out of range",
+  sb_test(x, s = list(1:3, 1:3), d = c(1,6)),
+  pattern = "`d` out of range",
   fixed = TRUE
 )
 expect_error(
-  sb_test(x, sub = list(-1:-5), dim = 1),
+  sb_test(x, s = list(-1:-5), d = 1),
   pattern = "integers must be >= 1 and <= bounds",
   fixed = TRUE
 )|> errorfun()
@@ -114,7 +114,7 @@ enumerate <- enumerate + 1
 
 
 expect_error(
-  sb_test(x, sub = list(0), dim = 1),
+  sb_test(x, s = list(0), d = 1),
   pattern = "integers must be >= 1 and <= bounds",
   fixed = TRUE
 )|> errorfun()
@@ -122,7 +122,7 @@ enumerate <- enumerate + 1
 
 
 expect_error(
-  sb_test(x, list(1000), dim = 1),
+  sb_test(x, list(1000), d = 1),
   pattern = "integers must be >= 1 and <= bounds",
   fixed = TRUE
 )|> errorfun()
@@ -131,7 +131,7 @@ enumerate <- enumerate + 1
 
 
 expect_error(
-  sb_test(x, list(sample(c(TRUE, FALSE), size = nrow(x) - 1, replace = TRUE)), dim = 1),
+  sb_test(x, list(sample(c(TRUE, FALSE), size = nrow(x) - 1, replace = TRUE)), d = 1),
   pattern = "incorrect length of logical indices",
   fixed = TRUE
 )|> errorfun()
@@ -140,7 +140,7 @@ enumerate <- enumerate + 1
 
 
 expect_error(
-  sb_test(x,list(sample(c(TRUE, FALSE), size = nrow(x) + 1, replace = TRUE)), dim = 1),
+  sb_test(x,list(sample(c(TRUE, FALSE), size = nrow(x) + 1, replace = TRUE)), d = 1),
   pattern = "incorrect length of logical indices",
   fixed = TRUE
 )|> errorfun()
@@ -148,7 +148,7 @@ enumerate <- enumerate + 1
 
 
 expect_error(
-  sb_test(x, list("a"), dim = 1),
+  sb_test(x, list("a"), d = 1),
   pattern = "no names present",
   fixed = TRUE
 )|> errorfun()
@@ -193,11 +193,11 @@ if(!test_allow_duplicates) {
   x <- as.mutable_atomic(array(1:27, c(3,3,3)))
   rownames(x) <- c("a", "a", "b")
   expect_error(
-    sb_test(x, list(c(1,1,1)), dim = 1, chkdup = TRUE),
+    sb_test(x, list(c(1,1,1)), d = 1, chkdup = TRUE),
     pattern = "duplicate integers or names not allowed"
   )
   expect_error(
-    sb_test(x, list(c("a", "a")), dim = 1, chkdup = TRUE),
+    sb_test(x, list(c("a", "a")), d = 1, chkdup = TRUE),
     pattern = "duplicate integers or names not allowed"
   )
   

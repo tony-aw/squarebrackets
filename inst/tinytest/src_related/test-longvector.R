@@ -65,7 +65,7 @@ enumerate <- enumerate + 4
 
 
 
-# C_sub2ind_dims ====
+# C_sub2ind_d ====
 for(i in 2:7) {
   m <- (2^31 + 10)^(1/i) |> ceiling()
   sub <- rep(list(m), i) |> lapply(as.integer)
@@ -112,19 +112,19 @@ for(i in 2:8) {
 
 # C_convert_cplx ====
 expect_equal(
-  squarebrackets:::.C_convert_cplx(Im(2^32 * -1i), 2^32),
+  squarebrackets:::.C_convert_cplx(2^32 * -1i, 2^32),
   1
 )
 expect_equal(
-  squarebrackets:::.C_convert_cplx(Im(1i), 2^32),
+  squarebrackets:::.C_convert_cplx(1i, 2^32),
   1
 )
 expect_equal(
-  squarebrackets:::.C_convert_cplx(Im(2^32 * 1i), 2^32),
+  squarebrackets:::.C_convert_cplx(2^32 * 1i, 2^32),
   2^32
 )
 expect_equal(
-  squarebrackets:::.C_convert_cplx(Im(-1i), 2^32),
+  squarebrackets:::.C_convert_cplx(-1i, 2^32),
   2^32
 )
 enumerate <- enumerate + 4

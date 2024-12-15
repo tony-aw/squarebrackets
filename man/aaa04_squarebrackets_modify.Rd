@@ -17,7 +17,7 @@ can be used inside the regular square-brackets operators. \cr
 For example like so:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{x <- array(...)
-my_indices <- idx(x, sub, dims)
+my_indices <- idx(x, s, d)
 x[my_indices] <- value
 
 y <- data.frame(...)

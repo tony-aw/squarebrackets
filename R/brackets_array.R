@@ -2,10 +2,10 @@
 
 #' @keywords internal
 #' @noRd
-.arr_length <- function(x, lst, dims) {
+.arr_length <- function(x, lst, d) {
   x.dim <- dim(x)
-  spec.dimsize <- collapse::vlengths(lst[dims])
-  unspec.dimsize <- x.dim[-dims]
+  spec.dimsize <- collapse::vlengths(lst[d])
+  unspec.dimsize <- x.dim[-d]
   return(prod(spec.dimsize, unspec.dimsize))
 }
 
@@ -50,7 +50,7 @@
 .arr_repl <- function(x, lst, rp, abortcall) {
   
   temp.fun <- function(...) {
-    .check_rp_atomic(rp, prod(collapse::vlengths(lst)), abortcall) # used to be.arr_length(x, lst, dims)
+    .check_rp_atomic(rp, prod(collapse::vlengths(lst)), abortcall) # used to be.arr_length(x, lst, d)
     x[...] <- rp
     return(x)
   }
@@ -63,7 +63,7 @@
 .arr_repl_list <- function(x, lst, rp, abortcall) {
   
   temp.fun <- function(...) {
-    .check_rp_list(rp, prod(collapse::vlengths(lst)), abortcall) # used to be.arr_length(x, lst, dims)
+    .check_rp_list(rp, prod(collapse::vlengths(lst)), abortcall) # used to be.arr_length(x, lst, d)
     x[...] <- rp
     return(x)
   }
@@ -74,15 +74,15 @@
 
 #' @keywords internal
 #' @noRd
-.arr_set <- function(x, sub, dims, chkdup, inv, rp, tf, abortcall) {
+.arr_set <- function(x, s, d, chkdup, inv, rp, tf, abortcall) {
   
   # Prep:
   x.dim <- dim(x)
   ndims <- length(x.dim)
-  .ci_array_check(x, sub, dims, ndims, .abortcall = abortcall)
+  .ci_array_check(x, s, d, ndims, .abortcall = abortcall)
   
   lst <- ci_sub(
-    x, sub, dims, inv, chkdup, .abortcall = abortcall
+    x, s, d, inv, chkdup, .abortcall = abortcall
   ) # Note: ci_sub will already ensure the subs are integers.
   
   if(!missing(tf)) {

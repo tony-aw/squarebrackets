@@ -7,7 +7,8 @@
 setapply(x, MARGIN, FUN)
 }
 \arguments{
-\item{x}{a \link{mutable_atomic} matrix. Arrays are not supported.}
+\item{x}{a \link{mutable_atomic} 2-dimensional array (i.e. a matrix). \cr
+Arrays of other than 2 dimensions are not supported.}
 
 \item{MARGIN}{a single integer scalar, giving the subscript to apply the function over. \cr
 \code{1} indicates rows, \code{2} indicates columns. \cr}
@@ -27,13 +28,6 @@ The \code{setapply()} function
 applies a functions over the rows or columns of a
 \link{mutable_atomic} matrix,
 through \link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr
-\cr
-For every iteration, a copy of only a single row or column
-(depending on the margin)
-is made,
-the function is applied on the copy,
-and the original row/column is replaced by the modified copy through
-\link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr
 \cr
 The \code{setapply()} is a bit faster and uses less memory than \link[base]{apply}. \cr \cr
 }

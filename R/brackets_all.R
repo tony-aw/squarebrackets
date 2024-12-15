@@ -42,3 +42,23 @@
   return(invisible(NULL))
 }
 
+
+
+#' @keywords internal
+#' @noRd
+.rcpp_set_all <- function(x, rp, tf, abortcall) {
+  
+  if(!missing(tf)) {
+    if(!is.function(tf)) {
+      stop(simpleError("`tf` must be a function", call = abortcall))
+    }
+    rp <- tf(x)
+  }
+  
+  rp <- .internal_coerce_rp(x, rp, abortcall)
+  
+  .rcpp_set_all_atomic(x, rp)
+  return(invisible(NULL))
+  
+}
+

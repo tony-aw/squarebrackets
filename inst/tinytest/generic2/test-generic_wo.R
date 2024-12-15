@@ -133,10 +133,10 @@ sys.source(file.path(getwd(), "source", "sourcetest-dims.R"), envir = environmen
 x <- array(as.list(seq_len(10^4)), dim = c(10, 10, 10, 10))
 rownames(x) <- c(letters[1:8], "a", NA)
 
-sub <- list(letters, 1:9, 1:9, 2:10)
-dims <- 1:4
+s <- list(letters, 1:9, 1:9, 2:10)
+d <- 1:4
 expect_equal(
-  sb2_wo(x, sub, dims, red = TRUE),
+  sb2_wo(x, s, d, red = TRUE),
   x[[10, 10, 10, 1]]
 )
 

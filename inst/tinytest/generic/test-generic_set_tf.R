@@ -120,9 +120,9 @@ f_out.matrix <- function(x, row, col) {
   return(sb_set2(x, row = row, col = col, tf = mean))
 }
 
-f_out.2d <- function(x, sub, dims) {
+f_out.2d <- function(x, s, d) {
   
-  return(sb_set2.array(x, sub, dims, tf = mean))
+  return(sb_set2.array(x, s, d, tf = mean))
 }
 
 
@@ -145,9 +145,9 @@ f_expect.1d <- function(x, i) {
   return(x)
 }
 
-f_out.1d <- function(x, sub, dims) {
+f_out.1d <- function(x, s, d) {
   
-  return(sb_set2(x, sub, dims, tf = mean))
+  return(sb_set2(x, s, d, tf = mean))
 }
 
 

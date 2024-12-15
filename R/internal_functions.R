@@ -63,12 +63,12 @@
 
 #' @keywords internal
 #' @noRd
-.check_args_array <- function(x, sub, dims, abortcall) {
+.check_args_array <- function(x, s, d, abortcall) {
   
-  dims_explicit <- length(dims) != ndims(x) && length(dims) != 0L
+  dims_explicit <- length(d) != ndims(x) && length(d) != 0L
   
-  if(dims_explicit && is.null(sub)) {
-    stop(simpleError("improper combination of `sub` and `dims` specified"))
+  if(dims_explicit && is.null(s)) {
+    stop(simpleError("improper combination of `s` and `d` specified"))
   }
   
 }

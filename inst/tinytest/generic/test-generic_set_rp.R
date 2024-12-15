@@ -120,11 +120,11 @@ f_out.matrix <- function(x, row, col) {
   return(sb_set2(x, row = row, col = col, rp = rp))
 }
 
-f_out.2d <- function(x, sub, dims) {
+f_out.2d <- function(x, s, d) {
   
   rp <- parent.frame()$rp
   
-  return(sb_set2.array(x, sub, dims, rp = rp))
+  return(sb_set2.array(x, s, d, rp = rp))
 }
 
 
@@ -147,11 +147,11 @@ f_expect.1d <- function(x, i) {
   return(x)
 }
 
-f_out.1d <- function(x, sub, dims) {
+f_out.1d <- function(x, s, d) {
   
   rp <- parent.frame()$rp
   
-  return(sb_set2(x, sub, dims, rp = rp))
+  return(sb_set2(x, s, d, rp = rp))
 }
 
 
@@ -192,47 +192,47 @@ make_rp <- function(len) {
 x <- mutable_atomic(seq_len(10^4), dim = c(10, 10, 10, 10))
 rownames(x) <- c(letters[1:8], "a", NA)
 
-sub <- list(c("b", "a"), c(1:3), c(rep(TRUE, 5), rep(FALSE, 5)))
-dims <- c(1,2,4)
-len <- length(sb_x(x, sub, dims))
+s <- list(c("b", "a"), c(1:3), c(rep(TRUE, 5), rep(FALSE, 5)))
+d <- c(1,2,4)
+len <- length(sb_x(x, s, d))
 rp <- make_rp(len)
 expect_equal(
-  sb_set2(x, sub, dims, rp = rp),
-  subset_arr(x, sub[[1]], sub[[2]], sub[[3]], rp)
+  sb_set2(x, s, d, rp = rp),
+  subset_arr(x, s[[1]], s[[2]], s[[3]], rp)
 )
 rp <- NA
 expect_equal(
-  sb_set2(x, sub, dims, rp = rp),
-  subset_arr(x, sub[[1]], sub[[2]], sub[[3]], rp)
+  sb_set2(x, s, d, rp = rp),
+  subset_arr(x, s[[1]], s[[2]], s[[3]], rp)
 )
 
 
-sub <- list(c("b", "a"), logical(0), c(rep(TRUE, 5), rep(FALSE, 5)))
-dims <- c(1,2,4)
-len <- length(sb_x(x, sub, dims))
+s <- list(c("b", "a"), logical(0), c(rep(TRUE, 5), rep(FALSE, 5)))
+d <- c(1,2,4)
+len <- length(sb_x(x, s, d))
 rp <- make_rp(len)
 expect_equal(
-  sb_set2(x, sub, dims, rp = rp),
-  subset_arr(x, sub[[1]], sub[[2]], sub[[3]], rp)
+  sb_set2(x, s, d, rp = rp),
+  subset_arr(x, s[[1]], s[[2]], s[[3]], rp)
 )
 rp <- NA
 expect_equal(
-  sb_set2(x, sub, dims, rp = rp),
-  subset_arr(x, sub[[1]], sub[[2]], sub[[3]], rp)
+  sb_set2(x, s, d, rp = rp),
+  subset_arr(x, s[[1]], s[[2]], s[[3]], rp)
 )
 
-sub <- list(c("b", "a"), c(1:4), rep(FALSE, 10))
-dims <- c(1,2,4)
-len <- length(sb_x(x, sub, dims))
+s <- list(c("b", "a"), c(1:4), rep(FALSE, 10))
+d <- c(1,2,4)
+len <- length(sb_x(x, s, d))
 rp <- make_rp(len)
 expect_equal(
-  sb_set2(x, sub, dims, rp = rp),
-  subset_arr(x, sub[[1]], sub[[2]], sub[[3]], rp)
+  sb_set2(x, s, d, rp = rp),
+  subset_arr(x, s[[1]], s[[2]], s[[3]], rp)
 )
 rp <- NA
 expect_equal(
-  sb_set2(x, sub, dims, rp = rp),
-  subset_arr(x, sub[[1]], sub[[2]], sub[[3]], rp)
+  sb_set2(x, s, d, rp = rp),
+  subset_arr(x, s[[1]], s[[2]], s[[3]], rp)
 )
 enumerate <- enumerate + 6
 

@@ -11,7 +11,7 @@
 #'
 #' @param x a \bold{variable} belonging to one of the
 #' \link[=squarebrackets_supported_structures]{supported mutable classes}. \cr
-#' @param i,row,col,sub,dims,filter,vars,inv See \link{squarebrackets_indx_args}. \cr
+#' @param i,row,col,s,d,filter,vars,inv See \link{squarebrackets_indx_args}. \cr
 #' An empty index selection leaves the original object unchanged. \cr
 #' @param ... see \link{squarebrackets_method_dispatch}.
 #' @param rp,tf,.lapply see \link{squarebrackets_modify}.
@@ -80,7 +80,7 @@ sb_set.default <- function(
 #' @rdname sb_set
 #' @export
 sb_set.array <- function(
-    x, sub = NULL, dims = 1:ndims(x), i = NULL, inv = FALSE, ...,  rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
+    x, s = NULL, d = 1:ndims(x), i = NULL, inv = FALSE, ...,  rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
   # error checks:
@@ -90,11 +90,11 @@ sb_set.array <- function(
   }
   .internal_check_rptf(rp, tf, sys.call())
   .check_bindingIsLocked(substitute(x), parent.frame(n = 1), abortcall = sys.call())
-  .check_args_array(x, sub, dims, sys.call())
+  .check_args_array(x, s, d, sys.call())
 
     
   # empty arguments:
-  if(.all_NULL_indices(list(sub, i))) {
+  if(.all_NULL_indices(list(s, i))) {
     .all_set_atomic(x, rp, tf, abortcall = sys.call())
     return(invisible(NULL))
   }
@@ -106,28 +106,28 @@ sb_set.array <- function(
   }
   
   # zero-length subscripts:
-  if(length(dims) == 0) {
+  if(length(d) == 0) {
     .all_set_atomic(x, rp, tf, abortcall = sys.call())
     return(invisible(NULL))
   }
   
   # 1d:
   if(ndims(x) == 1L) {
-    i <- .flat_sub2i(x, sub, dims, sys.call())
+    i <- .flat_s2i(x, s, d, sys.call())
     .flat_set_atomic(x, i, inv, rp, tf, chkdup, sys.call())
     return(invisible(NULL))
   }
   
   # matrix:
   if(is.matrix(x)) {
-    .mat_set(x, sub, dims, inv, chkdup, rp, tf, sys.call())
+    .mat_set(x, s, d, inv, chkdup, rp, tf, sys.call())
     return(invisible(NULL))
   }
   
   
-  # sub, dims arguments:
+  # s, d arguments:
   
-  .arr_set(x, sub, dims, chkdup, inv, rp, tf, abortcall = sys.call())
+  .arr_set(x, s, d, chkdup, inv, rp, tf, abortcall = sys.call())
   return(invisible(NULL))
 }
 

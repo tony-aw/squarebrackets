@@ -114,11 +114,11 @@ cp_seq <- function(x, m = 0L, from = NULL, to = NULL, by = 1L) {
 #' @noRd
 .cp_seq.convert_margin <- function(x, dimsizes, abortcall) {
   if(is.complex(x)) {
-    if(length(Im(x)) == 1L && Im(x) == 0) {
+    if(length(x) == 1L && Im(x) == 0) {
       x <- 0
     }
     else {
-      x <- .C_convert_cplx(Im(x), dimsizes)
+      x <- .C_convert_cplx(x, dimsizes)
       if(.any_badmargin(x, dimsizes)) {
         stop(simpleError("index out of bounds", call = abortcall))
       }
@@ -281,7 +281,7 @@ cp_seq <- function(x, m = 0L, from = NULL, to = NULL, by = 1L) {
   }
   
   if(is.complex(x)) {
-    x <- .C_convert_cplx(Im(x), dimsizes)
+    x <- .C_convert_cplx(x, dimsizes)
     if(any(x > dimsizes | x < 1L)) {
       stop(simpleError("index out of bounds", call = abortcall))
     }

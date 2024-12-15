@@ -5,7 +5,7 @@ library(stringi)
 
 
 ################################################################################
-# sub2ind dims ====
+# sub2ind d ====
 
 DTYPES <- 2:6
 all_args <- stri_c("const SEXP ind", 1:6)

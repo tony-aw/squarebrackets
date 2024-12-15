@@ -166,6 +166,7 @@ library(squarebrackets)
   method, and updated the documentation accordingly. Slightly
   re-organized the documentation.
 - 14 December 2024: Removed the `ma_setv()` function in favour of the
-  new `slicev_` set of methods. Changed the documentation accordingly.
+  new `slicev_` set of methods. Renamed the `sub,dims` argument pair to
+  `s,d`. Changed the documentation accordingly.
 
  

@@ -24,8 +24,8 @@ sb_mod(x, ...)
 
 \method{sb_mod}{array}(
   x,
-  sub = NULL,
-  dims = 1:ndims(x),
+  s = NULL,
+  d = 1:ndims(x),
   i = NULL,
   inv = FALSE,
   ...,
@@ -49,8 +49,8 @@ sb2_mod(x, ...)
 
 \method{sb2_mod}{array}(
   x,
-  sub = NULL,
-  dims = 1:ndims(x),
+  s = NULL,
+  d = 1:ndims(x),
   i = NULL,
   inv = FALSE,
   ...,
@@ -79,7 +79,7 @@ sb2_mod(x, ...)
 
 \item{...}{see \link{squarebrackets_method_dispatch}.}
 
-\item{i, row, col, sub, dims, filter, vars, inv}{See \link{squarebrackets_indx_args}. \cr
+\item{i, row, col, s, d, filter, vars, inv}{See \link{squarebrackets_indx_args}. \cr
 An empty index selection returns the original object unchanged. \cr}
 
 \item{rp, tf, .lapply}{see \link{squarebrackets_modify}.}

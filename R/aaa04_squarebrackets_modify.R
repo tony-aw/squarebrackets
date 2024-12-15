@@ -15,7 +15,7 @@
 #' 
 #' ```{r eval = FALSE, echo = TRUE}
 #' x <- array(...)
-#' my_indices <- idx(x, sub, dims)
+#' my_indices <- idx(x, s, d)
 #' x[my_indices] <- value
 #' 
 #' y <- data.frame(...)

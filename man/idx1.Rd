@@ -13,8 +13,8 @@ idx(x, ...)
 
 \method{idx}{array}(
   x,
-  sub = NULL,
-  dims = 1:ndims(x),
+  s = NULL,
+  d = 1:ndims(x),
   slice = NULL,
   margin = NULL,
   i = NULL,
@@ -37,14 +37,14 @@ idx(x, ...)
 
 \item{...}{see \link{squarebrackets_method_dispatch}.}
 
-\item{i, sub, dims, margin, slice, inv}{See \link{squarebrackets_indx_args}. \cr
+\item{i, s, d, margin, slice, inv}{See \link{squarebrackets_indx_args}. \cr
 Duplicates are not allowed.}
 
 \item{chkdup}{see \link{squarebrackets_options}. \cr
 \ifelse{html}{\figure{for_performance-set_to_FALSE-red.svg}{options: alt='[for performance: set to FALSE]'}}{\link[=squarebrackets_help]{for performance: set to FALSE}} \cr}
 }
 \value{
-For \code{idx(x, i = i, ...)} and \code{idx(x, sub = sub, dims = dims, ...)}: \cr
+For \code{idx(x, i = i, ...)} and \code{idx(x, s = s, d = dims, ...)}: \cr
 A strictly positive integer vector of flat indices. \cr
 \cr
 For \code{idx(x, margin = margin, slice = slice, ...)}: \cr
@@ -57,7 +57,7 @@ The type of output depends on the type of input index arguments given:
 \itemize{
 \item \code{idx(x, i = i, ...)}
 converts linear indices to a strictly positive integer vector of linear indices.
-\item \code{idx(x, sub = sub, dims = dims, ...)}
+\item \code{idx(x, s = s, d = dims, ...)}
 converts dimensional indices to a strictly positive integer vector of linear indices.
 \item \code{idx(x, slice = slice, margin = margin, ...)}
 converts indices of one dimension to a strictly positive integer vector of
@@ -66,7 +66,7 @@ indices for that specific dimension.
 
 Vectors (both atomic and recursive) only have index argument \code{i}. \cr
 Data.frame-like objects only have the \verb{slice, margin} index argument pair. \cr
-Arrays (both atomic and recursive) have the \verb{sub, dims} index argument pair,
+Arrays (both atomic and recursive) have the \verb{s, d} index argument pair,
 as well as the arguments \code{i} and \verb{slice, margin}. \cr
 \cr
 The result of the \code{idx()} method
@@ -74,7 +74,7 @@ can be used inside the regular square-brackets operators. \cr
 For example like so:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{x <- array(...)
-my_sub2ind <- idx(x, sub, dims)
+my_sub2ind <- idx(x, s, d)
 x[my_sub2ind] <- value
 
 y <- data.frame(...)

@@ -3,13 +3,13 @@
 
 sys.source(file.path(getwd(), "source", "functions4testing.R"), envir = environment())
 enumerate <- 0
-tempfun2 <- function(x, sub, dims, rp) {
+tempfun2 <- function(x, s, d, rp) {
   x <- data.table::copy(x)
-  sb_set.array(x, sub, dims, rp = rp)
+  sb_set.array(x, s, d, rp = rp)
   return(x)
 }
-tempfun1 <- function(x, sub, rp) {
-  ind <- idx.array(x, sub, dims)
+tempfun1 <- function(x, s, rp) {
+  ind <- idx.array(x, s, d)
   x[ind] <- rp
   return(x)
 }
@@ -45,15 +45,15 @@ for(iSample in 1:10) {
     x.data <- generate_data(x.len)
     for(iType in seq_along(x.data)) {
       x <- as.mutable_atomic(array(x.data[[iType]], x.dim))
-      sub <- lapply(x.dim, \(x) sample(1:x, max(c(1, x)), FALSE))
-      dims <- 1:length(x.dim)
+      s <- lapply(x.dim, \(x) sample(1:x, max(c(1, x)), FALSE))
+      d <- 1:length(x.dim)
       
-      expected[[i]] <- tempfun1(x, sub, rp.lst[[iType]])
-      out[[i]] <- tempfun2(x, sub, dims, rp.lst[[iType]])
+      expected[[i]] <- tempfun1(x, s, rp.lst[[iType]])
+      out[[i]] <- tempfun2(x, s, d, rp.lst[[iType]])
       
       x <- data.table::copy(x)
       x2 <- x
-      sb_set.array(x, sub, dims, rp = rp.lst[[iType]])
+      sb_set.array(x, s, d, rp = rp.lst[[iType]])
       expect_equal(x,x2) |> errorfun() # test indexing & pass-by-reference
       
       enumerate <- enumerate + 2

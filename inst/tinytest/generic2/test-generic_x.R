@@ -137,10 +137,10 @@ subset_arr <- function(x, i, j, l) {
 x <- array(as.list(seq_len(10^4)), dim = c(10, 10, 10, 10))
 rownames(x) <- c(letters[1:8], "a", NA)
 
-sub <- list("b", 1, 1, 2)
-dims <- 1:4
+s <- list("b", 1, 1, 2)
+d <- 1:4
 expect_equal(
-  sb2_x(x, sub, dims, red = TRUE),
+  sb2_x(x, s, d, red = TRUE),
   x[["b", 1, 1, 2]]
 )
 

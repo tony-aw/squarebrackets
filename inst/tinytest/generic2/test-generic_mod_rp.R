@@ -120,11 +120,11 @@ f_out.matrix <- function(x, row, col) {
   return(sb2_mod(x, row = row, col = col, rp = rp))
 }
 
-f_out.2d <- function(x, sub, dims) {
+f_out.2d <- function(x, s, d) {
   
   rp <- parent.frame()$rp
   
-  return(sb2_mod.array(x, sub, dims, rp = rp))
+  return(sb2_mod.array(x, s, d, rp = rp))
 }
 
 
@@ -146,11 +146,11 @@ f_expect.1d <- function(x, i) {
   return(x)
 }
 
-f_out.1d <- function(x, sub, dims) {
+f_out.1d <- function(x, s, d) {
   
   rp <- parent.frame()$rp
   
-  return(sb2_mod(x, sub, dims, rp = rp))
+  return(sb2_mod(x, s, d, rp = rp))
 }
 
 

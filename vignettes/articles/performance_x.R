@@ -44,7 +44,7 @@ sel.rows <- 1:900
 sel.lyrs <- c(TRUE, FALSE, TRUE, FALSE)
 bm.sb_x.3d <- bench::mark(
   "squarebrackets" =  sb_x(x.3d, n(sel.rows, sel.lyrs), c(1,3)),
-  "base R + abind" = abind::asub(x.3d, idx = list(sel.rows, sel.lyrs), dims = c(1,3)),
+  "base R + abind" = abind::asub(x.3d, idx = list(sel.rows, sel.lyrs), d = c(1,3)),
   min_iterations = 500
 )
 bm.sb_x.3d$result <- NULL

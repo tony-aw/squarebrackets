@@ -1,12 +1,12 @@
 
 #' @keywords internal
 #' @noRd
-.flat_sub2i <- function(x, sub, dims, abortcall) {
-  .ci_array_check(x, sub, dims, ndims(x), abortcall)
-  if(is.list(sub)) {
-    sub <- sub[[1L]]
+.flat_s2i <- function(x, s, d, abortcall) {
+  .ci_array_check(x, s, d, ndims(x), abortcall)
+  if(is.list(s)) {
+    s <- s[[1L]]
   }
-  return(sub)
+  return(s)
 }
 
 #' @keywords internal
@@ -100,3 +100,22 @@
   return(invisible(NULL))
   
 }
+
+
+
+#' @keywords internal
+#' @noRd
+.rcpp_set_vind <- function(x, ind, rp, abortcall) {
+  
+  rp <- .internal_coerce_rp(x, rp, abortcall)
+  
+  if(length(x) <= (2^31 -1)) {
+    .rcpp_set_vind_32_atomic(x, as.integer(ind - 1L), rp)
+    return(invisible(NULL))
+  }
+  else {
+    .rcpp_set_vind_64_atomic(x, as.double(ind - 1), rp)
+    return(invisible(NULL))
+  }
+}
+

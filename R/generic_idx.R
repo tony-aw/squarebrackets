@@ -6,7 +6,7 @@
 #' 
 #'  - `idx(x, i = i, ...)`
 #'  converts linear indices to a strictly positive integer vector of linear indices.
-#'  - `idx(x, sub = sub, dims = dims, ...)`
+#'  - `idx(x, s = s, d = dims, ...)`
 #'  converts dimensional indices to a strictly positive integer vector of linear indices.
 #'  - `idx(x, slice = slice, margin = margin, ...)`
 #'  converts indices of one dimension to a strictly positive integer vector of
@@ -14,7 +14,7 @@
 #' 
 #' Vectors (both atomic and recursive) only have index argument `i`. \cr
 #' Data.frame-like objects only have the `slice, margin` index argument pair. \cr
-#' Arrays (both atomic and recursive) have the `sub, dims` index argument pair,
+#' Arrays (both atomic and recursive) have the `s, d` index argument pair,
 #' as well as the arguments `i` and `slice, margin`. \cr
 #' \cr
 #' The result of the `idx()` method
@@ -23,7 +23,7 @@
 #' 
 #' ```{r eval = FALSE, echo = TRUE}
 #' x <- array(...)
-#' my_sub2ind <- idx(x, sub, dims)
+#' my_sub2ind <- idx(x, s, d)
 #' x[my_sub2ind] <- value
 #' 
 #' y <- data.frame(...)
@@ -39,7 +39,7 @@
 #' 
 #' 
 #' @param x vector, matrix, array, or data.frame; both atomic and recursive objects are supported.
-#' @param i,sub,dims,margin,slice,inv See \link{squarebrackets_indx_args}. \cr
+#' @param i,s,d,margin,slice,inv See \link{squarebrackets_indx_args}. \cr
 #' Duplicates are not allowed.
 #' @param chkdup see \link{squarebrackets_options}. \cr
 #' `r .mybadge_performance_set2("FALSE")` \cr
@@ -47,7 +47,7 @@
 #'
 #'
 #' @returns
-#' For `idx(x, i = i, ...)` and `idx(x, sub = sub, dims = dims, ...)`: \cr
+#' For `idx(x, i = i, ...)` and `idx(x, s = s, d = dims, ...)`: \cr
 #' A strictly positive integer vector of flat indices. \cr
 #' \cr
 #' For `idx(x, margin = margin, slice = slice, ...)`: \cr
@@ -89,7 +89,7 @@ idx.default <- function(
 #' @rdname idx1
 #' @export
 idx.array <- function(
-    x, sub = NULL, dims = 1:ndims(x), slice = NULL, margin = NULL, i = NULL, inv = FALSE,
+    x, s = NULL, d = 1:ndims(x), slice = NULL, margin = NULL, i = NULL, inv = FALSE,
     ...,
     chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
@@ -97,7 +97,7 @@ idx.array <- function(
   # error checks:
   .internal_check_dots(list(...), sys.call())
   check_args <- c(
-    !is.null(sub) && !is.null(dims),
+    !is.null(s) && !is.null(d),
     !is.null(slice) && !is.null(margin),
     !is.null(i)
   )
@@ -122,14 +122,14 @@ idx.array <- function(
     return(ci_margin(x, slice, margin, inv, chkdup, .abortcall = sys.call()))
   }
   
-  # sub, dims:
-  if(is.null(sub) || is.null(dims)) {
-    stop("`sub` and/or `dims` not specified")
+  # s, d:
+  if(is.null(s) || is.null(d)) {
+    stop("`s` and/or `d` not specified")
   }
-  .check_args_array(x, sub, dims, sys.call())
+  .check_args_array(x, s, d, sys.call())
   x.dim <- dim(x)
   lst <- ci_sub(
-    x, sub, dims, inv, chkdup, .abortcall = sys.call()
+    x, s, d, inv, chkdup, .abortcall = sys.call()
   )
   elements <- sub2ind(lst, x.dim, checks = FALSE)
   return(elements)

@@ -16,8 +16,8 @@ sb_wo(x, ...)
 
 \method{sb_wo}{array}(
   x,
-  sub = NULL,
-  dims = 1:ndims(x),
+  s = NULL,
+  d = 1:ndims(x),
   i = NULL,
   ...,
   chkdup = getOption("squarebrackets.chkdup", FALSE)
@@ -35,8 +35,8 @@ sb2_wo(x, ...)
 
 \method{sb2_wo}{array}(
   x,
-  sub = NULL,
-  dims = 1:ndims(x),
+  s = NULL,
+  d = 1:ndims(x),
   i = NULL,
   red = FALSE,
   ...,
@@ -58,7 +58,7 @@ sb2_wo(x, ...)
 
 \item{...}{see \link{squarebrackets_method_dispatch}.}
 
-\item{i, row, col, sub, dims, filter, vars}{See \link{squarebrackets_indx_args}. \cr
+\item{i, row, col, s, d, filter, vars}{See \link{squarebrackets_indx_args}. \cr
 An empty index selection results in nothing being removed,
 and the entire object is returned. \cr}
 
