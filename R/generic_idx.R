@@ -6,16 +6,16 @@
 #' 
 #'  - `idx(x, i = i, ...)`
 #'  converts linear indices to a strictly positive integer vector of linear indices.
-#'  - `idx(x, s = s, d = dims, ...)`
+#'  - `idx(x, s = s, d = d, ...)`
 #'  converts dimensional indices to a strictly positive integer vector of linear indices.
 #'  - `idx(x, slice = slice, margin = margin, ...)`
 #'  converts indices of one dimension to a strictly positive integer vector of
 #'  indices for that specific dimension.
 #' 
 #' Vectors (both atomic and recursive) only have index argument `i`. \cr
-#' Data.frame-like objects only have the `slice, margin` index argument pair. \cr
-#' Arrays (both atomic and recursive) have the `s, d` index argument pair,
-#' as well as the arguments `i` and `slice, margin`. \cr
+#' Data.frame-like objects only have the `slice, margin` argument pair. \cr
+#' Arrays (both atomic and recursive) have the `s, d` argument pair,
+#' as well as the `i` argument and the `slice, margin` argument pair. \cr
 #' \cr
 #' The result of the `idx()` method
 #' can be used inside the regular square-brackets operators. \cr
@@ -47,7 +47,7 @@
 #'
 #'
 #' @returns
-#' For `idx(x, i = i, ...)` and `idx(x, s = s, d = dims, ...)`: \cr
+#' For `idx(x, i = i, ...)` and `idx(x, s = s, d = d, ...)`: \cr
 #' A strictly positive integer vector of flat indices. \cr
 #' \cr
 #' For `idx(x, margin = margin, slice = slice, ...)`: \cr

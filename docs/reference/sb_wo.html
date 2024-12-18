@@ -162,14 +162,14 @@ If <code>red = FALSE</code>, a list is always returned regardless of the number 
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 2 6 10 14</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 3 7 11 15</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [4,] 4 8 12 16</span>
-<span class="r-in"><span><span class="fu">sb_wo</span><span class="op">(</span><span class="va">obj</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="ndims.html">ndims</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">sb_wo</span><span class="op">(</span><span class="va">obj</span>, <span class="fu"><a href="nest.html">n</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span>, <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="ndims.html">ndims</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       a</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 16</span>
 <span class="r-in"><span><span class="co"># above is equivalent to  obj[-1:-3, -1:-3, drop = FALSE]</span></span></span>
 <span class="r-in"><span><span class="fu">sb_wo</span><span class="op">(</span><span class="va">obj</span>, i <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">&gt;</span> <span class="fl">5</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1 2 3 4 5</span>
 <span class="r-in"><span><span class="co"># above is equivalent to  obj[!obj &gt; 5]</span></span></span>
-<span class="r-in"><span><span class="fu">sb_wo</span><span class="op">(</span><span class="va">obj</span>, <span class="st">"a"</span>, <span class="fl">2L</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">sb_wo</span><span class="op">(</span><span class="va">obj</span>, <span class="fu"><a href="nest.html">n</a></span><span class="op">(</span><span class="st">"a"</span><span class="op">)</span>, <span class="fl">2L</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      b  c</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 5  9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 6 10</span>
@@ -283,7 +283,7 @@ If <code>red = FALSE</code>, a list is always returned regardless of the number 
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,] integer,10   integer,10   integer,10   integer,10  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,] numeric,10   numeric,10   numeric,10   numeric,10  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [4,] character,26 character,26 character,26 character,26</span>
-<span class="r-in"><span><span class="fu">sb2_wo</span><span class="op">(</span><span class="va">obj</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="ndims.html">ndims</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">sb2_wo</span><span class="op">(</span><span class="va">obj</span>, <span class="fu"><a href="nest.html">n</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span>, <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="ndims.html">ndims</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      a           </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,] character,26</span>
 <span class="r-in"><span><span class="co"># above is equivalent to obj[1:3, 1:3, drop = FALSE]</span></span></span>
@@ -317,7 +317,7 @@ If <code>red = FALSE</code>, a list is always returned regardless of the number 
 <span class="r-out co"><span class="r-pr">#&gt;</span> [20] "y" "a" "i" "t" "d" "z" "h"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="co"># above is equivalent to obj[sapply(obj, is.numeric)]</span></span></span>
-<span class="r-in"><span><span class="fu">sb2_wo</span><span class="op">(</span><span class="va">obj</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"a"</span><span class="op">)</span>, <span class="fl">2L</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">sb2_wo</span><span class="op">(</span><span class="va">obj</span>, <span class="fu"><a href="nest.html">n</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"a"</span><span class="op">)</span><span class="op">)</span>, <span class="fl">2L</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      b            c           </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,] logical,3    logical,3   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,] integer,10   integer,10  </span>

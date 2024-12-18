@@ -48,8 +48,8 @@ to perform \bold{grouped} subset operations. \cr
 (grp <- factor(rep(letters[1:5], each = 4)))
 
 # get the last element of `a` for each group in `grp`:
-i <- idx_by(a, 0L, last, grp)
-sb_x(cbind(a, grp), i, 1L)
+s <- list(idx_by(a, 0L, last, grp))
+sb_x(cbind(a, grp), s, 1L)
 
 
 # data.frame ====

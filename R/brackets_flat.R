@@ -2,7 +2,7 @@
 #' @keywords internal
 #' @noRd
 .flat_s2i <- function(x, s, d, abortcall) {
-  .ci_array_check(x, s, d, ndims(x), abortcall)
+  .ci_sub_check(x, s, d, ndims(x), abortcall)
   if(is.list(s)) {
     s <- s[[1L]]
   }

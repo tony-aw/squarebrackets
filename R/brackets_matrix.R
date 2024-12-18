@@ -2,17 +2,14 @@
 #' @keywords internal
 #' @noRd
 .mat_prepsub2 <- function(x, s, d) {
-  if(is.atomic(s)) {
-    return(s)
+  
+  if(length(s) == 1L) {
+    return(s[[1L]])
   }
-  if(is.list(s)) {
-    if(length(s) == 1L) {
-      return(s[[1L]])
-    }
-    else {
-      return(s[d])
-    }
+  else {
+    return(s[d])
   }
+  
 }
 
 #' @keywords internal
@@ -52,7 +49,7 @@
 #' @noRd
 .mat_x <- function(x, s, d, inv, red, chkdup, abortcall) {
   
-  .ci_array_check(x, s, d, ndims(x), abortcall)
+  .ci_sub_check(x, s, d, ndims(x), abortcall)
   
   rowcol <- .mat_rowcol(x, s, d, inv, chkdup, abortcall)
   row <- rowcol[[1L]]
@@ -102,7 +99,7 @@
 #' @noRd
 .mat_mod_atomic <- function(x, s, d, inv, rp, tf, chkdup, abortcall) {
   
-  .ci_array_check(x, s, d, ndims(x), abortcall)
+  .ci_sub_check(x, s, d, ndims(x), abortcall)
   rowcol <- .mat_rowcol(x, s, d, inv, chkdup, abortcall)
   row <- rowcol$row
   col <- rowcol$col
@@ -126,7 +123,7 @@
 #' @noRd
 .mat_mod_list <- function(x, s, d, inv, rp, tf, chkdup, .lapply, abortcall) {
   
-  .ci_array_check(x, s, d, ndims(x), abortcall)
+  .ci_sub_check(x, s, d, ndims(x), abortcall)
   rowcol <- .mat_rowcol(x, s, d, inv, chkdup, abortcall)
   row <- rowcol$row
   col <- rowcol$col
@@ -151,7 +148,7 @@
 #' @noRd
 .mat_set <- function(x, s, d, inv, chkdup, rp, tf, abortcall) {
   
-  .ci_array_check(x, s, d, ndims(x), abortcall)
+  .ci_sub_check(x, s, d, ndims(x), abortcall)
   rowcol <- .mat_rowcol(x, s, d, inv, chkdup, abortcall)
   row <- rowcol$row
   col <- rowcol$col

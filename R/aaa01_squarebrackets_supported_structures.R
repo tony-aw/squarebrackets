@@ -87,14 +87,15 @@
 #' Environments do have \link[=squarebrackets_PassByReference]{pass-by-reference} semantics,
 #' but they are not supported by 'squarebrackets'. \cr
 #' \cr
-#' 'squarebrackets' supports the mutable `data.table` class
-#' (and thus also `tidytable`, which inherits from `data.table`). \cr
-#' \cr
-#' 'squarebrackets' also includes a new class of mutable objects:
-#' \link{mutable_atomic} objects. \cr
-#' `mutable_atomic` objects are the same as atomic objects, except they are mutable (hence the name). \cr
-#' \cr
-#' The supported immutable structures are: \cr
+#' Supported mutable structures:
+#' 
+#'  - 'squarebrackets' supports the mutable `data.table` class \cr
+#'  (and thus also `tidytable`, which inherits from `data.table`).
+#'  - 'squarebrackets' also includes a new class of mutable objects: \cr
+#'  \link{mutable_atomic} objects. \cr
+#' `mutable_atomic` objects are the same as atomic objects, except they are mutable (hence the name). \cr \cr
+#' 
+#' Supported immutable structures: \cr
 #' Atomic and recursive vectors/matrices/arrays, data.frames, and tibbles. \cr
 #' \cr
 #' All the functions in the 'squarebrackets' package with the word "set" in their name

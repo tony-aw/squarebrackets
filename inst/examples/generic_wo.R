@@ -4,11 +4,11 @@
 obj <- matrix(1:16, ncol = 4)
 colnames(obj) <- c("a", "b", "c", "a")
 print(obj)
-sb_wo(obj, 1:3, 1:ndims(obj))
+sb_wo(obj, n(1:3), 1:ndims(obj))
 # above is equivalent to  obj[-1:-3, -1:-3, drop = FALSE]
 sb_wo(obj, i = \(x) x > 5)
 # above is equivalent to  obj[!obj > 5]
-sb_wo(obj, "a", 2L)
+sb_wo(obj, n("a"), 2L)
 # above is equivalent to  obj[, which(!colnames(obj) %in% "a")]
 
 obj <- array(1:64, c(4,4,3))
@@ -48,11 +48,11 @@ obj <- rbind(
 )
 colnames(obj) <- c("a", "b", "c", "a")
 print(obj)
-sb2_wo(obj, 1:3, 1:ndims(obj))
+sb2_wo(obj, n(1:3), 1:ndims(obj))
 # above is equivalent to obj[1:3, 1:3, drop = FALSE]
 sb2_wo(obj, i = is.numeric)
 # above is equivalent to obj[sapply(obj, is.numeric)]
-sb2_wo(obj, c("a", "a"), 2L)
+sb2_wo(obj, n(c("a", "a")), 2L)
 # above is equivalent to obj[, lapply(c("a", "a"), \(i) which(colnames(obj) == i)) |> unlist()]
 
 obj <- array(as.list(1:64), c(4,4,3))

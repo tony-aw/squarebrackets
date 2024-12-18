@@ -11,7 +11,7 @@ x2 <- x[1:2, 1:2]
 names(x2) <- x.names[1:2, 1:2]
 
 expect_equal(
-  sb_x(x, 1:2),
+  sb_x(x, n(1:2)),
   x2
 )
 expect_equal(
@@ -71,7 +71,7 @@ x2 <- x[1:2, 1:2]
 names(x2) <- x.names[1:2, 1:2]
 
 expect_equal(
-  sb2_x(x, 1:2),
+  sb2_x(x, n(1:2)),
   x2
 )
 expect_equal(

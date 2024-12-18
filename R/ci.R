@@ -149,57 +149,33 @@ ci_sub <- function(
   # the maximum of each dimension reduces.
   # Thus, creating sequences here is not so expensive.
   
-  if(is.atomic(s)) {
-    return(.ci_sub.atomic(x, s, d, inv, chkdup, uniquely_named, .abortcall))
-  }
-  if(is.recursive(s)) {
-    return(.ci_sub.recursive(x, s, d, inv, chkdup, uniquely_named, .abortcall))
-  }
-}
-
-
-#' @keywords internal
-#' @noRd
-.ci_sub.recursive <- function(
-    x, s, d, inv, chkdup, uniquely_named, .abortcall
-) {
+  .ci_sub_check(x, s, d, ndims(x), .abortcall)
   
-  .ci_array_check(x, s, d, ndims(x), .abortcall)
-  s <- .ci_array_make_sub(s, d)
-  
-  if(ndims(x) == 1L) {
-    lst <- list(
-      ci_flat(x, s[[1L]], inv, chkdup, uniquely_named = FALSE, .abortcall)
-    )
+  if(length(s) == 1L) {
+    return(.ci_sub1(x, s, d, inv, chkdup, uniquely_named, .abortcall))
   }
   else {
-    lst <- lapply(dim(x), \(y) 1:y ) # create list of ALTREP integers
-    for(i in seq_along(d)) {
-      lst[[d[i]]] <- as.integer(ci_margin(
-        x, s[[i]], d[i], inv, chkdup, uniquely_named = FALSE, .abortcall
-      ))
-    }
+    return(.ci_sub0(x, s, d, inv, chkdup, uniquely_named, .abortcall))
   }
-  
-  return(lst)
 }
+
 
 
 #' @keywords internal
 #' @noRd
-.ci_sub.atomic <- function(
+.ci_sub1 <- function(
     x, s, d, inv, chkdup, uniquely_named, .abortcall
 ) {
   
-  .ci_array_check(x, s, d, ndims(x), .abortcall)
-
+  s <- s[[1]]
+  
   if(ndims(x) == 1L) {
     lst <- list(
       ci_flat(x, s, inv, chkdup, uniquely_named = FALSE, .abortcall)
     )
   }
   else {
-    lst <- lapply(dim(x), \(y) 1:y ) # create list of ALTREP integers
+    lst <- lapply(dim(x), \(y) 1:y ) # create list of ALTREP compact integers
     for(i in d) {
       lst[[i]] <- as.integer(ci_margin(
         x, s, i, inv, chkdup, uniquely_named = FALSE, .abortcall
@@ -208,6 +184,65 @@ ci_sub <- function(
   }
   
   return(lst)
+}
+
+
+#' @keywords internal
+#' @noRd
+.ci_sub0 <- function(
+    x, s, d, inv, chkdup, uniquely_named, .abortcall
+) {
+  
+  s <- .ci_sub_make_sub(s, d)
+  
+  lst <- lapply(dim(x), \(y) 1:y ) # create list of ALTREP compact integers
+  for(i in seq_along(d)) {
+    lst[[d[i]]] <- as.integer(ci_margin(
+      x, s[[i]], d[i], inv, chkdup, uniquely_named = FALSE, .abortcall
+    ))
+  }
+
+  return(lst)
+}
+
+
+
+
+#' @keywords internal
+#' @noRd
+.ci_sub_make_sub <- function(s, d) {
+  if(length(s) == 1L && length(d) != 1L) {
+    s <- rep(s, length(d))
+  }
+  return(s)
+}
+
+
+
+#' @keywords internal
+#' @noRd
+.ci_sub_check <- function(x, s, d, ndims, .abortcall) {
+  
+  # check `d`:
+  if(length(d) == 0L) {
+    stop(simpleError("length(d) == 0L has not been captured", call = .abortcall))
+  }
+  if(!is.numeric(d)) {
+    stop(simpleError("`d` must be a integer vector", call = .abortcall))
+  }
+  if(.any_badindx(as.integer(d), ndims)) {
+    stop(simpleError("`d` out of range", call = .abortcall))
+  }
+  
+  # check `s`:
+  if(!is.list(s)) {
+    stop(simpleError("`s` must be a list"))
+  }
+  badlen <- length(s) != 1L && length(s) != length(d)
+  if(badlen) {
+    stop(simpleError("`length(s)` must equal `length(d)`", call = .abortcall))
+  }
+  
 }
 
 #' @rdname developer_ci
@@ -258,34 +293,3 @@ ci_df <- function(
 }
 
 
-#' @keywords internal
-#' @noRd
-.ci_array_make_sub <- function(s, d) {
-  if(!is.list(s)) {
-    s <- rep(list(s), length(d))
-  }
-  if(length(s) == 1L && length(d) != 1L) {
-    s <- rep(s, length(d))
-  }
-  return(s)
-}
-
-
-
-#' @keywords internal
-#' @noRd
-.ci_array_check <- function(x, s, d, ndims, .abortcall) {
-  if(length(d) == 0L) {
-    stop(simpleError("length(d) == 0L has not been captured", call = .abortcall))
-  }
-  if(!is.numeric(d)) {
-    stop(simpleError("`d` must be a integer vector", call = .abortcall))
-  }
-  badlen <- length(s) != 1L && length(s) != length(d)
-  if(is.list(s) && badlen) {
-    stop(simpleError("if `s` is a list, `length(s)` must equal `length(d)`", call = .abortcall))
-  }
-  if(.any_badindx(as.integer(d), ndims)) {
-    stop(simpleError("`d` out of range", call = .abortcall))
-  }
-}

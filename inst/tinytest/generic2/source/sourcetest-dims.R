@@ -77,7 +77,7 @@ temp.fun.1d <- function(x, row, f_expect, f_out) {
     rp <- af(sample(c(seq_len(len), NA), size = len))
     
     expected[[i]] <- f_expect(x, row[[i]])
-    out[[i]] <- f_out(x, row[[i]], 1)
+    out[[i]] <- f_out(x, n(row[[i]]), 1)
     assign("enumerate", enumerate + 2, envir = parent.frame(n = 1))
   }
   expect_equal(expected, out) |> errorfun()
@@ -130,7 +130,7 @@ row <- indx_named(x, 1)
 temp.fun.1d(x, row, f_expect.1d, f_out.1d)
 if(isTRUE(test_allow_duplicates)) {
   expect_equal(
-    sb2_x(x, c("a", "a", "a"), 1),
+    sb2_x(x, n(c("a", "a", "a")), 1),
     rep3.bind(x[which(rownames(x) %in% "a"), drop = FALSE], 1)
   ) |> errorfun()
 }
@@ -192,34 +192,12 @@ enumerate <- enumerate + 3
 
 # early capture s,d equivalence checks ====
 
-# 1d
-x <- array(as.list(1:20), 120)
-expect_equal(
-  sb_test(x, 1:5),
-  sb_test(x, list(1:5), 1L)
-) |> errorfun()
-expect_equal(
-  sb_test(x, 1:5, 1L),
-  sb_test(x, list(1:5))
-) |> errorfun()
 
 # matrix
 x <- matrix(as.list(1:20), ncol = 4)
 expect_equal(
-  sb_test(x, 1:3),
-  sb_test(x, list(1:3), 1:2)
-) |> errorfun()
-expect_equal(
-  sb_test(x, 1:3, 1:2),
-  sb_test(x, list(1:3))
-) |> errorfun()
-expect_equal(
-  sb_test(x, 1:3),
+  sb_test(x, list(1:3)),
   sb_test(x, list(1:3, 1:3), 1:2)
-) |> errorfun()
-expect_equal(
-  sb_test(x, 1:3, 1:2),
-  sb_test(x, list(1:3, 1:3))
 ) |> errorfun()
 expect_equal(
   sb_test(x, list(1:3, 1:4), 2:1),
@@ -228,16 +206,16 @@ expect_equal(
 
 # errors
 expect_error(
-  sb_test(x, 1:3, "a"),
+  sb_test(x, n(1:3), "a"),
   pattern = "`d` must be a integer vector"
 )
 expect_error(
   sb_test(x, n(1:3, 1:3, 1:3), 1:2),
-  pattern = "if `s` is a list, `length(s)` must equal `length(d)`",
+  pattern = "`length(s)` must equal `length(d)`",
   fixed = TRUE
 )
 expect_error(
-  sb_test(x, 1:3, 1:10),
+  sb_test(x, n(1:3), 1:10),
   pattern = "`d` out of range"
 )
 

@@ -2,12 +2,14 @@
 #'
 #'
 #' @description
-#' This help page describes the main modification semantics available in 'squarebrackets'. \cr \cr
+#' This help page describes the main modification semantics
+#' available in 'squarebrackets'. \cr \cr
 #' 
 #' 
 #' @section Base R's default modification: 
 #' For most average users, R's default copy-on-modify semantics are fine. \cr
-#' The benefits of the indexing arguments from 'squarebrackets' can be combined the `[<-` operator,
+#' The benefits of the indexing arguments from 'squarebrackets'
+#' can be combined the `[<-` operator,
 #' through the \link{idx} method. \cr
 #' The result of the `idx()` method
 #' can be used inside the regular square-brackets operators. \cr
@@ -30,9 +32,12 @@
 #' \cr
 #' \cr
 #' @section Explicit Copy:
-#' 'squarebrackets' provides the \link{sb_mod}/\link{sb2_mod} method to modify through copy. \cr
-#' This method always copies the modification. \cr
-#' For recursive objects, \link{sb2_mod} returns the original object, where only the modified subsets are copied,
+#' 'squarebrackets' provides
+#' the \link{sb_mod}/\link{sb2_mod} method
+#' to modify through a (shallow) copy. \cr
+#' This method returns the modified object. \cr
+#' For recursive objects, \link{sb2_mod} returns the original object,
+#' where only the modified subsets are copied,
 #' thus preventing unnecessary usage of memory. \cr
 #' \cr
 #' \cr
@@ -89,7 +94,8 @@
 #' \bold{Argument `tf`} \cr
 #' Most functions in (base) 'R' are vectorized for atomic objects, but not for lists \cr
 #' (see `Footnote 2` below). \cr
-#' 'squarebrackets' will therefore apply transformation function `tf` via `lapply`, like so: \cr
+#' 'squarebrackets' will therefore apply transformation function `tf` via `lapply`,
+#' like so: \cr
 #' 
 #' ```{r, echo = TRUE, eval = FALSE}
 #' 
@@ -112,7 +118,8 @@
 #' 
 #' 
 #' @section Replacement and Transformation in data.frame-like Objects:
-#' Replacement and transformations in data.frame-like objects are a bit more flexible than in Lists. \cr
+#' Replacement and transformations
+#' in data.frame-like objects are a bit more flexible than in Lists. \cr
 #' \cr
 #' `rp` is not always demanded to be a list for data.frame-like objects,
 #' only when appropriate
@@ -160,9 +167,11 @@
 #' In an atomic vector `x` of some type `t`,
 #' every single element of `x` is a scalar of type `t`. \cr
 #' However, every element of some list `x` can be virtually anything: \cr
-#' an atomic object, another list, an unevaluated expression, even dark magic like `quote(expr =)`. \cr
+#' an atomic object, another list,
+#' an unevaluated expression, even dark magic like `quote(expr =)`. \cr
 #' It is difficult to make a vectorized function for an object with so many unknowns. \cr 
-#' Therefore, in the vast majority of the cases, one needs to loop through the list elements. \cr
+#' Therefore, in the vast majority of the cases,
+#' one needs to loop through the list elements. \cr
 #' \cr
 #' 
 #' 

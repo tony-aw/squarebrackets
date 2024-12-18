@@ -290,6 +290,15 @@
 #'  as it can be used to add new values to lists. \cr \cr
 #' 
 #' 
+#' @section Non-Standard Evaluation:
+#' 'squarebrackets' is designed primarily for programming,
+#' and seeks to be fully programmatically friendly. \cr
+#' As part of this endeavour,
+#' 'squarebrackets' never uses Non-Standard Evaluation. \cr
+#' All input for all methods and functions in 'squarebrackets'
+#' are objects that can be stored in a variable. \cr
+#' Like atomic vectors, lists, formulas, etc. \cr
+#' \cr
 #' 
 #' 
 #' @rdname aaa02_squarebrackets_indx_fundamentals

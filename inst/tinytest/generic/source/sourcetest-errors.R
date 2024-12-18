@@ -96,7 +96,7 @@ for(i in 1:length(xlist)) {
 x <- as.mutable_atomic(array(1:27, c(3,3,3)))
 expect_error(
   sb_test(x, s = list(1:10, 2:5), d = c(1:3)),
-  pattern = "if `s` is a list, `length(s)` must equal `length(d)`",
+  pattern = "`length(s)` must equal `length(d)`",
   fixed = TRUE
 )
 expect_error(
@@ -182,11 +182,11 @@ if(!test_allow_duplicates) {
   ) |> errorfun()
   
   expect_error(
-    sb_test(x, c(1,1,1), 2L, chkdup = TRUE),
+    sb_test(x, n(c(1,1,1)), 2L, chkdup = TRUE),
     pattern = "duplicate integers or names not allowed"
   ) |> errorfun()
   expect_error(
-    sb_test(x, c(1,1,1), 1L, chkdup = TRUE),
+    sb_test(x, n(c(1,1,1)), 1L, chkdup = TRUE),
     pattern = "duplicate integers or names not allowed"
   ) |> errorfun()
   

@@ -16,10 +16,8 @@ in the generic methods of 'squarebrackets' to specify the indices to perform ope
 \item \verb{filter, vars}: to specify rows and/or columns specifically in data.frame-like objects. \cr \cr
 }
 
-Thus there are essentially 3 APIs: one for vectors, one for arrays (which includes matrices),
-and one for data.frame-like objects. \cr
-\cr
-For the fundamentals of indexing in 'squarebrackets', see \link{squarebrackets_indx_fundamentals}. \cr
+For the fundamentals of indexing in 'squarebrackets',
+see \link{squarebrackets_indx_fundamentals}. \cr
 In this help page \code{x} refers to the object on which subset operations are performed. \cr
 \cr
 \cr
@@ -69,8 +67,6 @@ If \code{i} is a function, it corresponds to the following:
 
 \section{Argument Pair s, d}{
 
-\ifelse{html}{\figure{class-atomic_matrix-blue.svg}{options: alt='[class: atomic matrix]'}}{\link[=squarebrackets_indx_args]{class: atomic matrix}} \cr
-\ifelse{html}{\figure{class-recursive_matrix-blue.svg}{options: alt='[class: recursive matrix]'}}{\link[=squarebrackets_indx_args]{class: recursive matrix}} \cr
 \ifelse{html}{\figure{class-atomic_array-blue.svg}{options: alt='[class: atomic array]'}}{\link[=squarebrackets_indx_args]{class: atomic array}} \cr
 \ifelse{html}{\figure{class-recursive_array-blue.svg}{options: alt='[class: recursive array]'}}{\link[=squarebrackets_indx_args]{class: recursive array}} \cr
 The \verb{s, d} argument pair is inspired by the
@@ -85,18 +81,11 @@ The \code{d} argument gives the dimensions for which the
 \cr
 The \code{d} argument must be an integer vector. \cr
 \cr
-\code{s} must be either of the following:
-\itemize{
-\item a list of length \code{length(d)}.
-\item a list of length 1; \cr
-in this case \code{s} will be recycled to \code{length(d)}.
-\item an atomic vector; \cr
-this is functionally equivalent to specifying \code{s} as a list of length 1. \cr \cr
-}
-
-Each element of \code{s} when \code{s} is a list,
-or \code{s} itself when \code{s} is an atomic vector,
-can be any of the following:
+\code{s} must be a list of length 1, or a list of the same length as \code{d}. \cr
+If \code{s} is a list of length 1,
+it is internally recycled to become the same length as \code{d}. \cr
+\cr
+Each element of \code{s} can be any of the following:
 \itemize{
 \item a vector of length 0,
 in which case no indices are selected for the operation (i.e. empty selection).
@@ -110,7 +99,7 @@ If a dimension has multiple indices with the given name,
 ALL the corresponding indices will be selected for the operation. \cr \cr
 }
 
-Note also the following:
+Note the following:
 \itemize{
 \item As stated, \code{d} specifies which index margins are non-missing. \cr
 If \code{d} is of length \code{0},
@@ -129,15 +118,15 @@ extracts the first 10 rows, all columns, and the first 5 layers,
 of array \code{x}. \cr
 The equivalence in base 'R' is: \cr
 \code{x[1:10, , 1:5, drop = FALSE]}. \cr
-\item \code{sb_x(x, 1:10, 2)} \cr
+\item \code{sb_x(x, n(1:10), 2)} \cr
 extracts the first 10 columns of array \code{x}. \cr
 The equivalence in base 'R' is: \cr
 \code{x[, 1:10, , drop = FALSE]} \cr
-\item \code{sb_x(x, 1:10)}, \cr
+\item \code{sb_x(x, n(1:10))}, \cr
 extracts the first 10 rows, columns, and layers of array \code{x}. \cr
 The equivalence in base 'R' is: \cr
 \code{x[1:10, 1:10, 1:10, drop = FALSE]}. \cr
-\item \code{sb_x(x, 1:10, c(1, 3))}, \cr
+\item \code{sb_x(x, n(1:10), c(1, 3))}, \cr
 extracts the first 10 rows, all columns, and the first 10 layers,
 of array \code{x}. \cr
 The equivalence in base 'R' is: \cr
@@ -149,19 +138,14 @@ I.e.:
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{
 sb_x(x, n(1:10, 1:5), c(1, 3)) # ==> x[1:10, , 1:5, drop = FALSE]
 
-sb_x(x, 1:10, 2)               # ==> x[ , 1:10, , drop = FALSE]
+sb_x(x, n(1:10), 2)               # ==> x[ , 1:10, , drop = FALSE]
 
-sb_x(x, 1:10)                  # ==> x[1:10, 1:10, 1:10, drop = FALSE]
+sb_x(x, n(1:10))                  # ==> x[1:10, 1:10, 1:10, drop = FALSE]
 
-sb_x(x, 1:10, c(1, 3))         # ==> x[1:10, , 1:10, drop = FALSE]
+sb_x(x, n(1:10), c(1, 3))         # ==> x[1:10, , 1:10, drop = FALSE]
 
 }\if{html}{\out{</div>}}
 
-Note that specifying a list of length 1 for \code{s}
-(like \code{s = n(1:10)})
-is equivalent to specifying an atomic vector for \code{s}
-(like \code{s = 1:10}). \cr
-\cr
 For a brief explanation of the relationship between flat indices (\code{i})
 and subscripts (\code{s}, \code{d}) in arrays,
 see \link{sub2ind}. \cr \cr
@@ -200,6 +184,39 @@ Thus the effect of a zero-length index specification depends on the rule-set of
 \verb{[.class(x)} and \verb{[<-.class(x)}. \cr \cr
 }
 
+\section{Arguments filter, vars}{
+
+\ifelse{html}{\figure{class-data.frame-like-blue.svg}{options: alt='[class: data.frame-like]'}}{\link[=squarebrackets_indx_args]{class: data.frame-like}} \cr
+
+The \code{filter} and  \code{vars} arguments are inspired by the \code{subset} and \code{select}
+arguments of base R's \link[base]{subset}\code{.data.frame} method.
+However, the \code{filter} and  \code{vars} arguments do \bold{not} use
+non-standard evaluation,
+as to keep 'squarebrackets' fully programmatically friendly. \cr
+\cr
+\code{filter} must be a one-sided formula
+with a single logical expression using the column names of the data.frame,
+giving the condition which observation/row indices should be selected for the operation. \cr
+For example,
+to perform an operation on the rows for which column \code{height > 2} and for which column \code{sex != "female"},
+specify the following formula:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{~ (height > 2) & (sex != "female")
+}\if{html}{\out{</div>}}
+
+If the formula is linked to an environment,
+any variables not found in the data set will be searched from the environment. \cr
+\cr
+\code{vars} can be one of the following:
+\itemize{
+\item a \bold{function} that returns a logical vector,
+giving the column indices to select for the operation. \cr
+For example, to select all numeric columns,
+specify \code{vars = is.numeric}.
+\item a \bold{character} vector of column names / variable names. \cr \cr
+}
+}
+
 \section{Arguments row, col}{
 
 \ifelse{html}{\figure{class-data.frame-like-blue.svg}{options: alt='[class: data.frame-like]'}}{\link[=squarebrackets_indx_args]{class: data.frame-like}} \cr
@@ -224,29 +241,6 @@ Using the \verb{row, col} arguments corresponds to doing something like the foll
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{ sb2_x(x, row, col) # ==> x[row, col, drop = FALSE]
  
 }\if{html}{\out{</div>}}
-}
-
-\section{Arguments filter, vars}{
-
-\ifelse{html}{\figure{class-data.frame-like-blue.svg}{options: alt='[class: data.frame-like]'}}{\link[=squarebrackets_indx_args]{class: data.frame-like}} \cr
-
-\code{filter} must be a one-sided formula
-with a single logical expression using the column names of the data.frame,
-giving the condition which observation/row indices should be selected for the operation. \cr
-For example,
-to perform an operation on the rows for which column \code{height > 2} and for which column \code{sex != "female"},
-specify the following formula:
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{~ (height > 2) & (sex != "female")
-}\if{html}{\out{</div>}}
-
-If the formula is linked to an environment,
-any variables not found in the data set will be searched from the environment. \cr
-\cr
-\code{vars} must be a function that returns a logical vector,
-giving the column indices to select for the operation. \cr
-For example, to select all numeric columns, specify \code{vars = is.numeric}. \cr
-\cr
 }
 
 \section{Argument inv}{

@@ -11,7 +11,7 @@ gen_mat <- function() {
 obj <- obj2 <- gen_mat()
 print(obj)
 
-sb_set(obj, 1:3, 1:ndims(obj), rp = -1:-9)
+sb_set(obj, n(1:3), 1:ndims(obj), rp = -1:-9)
 print(obj2)
 # above is like x[1:3, 1:3] <- -1:-9, but using pass-by-reference
 
@@ -25,14 +25,14 @@ print(obj2)
 obj <- obj2 <- gen_mat()
 obj
 
-sb_set(obj, "a", 2L, rp = cbind(-1:-4, -5:-8))
+sb_set(obj, n("a"), 2L, rp = cbind(-1:-4, -5:-8))
 print(obj2)
 # above is like x[, "a"] <- cbind(-1:-4, -5:-8), but using pass-by-reference
 
 obj <- obj2 <- gen_mat()
 obj
 
-sb_set(obj, 1:3, 1:ndims(obj), tf = \(x) -x)
+sb_set(obj, n(1:3), 1:ndims(obj), tf = \(x) -x)
 print(obj2)
 # above is like x[1:3, 1:3] <- -1 * x[1:3, 1:3], but using pass-by-reference
 
@@ -46,7 +46,7 @@ print(obj2)
 obj <- obj2 <- gen_mat()
 obj
 
-sb_set(obj, "a", 2L, tf = \(x) -x)
+sb_set(obj, n("a"), 2L, tf = \(x) -x)
 obj2
 # above is like x[, "a"] <- -1 * x[, "a"], but using pass-by-reference
 

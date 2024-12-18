@@ -218,8 +218,6 @@ Gives details regarding the S3 method dispatch in 'squarebrackets'. \cr \cr
 }
 
 ADDITIONAL DOCUMENTATION:
-
-the following help pages:
 \itemize{
 \item \link{squarebrackets_PassByReference}: \cr
 Explains Pass-by-Reference semantics, and its important consequences. \cr

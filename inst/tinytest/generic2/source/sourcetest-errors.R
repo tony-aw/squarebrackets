@@ -181,7 +181,7 @@ if(!test_PassByReference) {
   x <- array(as.list(1:27), c(3,3,3))
   expect_error(
     sb_test(x, s = list(1:10, 2:5), d = c(1:3)),
-    pattern = "if `s` is a list, `length(s)` must equal `length(d)`",
+    pattern = "`length(s)` must equal `length(d)`",
     fixed = TRUE
   )
   

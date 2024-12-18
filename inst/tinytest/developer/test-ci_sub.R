@@ -37,25 +37,6 @@ expect_error(
 enumerate <- enumerate + 6L
 
 
-# check atomic vs list sub equivalence ====
-expect_equal(
-  ci_sub(x, n(1:4, 1:4, 1:4), 1:3, FALSE, FALSE, .abortcall = sys.call()),
-  ci_sub(x, 1:4, 1:3, FALSE, FALSE, .abortcall = sys.call())
-)
-
-expect_equal(
-  ci_sub(x, n(1:4), 1:3, FALSE, FALSE, .abortcall = sys.call()),
-  ci_sub(x, 1:4, 1:3, FALSE, FALSE, .abortcall = sys.call())
-)
-
-expect_equal(
-  ci_sub(x, n(1:4), 1, FALSE, FALSE, .abortcall = sys.call()),
-  ci_sub(x, 1:4, 1, FALSE, FALSE, .abortcall = sys.call())
-)
-
-enumerate <- enumerate + 3L
-
-
 # error checking ====
 
 expect_error(
@@ -64,7 +45,7 @@ expect_error(
 )
 expect_error(
   ci_sub(x, n(1:3, 1:3, 1:3), 1:2),
-  pattern = "if `s` is a list, `length(s)` must equal `length(d)`",
+  pattern = "`length(s)` must equal `length(d)`",
   fixed = TRUE
 )
 expect_error(

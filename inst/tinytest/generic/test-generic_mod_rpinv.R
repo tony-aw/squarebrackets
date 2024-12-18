@@ -185,7 +185,7 @@ expect_error(
   pattern = "recycling not allowed"
 )
 expect_error(
-  sb_mod(x, 1:2, inv = TRUE, rp = 1:7),
+  sb_mod(x, n(1:2), inv = TRUE, rp = 1:7),
   pattern = "recycling not allowed"
 )
 enumerate <- enumerate + 4

@@ -10,11 +10,9 @@
 #'  *  `margin, slice`: to specify indices of one particular dimension (for arrays and data.frame-like objects).
 #'  * `row, col`: to specify rows and/or columns in specifically in data.frame-like objects.
 #'  * `filter, vars`: to specify rows and/or columns specifically in data.frame-like objects. \cr \cr
-#' 
-#' Thus there are essentially 3 APIs: one for vectors, one for arrays (which includes matrices),
-#' and one for data.frame-like objects. \cr
-#' \cr
-#' For the fundamentals of indexing in 'squarebrackets', see \link{squarebrackets_indx_fundamentals}. \cr
+#'  
+#' For the fundamentals of indexing in 'squarebrackets',
+#' see \link{squarebrackets_indx_fundamentals}. \cr
 #' In this help page `x` refers to the object on which subset operations are performed. \cr
 #' \cr
 #' \cr
@@ -67,8 +65,6 @@
 #' 
 #' 
 #' @section Argument Pair s, d:
-#' `r .mybadge_class("atomic matrix")` \cr
-#' `r .mybadge_class("recursive matrix")` \cr
 #' `r .mybadge_class("atomic array")` \cr
 #' `r .mybadge_class("recursive array")` \cr
 #' The `s, d` argument pair is inspired by the
@@ -83,17 +79,11 @@
 #' \cr
 #' The `d` argument must be an integer vector. \cr
 #' \cr
-#' `s` must be either of the following:
-#' 
-#'  * a list of length `length(d)`.
-#'  * a list of length 1; \cr
-#'  in this case `s` will be recycled to `length(d)`.
-#'  * an atomic vector; \cr
-#'  this is functionally equivalent to specifying `s` as a list of length 1. \cr \cr
-#' 
-#' Each element of `s` when `s` is a list,
-#' or `s` itself when `s` is an atomic vector,
-#' can be any of the following:
+#' `s` must be a list of length 1, or a list of the same length as `d`. \cr
+#' If `s` is a list of length 1,
+#' it is internally recycled to become the same length as `d`. \cr
+#' \cr
+#' Each element of `s` can be any of the following:
 #' 
 #'  * a vector of length 0,
 #'  in which case no indices are selected for the operation (i.e. empty selection).
@@ -106,7 +96,7 @@
 #'  If a dimension has multiple indices with the given name,
 #'  ALL the corresponding indices will be selected for the operation. \cr \cr
 #'  
-#' Note also the following:
+#' Note the following:
 #'  * As stated, `d` specifies which index margins are non-missing. \cr
 #'  If `d` is of length `0`,
 #'  it is taken as "all index margins are missing".
@@ -123,15 +113,15 @@
 #'  of array `x`. \cr
 #'  The equivalence in base 'R' is: \cr
 #'  `x[1:10, , 1:5, drop = FALSE]`. \cr
-#'  * `sb_x(x, 1:10, 2)` \cr
+#'  * `sb_x(x, n(1:10), 2)` \cr
 #'  extracts the first 10 columns of array `x`. \cr
 #'  The equivalence in base 'R' is: \cr
 #'  `x[, 1:10, , drop = FALSE]` \cr
-#'  * `sb_x(x, 1:10)`, \cr
+#'  * `sb_x(x, n(1:10))`, \cr
 #'  extracts the first 10 rows, columns, and layers of array `x`. \cr
 #'  The equivalence in base 'R' is: \cr
 #'  `x[1:10, 1:10, 1:10, drop = FALSE]`. \cr
-#'  * `sb_x(x, 1:10, c(1, 3))`, \cr
+#'  * `sb_x(x, n(1:10), c(1, 3))`, \cr
 #'  extracts the first 10 rows, all columns, and the first 10 layers,
 #'  of array `x`. \cr
 #'  The equivalence in base 'R' is: \cr
@@ -143,19 +133,14 @@
 #' 
 #' sb_x(x, n(1:10, 1:5), c(1, 3)) # ==> x[1:10, , 1:5, drop = FALSE]
 #' 
-#' sb_x(x, 1:10, 2)               # ==> x[ , 1:10, , drop = FALSE]
+#' sb_x(x, n(1:10), 2)               # ==> x[ , 1:10, , drop = FALSE]
 #' 
-#' sb_x(x, 1:10)                  # ==> x[1:10, 1:10, 1:10, drop = FALSE]
+#' sb_x(x, n(1:10))                  # ==> x[1:10, 1:10, 1:10, drop = FALSE]
 #' 
-#' sb_x(x, 1:10, c(1, 3))         # ==> x[1:10, , 1:10, drop = FALSE]
+#' sb_x(x, n(1:10), c(1, 3))         # ==> x[1:10, , 1:10, drop = FALSE]
 #' 
 #' ```
 #' 
-#' Note that specifying a list of length 1 for `s`
-#' (like `s = n(1:10)`)
-#' is equivalent to specifying an atomic vector for `s`
-#' (like `s = 1:10`). \cr
-#' \cr
 #' For a brief explanation of the relationship between flat indices (`i`)
 #' and subscripts (`s`, `d`) in arrays,
 #' see \link{sub2ind}. \cr \cr
@@ -194,6 +179,38 @@
 #' 
 #' 
 #' 
+#' @section Arguments filter, vars:
+#' `r .mybadge_class("data.frame-like")` \cr
+#' 
+#' The `filter` and  `vars` arguments are inspired by the `subset` and `select`
+#' arguments of base R's \link[base]{subset}\code{.data.frame} method.
+#' However, the `filter` and  `vars` arguments do \bold{not} use
+#' non-standard evaluation,
+#' as to keep 'squarebrackets' fully programmatically friendly. \cr
+#' \cr
+#' `filter` must be a one-sided formula
+#' with a single logical expression using the column names of the data.frame,
+#' giving the condition which observation/row indices should be selected for the operation. \cr
+#' For example,
+#' to perform an operation on the rows for which column `height > 2` and for which column `sex != "female"`,
+#' specify the following formula:
+#' 
+#' ```{r, eval = FALSE}
+#' ~ (height > 2) & (sex != "female")
+#' ```
+#' 
+#' If the formula is linked to an environment,
+#' any variables not found in the data set will be searched from the environment. \cr
+#' \cr
+#' `vars` can be one of the following:
+#' 
+#'  - a \bold{function} that returns a logical vector,
+#'  giving the column indices to select for the operation. \cr
+#'  For example, to select all numeric columns,
+#'  specify `vars = is.numeric`.
+#'  - a \bold{character} vector of column names / variable names. \cr \cr
+#' 
+#' 
 #' @section Arguments row, col:
 #' `r .mybadge_class("data.frame-like")` \cr
 #' 
@@ -219,29 +236,6 @@
 #'  
 #' ```
 #' 
-#' 
-#' 
-#' @section Arguments filter, vars:
-#' `r .mybadge_class("data.frame-like")` \cr
-#' 
-#' `filter` must be a one-sided formula
-#' with a single logical expression using the column names of the data.frame,
-#' giving the condition which observation/row indices should be selected for the operation. \cr
-#' For example,
-#' to perform an operation on the rows for which column `height > 2` and for which column `sex != "female"`,
-#' specify the following formula:
-#' 
-#' ```{r, eval = FALSE}
-#' ~ (height > 2) & (sex != "female")
-#' ```
-#' 
-#' If the formula is linked to an environment,
-#' any variables not found in the data set will be searched from the environment. \cr
-#' \cr
-#' `vars` must be a function that returns a logical vector,
-#' giving the column indices to select for the operation. \cr
-#' For example, to select all numeric columns, specify `vars = is.numeric`. \cr
-#' \cr
 #' 
 #' 
 #' @section Argument inv:

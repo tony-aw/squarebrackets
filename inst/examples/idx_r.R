@@ -9,7 +9,7 @@ sb2_x(x, ind1) # extract the row range
 x <- array(1:125, c(5,5,5))
 d <- 1:3
 s <- idx_r(x, d, 2, 2* -1i) # 2:(n-1) for every dimension
-sb_x(x, s, d) # same as x[ 2:4, 2:4, 2:4, drop = FALSE]
+sb_x(x, s = s, d = d) # same as x[ 2:4, 2:4, 2:4, drop = FALSE]
 
 x <- letters
 x[idx_r(x, 0, 2, 2* -1i)]

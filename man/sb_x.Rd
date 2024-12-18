@@ -57,16 +57,16 @@ Use \code{sb2_x(x, ...)} if \code{x} is a recursive object (i.e. list or data.fr
 obj <- matrix(1:16, ncol = 4)
 colnames(obj) <- c("a", "b", "c", "a")
 print(obj)
-sb_x(obj, 1:3, 1:ndims(obj))
+sb_x(obj, s = n(1:3), d = 1:ndims(obj))
 # above is equivalent to obj[1:3, 1:3, drop = FALSE]
-sb_x(obj, i = \(x)x>5)
+sb_x(obj, i = \(x) x > 5)
 # above is equivalent to obj[obj > 5]
-sb_x(obj, c("a", "a"), 2L)
+sb_x(obj, s = n(c("a", "a")), d = 2L)
 # above is equivalent to obj[, lapply(c("a", "a"), \(i) which(colnames(obj) == i)) |> unlist()]
 
 obj <- array(1:64, c(4,4,3))
 print(obj)
-sb_x(obj, n(1:3, 1:2), c(1,3))
+sb_x(obj, s = n(1:3, 1:2), d = c(1,3))
 # above is equivalent to obj[1:3, , 1:2, drop = FALSE]
 sb_x(obj, i = \(x)x > 5)
 # above is equivalent to obj[obj > 5]
@@ -94,16 +94,16 @@ obj <- rbind(
 )
 colnames(obj) <- c("a", "b", "c", "a")
 print(obj)
-sb2_x(obj, 1:3, 1:ndims(obj))
+sb2_x(obj, s = n(1:3), d = 1:ndims(obj))
 # above is equivalent to obj[1:3, 1:3, drop = FALSE]
 sb2_x(obj, i = is.numeric)
 # above is equivalent to obj[sapply(obj, is.numeric)]
-sb2_x(obj, c("a", "a"), 2L)
+sb2_x(obj, s = n(c("a", "a")), d = 2L)
 # above is equivalent to obj[, lapply(c("a", "a"), \(i) which(colnames(obj) == i)) |> unlist()]
 
 obj <- array(as.list(1:64), c(4,4,3))
 print(obj)
-sb2_x(obj, n(1:3, 1:2), c(1,3))
+sb2_x(obj, s = n(1:3, 1:2), d = c(1,3))
 # above is equivalent to obj[1:3, , 1:2, drop = FALSE]
 sb2_x(obj, i = \(x)x > 5)
 # above is equivalent to obj[sapply(obj, \(x) x > 5)]

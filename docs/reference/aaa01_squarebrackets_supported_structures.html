@@ -192,11 +192,10 @@ They have no explicit <a href="aaa07_squarebrackets_PassByReference.html">pass-b
 Most S3 objects in base 'R' are immutable: <br>
 Environments do have <a href="aaa07_squarebrackets_PassByReference.html">pass-by-reference</a> semantics,
 but they are not supported by 'squarebrackets'. <br><br>
-'squarebrackets' supports the mutable <code>data.table</code> class
-(and thus also <code>tidytable</code>, which inherits from <code>data.table</code>). <br><br>
-'squarebrackets' also includes a new class of mutable objects:
-<a href="class_mutable_atomic.html">mutable_atomic</a> objects. <br><code>mutable_atomic</code> objects are the same as atomic objects, except they are mutable (hence the name). <br><br>
-The supported immutable structures are: <br>
+Supported mutable structures:</p><ul><li><p>'squarebrackets' supports the mutable <code>data.table</code> class <br>
+(and thus also <code>tidytable</code>, which inherits from <code>data.table</code>).</p></li>
+<li><p>'squarebrackets' also includes a new class of mutable objects: <br><a href="class_mutable_atomic.html">mutable_atomic</a> objects. <br><code>mutable_atomic</code> objects are the same as atomic objects, except they are mutable (hence the name). <br><br></p></li>
+</ul><p>Supported immutable structures: <br>
 Atomic and recursive vectors/matrices/arrays, data.frames, and tibbles. <br><br>
 All the functions in the 'squarebrackets' package with the word "set" in their name
 perform <a href="aaa07_squarebrackets_PassByReference.html">pass-by-reference</a> modification,

@@ -5,12 +5,14 @@
 \alias{squarebrackets_modify}
 \title{Regarding Modification}
 \description{
-This help page describes the main modification semantics available in 'squarebrackets'. \cr \cr
+This help page describes the main modification semantics
+available in 'squarebrackets'. \cr \cr
 }
 \section{Base R's default modification}{
 
 For most average users, R's default copy-on-modify semantics are fine. \cr
-The benefits of the indexing arguments from 'squarebrackets' can be combined the \verb{[<-} operator,
+The benefits of the indexing arguments from 'squarebrackets'
+can be combined the \verb{[<-} operator,
 through the \link{idx} method. \cr
 The result of the \code{idx()} method
 can be used inside the regular square-brackets operators. \cr
@@ -35,9 +37,12 @@ whilst still using R's default copy-on-modification semantics
 
 \section{Explicit Copy}{
 
-'squarebrackets' provides the \link{sb_mod}/\link{sb2_mod} method to modify through copy. \cr
-This method always copies the modification. \cr
-For recursive objects, \link{sb2_mod} returns the original object, where only the modified subsets are copied,
+'squarebrackets' provides
+the \link{sb_mod}/\link{sb2_mod} method
+to modify through a (shallow) copy. \cr
+This method returns the modified object. \cr
+For recursive objects, \link{sb2_mod} returns the original object,
+where only the modified subsets are copied,
 thus preventing unnecessary usage of memory. \cr
 \cr
 \cr
@@ -99,7 +104,8 @@ with respect to how the replacement is recycled or distributed over the specifie
 \bold{Argument \code{tf}} \cr
 Most functions in (base) 'R' are vectorized for atomic objects, but not for lists \cr
 (see \verb{Footnote 2} below). \cr
-'squarebrackets' will therefore apply transformation function \code{tf} via \code{lapply}, like so: \cr
+'squarebrackets' will therefore apply transformation function \code{tf} via \code{lapply},
+like so: \cr
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{
 x[...] <- lapply(x[...], tf)
@@ -122,7 +128,8 @@ otherwise errors or unexpected behaviour may occur. \cr
 
 \section{Replacement and Transformation in data.frame-like Objects}{
 
-Replacement and transformations in data.frame-like objects are a bit more flexible than in Lists. \cr
+Replacement and transformations
+in data.frame-like objects are a bit more flexible than in Lists. \cr
 \cr
 \code{rp} is not always demanded to be a list for data.frame-like objects,
 only when appropriate
@@ -172,9 +179,11 @@ One of the reasons is the following: \cr
 In an atomic vector \code{x} of some type \code{t},
 every single element of \code{x} is a scalar of type \code{t}. \cr
 However, every element of some list \code{x} can be virtually anything: \cr
-an atomic object, another list, an unevaluated expression, even dark magic like \code{quote(expr =)}. \cr
+an atomic object, another list,
+an unevaluated expression, even dark magic like \code{quote(expr =)}. \cr
 It is difficult to make a vectorized function for an object with so many unknowns. \cr
-Therefore, in the vast majority of the cases, one needs to loop through the list elements. \cr
+Therefore, in the vast majority of the cases,
+one needs to loop through the list elements. \cr
 \cr
 }
 

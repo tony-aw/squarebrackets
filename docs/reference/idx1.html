@@ -3,7 +3,7 @@
 The type of output depends on the type of input index arguments given:
 idx(x, i = i, ...)
 converts linear indices to a strictly positive integer vector of linear indices.
-idx(x, s = s, d = dims, ...)
+idx(x, s = s, d = d, ...)
 converts dimensional indices to a strictly positive integer vector of linear indices.
 idx(x, slice = slice, margin = margin, ...)
 converts indices of one dimension to a strictly positive integer vector of
@@ -11,9 +11,9 @@ indices for that specific dimension.
 
 
 Vectors (both atomic and recursive) only have index argument i. 
-Data.frame-like objects only have the slice, margin index argument pair. 
-Arrays (both atomic and recursive) have the s, d index argument pair,
-as well as the arguments i and slice, margin. 
+Data.frame-like objects only have the slice, margin argument pair. 
+Arrays (both atomic and recursive) have the s, d argument pair,
+as well as the i argument and the slice, margin argument pair. 
 
 The result of the idx() method
 can be used inside the regular square-brackets operators. 
@@ -34,7 +34,7 @@ whilst still using R's default copy-on-modification semantics
 The type of output depends on the type of input index arguments given:
 idx(x, i = i, ...)
 converts linear indices to a strictly positive integer vector of linear indices.
-idx(x, s = s, d = dims, ...)
+idx(x, s = s, d = d, ...)
 converts dimensional indices to a strictly positive integer vector of linear indices.
 idx(x, slice = slice, margin = margin, ...)
 converts indices of one dimension to a strictly positive integer vector of
@@ -42,9 +42,9 @@ indices for that specific dimension.
 
 
 Vectors (both atomic and recursive) only have index argument i. 
-Data.frame-like objects only have the slice, margin index argument pair. 
-Arrays (both atomic and recursive) have the s, d index argument pair,
-as well as the arguments i and slice, margin. 
+Data.frame-like objects only have the slice, margin argument pair. 
+Arrays (both atomic and recursive) have the s, d argument pair,
+as well as the i argument and the slice, margin argument pair. 
 
 The result of the idx() method
 can be used inside the regular square-brackets operators. 
@@ -116,15 +116,15 @@ whilst still using R's default copy-on-modification semantics
     <p>The <code>idx()</code> method converts indices. <br>
 The type of output depends on the type of input index arguments given:</p><ul><li><p><code>idx(x, i = i, ...)</code>
 converts linear indices to a strictly positive integer vector of linear indices.</p></li>
-<li><p><code>idx(x, s = s, d = dims, ...)</code>
+<li><p><code>idx(x, s = s, d = d, ...)</code>
 converts dimensional indices to a strictly positive integer vector of linear indices.</p></li>
 <li><p><code>idx(x, slice = slice, margin = margin, ...)</code>
 converts indices of one dimension to a strictly positive integer vector of
 indices for that specific dimension.</p></li>
 </ul><p>Vectors (both atomic and recursive) only have index argument <code>i</code>. <br>
-Data.frame-like objects only have the <code>slice, margin</code> index argument pair. <br>
-Arrays (both atomic and recursive) have the <code>s, d</code> index argument pair,
-as well as the arguments <code>i</code> and <code>slice, margin</code>. <br><br>
+Data.frame-like objects only have the <code>slice, margin</code> argument pair. <br>
+Arrays (both atomic and recursive) have the <code>s, d</code> argument pair,
+as well as the <code>i</code> argument and the <code>slice, margin</code> argument pair. <br><br>
 The result of the <code>idx()</code> method
 can be used inside the regular square-brackets operators. <br>
 For example like so:</p>
@@ -195,7 +195,7 @@ Duplicates are not allowed.</p></dd>
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>For <code>idx(x, i = i, ...)</code> and <code>idx(x, s = s, d = dims, ...)</code>: <br></p>
+<p>For <code>idx(x, i = i, ...)</code> and <code>idx(x, s = s, d = d, ...)</code>: <br></p>
 
 
 <p>A strictly positive integer vector of flat indices. <br></p>

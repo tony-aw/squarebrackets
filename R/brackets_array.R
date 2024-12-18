@@ -79,7 +79,7 @@
   # Prep:
   x.dim <- dim(x)
   ndims <- length(x.dim)
-  .ci_array_check(x, s, d, ndims, .abortcall = abortcall)
+  .ci_sub_check(x, s, d, ndims, .abortcall = abortcall)
   
   lst <- ci_sub(
     x, s, d, inv, chkdup, .abortcall = abortcall

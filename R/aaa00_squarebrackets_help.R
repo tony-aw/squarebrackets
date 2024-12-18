@@ -207,8 +207,6 @@
 #' 
 #' ADDITIONAL DOCUMENTATION:
 #' 
-#'  the following help pages:
-#' 
 #' - \link{squarebrackets_PassByReference}: \cr
 #' Explains Pass-by-Reference semantics, and its important consequences. \cr
 #' If you are not planning on using the pass-by-reference functionality
