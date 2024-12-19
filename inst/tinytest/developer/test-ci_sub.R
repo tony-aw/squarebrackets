@@ -37,8 +37,20 @@ expect_error(
 enumerate <- enumerate + 6L
 
 
-# error checking ====
+# atomic s tests ====
+expect_equal(
+  ci_sub(x, n(1:4), 1),
+  ci_sub(x, 1:4, 1)
+)
+expect_error(
+  ci_sub(x, 1:10, 1:2),
+  pattern = "if `length(d) > 1`, `s` must be a list",
+  fixed = TRUE
+)
+enumerate <- enumerate + 2L
 
+
+# general error tests ====
 expect_error(
   ci_sub(x, 1:3, "a"),
   pattern = "`d` must be a integer vector"

@@ -72,7 +72,8 @@
 #' (see reference below). \cr
 #' \cr
 #' The `s` argument specifies the
-#' \link[=squarebrackets_indx_fundamentals]{subscripts}. \cr
+#' \link[=squarebrackets_indx_fundamentals]{subscripts}
+#' (i.e. dimensional indices). \cr
 #' The `d` argument gives the dimensions for which the 
 #' \link[=squarebrackets_indx_fundamentals]{subscripts} `s` holds
 #' (i.e. `d` specifies the "non-missing" margins). \cr
@@ -100,32 +101,25 @@
 #'  * As stated, `d` specifies which index margins are non-missing. \cr
 #'  If `d` is of length `0`,
 #'  it is taken as "all index margins are missing".
-#'  * The default value for `d` is \code{1:}\link{ndims}\code{(x)}. \cr \cr
+#'  * The default value for `d` is \code{1:}\link{ndims}\code{(x)}. \cr
 #'  
 #' To keep the syntax short,
 #' the user can use the \link{n} function instead of `list()` to specify `s`. \cr
 #' \cr
+#' \bold{EXAMPLES} \cr
 #' Here are some examples for clarity,
 #' using an atomic array `x` of 3 dimensions:
 #' 
 #'  * `sb_x(x, n(1:10, 1:5), c(1, 3))` \cr
 #'  extracts the first 10 rows, all columns, and the first 5 layers,
 #'  of array `x`. \cr
-#'  The equivalence in base 'R' is: \cr
-#'  `x[1:10, , 1:5, drop = FALSE]`. \cr
 #'  * `sb_x(x, n(1:10), 2)` \cr
 #'  extracts the first 10 columns of array `x`. \cr
-#'  The equivalence in base 'R' is: \cr
-#'  `x[, 1:10, , drop = FALSE]` \cr
 #'  * `sb_x(x, n(1:10))`, \cr
 #'  extracts the first 10 rows, columns, and layers of array `x`. \cr
-#'  The equivalence in base 'R' is: \cr
-#'  `x[1:10, 1:10, 1:10, drop = FALSE]`. \cr
 #'  * `sb_x(x, n(1:10), c(1, 3))`, \cr
 #'  extracts the first 10 rows, all columns, and the first 10 layers,
 #'  of array `x`. \cr
-#'  The equivalence in base 'R' is: \cr
-#'  `x[1:10, , 1:10, drop = FALSE]`. \cr \cr
 #' 
 #' I.e.:
 #' 
@@ -141,14 +135,31 @@
 #' 
 #' ```
 #' 
+#' \bold{NOTE} \cr
+#' If `length(d)` is 1,
+#' `s` can also be given as an atomic vector (of any length),
+#' instead of a list of length 1. \cr
+#' Although it is allowed for `s` and `d` to both be atomic vectors of length 1,
+#' for the readability of your code it is \bold{highly recommended}
+#' that `s` and `d` be explicitly \bold{named} in your method call,
+#' in such a case. \cr
+#' I.e.: \cr
+#' 
+#' ```{r eval = FALSE, echo = TRUE}
+#' 
+#' sb_x(x, 1, 1) # BAD: this is not very readable
+#' 
+#' sb_x(x, s = 1, d = 1) # This is GOOD
+#' 
+#' ```
+#' 
+#' 
 #' For a brief explanation of the relationship between flat indices (`i`)
 #' and subscripts (`s`, `d`) in arrays,
 #' see \link{sub2ind}. \cr \cr
 #' 
 #' 
 #' @section Argument Pair margin, slice:
-#' `r .mybadge_class("atomic matrix")` \cr
-#' `r .mybadge_class("recursive matrix")` \cr
 #' `r .mybadge_class("atomic array")` \cr
 #' `r .mybadge_class("recursive array")` \cr
 #' `r .mybadge_class("data.frame-like")` \cr
@@ -276,10 +287,11 @@
 #' `inv = TRUE` can be used without considering the ordering. \cr \cr
 #' 
 #' 
-#' @section All NULL indices:
+#' @section All Missing Indices:
 #' `NULL` in the indexing arguments corresponds to a missing argument. \cr
+#' For `s, d`, specifying `d` of length 0 also corresponds to all subscripts being missing. \cr
 #' Thus, for \bold{both} \link{sb_x}/\link{sb2_x} and \link{sb_wo}/\link{sb2_wo},
-#' using `NULL` for all indexing arguments corresponds to something like the following:
+#' using missing or `NULL` indexing arguments for all indexing arguments corresponds to something like the following:
 #' 
 #' ```{r eval = FALSE, echo = TRUE}
 #' 
@@ -288,7 +300,7 @@
 #' ```
 #' 
 #' Similarly, for \link{sb_mod}/\link{sb2_mod} and \link{sb_set}/\link{sb2_set},
-#' using `NULL` corresponds to something like the following:
+#' using missing or `NULL` indexing arguments corresponds to something like the following:
 #' 
 #' ```{r eval = FALSE, echo = TRUE}
 #' 

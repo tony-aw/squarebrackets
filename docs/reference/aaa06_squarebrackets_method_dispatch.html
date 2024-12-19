@@ -81,8 +81,14 @@ For atomic objects, these 2 have no meaningful difference
 <li><p><strong>views</strong>: For recursive objects,
 one can create a <a href="aaa08_squarebrackets_coercion.html">view</a> of a recursive subset. <br>
 Subset views do not exist for atomic objects. <br><br></p></li>
-</ul><p>Due to these non-trivial differences,
-the main S3 methods
+</ul><p>Despite these non-trivial differences,
+the S3 method dispatch does not distinguish between atomic and recursive objects. <br>
+I.e. S3 methods check if an object is, for example, an array,
+but not if it is an  atomic array or a recursive array. <br>
+(S3 method dispatch actually does distinguish between basic atomic and recursive vectors,
+but not for dimensional objects like arrays,
+which is problematic for this specific package). <br>
+Therefore, the methods in 'squarebrackets'
 that perform subset operations on an object,
 come in the atomic (<code>sb_</code>) and recursive (<code>sb2_</code>) form. <br>
 The <a href="idx1.html">idx</a> method operates on the indices of an object,

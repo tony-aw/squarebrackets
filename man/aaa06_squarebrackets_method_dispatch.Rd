@@ -33,8 +33,14 @@ one can create a \link[=squarebrackets_coercion]{view} of a recursive subset. \c
 Subset views do not exist for atomic objects. \cr \cr
 }
 
-Due to these non-trivial differences,
-the main S3 methods
+Despite these non-trivial differences,
+the S3 method dispatch does not distinguish between atomic and recursive objects. \cr
+I.e. S3 methods check if an object is, for example, an array,
+but not if it is an  atomic array or a recursive array. \cr
+(S3 method dispatch actually does distinguish between basic atomic and recursive vectors,
+but not for dimensional objects like arrays,
+which is problematic for this specific package). \cr
+Therefore, the methods in 'squarebrackets'
 that perform subset operations on an object,
 come in the atomic (\code{sb_}) and recursive (\code{sb2_}) form. \cr
 The \link{idx} method operates on the indices of an object,

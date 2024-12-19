@@ -74,7 +74,8 @@ The \verb{s, d} argument pair is inspired by the
 (see reference below). \cr
 \cr
 The \code{s} argument specifies the
-\link[=squarebrackets_indx_fundamentals]{subscripts}. \cr
+\link[=squarebrackets_indx_fundamentals]{subscripts}
+(i.e. dimensional indices). \cr
 The \code{d} argument gives the dimensions for which the
 \link[=squarebrackets_indx_fundamentals]{subscripts} \code{s} holds
 (i.e. \code{d} specifies the "non-missing" margins). \cr
@@ -104,33 +105,26 @@ Note the following:
 \item As stated, \code{d} specifies which index margins are non-missing. \cr
 If \code{d} is of length \code{0},
 it is taken as "all index margins are missing".
-\item The default value for \code{d} is \code{1:}\link{ndims}\code{(x)}. \cr \cr
+\item The default value for \code{d} is \code{1:}\link{ndims}\code{(x)}. \cr
 }
 
 To keep the syntax short,
 the user can use the \link{n} function instead of \code{list()} to specify \code{s}. \cr
 \cr
+\bold{EXAMPLES} \cr
 Here are some examples for clarity,
 using an atomic array \code{x} of 3 dimensions:
 \itemize{
 \item \code{sb_x(x, n(1:10, 1:5), c(1, 3))} \cr
 extracts the first 10 rows, all columns, and the first 5 layers,
 of array \code{x}. \cr
-The equivalence in base 'R' is: \cr
-\code{x[1:10, , 1:5, drop = FALSE]}. \cr
 \item \code{sb_x(x, n(1:10), 2)} \cr
 extracts the first 10 columns of array \code{x}. \cr
-The equivalence in base 'R' is: \cr
-\code{x[, 1:10, , drop = FALSE]} \cr
 \item \code{sb_x(x, n(1:10))}, \cr
 extracts the first 10 rows, columns, and layers of array \code{x}. \cr
-The equivalence in base 'R' is: \cr
-\code{x[1:10, 1:10, 1:10, drop = FALSE]}. \cr
 \item \code{sb_x(x, n(1:10), c(1, 3))}, \cr
 extracts the first 10 rows, all columns, and the first 10 layers,
 of array \code{x}. \cr
-The equivalence in base 'R' is: \cr
-\code{x[1:10, , 1:10, drop = FALSE]}. \cr \cr
 }
 
 I.e.:
@@ -146,6 +140,23 @@ sb_x(x, n(1:10), c(1, 3))         # ==> x[1:10, , 1:10, drop = FALSE]
 
 }\if{html}{\out{</div>}}
 
+\bold{NOTE} \cr
+If \code{length(d)} is 1,
+\code{s} can also be given as an atomic vector (of any length),
+instead of a list of length 1. \cr
+Although it is allowed for \code{s} and \code{d} to both be atomic vectors of length 1,
+for the readability of your code it is \bold{highly recommended}
+that \code{s} and \code{d} be explicitly \bold{named} in your method call,
+in such a case. \cr
+I.e.: \cr
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{
+sb_x(x, 1, 1) # BAD: this is not very readable
+
+sb_x(x, s = 1, d = 1) # This is GOOD
+
+}\if{html}{\out{</div>}}
+
 For a brief explanation of the relationship between flat indices (\code{i})
 and subscripts (\code{s}, \code{d}) in arrays,
 see \link{sub2ind}. \cr \cr
@@ -153,8 +164,6 @@ see \link{sub2ind}. \cr \cr
 
 \section{Argument Pair margin, slice}{
 
-\ifelse{html}{\figure{class-atomic_matrix-blue.svg}{options: alt='[class: atomic matrix]'}}{\link[=squarebrackets_indx_args]{class: atomic matrix}} \cr
-\ifelse{html}{\figure{class-recursive_matrix-blue.svg}{options: alt='[class: recursive matrix]'}}{\link[=squarebrackets_indx_args]{class: recursive matrix}} \cr
 \ifelse{html}{\figure{class-atomic_array-blue.svg}{options: alt='[class: atomic array]'}}{\link[=squarebrackets_indx_args]{class: atomic array}} \cr
 \ifelse{html}{\figure{class-recursive_array-blue.svg}{options: alt='[class: recursive array]'}}{\link[=squarebrackets_indx_args]{class: recursive array}} \cr
 \ifelse{html}{\figure{class-data.frame-like-blue.svg}{options: alt='[class: data.frame-like]'}}{\link[=squarebrackets_indx_args]{class: data.frame-like}} \cr
@@ -280,11 +289,12 @@ For replacement with a single value or with a transformation function,
 \code{inv = TRUE} can be used without considering the ordering. \cr \cr
 }
 
-\section{All NULL indices}{
+\section{All Missing Indices}{
 
 \code{NULL} in the indexing arguments corresponds to a missing argument. \cr
+For \verb{s, d}, specifying \code{d} of length 0 also corresponds to all subscripts being missing. \cr
 Thus, for \bold{both} \link{sb_x}/\link{sb2_x} and \link{sb_wo}/\link{sb2_wo},
-using \code{NULL} for all indexing arguments corresponds to something like the following:
+using missing or \code{NULL} indexing arguments for all indexing arguments corresponds to something like the following:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{
 x[]
@@ -292,7 +302,7 @@ x[]
 }\if{html}{\out{</div>}}
 
 Similarly, for \link{sb_mod}/\link{sb2_mod} and \link{sb_set}/\link{sb2_set},
-using \code{NULL} corresponds to something like the following:
+using missing or \code{NULL} indexing arguments corresponds to something like the following:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{
 x[] <- rp # for replacement
