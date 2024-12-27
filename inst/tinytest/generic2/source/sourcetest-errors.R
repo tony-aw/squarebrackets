@@ -73,109 +73,6 @@ if(!test_PassByReference) {
 
 
 
-
-# row ====
-xlist <- list(
-  data.table::data.table(a = 1:10, b = 1:10)
-)
-
-for(i in 1:length(xlist)) {
-  expect_error(
-    sb_test(xlist[[i]], row = -1:-5),
-    pattern = "integers must be >= 1 and <= bounds",
-    fixed = TRUE
-  )|> errorfun()
-  enumerate <- enumerate + 1
-}
-
-for(i in 1:length(xlist)) {
-  expect_error(
-    sb_test(xlist[[i]], row = 0),
-    pattern = "integers must be >= 1 and <= bounds",
-    fixed = TRUE
-  )|> errorfun()
-  enumerate <- enumerate + 1
-}
-
-for(i in 1:length(xlist)) {
-  expect_error(
-    sb_test(xlist[[i]], row = 1000),
-    pattern = "integers must be >= 1 and <= bounds",
-    fixed = TRUE
-  )|> errorfun()
-  enumerate <- enumerate + 1
-}
-
-for(i in 1:length(xlist)) {
-  expect_error(
-    sb_test(xlist[[i]], row = sample(c(TRUE, FALSE), size = nrow(xlist[[i]]) - 1, replace = TRUE)),
-    pattern = "incorrect length of logical indices",
-    fixed = TRUE
-  )|> errorfun()
-  enumerate <- enumerate + 1
-}
-
-for(i in 1:length(xlist)) {
-  expect_error(
-    sb_test(xlist[[i]], row = sample(c(TRUE, FALSE), size = nrow(xlist[[i]]) + 1, replace = TRUE)),
-    pattern = "incorrect length of logical indices",
-    fixed = TRUE
-  )|> errorfun()
-  enumerate <- enumerate + 1
-}
-
-
-# col ====
-xlist <- list(
-  data.table::data.table(a = 1:10, b = 1:10, c=1:10, d=1:10, e=1:10)
-)
-
-for(i in 1:length(xlist)) {
-  expect_error(
-    sb_test(xlist[[i]], col = -1:-5),
-    pattern = "integers must be >= 1 and <= bounds",
-    fixed = TRUE
-  )|> errorfun()
-  enumerate <- enumerate + 1
-}
-
-for(i in 1:length(xlist)) {
-  expect_error(
-    sb_test(xlist[[i]], col = 0),
-    pattern = "integers must be >= 1 and <= bounds",
-    fixed = TRUE
-  )|> errorfun()
-  enumerate <- enumerate + 1
-}
-
-for(i in 1:length(xlist)) {
-  expect_error(
-    sb_test(xlist[[i]], col = 1000),
-    pattern = "integers must be >= 1 and <= bounds",
-    fixed = TRUE
-  )|> errorfun()
-  enumerate <- enumerate + 1
-}
-
-for(i in 1:length(xlist)) {
-  expect_error(
-    sb_test(xlist[[i]], col = sample(c(TRUE, FALSE), size = ncol(xlist[[i]]) - 1, replace = TRUE)),
-    pattern = "incorrect length of logical indices",
-    fixed = TRUE
-  )|> errorfun()
-  enumerate <- enumerate + 1
-}
-
-for(i in 1:length(xlist)) {
-  expect_error(
-    sb_test(xlist[[i]], col = sample(c(TRUE, FALSE), size = ncol(xlist[[i]]) + 1, replace = TRUE)),
-    pattern = "incorrect length of logical indices",
-    fixed = TRUE
-  )|> errorfun()
-  enumerate <- enumerate + 1
-}
-
-
 # dimensions ==== 
 if(!test_PassByReference) {
   x <- array(as.list(1:27), c(3,3,3))
@@ -270,41 +167,6 @@ if(!test_PassByReference) {
   
 }
 
-for(i in 1:length(xlist)) {
-  x <- xlist[[i]]
-  expect_error(
-    sb_test(x, filter = "foo"),
-    pattern = "`filter` must be a formula"
-  ) |> errorfun()
-  expect_error(
-    sb_test(x, filter = ~ mean(a)),
-    pattern = "invalid formula given"
-  ) |> errorfun()
-  expect_error(
-    sb_test(x, vars = "is.numeric"),
-    pattern = "`vars` must be a function"
-  ) |> errorfun()
-  expect_error(
-    sb_test(x, vars = "is.numeric"),
-    pattern = "`vars` must be a function"
-  ) |> errorfun()
-  expect_error(
-    sb_test(x, vars = mean),
-    pattern = "values must be type 'logical'"
-  ) |> errorfun()
-  enumerate <- enumerate + 5
-}
-
-for (i in 1:length(xlist)) {
-  x <- xlist[[i]]
-  colnames(x) <- c("a", "a")
-  expect_error(
-    sb_test(x, col=1),
-    pattern = "`x` does not have unique variable names for all columns; \n fix this before subsetting"
-  ) |> errorfun()
-  enumerate <- enumerate + 1
-}
-
 
 # multi ====
 if(test_PassByReference) {
@@ -320,19 +182,6 @@ if(!test_PassByReference) {
     tb = tibble::tibble(a = 1:26, b = letters),
     tt = tidytable::tidytable(a = 1:26, b = letters)
   )
-}
-
-for(i in 1:length(xlist)) {
-  x <- xlist[[i]]
-  expect_error(
-    sb_test(x, row = 1:2, filter = ~ a>2),
-    pattern = "cannot specify both `filter` and `row`"
-  ) |> errorfun()
-  expect_error(
-    sb_test(x, col = 1:2, vars = is.numeric),
-    pattern = "cannot specify both `vars` and `col`"
-  ) |> errorfun()
-  enumerate <- enumerate + 1
 }
 
 # duplicates ====
@@ -437,3 +286,4 @@ if(test_PassByReference) {
     pattern = "unknown arguments given"
   )
 }
+

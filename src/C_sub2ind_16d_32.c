@@ -42,52 +42,52 @@ int len15 = Rf_length(ind15);
 int len16 = Rf_length(ind16);
 
 const int *pind1;
-pind1 = INTEGER(ind1);
+pind1 = INTEGER_RO(ind1);
 
 const int *pind2;
-pind2 = INTEGER(ind2);
+pind2 = INTEGER_RO(ind2);
 
 const int *pind3;
-pind3 = INTEGER(ind3);
+pind3 = INTEGER_RO(ind3);
 
 const int *pind4;
-pind4 = INTEGER(ind4);
+pind4 = INTEGER_RO(ind4);
 
 const int *pind5;
-pind5 = INTEGER(ind5);
+pind5 = INTEGER_RO(ind5);
 
 const int *pind6;
-pind6 = INTEGER(ind6);
+pind6 = INTEGER_RO(ind6);
 
 const int *pind7;
-pind7 = INTEGER(ind7);
+pind7 = INTEGER_RO(ind7);
 
 const int *pind8;
-pind8 = INTEGER(ind8);
+pind8 = INTEGER_RO(ind8);
 
 const int *pind9;
-pind9 = INTEGER(ind9);
+pind9 = INTEGER_RO(ind9);
 
 const int *pind10;
-pind10 = INTEGER(ind10);
+pind10 = INTEGER_RO(ind10);
 
 const int *pind11;
-pind11 = INTEGER(ind11);
+pind11 = INTEGER_RO(ind11);
 
 const int *pind12;
-pind12 = INTEGER(ind12);
+pind12 = INTEGER_RO(ind12);
 
 const int *pind13;
-pind13 = INTEGER(ind13);
+pind13 = INTEGER_RO(ind13);
 
 const int *pind14;
-pind14 = INTEGER(ind14);
+pind14 = INTEGER_RO(ind14);
 
 const int *pind15;
-pind15 = INTEGER(ind15);
+pind15 = INTEGER_RO(ind15);
 
 const int *pind16;
-pind16 = INTEGER(ind16);
+pind16 = INTEGER_RO(ind16);
 
 
 R_xlen_t counter = 0;

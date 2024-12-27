@@ -62,7 +62,7 @@ sb2_x(obj, i = \(x)x > 5)
 
 obj <- data.frame(a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10]))
 print(obj)
-sb2_x(obj, 1:3, 1:3) # obj[1:3, 1:3, drop = FALSE]
-sb2_x(obj, filter = ~ (a > 5) & (c < 19), vars = is.numeric)
+sb2_x(obj, n(1:3)) # obj[1:3, 1:3, drop = FALSE]
+sb2_x(obj, obs = ~ (a > 5) & (c < 19), vars = is.numeric)
 
 

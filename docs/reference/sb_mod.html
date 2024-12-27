@@ -130,9 +130,9 @@ For modifying subsets using R's default copy-on-modification semantics, see <a h
 <span><span class="co"># S3 method for data.frame</span></span>
 <span><span class="fu">sb2_mod</span><span class="op">(</span></span>
 <span>  <span class="va">x</span>,</span>
-<span>  row <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  col <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  filter <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  s <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  d <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
+<span>  obs <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  vars <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  inv <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  <span class="va">...</span>,</span>
@@ -153,7 +153,7 @@ For modifying subsets using R's default copy-on-modification semantics, see <a h
 <dd><p>see <a href="aaa06_squarebrackets_method_dispatch.html">squarebrackets_method_dispatch</a>.</p></dd>
 
 
-<dt>i, row, col, s, d, filter, vars, inv</dt>
+<dt>i, s, d, obs, vars, inv</dt>
 <dd><p>See <a href="aaa03_squarebrackets_indx_args.html">squarebrackets_indx_args</a>. <br>
 An empty index selection returns the original object unchanged. <br></p></dd>
 
@@ -509,7 +509,7 @@ One cannot specify both <code>tf</code> and <code>rp</code>. It's either one set
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ d: Factor w/ 10 levels "a","b","c","d",..: 1 2 3 4 5 6 7 8 9 10</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">sb2_mod</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="va">obj</span>, filter <span class="op">=</span> <span class="op">~</span> <span class="op">(</span><span class="va">a</span> <span class="op">&gt;=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">(</span><span class="va">c</span> <span class="op">&lt;=</span> <span class="fl">17</span><span class="op">)</span>, vars <span class="op">=</span> <span class="va">is.numeric</span>,</span></span>
+<span class="r-in"><span>  <span class="va">obj</span>, obs <span class="op">=</span> <span class="op">~</span> <span class="op">(</span><span class="va">a</span> <span class="op">&gt;=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">(</span><span class="va">c</span> <span class="op">&lt;=</span> <span class="fl">17</span><span class="op">)</span>, vars <span class="op">=</span> <span class="va">is.numeric</span>,</span></span>
 <span class="r-in"><span>  tf <span class="op">=</span> <span class="va">sqrt</span></span></span>
 <span class="r-in"><span><span class="op">)</span> </span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            a b         c d</span>
@@ -524,7 +524,7 @@ One cannot specify both <code>tf</code> and <code>rp</code>. It's either one set
 <span class="r-out co"><span class="r-pr">#&gt;</span> 9   9.000000 i 19.000000 i</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10 10.000000 j 20.000000 j</span>
 <span class="r-in"><span><span class="fu">sb2_mod</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="va">obj</span>, filter <span class="op">=</span> <span class="op">~</span> <span class="op">(</span><span class="va">a</span> <span class="op">&gt;=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">(</span><span class="va">c</span> <span class="op">&lt;=</span> <span class="fl">17</span><span class="op">)</span>, vars <span class="op">=</span> <span class="va">is.numeric</span>,</span></span>
+<span class="r-in"><span>  <span class="va">obj</span>, obs <span class="op">=</span> <span class="op">~</span> <span class="op">(</span><span class="va">a</span> <span class="op">&gt;=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">(</span><span class="va">c</span> <span class="op">&lt;=</span> <span class="fl">17</span><span class="op">)</span>, vars <span class="op">=</span> <span class="va">is.numeric</span>,</span></span>
 <span class="r-in"><span>  tf <span class="op">=</span> <span class="va">sqrt</span></span></span>
 <span class="r-in"><span><span class="op">)</span> </span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            a b         c d</span>
@@ -539,7 +539,7 @@ One cannot specify both <code>tf</code> and <code>rp</code>. It's either one set
 <span class="r-out co"><span class="r-pr">#&gt;</span> 9   9.000000 i 19.000000 i</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10 10.000000 j 20.000000 j</span>
 <span class="r-in"><span><span class="fu">sb2_mod</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="va">obj</span>, filter <span class="op">=</span> <span class="op">~</span> <span class="op">(</span><span class="va">a</span> <span class="op">&gt;=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">(</span><span class="va">c</span> <span class="op">&lt;=</span> <span class="fl">17</span><span class="op">)</span>, vars <span class="op">=</span> <span class="va">is.numeric</span>,</span></span>
+<span class="r-in"><span>  <span class="va">obj</span>, obs <span class="op">=</span> <span class="op">~</span> <span class="op">(</span><span class="va">a</span> <span class="op">&gt;=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">(</span><span class="va">c</span> <span class="op">&lt;=</span> <span class="fl">17</span><span class="op">)</span>, vars <span class="op">=</span> <span class="va">is.numeric</span>,</span></span>
 <span class="r-in"><span>  tf <span class="op">=</span> <span class="va">sqrt</span></span></span>
 <span class="r-in"><span><span class="op">)</span> </span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            a b         c d</span>

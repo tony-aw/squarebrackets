@@ -1212,6 +1212,19 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// rcpp_dt_find_name
+R_xlen_t rcpp_dt_find_name(SEXP x, SEXP v, int dir);
+RcppExport SEXP _squarebrackets_rcpp_dt_find_name(SEXP xSEXP, SEXP vSEXP, SEXP dirSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    Rcpp::traits::input_parameter< SEXP >::type v(vSEXP);
+    Rcpp::traits::input_parameter< int >::type dir(dirSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_dt_find_name(x, v, dir));
+    return rcpp_result_gen;
+END_RCPP
+}
 // rcpp_seq_mlen
 List rcpp_seq_mlen(IntegerVector x);
 RcppExport SEXP _squarebrackets_rcpp_seq_mlen(SEXP xSEXP) {
@@ -1462,6 +1475,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_squarebrackets_C_pre_coord2ind", (DL_FUNC) &_squarebrackets_C_pre_coord2ind, 3},
     {"_squarebrackets_rcpp_coord2ind", (DL_FUNC) &_squarebrackets_rcpp_coord2ind, 3},
     {"_squarebrackets_rcpp_dt_needcoe", (DL_FUNC) &_squarebrackets_rcpp_dt_needcoe, 3},
+    {"_squarebrackets_rcpp_dt_find_name", (DL_FUNC) &_squarebrackets_rcpp_dt_find_name, 3},
     {"_squarebrackets_rcpp_seq_mlen", (DL_FUNC) &_squarebrackets_rcpp_seq_mlen, 1},
     {"_squarebrackets_rcpp_recycle_seq_mlen", (DL_FUNC) &_squarebrackets_rcpp_recycle_seq_mlen, 2},
     {"_squarebrackets_rcpp_serial", (DL_FUNC) &_squarebrackets_rcpp_serial, 1},

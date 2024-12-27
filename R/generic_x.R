@@ -7,7 +7,7 @@
 #' Use `sb2_x(x, ...)` if `x` is a recursive object (i.e. list or data.frame-like). \cr \cr
 #'
 #' @param x see \link{squarebrackets_supported_structures}.
-#' @param i,row,col,s,d,filter,vars See \link{squarebrackets_indx_args}. \cr
+#' @param i,s,d,obs,vars See \link{squarebrackets_indx_args}. \cr
 #' Duplicates are allowed, resulting in duplicated indices. \cr
 #' An empty index selection results in an empty object of length 0. \cr
 #' @param red Boolean, for recursive objects only,
@@ -122,30 +122,21 @@ sb2_x.array <- function(
 #' @rdname sb_x
 #' @export
 sb2_x.data.frame <- function(
-    x, row = NULL, col = NULL, filter = NULL, vars = NULL, ...
+    x, s = NULL, d = 1:2, obs = NULL, vars = NULL, ...
 ) {
   
   .internal_check_dots(list(...), sys.call())
-  .check_args_df(x, row, col, filter, vars, abortcall = sys.call())
+  .check_args_df(x, s, d, obs, vars, abortcall = sys.call())
   
-  if(.all_NULL_indices(list(row, col, filter, vars))) {
+  # all missing arguments:
+  if(.all_missing_s_d(s, d) && .all_NULL_indices(list(obs, vars))) {
     return(x)
   }
   
-  if(!is.null(row)) { row <- ci_df(
-    x, row, 1L, .abortcall = sys.call()
-  )}
-  if(!is.null(col)) { col <- ci_df(
-    x, col, 2L, uniquely_named = TRUE, .abortcall = sys.call()
-  )}
-  
-  if(!is.null(filter)) {
-    row <- .indx_make_filter(x, filter, inv = FALSE, abortcall = sys.call())
-  }
-  if(!is.null(vars)) {
-    col <- .indx_make_vars(x, vars, inv = FALSE, abortcall = sys.call())
-  }
-  
+  # make arguments:
+  rowcol <- .dt_make_args(x, s, d, obs, vars, FALSE, FALSE, sys.call())
+  row <- rowcol[[1L]]
+  col <- rowcol[[2L]]
   if(is.null(row)) row <- base::quote(expr = )
   if(is.null(col)) col <- base::quote(expr = )
   

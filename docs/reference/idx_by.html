@@ -171,7 +171,7 @@ For example, to subset the last element per group, specify: <br><code>f = last</
 <span class="r-out co"><span class="r-pr">#&gt;</span> 20  6 t     e</span>
 <span class="r-in"><span><span class="co"># get the first row for each group in data.frame `x`:</span></span></span>
 <span class="r-in"><span><span class="va">row</span> <span class="op">&lt;-</span> <span class="fu">idx_by</span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span>, <span class="va">first</span>, <span class="va">x</span><span class="op">$</span><span class="va">group</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="sb_x.html">sb2_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">row</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="sb_x.html">sb2_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">row</span>, <span class="fl">1L</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    a b group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 10 a     a</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  8 e     b</span>
@@ -179,9 +179,9 @@ For example, to subset the last element per group, specify: <br><code>f = last</
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4 19 m     d</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5  5 q     e</span>
 <span class="r-in"><span><span class="co"># get the first row for each group for which a &gt; 10:</span></span></span>
-<span class="r-in"><span><span class="va">x2</span> <span class="op">&lt;-</span> <span class="fu"><a href="sb_x.html">sb2_x</a></span><span class="op">(</span><span class="va">x</span>, filter <span class="op">=</span> <span class="op">~</span> <span class="va">a</span> <span class="op">&gt;</span> <span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x2</span> <span class="op">&lt;-</span> <span class="fu"><a href="sb_x.html">sb2_x</a></span><span class="op">(</span><span class="va">x</span>, obs <span class="op">=</span> <span class="op">~</span> <span class="va">a</span> <span class="op">&gt;</span> <span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">row</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html" class="external-link">na.omit</a></span><span class="op">(</span><span class="fu">idx_by</span><span class="op">(</span><span class="va">x2</span>, <span class="fl">1</span>, <span class="va">first</span>, <span class="va">x2</span><span class="op">$</span><span class="va">group</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="sb_x.html">sb2_x</a></span><span class="op">(</span><span class="va">x2</span>, <span class="va">row</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="sb_x.html">sb2_x</a></span><span class="op">(</span><span class="va">x2</span>, <span class="va">row</span>, <span class="fl">1L</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    a b group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 14 b     a</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 18 g     b</span>

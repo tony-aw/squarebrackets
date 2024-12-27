@@ -8,11 +8,11 @@ expect_error(
   pattern = "`x` must be a data.table"
 )
 expect_error(
-  dt_setcoe(x, col = "a", v = as.numeric),
+  dt_setcoe(x, vars = "a", v = as.numeric),
   pattern = "`x` must be a data.table"
 )
 expect_error(
-  dt_setrm(x, col = "a"),
+  dt_setrm(x, vars = "a"),
   pattern = "`x` must be a data.table"
 )
 expect_error(
@@ -22,28 +22,6 @@ expect_error(
 expect_error(
   dt_setreorder(x),
   pattern = "`x` must be a data.table"
-)
-
-x <- data.table::data.table(a = 1:10, a = letters[1:10])
-expect_error(
-  dt_aggregate(x, SDcols = "a", by = "b", f= sum),
-  pattern = "`x` does not have unique variable names for all columns; \n fix this before subsetting"
-)
-expect_error(
-  dt_setcoe(x, col = "a", v = as.numeric),
-  pattern = "`x` does not have unique variable names for all columns; \n fix this before subsetting"
-)
-expect_error(
-  dt_setrm(x, col = "a"),
-  pattern = "`x` does not have unique variable names for all columns; \n fix this before subsetting"
-)
-expect_error(
-  dt_setadd(x, data.table::data.table(e = 1:10)),
-  pattern = "`x` does not have unique variable names for all columns; \n fix this before subsetting"
-)
-expect_error(
-  dt_setreorder(x, varorder = 2),
-  pattern = "`x` does not have unique variable names for all columns; \n fix this before subsetting"
 )
 
 x <- data.table::data.table(a = 1:10, b = letters[1:10])
@@ -109,7 +87,7 @@ enumerate <- enumerate + 6
 x <- data.table::data.table(a = 1:10, b = letters[1:10], c = 11:20, d = letters[11:20])
 y <- data.table::copy(x)
 cols <- c("a", "c")
-dt_setcoe(x, col = cols, v = \(x)x^2)
+dt_setcoe(x, vars = cols, v = \(x)x^2)
 y[ , (cols):= lapply(.SD, \(x)x^2), .SD = cols]
 expect_equal(
   x,
@@ -137,7 +115,7 @@ enumerate <- enumerate + 3
 x <- data.table::data.table(a = 1:10, b = letters[1:10], c = 11:20, d = letters[11:20])
 y <- data.table::copy(x)
 cols <- c("a", "c")
-dt_setrm(x, col = cols)
+dt_setrm(x, vars = cols)
 y[ , (cols):= NULL]
 expect_equal(
   x,

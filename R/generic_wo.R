@@ -7,7 +7,7 @@
 #' Use `sb2_wo(x, ...)` if `x` is a recursive object (i.e. list or data.frame-like). \cr \cr
 #'
 #' @param x see \link{squarebrackets_supported_structures}.
-#' @param i,row,col,s,d,filter,vars See \link{squarebrackets_indx_args}. \cr
+#' @param i,s,d,obs,vars See \link{squarebrackets_indx_args}. \cr
 #' An empty index selection results in nothing being removed,
 #' and the entire object is returned. \cr
 #' @param red Boolean, for recursive objects only,
@@ -132,32 +132,22 @@ sb2_wo.array <- function(
 #' @rdname sb_wo
 #' @export
 sb2_wo.data.frame <- function(
-    x, row = NULL, col = NULL, filter = NULL, vars = NULL, ...,
+    x, s = NULL, d = 1:2, obs = NULL, vars = NULL, ...,
     chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
   .internal_check_dots(list(...), sys.call())
-  .check_args_df(x, row, col, filter, vars, abortcall = sys.call())
+  .check_args_df(x, s, d, obs, vars, abortcall = sys.call())
   
-  if(.all_NULL_indices(list(row, col, filter, vars))) {
+  # all missing arguments:
+  if(.all_missing_s_d(s, d) && .all_NULL_indices(list(obs, vars))) {
     return(x)
   }
   
-  
-  if(!is.null(row)) { row <- ci_df(
-    x, row, 1L, inv = TRUE, chkdup = chkdup, .abortcall = sys.call()
-  )}
-  if(!is.null(col)) { col <- ci_df(
-    x, col, 2L, inv = TRUE, chkdup = chkdup, .abortcall = sys.call()
-  )}
-  
-  if(!is.null(filter)) {
-    row <- .indx_make_filter(x, filter, inv = TRUE, abortcall = sys.call())
-  }
-  if(!is.null(vars)) {
-    col <- .indx_make_vars(x, vars, inv = TRUE, abortcall = sys.call())
-  }
-  
+  # make arguments:
+  rowcol <- .dt_make_args(x, s, d, obs, vars, TRUE, chkdup, sys.call())
+  row <- rowcol[[1L]]
+  col <- rowcol[[2L]]
   if(is.null(row)) row <- base::quote(expr = )
   if(is.null(col)) col <- base::quote(expr = )
   

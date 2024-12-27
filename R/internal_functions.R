@@ -28,10 +28,6 @@
 #' @noRd
 .indx_make_filter <- function(x, filter, inv, abortcall) {
   
-  is_formula <- inherits(filter, "formula") && is.call(filter) && filter[[1L]] == quote(`~`)
-  if(!is_formula) {
-    stop(simpleError("`filter` must be a formula", call = abortcall))
-  }
   if(length(filter) != 2L) {
     stop(simpleError("improper formula given", call = abortcall))
   }
@@ -47,6 +43,27 @@
   
 }
 
+#' @keywords internal
+#' @noRd
+.indx_make_vars_range <- function(x, form, inv, abortcall) {
+  
+  if(length(form) != 3L) {
+    stop(simpleError("improper formula given", call = abortcall))
+  }
+  vars <- all.vars(form)
+  if(length(vars) != 2L) {
+    stop(simpleError("improper formula given", call = abortcall))
+  }
+  nms <- names(x)
+  pos1 <- .rcpp_dt_find_name(nms, vars[1L], 1L)
+  pos2 <- .rcpp_dt_find_name(nms, vars[2L], 1L)
+  
+  rng <- pos1:pos2
+  if(inv) {
+    rng <- seq_len(length(x))[-rng]
+  }
+  return(rng)
+}
 
 #' @keywords internal
 #' @noRd
@@ -77,38 +94,25 @@
 
 #' @keywords internal
 #' @noRd
-.check_args_df <- function(x, row, col, filter, vars, abortcall) {
-  if(!is.null(filter) && !is.null(row)) {
+.check_args_df <- function(x, s, d, obs, vars, abortcall) {
+  
+  used_sd <- !is.null(s)
+  used_obsvars <- !is.null(obs) || !is.null(vars)
+  
+  if(used_sd && used_obsvars) {
     stop(simpleError(
-      "cannot specify both `filter` and `row`",
+      "cannot specify the `s, d` arguments and `obs, vars` arguments simultaneously",
       call = abortcall
     ))
   }
-  if(!is.null(vars) && !is.null(col)) {
-    stop(simpleError(
-      "cannot specify both `vars` and `col`",
-      call = abortcall
-    ))
-  }
-  if(collapse::any_duplicated(names(x))) {
-    stop(simpleError(
-      "`x` does not have unique variable names for all columns; \n fix this before subsetting",
-      call = abortcall
-    ))
-  }
+  # if(collapse::any_duplicated(names(x))) {
+  #   stop(simpleError(
+  #     "`x` does not have unique variable names for all columns; \n fix this before subsetting",
+  #     call = abortcall
+  #   ))
+  # }
 }
 
-
-#' @keywords internal
-#' @noRd
-.all_NULL_indices <- function(lst) {
-  check <- vapply(lst, \(x) is.null(x), FUN.VALUE = logical(1L))
-  if(all(check)) {
-    return(TRUE)
-  } else {
-    return(FALSE)
-  }
-}
 
 #' @keywords internal
 #' @noRd
@@ -162,15 +166,6 @@
   # if(typeof(rp) != sstype) stop("type coercion not allowed")
 }
 
-
-#' @keywords internal
-#' @noRd
-.check_rp_df <- function(rp, abortcall) {
-  if(!is.list(rp)) {
-    stop(simpleError("`rp` must be a data.frame-like object or a list", call = abortcall))
-  }
-  # if(any(collapse::vtypes(rp) != sstypes)) stop("type coercion not allowed")
-}
 
 
 #' @keywords internal

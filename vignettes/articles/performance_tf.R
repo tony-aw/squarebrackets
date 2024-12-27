@@ -27,12 +27,11 @@ tf <- function(x) { return(-1 * x) }
 bm.sb_tf.matrix <- bench::mark(
   "base [<-" =  basefun(x.mat, sel.rows, sel.cols, tf = tf),
   "idx + [<-" = base_plus_idx(x.mat, sel.rows, sel.cols, tf = tf),
-  "sb_set" = sb_set.matrix(x.mat2, sel.rows, sel.cols, tf = tf),
-  "sb_mod" = sb_mod.matrix(x.mat, sel.rows, sel.cols, tf = tf),
+  "sb_set" = sb_set.array(x.mat2, n(sel.rows, sel.cols), tf = tf),
+  "sb_mod" = sb_mod.array(x.mat, n(sel.rows, sel.cols), tf = tf),
   check = FALSE,
   min_iterations = 500
 )
-bm.sb_tf.matrix
 summary(bm.sb_tf.matrix)
 autoplot(bm.sb_tf.matrix) + ggtitle("matrix")
 save(bm.sb_tf.matrix, file = "bm.sb_tf.matrix.RData")
@@ -47,11 +46,16 @@ basefun <- function(x, rows, lyrs, tf) {
   x[rows, , lyrs] <- tf(x[rows, , lyrs])
   return(x)
 }
-tf <- function(x) { return(-1 * x) }
+base_plus_idx <- function(x, rows, lyrs, tf) {
+  x[idx.array(x, n(rows, lyrs), c(1, 3))] <- tf(x[idx.array(x, n(rows, lyrs), c(1, 3))])
+  return(x)
+}
+tf <- function(x) { return(-1L * x) }
 bm.sb_tf.3d <- bench::mark(
   "base [<-" = basefun(x.3d, sel.rows, sel.lyrs, tf = tf ),
+  "idx + [<-" = base_plus_idx(x.3d, sel.rows, sel.lyrs, tf = tf),
   "sb_set" =  sb_set.array(x.3d2, n(sel.rows, sel.lyrs), c(1,3), tf = tf),
-  "sb_mod" = sb_mod.array(x.3d, n(sel.rows, NULL, sel.lyrs), c(1, 3) tf = tf),
+  "sb_mod" = sb_mod.array(x.3d, n(sel.rows, sel.lyrs), c(1, 3), tf = tf),
   check = FALSE,
   min_iterations = 500
 )
@@ -70,9 +74,9 @@ chrmat <- matrix(
 intmat <- matrix(
   seq.int(n*ncol), ncol = ncol
 )
-x <- cbind(chrmat, intmat) |> as.data.frame()
-colnames(x) <- make.names(colnames(x), unique = TRUE)
-x2 <- data.table::as.data.table(x)
+df <- cbind(chrmat, intmat) |> as.data.frame()
+colnames(df) <- make.names(colnames(df), unique = TRUE)
+dt <- data.table::as.data.table(df)
 rm(list = c("chrmat", "intmat"))
 
 sel.rows <- 1:1000
@@ -81,12 +85,12 @@ basefun <- function(x, rows, tf) {
   return(x)
 }
 bm.sb_tf.df <- bench::mark(
-  "base [<-" = basefun(x, sel.rows, tf = \(x) -1 * x),
+  "base [<-" = basefun(df, sel.rows, tf = \(x) -1 * x),
   "sb_set" = sb2_set.data.table(
-    x2, rows = sel.rows, vars = is.numeric, tf = \(x) -1 * x
+    dt, obs = sel.rows, vars = is.numeric, tf = \(x) -1 * x
   ),
   "sb_mod" = sb2_mod.data.frame(
-    x, rows = sel.rows, vars = is.numeric, tf = \(x) -1 * x, coe = TRUE
+    df, obs = sel.rows, vars = is.numeric, tf = \(x) -1 * x
   ),
   check = FALSE,
   min_iterations = 500

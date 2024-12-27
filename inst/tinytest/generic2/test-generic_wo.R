@@ -148,16 +148,9 @@ enumerate <- enumerate + 1
 
 pre_subset_df <- sb2_wo.data.frame
 
-f_expect.data.frame <- function(x, row = NULL, col = NULL, filter = NULL, get_vars = NULL) {
+f_expect.data.frame <- function(x, row = NULL, col = NULL) {
   if(!is.null(row)) row <- indx_wo(row, x, rownames(x), nrow(x))
   if(!is.null(col)) col <- indx_wo(col, x, names(x), ncol(x))
-  if(!is.null(filter)) {
-    row <- model.frame(as.formula(filter), data = x)[, 1] |> as.logical()
-    row <- which(!row)
-  }
-  if(!is.null(get_vars)) {
-    col <- which(!sapply(x, get_vars))
-  }
   if(is.null(row)) row <- seq_len(nrow(x))
   if(is.null(col)) col <- seq_len(ncol(x))
   out <- collapse::ss(x, row, col)
@@ -171,7 +164,6 @@ f_out.data.frame <- sb2_wo.data.frame
 dt. <- loadNamespace("data.table")
 
 sys.source(file.path(getwd(), "source", "sourcetest-datasets.R"), envir = environment())
-
 
 # test errors ====
 sb_test <- sb2_wo

@@ -115,7 +115,7 @@
 #'  b = data.table::data.table(cola = 11:20, colb = letters[11:20])
 #' )
 #' myref <- x$a
-#' sb2_set(myref, col = "cola", tf = \(x)x^2)
+#' sb2_set(myref, vars = "cola", tf = \(x)x^2)
 #' 
 #' ```
 #' Notice in the above code that `myref` has the same address as `x$a`,

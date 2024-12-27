@@ -79,15 +79,15 @@ obj <- data.frame(a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:1
 str(obj) # notice that columns "a" and "c" are INTEGER (`int`)
 
 sb2_mod(
-  obj, filter = ~ (a >= 2) & (c <= 17), vars = is.numeric,
+  obj, obs = ~ (a >= 2) & (c <= 17), vars = is.numeric,
   tf = sqrt
 ) 
 sb2_mod(
-  obj, filter = ~ (a >= 2) & (c <= 17), vars = is.numeric,
+  obj, obs = ~ (a >= 2) & (c <= 17), vars = is.numeric,
   tf = sqrt
 ) 
 sb2_mod(
-  obj, filter = ~ (a >= 2) & (c <= 17), vars = is.numeric,
+  obj, obs = ~ (a >= 2) & (c <= 17), vars = is.numeric,
   tf = sqrt
 ) 
 

@@ -2,6 +2,55 @@
 
 #' @keywords internal
 #' @noRd
+.dt_rowcol <- function(x, s, d, inv, chkdup, abortcall) {
+  if(length(d) == 1L) {
+    if(is.list(s)) {
+      s <- s[[1L]]
+    }
+    if(d == 1L) {
+      row <- ci_margin(x, s, 1L, inv, chkdup, TRUE, sys.call())
+      col <- NULL
+    }
+    if(d == 2L) {
+      col <- ci_margin(x, s, 2L, inv, chkdup, TRUE, sys.call())
+      row <- NULL
+    }
+  }
+  else {
+    s <- .mat_prepsub2(x, s, d)
+    row <- ci_margin(x, s[[1L]], 1L, inv, chkdup, TRUE, sys.call())
+    col <- ci_margin(x, s[[2L]], 2L, inv, chkdup, TRUE, sys.call())
+  }
+  
+  out <- list(row, col)
+  return(out)
+}
+
+
+#' @keywords internal
+#' @noRd
+.dt_make_args <- function(x, s, d, obs, vars, inv, chkdup, abortcall) {
+  rowcol <- list(NULL, NULL)
+  if(!is.null(obs)) {
+    rowcol[[1L]] <- ci_obs(
+      x, obs, inv, chkdup, TRUE, sys.call()
+    )
+  }
+  if(!is.null(vars)) {
+    rowcol[[2L]] <- ci_vars(
+      x, vars, inv, chkdup, TRUE, sys.call()
+    )
+  }
+  if(length(d) > 0L && !is.null(s)) {
+    .ci_sub_check(x, s, d, 2L, sys.call())
+    rowcol <- .dt_rowcol(x, s, d, inv, chkdup, abortcall = sys.call())
+  }
+  return(rowcol)
+}
+
+
+#' @keywords internal
+#' @noRd
 .dt_check_needcoe <- function(x, col, rp) {
   check <- .rcpp_dt_needcoe(x, col, rp)
   return(check)
@@ -42,7 +91,6 @@
 #' @noRd
 .dt_mod_whole <- function(x, col, rp, .lapply, abortcall) {
   
-  .check_rp_df(rp, abortcall = abortcall)
   data.table::set(x, j = col, value = rp)
   
   return(x)

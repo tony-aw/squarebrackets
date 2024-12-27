@@ -166,19 +166,12 @@ sys.source(file.path(getwd(), "source", "sourcetest-dims.R"), envir = environmen
 
 pre_subset_df <- sb2_wo.data.frame
 
-f_expect.data.frame <- function(x, row = NULL, col = NULL, filter = NULL, get_vars = NULL) {
+f_expect.data.frame <- function(x, row = NULL, col = NULL) {
   
   tf <- function(x)x[1]
   
   if(!is.null(row)) row <- indx_wo(row, x, rownames(x), nrow(x))
   if(!is.null(col)) col <- indx_wo(col, x, names(x), ncol(x))
-  if(!is.null(filter)) {
-    row <- model.frame(as.formula(filter), data = x)[, 1] |> as.logical()
-    row <- which(!row)
-  }
-  if(!is.null(get_vars)) {
-    col <- which(!vapply(x, get_vars, logical(1L)))
-  }
   
   if(any_empty_indices(row, col)) {
     return(x)
@@ -200,9 +193,9 @@ f_expect.data.frame <- function(x, row = NULL, col = NULL, filter = NULL, get_va
   return(x)
 }
 
-f_out.data.frame <- function(x, row = NULL, col = NULL, filter = NULL, get_vars = NULL) {
+f_out.data.frame <- function(x, s, d) {
   
-  return(sb2_mod.data.frame(x, row, col, filter, get_vars, inv = TRUE, tf = \(x)x[1]))
+  return(sb2_mod.data.frame(x, s, d, inv = TRUE, tf = \(x)x[1]))
   
 }
 
@@ -211,7 +204,6 @@ f_out.data.frame <- function(x, row = NULL, col = NULL, filter = NULL, get_vars 
 dt. <- loadNamespace("data.table")
 
 sys.source(file.path(getwd(), "source", "sourcetest-datasets.R"), envir = environment())
-
 
 
 

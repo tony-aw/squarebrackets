@@ -118,7 +118,7 @@ But they have attributes and special methods that make them behave differently. 
 There are highly specialized packages to handle objects derived from atomic objects. \cr
 For example, the 'anytime' package to handle date-time objects. \cr
 \cr
-'squarebrackets does provide some more explicit support for factors. \cr
+'squarebrackets  does provide some more explicit support for factors. \cr
 \cr
 
 \bold{Not Supported S3 structures} \cr

@@ -22,7 +22,7 @@ using namespace Rcpp;
 DTYPES <- 2:8
 all_args <- stri_c("const SEXP ind", 1:16)
 setlengths <- paste("int len", 1:16, " = Rf_length(ind", 1:16, ");", sep= "")
-make_pointers <- sprintf("const int *pind%d;\npind%d = INTEGER(ind%d);\n", 1:16, 1:16, 1:16)
+make_pointers <- sprintf("const int *pind%d;\npind%d = INTEGER_RO(ind%d);\n", 1:16, 1:16, 1:16)
 all_lengths <- paste("len", 1:16, sep = "")
 all_for <- rev(
   sprintf("\t for(int iter%d = 0; iter%d < len%d; ++iter%d) {\n", 16:1, 16:1, 16:1, 16:1)

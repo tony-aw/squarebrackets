@@ -525,6 +525,12 @@
 
 #' @keywords internal
 #' @noRd
+.rcpp_dt_find_name <- function(x, v, dir) {
+    .Call(`_squarebrackets_rcpp_dt_find_name`, x, v, dir)
+}
+
+#' @keywords internal
+#' @noRd
 .rcpp_seq_mlen <- function(x) {
     .Call(`_squarebrackets_rcpp_seq_mlen`, x)
 }

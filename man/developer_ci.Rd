@@ -6,6 +6,8 @@
 \alias{ci_margin}
 \alias{ci_sub}
 \alias{ci_df}
+\alias{ci_obs}
+\alias{ci_vars}
 \title{Construct Indices}
 \usage{
 ci_flat(
@@ -43,14 +45,32 @@ ci_df(
   margin,
   inv = FALSE,
   chkdup = FALSE,
-  uniquely_named = FALSE,
+  uniquely_named = TRUE,
+  .abortcall = sys.call()
+)
+
+ci_obs(
+  x,
+  obs,
+  inv = FALSE,
+  chkdup = FALSE,
+  uniquely_named = TRUE,
+  .abortcall = sys.call()
+)
+
+ci_vars(
+  x,
+  vars,
+  inv = FALSE,
+  chkdup = FALSE,
+  uniquely_named = TRUE,
   .abortcall = sys.call()
 )
 }
 \arguments{
 \item{x}{the object for which the indices are meant.}
 
-\item{i, slice, margin, s, d, inv}{See \link{squarebrackets_indx_args}. \cr}
+\item{i, s, d, slice, margin, obs, vars, inv}{See \link{squarebrackets_indx_args}. \cr}
 
 \item{chkdup}{see \link{squarebrackets_options}. \cr
 \ifelse{html}{\figure{for_performance-set_to_FALSE-red.svg}{options: alt='[for performance: set to FALSE]'}}{\link[=squarebrackets_help]{for performance: set to FALSE}} \cr}
@@ -75,7 +95,10 @@ These functions construct flat or dimensional indices. \cr
 except it is specifically designed for data.frame-like objects. \cr
 It is a separate function,
 because things like \code{dimnames(x)[1]} and \code{rownames(x)}
-do not always return the same output for certain data.frame-like objects. \cr
+do not always return the same output for certain data.frame-like objects.
+\item \code{ci_obs()} and \code{ci_vars()} construct row and column indices,
+respectively,
+data.frame-like objects. \cr
 }
 }
 \examples{

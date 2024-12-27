@@ -11,7 +11,7 @@
 #'
 #' @param x a \bold{variable} belonging to one of the
 #' \link[=squarebrackets_supported_structures]{supported mutable classes}. \cr
-#' @param i,row,col,s,d,filter,vars,inv See \link{squarebrackets_indx_args}. \cr
+#' @param i,s,d,obs,vars,inv See \link{squarebrackets_indx_args}. \cr
 #' An empty index selection leaves the original object unchanged. \cr
 #' @param ... see \link{squarebrackets_method_dispatch}.
 #' @param rp,tf,.lapply see \link{squarebrackets_modify}.
@@ -93,7 +93,7 @@ sb_set.array <- function(
   .check_args_array(x, s, d, sys.call())
 
     
-  # empty arguments:
+  # all missing arguments:
   if(.all_NULL_indices(list(s, i))) {
     .all_set_atomic(x, rp, tf, abortcall = sys.call())
     return(invisible(NULL))
@@ -154,7 +154,7 @@ sb2_set.default <- function(x, ...) {
 #' @rdname sb_set
 #' @export
 sb2_set.data.table <- function(
-    x, row = NULL, col = NULL, filter = NULL, vars = NULL, inv = FALSE,
+    x, s = NULL, d = 1:2, obs = NULL, vars = NULL, inv = FALSE,
     ..., rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE), .lapply = lapply
 ) {
   
@@ -164,26 +164,18 @@ sb2_set.data.table <- function(
     stop("`x` is not a (supported) mutable object")
   }
   .internal_check_rptf(rp, tf, sys.call())
-  .check_args_df(x, row, col, filter, vars, abortcall = sys.call())
+  .check_args_df(x, s, d, obs, vars, abortcall = sys.call())
   .check_bindingIsLocked(substitute(x), parent.frame(n = 1), abortcall = sys.call())
   
   
-  # make args:
-  if(!is.null(row)) { row <- ci_df(
-    x,  row, 1L, inv, chkdup, .abortcall = sys.call()
-  )}
-  if(!is.null(col)) { col <- ci_df(
-    x, col, 2L, inv, chkdup, .abortcall = sys.call()
-  )}
+  # make arguments:
+  rowcol <- .dt_make_args(x, s, d, obs, vars, inv, chkdup, sys.call())
+  row <- rowcol[[1L]]
+  col <- rowcol[[2L]]
+  # don't use if(is.null(row or col)) row or col <- 1:... -> will mess up the rest of this function
   
-  if(!is.null(filter)) {
-    row <- .indx_make_filter(x, filter, inv = inv, abortcall = sys.call())
-  }
-  if(!is.null(vars)) {
-    col <- .indx_make_vars(x, vars, inv = inv, abortcall = sys.call())
-  }
   
-  # empty return:
+  # empty indices:
   if(.any_empty_indices(n(row, col))) {
     return(invisible(NULL))
   }

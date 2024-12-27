@@ -70,7 +70,7 @@ x <- list(
 print(x)
 myref <- sb2_rec(x, "a")
 address(myref) == address(x$a) # they are the same
-sb2_set(myref, col = "cola", tf = \(x)x^2)
+sb2_set(myref, vars = "cola", tf = \(x)x^2)
 print(x) # notice x has been changed
 
 

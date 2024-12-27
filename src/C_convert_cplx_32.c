@@ -8,11 +8,9 @@ SEXP C_convert_cplx_32 ( SEXP x, SEXP val ) {
 R_xlen_t n = xlength(x);
 
 SEXP res = PROTECT(allocVector(INTSXP, n));
-int *pres;
-pres = INTEGER(res);
+int *pres = INTEGER(res);
 
-const Rcomplex *px;
-px = COMPLEX(x);
+const Rcomplex *px = COMPLEX_RO(x);
 
 if(Rf_length(val) == 1) {
   
@@ -30,8 +28,7 @@ if(Rf_length(val) == 1) {
   
 }
 else if(Rf_length(val) == n) {
-  const int *pv;
-  pv = INTEGER(val);
+  const int *pv = INTEGER_RO(val);
   
   for(int j = 0; j != n; ++j) {
     if(px[j].i < 0) {

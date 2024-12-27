@@ -25,3 +25,4 @@ expect_error(
   pattern = "unknown arguments given"
 )
 
+enumerate <- 4L

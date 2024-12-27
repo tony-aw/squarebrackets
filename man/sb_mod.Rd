@@ -62,9 +62,9 @@ sb2_mod(x, ...)
 
 \method{sb2_mod}{data.frame}(
   x,
-  row = NULL,
-  col = NULL,
-  filter = NULL,
+  s = NULL,
+  d = 1:2,
+  obs = NULL,
   vars = NULL,
   inv = FALSE,
   ...,
@@ -79,7 +79,7 @@ sb2_mod(x, ...)
 
 \item{...}{see \link{squarebrackets_method_dispatch}.}
 
-\item{i, row, col, s, d, filter, vars, inv}{See \link{squarebrackets_indx_args}. \cr
+\item{i, s, d, obs, vars, inv}{See \link{squarebrackets_indx_args}. \cr
 An empty index selection returns the original object unchanged. \cr}
 
 \item{rp, tf, .lapply}{see \link{squarebrackets_modify}.}
@@ -188,15 +188,15 @@ obj <- data.frame(a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:1
 str(obj) # notice that columns "a" and "c" are INTEGER (`int`)
 
 sb2_mod(
-  obj, filter = ~ (a >= 2) & (c <= 17), vars = is.numeric,
+  obj, obs = ~ (a >= 2) & (c <= 17), vars = is.numeric,
   tf = sqrt
 ) 
 sb2_mod(
-  obj, filter = ~ (a >= 2) & (c <= 17), vars = is.numeric,
+  obj, obs = ~ (a >= 2) & (c <= 17), vars = is.numeric,
   tf = sqrt
 ) 
 sb2_mod(
-  obj, filter = ~ (a >= 2) & (c <= 17), vars = is.numeric,
+  obj, obs = ~ (a >= 2) & (c <= 17), vars = is.numeric,
   tf = sqrt
 ) 
 

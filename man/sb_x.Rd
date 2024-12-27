@@ -22,14 +22,14 @@ sb2_x(x, ...)
 
 \method{sb2_x}{array}(x, s = NULL, d = 1:ndims(x), i = NULL, red = FALSE, ...)
 
-\method{sb2_x}{data.frame}(x, row = NULL, col = NULL, filter = NULL, vars = NULL, ...)
+\method{sb2_x}{data.frame}(x, s = NULL, d = 1:2, obs = NULL, vars = NULL, ...)
 }
 \arguments{
 \item{x}{see \link{squarebrackets_supported_structures}.}
 
 \item{...}{see \link{squarebrackets_method_dispatch}.}
 
-\item{i, row, col, s, d, filter, vars}{See \link{squarebrackets_indx_args}. \cr
+\item{i, s, d, obs, vars}{See \link{squarebrackets_indx_args}. \cr
 Duplicates are allowed, resulting in duplicated indices. \cr
 An empty index selection results in an empty object of length 0. \cr}
 
@@ -114,8 +114,8 @@ sb2_x(obj, i = \(x)x > 5)
 
 obj <- data.frame(a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10]))
 print(obj)
-sb2_x(obj, 1:3, 1:3) # obj[1:3, 1:3, drop = FALSE]
-sb2_x(obj, filter = ~ (a > 5) & (c < 19), vars = is.numeric)
+sb2_x(obj, n(1:3)) # obj[1:3, 1:3, drop = FALSE]
+sb2_x(obj, obs = ~ (a > 5) & (c < 19), vars = is.numeric)
 
 
 }

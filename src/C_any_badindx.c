@@ -14,8 +14,7 @@ switch(TYPEOF(x)) {
       
       int v;
       v = Rf_asInteger(val);
-      const int *px;
-      px = INTEGER(x);
+      const int *px = INTEGER_RO(x);
       for(R_xlen_t i = 0; i != n; ++i) { 
         if(px[i] < 1 || px[i] > v) return Rf_ScalarLogical(1);
       }
@@ -28,8 +27,7 @@ switch(TYPEOF(x)) {
       
       double v;
       v = Rf_asReal(val);
-      const double *px;
-      px = REAL(x);
+      const double *px = REAL_RO(x);
       for(R_xlen_t i = 0; i != n; ++i) { 
         if(px[i] < 1 || px[i] > v) return Rf_ScalarLogical(1);
       }

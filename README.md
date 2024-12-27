@@ -168,5 +168,8 @@ library(squarebrackets)
 - 14 December 2024: Removed the `ma_setv()` function in favour of the
   new `slicev_` set of methods. Renamed the `sub,dims` argument pair to
   `s,d`. Changed the documentation accordingly.
+- 27 December 2024: Overhauled the arguments for the
+  data.frame/data.table methods and functions. Now the `s,d` argument
+  pair is the primary argument set for all dimensional objects.
 
  

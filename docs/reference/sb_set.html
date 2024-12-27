@@ -105,9 +105,9 @@ Use <code>sb2_set(x, ...)</code> if <code>x</code> is a recursive object (i.e. d
 <span><span class="co"># S3 method for data.table</span></span>
 <span><span class="fu">sb2_set</span><span class="op">(</span></span>
 <span>  <span class="va">x</span>,</span>
-<span>  row <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  col <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  filter <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  s <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  d <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
+<span>  obs <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  vars <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  inv <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  <span class="va">...</span>,</span>
@@ -129,7 +129,7 @@ Use <code>sb2_set(x, ...)</code> if <code>x</code> is a recursive object (i.e. d
 <dd><p>see <a href="aaa06_squarebrackets_method_dispatch.html">squarebrackets_method_dispatch</a>.</p></dd>
 
 
-<dt>i, row, col, s, d, filter, vars, inv</dt>
+<dt>i, s, d, obs, vars, inv</dt>
 <dd><p>See <a href="aaa03_squarebrackets_indx_args.html">squarebrackets_indx_args</a>. <br>
 An empty index selection leaves the original object unchanged. <br></p></dd>
 
@@ -441,7 +441,7 @@ One cannot specify both <code>tf</code> and <code>rp</code>. It's either one set
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ d: Factor w/ 10 levels "a","b","c","d",..: 1 2 3 4 5 6 7 8 9 10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, ".internal.selfref")=&lt;externalptr&gt; </span>
 <span class="r-in"><span><span class="fu">sb2_set</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="va">obj</span>, filter <span class="op">=</span> <span class="op">~</span> <span class="op">(</span><span class="va">a</span> <span class="op">&gt;=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">(</span><span class="va">c</span> <span class="op">&lt;=</span> <span class="fl">17</span><span class="op">)</span>, vars <span class="op">=</span> <span class="va">is.numeric</span>,</span></span>
+<span class="r-in"><span>  <span class="va">obj</span>, obs <span class="op">=</span> <span class="op">~</span> <span class="op">(</span><span class="va">a</span> <span class="op">&gt;=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">(</span><span class="va">c</span> <span class="op">&lt;=</span> <span class="fl">17</span><span class="op">)</span>, vars <span class="op">=</span> <span class="va">is.numeric</span>,</span></span>
 <span class="r-in"><span>  tf <span class="op">=</span> <span class="va">sqrt</span> <span class="co"># WARNING: sqrt() results in `dbl`, but columns are `int`, so decimals lost</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>1.414214 (type 'double') at RHS position 1 out-of-range(NA) or truncated (precision lost) when assigning to type 'integer' (column 1 named 'a')</span>
@@ -470,7 +470,7 @@ One cannot specify both <code>tf</code> and <code>rp</code>. It's either one set
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ d: Factor w/ 10 levels "a","b","c","d",..: 1 2 3 4 5 6 7 8 9 10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, ".internal.selfref")=&lt;externalptr&gt; </span>
 <span class="r-in"><span><span class="fu">sb2_set</span><span class="op">(</span><span class="va">obj</span>,</span></span>
-<span class="r-in"><span>  filter <span class="op">=</span> <span class="op">~</span> <span class="op">(</span><span class="va">a</span> <span class="op">&gt;=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">(</span><span class="va">c</span> <span class="op">&lt;=</span> <span class="fl">17</span><span class="op">)</span>, vars <span class="op">=</span> <span class="va">is.numeric</span>,</span></span>
+<span class="r-in"><span>  obs <span class="op">=</span> <span class="op">~</span> <span class="op">(</span><span class="va">a</span> <span class="op">&gt;=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">(</span><span class="va">c</span> <span class="op">&lt;=</span> <span class="fl">17</span><span class="op">)</span>, vars <span class="op">=</span> <span class="va">is.numeric</span>,</span></span>
 <span class="r-in"><span>  tf <span class="op">=</span> <span class="va">sqrt</span> <span class="co"># SAFE: coercion performed by dt_setcoe(); so no warnings</span></span></span>
 <span class="r-in"><span><span class="op">)</span> </span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span></span></span>
@@ -497,7 +497,7 @@ One cannot specify both <code>tf</code> and <code>rp</code>. It's either one set
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, ".internal.selfref")=&lt;externalptr&gt; </span>
 <span class="r-in"><span><span class="fu">sb2_set</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">obj</span>, vars <span class="op">=</span> <span class="va">is.numeric</span>,</span></span>
-<span class="r-in"><span>  tf <span class="op">=</span> <span class="va">sqrt</span> <span class="co"># SAFE: row=NULL &amp; filter = NULL, so coercion performed</span></span></span>
+<span class="r-in"><span>  tf <span class="op">=</span> <span class="va">sqrt</span> <span class="co"># SAFE: row=NULL &amp; obs = NULL, so coercion performed</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Classes 'data.table' and 'data.frame':	10 obs. of  4 variables:</span>

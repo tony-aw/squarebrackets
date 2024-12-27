@@ -1,6 +1,29 @@
 
 #' @keywords internal
 #' @noRd
+.all_NULL_indices <- function(lst) {
+  check <- vapply(lst, \(x) is.null(x), FUN.VALUE = logical(1L))
+  if(all(check)) {
+    return(TRUE)
+  } else {
+    return(FALSE)
+  }
+}
+
+#' @keywords internal
+#' @noRd
+.all_missing_s_d <- function(s, d) {
+  if(is.null(s) || length(s) == 0L) {
+    return(TRUE)
+  }
+  if(is.null(d) || length(d) == 0L) {
+    return(TRUE)
+  }
+  return(FALSE)
+}
+
+#' @keywords internal
+#' @noRd
 .all_mod_atomic <- function(x, rp, tf, abortcall) {
   if(!missing(tf) && !is.null(tf)) {
     rp <- tf(x)

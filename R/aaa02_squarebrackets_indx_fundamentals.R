@@ -18,7 +18,7 @@
 #' ensuring consistency. \cr
 #' Indexing through integer/numeric indices in 'squarebrackets' works the same as in base 'R',
 #' except that negative values are not allowed. \cr
-#' So indexing starts at `1`, and is inclusive (all matching indices are selected). \cr
+#' So indexing starts at `1` and is inclusive. \cr
 #' \cr
 #' \cr
 #' \bold{Logical} \cr
@@ -85,28 +85,31 @@
 #' \cr
 #' \cr
 #' 
-#' @section Flat Indices and Subscripts in Arrays:
-#' Arrays and matrices (matrices are simply arrays with 2 dimensions)
-#' distinguish between flat indices and subscripts. \cr
+#' @section Flat Indices and Subscripts:
+#' The primary indexing argument for vectors
+#' (i.e. dimensionless objects),
+#' is the \link[=squarebrackets_indx_args]{i} argument,
+#' which represents flat indices. \cr
 #' \cr
-#' Flat indices, also called linear indices,
-#' specifies the indices of an array as-if it is vector,
-#' thus ignoring dimensions. \cr
-#' Flat indices are specified through the \link[=squarebrackets_indx_args]{i} argument. \cr
-#' So in an expression like \link{sb_x}`(x, i = i)` (equivalent to `x[i]`),
-#' where `i` is a vector, `i` specifies flat indices. \cr
-#' \cr
-#' Array subscripts work by specifying one or more indexing vectors,
-#' which can be of different sizes,
-#' where each vector specifies positions in a specific dimension. \cr
-#' Given, for example, a 3-dimensional array,
+#' The primary indexing argument for
+#' dimensional objects supported by 'squarebrackets'
+#' (i.e. arrays and data.frame-like objects),
+#' is the \link[=squarebrackets_indx_args]{s, d} argument pair,
+#' which represent "subscripts". \cr
+#' (Given, for example, a 3-dimensional array,
 #' the subscript `[1:10, 2:5, 3:9]`,
-#' refers to rows 1 to 10, columns 2 to 5, and layers 3 to 9. \cr
-#' The S3 methods in 'squarebrackets' implement subscripts through
-#' the \link[=squarebrackets_indx_args]{s, d} argument pair. \cr
-#' This argument pair allows specifying indices of an array,
-#' without requiring a-priori knowledge on the number of dimensions the array has. \cr
+#' refers to rows 1 to 10, columns 2 to 5, and layers 3 to 9.) \cr
+#' This \link[=squarebrackets_indx_args]{s, d} argument pair
+#' works consistently for any dimensional object
+#' supported by 'squarebrackets',
+#' and does not require a-priori knowledge on the number of dimensions the object has. \cr
+#' This is particularly useful for arrays, which can have any number of dimensions. \cr
 #' \cr
+#' Arrays and matrices (matrices are simply arrays with 2 dimensions)
+#' support both flat indices and subscripts. \cr
+#' In that case the flat indices, also called linear indices,
+#' specify the indices of an array as-if it is vector,
+#' thus ignoring dimensions. \cr
 #' For the relationship between flat indices and subscripts for arrays,
 #' see the \link{sub2ind} help page. \cr
 #' \cr

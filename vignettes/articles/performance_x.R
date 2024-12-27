@@ -28,7 +28,7 @@ foo <- cbind(
 )
 all(apply(foo, 1, \(x)x[1] == x[2]))
 bm.sb_x.matrix <- bench::mark(
-  "squarebrackets" = sb_x.matrix(x.mat, sel.rows, sel.cols),
+  "squarebrackets" = sb_x.array(x.mat, n(sel.rows, sel.cols)),
   "base R" = x.mat[sel.rows, lapply(sel.cols, \(i) which(colnames(x.mat) == i)) |> unlist(), drop = FALSE],
   min_iterations = 500
 )
@@ -68,8 +68,8 @@ colnames(x) <- make.names(colnames(x), unique = TRUE)
 sel.cols <- rep(sample(names(x), 10), 4)
 sel.rows <- 1:1000
 bm.sb_x.df <- bench::mark(
-  "squarebrackets" = sb2_x.data.frame(x, sel.rows, sel.cols),
-  "base R" = x[sel.rows, match(sel.cols, names(x)), drop = FALSE],
+  "squarebrackets" = sb2_x.data.frame(x, obs = sel.rows, vars = sel.cols),
+  "base R" = x[sel.rows, sel.cols, drop = FALSE],
   min_iterations = 500
 )
 summary(bm.sb_x.df)
@@ -83,11 +83,10 @@ tempfun <- function(x, i, j) {
   return(x)
 }
 bm.sb_x.dt <- bench::mark(
-  "squarebrackets" = sb2_x.data.frame(x, sel.rows, sel.cols),
-  "data.table + collapse" = tempfun(x, sel.rows, match(sel.cols, names(x))),
-  min_iterations = 500
+  "squarebrackets" = sb2_x(x, obs = sel.rows, vars  = sel.cols),
+  "data.table + collapse" = tempfun(x, sel.rows, sel.cols),
+  min_iterations = 1e4
 )
 summary(bm.sb_x.dt)
 autoplot(bm.sb_x.dt) + ggtitle("data.table")
-print(bm.sb_x.dt)
 save(bm.sb_x.dt, file = "bm.sb_x.dt.RData")

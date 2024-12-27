@@ -4,7 +4,7 @@
 .mat_prepsub2 <- function(x, s, d) {
   
   if(length(s) == 1L) {
-    return(s[[1L]])
+    return(c(s, s))
   }
   else {
     return(s[d])
@@ -30,14 +30,8 @@
   }
   else {
     s <- .mat_prepsub2(x, s, d)
-    if(is.atomic(s)) {
-      row <- ci_margin(x, s, 1L, inv, chkdup, FALSE, sys.call())
-      col <- ci_margin(x, s, 2L, inv, chkdup, FALSE, sys.call())
-    }
-    if(is.list(s)) {
-      row <- ci_margin(x, s[[1L]], 1L, inv, chkdup, FALSE, sys.call())
-      col <- ci_margin(x, s[[2L]], 2L, inv, chkdup, FALSE, sys.call())
-    }
+    row <- ci_margin(x, s[[1L]], 1L, inv, chkdup, FALSE, sys.call())
+    col <- ci_margin(x, s[[2L]], 2L, inv, chkdup, FALSE, sys.call())
   }
   
   out <- list(row = row, col = col)

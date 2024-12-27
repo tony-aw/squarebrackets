@@ -13,16 +13,16 @@ dt_aggregate(x, SDcols = NULL, f, by, order_by = FALSE)
 
 dt_setcoe(
   x,
-  col = NULL,
   vars = NULL,
+  inv = FALSE,
   v,
   chkdup = getOption("squarebrackets.chkdup", FALSE)
 )
 
 dt_setrm(
   x,
-  col = NULL,
   vars = NULL,
+  inv = FALSE,
   chkdup = getOption("squarebrackets.chkdup", FALSE)
 )
 
@@ -44,7 +44,7 @@ giving the grouping columns.}
 \item{order_by}{Boolean,
 indicating if the aggregated result should be ordered by the columns specified in \code{by}.}
 
-\item{col, vars}{see \link{squarebrackets_indx_args}. \cr
+\item{vars, inv}{see \link{squarebrackets_indx_args}. \cr
 Duplicates are not allowed.}
 
 \item{v}{the coercive transformation function}
@@ -130,7 +130,7 @@ if(requireNamespace("sf")) {
 obj <- data.table::data.table(a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10]))
 str(obj) # notice that columns "a" and "c" are INTEGER (`int`)
 sb2_set(
-  obj, filter = ~ (a >= 2) & (c <= 17), vars = is.numeric,
+  obj, obs = ~ (a >= 2) & (c <= 17), vars = is.numeric,
   tf = sqrt # WARNING: sqrt() results in `dbl`, but columns are `int`, so decimals lost
 )
 str(obj)
@@ -138,7 +138,7 @@ obj <- data.table::data.table(a = 1:10, b = letters[1:10], c = 11:20, d = factor
 dt_setcoe(obj, vars = is.numeric, v = as.numeric) # integers are now numeric
 str(obj)
 sb2_set(obj,
-  filter = ~ (a >= 2) & (c <= 17), vars = is.numeric,
+  obs = ~ (a >= 2) & (c <= 17), vars = is.numeric,
   tf = sqrt # SAFE: coercion performed; so no warnings
 ) 
 str(obj)
@@ -153,7 +153,7 @@ obj <- data.table::data.table(
   a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10])
 )
 str(obj)
-dt_setrm(obj, col = 1)
+dt_setrm(obj, vars = 1)
 str(obj)
 
 obj <- data.table::data.table(

@@ -5,11 +5,14 @@
 #' in the generic methods of 'squarebrackets' to specify the indices to perform operations on:
 #' 
 #'  * `i`: to specify flat (i.e. dimensionless) indices.
-#'  * `s, d`: to specify indices of arbitrary dimensions in arrays
-#'  (including matrices, which inherit from arrays).
-#'  *  `margin, slice`: to specify indices of one particular dimension (for arrays and data.frame-like objects).
-#'  * `row, col`: to specify rows and/or columns in specifically in data.frame-like objects.
-#'  * `filter, vars`: to specify rows and/or columns specifically in data.frame-like objects. \cr \cr
+#'  * `s, d`: to specify indices of arbitrary dimensions
+#'  in any dimensional object supported by 'squarebrackets'
+#'  (i.e. arrays and data.frame-like objects).
+#'  *  `margin, slice`: to specify indices of one particular dimension
+#'  (for arrays and data.frame-like objects). \cr
+#'  Only used in the \link{idx} method. \cr
+#'  * `obs, vars`: to specify observations and/or variables
+#'  in specifically in data.frame-like objects.
 #'  
 #' For the fundamentals of indexing in 'squarebrackets',
 #' see \link{squarebrackets_indx_fundamentals}. \cr
@@ -23,7 +26,8 @@
 #' `r .mybadge_class("atomic vector")` \cr
 #' `r .mybadge_class("derived atomic vector")` \cr
 #' `r .mybadge_class("recursive vector")` \cr
-#' 
+#' `r .mybadge_class("atomic array")` \cr
+#' `r .mybadge_class("recursive array")` \cr
 #' 
 #' Any of the following can be specified for argument `i`:
 #' 
@@ -67,15 +71,16 @@
 #' @section Argument Pair s, d:
 #' `r .mybadge_class("atomic array")` \cr
 #' `r .mybadge_class("recursive array")` \cr
-#' The `s, d` argument pair is inspired by the
-#' \code{abind::}\link[abind]{asub} function from the 'abind' package
-#' (see reference below). \cr
+#' `r .mybadge_class("data.frame-like")` \cr
+#' The `s, d` argument pair, inspired by the
+#' \code{abind::}\link[abind]{asub} function from the 'abind' package,
+#' is the primary indexing argument for sub-set operations on dimensional objects. \cr
 #' \cr
 #' The `s` argument specifies the
-#' \link[=squarebrackets_indx_fundamentals]{subscripts}
+#' \bold{subscripts}
 #' (i.e. dimensional indices). \cr
 #' The `d` argument gives the dimensions for which the 
-#' \link[=squarebrackets_indx_fundamentals]{subscripts} `s` holds
+#' `s` holds
 #' (i.e. `d` specifies the "non-missing" margins). \cr
 #' \cr
 #' The `d` argument must be an integer vector. \cr
@@ -190,60 +195,75 @@
 #' 
 #' 
 #' 
-#' @section Arguments filter, vars:
+#' @section Arguments obs, vars:
 #' `r .mybadge_class("data.frame-like")` \cr
-#' 
-#' The `filter` and  `vars` arguments are inspired by the `subset` and `select`
-#' arguments of base R's \link[base]{subset}\code{.data.frame} method.
-#' However, the `filter` and  `vars` arguments do \bold{not} use
+#' The `obs` argument specifies indices for observations (i.e. rows)
+#' in data.frame-like objects. \cr
+#' The `vars` argument specifies indices for variables (i.e. columns)
+#' in data.frame-like objects. \cr
+#' The `obs` and  `vars` arguments are inspired by the `subset` and `select`
+#' arguments, respectively, of base R's \link[base]{subset}\code{.data.frame} method.
+#' However, the `obs` and  `vars` arguments do \bold{not} use
 #' non-standard evaluation,
 #' as to keep 'squarebrackets' fully programmatically friendly. \cr
 #' \cr
-#' `filter` must be a one-sided formula
-#' with a single logical expression using the column names of the data.frame,
-#' giving the condition which observation/row indices should be selected for the operation. \cr
-#' For example,
-#' to perform an operation on the rows for which column `height > 2` and for which column `sex != "female"`,
-#' specify the following formula:
-#' 
-#' ```{r, eval = FALSE}
-#' ~ (height > 2) & (sex != "female")
-#' ```
-#' 
-#' If the formula is linked to an environment,
-#' any variables not found in the data set will be searched from the environment. \cr
-#' \cr
-#' `vars` can be one of the following:
-#' 
-#'  - a \bold{function} that returns a logical vector,
-#'  giving the column indices to select for the operation. \cr
-#'  For example, to select all numeric columns,
-#'  specify `vars = is.numeric`.
-#'  - a \bold{character} vector of column names / variable names. \cr \cr
-#' 
-#' 
-#' @section Arguments row, col:
-#' `r .mybadge_class("data.frame-like")` \cr
-#' 
-#' Any of the following can be specified for the arguments `row` / `col`:
+#' \bold{The \code{obs} Argument} \cr
+#' The `obs` argument can be any of the following:
 #' 
 #'  * `NULL` (default), corresponds to a missing argument.
 #'  * a vector of length 0,
 #'  in which case no indices are selected for the operation (i.e. empty selection).
 #'  * a numeric vector of \bold{strictly positive whole numbers}
-#'  with indices of the specified dimension to select for the operation.
+#'  with row indices to select for the operation.
 #'  * a \bold{complex} vector, as explained in \link{squarebrackets_indx_fundamentals}.
-#'  * a \bold{logical} vector of the same length as the corresponding dimension size,
-#'  giving the indices of the specified dimension to select for the operation.
-#'  * a \bold{character} vector giving the `dimnames` to select. \cr
-#'  If a dimension has multiple indices with the given name,
-#'  ALL the corresponding indices will be selected for the operation. \cr
+#'  * a \bold{logical} vector of the same length as the number of rows,
+#'  giving the row indices to select for the operation. \cr
+#'  * a \bold{one-sided formula},
+#'  with a single logical expression using the column names of the data.frame,
+#'  giving the condition which observation/row indices should be selected for the operation. \cr
 #'  
+#' So to perform an operation on the observations for which holds that `height > 2` and `sex != "female"`,
+#' specify the following formula:
 #' 
-#' Using the `row, col` arguments corresponds to doing something like the following:
+#' ```{r, eval = FALSE}
+#' obs = ~ (height > 2) & (sex != "female")
+#' ```
+#' 
+#' If the formula is linked to an environment,
+#' any variables not found in the data set will be searched from the environment. \cr
+#' \cr
+#' 
+#' 
+#' \bold{The \code{vars} Argument} \cr
+#' The `vars` argument can be any of the following
+#' 
+#'  * `NULL` (default), corresponds to a missing argument.
+#'  * a vector of length 0,
+#'  in which case no indices are selected for the operation (i.e. empty selection).
+#'  * a numeric vector of \bold{strictly positive whole numbers}
+#'  with column indices to select for the operation.
+#'  * a \bold{complex} vector, as explained in \link{squarebrackets_indx_fundamentals}.
+#'  * a \bold{logical} vector of the same length as the number of columns,
+#'  giving the column indices to select for the operation.
+#'  * a \bold{character} vector giving the `colnamess` to select. \cr
+#'  Note that 'squarebrackets' assumes data.frame-like objects have unique column names.
+#'  * a \bold{function} that returns a logical vector,
+#'  giving the column indices to select for the operation. \cr
+#'  For example, to select all numeric variables,
+#'  specify `vars = is.numeric`.
+#'  * a \bold{two-sided formula}, where each side consists of a single term,
+#'  giving a range of names to select. \cr
+#'  For example,
+#'  to select all variables between and including the variables "height" and "weight",
+#'  specify the following: \cr
+#'  `vars =  heigth ~ weight`. \cr \cr
+#' 
+#' \bold{EXAMPLE} \cr
+#' 
+#' So using the `obs, vars` arguments corresponds to doing something like the following:
 #' 
 #' ```{r eval = FALSE, echo = TRUE}
-#'  sb2_x(x, row, col) # ==> x[row, col, drop = FALSE]
+#'  sb2_x(x, obs = obs, vars = vars) # ==> subset(x, ...obs..., ...vars...)
 #'  
 #' ```
 #' 
@@ -267,7 +287,7 @@
 #' 
 #' ```
 #' 
-#' and using `sb_mod(x, col = 1:2, inv = TRUE, tf = tf)`
+#' and using `sb_mod(x, vars = 1:2, inv = TRUE, tf = tf)`
 #' corresponds to something like the following:
 #' 
 #' ```{r eval = FALSE, echo = TRUE}

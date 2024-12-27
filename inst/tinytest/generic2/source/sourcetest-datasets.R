@@ -38,10 +38,7 @@ indx_general <- function(x, dim.i) {
 
 indx_named <- function(x, dim.i) {
   if(dim.i == 1L) {
-    out <- c(
-      indx_general(x, dim.i),
-      list("1", as.character(1:3), as.character(3:1), c("1", "3", "2"))
-    )
+    out <- indx_general(x, dim.i)
   }
   if(dim.i == 2L) {
     out <- c(
@@ -53,39 +50,34 @@ indx_named <- function(x, dim.i) {
 }
 
 
-temp.fun.main <- function(x, row, col, filter, get_vars, f_expect, f_out) {
+temp.fun.main <- function(x, row, col, f_expect, f_out) {
   
   out <- expected <- vector(
-    "list", length(row) * length(col) * length(filter) * length(get_vars) / 2L
+    "list", length(row) * length(col)
   )
   counter <- 1
-  tracker <- matrix(0L, length(out), 4L)
   
   for(i in 1:length(row)) {
     for(j in 1:length(col)) {
-      for(k in 1:length(filter)) {
-        for(l in 1:length(get_vars)) {
-          wrong1 <- is.null(row[[i]]) && is.null(col[[j]]) && is.null(filter[[k]]) && is.null(get_vars[[l]])
-          wrong2 <- !is.null(filter[[k]]) && !is.null(row[[i]])
-          wrong3 <- !is.null(get_vars[[l]]) && !is.null(col[[j]])
-          if(!wrong1 && !wrong2 && !wrong3) {
-           tracker[counter, ] <- c(i, j, k, l)
-            
-            rp <- lapply(pre_subset_df(x, row[[i]], col[[j]], filter[[k]], get_vars[[l]]), \(x)x[1])
-            
-            expected[[counter]] <- f_expect(x, row[[i]], col[[j]], filter[[k]], get_vars[[l]])
-            out[[counter]] <- f_out(x, row = row[[i]], col = col[[j]], filter[[k]], get_vars[[l]])
-            assign("enumerate", enumerate + 2, envir = parent.frame(n = 1))
-            counter <- counter + 1
-          }
-        }
+      
+      s <- n(row[[i]], col[[j]])
+      d <- 1:2
+      rem <- which(vapply(s, is.null, logical(1L)))
+      if(length(rem) > 0L) {
+        s <- s[-rem]
+        d <- d[-rem]
       }
+      
+      rp <- lapply(pre_subset_df(x, s, d), \(x)x[1])
+      expected[[counter]] <- f_expect(x, row[[i]], col[[j]])
+      out[[counter]] <- f_out(x, s, d)
+      assign("enumerate", enumerate + 2, envir = parent.frame(n = 1))
+      counter <- counter + 1
     }
   }
   counter <- counter - 1
   out <- out[1:counter]
   expected <- expected[1:counter]
-  tracker <- tracker[1:counter, ]
   
   expect_equal(expected, out) |> errorfun()
   expect_true(all(sapply(out, is.data.frame))) |> errorfun()
@@ -119,15 +111,15 @@ if(!test_PassByReference) {
   # data.frame ====
   x <- as.data.frame(x.original)
   
-  temp.fun.main(x, row, col, filter, get_vars, f_expect.data.frame, f_out.data.frame)
+  temp.fun.main(x, row, col, f_expect.data.frame, f_out.data.frame)
   
   if(isTRUE(test_allow_duplicates)) {
     expect_equal(
-      anyDuplicated(colnames(sb2_x(x, col = c(1,1,1)))),
+      anyDuplicated(colnames(sb2_x(x, s = c(1,1,1), d = 2L))),
       0
     )
     expect_equal(
-      anyDuplicated(colnames(sb2_x(x, col = c("a","a","a")))),
+      anyDuplicated(colnames(sb2_x(x, s = c("a","a","a"), d = 2L))),
       0
     )
     enumerate <- enumerate <- enumerate + 1
@@ -138,16 +130,16 @@ if(!test_PassByReference) {
   if(requireNamespace("tibble")) {
     x <- tibble::as_tibble(x.original)
     
-    temp.fun.main(x, row, col, filter, get_vars, f_expect.data.frame, f_out.data.frame)
+    temp.fun.main(x, row, col, f_expect.data.frame, f_out.data.frame)
     
     
     if(isTRUE(test_allow_duplicates)) {
       expect_equal(
-        anyDuplicated(colnames(sb2_x(x, col = c(1,1,1)))),
+        anyDuplicated(colnames(sb2_x(x, s = c(1,1,1), d = 2L))),
         0
       )
       expect_equal(
-        anyDuplicated(colnames(sb2_x(x, col = c("a","a","a")))),
+        anyDuplicated(colnames(sb2_x(x, s = c("a","a","a"), d = 2L))),
         0
       )
       enumerate <- enumerate <- enumerate + 1
@@ -161,17 +153,17 @@ if(!test_PassByReference) {
 # data.table ====
 if(requireNamespace("data.table")) {
   
-  x <- dt.$as.data.table(x.original)
-  temp.fun.main(x, row, col, filter, get_vars, f_expect.data.frame, f_out.data.frame)
+  x <- data.table::as.data.table(x.original)
+  temp.fun.main(x, row, col, f_expect.data.frame, f_out.data.frame)
   
   
   if(isTRUE(test_allow_duplicates)) {
     expect_equal(
-      anyDuplicated(colnames(sb2_x(x, col = c(1,1,1)))),
+      anyDuplicated(colnames(sb2_x(x, s = c(1,1,1), d = 2L))),
       0
     )
     expect_equal(
-      anyDuplicated(colnames(sb2_x(x, col = c("a","a","a")))),
+      anyDuplicated(colnames(sb2_x(x, s = c("a","a","a"), d = 2L))),
       0
     )
     enumerate <- enumerate <- enumerate + 1
@@ -187,16 +179,16 @@ if(requireNamespace("data.table")) {
 if(requireNamespace("tidytable")) {
   x <- tidytable::as_tidytable(x.original)
   
-  temp.fun.main(x, row, col, filter, get_vars, f_expect.data.frame, f_out.data.frame)
+  temp.fun.main(x, row, col, f_expect.data.frame, f_out.data.frame)
   
   
   if(isTRUE(test_allow_duplicates)) {
     expect_equal(
-      anyDuplicated(colnames(sb2_x(x, col = c(1,1,1)))),
+      anyDuplicated(colnames(sb2_x(x, s = c(1,1,1), d = 2L))),
       0
     )
     expect_equal(
-      anyDuplicated(colnames(sb2_x(x, col = c("a","a","a")))),
+      anyDuplicated(colnames(sb2_x(x, s = c("a","a","a"), d = 2L))),
       0
     )
     enumerate <- enumerate <- enumerate + 1

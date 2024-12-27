@@ -45,9 +45,9 @@ sb2_wo(x, ...)
 
 \method{sb2_wo}{data.frame}(
   x,
-  row = NULL,
-  col = NULL,
-  filter = NULL,
+  s = NULL,
+  d = 1:2,
+  obs = NULL,
   vars = NULL,
   ...,
   chkdup = getOption("squarebrackets.chkdup", FALSE)
@@ -58,7 +58,7 @@ sb2_wo(x, ...)
 
 \item{...}{see \link{squarebrackets_method_dispatch}.}
 
-\item{i, row, col, s, d, filter, vars}{See \link{squarebrackets_indx_args}. \cr
+\item{i, s, d, obs, vars}{See \link{squarebrackets_indx_args}. \cr
 An empty index selection results in nothing being removed,
 and the entire object is returned. \cr}
 
@@ -154,9 +154,9 @@ sb2_wo(obj, i = \(x)x>5)
 
 obj <- data.frame(a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10]))
 print(obj)
-sb2_wo(obj, 1:3, 1:3)
+sb2_wo(obj, n(1:3))
 # above is equivalent to obj[-1:-3, -1:-3, drop = FALSE]
-sb2_wo(obj, filter = ~ (a > 5) & (c < 19), vars = is.numeric)
+sb2_wo(obj, obs = ~ (a > 5) & (c < 19), vars = is.numeric)
 
 
 

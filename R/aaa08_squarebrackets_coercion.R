@@ -42,7 +42,7 @@
 #' A data.table is actually a list made mutable,
 #' where each column is itself a list.
 #' As such, replacing/transforming whole columns,
-#' so `row = NULL` and `filter = NULL`,
+#' so `row = NULL` and `obs = NULL`,
 #' allows completely changing the type of the column. \cr
 #' \cr
 #' \cr
@@ -82,7 +82,7 @@
 #'  b = data.table::data.table(cola = 11:20, colb = letters[11:20])
 #' )
 #' myref <- x$a
-#' sb2_set(myref, col = "cola", tf = \(x)x^2)
+#' sb2_set(myref, vars = "cola", tf = \(x)x^2)
 #' 
 #' ```
 #' Notice in the above code that `myref` is not a copy of `x$a`,

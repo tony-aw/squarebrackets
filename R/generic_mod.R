@@ -10,7 +10,7 @@
 #' For modifying subsets using R's default copy-on-modification semantics, see \link{idx}. \cr \cr
 #'
 #' @param x see \link{squarebrackets_supported_structures}.
-#' @param i,row,col,s,d,filter,vars,inv See \link{squarebrackets_indx_args}. \cr
+#' @param i,s,d,obs,vars,inv See \link{squarebrackets_indx_args}. \cr
 #' An empty index selection returns the original object unchanged. \cr
 #' @param ... see \link{squarebrackets_method_dispatch}.
 #' @param rp,tf,.lapply see \link{squarebrackets_modify}.
@@ -166,7 +166,7 @@ sb2_mod.array <- function(
   .internal_check_rptf(rp, tf, sys.call())
   .check_args_array(x, s, d, sys.call())
   
-  # all empty indices:
+  # all missing indices:
   if(.all_NULL_indices(list(s, i))) {
     return(.all_mod_list(x, rp, tf, .lapply, sys.call()))
   }
@@ -207,31 +207,22 @@ sb2_mod.array <- function(
 #' @rdname sb_mod
 #' @export
 sb2_mod.data.frame <- function(
-    x, row = NULL, col = NULL, filter = NULL, vars = NULL, inv = FALSE, ...,
+    x, s = NULL, d = 1:2, obs = NULL, vars = NULL, inv = FALSE, ...,
     rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE), .lapply = lapply
 ) {
   
   # checks:
   .internal_check_dots(list(...), sys.call())
   .internal_check_rptf(rp, tf, sys.call())
-  .check_args_df(x, row, col, filter, vars, abortcall = sys.call())
+  .check_args_df(x, s, d, obs, vars, abortcall = sys.call())
   
-  # make args:
-  if(!is.null(row)) { row <- ci_df(
-    x, row, 1L, inv, chkdup, .abortcall = sys.call()
-  )}
-  if(!is.null(col)) { col <- ci_df(
-    x, col, 2L, inv, chkdup, .abortcall = sys.call()
-  )}
+  # make arguments:
+  rowcol <- .dt_make_args(x, s, d, obs, vars, inv, chkdup, sys.call())
+  row <- rowcol[[1L]]
+  col <- rowcol[[2L]]
+  # don't use if(is.null(row or col)) row or col <- 1:... -> will mess up the rest of this function
   
-  if(!is.null(filter)) {
-    row <- .indx_make_filter(x, filter, inv = inv, abortcall = sys.call())
-  }
-  if(!is.null(vars)) {
-    col <- .indx_make_vars(x, vars, inv = inv, abortcall = sys.call())
-  }
-  
-  # empty return:
+  # empty indices:
   if(.any_empty_indices(n(row, col))) {
     return(x)
   }

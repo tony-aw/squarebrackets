@@ -120,16 +120,16 @@ using <a href="aaa07_squarebrackets_PassByReference.html">pass-by-reference sema
 <span></span>
 <span><span class="fu">dt_setcoe</span><span class="op">(</span></span>
 <span>  <span class="va">x</span>,</span>
-<span>  col <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  vars <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  inv <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  <span class="va">v</span>,</span>
 <span>  chkdup <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"squarebrackets.chkdup"</span>, <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">dt_setrm</span><span class="op">(</span></span>
 <span>  <span class="va">x</span>,</span>
-<span>  col <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  vars <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  inv <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  chkdup <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"squarebrackets.chkdup"</span>, <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -163,7 +163,7 @@ giving the grouping columns.</p></dd>
 indicating if the aggregated result should be ordered by the columns specified in <code>by</code>.</p></dd>
 
 
-<dt>col, vars</dt>
+<dt>vars, inv</dt>
 <dd><p>see <a href="aaa03_squarebrackets_indx_args.html">squarebrackets_indx_args</a>. <br>
 Duplicates are not allowed.</p></dd>
 
@@ -275,7 +275,7 @@ and extra care is given to ensure it does not overwrite any existing columns. <b
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ d: Factor w/ 10 levels "a","b","c","d",..: 1 2 3 4 5 6 7 8 9 10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, ".internal.selfref")=&lt;externalptr&gt; </span>
 <span class="r-in"><span><span class="fu"><a href="sb_set.html">sb2_set</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="va">obj</span>, filter <span class="op">=</span> <span class="op">~</span> <span class="op">(</span><span class="va">a</span> <span class="op">&gt;=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">(</span><span class="va">c</span> <span class="op">&lt;=</span> <span class="fl">17</span><span class="op">)</span>, vars <span class="op">=</span> <span class="va">is.numeric</span>,</span></span>
+<span class="r-in"><span>  <span class="va">obj</span>, obs <span class="op">=</span> <span class="op">~</span> <span class="op">(</span><span class="va">a</span> <span class="op">&gt;=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">(</span><span class="va">c</span> <span class="op">&lt;=</span> <span class="fl">17</span><span class="op">)</span>, vars <span class="op">=</span> <span class="va">is.numeric</span>,</span></span>
 <span class="r-in"><span>  tf <span class="op">=</span> <span class="va">sqrt</span> <span class="co"># WARNING: sqrt() results in `dbl`, but columns are `int`, so decimals lost</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>1.414214 (type 'double') at RHS position 1 out-of-range(NA) or truncated (precision lost) when assigning to type 'integer' (column 1 named 'a')</span>
@@ -297,7 +297,7 @@ and extra care is given to ensure it does not overwrite any existing columns. <b
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ d: Factor w/ 10 levels "a","b","c","d",..: 1 2 3 4 5 6 7 8 9 10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, ".internal.selfref")=&lt;externalptr&gt; </span>
 <span class="r-in"><span><span class="fu"><a href="sb_set.html">sb2_set</a></span><span class="op">(</span><span class="va">obj</span>,</span></span>
-<span class="r-in"><span>  filter <span class="op">=</span> <span class="op">~</span> <span class="op">(</span><span class="va">a</span> <span class="op">&gt;=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">(</span><span class="va">c</span> <span class="op">&lt;=</span> <span class="fl">17</span><span class="op">)</span>, vars <span class="op">=</span> <span class="va">is.numeric</span>,</span></span>
+<span class="r-in"><span>  obs <span class="op">=</span> <span class="op">~</span> <span class="op">(</span><span class="va">a</span> <span class="op">&gt;=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">(</span><span class="va">c</span> <span class="op">&lt;=</span> <span class="fl">17</span><span class="op">)</span>, vars <span class="op">=</span> <span class="va">is.numeric</span>,</span></span>
 <span class="r-in"><span>  tf <span class="op">=</span> <span class="va">sqrt</span> <span class="co"># SAFE: coercion performed; so no warnings</span></span></span>
 <span class="r-in"><span><span class="op">)</span> </span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span></span></span>
@@ -324,7 +324,7 @@ and extra care is given to ensure it does not overwrite any existing columns. <b
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ c: int  11 12 13 14 15 16 17 18 19 20</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ d: Factor w/ 10 levels "a","b","c","d",..: 1 2 3 4 5 6 7 8 9 10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, ".internal.selfref")=&lt;externalptr&gt; </span>
-<span class="r-in"><span><span class="fu">dt_setrm</span><span class="op">(</span><span class="va">obj</span>, col <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">dt_setrm</span><span class="op">(</span><span class="va">obj</span>, vars <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Classes 'data.table' and 'data.frame':	10 obs. of  3 variables:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ b: chr  "a" "b" "c" "d" ...</span>

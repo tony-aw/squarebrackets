@@ -19,10 +19,10 @@ SEXP C_sub2ind_2d_32(
 int len1 = Rf_length(ind1);
 int len2 = Rf_length(ind2);
 const int *pind1;
-pind1 = INTEGER(ind1);
+pind1 = INTEGER_RO(ind1);
 
 const int *pind2;
-pind2 = INTEGER(ind2);
+pind2 = INTEGER_RO(ind2);
 
 
 R_xlen_t counter = 0;
@@ -69,13 +69,13 @@ int len1 = Rf_length(ind1);
 int len2 = Rf_length(ind2);
 int len3 = Rf_length(ind3);
 const int *pind1;
-pind1 = INTEGER(ind1);
+pind1 = INTEGER_RO(ind1);
 
 const int *pind2;
-pind2 = INTEGER(ind2);
+pind2 = INTEGER_RO(ind2);
 
 const int *pind3;
-pind3 = INTEGER(ind3);
+pind3 = INTEGER_RO(ind3);
 
 
 R_xlen_t counter = 0;
@@ -126,16 +126,16 @@ int len2 = Rf_length(ind2);
 int len3 = Rf_length(ind3);
 int len4 = Rf_length(ind4);
 const int *pind1;
-pind1 = INTEGER(ind1);
+pind1 = INTEGER_RO(ind1);
 
 const int *pind2;
-pind2 = INTEGER(ind2);
+pind2 = INTEGER_RO(ind2);
 
 const int *pind3;
-pind3 = INTEGER(ind3);
+pind3 = INTEGER_RO(ind3);
 
 const int *pind4;
-pind4 = INTEGER(ind4);
+pind4 = INTEGER_RO(ind4);
 
 
 R_xlen_t counter = 0;
@@ -190,19 +190,19 @@ int len3 = Rf_length(ind3);
 int len4 = Rf_length(ind4);
 int len5 = Rf_length(ind5);
 const int *pind1;
-pind1 = INTEGER(ind1);
+pind1 = INTEGER_RO(ind1);
 
 const int *pind2;
-pind2 = INTEGER(ind2);
+pind2 = INTEGER_RO(ind2);
 
 const int *pind3;
-pind3 = INTEGER(ind3);
+pind3 = INTEGER_RO(ind3);
 
 const int *pind4;
-pind4 = INTEGER(ind4);
+pind4 = INTEGER_RO(ind4);
 
 const int *pind5;
-pind5 = INTEGER(ind5);
+pind5 = INTEGER_RO(ind5);
 
 
 R_xlen_t counter = 0;
@@ -261,22 +261,22 @@ int len4 = Rf_length(ind4);
 int len5 = Rf_length(ind5);
 int len6 = Rf_length(ind6);
 const int *pind1;
-pind1 = INTEGER(ind1);
+pind1 = INTEGER_RO(ind1);
 
 const int *pind2;
-pind2 = INTEGER(ind2);
+pind2 = INTEGER_RO(ind2);
 
 const int *pind3;
-pind3 = INTEGER(ind3);
+pind3 = INTEGER_RO(ind3);
 
 const int *pind4;
-pind4 = INTEGER(ind4);
+pind4 = INTEGER_RO(ind4);
 
 const int *pind5;
-pind5 = INTEGER(ind5);
+pind5 = INTEGER_RO(ind5);
 
 const int *pind6;
-pind6 = INTEGER(ind6);
+pind6 = INTEGER_RO(ind6);
 
 
 R_xlen_t counter = 0;
@@ -339,25 +339,25 @@ int len5 = Rf_length(ind5);
 int len6 = Rf_length(ind6);
 int len7 = Rf_length(ind7);
 const int *pind1;
-pind1 = INTEGER(ind1);
+pind1 = INTEGER_RO(ind1);
 
 const int *pind2;
-pind2 = INTEGER(ind2);
+pind2 = INTEGER_RO(ind2);
 
 const int *pind3;
-pind3 = INTEGER(ind3);
+pind3 = INTEGER_RO(ind3);
 
 const int *pind4;
-pind4 = INTEGER(ind4);
+pind4 = INTEGER_RO(ind4);
 
 const int *pind5;
-pind5 = INTEGER(ind5);
+pind5 = INTEGER_RO(ind5);
 
 const int *pind6;
-pind6 = INTEGER(ind6);
+pind6 = INTEGER_RO(ind6);
 
 const int *pind7;
-pind7 = INTEGER(ind7);
+pind7 = INTEGER_RO(ind7);
 
 
 R_xlen_t counter = 0;
@@ -424,28 +424,28 @@ int len6 = Rf_length(ind6);
 int len7 = Rf_length(ind7);
 int len8 = Rf_length(ind8);
 const int *pind1;
-pind1 = INTEGER(ind1);
+pind1 = INTEGER_RO(ind1);
 
 const int *pind2;
-pind2 = INTEGER(ind2);
+pind2 = INTEGER_RO(ind2);
 
 const int *pind3;
-pind3 = INTEGER(ind3);
+pind3 = INTEGER_RO(ind3);
 
 const int *pind4;
-pind4 = INTEGER(ind4);
+pind4 = INTEGER_RO(ind4);
 
 const int *pind5;
-pind5 = INTEGER(ind5);
+pind5 = INTEGER_RO(ind5);
 
 const int *pind6;
-pind6 = INTEGER(ind6);
+pind6 = INTEGER_RO(ind6);
 
 const int *pind7;
-pind7 = INTEGER(ind7);
+pind7 = INTEGER_RO(ind7);
 
 const int *pind8;
-pind8 = INTEGER(ind8);
+pind8 = INTEGER_RO(ind8);
 
 
 R_xlen_t counter = 0;

@@ -10,11 +10,14 @@
 #'  except it is specifically designed for data.frame-like objects. \cr
 #'  It is a separate function,
 #'  because things like `dimnames(x)[1]` and `rownames(x)`
-#'  do not always return the same output for certain data.frame-like objects. \cr
+#'  do not always return the same output for certain data.frame-like objects.
+#'  * `ci_obs()` and `ci_vars()` construct row and column indices,
+#'  respectively,
+#'  data.frame-like objects. \cr
 #'
 #'
 #' @param x the object for which the indices are meant.
-#' @param i,slice,margin,s,d,inv See \link{squarebrackets_indx_args}. \cr
+#' @param i,s,d,slice,margin,obs,vars,inv See \link{squarebrackets_indx_args}. \cr
 #' @param chkdup see \link{squarebrackets_options}. \cr
 #' `r .mybadge_performance_set2("FALSE")` \cr
 #' @param uniquely_named Boolean,
@@ -168,7 +171,7 @@ ci_sub <- function(
 #' @rdname developer_ci
 #' @export
 ci_df <- function(
-    x, slice, margin, inv = FALSE, chkdup = FALSE, uniquely_named = FALSE, .abortcall = sys.call()
+    x, slice, margin, inv = FALSE, chkdup = FALSE, uniquely_named = TRUE, .abortcall = sys.call()
 ) {
   
   if(is.null(dim(x))) {
@@ -213,3 +216,78 @@ ci_df <- function(
 }
 
 
+
+#' @rdname developer_ci
+#' @export
+ci_obs <- function(
+    x, obs, inv = FALSE, chkdup = FALSE, uniquely_named = TRUE, .abortcall = sys.call()
+) {
+  
+  
+  if(length(obs) == 0L) {
+    if(!inv) return(integer(0L))
+    if(inv) return(1:nrow(x))
+  }
+  
+  if(.internal_is_formula(obs)) {
+    return(.indx_make_filter(x, obs, inv, .abortcall))
+  }
+  
+  if(is.complex(obs)) {
+    return(tci_cplx(obs, nrow(x), inv, chkdup))
+  }
+  
+  if(is.numeric(obs)) {
+    return(tci_int(obs, nrow(x), inv, chkdup))
+  }
+  
+  if(is.logical(obs)) {
+    return(tci_bool(obs, nrow(x), inv))
+    
+  }
+  
+  .indx_stop(.abortcall)
+}
+
+
+
+#' @rdname developer_ci
+#' @export
+ci_vars <- function(
+    x, vars, inv = FALSE, chkdup = FALSE, uniquely_named = TRUE, .abortcall = sys.call()
+) {
+  
+  if(is.function(vars)) {
+    out <- collapse::get_vars(x, vars, return = "logical")
+    if(!inv) return(which(out))
+    if(inv) return(which(!out))
+  }
+  
+  if(length(vars) == 0L) {
+    if(!inv) return(integer(0L))
+    if(inv) return(1:ncol(x))
+  }
+  
+  if(.internal_is_formula(vars)) {
+    return(.indx_make_vars_range(x, vars, inv, .abortcall))
+  }
+  
+  if(is.complex(vars)) {
+    return(tci_cplx(vars, ncol(x), inv, chkdup))
+  }
+  
+  if(is.numeric(vars)) {
+    return(tci_int(vars, ncol(x), inv, chkdup))
+  }
+  
+  if(is.character(vars)) {
+    return(tci_chr(vars, names(x), inv, chkdup, uniquely_named))
+  }
+  
+  if(is.logical(vars)) {
+    return(tci_bool(vars, ncol(x), inv))
+    
+  }
+  
+  .indx_stop(.abortcall)
+}

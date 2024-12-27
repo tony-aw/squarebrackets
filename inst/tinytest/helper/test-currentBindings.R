@@ -47,7 +47,7 @@ expect_error(
 mydt <- data.table::data.table(a = 1:10, b = letters[1:10])
 lockBinding("mydt", env = environment())
 expect_error(
-  sb2_set.data.table(mydt, col = "a", tf = \(x)x^2),
+  sb2_set.data.table(mydt, vars = "a", tf = \(x)x^2),
   pattern = "object is locked"
 )
 rm(list = c("mymat", "myarr", "mydt"), envir = environment())

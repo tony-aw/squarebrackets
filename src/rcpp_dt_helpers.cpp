@@ -40,3 +40,34 @@ bool rcpp_dt_needcoe(
   
 }
 
+
+//' @keywords internal
+//' @noRd
+// [[Rcpp::export(.rcpp_dt_find_name)]]
+R_xlen_t rcpp_dt_find_name(
+  SEXP x, SEXP v, int dir
+) {
+  const SEXP *px = STRING_PTR_RO(x);
+  const SEXP *pv = STRING_PTR_RO(v);
+  R_xlen_t n = Rf_xlength(x);
+  
+  if(dir == 1) {
+    for(int i = 0; i < n; ++i) {
+      if(R_compute_identical(px[i], pv[0], 0)) {
+        return(i + 1);
+      }
+    }
+    return 0;
+  }
+  else if(dir == -1) {
+    for(int i = (n - 1); i >= 0; --i) {
+      if(R_compute_identical(px[i], pv[0], 0)) {
+        return(i + 1);
+      }
+    }
+    return 0;
+  }
+  
+  return 0;
+  
+}

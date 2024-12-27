@@ -30,7 +30,7 @@
 #' It must have column names that do not already exist in `x`.
 #' @param f the aggregation function
 #' @param v the coercive transformation function
-#' @param col,vars see \link{squarebrackets_indx_args}. \cr
+#' @param vars,inv see \link{squarebrackets_indx_args}. \cr
 #' Duplicates are not allowed.
 #' @param SDcols atomic vector,
 #' giving the columns to which the aggregation function `f()` is to be applied on.
@@ -101,29 +101,22 @@ dt_aggregate <- function(
 #' @rdname dt
 #' @export
 dt_setcoe <- function(
-    x, col = NULL, vars = NULL, v, chkdup = getOption("squarebrackets.chkdup", FALSE)
+    x, vars = NULL, inv = FALSE, v, chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
   if(!data.table::is.data.table(x)) { stop("`x` must be a data.table") }
   
-  .check_args_df(x, row = NULL, col = col, filter = NULL, vars = vars, abortcall = sys.call())
+  .check_args_df(x, s = NULL, d = NULL, obs = NULL, vars = vars, abortcall = sys.call())
   .check_bindingIsLocked(substitute(x), parent.frame(n = 1), abortcall = sys.call())
   
-  if(!is.null(col)) {
-    col <- ci_df(
-      x, col, 2L, inv = FALSE, chkdup = chkdup, uniquely_named = TRUE
-    )
-    col <- names(x)[col]
-  }
+  vars <- ci_vars(
+    x, vars, inv, chkdup, TRUE, sys.call()
+  )
+  vars <- names(x)[vars]
   
-  if(!is.null(vars)) {
-    col <- .indx_make_vars(x, vars, inv = FALSE, abortcall = sys.call())
-    col <- names(x)[col]
-  }
+  if(is.null(vars)) vars <- names(x)
   
-  if(is.null(col)) col <- names(x)
-  
-  for(j in col) { # using loop instead of lapply to reduce memory to only one column at a time
+  for(j in vars) { # using loop instead of lapply to reduce memory to only one column at a time
     data.table::set(x, j = j, value = v(x[[j]]))
   }
   
@@ -134,30 +127,25 @@ dt_setcoe <- function(
 
 #' @rdname dt
 #' @export
-dt_setrm <- function(x, col = NULL, vars = NULL, chkdup = getOption("squarebrackets.chkdup", FALSE)) {
+dt_setrm <- function(x, vars = NULL, inv = FALSE, chkdup = getOption("squarebrackets.chkdup", FALSE)) {
   
   if(!data.table::is.data.table(x)) { stop("`x` must be a data.table") }
   
-  .check_args_df(x, row = NULL, col = col, filter = NULL, vars = vars, abortcall = sys.call())
+  .check_args_df(x, s = NULL, d = NULL, obs = NULL, vars = vars, abortcall = sys.call())
   .check_bindingIsLocked(substitute(x), parent.frame(n = 1), abortcall = sys.call())
   
-  if(!is.null(col)) {
-    col <- ci_df(
-      x, col, 2L, inv = FALSE, chkdup
-    )
-    col <- names(x)[col]
-  }
+  vars <- ci_vars(
+    x, vars, inv, chkdup, TRUE, sys.call()
+  )
+  vars <- names(x)[vars]
   
-  if(!is.null(vars)) {
-    col <- .indx_make_vars(x, vars, inv = FALSE, abortcall = sys.call())
-    col <- names(x)[col]
-  }
+  if(is.null(vars)) vars <- names(x)
   
-  if(is.null(col) || length(col) == 0) {
+  if(is.null(vars) || length(vars) == 0) {
     stop("must specify at least one column")
   }
   
-  data.table::set(x, j = col, value = NULL)
+  data.table::set(x, j = vars, value = NULL)
   
   return(invisible(NULL))
 }

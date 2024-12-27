@@ -165,143 +165,15 @@ f_expect.arbitrary <- function(x, i, j, l) {
 sys.source(file.path(getwd(), "source", "sourcetest-dims.R"), envir = environment())
 
 
-
-# 
-# # test matrix & array ====
-# 
-# 
-# pre_subset_mat <- function(x, row = NULL, col = NULL) {
-#   
-#   if(!is.null(row)) row <- indx_wo(row, x, rownames(x), nrow(x))
-#   if(!is.null(col)) col <- indx_wo(col, x, colnames(x), ncol(x))
-#   
-#   if(any_empty_indices(row, col)) {
-#     return(x)
-#   }
-#   
-#   if(is.null(row)) row <- base::quote(expr = )
-#   if(is.null(col)) col <- base::quote(expr = )
-#   return(x[row, col])
-# }
-# 
-# subset_mat <- function(x, row = NULL, col = NULL, rp) {
-#   
-#   if(!is.null(row)) row <- indx_wo(row, x, rownames(x), nrow(x))
-#   if(!is.null(col)) col <- indx_wo(col, x, colnames(x), ncol(x))
-#   
-#   if(any_empty_indices(row, col)) {
-#     return(x)
-#   }
-#   
-#   if(is.null(row)) row <- base::quote(expr = )
-#   if(is.null(col)) col <- base::quote(expr = )
-#   x[row, col] <- rp
-#   
-#   return(x)
-# }
-# 
-# temp.fun.matrix <- function(x, row, col) {
-#   for(i in 1:length(row)) {
-#     for(j in 1:length(col)) {
-#       len <- length(pre_subset_mat(x, row[[i]], col[[j]]))
-#       rp <- as.list(seq_len(len))
-#       expect_equal(
-#         sb2_mod(x, row = row[[i]], col = col[[j]], inv = TRUE, rp = rp),
-#         subset_mat(x, row[[i]], col[[j]], rp = rp)
-#       ) |> errorfun()
-#       expect_true(sb2_mod(x, row = row[[i]], col = col[[j]], inv = TRUE, rp = rp) |>
-#                     is.matrix()) |> errorfun()
-#       assign("enumerate", enumerate + 2, envir = parent.frame(n = 1))
-#     }
-#   }
-# }
-# 
-# 
-# subset_1d <- function(x, i, rp) {
-#   i <- indx_wo(i, x, dimnames(x)[[1]], length(x))
-#   if(any_empty_indices(i)) {
-#     return(x)
-#   }
-#   x[i] <- rp
-#   return(x)
-# }
-# 
-# temp.fun.1d <- function(x, row) {
-#   for(i in 1:length(row)) {
-#     rp <- as.list(seq_along(indx_wo(row[[i]], x, dimnames(x)[[1]], length(x))))
-#     expect_equal(
-#       sb2_mod(x, row[[i]], 1, inv = TRUE, rp = rp),
-#       subset_1d(x, row[[i]], rp = rp)
-#     ) |> errorfun()
-#     expect_true(sb2_mod(x, row[[i]], 1, inv = TRUE, rp = rp) |>
-#                   is.array()) |> errorfun()
-#     assign("enumerate", enumerate + 2, envir = parent.frame(n = 1))
-#   }
-# }
-# 
-# temp.fun.2d <- function(x, row, col) {
-#   for(i in 1:length(row)) {
-#     for(j in 1:length(col)) {
-#       
-#       len <- length(pre_subset_mat(x, row[[i]], col[[j]]))
-#       rp <- as.list(seq_len(len))
-#       
-#       sub <- n(row[[i]], col[[j]])
-#       dims <- 1:2
-#       rem <- which(vapply(sub, is.null, logical(1L)))
-#       if(length(rem) > 0L) {
-#         sub <- sub[-rem]
-#         dims <- dims[-rem]
-#       }
-#       
-#       expect_equal(
-#         sb2_mod.array(x, s, d, inv = TRUE, rp = rp),
-#         subset_mat(x, row[[i]], col[[j]], rp = rp)
-#       ) |> errorfun()
-#       expect_true(sb2_mod.array(x, s, d, inv = TRUE, rp = rp) |>
-#                     is.array()) |> errorfun()
-#       assign("enumerate", enumerate + 2, envir = parent.frame(n = 1))
-#     }
-#   }
-# }
-# 
-# 
-# sb_test <- function(...) {
-#   rp <- lapply(sb2_wo.array(...), \(x) x* - 1)
-#   sb2_mod.array(..., inv = TRUE, rp = rp)
-# }
-# 
-# temp.fun.arbitrary <- function(x, i, j, l) {
-#   i <- indx_wo(i, x, rownames(x), nrow(x))
-#   j <- indx_wo(j, x, colnames(x), ncol(x))
-#   l <- indx_wo(l, x, dimnames(x)[4], dim(x)[4])
-#   if(any_empty_indices(i, j, l)) {
-#     return(x)
-#   }
-#   rp <- lapply(x[i, j, , l], \(x)x * -1)
-#   x[i, j, , l] <- rp
-#   return(x)
-# }
-# 
-# sys.source(file.path(getwd(), "source", "sourcetest-dims.R"), envir = environment())
-# 
-
 # test datasets ====
 
 pre_subset_df <- sb2_wo.data.frame
-f_expect.data.frame <- function(x, row = NULL, col = NULL, filter = NULL, get_vars = NULL) {
+f_expect.data.frame <- function(x, row = NULL, col = NULL) {
   
   rp <- parent.frame()$rp
   
   if(!is.null(row)) row <- indx_wo(row, x, rownames(x), nrow(x))
   if(!is.null(col)) col <- indx_wo(col, x, names(x), ncol(x))
-  if(!is.null(filter)) {
-    row <- model.frame(as.formula(filter), data = x)[, 1] |> as.logical()
-    row <- which(!row)
-  }
-  if(!is.null(get_vars)) {
-    col <- which(!vapply(x, get_vars, logical(1L)))
-  }
   
   if(any_empty_indices(row, col)) {
     return(x)
@@ -320,10 +192,10 @@ f_expect.data.frame <- function(x, row = NULL, col = NULL, filter = NULL, get_va
   return(x)
 }
 
-f_out.data.frame <- function(x, row = NULL, col = NULL, filter = NULL, get_vars = NULL) {
+f_out.data.frame <- function(x, s, d) {
   
   rp <- parent.frame()$rp
-  return(sb2_mod.data.frame(x, row, col, filter, get_vars, rp = rp, inv = TRUE))
+  return(sb2_mod.data.frame(x, s, d, rp = rp, inv = TRUE))
   
 }
 

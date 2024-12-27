@@ -44,7 +44,7 @@ rm(list = rem)
 
 subfolders <- c(
   "generic", "generic2", "generic_idx", "bind",
-  "helper", "sub2ind", "developer", "special", "src_related", "slice"
+  "helper", "sub2ind", "developer", "special", "src_related", "slice", "slicev"
 )
 wd <- SourceFileLocation()
 setwd(wd)

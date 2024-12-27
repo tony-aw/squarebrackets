@@ -102,7 +102,7 @@ expect_error(
   pattern = "`x` must be a data.table"
 )
 expect_error(
-  dt_setrm(x, col = 1),
+  dt_setrm(x, vars = 1),
   pattern = "`x` must be a data.table"
 )
 new <- data.table::data.table(e = factor(letters[1:10]))
@@ -119,7 +119,7 @@ enumerate <- enumerate + 3
 
 x <- data.table::data.table(a = 1:10, b = letters[1:10])
 x2 <- x
-sb2_set(x, col = "b", rp = list(letters[11:20]))
+sb2_set(x, vars = "b", rp = list(letters[11:20]))
 expect_equal(
   x,
   x2

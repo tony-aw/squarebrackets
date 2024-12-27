@@ -73,7 +73,7 @@ All forms of indexing in 'squarebrackets' are internally translated to integer
 ensuring consistency. <br>
 Indexing through integer/numeric indices in 'squarebrackets' works the same as in base 'R',
 except that negative values are not allowed. <br>
-So indexing starts at <code>1</code>, and is inclusive (all matching indices are selected). <br><br><br><b>Logical</b> <br>
+So indexing starts at <code>1</code> and is inclusive. <br><br><br><b>Logical</b> <br>
 Selecting indices with a logical vector in 'squarebrackets' works the same as in base 'R',
 except that recycling is not allowed. <br><br><br><b>Characters</b> <br>
 When selecting indices using a character vector,
@@ -125,27 +125,31 @@ like regular integers,
 or backwards counting from the end. <br><br><br></p>
     </div>
     <div class="section level2">
-    <h2 id="flat-indices-and-subscripts-in-arrays">Flat Indices and Subscripts in Arrays<a class="anchor" aria-label="anchor" href="#flat-indices-and-subscripts-in-arrays"></a></h2>
+    <h2 id="flat-indices-and-subscripts">Flat Indices and Subscripts<a class="anchor" aria-label="anchor" href="#flat-indices-and-subscripts"></a></h2>
     
 
-<p>Arrays and matrices (matrices are simply arrays with 2 dimensions)
-distinguish between flat indices and subscripts. <br><br>
-Flat indices, also called linear indices,
-specifies the indices of an array as-if it is vector,
-thus ignoring dimensions. <br>
-Flat indices are specified through the <a href="aaa03_squarebrackets_indx_args.html">i</a> argument. <br>
-So in an expression like <a href="sb_x.html">sb_x</a><code>(x, i = i)</code> (equivalent to <code>x[i]</code>),
-where <code>i</code> is a vector, <code>i</code> specifies flat indices. <br><br>
-Array subscripts work by specifying one or more indexing vectors,
-which can be of different sizes,
-where each vector specifies positions in a specific dimension. <br>
-Given, for example, a 3-dimensional array,
+<p>The primary indexing argument for vectors
+(i.e. dimensionless objects),
+is the <a href="aaa03_squarebrackets_indx_args.html">i</a> argument,
+which represents flat indices. <br><br>
+The primary indexing argument for
+dimensional objects supported by 'squarebrackets'
+(i.e. arrays and data.frame-like objects),
+is the <a href="aaa03_squarebrackets_indx_args.html">s, d</a> argument pair,
+which represent "subscripts". <br>
+(Given, for example, a 3-dimensional array,
 the subscript <code>[1:10, 2:5, 3:9]</code>,
-refers to rows 1 to 10, columns 2 to 5, and layers 3 to 9. <br>
-The S3 methods in 'squarebrackets' implement subscripts through
-the <a href="aaa03_squarebrackets_indx_args.html">s, d</a> argument pair. <br>
-This argument pair allows specifying indices of an array,
-without requiring a-priori knowledge on the number of dimensions the array has. <br><br>
+refers to rows 1 to 10, columns 2 to 5, and layers 3 to 9.) <br>
+This <a href="aaa03_squarebrackets_indx_args.html">s, d</a> argument pair
+works consistently for any dimensional object
+supported by 'squarebrackets',
+and does not require a-priori knowledge on the number of dimensions the object has. <br>
+This is particularly useful for arrays, which can have any number of dimensions. <br><br>
+Arrays and matrices (matrices are simply arrays with 2 dimensions)
+support both flat indices and subscripts. <br>
+In that case the flat indices, also called linear indices,
+specify the indices of an array as-if it is vector,
+thus ignoring dimensions. <br>
 For the relationship between flat indices and subscripts for arrays,
 see the <a href="sub2ind.html">sub2ind</a> help page. <br><br><br></p>
     </div>

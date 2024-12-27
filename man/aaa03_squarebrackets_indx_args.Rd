@@ -9,11 +9,14 @@ There are several types of arguments that can be used
 in the generic methods of 'squarebrackets' to specify the indices to perform operations on:
 \itemize{
 \item \code{i}: to specify flat (i.e. dimensionless) indices.
-\item \verb{s, d}: to specify indices of arbitrary dimensions in arrays
-(including matrices, which inherit from arrays).
-\item \verb{margin, slice}: to specify indices of one particular dimension (for arrays and data.frame-like objects).
-\item \verb{row, col}: to specify rows and/or columns in specifically in data.frame-like objects.
-\item \verb{filter, vars}: to specify rows and/or columns specifically in data.frame-like objects. \cr \cr
+\item \verb{s, d}: to specify indices of arbitrary dimensions
+in any dimensional object supported by 'squarebrackets'
+(i.e. arrays and data.frame-like objects).
+\item \verb{margin, slice}: to specify indices of one particular dimension
+(for arrays and data.frame-like objects). \cr
+Only used in the \link{idx} method. \cr
+\item \verb{obs, vars}: to specify observations and/or variables
+in specifically in data.frame-like objects.
 }
 
 For the fundamentals of indexing in 'squarebrackets',
@@ -27,6 +30,8 @@ In this help page \code{x} refers to the object on which subset operations are p
 \ifelse{html}{\figure{class-atomic_vector-blue.svg}{options: alt='[class: atomic vector]'}}{\link[=squarebrackets_indx_args]{class: atomic vector}} \cr
 \ifelse{html}{\figure{class-derived_atomic_vector-blue.svg}{options: alt='[class: derived atomic vector]'}}{\link[=squarebrackets_indx_args]{class: derived atomic vector}} \cr
 \ifelse{html}{\figure{class-recursive_vector-blue.svg}{options: alt='[class: recursive vector]'}}{\link[=squarebrackets_indx_args]{class: recursive vector}} \cr
+\ifelse{html}{\figure{class-atomic_array-blue.svg}{options: alt='[class: atomic array]'}}{\link[=squarebrackets_indx_args]{class: atomic array}} \cr
+\ifelse{html}{\figure{class-recursive_array-blue.svg}{options: alt='[class: recursive array]'}}{\link[=squarebrackets_indx_args]{class: recursive array}} \cr
 
 Any of the following can be specified for argument \code{i}:
 \itemize{
@@ -69,15 +74,16 @@ If \code{i} is a function, it corresponds to the following:
 
 \ifelse{html}{\figure{class-atomic_array-blue.svg}{options: alt='[class: atomic array]'}}{\link[=squarebrackets_indx_args]{class: atomic array}} \cr
 \ifelse{html}{\figure{class-recursive_array-blue.svg}{options: alt='[class: recursive array]'}}{\link[=squarebrackets_indx_args]{class: recursive array}} \cr
-The \verb{s, d} argument pair is inspired by the
-\code{abind::}\link[abind]{asub} function from the 'abind' package
-(see reference below). \cr
+\ifelse{html}{\figure{class-data.frame-like-blue.svg}{options: alt='[class: data.frame-like]'}}{\link[=squarebrackets_indx_args]{class: data.frame-like}} \cr
+The \verb{s, d} argument pair, inspired by the
+\code{abind::}\link[abind]{asub} function from the 'abind' package,
+is the primary indexing argument for sub-set operations on dimensional objects. \cr
 \cr
 The \code{s} argument specifies the
-\link[=squarebrackets_indx_fundamentals]{subscripts}
+\bold{subscripts}
 (i.e. dimensional indices). \cr
 The \code{d} argument gives the dimensions for which the
-\link[=squarebrackets_indx_fundamentals]{subscripts} \code{s} holds
+\code{s} holds
 (i.e. \code{d} specifies the "non-missing" margins). \cr
 \cr
 The \code{d} argument must be an integer vector. \cr
@@ -193,61 +199,75 @@ Thus the effect of a zero-length index specification depends on the rule-set of
 \verb{[.class(x)} and \verb{[<-.class(x)}. \cr \cr
 }
 
-\section{Arguments filter, vars}{
+\section{Arguments obs, vars}{
 
 \ifelse{html}{\figure{class-data.frame-like-blue.svg}{options: alt='[class: data.frame-like]'}}{\link[=squarebrackets_indx_args]{class: data.frame-like}} \cr
-
-The \code{filter} and  \code{vars} arguments are inspired by the \code{subset} and \code{select}
-arguments of base R's \link[base]{subset}\code{.data.frame} method.
-However, the \code{filter} and  \code{vars} arguments do \bold{not} use
+The \code{obs} argument specifies indices for observations (i.e. rows)
+in data.frame-like objects. \cr
+The \code{vars} argument specifies indices for variables (i.e. columns)
+in data.frame-like objects. \cr
+The \code{obs} and  \code{vars} arguments are inspired by the \code{subset} and \code{select}
+arguments, respectively, of base R's \link[base]{subset}\code{.data.frame} method.
+However, the \code{obs} and  \code{vars} arguments do \bold{not} use
 non-standard evaluation,
 as to keep 'squarebrackets' fully programmatically friendly. \cr
 \cr
-\code{filter} must be a one-sided formula
-with a single logical expression using the column names of the data.frame,
-giving the condition which observation/row indices should be selected for the operation. \cr
-For example,
-to perform an operation on the rows for which column \code{height > 2} and for which column \code{sex != "female"},
-specify the following formula:
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{~ (height > 2) & (sex != "female")
-}\if{html}{\out{</div>}}
-
-If the formula is linked to an environment,
-any variables not found in the data set will be searched from the environment. \cr
-\cr
-\code{vars} can be one of the following:
-\itemize{
-\item a \bold{function} that returns a logical vector,
-giving the column indices to select for the operation. \cr
-For example, to select all numeric columns,
-specify \code{vars = is.numeric}.
-\item a \bold{character} vector of column names / variable names. \cr \cr
-}
-}
-
-\section{Arguments row, col}{
-
-\ifelse{html}{\figure{class-data.frame-like-blue.svg}{options: alt='[class: data.frame-like]'}}{\link[=squarebrackets_indx_args]{class: data.frame-like}} \cr
-
-Any of the following can be specified for the arguments \code{row} / \code{col}:
+\bold{The \code{obs} Argument} \cr
+The \code{obs} argument can be any of the following:
 \itemize{
 \item \code{NULL} (default), corresponds to a missing argument.
 \item a vector of length 0,
 in which case no indices are selected for the operation (i.e. empty selection).
 \item a numeric vector of \bold{strictly positive whole numbers}
-with indices of the specified dimension to select for the operation.
+with row indices to select for the operation.
 \item a \bold{complex} vector, as explained in \link{squarebrackets_indx_fundamentals}.
-\item a \bold{logical} vector of the same length as the corresponding dimension size,
-giving the indices of the specified dimension to select for the operation.
-\item a \bold{character} vector giving the \code{dimnames} to select. \cr
-If a dimension has multiple indices with the given name,
-ALL the corresponding indices will be selected for the operation. \cr
+\item a \bold{logical} vector of the same length as the number of rows,
+giving the row indices to select for the operation. \cr
+\item a \bold{one-sided formula},
+with a single logical expression using the column names of the data.frame,
+giving the condition which observation/row indices should be selected for the operation. \cr
 }
 
-Using the \verb{row, col} arguments corresponds to doing something like the following:
+So to perform an operation on the observations for which holds that \code{height > 2} and \code{sex != "female"},
+specify the following formula:
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{ sb2_x(x, row, col) # ==> x[row, col, drop = FALSE]
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{obs = ~ (height > 2) & (sex != "female")
+}\if{html}{\out{</div>}}
+
+If the formula is linked to an environment,
+any variables not found in the data set will be searched from the environment. \cr
+\cr
+
+\bold{The \code{vars} Argument} \cr
+The \code{vars} argument can be any of the following
+\itemize{
+\item \code{NULL} (default), corresponds to a missing argument.
+\item a vector of length 0,
+in which case no indices are selected for the operation (i.e. empty selection).
+\item a numeric vector of \bold{strictly positive whole numbers}
+with column indices to select for the operation.
+\item a \bold{complex} vector, as explained in \link{squarebrackets_indx_fundamentals}.
+\item a \bold{logical} vector of the same length as the number of columns,
+giving the column indices to select for the operation.
+\item a \bold{character} vector giving the \code{colnamess} to select. \cr
+Note that 'squarebrackets' assumes data.frame-like objects have unique column names.
+\item a \bold{function} that returns a logical vector,
+giving the column indices to select for the operation. \cr
+For example, to select all numeric variables,
+specify \code{vars = is.numeric}.
+\item a \bold{two-sided formula}, where each side consists of a single term,
+giving a range of names to select. \cr
+For example,
+to select all variables between and including the variables "height" and "weight",
+specify the following: \cr
+\code{vars =  heigth ~ weight}. \cr \cr
+}
+
+\bold{EXAMPLE} \cr
+
+So using the \verb{obs, vars} arguments corresponds to doing something like the following:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{ sb2_x(x, obs = obs, vars = vars) # ==> subset(x, ...obs..., ...vars...)
  
 }\if{html}{\out{</div>}}
 }
@@ -270,7 +290,7 @@ x
 
 }\if{html}{\out{</div>}}
 
-and using \code{sb_mod(x, col = 1:2, inv = TRUE, tf = tf)}
+and using \code{sb_mod(x, vars = 1:2, inv = TRUE, tf = tf)}
 corresponds to something like the following:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{

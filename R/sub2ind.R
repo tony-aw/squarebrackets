@@ -65,8 +65,8 @@
 #' matrix(1:20, ncol = 5)
 #' ```
 #' 
-#' In a 4 by 4 matrix, subscript `[1, 2]` corresponds to flat index `5`. \cr
-#' All array subscripts in 'squarebrackets' also follow this convention. \cr
+#' So in a 4 by 5 matrix, subscript `[1, 2]` corresponds to flat index `5`. \cr
+#' Array subscripting in 'squarebrackets' also follows this standard convention. \cr
 #' \cr
 #' 
 #' 
