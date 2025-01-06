@@ -47,7 +47,7 @@ Description: Provides subset methods
     which is more memory efficient
     (and better for the environment)
     for `long vectors` than sub-set operations using the `[` and `[<-` operators.
-License: MIT + file LICENSE
+License: MPL-2.0 | file LICENSE
 Encoding: UTF-8
 LinkingTo: Rcpp
 Roxygen: list(markdown = TRUE)
