@@ -52,7 +52,7 @@ because \code{x} is of type \code{integer}, so \code{rp} is interpreted as type 
 A data.table is actually a list made mutable,
 where each column is itself a list.
 As such, replacing/transforming whole columns,
-so \code{row = NULL} and \code{obs = NULL},
+without specifying rows (not even \code{1:nrow(x)}),
 allows completely changing the type of the column. \cr
 \cr
 \cr

@@ -105,7 +105,7 @@ because <code>x</code> is of type <code>integer</code>, so <code>rp</code> is in
 A data.table is actually a list made mutable,
 where each column is itself a list.
 As such, replacing/transforming whole columns,
-so <code>row = NULL</code> and <code>obs = NULL</code>,
+without specifying rows (not even <code>1:nrow(x)</code>),
 allows completely changing the type of the column. <br><br><br></p>
     </div>
     <div class="section level2">
