@@ -215,8 +215,8 @@ sub2ind <- function(sub, x.dim, checks = TRUE) {
 #' @noRd
 .sub2ind_d32 <- function(sub, x.dim) {
   n <- length(x.dim)
-  dimcumprod <- as.integer(cumprod(x.dim)[1L:(n - 1L)])
-  return(.rcpp_sub2ind_2d_8d_32(sub, dimcumprod))
+  dimcumprod <- as.double(cumprod(x.dim)[1L:(n - 1L)])
+  return(.rcpp_sub2ind_d_32(sub, dimcumprod))
 }
 
 #' @keywords internal
@@ -224,7 +224,7 @@ sub2ind <- function(sub, x.dim, checks = TRUE) {
 .sub2ind_d64 <- function(sub, x.dim) {
   n <- length(x.dim)
   dimcumprod <- as.double(cumprod(x.dim)[1L:(n - 1L)])
-  return(.rcpp_sub2ind_2d_8d_64(sub, dimcumprod))
+  return(.rcpp_sub2ind_d_64(sub, dimcumprod))
 }
 
 

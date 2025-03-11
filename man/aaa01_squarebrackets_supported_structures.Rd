@@ -59,7 +59,7 @@ for more details on the method dispatch used by 'squarebrackets'. \cr
 \cr
 
 \bold{Dimensionality} \cr
-'squarebrackets' supports dimensionless or vector objects (i.e. \link{ndims}\code{ == 0L}). \cr
+'squarebrackets' supports dimensionless or vector objects (i.e. \link{ndim}\code{ == 0L}). \cr
 squarebrackets' supports arrays (see \link[base]{is.array} and \link[base]{is.matrix});
 note that a matrix is simply an array with 2 dimensions. \cr
 'squarebrackets' also supports data.frame-like objects (see \link{is.data.frame}). \cr

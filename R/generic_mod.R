@@ -70,7 +70,7 @@ sb_mod.default <- function(
 #' @rdname sb_mod
 #' @export
 sb_mod.array <- function(
-    x, s = NULL, d = 1:ndims(x), i = NULL, inv = FALSE, ...,
+    x, s = NULL, d = 1:ndim(x), i = NULL, inv = FALSE, ...,
     rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
@@ -95,7 +95,7 @@ sb_mod.array <- function(
   }
   
   # 1d:
-  if(ndims(x) == 1L) {
+  if(ndim(x) == 1L) {
     i <- .flat_s2i(x, s, d)
     return(.flat_mod_atomic(x, i, inv, rp, tf, chkdup, sys.call()))
   }
@@ -157,7 +157,7 @@ sb2_mod.default <- function(
 #' @rdname sb_mod
 #' @export
 sb2_mod.array <- function(
-    x, s = NULL, d = 1:ndims(x), i = NULL, inv = FALSE, ...,
+    x, s = NULL, d = 1:ndim(x), i = NULL, inv = FALSE, ...,
     rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE), .lapply = lapply
 ) {
   
@@ -182,7 +182,7 @@ sb2_mod.array <- function(
   }
   
   # 1d:
-  if(ndims(x) == 1L) {
+  if(ndim(x) == 1L) {
     i <- .flat_s2i(x, s, d)
     return(.flat_mod_list(x, i, inv, rp, tf, chkdup, .lapply, sys.call()))
   }

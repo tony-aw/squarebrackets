@@ -39,7 +39,7 @@ Any of the following can be specified for argument \code{i}:
 \item a vector of length 0,
 in which case no indices are selected for the operation
 (i.e. empty selection).
-\item a numeric vector of \bold{strictly positive whole numbers} with indices.
+\item a numeric vector of \bold{strictly positive whole numbers} giving indices.
 \item a \bold{complex} vector, as explained in \link{squarebrackets_indx_fundamentals}.
 \item a \bold{logical vector},
 of the same length as \code{x},
@@ -111,7 +111,7 @@ Note the following:
 \item As stated, \code{d} specifies which index margins are non-missing. \cr
 If \code{d} is of length \code{0},
 it is taken as "all index margins are missing".
-\item The default value for \code{d} is \code{1:}\link{ndims}\code{(x)}. \cr
+\item The default value for \code{d} is \code{1:}\link{ndim}\code{(x)}. \cr
 }
 
 To keep the syntax short,

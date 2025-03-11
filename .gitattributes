@@ -12,14 +12,7 @@ R/aaa06_squarebrackets_method_dispatch.R -linguist-documentation
 R/aaa07_squarebrackets_PassByReference.R -linguist-documentation
 R/aaa08_squarebrackets_coercion.R -linguist-documentation
 R/aaa09_squarebrackets_slicev.R -linguist-documentation
-DynamicallyType_CScripts.R -linguist-vendored
-DynamicallyType_Rtemplates.R -linguist-vendored
-DynamicallyTypeC_Array.R -linguist-vendored
-DynamicallyTypeRcpp_Array.R -linguist-vendored
-DynamicallyTypeRcpp_Matrix.R -linguist-vendored
-DynamicallyTypeRcpp_slice.R -linguist-vendored
-DynamicallyTypeRcpp_slicev.R -linguist-vendored
-DynamicallyTypeRcpp_Vector.R -linguist-vendored
+skeletons/** -linguist-vendored
 R/reexports.R -linguist-documentation
 R/meta_functions.R -linguist-documentation
 R/zzz.R -linguist-vendored

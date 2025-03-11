@@ -65,8 +65,6 @@ and returns \code{FALSE} otherwise. \cr
 For \code{couldb.mutable_atomic()}: \cr
 Returns \code{TRUE} if the object is one of the following types: \cr
 \link{logical}, \link{integer}, \link{double}, \link{character}, \link{complex}, \link{raw}. \cr
-\code{bit64::}\link[bit64]{integer64} type is also supported,
-since it is internally defined as \link{double}. \cr
 Returns \code{FALSE} otherwise. \cr \cr
 }
 \description{
@@ -88,8 +86,6 @@ Exposed functions (beside the S3 methods):
 \item \code{couldb.mutable_atomic()}: checks if an object could become \code{mutable_atomic}. \cr
 An objects can become \code{mutable_atomic} if it is one of the following types: \cr
 \link{logical}, \link{integer}, \link{double}, \link{character}, \link{complex}, \link{raw}. \cr
-\code{bit64::}\link[bit64]{integer64} type is also supported,
-since it is internally defined as \link{double}. \cr
 Factors can never be \code{mutable_atomic}.
 \item \code{typecast.mutable_atomic()} type-casts and possibly reshapes a (mutable) atomic object,
 and returns a \code{mutable_atomic} object. \cr

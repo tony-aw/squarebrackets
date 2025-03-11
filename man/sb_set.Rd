@@ -24,7 +24,7 @@ sb_set(x, ...)
 \method{sb_set}{array}(
   x,
   s = NULL,
-  d = 1:ndims(x),
+  d = 1:ndim(x),
   i = NULL,
   inv = FALSE,
   ...,
@@ -99,7 +99,7 @@ gen_mat <- function() {
 obj <- obj2 <- gen_mat()
 print(obj)
 
-sb_set(obj, n(1:3), 1:ndims(obj), rp = -1:-9)
+sb_set(obj, n(1:3), 1:ndim(obj), rp = -1:-9)
 print(obj2)
 # above is like x[1:3, 1:3] <- -1:-9, but using pass-by-reference
 
@@ -120,7 +120,7 @@ print(obj2)
 obj <- obj2 <- gen_mat()
 obj
 
-sb_set(obj, n(1:3), 1:ndims(obj), tf = \(x) -x)
+sb_set(obj, n(1:3), 1:ndim(obj), tf = \(x) -x)
 print(obj2)
 # above is like x[1:3, 1:3] <- -1 * x[1:3, 1:3], but using pass-by-reference
 

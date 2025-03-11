@@ -7,7 +7,7 @@
 ) {
   N <- max(
     1L,
-    vapply(arg.list, ndims, integer(1L))
+    vapply(arg.list, ndim, integer(1L))
   )
   
   extra_dimensional <- FALSE
@@ -69,7 +69,7 @@
     }
     else {
       txt <- paste0(
-        "arg.list[[", i, "]]  does not fit: should have `ndims()` = ",
+        "arg.list[[", i, "]]  does not fit: should have `ndim()` = ",
         N, " or ", N - 1L
       )
       stop(simpleError(txt, call = abortcall))

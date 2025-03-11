@@ -171,8 +171,7 @@ countv(y, na = NA, r = FALSE)                      # ==> sum(!is.na(y))
 Handling \code{NA}s works the same for all atomic types. \cr
 For \code{y} of type \code{complex},
 a value \code{y[i]} is considered \code{NA}
-if \code{Re(y[i])} is \code{NA}/\code{NaN} and/or \code{Im(y[i])} is \code{NA}/\code{NaN},
-regardless of the value of argument \code{andor}. \cr
+if \code{Re(y[i])} is \code{NA}/\code{NaN} and/or \code{Im(y[i])} is \code{NA}/\code{NaN}. \cr
 \cr
 Argument \code{v} is never allowed to contain \code{NA}/\code{NaN}. \cr
 \cr

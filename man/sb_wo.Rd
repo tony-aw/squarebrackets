@@ -17,7 +17,7 @@ sb_wo(x, ...)
 \method{sb_wo}{array}(
   x,
   s = NULL,
-  d = 1:ndims(x),
+  d = 1:ndim(x),
   i = NULL,
   ...,
   chkdup = getOption("squarebrackets.chkdup", FALSE)
@@ -36,7 +36,7 @@ sb2_wo(x, ...)
 \method{sb2_wo}{array}(
   x,
   s = NULL,
-  d = 1:ndims(x),
+  d = 1:ndim(x),
   i = NULL,
   red = FALSE,
   ...,
@@ -88,7 +88,7 @@ Use \code{sb2_wo(x, ...)} if \code{x} is a recursive object (i.e. list or data.f
 obj <- matrix(1:16, ncol = 4)
 colnames(obj) <- c("a", "b", "c", "a")
 print(obj)
-sb_wo(obj, n(1:3), 1:ndims(obj))
+sb_wo(obj, n(1:3), 1:ndim(obj))
 # above is equivalent to  obj[-1:-3, -1:-3, drop = FALSE]
 sb_wo(obj, i = \(x) x > 5)
 # above is equivalent to  obj[!obj > 5]
@@ -132,7 +132,7 @@ obj <- rbind(
 )
 colnames(obj) <- c("a", "b", "c", "a")
 print(obj)
-sb2_wo(obj, n(1:3), 1:ndims(obj))
+sb2_wo(obj, n(1:3), 1:ndim(obj))
 # above is equivalent to obj[1:3, 1:3, drop = FALSE]
 sb2_wo(obj, i = is.numeric)
 # above is equivalent to obj[sapply(obj, is.numeric)]

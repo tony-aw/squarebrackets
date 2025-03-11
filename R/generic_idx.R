@@ -89,7 +89,7 @@ idx.default <- function(
 #' @rdname idx1
 #' @export
 idx.array <- function(
-    x, s = NULL, d = 1:ndims(x), slice = NULL, margin = NULL, i = NULL, inv = FALSE,
+    x, s = NULL, d = 1:ndim(x), slice = NULL, margin = NULL, i = NULL, inv = FALSE,
     ...,
     chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {

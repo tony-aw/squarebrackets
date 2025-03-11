@@ -5,13 +5,13 @@ obj <- matrix(1:16, ncol = 4)
 colnames(obj) <- c("a", "b", "c", "a")
 print(obj)
 rp <- -1:-9
-sb_mod(obj, n(1:3), 1:ndims(obj), rp = rp)
+sb_mod(obj, n(1:3), 1:ndim(obj), rp = rp)
 # above is equivalent to  obj[1:3, 1:3] <- -1:-9; obj
 sb_mod(obj, i = \(x)x<=5, rp = -1:-5)
 # above is equivalent to  obj[obj <= 5] <- -1:-5; obj
 sb_mod(obj, n("a"), 2L, rp = -1:-8)
 # above is equivalent to  obj[, which(colnames(obj) %in% "a")] <- -1:-8; obj
-sb_mod(obj, n(1:3), 1:ndims(obj), tf = \(x) -x)
+sb_mod(obj, n(1:3), 1:ndim(obj), tf = \(x) -x)
 # above is equivalent to  obj[1:3, 1:3] <- (-1 * obj[1:3, 1:3]); obj
 sb_mod(obj, i = \(x)x <= 5, tf = \(x) -x)
 # above is equivalent to  obj[obj <= 5] <- (-1 * obj[obj <= 5]); obj
@@ -43,7 +43,7 @@ obj <- rbind(
 )
 colnames(obj) <- c("a", "b", "c", "a")
 print(obj)
-sb2_mod(obj, n(1:3), 1:ndims(obj),rp = n(-1))
+sb2_mod(obj, n(1:3), 1:ndim(obj),rp = n(-1))
 # above is equivalent to obj[1:3, 1:3] <- list(-1)
 sb2_mod(obj, i = is.numeric, rp = n(-1))
 # above is equivalent to obj[sapply(obj, is.numeric)] <- list(-1)

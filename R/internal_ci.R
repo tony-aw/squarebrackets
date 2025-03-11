@@ -9,7 +9,7 @@
     s <- s[[1]]
   }
   
-  if(ndims(x) == 1L) {
+  if(ndim(x) == 1L) {
     lst <- list(
       ci_flat(x, s, inv, chkdup, uniquely_named = FALSE, .abortcall)
     )
@@ -33,7 +33,7 @@
   
   s <- s[[1]]
   
-  if(ndims(x) == 1L) {
+  if(ndim(x) == 1L) {
     lst <- list(
       ci_flat(x, s, inv, chkdup, uniquely_named = FALSE, .abortcall)
     )
@@ -85,7 +85,7 @@
 
 #' @keywords internal
 #' @noRd
-.ci_sub_check <- function(x, s, d, ndims, .abortcall) {
+.ci_sub_check <- function(x, s, d, ndim, .abortcall) {
   
   # check `d`:
   if(length(d) == 0L) {
@@ -94,7 +94,7 @@
   if(!is.numeric(d)) {
     stop(simpleError("`d` must be a integer vector", call = .abortcall))
   }
-  if(.any_badindx(as.integer(d), ndims)) {
+  if(.any_badindx(as.integer(d), ndim)) {
     stop(simpleError("`d` out of range", call = .abortcall))
   }
   

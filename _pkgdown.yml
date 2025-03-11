@@ -50,7 +50,7 @@ reference:
 - title: Helper Functions
   contents:
   - '`n`'
-  - '`ndims`'
+  - '`ndim`'
   - '`currentBindings`'
   - '`sub2ind`'
   - '`match_all`'
@@ -62,3 +62,4 @@ reference:
   - '`ci_flat`'
   - '`tci_chr`'
   - '`indx_x`'
+  

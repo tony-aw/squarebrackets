@@ -66,7 +66,7 @@ sb_wo.default <- function(
 #' @rdname sb_wo
 #' @export
 sb_wo.array <- function(
-    x, s = NULL, d = 1:ndims(x), i = NULL, ...,
+    x, s = NULL, d = 1:ndim(x), i = NULL, ...,
     chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
@@ -115,7 +115,7 @@ sb2_wo.default <- function(
 #' @rdname sb_wo
 #' @export
 sb2_wo.array <- function(
-    x, s = NULL, d = 1:ndims(x), i = NULL, red = FALSE, ...,
+    x, s = NULL, d = 1:ndim(x), i = NULL, red = FALSE, ...,
     chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   

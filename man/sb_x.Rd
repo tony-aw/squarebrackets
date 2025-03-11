@@ -14,13 +14,13 @@ sb_x(x, ...)
 
 \method{sb_x}{default}(x, i = NULL, ...)
 
-\method{sb_x}{array}(x, s = NULL, d = 1:ndims(x), i = NULL, ...)
+\method{sb_x}{array}(x, s = NULL, d = 1:ndim(x), i = NULL, ...)
 
 sb2_x(x, ...)
 
 \method{sb2_x}{default}(x, i = NULL, red = FALSE, ...)
 
-\method{sb2_x}{array}(x, s = NULL, d = 1:ndims(x), i = NULL, red = FALSE, ...)
+\method{sb2_x}{array}(x, s = NULL, d = 1:ndim(x), i = NULL, red = FALSE, ...)
 
 \method{sb2_x}{data.frame}(x, s = NULL, d = 1:2, obs = NULL, vars = NULL, ...)
 }
@@ -57,7 +57,7 @@ Use \code{sb2_x(x, ...)} if \code{x} is a recursive object (i.e. list or data.fr
 obj <- matrix(1:16, ncol = 4)
 colnames(obj) <- c("a", "b", "c", "a")
 print(obj)
-sb_x(obj, s = n(1:3), d = 1:ndims(obj))
+sb_x(obj, s = n(1:3), d = 1:ndim(obj))
 # above is equivalent to obj[1:3, 1:3, drop = FALSE]
 sb_x(obj, i = \(x) x > 5)
 # above is equivalent to obj[obj > 5]
@@ -94,7 +94,7 @@ obj <- rbind(
 )
 colnames(obj) <- c("a", "b", "c", "a")
 print(obj)
-sb2_x(obj, s = n(1:3), d = 1:ndims(obj))
+sb2_x(obj, s = n(1:3), d = 1:ndim(obj))
 # above is equivalent to obj[1:3, 1:3, drop = FALSE]
 sb2_x(obj, i = is.numeric)
 # above is equivalent to obj[sapply(obj, is.numeric)]

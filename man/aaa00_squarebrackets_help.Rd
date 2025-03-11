@@ -179,7 +179,7 @@ are provided:
 that share the share the same address as the input variable.
 \item \link{n}: Nested version of \link[base]{c},
 and short-hand for \link[base]{list}.
-\item \link{ndims}: Get the number of dimensions of an object.
+\item \link{ndim}: Get the number of dimensions of an object.
 \item \link{sub2coord}, \link{coord2ind}: Convert subscripts
 (array indices) to coordinates,
 coordinates to flat indices,

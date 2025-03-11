@@ -14,7 +14,7 @@ idx(x, ...)
 \method{idx}{array}(
   x,
   s = NULL,
-  d = 1:ndims(x),
+  d = 1:ndim(x),
   slice = NULL,
   margin = NULL,
   i = NULL,

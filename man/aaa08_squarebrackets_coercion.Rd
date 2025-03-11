@@ -95,6 +95,7 @@ x <- list(
 )
 myref <- x$a
 sb2_set(myref, vars = "cola", tf = \\(x)x^2)
+
 }\if{html}{\out{</div>}}
 
 Notice in the above code that \code{myref} is not a copy of \code{x$a},

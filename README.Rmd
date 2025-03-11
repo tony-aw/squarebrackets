@@ -106,6 +106,7 @@ library(squarebrackets)
  - 5 December 2024: Replaced the `_rm` post-fixes with `_wo` in all methods, to avoid confusion. Coercion for data.frame-like objects now happens automatically, and only when needed, in the `sb2_mod()` method, and updated the documentation accordingly. Slightly re-organized the documentation.
  - 14 December 2024: Removed the `ma_setv()` function in favour of the new `slicev_` set of methods. Renamed the `sub,dims` argument pair to `s,d`. Changed the documentation accordingly.
  - 27 December 2024: Overhauled the arguments for the data.frame/data.table methods and functions. Now the `s,d` argument pair is the primary argument set for all dimensional objects.
+ - 11 March 2025: Overhauled the internal code for arrays; it's even faster now. Re-organised some other code in preparation for the next update. Renamed `ndims()` to `ndim()`. 
 
 
 

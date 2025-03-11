@@ -171,5 +171,8 @@ library(squarebrackets)
 - 27 December 2024: Overhauled the arguments for the
   data.frame/data.table methods and functions. Now the `s,d` argument
   pair is the primary argument set for all dimensional objects.
+- 11 March 2025: Overhauled the internal code for arrays; it’s even
+  faster now. Re-organised some other code in preparation for the next
+  update. Renamed `ndims()` to `ndim()`.
 
  

@@ -60,7 +60,7 @@ sb_x.default <- function(x, i = NULL, ...) {
 #' @rdname sb_x
 #' @export
 sb_x.array <- function(
-    x, s = NULL, d = 1:ndims(x), i = NULL, ...
+    x, s = NULL, d = 1:ndim(x), i = NULL, ...
 ) {
   
   .internal_check_dots(list(...), sys.call())
@@ -106,7 +106,7 @@ sb2_x.default <- function(x, i = NULL, red = FALSE, ...) {
 #' @rdname sb_x
 #' @export
 sb2_x.array <- function(
-    x, s = NULL, d = 1:ndims(x), i = NULL, red = FALSE, ...
+    x, s = NULL, d = 1:ndim(x), i = NULL, red = FALSE, ...
 ) {
   
   .internal_check_dots(list(...), sys.call())
@@ -153,7 +153,7 @@ sb2_x.data.frame <- function(
 #' @keywords internal
 #' @noRd
 .sb_x_array <- function(
-    x, s = NULL, d = 1:ndims(x), i = NULL, inv = FALSE, red = FALSE, chkdup = FALSE, abortcall
+    x, s = NULL, d = 1:ndim(x), i = NULL, inv = FALSE, red = FALSE, chkdup = FALSE, abortcall
 ) {
   
   # check arguments:
@@ -175,7 +175,7 @@ sb2_x.data.frame <- function(
   }
   
   # 1d:
-  if(ndims(x) == 1L) {
+  if(ndim(x) == 1L) {
     i <- .flat_s2i(x, s, d, abortcall)
     return(.flat_a1d_x(x, i, inv, red, chkdup, abortcall))
   }

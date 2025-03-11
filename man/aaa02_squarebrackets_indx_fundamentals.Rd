@@ -248,6 +248,7 @@ x <- list(
    B = letters,
    C = list(A = 11:20, B = month.abb)
 )
+
 }\if{html}{\out{</div>}}
 
 Regular subsets, AKA surface-level subset operations (\code{[}, \verb{[<-} in base 'R'),

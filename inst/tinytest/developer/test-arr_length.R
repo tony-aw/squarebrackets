@@ -11,8 +11,8 @@ rownames(x) <- c(letters[1:10])
 foo <- sb_x.array(x, s, d)
 length(foo)
 
-ndims <- length(dim(x))
-lst <- rep(list(base::quote(expr = )), ndims)
+ndim <- length(dim(x))
+lst <- rep(list(base::quote(expr = )), ndim)
 for(i in seq_along(d)) {
   lst[[d[i]]] <- ci_margin(
     x, s[[i]], d[i]
@@ -32,8 +32,8 @@ rownames(x) <- c(letters[1:8], "a", NA)
 foo <- sb_x.array(x, s, d)
 length(foo)
 
-ndims <- length(dim(x))
-lst <- rep(list(base::quote(expr = )), ndims)
+ndim <- length(dim(x))
+lst <- rep(list(base::quote(expr = )), ndim)
 for(i in seq_along(d)) {
   lst[[d[i]]] <- ci_margin(
     x, s[[i]], d[i]
@@ -51,8 +51,8 @@ rownames(x) <- c(letters[1:8], "a", NA)
 foo <- sb_x.array(x, s, d)
 length(foo)
 
-ndims <- length(dim(x))
-lst <- rep(list(base::quote(expr = )), ndims)
+ndim <- length(dim(x))
+lst <- rep(list(base::quote(expr = )), ndim)
 for(i in seq_along(d)) {
   lst[[d[i]]] <- ci_margin(
     x, s[[i]], d[i]
@@ -71,8 +71,8 @@ rownames(x) <- c(letters[1:8], "a", NA)
 foo <- sb_x.array(x, s, d)
 length(foo)
 
-ndims <- length(dim(x))
-lst <- rep(list(base::quote(expr = )), ndims)
+ndim <- length(dim(x))
+lst <- rep(list(base::quote(expr = )), ndim)
 for(i in seq_along(d)) {
   lst[[d[i]]] <- ci_margin(
     x, s[[i]], d[i]

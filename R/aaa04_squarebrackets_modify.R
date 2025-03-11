@@ -108,7 +108,7 @@
 #' By default, `.lapply = lapply`. \cr
 #' The user may supply a custom `lapply()`-like function
 #' in this argument to use instead. \cr
-#' For example, the perform parallel transformation,
+#' For example, to perform parallel transformation,
 #' the user may supply `future.apply::`\link[future.apply]{future_lapply}. \cr
 #' The supplied function must use the exact same argument convention as
 #' \link[base]{lapply},

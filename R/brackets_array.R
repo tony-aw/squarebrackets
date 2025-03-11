@@ -78,8 +78,8 @@
   
   # Prep:
   x.dim <- dim(x)
-  ndims <- length(x.dim)
-  .ci_sub_check(x, s, d, ndims, .abortcall = abortcall)
+  ndim <- length(x.dim)
+  .ci_sub_check(x, s, d, ndim, .abortcall = abortcall)
   
   lst <- ci_sub(
     x, s, d, inv, chkdup, .abortcall = abortcall
@@ -92,19 +92,13 @@
   rp <- .internal_coerce_rp(x, rp, abortcall)
   
   
-  # CASE 1: `x` has between 3 and 8 dimensions (emtpy args, 1d, and 2d already captured earlier)
-  if(ndims <= 8L) {
-    .rcpp_set_array_2d_8d(x, rp, lst, x.dim, abortcall = abortcall)
+  # CASE 1: `x` has between 3 and 16 dimensions (emtpy args, 1d, and 2d already captured earlier)
+  if(ndim <= 8L) {
+    .rcpp_set_array_d(x, rp, lst, x.dim, abortcall = abortcall)
     return(invisible(NULL))
   }
   
-  # CASE 2: `x` has between 9 and 16 dimensions
-  if(ndims <= 16L) {
-    .rcpp_set_array_16d(x, rp, lst, x.dim, abortcall = abortcall)
-    return(invisible(NULL))
-  }
-  
-  # CASE 3:  `x` has more 16 dimensions
+  # CASE 2:  `x` has more 16 dimensions
   # use generalized array code (inspired by R's own internal code)
   .rcpp_set_array_general_atomic(x, lst, x.dim, rp)
   return(invisible(NULL))
@@ -113,27 +107,12 @@
 
 #' @keywords internal
 #' @noRd
-.rcpp_set_array_2d_8d <- function(x, rp, lst, x.dim, abortcall) {
+.rcpp_set_array_d <- function(x, rp, lst, x.dim, abortcall) {
   dimcumprod <- as.double(cumprod(x.dim))
   
-  .rcpp_set_array_2d_8d_atomic(x, lst, dimcumprod, rp)
+  .rcpp_set_array_d_atomic(x, lst, dimcumprod, rp)
   return(invisible(NULL))
   
 }
 
-
-#' @keywords internal
-#' @noRd
-.rcpp_set_array_16d <- function(x, rp, lst, x.dim, abortcall) {
-  n <- length(x.dim)
-  
-  if(n < 16L) {
-    lst[(n+1):16L] <- list(1L)
-  }
-  dimcumprod <- cumprod(c(x.dim, rep(0L, 16L - n))) |> as.double()
-  args <- c(list(x), lst, list(dimcumprod, rp))
-  do.call(.rcpp_set_array_16d_atomic, args)
-  return(invisible(NULL))
-  
-}
 

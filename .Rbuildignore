@@ -19,3 +19,7 @@ README.html
 inst/tinytest/count_tests
 usethis
 ^Dynamic
+^docs$
+^altdoc$
+^_quarto$
+^skeletons

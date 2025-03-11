@@ -1,174 +1,49 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/404.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/articles/articles/a_benchmarks_x.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/articles/articles/b_benchmarks_tf.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/articles/articles/c_benchmarks_lst.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/articles/a_benchmarks_x.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/articles/b_benchmarks_tf.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/articles/c_benchmarks_lst.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/index.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/aaa00_squarebrackets_help.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/aaa01_squarebrackets_supported_structures.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/aaa02_squarebrackets_indx_fundamentals.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/aaa03_squarebrackets_indx_args.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/aaa04_squarebrackets_method_dispatch.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/aaa04_squarebrackets_modify.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/aaa05_squarebrackets_modify.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/aaa05_squarebrackets_options.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/aaa06_squarebrackets_method_dispatch.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/aaa06_squarebrackets_options.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/aaa07_squarebrackets_PassByReference.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/aaa08_squarebrackets_coercion.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/aaa09_squarebrackets_inconveniences.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/aaa09_squarebrackets_slicev.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/bind.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/ci.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/class_mutable_atomic.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/cp_seq.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/currentBindings.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/developer_ci.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/developer_tci.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/dt.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/exported_uilities.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/idx1.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/idx_by.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/idx_ord.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/idx_r.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/lst.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/match_all.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/ma_setv.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/ndims.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/nest.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/reexports.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/sb2_rec.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/sb_mod.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/sb_set.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/sb_setRename.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/sb_wo.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/sb_x.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/setapply.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/slice.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/slicev.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/sub2ind.html</loc>
-  </url>
-  <url>
-    <loc>https://tony-aw.github.io/squarebrackets/reference/tci.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://tony-aw.github.io/squarebrackets/404.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/articles/a_benchmarks_x.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/articles/b_benchmarks_tf.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/articles/c_benchmarks_lst.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/articles/index.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/authors.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/index.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/LICENSE-text.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/reference/aaa00_squarebrackets_help.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/reference/aaa01_squarebrackets_supported_structures.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/reference/aaa02_squarebrackets_indx_fundamentals.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/reference/aaa03_squarebrackets_indx_args.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/reference/aaa04_squarebrackets_modify.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/reference/aaa05_squarebrackets_options.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/reference/aaa06_squarebrackets_method_dispatch.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/reference/aaa07_squarebrackets_PassByReference.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/reference/aaa08_squarebrackets_coercion.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/reference/aaa09_squarebrackets_slicev.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/reference/bind.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/reference/class_mutable_atomic.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/reference/cp_seq.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/reference/currentBindings.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/reference/developer_ci.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/reference/developer_tci.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/reference/dt.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/reference/exported_uilities.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/reference/idx1.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/reference/idx_by.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/reference/idx_ord.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/reference/idx_r.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/reference/index.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/reference/lst.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/reference/match_all.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/reference/ndim.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/reference/nest.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/reference/reexports.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/reference/sb2_rec.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/reference/sb_mod.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/reference/sb_set.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/reference/sb_setRename.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/reference/sb_wo.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/reference/sb_x.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/reference/setapply.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/reference/slice.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/reference/slicev.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/reference/sub2ind.html</loc></url>
 </urlset>
+

@@ -35,7 +35,7 @@
 #'  * a vector of length 0,
 #'  in which case no indices are selected for the operation
 #'  (i.e. empty selection).
-#'  * a numeric vector of \bold{strictly positive whole numbers} with indices.
+#'  * a numeric vector of \bold{strictly positive whole numbers} giving indices.
 #'  * a \bold{complex} vector, as explained in \link{squarebrackets_indx_fundamentals}.
 #'  * a \bold{logical vector},
 #'  of the same length as `x`,
@@ -106,7 +106,7 @@
 #'  * As stated, `d` specifies which index margins are non-missing. \cr
 #'  If `d` is of length `0`,
 #'  it is taken as "all index margins are missing".
-#'  * The default value for `d` is \code{1:}\link{ndims}\code{(x)}. \cr
+#'  * The default value for `d` is \code{1:}\link{ndim}\code{(x)}. \cr
 #'  
 #' To keep the syntax short,
 #' the user can use the \link{n} function instead of `list()` to specify `s`. \cr

@@ -152,7 +152,7 @@ ci_sub <- function(
   # the maximum of each dimension reduces.
   # Thus, creating sequences here is not so expensive.
   
-  .ci_sub_check(x, s, d, ndims(x), .abortcall)
+  .ci_sub_check(x, s, d, ndim(x), .abortcall)
   
   if(length(d) == 1L) {
     return(.ci_sub.atomic(x, s, d, inv, chkdup, uniquely_named, .abortcall))

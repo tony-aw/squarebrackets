@@ -80,7 +80,7 @@ sb_set.default <- function(
 #' @rdname sb_set
 #' @export
 sb_set.array <- function(
-    x, s = NULL, d = 1:ndims(x), i = NULL, inv = FALSE, ...,  rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
+    x, s = NULL, d = 1:ndim(x), i = NULL, inv = FALSE, ...,  rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
   # error checks:
@@ -112,7 +112,7 @@ sb_set.array <- function(
   }
   
   # 1d:
-  if(ndims(x) == 1L) {
+  if(ndim(x) == 1L) {
     i <- .flat_s2i(x, s, d, sys.call())
     .flat_set_atomic(x, i, inv, rp, tf, chkdup, sys.call())
     return(invisible(NULL))
@@ -126,7 +126,6 @@ sb_set.array <- function(
   
   
   # s, d arguments:
-  
   .arr_set(x, s, d, chkdup, inv, rp, tf, abortcall = sys.call())
   return(invisible(NULL))
 }

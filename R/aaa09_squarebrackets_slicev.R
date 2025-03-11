@@ -168,8 +168,7 @@
 #' Handling `NA`s works the same for all atomic types. \cr
 #' For `y` of type `complex`,
 #' a value `y[i]` is considered `NA`
-#' if `Re(y[i])` is `NA`/`NaN` and/or `Im(y[i])` is `NA`/`NaN`,
-#' regardless of the value of argument `andor`. \cr
+#' if `Re(y[i])` is `NA`/`NaN` and/or `Im(y[i])` is `NA`/`NaN`. \cr
 #' \cr
 #' Argument `v` is never allowed to contain `NA`/`NaN`. \cr
 #' \cr
