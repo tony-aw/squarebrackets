@@ -124,10 +124,6 @@
 #' `rp` is not always demanded to be a list for data.frame-like objects,
 #' only when appropriate
 #' (for example, when replacing multiple columns, or when the column itself is a list.) \cr
-#' When `rp` \bold{is} given as a list,
-#' it is unclassed and unnamed before being used to replace values. \cr
-#' This is to ensure consistency across all supported data.frame types. \cr
-#' \cr
 #' Bear in mind that every column in a data.frame is like an element in a list; \cr
 #' so `.lapply` is used for transformations across multiple columns. \cr
 #' \cr
