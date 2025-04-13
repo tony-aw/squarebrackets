@@ -8,7 +8,7 @@ i <- cbind(1:3, 2:4, 3:5)
 
 expect_error(
   ci_flat(x, i),
-  pattern = "coordinate matrix not supported for `i`"
+  pattern = "`i` must be a simple vector or function"
 )
 
 enumerate <- 1L

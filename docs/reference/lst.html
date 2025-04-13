@@ -46,7 +46,9 @@ The lst_nlists() counts the total number of recursive list-elements inside a lis
     <li><a class="dropdown-item" href="../articles/b_benchmarks_tf.html">Benchmarks - transform operations</a></li>
     <li><a class="dropdown-item" href="../articles/c_benchmarks_lst.html">Benchmarks - Vectorized Recursive Subset Operations On Nested Lists</a></li>
   </ul></li>
-      </ul><ul class="navbar-nav"><li class="nav-item"><a class="external-link nav-link" href="https://github.com/tony-aw/squarebrackets/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
+      </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
+ <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/tony-aw/squarebrackets/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul></div>
 
 
@@ -302,48 +304,48 @@ If <code>use.names = FALSE</code>, the result will not have any names assigned a
 <span class="r-in"><span><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="va">x</span><span class="op">[[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">i</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1L</span>, <span class="fl">1L</span><span class="op">)</span><span class="op">)</span><span class="op">]</span><span class="op">]</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># for-loop, slow</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "g" "i" "b" "f" "a" "j" "d" "h" "e" "c"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "d" "h" "g" "i" "c" "j" "a" "e" "b" "f"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "f" "b" "a" "j" "h" "c" "d" "i" "g" "e"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "f" "c" "e" "i" "g" "b" "h" "d" "j" "a"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "d" "c" "e" "f" "b" "j" "g" "i" "a" "h"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "i" "g" "c" "h" "f" "d" "a" "j" "b" "e"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "j" "f" "a" "c" "e" "i" "g" "b" "d" "h"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "f" "c" "a" "h" "b" "g" "i" "j" "d" "e"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "d" "e" "h" "g" "j" "i" "b" "f" "c" "a"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "b" "d" "i" "g" "h" "e" "f" "j" "c" "a"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "f" "a" "h" "j" "b" "d" "e" "c" "g" "i"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "j" "f" "b" "i" "g" "h" "e" "d" "a" "c"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "a" "e" "b" "j" "i" "c" "h" "f" "g" "d"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "a" "c" "e" "d" "b" "g" "h" "i" "f" "j"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "i" "d" "c" "j" "e" "g" "b" "h" "a" "f"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "e" "f" "i" "c" "b" "g" "j" "a" "h" "d"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "e" "h" "b" "d" "g" "a" "c" "f" "j" "i"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "b" "a" "i" "h" "g" "d" "e" "j" "f" "c"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "i" "f" "e" "g" "c" "a" "d" "h" "b" "j"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "i" "b" "a" "d" "j" "e" "f" "h" "c" "g"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># the same, but vectorized using the untree'd list:</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="sb_x.html">sb2_x</a></span><span class="op">(</span><span class="va">y</span>, <span class="fu"><a href="nest.html">n</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>, <span class="fl">1L</span><span class="op">)</span>, <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="ndim.html">ndim</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/drop.html" class="external-link">drop</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># vectorized, fast</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "g" "i" "b" "f" "a" "j" "d" "h" "e" "c"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "f" "a" "h" "j" "b" "d" "e" "c" "g" "i"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[2]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "d" "h" "g" "i" "c" "j" "a" "e" "b" "f"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "j" "f" "b" "i" "g" "h" "e" "d" "a" "c"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[3]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "f" "b" "a" "j" "h" "c" "d" "i" "g" "e"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "a" "e" "b" "j" "i" "c" "h" "f" "g" "d"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[4]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "f" "c" "e" "i" "g" "b" "h" "d" "j" "a"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "a" "c" "e" "d" "b" "g" "h" "i" "f" "j"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[5]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "d" "c" "e" "f" "b" "j" "g" "i" "a" "h"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "i" "d" "c" "j" "e" "g" "b" "h" "a" "f"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[6]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "i" "g" "c" "h" "f" "d" "a" "j" "b" "e"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "e" "f" "i" "c" "b" "g" "j" "a" "h" "d"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[7]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "j" "f" "a" "c" "e" "i" "g" "b" "d" "h"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "e" "h" "b" "d" "g" "a" "c" "f" "j" "i"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[8]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "f" "c" "a" "h" "b" "g" "i" "j" "d" "e"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "b" "a" "i" "h" "g" "d" "e" "j" "f" "c"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[9]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "d" "e" "h" "g" "j" "i" "b" "f" "c" "a"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "i" "f" "e" "g" "c" "a" "d" "h" "b" "j"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[10]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "b" "d" "i" "g" "h" "e" "f" "j" "c" "a"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "i" "b" "a" "d" "j" "e" "f" "h" "c" "g"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

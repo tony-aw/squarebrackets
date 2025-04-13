@@ -88,7 +88,9 @@ for long vectors than sub-set operations using the [ and [&amp;lt;- operators.
     <li><a class="dropdown-item" href="../articles/b_benchmarks_tf.html">Benchmarks - transform operations</a></li>
     <li><a class="dropdown-item" href="../articles/c_benchmarks_lst.html">Benchmarks - Vectorized Recursive Subset Operations On Nested Lists</a></li>
   </ul></li>
-      </ul><ul class="navbar-nav"><li class="nav-item"><a class="external-link nav-link" href="https://github.com/tony-aw/squarebrackets/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
+      </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
+ <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/tony-aw/squarebrackets/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul></div>
 
 
@@ -173,20 +175,17 @@ and only those that primarily use square brackets for sub-setting
 </ul><p>See <a href="aaa01_squarebrackets_supported_structures.html">squarebrackets_supported_structures</a> for more details. <br><br></p>
     </div>
     <div class="section level2">
-    <h2 id="sub-set-operation-methods-amp-binding-implementations">Sub-set Operation Methods &amp; Binding Implementations<a class="anchor" aria-label="anchor" href="#sub-set-operation-methods-amp-binding-implementations"></a></h2>
+    <h2 id="sub-set-operation-methods">Sub-set Operation Methods<a class="anchor" aria-label="anchor" href="#sub-set-operation-methods"></a></h2>
 
 
 
-<p>The main focus of this package is on its generic methods
-and dimensional binding implementations. <br><br>
+<p>The main focus of this package is on its generic methods. <br><br>
 Generic methods for atomic objects
 start with <code>sb_</code>. <br>
 Generic methods for recursive objects (list, data.frame, etc.)
 start with <code>sb2_</code>. <br>
 There is also the somewhat separate <a href="idx1.html">idx</a> method,
 which works on both recursive and non-recursive objects. <br>
-The binding implementations for dimensional objects
-start with <code>bind_</code>. <br>
 And finally there are the <code>slice_</code> methods,
 which (currently) only work on (mutable) atomic vectors. <br><br></p>
 <p><img src="figures/access_subsets-darkgreen.svg" alt="[ACCESS SUBSETS]"><br></p>
@@ -218,9 +217,7 @@ sequence-based modification of a (long) vector subset using
 value-based modification of a (long) vector subset using
 <a href="aaa07_squarebrackets_PassByReference.html">pass-by-reference semantics</a>. <br><br></p></li>
 </ul><p><img src="figures/extend_beyond-purple.svg" alt="[EXTEND BEYOND]"><br></p>
-<p>Methods and binding implementations,
-to extend or re-arrange an object beyond its current size:</p><ul><li><p><a href="bind.html">bind_</a>:  implementations for binding dimensional objects.</p></li>
-<li><p><a href="sb_x.html">sb_x</a>, <a href="sb_x.html">sb2_x</a>: extract, exchange, or duplicate subsets.</p></li>
+<p>Methods to extend or re-arrange an object beyond its current size:</p><ul><li><p><a href="sb_x.html">sb_x</a>, <a href="sb_x.html">sb2_x</a>: extract, exchange, or duplicate subsets.</p></li>
 <li><p><a href="sb2_rec.html">sb2_recin</a>: replace, transform, remove, or add recursive subsets to a list,
 through R's default Copy-On-Modify semantics.</p></li>
 </ul><p>See <a href="aaa06_squarebrackets_method_dispatch.html">squarebrackets_method_dispatch</a> for more information on how 'squarebrackets'

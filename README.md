@@ -174,5 +174,7 @@ library(squarebrackets)
 - 11 March 2025: Overhauled the internal code for arrays; it’s even
   faster now. Re-organised some other code in preparation for the next
   update. Renamed `ndims()` to `ndim()`.
+- 13 April 2025: The binding implementations have been moved from
+  ‘squarebrackets’ to my new R-package ‘broadcast’.
 
  

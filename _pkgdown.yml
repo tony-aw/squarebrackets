@@ -8,7 +8,7 @@ template:
 navbar:
   structure:
     left:  [intro, reference, articles, tutorials, news]
-    right: [github]
+    right: [search, github, lightswitch]
 home:
   sidebar:
     structure: [links, license, community, citation, authors, dev, toc]
@@ -37,7 +37,6 @@ reference:
   - '`sb_set`'
   - '`sb2_rec`'
   - '`sb_setRename`'
-  - '`bind`'
   - '`idx`'
   - '`slice_x`'
   - '`slicev_x`'

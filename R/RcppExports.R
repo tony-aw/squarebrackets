@@ -297,36 +297,6 @@
 
 #' @keywords internal
 #' @noRd
-.rcpp_abind_all_conform_dims <- function(conform_dim, arg_dim, n, along) {
-    .Call(`_squarebrackets_rcpp_abind_all_conform_dims`, conform_dim, arg_dim, n, along)
-}
-
-#' @keywords internal
-#' @noRd
-.rcpp_abind_get_maxdims <- function(arg_dim) {
-    .Call(`_squarebrackets_rcpp_abind_get_maxdims`, arg_dim)
-}
-
-#' @keywords internal
-#' @noRd
-.rcpp_abind_check_conform_dims <- function(conform_dim, arg_dim, n, along) {
-    .Call(`_squarebrackets_rcpp_abind_check_conform_dims`, conform_dim, arg_dim, n, along)
-}
-
-#' @keywords internal
-#' @noRd
-.rcpp_abind_get_dimnames <- function(x, along) {
-    .Call(`_squarebrackets_rcpp_abind_get_dimnames`, x, along)
-}
-
-#' @keywords internal
-#' @noRd
-.rcpp_rcbind_get_sizes <- function(lst, imargin) {
-    .Call(`_squarebrackets_rcpp_rcbind_get_sizes`, lst, imargin)
-}
-
-#' @keywords internal
-#' @noRd
 .rcpp_address <- function(x) {
     .Call(`_squarebrackets_rcpp_address`, x)
 }

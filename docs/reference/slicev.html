@@ -32,7 +32,9 @@ occurs in a vector subset y[from:to].  "></head><body>
     <li><a class="dropdown-item" href="../articles/b_benchmarks_tf.html">Benchmarks - transform operations</a></li>
     <li><a class="dropdown-item" href="../articles/c_benchmarks_lst.html">Benchmarks - Vectorized Recursive Subset Operations On Nested Lists</a></li>
   </ul></li>
-      </ul><ul class="navbar-nav"><li class="nav-item"><a class="external-link nav-link" href="https://github.com/tony-aw/squarebrackets/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
+      </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
+ <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/tony-aw/squarebrackets/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul></div>
 
 
@@ -183,13 +185,13 @@ giving the number of elements matching the specified condition. <br><br></p>
 <span class="r-in"><span><span class="co">#</span></span></span>
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">stringi</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/stringi/man/stri_rand_shuffle.html" class="external-link">stri_rand_shuffle</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"hello"</span>, <span class="fl">1e5</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "loelh" "oellh" "oelhl" "lehlo" "leolh" "eohll"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "elohl" "oehll" "hleol" "ohell" "leolh" "olhle"</span>
 <span class="r-in"><span><span class="fu">slicev_x</span><span class="op">(</span><span class="va">x</span>, v <span class="op">=</span> <span class="st">"hello"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># find "hello"</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "hello" "hello" "hello" "hello" "hello" "hello"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># find 2 possible misspellings of "hello":</span></span></span>
 <span class="r-in"><span><span class="fu">slicev_x</span><span class="op">(</span><span class="va">x</span>, v <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"holle"</span>, <span class="st">"helol"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "holle" "holle" "helol" "helol" "holle" "helol"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "helol" "holle" "helol" "holle" "helol" "holle"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>

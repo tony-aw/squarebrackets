@@ -42,13 +42,6 @@ if ( requireNamespace("tinytest", quietly = TRUE) ){
   )
   
   
-  # the next tests explicitly require the abind package
-  if(requireNamespace("abind")) {
-    tinytest::test_package(
-      "squarebrackets", testdir = "tinytest/bind", set_env=list(LC_COLLATE="C")
-    )
-  }
-  
 }
 
 

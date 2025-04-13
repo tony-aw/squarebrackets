@@ -48,8 +48,8 @@ ci_flat <- function(
   
   is_list <- is.list(x)
   
-  if(is.matrix(i)) {
-    stop(simpleError("coordinate matrix not supported for `i`", call = .abortcall))
+  if(!is.vector(i) && !is.mutable_atomic(i) && !is.function(i)) {
+    stop(simpleError("`i` must be a simple vector or function", call = .abortcall))
   }
   
   if(is.function(i)) {

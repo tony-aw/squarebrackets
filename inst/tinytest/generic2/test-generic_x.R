@@ -70,7 +70,7 @@ enumerate <- enumerate + 2
 # test matrix & arrays ====
 
 rep3.bind <- function(x, dim) {
-  return(bind_array(n(x, x, x), along = dim))
+  return(squarebrackets:::.abind(n(x, x, x), along = dim))
 }
 
 

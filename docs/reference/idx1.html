@@ -84,7 +84,9 @@ whilst still using R's default copy-on-modification semantics
     <li><a class="dropdown-item" href="../articles/b_benchmarks_tf.html">Benchmarks - transform operations</a></li>
     <li><a class="dropdown-item" href="../articles/c_benchmarks_lst.html">Benchmarks - Vectorized Recursive Subset Operations On Nested Lists</a></li>
   </ul></li>
-      </ul><ul class="navbar-nav"><li class="nav-item"><a class="external-link nav-link" href="https://github.com/tony-aw/squarebrackets/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
+      </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
+ <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/tony-aw/squarebrackets/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul></div>
 
 
@@ -300,17 +302,17 @@ for the dimension specified in <code>margin</code>. <br><br></p>
 <span class="r-in"><span><span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu">idx</span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"b"</span>, <span class="st">"a"</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">x</span><span class="op">[</span><span class="va">rows</span>, <span class="va">cols</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       a  b           c d e</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  TRUE  1  0.02654709 a k</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  TRUE  2 -0.69009774 b l</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3    NA  3  0.15684486 c m</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4    NA  4 -0.36618469 d n</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  TRUE  5 -0.81955562 e o</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6    NA NA  0.74374492 f p</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7    NA NA -0.06793614 g q</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8    NA NA -0.39420246 h r</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9    NA NA -0.43109296 i s</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10   NA NA -0.22014604 j t</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        a  b           c d e</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   TRUE  1 -0.24301788 a k</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  FALSE  2  0.09305645 b l</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  FALSE  3  0.04682464 c m</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  FALSE  4 -1.16805345 d n</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   TRUE  5  0.03247200 e o</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6     NA NA -0.67331493 f p</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7     NA NA -1.64588928 g q</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8     NA NA -0.13946087 h r</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9     NA NA -0.36253040 i s</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10    NA NA  2.13264138 j t</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

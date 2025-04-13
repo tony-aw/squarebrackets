@@ -641,69 +641,6 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
-// rcpp_abind_all_conform_dims
-bool rcpp_abind_all_conform_dims(IntegerVector conform_dim, IntegerMatrix arg_dim, int n, int along);
-RcppExport SEXP _squarebrackets_rcpp_abind_all_conform_dims(SEXP conform_dimSEXP, SEXP arg_dimSEXP, SEXP nSEXP, SEXP alongSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< IntegerVector >::type conform_dim(conform_dimSEXP);
-    Rcpp::traits::input_parameter< IntegerMatrix >::type arg_dim(arg_dimSEXP);
-    Rcpp::traits::input_parameter< int >::type n(nSEXP);
-    Rcpp::traits::input_parameter< int >::type along(alongSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_abind_all_conform_dims(conform_dim, arg_dim, n, along));
-    return rcpp_result_gen;
-END_RCPP
-}
-// rcpp_abind_get_maxdims
-IntegerVector rcpp_abind_get_maxdims(IntegerMatrix arg_dim);
-RcppExport SEXP _squarebrackets_rcpp_abind_get_maxdims(SEXP arg_dimSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< IntegerMatrix >::type arg_dim(arg_dimSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_abind_get_maxdims(arg_dim));
-    return rcpp_result_gen;
-END_RCPP
-}
-// rcpp_abind_check_conform_dims
-LogicalVector rcpp_abind_check_conform_dims(IntegerVector conform_dim, IntegerMatrix arg_dim, int n, int along);
-RcppExport SEXP _squarebrackets_rcpp_abind_check_conform_dims(SEXP conform_dimSEXP, SEXP arg_dimSEXP, SEXP nSEXP, SEXP alongSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< IntegerVector >::type conform_dim(conform_dimSEXP);
-    Rcpp::traits::input_parameter< IntegerMatrix >::type arg_dim(arg_dimSEXP);
-    Rcpp::traits::input_parameter< int >::type n(nSEXP);
-    Rcpp::traits::input_parameter< int >::type along(alongSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_abind_check_conform_dims(conform_dim, arg_dim, n, along));
-    return rcpp_result_gen;
-END_RCPP
-}
-// rcpp_abind_get_dimnames
-List rcpp_abind_get_dimnames(List x, int along);
-RcppExport SEXP _squarebrackets_rcpp_abind_get_dimnames(SEXP xSEXP, SEXP alongSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< List >::type x(xSEXP);
-    Rcpp::traits::input_parameter< int >::type along(alongSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_abind_get_dimnames(x, along));
-    return rcpp_result_gen;
-END_RCPP
-}
-// rcpp_rcbind_get_sizes
-IntegerVector rcpp_rcbind_get_sizes(List lst, int imargin);
-RcppExport SEXP _squarebrackets_rcpp_rcbind_get_sizes(SEXP lstSEXP, SEXP imarginSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< List >::type lst(lstSEXP);
-    Rcpp::traits::input_parameter< int >::type imargin(imarginSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_rcbind_get_sizes(lst, imargin));
-    return rcpp_result_gen;
-END_RCPP
-}
 // rcpp_address
 String rcpp_address(SEXP x);
 RcppExport SEXP _squarebrackets_rcpp_address(SEXP xSEXP) {
@@ -1066,11 +1003,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_squarebrackets_rcpp_whichv_32", (DL_FUNC) &_squarebrackets_rcpp_whichv_32, 8},
     {"_squarebrackets_rcpp_slicev_x_atomic", (DL_FUNC) &_squarebrackets_rcpp_slicev_x_atomic, 9},
     {"_squarebrackets_rcpp_slicev_set_atomic", (DL_FUNC) &_squarebrackets_rcpp_slicev_set_atomic, 10},
-    {"_squarebrackets_rcpp_abind_all_conform_dims", (DL_FUNC) &_squarebrackets_rcpp_abind_all_conform_dims, 4},
-    {"_squarebrackets_rcpp_abind_get_maxdims", (DL_FUNC) &_squarebrackets_rcpp_abind_get_maxdims, 1},
-    {"_squarebrackets_rcpp_abind_check_conform_dims", (DL_FUNC) &_squarebrackets_rcpp_abind_check_conform_dims, 4},
-    {"_squarebrackets_rcpp_abind_get_dimnames", (DL_FUNC) &_squarebrackets_rcpp_abind_get_dimnames, 2},
-    {"_squarebrackets_rcpp_rcbind_get_sizes", (DL_FUNC) &_squarebrackets_rcpp_rcbind_get_sizes, 2},
     {"_squarebrackets_rcpp_address", (DL_FUNC) &_squarebrackets_rcpp_address, 1},
     {"_squarebrackets_rcpp_list_bindings", (DL_FUNC) &_squarebrackets_rcpp_list_bindings, 3},
     {"_squarebrackets_rcpp_all_addresses", (DL_FUNC) &_squarebrackets_rcpp_all_addresses, 2},

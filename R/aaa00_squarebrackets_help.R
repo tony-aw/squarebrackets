@@ -75,10 +75,9 @@
 #' See \link{squarebrackets_supported_structures} for more details. \cr \cr
 #
 #'  
-#' @section Sub-set Operation Methods & Binding Implementations:
+#' @section Sub-set Operation Methods:
 #' 
-#' The main focus of this package is on its generic methods
-#' and dimensional binding implementations. \cr
+#' The main focus of this package is on its generic methods. \cr
 #' \cr
 #' Generic methods for atomic objects
 #' start with `sb_`. \cr
@@ -86,8 +85,6 @@
 #' start with `sb2_`. \cr
 #' There is also the somewhat separate \link{idx} method,
 #' which works on both recursive and non-recursive objects. \cr
-#' The binding implementations for dimensional objects
-#' start with `bind_`. \cr
 #' And finally there are the `slice_` methods,
 #' which (currently) only work on (mutable) atomic vectors. \cr
 #' \cr
@@ -133,10 +130,8 @@
 #' 
 #' `r .mybadge_intro_section("EXTEND BEYOND", "purple")` \cr
 #'  
-#' Methods and binding implementations,
-#' to extend or re-arrange an object beyond its current size:
+#' Methods to extend or re-arrange an object beyond its current size:
 #' 
-#'  * \link[=bind]{bind_}:  implementations for binding dimensional objects.
 #'  * \link{sb_x}, \link{sb2_x}: extract, exchange, or duplicate subsets.
 #'  * \link{sb2_recin}: replace, transform, remove, or add recursive subsets to a list,
 #'  through R's default Copy-On-Modify semantics.

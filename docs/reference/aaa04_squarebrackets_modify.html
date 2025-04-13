@@ -24,7 +24,9 @@ available in 'squarebrackets'.  "></head><body>
     <li><a class="dropdown-item" href="../articles/b_benchmarks_tf.html">Benchmarks - transform operations</a></li>
     <li><a class="dropdown-item" href="../articles/c_benchmarks_lst.html">Benchmarks - Vectorized Recursive Subset Operations On Nested Lists</a></li>
   </ul></li>
-      </ul><ul class="navbar-nav"><li class="nav-item"><a class="external-link nav-link" href="https://github.com/tony-aw/squarebrackets/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
+      </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
+ <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/tony-aw/squarebrackets/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul></div>
 
 
@@ -150,9 +152,6 @@ otherwise errors or unexpected behaviour may occur. <br><br><br></p>
 in data.frame-like objects are a bit more flexible than in Lists. <br><br><code>rp</code> is not always demanded to be a list for data.frame-like objects,
 only when appropriate
 (for example, when replacing multiple columns, or when the column itself is a list.) <br>
-When <code>rp</code> <b>is</b> given as a list,
-it is unclassed and unnamed before being used to replace values. <br>
-This is to ensure consistency across all supported data.frame types. <br><br>
 Bear in mind that every column in a data.frame is like an element in a list; <br>
 so <code>.lapply</code> is used for transformations across multiple columns. <br><br><br></p>
     </div>

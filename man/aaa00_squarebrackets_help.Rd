@@ -84,11 +84,10 @@ and only those that primarily use square brackets for sub-setting
 See \link{squarebrackets_supported_structures} for more details. \cr \cr
 }
 
-\section{Sub-set Operation Methods & Binding Implementations}{
+\section{Sub-set Operation Methods}{
 
 
-The main focus of this package is on its generic methods
-and dimensional binding implementations. \cr
+The main focus of this package is on its generic methods. \cr
 \cr
 Generic methods for atomic objects
 start with \code{sb_}. \cr
@@ -96,8 +95,6 @@ Generic methods for recursive objects (list, data.frame, etc.)
 start with \code{sb2_}. \cr
 There is also the somewhat separate \link{idx} method,
 which works on both recursive and non-recursive objects. \cr
-The binding implementations for dimensional objects
-start with \code{bind_}. \cr
 And finally there are the \code{slice_} methods,
 which (currently) only work on (mutable) atomic vectors. \cr
 \cr
@@ -142,10 +139,8 @@ value-based modification of a (long) vector subset using
 
 \ifelse{html}{\figure{extend_beyond-purple.svg}{options: alt='[EXTEND BEYOND]'}}{\link[=squarebrackets_help]{EXTEND BEYOND}} \cr
 
-Methods and binding implementations,
-to extend or re-arrange an object beyond its current size:
+Methods to extend or re-arrange an object beyond its current size:
 \itemize{
-\item \link[=bind]{bind_}:  implementations for binding dimensional objects.
 \item \link{sb_x}, \link{sb2_x}: extract, exchange, or duplicate subsets.
 \item \link{sb2_recin}: replace, transform, remove, or add recursive subsets to a list,
 through R's default Copy-On-Modify semantics.

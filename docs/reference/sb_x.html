@@ -28,7 +28,9 @@ Use sb2_x(x, ...) if x is a recursive object (i.e. list or data.frame-like).  ">
     <li><a class="dropdown-item" href="../articles/b_benchmarks_tf.html">Benchmarks - transform operations</a></li>
     <li><a class="dropdown-item" href="../articles/c_benchmarks_lst.html">Benchmarks - Vectorized Recursive Subset Operations On Nested Lists</a></li>
   </ul></li>
-      </ul><ul class="navbar-nav"><li class="nav-item"><a class="external-link nav-link" href="https://github.com/tony-aw/squarebrackets/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
+      </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
+ <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/tony-aw/squarebrackets/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul></div>
 
 
@@ -242,32 +244,32 @@ If <code>red = FALSE</code>, a list is always returned regardless of the number 
 <span class="r-in"><span><span class="co"># above is equivalent to obj[1:3, 1:3, drop = FALSE]</span></span></span>
 <span class="r-in"><span><span class="fu">sb2_x</span><span class="op">(</span><span class="va">obj</span>, i <span class="op">=</span> <span class="va">is.numeric</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  1  8  6  4  9  7  5  2 10  3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  8  6  2  1  7  5 10  3  9  4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[2]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] -0.6200828  1.1825995 -0.4723893  0.2634897  0.6651511  1.1936924</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7]  0.5158762  1.8326564  0.6770724  1.6481785</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  0.202493293  0.914193807 -0.002633041 -0.008976732 -1.055932842</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6] -1.482293021  0.835772000  0.664829113  0.587805034  1.881691165</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[3]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  6  7 10  5  2  8  1  4  3  9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  5  8  1  2  6  3  4  9 10  7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[4]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  0.0547731  1.7430894  1.3813757 -0.1161016 -0.1092852 -0.9284028</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] -0.8021348 -0.4919059 -1.2174959 -1.1273827</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  0.191267828  0.091180034  0.088849182  0.013563179 -0.503294209</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6] -0.044526335  0.008540177  1.536942473 -1.758370991  0.991151967</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[5]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  4  6  5 10  1  7  9  8  2  3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  6  3  7  5  1  2  9  8  4 10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[6]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  1.49425702 -0.94118807 -1.33232375  0.86319249  0.76131691  1.05497349</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7]  0.77182096 -0.94493549  2.76314838 -0.01232096</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] -0.48986190  0.09620816 -0.72105567 -0.52654039  0.93644414  0.03017120</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] -0.53227516  0.71932370 -1.86197699 -0.80301152</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[7]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  9  1  7  4 10  8  2  3  5  6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 10  6  4  7  5  1  9  3  8  2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[8]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  0.727052746 -0.517023924 -1.099039927 -0.375259643 -0.979732888</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [6] -0.609942328  0.321499208 -0.982335993  1.551590735  0.001556281</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] -0.69259498 -0.24644614 -1.91997821  0.58031323  0.57228003 -1.80208883</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7]  0.08493117 -1.65377413 -0.21165244 -1.03938355</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="co"># above is equivalent to obj[sapply(obj, is.numeric)]</span></span></span>
 <span class="r-in"><span><span class="fu">sb2_x</span><span class="op">(</span><span class="va">obj</span>, s <span class="op">=</span> <span class="fu"><a href="nest.html">n</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"a"</span><span class="op">)</span><span class="op">)</span>, d <span class="op">=</span> <span class="fl">2L</span><span class="op">)</span></span></span>
