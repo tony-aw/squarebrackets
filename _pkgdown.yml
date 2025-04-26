@@ -25,10 +25,7 @@ reference:
   - '`aaa04_squarebrackets_modify`'
   - '`aaa05_squarebrackets_options`'
   - '`aaa06_squarebrackets_method_dispatch`'
-  - '`aaa07_squarebrackets_PassByReference`'
-  - '`aaa08_squarebrackets_coercion`'
-  - '`aaa09_squarebrackets_slicev`'
-  - '`class_mutable_atomic`'
+  - '`aaa07_squarebrackets_slicev`'
 - title: Generic Methods
   contents:
   - '`sb_x`'
@@ -45,12 +42,10 @@ reference:
   contents:
   - '`lst`'
   - '`dt`'
-  - '`setapply`'
 - title: Helper Functions
   contents:
   - '`n`'
   - '`ndim`'
-  - '`currentBindings`'
   - '`sub2ind`'
   - '`match_all`'
   - '`idx_r`'

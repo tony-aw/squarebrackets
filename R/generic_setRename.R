@@ -4,10 +4,10 @@
 #' Functions to rename a
 #' \link[=squarebrackets_supported_structures]{supported mutable object}
 #' using
-#' \link[=squarebrackets_PassByReference]{pass-by-reference semantics}:
+#' \link[=mutatomic_PassByReference]{pass-by-reference semantics}:
 #' 
-#'  * `sb_setFlatnames()` renames the (flat) names of a `mutable_atomic` object. 
-#'  * `sb_setDimnames()` renames the dimension names of a `mutable_atomic` object.
+#'  * `sb_setFlatnames()` renames the (flat) names of a `mutatomic` object. 
+#'  * `sb_setDimnames()` renames the dimension names of a `mutatomic` object.
 #'  * `sb2_setVarnames()` renames the variable names of a `data.table` object. \cr \cr
 #' 
 #' 
@@ -56,11 +56,7 @@ NULL
 sb_setFlatnames <- function(x, i = NULL, newnames, ...) {
   
   # error checks:
-    if(!is.mutable_atomic(x)){
-      stop("`x` is not a (supported) mutable object")
-    }
-  .check_bindingIsLocked(substitute(x), parent.frame(n = 1), abortcall = sys.call())
-  
+  mutatomic::stopifnot_ma_safe2mutate(substitute(x), parent.frame(n = 1), sys.call())
   
   # Case 1: remove names (also works if `x` didn't have names in the first place)
   if(is.null(newnames)) {
@@ -114,10 +110,7 @@ sb_setFlatnames <- function(x, i = NULL, newnames, ...) {
 sb_setDimnames <- function(x, m, newdimnames, ...) {
   
   # error checks:
-  if(!is.mutable_atomic(x)){
-    stop("`x` is not a (supported) mutable object")
-  }
-  .check_bindingIsLocked(substitute(x), parent.frame(n = 1), abortcall = sys.call())
+  mutatomic::stopifnot_ma_safe2mutate(substitute(x), parent.frame(n = 1), sys.call())
   
   
   # remove dimnames:

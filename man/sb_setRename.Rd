@@ -55,22 +55,22 @@ Since this function returns void, you'll just get \code{NULL}. \cr \cr
 Functions to rename a
 \link[=squarebrackets_supported_structures]{supported mutable object}
 using
-\link[=squarebrackets_PassByReference]{pass-by-reference semantics}:
+\link[=mutatomic_PassByReference]{pass-by-reference semantics}:
 \itemize{
-\item \code{sb_setFlatnames()} renames the (flat) names of a \code{mutable_atomic} object.
-\item \code{sb_setDimnames()} renames the dimension names of a \code{mutable_atomic} object.
+\item \code{sb_setFlatnames()} renames the (flat) names of a \code{mutatomic} object.
+\item \code{sb_setDimnames()} renames the dimension names of a \code{mutatomic} object.
 \item \code{sb2_setVarnames()} renames the variable names of a \code{data.table} object. \cr \cr
 }
 }
 \examples{
  
 # mutable atomic vector ====
-x <- y <- mutable_atomic(1:10, names = letters[1:10])
+x <- y <- mutatomic::mutatomic(1:10, names = letters[1:10])
 print(x)
 sb_setFlatnames(x, newnames = rev(letters[1:10]))
 print(y)
 
-x <- y <- mutable_atomic(1:10, names = letters[1:10])
+x <- y <- mutatomic::mutatomic(1:10, names = letters[1:10])
 print(x)
 sb_setFlatnames(x, 1L, "XXX")
 print(y)
@@ -79,7 +79,7 @@ print(y)
 
 
 # mutable atomic matrix ====
-x <- mutable_atomic(
+x <- mutatomic::mutatomic(
   1:20, dim = c(5, 4), dimnames = n(letters[1:5], letters[1:4])
 )
 print(x)

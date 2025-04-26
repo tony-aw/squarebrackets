@@ -1,9 +1,9 @@
 
 
-# mutable_atomic objects ====
+# mutatomic objects ====
 
 gen_mat <- function() {
-  obj <- as.mutable_atomic(matrix(1:16, ncol = 4))
+  obj <- mutatomic::as.mutatomic(matrix(1:16, ncol = 4))
   colnames(obj) <- c("a", "b", "c", "a")
   return(obj)
 }
@@ -52,7 +52,7 @@ obj2
 
 
 gen_array <- function() {
-  as.mutable_atomic(array(1:64, c(4,4,3)))
+  mutatomic::as.mutatomic(array(1:64, c(4,4,3)))
 }
 obj <- obj2 <- gen_array()
 obj

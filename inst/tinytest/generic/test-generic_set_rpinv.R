@@ -10,7 +10,7 @@ test_PassByReference <- TRUE
 
 sb_set2 <- function(x, ...) {
   x <- data.table::copy(x)
-  if(is.atomic(x)) x <- as.mutable_atomic(x)
+  if(is.atomic(x)) x <- mutatomic::as.mutatomic(x)
   x2 <- x
   sb_set(x, ..., inv = TRUE)
   if(!identical(x, x2)) { stop("PassByReference fail")}
@@ -18,7 +18,7 @@ sb_set2 <- function(x, ...) {
 }
 sb_set2.array <- function(x, ...) {
   x <- data.table::copy(x)
-  if(is.atomic(x)) x <- as.mutable_atomic(x)
+  if(is.atomic(x)) x <- mutatomic::as.mutatomic(x)
   x2 <- x
   sb_set.array(x, ..., inv = TRUE)
   if(!identical(x, x2)) { stop("PassByReference fail")}
@@ -31,7 +31,7 @@ sb_set2.array <- function(x, ...) {
 
 temp.fun <- function(x) {
   tempfun <- function(x) {
-    x <- as.mutable_atomic(x)
+    x <- mutatomic::as.mutatomic(x)
     x[] <- x[1]
     return(x)
   }
@@ -47,7 +47,7 @@ sys.source(file.path(getwd(), "source", "sourcetest-missingargs.R"), envir = env
 # test elements ====
 
 test_sb <- function(x, i, rp) {
-  if(is.atomic(x)) x <- as.mutable_atomic(x)
+  if(is.atomic(x)) x <- mutatomic::as.mutatomic(x)
   i <- indx_wo(i, x, names(x), length(x))
   if(length(i) == 0) return(x)
   x[i] <- rp
@@ -97,7 +97,7 @@ f_expect.matrix <- f_expect.2d <- function(x, row = NULL, col = NULL) {
   
   rp <- parent.frame()$rp
   
-  if(is.atomic(x)) x <- as.mutable_atomic(x)
+  if(is.atomic(x)) x <- mutatomic::as.mutatomic(x)
   
   if(!is.null(row)) row <- indx_wo(row, x, rownames(x), nrow(x))
   if(!is.null(col)) col <- indx_wo(col, x, colnames(x), ncol(x))
@@ -136,7 +136,7 @@ f_expect.1d <- function(x, i) {
   
   rp <- parent.frame()$rp
   
-  if(is.atomic(x)) x <- as.mutable_atomic(x)
+  if(is.atomic(x)) x <- mutatomic::as.mutatomic(x)
   i <- indx_wo(i, x, dimnames(x)[[1]], length(x))
   
   if(any_empty_indices(i)) {
@@ -156,14 +156,14 @@ f_out.1d <- function(x, s, d) {
 
 
 sb_test <- function(x, ...) {
-  x <- as.mutable_atomic(x)
+  x <- mutatomic::as.mutatomic(x)
   rp <- sb_wo.array(x, ...) * -1
   sb_set.array(x, ..., inv = TRUE, rp = rp)
   return(x)
 }
 
 f_expect.arbitrary <- function(x, i, j, l) {
-  if(is.atomic(x)) x <- as.mutable_atomic(x)
+  if(is.atomic(x)) x <- mutatomic::as.mutatomic(x)
   tf <- mean
   i <- indx_wo(i, x, rownames(x), nrow(x))
   j <- indx_wo(j, x, colnames(x), ncol(x))
@@ -189,7 +189,7 @@ subset_arr <- function(x, i, j, l, rp) {
 make_rp <- function(len) {
   return(sample(as.integer(c(seq_len(len)*-1, NA)), size = len))
 }
-x <- mutable_atomic(seq_len(10^4), dim = c(10, 10, 10, 10))
+x <- mutatomic::mutatomic(seq_len(10^4), dim = c(10, 10, 10, 10))
 rownames(x) <- c(letters[1:8], "a", NA)
 
 s <- list(c("a"), c(1:3), c(rep(TRUE, 5), rep(FALSE, 5)))
@@ -241,7 +241,7 @@ enumerate <- enumerate + 6
 
 
 sb_test <- function(x, ...) {
-  x <- as.mutable_atomic(x)
+  x <- mutatomic::as.mutatomic(x)
   sb_set(x, ..., inv = TRUE, rp = 1)
   return(x)
 }
@@ -251,14 +251,14 @@ sys.source(file.path(getwd(), "source", "sourcetest-errors.R"), envir = environm
 
 sb_set2 <- function(x, ...) {
   x <- data.table::copy(x)
-  if(is.atomic(x)) x <- as.mutable_atomic(x)
+  if(is.atomic(x)) x <- mutatomic::as.mutatomic(x)
   x2 <- x
   sb_set(x, ...)
   expect_equal(x, x2) |> errorfun()
   return(x)
 }
 
-x <- as.mutable_atomic(1:10)
+x <- mutatomic::as.mutatomic(1:10)
 expect_error(
   sb_set2(x, i = 1:5, rp = 1:6),
   pattern = "recycling not allowed",
@@ -267,7 +267,7 @@ expect_error(
 enumerate <- enumerate + 2
 
 
-x <- as.mutable_atomic(matrix(1:10, nrow = 2))
+x <- mutatomic::as.mutatomic(matrix(1:10, nrow = 2))
 expect_error(
   sb_set2(x, i = 1:5, rp = as.list(1:5)),
   pattern = "replacement must be atomic"
@@ -283,7 +283,7 @@ expect_error(
 enumerate <- enumerate + 4
 
 
-x <- as.mutable_atomic(array(1:27, dim = c(3,3,3)))
+x <- mutatomic::as.mutatomic(array(1:27, dim = c(3,3,3)))
 expect_error(
   sb_set2(x, i = 1:5, rp = as.list(1:5)),
   pattern = "replacement must be atomic"

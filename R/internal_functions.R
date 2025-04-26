@@ -9,7 +9,7 @@
       ))
   }
   if(bindingIsLocked(subx, env = env)){
-    stop(simpleError("object is locked", call = abortcall))
+    stop(simpleError("object binding is locked", call = abortcall))
   }
 }
 
@@ -224,46 +224,6 @@
   return(check)
 }
 
-
-#' @keywords internal
-#' @noRd
-.internal_set_ma <- function(x) {
-  if(identical(parent.frame(n = 1L), globalenv())) {
-    stop("DO NOT call this function!!!")
-  }
-  if(!is.atomic(x)) {
-    stop("input is not atomic")
-  }
-  
-  if(!"mutable_atomic" %in% class(x)) {
-    data.table::setattr(x, "class", c("mutable_atomic", class(x)))
-  }
-  
-  data.table::setattr(x, "serial", .C_serial(x))
-
-  return(invisible(NULL))
-}
-
-#' @keywords internal
-#' @noRd
-.internal_return_ma <- function(x) {
-  
-  y <- data.table::copy(x)
-  data.table::setattr(y, "class", c("mutable_atomic", class(y)))
-  data.table::setattr(y, "serial", .C_serial(y))
-  
-  return(y)
-}
-
-
-#' @keywords internal
-#' @noRd
-.internal_materialize <- function(x) {
-  y <- vector(typeof(x), length(x))
-  .rcpp_set_all_atomic(y, rp = x)
-  mostattributes(y) <- attributes(x)
-  return(y)
-}
 
 #' @keywords internal
 #' @noRd

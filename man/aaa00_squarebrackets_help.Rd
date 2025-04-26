@@ -70,8 +70,8 @@ and only those that primarily use square brackets for sub-setting
 \itemize{
 \item basic \code{atomic} classes \cr
 (atomic vectors, matrices, and arrays).
-\item \link{mutable_atomic} classes \cr
-(\link{mutable_atomic} vectors, matrices, and arrays).
+\item \link{mutatomic} classes \cr
+(\link{mutatomic} vectors, matrices, and arrays).
 \item \link{factor}. \cr
 \item basic list classes \cr
 (recursive vectors, matrices, and arrays). \cr
@@ -125,16 +125,16 @@ through R's default Copy-On-Modify semantics.
 \item \link{sb_mod}, \link{sb2_mod}: return the object with modified
 (transformed or replaced) subsets.
 \item Methods to \link[=sb_setRename]{rename a mutable object} using
-\link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
+\link[=mutatomic_PassByReference]{pass-by-reference semantics}.
 \item \link{sb_set}, \link{sb2_set}: modify (transform or replace)
 subsets of a \link[=squarebrackets_supported_structures]{mutable object}
-using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
+using \link[=mutatomic_PassByReference]{pass-by-reference semantics}.
 \item \link{slice_set}: index-less and efficient,
 sequence-based modification of a (long) vector subset using
-\link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
+\link[=mutatomic_PassByReference]{pass-by-reference semantics}.
 \item \link{slicev_set}: index-less and efficient,
 value-based modification of a (long) vector subset using
-\link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr \cr
+\link[=mutatomic_PassByReference]{pass-by-reference semantics}. \cr \cr
 }
 
 \ifelse{html}{\figure{extend_beyond-purple.svg}{options: alt='[EXTEND BEYOND]'}}{\link[=squarebrackets_help]{EXTEND BEYOND}} \cr
@@ -161,8 +161,6 @@ to speed-up vectorized sub-setting on recursive subsets of the list.
 \item The \link[=dt_setcoe]{dt_}-functions
 to programmatically perform \code{data.table}-specific \code{[}-operations,
 with the security measures provided by the 'squarebrackets' package.
-\item \link{setapply}: apply functions over mutable matrix margins
-using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr \cr
 }
 
 \ifelse{html}{\figure{helper_functions-lightblue.svg}{options: alt='[HELPER FUNCTIONS]'}}{\link[=squarebrackets_help]{HELPER FUNCTIONS}} \cr
@@ -194,8 +192,6 @@ taking into account the order and any duplicate values of both vectors.
 Besides the website,
 'squarebrackets' comes with several help pages
 that can be accessed from within 'R'. \cr
-
-MAIN DOCUMENTATION:
 \itemize{
 \item \link{squarebrackets_supported_structures}: \cr
 Lists the structures that are supported by 'squarebrackets',
@@ -210,27 +206,6 @@ Explains the essentials of modification in 'squarebrackets'
 Lists and explains the options the user can specify in 'squarebrackets'.
 \item \link{squarebrackets_method_dispatch}: \cr
 Gives details regarding the S3 method dispatch in 'squarebrackets'. \cr \cr
-}
-
-ADDITIONAL DOCUMENTATION:
-\itemize{
-\item \link{squarebrackets_PassByReference}: \cr
-Explains Pass-by-Reference semantics, and its important consequences. \cr
-If you are not planning on using the pass-by-reference functionality
-in 'squarebrackets',
-you do not need to read this help page.
-\item \link{squarebrackets_coercion}: \cr
-Explains the difference in coercion rules between
-modification through Pass-by-Reference semantics and
-modification through copy (i.e. pass-by-value)
-for the supported mutable structures. \cr
-If you are not planning on using the pass-by-reference functionality
-in 'squarebrackets',
-you do not need to read this help page.
-\item \link{squarebrackets_slicev}: \cr
-Explains the arguments for the \link{slicev} set of methods. \cr
-If you are not planning to use the \link{slicev} methods,
-you do not need to read this help page. \cr \cr
 }
 }
 

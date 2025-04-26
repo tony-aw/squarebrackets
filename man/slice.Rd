@@ -40,7 +40,7 @@ slice_set(x, ...)
 }
 \arguments{
 \item{x}{an atomic object. \cr
-For \code{slice_set} it must be a \link{mutable_atomic} \bold{variable}.}
+For \code{slice_set} it must be a \link{mutatomic} \bold{variable}.}
 
 \item{...}{see \link{squarebrackets_method_dispatch}.}
 
@@ -70,7 +70,7 @@ and are designed for memory efficiency. \cr \cr
 \examples{
 
 
-x <- mutable_atomic(1:1e7)
+x <- mutatomic::mutatomic(1:1e7)
 
 # extract:
 slice_x(x, 1, 10)
@@ -82,12 +82,12 @@ slice_x(x, -1i, 1) |> head()
 slice_wo(x, 1, -11i) # all elements except the last 10
 
 # replace every other element:
-x <- mutable_atomic(1:1e7)
+x <- mutatomic::mutatomic(1:1e7)
 slice_set(x, 2, -1i, 2, rp = -1)
 head(x)
 
 # replace all elements except the first element:
-x <- mutable_atomic(1:1e7)
+x <- mutatomic::mutatomic(1:1e7)
 slice_set(x, 1, 1, inv = TRUE, rp = -1)
 head(x)
 

@@ -49,7 +49,7 @@
 #' Pass-by-Reference is fastest and the most memory efficient. \cr
 #' But it is also more involved than the other modification forms,
 #' and requires more thought. \cr
-#' See \link{squarebrackets_PassByReference} for more information. \cr
+#' See \link{mutatomic_PassByReference} for more information. \cr
 #' \cr
 #' \cr
 #' 
@@ -134,9 +134,9 @@
 #' So, for example, `length(rp)` must be equal to the length of the selected subset,
 #' or equal to `1`. \cr
 #' \cr
-#' When using \link[=squarebrackets_PassByReference]{Pass-by-Reference semantics},
+#' When using \link[=mutatomic_PassByReference]{Pass-by-Reference semantics},
 #' the user should be extra mindful of the auto-coercion rules. \cr
-#' See \link{squarebrackets_coercion} for details. \cr
+#' See \link{mutatomic_coercion} for details. \cr
 #' \cr
 #' 
 #' 

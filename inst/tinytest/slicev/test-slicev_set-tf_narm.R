@@ -36,7 +36,7 @@ tf.list <- list(
 )
 
 for(i in seq_along(x.list)) {
-  out <- x.list[[i]] |> as.mutable_atomic()
+  out <- x.list[[i]] |> mutatomic::as.mutatomic()
   y <- y.list[[i]]
   v <- v.list[[i]]
   tf <- tf.list[[i]]
@@ -52,7 +52,7 @@ for(i in seq_along(x.list)) {
     expected, out
   ) |> errorfun()
   
-  out <- x.list[[i]] |> as.mutable_atomic()
+  out <- x.list[[i]] |> mutatomic::as.mutatomic()
   y <- y.list[[i]]
   v <- v.list[[i]]
   
@@ -97,7 +97,7 @@ max.list <- list(
 
 for(i in seq_along(x.list)) {
   for(j in seq_along(min.list)) {
-    out <- x.list[[i]] |> as.mutable_atomic()
+    out <- x.list[[i]] |> mutatomic::as.mutatomic()
     y <- y.list[[i]]
     v <- c(min.list[[j]], max.list[[j]])
     tf <- \(x) -x
@@ -114,7 +114,7 @@ for(i in seq_along(x.list)) {
       expected, out
     ) |> errorfun()
     
-    out <- x.list[[i]] |> as.mutable_atomic()
+    out <- x.list[[i]] |> mutatomic::as.mutatomic()
     y <- y.list[[i]]
     v <- c(min.list[[j]], max.list[[j]])
     ind <- which(y < v[1] | y > v[2])
@@ -139,7 +139,7 @@ for(i in seq_along(x.list)) {
 
 # string, multiple ====
 tf <- toupper
-out <- sample(c(letters, NA), 100, TRUE) |> as.mutable_atomic()
+out <- sample(c(letters, NA), 100, TRUE) |> mutatomic::as.mutatomic()
 y <- sample(c(letters, NA), 100, TRUE)
 v <- letters[2:25]
 ind <- which(y %in% v & !is.na(y))
@@ -155,7 +155,7 @@ expect_equal(
 ) |> errorfun()
 
 
-out <- sample(c(letters, NA), 100, TRUE) |> as.mutable_atomic()
+out <- sample(c(letters, NA), 100, TRUE) |> mutatomic::as.mutatomic()
 y <- sample(c(letters, NA), 100, TRUE)
 v <- letters[2:25]
 ind <- which(!y %in% v & !is.na(y))

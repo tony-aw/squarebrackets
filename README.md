@@ -176,5 +176,8 @@ library(squarebrackets)
   update. Renamed `ndims()` to `ndim()`.
 - 13 April 2025: The binding implementations have been moved from
   ‘squarebrackets’ to my new R-package ‘broadcast’.
+- 26 April 2025: Renamed the `mutable_atomic` class to `mutatomic`, and
+  moved the entire class to its own package, which ‘squarebrackets’ now
+  depends on.
 
  

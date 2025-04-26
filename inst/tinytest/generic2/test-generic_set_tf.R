@@ -11,7 +11,7 @@ test_PassByReference <- TRUE
 
 sb2_set2 <- function(x, ...) {
   x <- data.table::copy(x)
-  if(is.atomic(x)) x <- as.mutable_atomic(x)
+  if(is.atomic(x)) x <- mutatomic::as.mutatomic(x)
   x2 <- x
   sb2_set(x, ...)
   if(!identical(x, x2)) { stop("PassByReference fail")}

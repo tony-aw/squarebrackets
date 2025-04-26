@@ -3,16 +3,16 @@
 supported mutable object
 using
 pass-by-reference semantics:
-sb_setFlatnames() renames the (flat) names of a mutable_atomic object.
-sb_setDimnames() renames the dimension names of a mutable_atomic object.
+sb_setFlatnames() renames the (flat) names of a mutatomic object.
+sb_setDimnames() renames the dimension names of a mutatomic object.
 sb2_setVarnames() renames the variable names of a data.table object.
 
 "><meta property="og:description" content="Functions to rename a
 supported mutable object
 using
 pass-by-reference semantics:
-sb_setFlatnames() renames the (flat) names of a mutable_atomic object.
-sb_setDimnames() renames the dimension names of a mutable_atomic object.
+sb_setFlatnames() renames the (flat) names of a mutatomic object.
+sb_setDimnames() renames the dimension names of a mutatomic object.
 sb2_setVarnames() renames the variable names of a data.table object.
 
 "></head><body>
@@ -58,8 +58,8 @@ sb2_setVarnames() renames the variable names of a data.table object.
     <p>Functions to rename a
 <a href="aaa01_squarebrackets_supported_structures.html">supported mutable object</a>
 using
-<a href="aaa07_squarebrackets_PassByReference.html">pass-by-reference semantics</a>:</p><ul><li><p><code>sb_setFlatnames()</code> renames the (flat) names of a <code>mutable_atomic</code> object.</p></li>
-<li><p><code>sb_setDimnames()</code> renames the dimension names of a <code>mutable_atomic</code> object.</p></li>
+pass-by-reference semantics:</p><ul><li><p><code>sb_setFlatnames()</code> renames the (flat) names of a <code>mutatomic</code> object.</p></li>
+<li><p><code>sb_setDimnames()</code> renames the dimension names of a <code>mutatomic</code> object.</p></li>
 <li><p><code>sb2_setVarnames()</code> renames the variable names of a <code>data.table</code> object. <br><br></p></li>
 </ul></div>
 
@@ -137,37 +137,37 @@ Since this function returns void, you'll just get <code>NULL</code>. <br><br></p
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span> </span></span>
 <span class="r-in"><span><span class="co"># mutable atomic vector ====</span></span></span>
-<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="class_mutable_atomic.html">mutable_atomic</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, names <span class="op">=</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">y</span> <span class="op">&lt;-</span> <span class="fu">mutatomic</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/mutatomic/man/mutatomic_class.html" class="external-link">mutatomic</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, names <span class="op">=</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  a  b  c  d  e  f  g  h  i  j </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  1  2  3  4  5  6  7  8  9 10 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> mutable_atomic </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mutatomic </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  integer </span>
 <span class="r-in"><span><span class="fu">sb_setFlatnames</span><span class="op">(</span><span class="va">x</span>, newnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rev.html" class="external-link">rev</a></span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  j  i  h  g  f  e  d  c  b  a </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  1  2  3  4  5  6  7  8  9 10 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> mutable_atomic </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mutatomic </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  integer </span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="class_mutable_atomic.html">mutable_atomic</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, names <span class="op">=</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">y</span> <span class="op">&lt;-</span> <span class="fu">mutatomic</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/mutatomic/man/mutatomic_class.html" class="external-link">mutatomic</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, names <span class="op">=</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  a  b  c  d  e  f  g  h  i  j </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  1  2  3  4  5  6  7  8  9 10 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> mutable_atomic </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mutatomic </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  integer </span>
 <span class="r-in"><span><span class="fu">sb_setFlatnames</span><span class="op">(</span><span class="va">x</span>, <span class="fl">1L</span>, <span class="st">"XXX"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> XXX   b   c   d   e   f   g   h   i   j </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   1   2   3   4   5   6   7   8   9  10 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> mutable_atomic </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mutatomic </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  integer </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">################################################################################</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># mutable atomic matrix ====</span></span></span>
-<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="class_mutable_atomic.html">mutable_atomic</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">mutatomic</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/mutatomic/man/mutatomic_class.html" class="external-link">mutatomic</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="fl">1</span><span class="op">:</span><span class="fl">20</span>, dim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">4</span><span class="op">)</span>, dimnames <span class="op">=</span> <span class="fu"><a href="nest.html">n</a></span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>, <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
@@ -177,7 +177,7 @@ Since this function returns void, you'll just get <code>NULL</code>. <br><br></p
 <span class="r-out co"><span class="r-pr">#&gt;</span> c 3  8 13 18</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> d 4  9 14 19</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> e 5 10 15 20</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> mutable_atomic </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mutatomic </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  integer </span>
 <span class="r-in"><span><span class="fu">sb_setDimnames</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">x</span>,</span></span>
@@ -191,7 +191,7 @@ Since this function returns void, you'll just get <code>NULL</code>. <br><br></p
 <span class="r-out co"><span class="r-pr">#&gt;</span> c 3  8 13 18</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> b 4  9 14 19</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a 5 10 15 20</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> mutable_atomic </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mutatomic </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  integer </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>

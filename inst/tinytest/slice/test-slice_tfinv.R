@@ -34,7 +34,7 @@ n <- length(list_fromto) * length(list_fromto) * length(list_by)
 
 
 # equal length replacement ====
-x <- mutable_atomic(1:100)
+x <- mutatomic::mutatomic(1:100)
 
 expected <- out <- vector("list", n)
 counter <- 1L
@@ -60,7 +60,7 @@ expect_equal(
 
 # singular replacement ====
 
-x <- mutable_atomic(1:100)
+x <- mutatomic::mutatomic(1:100)
 
 expected <- out <- vector("list", n)
 counter <- 1L
@@ -96,7 +96,7 @@ x.data <- list(
   as.raw(0:99),
   rep(NA, 100)
 )
-x.data <- lapply(x.data, as.mutable_atomic)
+x.data <- lapply(x.data, mutatomic::as.mutatomic)
 
 expected <- out <- list(8)
 for(i in seq_along(x.data)) {

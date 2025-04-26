@@ -101,7 +101,7 @@
 <li>15 March 2024: Added the <code><a href="reference/sb_setRename.html">sb_setRename()</a></code> method, and added tests for this method also.</li>
 <li>16 March 2024: Fixed a bug in the “rcpp_set_rowcol” source code. Tweaked the documentation here and there a bit. Improved the tests a bit.</li>
 <li>17 March 2024: Added more tests, and tweaked the documentation a bit.</li>
-<li>19 March 2024: Some methods/functions did not support mutable_atomic type “complex”; this is now fixed. Added support for mutable_atomic type “raw”. Added tests for atomic type handling. Added the functions <code>ma_setv()</code>, and <code><a href="reference/class_mutable_atomic.html">couldb.mutable_atomic()</a></code>. Added the options “sb.rat” and “sb.chkdup”; argument <code>chkdup</code> is now also set to <code>FALSE</code> by default. Added more badges to the documentation.</li>
+<li>19 March 2024: Some methods/functions did not support mutable_atomic type “complex”; this is now fixed. Added support for mutable_atomic type “raw”. Added tests for atomic type handling. Added the functions <code>ma_setv()</code>, and <code>couldb.mutable_atomic()</code>. Added the options “sb.rat” and “sb.chkdup”; argument <code>chkdup</code> is now also set to <code>FALSE</code> by default. Added more badges to the documentation.</li>
 <li>20 March 2024: The user can now also specify <code>coe = TRUE</code> in <code>sb_mod.data.frame()</code>.</li>
 <li>24 March 2024: Methods are now split between methods for non-recursive objects (<code>sb_</code>), and methods for recursive objects (<code>sb2_</code>).</li>
 <li>26 March 2024: Replaced <code>seq_rec()</code> with <code>seq_rec2()</code>.</li>
@@ -131,6 +131,7 @@
 <li>27 December 2024: Overhauled the arguments for the data.frame/data.table methods and functions. Now the <code>s,d</code> argument pair is the primary argument set for all dimensional objects.</li>
 <li>11 March 2025: Overhauled the internal code for arrays; it’s even faster now. Re-organised some other code in preparation for the next update. Renamed <code>ndims()</code> to <code><a href="reference/ndim.html">ndim()</a></code>.</li>
 <li>13 April 2025: The binding implementations have been moved from ‘squarebrackets’ to my new R-package ‘broadcast’.</li>
+<li>26 April 2025: Renamed the <code>mutable_atomic</code> class to <code>mutatomic</code>, and moved the entire class to its own package, which ‘squarebrackets’ now depends on.</li>
 </ul>
 <p> </p>
 </div>

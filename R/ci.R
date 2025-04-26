@@ -48,7 +48,7 @@ ci_flat <- function(
   
   is_list <- is.list(x)
   
-  if(!is.vector(i) && !is.mutable_atomic(i) && !is.function(i)) {
+  if(!is.vector(i) && !mutatomic::is.mutatomic(i) && !is.function(i)) {
     stop(simpleError("`i` must be a simple vector or function", call = .abortcall))
   }
   

@@ -3,7 +3,7 @@ enumerate <- 0
 
 # generic method not mutable errors ====
 x <- setNames(1:10, letters[1:10])
-pattern <- "`x` is not a (supported) mutable object"
+pattern <- "not a 'mutatomic' object"
 expect_error(
   sb_set(x, i = 1, rp = -1),
   pattern = pattern,
@@ -51,45 +51,36 @@ enumerate <- enumerate + 10
 # not a variable errors ====
 
 expect_error(
-  sb_set(as.mutable_atomic(1:10), i = 1, rp = -1),
-  pattern = "only existing variables can be modified by reference"
+  sb_set(mutatomic::as.mutatomic(1:10), i = 1, rp = -1),
+  pattern = "only objects that exist as variables can be modified by reference"
 )
 expect_error(
-  slice_set(as.mutable_atomic(1:10), 1, 10, rp = -1),
-  pattern = "only existing variables can be modified by reference"
+  slice_set(mutatomic::as.mutatomic(1:10), 1, 10, rp = -1),
+  pattern = "only objects that exist as variables can be modified by reference"
 )
 expect_error(
-  slicev_set(as.mutable_atomic(1:10), v = 1, rp = -1),
-  pattern = "only existing variables can be modified by reference"
-)
-expect_error(
-  setapply(mutable_atomic(1:10, dim = c(2, 5)), 1, sum),
-  pattern = "only existing variables can be modified by reference"
+  slicev_set(mutatomic::as.mutatomic(1:10), v = 1, rp = -1),
+  pattern = "only objects that exist as variables can be modified by reference"
 )
 
 enumerate <- enumerate + 4
 
 
-# object is locked errors ====
-x <- mutable_atomic(1:20, dim = c(5,4), dimnames = n(letters[1:5], letters[1:4]))
+# cannot change value of locked binding for  errors ====
+x <- mutatomic::mutatomic(1:20, dim = c(5,4), dimnames = n(letters[1:5], letters[1:4]))
 lockBinding("x", environment())
 expect_error(
   sb_set(x, i = 1, rp = -1),
-  pattern = "object is locked"
+  pattern = "cannot change value of locked binding for "
 )
 expect_error(
   slice_set(x, 1, 10, rp = -1),
-  pattern = "object is locked"
+  pattern = "cannot change value of locked binding for "
 )
 expect_error(
   slicev_set(x, v = 1, rp = -1),
-  pattern = "object is locked"
+  pattern = "cannot change value of locked binding for "
 )
-expect_error(
-  setapply(x, 1, sum),
-  pattern = "object is locked"
-)
-
 rm(list = "x")
 enumerate <- enumerate + 5
 
@@ -128,5 +119,3 @@ expect_equal(
 enumerate <- enumerate + 1
 
 
-# setapply() ====
-# see the script test-setapply.R

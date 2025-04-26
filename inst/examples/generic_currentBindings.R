@@ -1,6 +1,6 @@
 
 
-x <- as.mutable_atomic(1:10)
+x <- mutatomic::as.mutatomic(1:10)
 y <- x
 lockBinding("y", environment())
 currentBindings(x)
@@ -24,7 +24,7 @@ currentBindings(x, "checklock") # all bindings are locked, including y
 if(requireNamespace("tinytest")) {
   tinytest::expect_error(
     sb_set(x, i = 1, rp = -1),
-    pattern = "object is locked"
+    pattern = "object binding is locked"
   )
 }
 
@@ -37,7 +37,7 @@ currentBindings(x, "checklock") # now z is also locked
 if(requireNamespace("tinytest")) {
   tinytest::expect_error( # now z is also protected
     sb_set(z, i = 1, rp = -1),
-    pattern = "object is locked"
+    pattern = "object binding is locked"
   )
 }
 

@@ -57,7 +57,7 @@ meaning no copy is made at all. \cr
 Pass-by-Reference is fastest and the most memory efficient. \cr
 But it is also more involved than the other modification forms,
 and requires more thought. \cr
-See \link{squarebrackets_PassByReference} for more information. \cr
+See \link{mutatomic_PassByReference} for more information. \cr
 \cr
 \cr
 }
@@ -146,9 +146,9 @@ Recycling is not allowed in the modification methods. \cr
 So, for example, \code{length(rp)} must be equal to the length of the selected subset,
 or equal to \code{1}. \cr
 \cr
-When using \link[=squarebrackets_PassByReference]{Pass-by-Reference semantics},
+When using \link[=mutatomic_PassByReference]{Pass-by-Reference semantics},
 the user should be extra mindful of the auto-coercion rules. \cr
-See \link{squarebrackets_coercion} for details. \cr
+See \link{mutatomic_coercion} for details. \cr
 \cr
 }
 

@@ -18,11 +18,11 @@ if(requireNamespace("tinytest")) {
   )
 }
 
-is.mutable_atomic(myref) # ... because it's not of class `mutable_atomic`
+mutatomic::is.mutatomic(myref) # ... because it's not of class `mutatomic`
 
 
 x <- list(
-  a = as.mutable_atomic(base::letters) # `as.mutable_atomic()` makes a copy
+  a = mutatomic::as.mutatomic(base::letters) # `mutatomic::as.mutatomic()` makes a copy
 )
 myref <- x$a # view of a list
 address(myref) == address(base::letters) # FALSE: it's a copy

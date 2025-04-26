@@ -1,6 +1,6 @@
 
 # atomic vector ====
-x <- mutable_atomic(1:10)
+x <- mutatomic::mutatomic(1:10)
 expect_error(
   sb_mod(x),
   pattern = "must specify either `rp` or `tf`",
@@ -24,7 +24,7 @@ expect_error(
 
 
 # atomic matrix ====
-x <- mutable_atomic(1:20, dim = c(5,4))
+x <- mutatomic::mutatomic(1:20, dim = c(5,4))
 expect_error(
   sb_mod(x),
   pattern = "must specify either `rp` or `tf`",
@@ -48,7 +48,7 @@ expect_error(
 
 
 # atomic 3d array ====
-x <- mutable_atomic(1:27, dim = c(3,3,3))
+x <- mutatomic::mutatomic(1:27, dim = c(3,3,3))
 expect_error(
   sb_mod(x),
   pattern = "must specify either `rp` or `tf`",

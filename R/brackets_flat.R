@@ -109,7 +109,7 @@
   
   rp <- .internal_coerce_rp(x, rp, abortcall)
   
-  if(length(x) <= (2^31 -1)) {
+  if(length(x) < (2^31 - 1)) {
     .rcpp_set_vind_32_atomic(x, as.integer(ind - 1L), rp)
     return(invisible(NULL))
   }

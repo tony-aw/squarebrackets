@@ -23,7 +23,7 @@ n <- length(list_fromto) * length(list_fromto) * length(list_by)
 
 
 # without names ====
-x <- mutable_atomic(1:100)
+x <- mutatomic::mutatomic(1:100)
 
 expected <- out <- vector("list", n)
 counter <- 1L
@@ -48,7 +48,7 @@ expect_equal(
 
 
 # with names, use.names = TRUE ====
-x <- mutable_atomic(
+x <- mutatomic::mutatomic(
   1:100, dim = c(10, 10),
   names = sample(letters, 100, TRUE),
   dimnames = n(letters[1:10], letters[10:1])
@@ -77,7 +77,7 @@ expect_equal(
 
 
 # with names, use.names = FALSE ====
-x <- mutable_atomic(
+x <- mutatomic::mutatomic(
   1:100, dim = c(10, 10),
   names = sample(letters, 100, TRUE),
   dimnames = n(letters[1:10], letters[10:1])
@@ -141,7 +141,7 @@ x.data <- list(
   as.raw(0:99),
   rep(NA, 100)
 )
-x.data <- lapply(x.data, as.mutable_atomic)
+x.data <- lapply(x.data, mutatomic::as.mutatomic)
 
 expected <- out <- list(8)
 for(i in seq_along(x.data)) {

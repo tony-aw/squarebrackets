@@ -11,7 +11,7 @@ library(future.apply)
 
 n <- 3162 # approx sqrt(1e7)
 x.mat <- matrix(seq_len(n*n), ncol = n)
-x.mat2 <- as.mutable_atomic(x.mat)
+x.mat2 <- mutatomic::as.mutatomic(x.mat)
 colnames(x.mat) <- sample(c(letters, LETTERS, NA), n, TRUE)
 sel.rows <- 1:1000
 sel.cols <- 1:1000
@@ -39,7 +39,7 @@ save(bm.sb_tf.matrix, file = "bm.sb_tf.matrix.RData")
 
 x.dims <- c(1900, 1900, 3) # leads to approx 1e7 elements
 x.3d <- array(1:prod(x.dims), x.dims)
-x.3d2 <- as.mutable_atomic(x.3d)
+x.3d2 <- mutatomic::as.mutatomic(x.3d)
 sel.rows <- 1:900
 sel.lyrs <- c(TRUE, FALSE, TRUE)
 basefun <- function(x, rows, lyrs, tf) {

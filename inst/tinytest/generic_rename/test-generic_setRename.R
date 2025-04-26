@@ -5,7 +5,7 @@ enumerate <- 0
 
 # set flatnames ====
 nms <- letters
-x <- mutable_atomic(1:26, names = nms)
+x <- mutatomic::mutatomic(1:26, names = nms)
 y <- x
 
 expect_error(
@@ -45,7 +45,7 @@ enumerate <- enumerate + 7
 
 # partially set flatnames ====
 nms <- letters
-x <- mutable_atomic(1:26, names = nms)
+x <- mutatomic::mutatomic(1:26, names = nms)
 y <- x
 
 expect_error(
@@ -97,7 +97,7 @@ for(i in seq_along(iList)) {
 
 
 # set dimnames ====
-x <- mutable_atomic(
+x <- mutatomic::mutatomic(
   1:260, dim = c(10, 26), dimnames = n(letters[1:10], letters)
 )
 y <- x
@@ -143,7 +143,7 @@ enumerate <- enumerate + 6
 
 
 # partially set dimnames ====
-x <- y <- mutable_atomic(
+x <- y <- mutatomic::mutatomic(
   1:(26*4), dim = c(26, 4), dimnames = n(letters, letters[1:4])
 )
 print(x)
@@ -175,7 +175,7 @@ expect_equal( # check that the original base::letters has NOT been modified
 
 # un-flatname ====
 
-x <- mutable_atomic(1:26, names = letters)
+x <- mutatomic::mutatomic(1:26, names = letters)
 y <- x
 sb_setFlatnames(x, newnames =  NULL)
 expect_equal(
@@ -198,7 +198,7 @@ enumerate <- enumerate + 3
 
 
 # un-dimname ====
-x <- mutable_atomic(1:260, dim = c(10, 26), dimnames = n(letters[1:10], letters))
+x <- mutatomic::mutatomic(1:260, dim = c(10, 26), dimnames = n(letters[1:10], letters))
 y <- x
 sb_setDimnames(x, newdimnames = NULL)
 expect_equal(
@@ -221,7 +221,7 @@ enumerate <- enumerate + 3
 
 # partially un-dimname ====
 
-x <- mutable_atomic(1:260, dim = c(10, 26), dimnames = n(letters[1:10], letters))
+x <- mutatomic::mutatomic(1:260, dim = c(10, 26), dimnames = n(letters[1:10], letters))
 y <- x
 sb_setDimnames(x, 1L, newdimnames = n(NULL))
 expect_equal(
@@ -232,7 +232,7 @@ expect_equal(
   x,y
 )
 
-x <- mutable_atomic(1:260, dim = c(10, 26), dimnames = n(letters[1:10], letters))
+x <- mutatomic::mutatomic(1:260, dim = c(10, 26), dimnames = n(letters[1:10], letters))
 y <- x
 sb_setDimnames(x, 2L, newdimnames = n(NULL))
 expect_equal(

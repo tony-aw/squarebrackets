@@ -3,12 +3,12 @@
 supported mutable object
 using
 pass-by-reference semantics
-Use sb_set(x, ...) if x is an atomic object (i.e. mutable_atomic).
+Use sb_set(x, ...) if x is an atomic object (i.e. mutatomic).
 Use sb2_set(x, ...) if x is a recursive object (i.e. data.table).  "><meta property="og:description" content="This is an S3 Method to replace or transform a subset of a
 supported mutable object
 using
 pass-by-reference semantics
-Use sb_set(x, ...) if x is an atomic object (i.e. mutable_atomic).
+Use sb_set(x, ...) if x is an atomic object (i.e. mutatomic).
 Use sb2_set(x, ...) if x is a recursive object (i.e. data.table).  "></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
@@ -52,8 +52,8 @@ Use sb2_set(x, ...) if x is a recursive object (i.e. data.table).  "></head><bod
     <p>This is an S3 Method to replace or transform a subset of a
 <a href="aaa01_squarebrackets_supported_structures.html">supported mutable object</a>
 using
-<a href="aaa07_squarebrackets_PassByReference.html">pass-by-reference semantics</a> <br>
-Use <code>sb_set(x, ...)</code> if <code>x</code> is an atomic object (i.e. <a href="class_mutable_atomic.html">mutable_atomic</a>). <br>
+pass-by-reference semantics <br>
+Use <code>sb_set(x, ...)</code> if <code>x</code> is an atomic object (i.e. mutatomic). <br>
 Use <code>sb2_set(x, ...)</code> if <code>x</code> is a recursive object (i.e. data.table). <br><br></p>
     </div>
 
@@ -150,10 +150,10 @@ One cannot specify both <code>tf</code> and <code>rp</code>. It's either one set
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># mutable_atomic objects ====</span></span></span>
+<span class="r-in"><span><span class="co"># mutatomic objects ====</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">gen_mat</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span>  <span class="va">obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="class_mutable_atomic.html">as.mutable_atomic</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">16</span>, ncol <span class="op">=</span> <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">obj</span> <span class="op">&lt;-</span> <span class="fu">mutatomic</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/mutatomic/man/mutatomic_class.html" class="external-link">as.mutatomic</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">16</span>, ncol <span class="op">=</span> <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>, <span class="st">"a"</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
@@ -165,7 +165,7 @@ One cannot specify both <code>tf</code> and <code>rp</code>. It's either one set
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 2 6 10 14</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 3 7 11 15</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [4,] 4 8 12 16</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> mutable_atomic </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mutatomic </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  integer </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">sb_set</span><span class="op">(</span><span class="va">obj</span>, <span class="fu"><a href="nest.html">n</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span>, <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="ndim.html">ndim</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span>, rp <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">:</span><span class="op">-</span><span class="fl">9</span><span class="op">)</span></span></span>
@@ -175,7 +175,7 @@ One cannot specify both <code>tf</code> and <code>rp</code>. It's either one set
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -2 -5 -8 14</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,] -3 -6 -9 15</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [4,]  4  8 12 16</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> mutable_atomic </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mutatomic </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  integer </span>
 <span class="r-in"><span><span class="co"># above is like x[1:3, 1:3] &lt;- -1:-9, but using pass-by-reference</span></span></span>
 <span class="r-in"><span></span></span>
@@ -186,7 +186,7 @@ One cannot specify both <code>tf</code> and <code>rp</code>. It's either one set
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 2 6 10 14</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 3 7 11 15</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [4,] 4 8 12 16</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> mutable_atomic </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mutatomic </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  integer </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">sb_set</span><span class="op">(</span><span class="va">obj</span>, i <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">&lt;=</span> <span class="fl">5</span>, rp <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">:</span><span class="op">-</span><span class="fl">5</span><span class="op">)</span></span></span>
@@ -196,7 +196,7 @@ One cannot specify both <code>tf</code> and <code>rp</code>. It's either one set
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -2  6 10 14</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,] -3  7 11 15</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [4,] -4  8 12 16</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> mutable_atomic </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mutatomic </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  integer </span>
 <span class="r-in"><span><span class="co"># above is like x[x &lt;= 5] &lt;- -1:-5, but using pass-by-reference</span></span></span>
 <span class="r-in"><span></span></span>
@@ -207,7 +207,7 @@ One cannot specify both <code>tf</code> and <code>rp</code>. It's either one set
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 2 6 10 14</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 3 7 11 15</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [4,] 4 8 12 16</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> mutable_atomic </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mutatomic </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  integer </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">sb_set</span><span class="op">(</span><span class="va">obj</span>, <span class="fu"><a href="nest.html">n</a></span><span class="op">(</span><span class="st">"a"</span><span class="op">)</span>, <span class="fl">2L</span>, rp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span><span class="op">:</span><span class="op">-</span><span class="fl">4</span>, <span class="op">-</span><span class="fl">5</span><span class="op">:</span><span class="op">-</span><span class="fl">8</span><span class="op">)</span><span class="op">)</span></span></span>
@@ -217,7 +217,7 @@ One cannot specify both <code>tf</code> and <code>rp</code>. It's either one set
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -2 6 10 -6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,] -3 7 11 -7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [4,] -4 8 12 -8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> mutable_atomic </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mutatomic </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  integer </span>
 <span class="r-in"><span><span class="co"># above is like x[, "a"] &lt;- cbind(-1:-4, -5:-8), but using pass-by-reference</span></span></span>
 <span class="r-in"><span></span></span>
@@ -228,7 +228,7 @@ One cannot specify both <code>tf</code> and <code>rp</code>. It's either one set
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 2 6 10 14</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 3 7 11 15</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [4,] 4 8 12 16</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> mutable_atomic </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mutatomic </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  integer </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">sb_set</span><span class="op">(</span><span class="va">obj</span>, <span class="fu"><a href="nest.html">n</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span>, <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="ndim.html">ndim</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span>, tf <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">-</span><span class="va">x</span><span class="op">)</span></span></span>
@@ -238,7 +238,7 @@ One cannot specify both <code>tf</code> and <code>rp</code>. It's either one set
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -2 -6 -10 14</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,] -3 -7 -11 15</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [4,]  4  8  12 16</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> mutable_atomic </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mutatomic </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  integer </span>
 <span class="r-in"><span><span class="co"># above is like x[1:3, 1:3] &lt;- -1 * x[1:3, 1:3], but using pass-by-reference</span></span></span>
 <span class="r-in"><span></span></span>
@@ -249,7 +249,7 @@ One cannot specify both <code>tf</code> and <code>rp</code>. It's either one set
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 2 6 10 14</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 3 7 11 15</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [4,] 4 8 12 16</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> mutable_atomic </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mutatomic </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  integer </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">sb_set</span><span class="op">(</span><span class="va">obj</span>, i <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">&lt;=</span> <span class="fl">5</span>, tf <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">-</span><span class="va">x</span><span class="op">)</span></span></span>
@@ -259,7 +259,7 @@ One cannot specify both <code>tf</code> and <code>rp</code>. It's either one set
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -2  6 10 14</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,] -3  7 11 15</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [4,] -4  8 12 16</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> mutable_atomic </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mutatomic </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  integer </span>
 <span class="r-in"><span><span class="co"># above is like x[x &lt;= 5] &lt;- -1 * x[x &lt;= 5], but using pass-by-reference</span></span></span>
 <span class="r-in"><span></span></span>
@@ -270,7 +270,7 @@ One cannot specify both <code>tf</code> and <code>rp</code>. It's either one set
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 2 6 10 14</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 3 7 11 15</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [4,] 4 8 12 16</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> mutable_atomic </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mutatomic </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  integer </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">sb_set</span><span class="op">(</span><span class="va">obj</span>, <span class="fu"><a href="nest.html">n</a></span><span class="op">(</span><span class="st">"a"</span><span class="op">)</span>, <span class="fl">2L</span>, tf <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">-</span><span class="va">x</span><span class="op">)</span></span></span>
@@ -280,13 +280,13 @@ One cannot specify both <code>tf</code> and <code>rp</code>. It's either one set
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -2 6 10 -14</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,] -3 7 11 -15</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [4,] -4 8 12 -16</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> mutable_atomic </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mutatomic </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  integer </span>
 <span class="r-in"><span><span class="co"># above is like x[, "a"] &lt;- -1 * x[, "a"], but using pass-by-reference</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">gen_array</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="class_mutable_atomic.html">as.mutable_atomic</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/array.html" class="external-link">array</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">64</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">4</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu">mutatomic</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/mutatomic/man/mutatomic_class.html" class="external-link">as.mutatomic</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/array.html" class="external-link">array</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">64</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">4</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span><span class="va">obj</span> <span class="op">&lt;-</span> <span class="va">obj2</span> <span class="op">&lt;-</span> <span class="fu">gen_array</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">obj</span></span></span>
@@ -314,7 +314,7 @@ One cannot specify both <code>tf</code> and <code>rp</code>. It's either one set
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,]   35   39   43   47</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [4,]   36   40   44   48</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> mutable_atomic </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mutatomic </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  integer </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">sb_set</span><span class="op">(</span><span class="va">obj</span>, <span class="fu"><a href="nest.html">n</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, rp <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">:</span><span class="op">-</span><span class="fl">12</span><span class="op">)</span></span></span>
@@ -343,7 +343,7 @@ One cannot specify both <code>tf</code> and <code>rp</code>. It's either one set
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,]   -9  -12   43   47</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [4,]   36   40   44   48</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> mutable_atomic </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mutatomic </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  integer </span>
 <span class="r-in"><span><span class="co"># above is like x[1:3, , 1:2] &lt;- -1:-12, but using pass-by-reference</span></span></span>
 <span class="r-in"><span></span></span>
@@ -374,7 +374,7 @@ One cannot specify both <code>tf</code> and <code>rp</code>. It's either one set
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,]   35   39   43   47</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [4,]   36   40   44   48</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> mutable_atomic </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mutatomic </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  integer </span>
 <span class="r-in"><span><span class="fu">sb_set</span><span class="op">(</span><span class="va">obj</span>, i <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="va">x</span> <span class="op">&lt;=</span> <span class="fl">5</span>, rp <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">:</span><span class="op">-</span><span class="fl">5</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">obj2</span><span class="op">)</span></span></span>
@@ -402,7 +402,7 @@ One cannot specify both <code>tf</code> and <code>rp</code>. It's either one set
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,]   35   39   43   47</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [4,]   36   40   44   48</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> mutable_atomic </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mutatomic </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  integer </span>
 <span class="r-in"><span><span class="co"># above is like x[x &lt;= 5] &lt;- -1:-5, but using pass-by-reference</span></span></span>
 <span class="r-in"><span></span></span>

@@ -62,8 +62,8 @@
 #' 
 #'  * basic `atomic` classes \cr
 #'  (atomic vectors, matrices, and arrays).
-#'  * \link{mutable_atomic} classes \cr
-#'  (\link{mutable_atomic} vectors, matrices, and arrays).
+#'  * \link{mutatomic} classes \cr
+#'  (\link{mutatomic} vectors, matrices, and arrays).
 #'  * \link{factor}. \cr
 #'  * basic list classes \cr
 #'  (recursive vectors, matrices, and arrays). \cr
@@ -116,16 +116,16 @@
 #'  * \link{sb_mod}, \link{sb2_mod}: return the object with modified
 #'  (transformed or replaced) subsets.
 #'  * Methods to \link[=sb_setRename]{rename a mutable object} using
-#'  \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
+#'  \link[=mutatomic_PassByReference]{pass-by-reference semantics}.
 #'  * \link{sb_set}, \link{sb2_set}: modify (transform or replace)
 #'  subsets of a \link[=squarebrackets_supported_structures]{mutable object}
-#'  using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
+#'  using \link[=mutatomic_PassByReference]{pass-by-reference semantics}.
 #'  * \link{slice_set}: index-less and efficient,
 #'  sequence-based modification of a (long) vector subset using
-#'  \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
+#'  \link[=mutatomic_PassByReference]{pass-by-reference semantics}.
 #'  * \link{slicev_set}: index-less and efficient,
 #'  value-based modification of a (long) vector subset using
-#'  \link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr \cr
+#'  \link[=mutatomic_PassByReference]{pass-by-reference semantics}. \cr \cr
 #'  
 #' 
 #' `r .mybadge_intro_section("EXTEND BEYOND", "purple")` \cr
@@ -151,9 +151,6 @@
 #'  * The \link[=dt_setcoe]{dt_}-functions
 #'  to programmatically perform `data.table`-specific `[`-operations,
 #'  with the security measures provided by the 'squarebrackets' package.
-#'  * \link{setapply}: apply functions over mutable matrix margins
-#'  using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr \cr
-#'  
 #' 
 #' `r .mybadge_intro_section("HELPER FUNCTIONS", "lightblue")` \cr
 #' A couple of convenience functions, and helper functions for creating ranges, sequences, and indices
@@ -183,8 +180,6 @@
 #' 'squarebrackets' comes with several help pages
 #' that can be accessed from within 'R'. \cr
 #' 
-#' MAIN DOCUMENTATION:
-#' 
 #'  - \link{squarebrackets_supported_structures}: \cr
 #'  Lists the structures that are supported by 'squarebrackets',
 #'  and explains some related terminology.
@@ -199,26 +194,6 @@
 #'  - \link{squarebrackets_method_dispatch}: \cr
 #'  Gives details regarding the S3 method dispatch in 'squarebrackets'. \cr \cr
 #'  
-#' 
-#' ADDITIONAL DOCUMENTATION:
-#' 
-#' - \link{squarebrackets_PassByReference}: \cr
-#' Explains Pass-by-Reference semantics, and its important consequences. \cr
-#' If you are not planning on using the pass-by-reference functionality
-#' in 'squarebrackets',
-#' you do not need to read this help page.
-#' - \link{squarebrackets_coercion}: \cr
-#' Explains the difference in coercion rules between
-#' modification through Pass-by-Reference semantics and
-#' modification through copy (i.e. pass-by-value)
-#' for the supported mutable structures. \cr
-#' If you are not planning on using the pass-by-reference functionality
-#' in 'squarebrackets',
-#' you do not need to read this help page.
-#' - \link{squarebrackets_slicev}: \cr
-#' Explains the arguments for the \link{slicev} set of methods. \cr
-#' If you are not planning to use the \link{slicev} methods,
-#' you do not need to read this help page. \cr \cr
 #' 
 #'  
 #' 
@@ -288,7 +263,6 @@
 #' @exportPattern "^sb_coe"
 #' @exportPattern "^sb_setFlatnames"
 #' @exportPattern "^sb_setDimnames"
-#' @exportPattern "^currentBindings"
 #' @exportPattern "^sb2_x"
 #' @exportPattern "^sb2_wo"
 #' @exportPattern "^sb2_set"
@@ -296,8 +270,6 @@
 #' @exportPattern "^sb2_rec"
 #' @exportPattern "^sb2_setVarnames"
 #' @exportPattern "^idx"
-#' @method `[` mutable_atomic
-#' @method `[<-` mutable_atomic
 #' 
 NULL
 #> NULL

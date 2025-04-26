@@ -4,8 +4,8 @@
 #' This is an S3 Method to replace or transform a subset of a
 #' \link[=squarebrackets_supported_structures]{supported mutable object}
 #' using
-#' \link[=squarebrackets_PassByReference]{pass-by-reference semantics} \cr
-#' Use `sb_set(x, ...)` if `x` is an atomic object (i.e. \link{mutable_atomic}). \cr
+#' \link[=mutatomic_PassByReference]{pass-by-reference semantics} \cr
+#' Use `sb_set(x, ...)` if `x` is an atomic object (i.e. \link{mutatomic}). \cr
 #' Use `sb2_set(x, ...)` if `x` is a recursive object (i.e. \link{data.table}). \cr \cr
 #' 
 #'
@@ -58,13 +58,9 @@ sb_set.default <- function(
 ) {
   
   # error checks:
+  mutatomic::stopifnot_ma_safe2mutate(substitute(x), parent.frame(n = 1), sys.call())
   .internal_check_dots(list(...), sys.call())
-  if(!is.mutable_atomic(x)){
-    stop("`x` is not a (supported) mutable object")
-  }
   .internal_check_rptf(rp, tf, sys.call())
-  .check_bindingIsLocked(substitute(x), parent.frame(n = 1), abortcall = sys.call())
-  
   
   # function:
   if(is.null(i)) {
@@ -84,12 +80,9 @@ sb_set.array <- function(
 ) {
   
   # error checks:
+  mutatomic::stopifnot_ma_safe2mutate(substitute(x), parent.frame(n = 1), sys.call())
   .internal_check_dots(list(...), sys.call())
-  if(!is.mutable_atomic(x)){
-    stop("`x` is not a (supported) mutable object")
-  }
   .internal_check_rptf(rp, tf, sys.call())
-  .check_bindingIsLocked(substitute(x), parent.frame(n = 1), abortcall = sys.call())
   .check_args_array(x, s, d, sys.call())
 
     

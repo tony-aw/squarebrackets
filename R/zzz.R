@@ -7,7 +7,6 @@
   packageStartupMessage(txt)
 }
 
-.pkgenv_squarebrackets <- new.env(parent=emptyenv())
 
 .onLoad <- function(libname, pkgname) {
   options(
@@ -16,5 +15,4 @@
     squarebrackets.ma_messages = FALSE,
     squarebrackets.sticky = c("difftime", "Date", "POSIXct", "roman", "hexmode", "octmode")
   )
-  .pkgenv_squarebrackets[["protected"]] <- .protected_addresses()
 }

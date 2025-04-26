@@ -43,7 +43,7 @@ rm(list = rem)
 # sub folder tests ====
 
 subfolders <- c(
-  "generic", "generic2", "generic_idx", "bind",
+  "generic", "generic2", "generic_idx",
   "helper", "sub2ind", "developer", "special", "src_related", "slice", "slicev"
 )
 wd <- SourceFileLocation()

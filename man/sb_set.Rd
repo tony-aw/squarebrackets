@@ -74,8 +74,8 @@ Since this function returns void, you'll just get \code{NULL}. \cr \cr
 This is an S3 Method to replace or transform a subset of a
 \link[=squarebrackets_supported_structures]{supported mutable object}
 using
-\link[=squarebrackets_PassByReference]{pass-by-reference semantics} \cr
-Use \code{sb_set(x, ...)} if \code{x} is an atomic object (i.e. \link{mutable_atomic}). \cr
+\link[=mutatomic_PassByReference]{pass-by-reference semantics} \cr
+Use \code{sb_set(x, ...)} if \code{x} is an atomic object (i.e. \link{mutatomic}). \cr
 Use \code{sb2_set(x, ...)} if \code{x} is a recursive object (i.e. \link{data.table}). \cr \cr
 }
 \details{
@@ -88,10 +88,10 @@ One cannot specify both \code{tf} and \code{rp}. It's either one set or the othe
 \examples{
 
 
-# mutable_atomic objects ====
+# mutatomic objects ====
 
 gen_mat <- function() {
-  obj <- as.mutable_atomic(matrix(1:16, ncol = 4))
+  obj <- mutatomic::as.mutatomic(matrix(1:16, ncol = 4))
   colnames(obj) <- c("a", "b", "c", "a")
   return(obj)
 }
@@ -140,7 +140,7 @@ obj2
 
 
 gen_array <- function() {
-  as.mutable_atomic(array(1:64, c(4,4,3)))
+  mutatomic::as.mutatomic(array(1:64, c(4,4,3)))
 }
 obj <- obj2 <- gen_array()
 obj

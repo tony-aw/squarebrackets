@@ -165,78 +165,6 @@
 
 #' @keywords internal
 #' @noRd
-.rcpp_setapply_row_Logical <- function(x, f) {
-    invisible(.Call(`_squarebrackets_rcpp_setapply_col_Logical`, x, f))
-}
-
-#' @keywords internal
-#' @noRd
-.rcpp_setapply_col_Logical <- function(x, f) {
-    invisible(.Call(`_squarebrackets_rcpp_setapply_row_Logical`, x, f))
-}
-
-#' @keywords internal
-#' @noRd
-.rcpp_setapply_row_Integer <- function(x, f) {
-    invisible(.Call(`_squarebrackets_rcpp_setapply_col_Integer`, x, f))
-}
-
-#' @keywords internal
-#' @noRd
-.rcpp_setapply_col_Integer <- function(x, f) {
-    invisible(.Call(`_squarebrackets_rcpp_setapply_row_Integer`, x, f))
-}
-
-#' @keywords internal
-#' @noRd
-.rcpp_setapply_row_Numeric <- function(x, f) {
-    invisible(.Call(`_squarebrackets_rcpp_setapply_col_Numeric`, x, f))
-}
-
-#' @keywords internal
-#' @noRd
-.rcpp_setapply_col_Numeric <- function(x, f) {
-    invisible(.Call(`_squarebrackets_rcpp_setapply_row_Numeric`, x, f))
-}
-
-#' @keywords internal
-#' @noRd
-.rcpp_setapply_row_Character <- function(x, f) {
-    invisible(.Call(`_squarebrackets_rcpp_setapply_col_Character`, x, f))
-}
-
-#' @keywords internal
-#' @noRd
-.rcpp_setapply_col_Character <- function(x, f) {
-    invisible(.Call(`_squarebrackets_rcpp_setapply_row_Character`, x, f))
-}
-
-#' @keywords internal
-#' @noRd
-.rcpp_setapply_row_Complex <- function(x, f) {
-    invisible(.Call(`_squarebrackets_rcpp_setapply_col_Complex`, x, f))
-}
-
-#' @keywords internal
-#' @noRd
-.rcpp_setapply_col_Complex <- function(x, f) {
-    invisible(.Call(`_squarebrackets_rcpp_setapply_row_Complex`, x, f))
-}
-
-#' @keywords internal
-#' @noRd
-.rcpp_setapply_row_Raw <- function(x, f) {
-    invisible(.Call(`_squarebrackets_rcpp_setapply_col_Raw`, x, f))
-}
-
-#' @keywords internal
-#' @noRd
-.rcpp_setapply_col_Raw <- function(x, f) {
-    invisible(.Call(`_squarebrackets_rcpp_setapply_row_Raw`, x, f))
-}
-
-#' @keywords internal
-#' @noRd
 .rcpp_slice_x_atomic <- function(x, start, end, by, len) {
     .Call(`_squarebrackets_rcpp_slice_x_atomic`, x, start, end, by, len)
 }
@@ -297,30 +225,6 @@
 
 #' @keywords internal
 #' @noRd
-.rcpp_address <- function(x) {
-    .Call(`_squarebrackets_rcpp_address`, x)
-}
-
-#' @keywords internal
-#' @noRd
-.rcpp_list_bindings <- function(ref_address, env, ls) {
-    .Call(`_squarebrackets_rcpp_list_bindings`, ref_address, env, ls)
-}
-
-#' @keywords internal
-#' @noRd
-.rcpp_all_addresses <- function(env, ls) {
-    .Call(`_squarebrackets_rcpp_all_addresses`, env, ls)
-}
-
-#' @keywords internal
-#' @noRd
-.rcpp_address_in_env <- function(ref_address, env, ls) {
-    .Call(`_squarebrackets_rcpp_address_in_env`, ref_address, env, ls)
-}
-
-#' @keywords internal
-#' @noRd
 .C_prod_int <- function(x, start, end) {
     .Call(`_squarebrackets_C_prod_int`, x, start, end)
 }
@@ -359,18 +263,6 @@
 #' @noRd
 .rcpp_recycle_seq_mlen <- function(x, y) {
     .Call(`_squarebrackets_rcpp_recycle_seq_mlen`, x, y)
-}
-
-#' @keywords internal
-#' @noRd
-.rcpp_serial <- function(x) {
-    .Call(`_squarebrackets_rcpp_serial`, x)
-}
-
-#' @keywords internal
-#' @noRd
-.rcpp_is_ma <- function(x) {
-    .Call(`_squarebrackets_rcpp_is_ma`, x)
 }
 
 #' @keywords internal

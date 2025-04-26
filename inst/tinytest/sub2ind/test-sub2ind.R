@@ -32,12 +32,12 @@ for(iSample in 1:10) {
     x.len <- prod(x.dim)
     x.data <- generate_data(x.len)
     for(iType in seq_along(x.data)) {
-      x <- as.mutable_atomic(array(x.data[[iType]], x.dim))
+      x <- mutatomic::as.mutatomic(array(x.data[[iType]], x.dim))
       sub <- lapply(x.dim, \(x) sample(1:x, max(c(1, x)), FALSE))
       
       ind <- sub2ind(sub, x.dim)
       
-      expected[[i]] <- temp.fun(x, sub) |> as.vector() |> as.mutable_atomic()
+      expected[[i]] <- temp.fun(x, sub) |> as.vector() |> mutatomic::as.mutatomic()
       out[[i]] <- x[ind]
       
       enumerate <- enumerate + 1

@@ -9,7 +9,7 @@
 #' occurs in a vector subset `y[from:to]`. \cr \cr
 #' 
 #' @param x an atomic vector. \cr
-#' For `slicev_set()` it must be a \link{mutable_atomic} \bold{variable}.
+#' For `slicev_set()` it must be a \link{mutatomic} \bold{variable}.
 #' @param ... See \link{squarebrackets_slicev}.
 #' @param y,v,na,r See \link{squarebrackets_slicev}.
 #' @param from,to see \link{cp_seq}.
@@ -89,8 +89,8 @@ slicev_x.default <- function(
     data.table::setattr(out, "levels", attr(x, "levels", exact = TRUE))
     data.table::setattr(out, "class", oldClass(x))
   }
-  if(is.mutable_atomic(x)) {
-    .internal_set_ma(out)
+  if(mutatomic::is.mutatomic(x)) {
+    mutatomic::.internal_set_ma(out)
   }
   if(is.logical(sticky) && length(sticky) == 1L) {
     if(sticky) {
@@ -123,12 +123,9 @@ slicev_set.default <- function(
 ) {
   
   # error checks:
-  if(!is.mutable_atomic(x)){
-    stop("`x` is not a (supported) mutable object")
-  }
+  mutatomic::stopifnot_ma_safe2mutate(substitute(x), parent.frame(n = 1), sys.call())
   .internal_check_rptf(rp, tf, sys.call())
-  .check_bindingIsLocked(substitute(x), parent.frame(n = 1), abortcall = sys.call())
-  
+
   # general checks:
   .internal_check_dots(list(...), sys.call())
   .checkv_general(y, v, na, r, sys.call())

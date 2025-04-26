@@ -45,7 +45,7 @@ for(iSample in 1:10) {
     x.len <- prod(x.dim)
     x.data <- generate_data(x.len)
     for(iType in seq_along(x.data)) {
-      x <- as.mutable_atomic(array(x.data[[iType]], x.dim))
+      x <- mutatomic::as.mutatomic(array(x.data[[iType]], x.dim))
       
       expected[[i]] <- tempfun1(x, rp.lst[[iType]])
       out[[i]] <- tempfun2(x, rp.lst[[iType]])
@@ -74,7 +74,7 @@ for(i in 1:10) {
   x.data <- generate_data(x.len)
   
   for(j in 1:length(x.data)) {
-    x <- as.mutable_atomic(array(x.data[[j]], x.dim))
+    x <- mutatomic::as.mutatomic(array(x.data[[j]], x.dim))
     
     expected[[i]] <- tempfun1(x, rp.lst[[j]])
     out[[i]] <- tempfun2(x, rp.lst[[j]])
@@ -100,7 +100,7 @@ for(i in 1:10) {
   x.data <- generate_data(x.len)
   
   for(j in 1:length(x.data)) {
-    x <- as.mutable_atomic(x.data[[j]])
+    x <- mutatomic::as.mutatomic(x.data[[j]])
     
     expected[[i]] <- tempfun1(x, rp.lst[[j]])
     out[[i]] <- tempfun2(x, rp.lst[[j]])

@@ -26,7 +26,7 @@
 #'  For atomic objects, these 2 have no meaningful difference
 #'  (safe for perhaps some minor attribute handling). \cr
 #'  - **views**: For recursive objects,
-#'  one can create a \link[=squarebrackets_coercion]{view} of a recursive subset. \cr
+#'  one can create a \link[=mutatomic_coercion]{view} of a recursive subset. \cr
 #'  Subset views do not exist for atomic objects. \cr \cr
 #' 
 #' Despite these non-trivial differences,

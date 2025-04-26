@@ -67,12 +67,6 @@
 
 #' @keywords Internal
 #' @noRd
-.C_serial <- function(x) {
-  .Call("C_serial", x = x)
-}
-
-#' @keywords Internal
-#' @noRd
 .C_sub2ind_16d_32 <- function(sub, dimcumprod) {
   .Call("C_sub2ind_16d_32", sub = sub, dimcumprod = dimcumprod)
 }

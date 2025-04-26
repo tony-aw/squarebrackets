@@ -21,10 +21,10 @@ Note that a matrix is simply an array with 2 dimensions.
 \item mutability: \cr
 Base R's S3 classes (except Environments) are generally immutable: \cr
 Modifying the object will create a copy (called 'copy-on-modify'). \cr
-'squarebrackets also supports \code{data.tables} and \link{mutable_atomic} objects,
+'squarebrackets also supports \code{data.tables} and \link{mutatomic} objects,
 which are mutable: \cr
 If desired, one can modify them without copy using
-\link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr \cr
+\link[=mutatomic_PassByReference]{pass-by-reference semantics}. \cr \cr
 }
 
 \bold{Supported Structures} \cr
@@ -42,8 +42,8 @@ If desired, one can modify them without copy using
 
 'squarebrackets' supports the following mutable structures:
 \itemize{
-\item \link{mutable_atomic} \cr
-(\code{mutable_atomic} vectors arrays);
+\item \link{mutatomic} \cr
+(\code{mutatomic} vectors arrays);
 \item \link[data.table]{data.table} \cr
 (including the classes \code{tidytable}, \code{sf-data.table}, and \code{sf-tidytable}). \cr \cr
 }
@@ -84,9 +84,9 @@ But for any data.frame \code{x}, it is the case that \code{length(x) == ncol(x)}
 \bold{Mutable vs Immutable} \cr
 Most of base R's S3 classes (except Environments) are generally immutable: \cr
 Modifying the object will create a copy (called 'copy-on-modify'). \cr
-They have no explicit \link[=squarebrackets_PassByReference]{pass-by-reference} semantics. \cr
+They have no explicit \link[=mutatomic_PassByReference]{pass-by-reference} semantics. \cr
 Most S3 objects in base 'R' are immutable: \cr
-Environments do have \link[=squarebrackets_PassByReference]{pass-by-reference} semantics,
+Environments do have \link[=mutatomic_PassByReference]{pass-by-reference} semantics,
 but they are not supported by 'squarebrackets'. \cr
 \cr
 Supported mutable structures:
@@ -94,15 +94,15 @@ Supported mutable structures:
 \item 'squarebrackets' supports the mutable \code{data.table} class \cr
 (and thus also \code{tidytable}, which inherits from \code{data.table}).
 \item 'squarebrackets' also includes a new class of mutable objects: \cr
-\link{mutable_atomic} objects. \cr
-\code{mutable_atomic} objects are the same as atomic objects, except they are mutable (hence the name). \cr \cr
+\link{mutatomic} objects. \cr
+\code{mutatomic} objects are the same as atomic objects, except they are mutable (hence the name). \cr \cr
 }
 
 Supported immutable structures: \cr
 Atomic and recursive vectors/matrices/arrays, data.frames, and tibbles. \cr
 \cr
 All the functions in the 'squarebrackets' package with the word "set" in their name
-perform \link[=squarebrackets_PassByReference]{pass-by-reference} modification,
+perform \link[=mutatomic_PassByReference]{pass-by-reference} modification,
 and thus only work on mutable structures. \cr
 All other functions work the same way for both mutable and immutable structures. \cr
 \cr

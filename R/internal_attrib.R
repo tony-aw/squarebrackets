@@ -2,32 +2,6 @@
 
 #' @keywords internal
 #' @noRd
-.internal_ma_set_DimsAndNames <- function(x, names = NULL, d = NULL, dimnames = NULL) {
-  
-  # set dims, names, and dimnames of a mutable_atomic object BY REFERENCE
-  
-  if(!is.mutable_atomic(x)) {
-    stop("not mutable_atomic")
-  }
-  
-  
-  if(!is.null(d)) {
-    data.table::setattr(x, "dim", data.table::copy(d))
-  }
-  if(!is.null(dimnames)) {
-    dimnames <- data.table::copy(dimnames) # protection against pass-by-reference
-    data.table::setattr(x, "dimnames", NULL)
-    data.table::setattr(x, "dimnames", dimnames)
-  }
-  if(!is.null(names)) {
-    names <- data.table::copy(names) # protection against pass-by-reference
-    data.table::setattr(x, "names", NULL)
-    data.table::setattr(x, "names", names)
-  }
-}
-
-#' @keywords internal
-#' @noRd
 .internal_specialattrib <- function() {
   out <- c(
     "comment", "dim", "dimnames", "names", "row.names", "col.names", "tsp",

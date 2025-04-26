@@ -42,11 +42,11 @@ The default can be changed in the \code{squarebrackets.chkdup} option. \cr
 The \link{slice_x}, \link{slice_wo}, and \link{slicev_x} methods
 can already handle names
 (through the \code{use.names} argument),
-attributes specific to the \link{mutable_atomic} class,
+attributes specific to the \link{mutatomic} class,
 and attributes specific to the \link{factor} class. \cr
 \cr
 Attributes which are not names,
-and not specific to \link{mutable_atomic} class,
+and not specific to \link{mutatomic} class,
 and not specific to the \link{factor} class -
 henceforth referred to as "other attributes" -
 are treated differently. \cr

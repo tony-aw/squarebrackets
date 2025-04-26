@@ -27,7 +27,7 @@ tf.list <- list(
 )
 
 for(i in seq_along(x.list)) {
-  out <- x.list[[i]] |> as.mutable_atomic()
+  out <- x.list[[i]] |> mutatomic::as.mutatomic()
   y <- y.list[[i]]
   tf <- tf.list[[i]]
   
@@ -45,7 +45,7 @@ for(i in seq_along(x.list)) {
   ) |> errorfun()
   
   
-  out <- x.list[[i]] |> as.mutable_atomic()
+  out <- x.list[[i]] |> mutatomic::as.mutatomic()
   y <- y.list[[i]]
   
   ind <- which(!is.na(y))

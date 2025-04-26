@@ -163,8 +163,8 @@ and only those that primarily use square brackets for sub-setting
 (hence the name of the package). <br><br>
 'squarebrackets' supports the following structures:</p><ul><li><p>basic <code>atomic</code> classes <br>
 (atomic vectors, matrices, and arrays).</p></li>
-<li><p><a href="class_mutable_atomic.html">mutable_atomic</a> classes <br>
-(<a href="class_mutable_atomic.html">mutable_atomic</a> vectors, matrices, and arrays).</p></li>
+<li><p>mutatomic classes <br>
+(mutatomic vectors, matrices, and arrays).</p></li>
 <li><p><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a>. <br></p></li>
 <li><p>basic list classes <br>
 (recursive vectors, matrices, and arrays). <br></p></li>
@@ -206,16 +206,16 @@ through R's default Copy-On-Modify semantics.</p></li>
 <li><p><a href="sb_mod.html">sb_mod</a>, <a href="sb_mod.html">sb2_mod</a>: return the object with modified
 (transformed or replaced) subsets.</p></li>
 <li><p>Methods to <a href="sb_setRename.html">rename a mutable object</a> using
-<a href="aaa07_squarebrackets_PassByReference.html">pass-by-reference semantics</a>.</p></li>
+pass-by-reference semantics.</p></li>
 <li><p><a href="sb_set.html">sb_set</a>, <a href="sb_set.html">sb2_set</a>: modify (transform or replace)
 subsets of a <a href="aaa01_squarebrackets_supported_structures.html">mutable object</a>
-using <a href="aaa07_squarebrackets_PassByReference.html">pass-by-reference semantics</a>.</p></li>
+using pass-by-reference semantics.</p></li>
 <li><p><a href="slice.html">slice_set</a>: index-less and efficient,
 sequence-based modification of a (long) vector subset using
-<a href="aaa07_squarebrackets_PassByReference.html">pass-by-reference semantics</a>.</p></li>
+pass-by-reference semantics.</p></li>
 <li><p><a href="slicev.html">slicev_set</a>: index-less and efficient,
 value-based modification of a (long) vector subset using
-<a href="aaa07_squarebrackets_PassByReference.html">pass-by-reference semantics</a>. <br><br></p></li>
+pass-by-reference semantics. <br><br></p></li>
 </ul><p><img src="figures/extend_beyond-purple.svg" alt="[EXTEND BEYOND]"><br></p>
 <p>Methods to extend or re-arrange an object beyond its current size:</p><ul><li><p><a href="sb_x.html">sb_x</a>, <a href="sb_x.html">sb2_x</a>: extract, exchange, or duplicate subsets.</p></li>
 <li><p><a href="sb2_rec.html">sb2_recin</a>: replace, transform, remove, or add recursive subsets to a list,
@@ -234,12 +234,10 @@ to speed-up vectorized sub-setting on recursive subsets of the list.</p></li>
 <li><p>The <a href="dt.html">dt_</a>-functions
 to programmatically perform <code>data.table</code>-specific <code>[</code>-operations,
 with the security measures provided by the 'squarebrackets' package.</p></li>
-<li><p><a href="setapply.html">setapply</a>: apply functions over mutable matrix margins
-using <a href="aaa07_squarebrackets_PassByReference.html">pass-by-reference semantics</a>. <br><br></p></li>
 </ul><p><img src="figures/helper_functions-lightblue.svg" alt="[HELPER FUNCTIONS]"><br>
 A couple of convenience functions, and helper functions for creating ranges, sequences, and indices
 (often needed in sub-setting)
-are provided:</p><ul><li><p><a href="currentBindings.html">currentBindings</a>: list or lock all currently existing bindings
+are provided:</p><ul><li><p>currentBindings: list or lock all currently existing bindings
 that share the share the same address as the input variable.</p></li>
 <li><p><a href="nest.html">n</a>: Nested version of <a href="https://rdrr.io/r/base/c.html" class="external-link">c</a>,
 and short-hand for <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a>.</p></li>
@@ -259,8 +257,7 @@ taking into account the order and any duplicate values of both vectors.</p></li>
 
 <p>Besides the website,
 'squarebrackets' comes with several help pages
-that can be accessed from within 'R'. <br></p>
-<p>MAIN DOCUMENTATION:</p><ul><li><p><a href="aaa01_squarebrackets_supported_structures.html">squarebrackets_supported_structures</a>: <br>
+that can be accessed from within 'R'. <br></p><ul><li><p><a href="aaa01_squarebrackets_supported_structures.html">squarebrackets_supported_structures</a>: <br>
 Lists the structures that are supported by 'squarebrackets',
 and explains some related terminology.</p></li>
 <li><p><a href="aaa02_squarebrackets_indx_fundamentals.html">squarebrackets_indx_fundamentals</a>: <br>
@@ -273,23 +270,6 @@ Explains the essentials of modification in 'squarebrackets'</p></li>
 Lists and explains the options the user can specify in 'squarebrackets'.</p></li>
 <li><p><a href="aaa06_squarebrackets_method_dispatch.html">squarebrackets_method_dispatch</a>: <br>
 Gives details regarding the S3 method dispatch in 'squarebrackets'. <br><br></p></li>
-</ul><p>ADDITIONAL DOCUMENTATION:</p><ul><li><p><a href="aaa07_squarebrackets_PassByReference.html">squarebrackets_PassByReference</a>: <br>
-Explains Pass-by-Reference semantics, and its important consequences. <br>
-If you are not planning on using the pass-by-reference functionality
-in 'squarebrackets',
-you do not need to read this help page.</p></li>
-<li><p><a href="aaa08_squarebrackets_coercion.html">squarebrackets_coercion</a>: <br>
-Explains the difference in coercion rules between
-modification through Pass-by-Reference semantics and
-modification through copy (i.e. pass-by-value)
-for the supported mutable structures. <br>
-If you are not planning on using the pass-by-reference functionality
-in 'squarebrackets',
-you do not need to read this help page.</p></li>
-<li><p><a href="aaa09_squarebrackets_slicev.html">squarebrackets_slicev</a>: <br>
-Explains the arguments for the <a href="slicev.html">slicev</a> set of methods. <br>
-If you are not planning to use the <a href="slicev.html">slicev</a> methods,
-you do not need to read this help page. <br><br></p></li>
 </ul></div>
     <div class="section level2">
     <h2 id="properties-details">Properties Details<a class="anchor" aria-label="anchor" href="#properties-details"></a></h2>
