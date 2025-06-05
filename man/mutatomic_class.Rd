@@ -42,7 +42,7 @@ Returns \code{FALSE} otherwise. \cr \cr
 The \code{mutatomic} class is a mutable version of atomic classes. \cr
 It works exactly the same in all aspects as regular atomic classes. \cr
 There is only one real difference: \cr
-Pass-by-reference functions in (primarily) the 'squarebrackets' and 'broadcast' packages
+Pass-by-reference functions in 'squarebrackets'
 only accept atomic objects when they are of class \code{mutatomic},
 for greater safety. \cr
 In all other aspects, \code{mutatomic} objects are the same as R's regular atomic objects,
