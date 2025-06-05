@@ -2,7 +2,7 @@
 enumerate <- 0
 
 # atomic vector ====
-x <- mutatomic::mutatomic(1:10)
+x <- mutatomic(1:10)
 expect_error(
   i_mod(x),
   pattern = "must specify either `rp` or `tf`",
@@ -47,7 +47,7 @@ enumerate <- enumerate + 8L
 
 
 # atomic matrix ====
-x <- mutatomic::mutatomic(1:20, dim = c(5,4))
+x <- mutatomic(1:20, dim = c(5,4))
 expect_error(
   ss_mod(x),
   pattern = "must specify either `rp` or `tf`",
@@ -71,7 +71,7 @@ expect_error(
 
 
 # atomic 3d array ====
-x <- mutatomic::mutatomic(1:27, dim = c(3,3,3))
+x <- mutatomic(1:27, dim = c(3,3,3))
 expect_error(
   ss_mod(x),
   pattern = "must specify either `rp` or `tf`",

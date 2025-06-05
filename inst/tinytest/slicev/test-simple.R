@@ -9,7 +9,7 @@ errorfun <- function(tt) {
 
 enumerate <- 0L
 
-x <- mutatomic::mutatomic(1:1e7)
+x <- mutatomic(1:1e7)
 expect_equal(
   sum(x <= 10),
   countv(x, v = c(-Inf, 10))

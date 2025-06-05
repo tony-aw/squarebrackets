@@ -24,7 +24,7 @@ For the \code{B} part, the following is available:
 \item \verb{_x}: extract, exchange, or duplicate (if applicable) subsets.
 \item \verb{_wo}: returns the original object \bold{without} the provided subsets.
 \item \verb{_mod}: modify subsets and return copy.
-\item \verb{_set}: modify subsets using \link[=mutatomic_PassByReference]{pass-by-reference semantics}.
+\item \verb{_set}: modify subsets using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
 \item \verb{_rec}: access recursive subsets of lists - ONLY available with the \code{i2_} prefix.
 \item \verb{_recin}: replace, transform, delete, or extend recursive subsets of lists - ONLY available with the \code{i2_} prefix. \cr \cr
 }

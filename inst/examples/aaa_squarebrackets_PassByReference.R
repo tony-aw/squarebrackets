@@ -14,15 +14,15 @@ bindingIsLocked("myref", environment()) # ... but this pointer is not!
 
 if(requireNamespace("tinytest")) {
   tinytest::expect_error(
-    sb_set(myref, i = 1, rp = "XXX") # this still gives an error though ...
+    i_set(myref, i = 1, rp = "XXX") # this still gives an error though ...
   )
 }
 
-mutatomic::is.mutatomic(myref) # ... because it's not of class `mutatomic`
+is.mutatomic(myref) # ... because it's not of class `mutatomic`
 
 
 x <- list(
-  a = mutatomic::as.mutatomic(base::letters) # `mutatomic::as.mutatomic()` makes a copy
+  a = as.mutatomic(base::letters) # `as.mutatomic()` makes a copy
 )
 myref <- x$a # view of a list
 address(myref) == address(base::letters) # FALSE: it's a copy

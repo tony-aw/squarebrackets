@@ -1,3 +1,18 @@
+
+
+.pkgenv_mutatomic <- new.env(parent=emptyenv())
+
+.onLoad <- function(libname, pkgname) {
+  options(
+    squarebrackets.cn = FALSE,
+    squarebrackets.chkdup = FALSE,
+    squarebrackets.ma_messages = FALSE,
+    squarebrackets.sticky = c("difftime", "Date", "POSIXct", "roman", "hexmode", "octmode")
+  )
+  .pkgenv_mutatomic[["protected"]] <- .protected_addresses()
+}
+
+
 .onAttach <- function(libname, pkgname) {
   txt <- paste0(
     "Run `",
@@ -8,11 +23,4 @@
 }
 
 
-.onLoad <- function(libname, pkgname) {
-  options(
-    squarebrackets.cn = FALSE,
-    squarebrackets.chkdup = FALSE,
-    squarebrackets.ma_messages = FALSE,
-    squarebrackets.sticky = c("difftime", "Date", "POSIXct", "roman", "hexmode", "octmode")
-  )
-}
+

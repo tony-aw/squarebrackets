@@ -20,7 +20,7 @@
 #'  - `_x`: extract, exchange, or duplicate (if applicable) subsets.
 #'  - `_wo`: returns the original object \bold{without} the provided subsets.
 #'  - `_mod`: modify subsets and return copy.
-#'  - `_set`: modify subsets using \link[=mutatomic_PassByReference]{pass-by-reference semantics}.
+#'  - `_set`: modify subsets using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
 #'  - `_rec`: access recursive subsets of lists - ONLY available with the `i2_` prefix.
 #'  - `_recin`: replace, transform, delete, or extend recursive subsets of lists - ONLY available with the `i2_` prefix. \cr \cr
 #' 

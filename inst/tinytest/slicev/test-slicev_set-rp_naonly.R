@@ -34,7 +34,7 @@ rp.list <- list(
 )
 
 for(i in seq_along(x.list)) {
-  out <- x.list[[i]] |> mutatomic::as.mutatomic()
+  out <- x.list[[i]] |> as.mutatomic()
   y <- y.list[[i]]
   rp <- rp.list[[i]]
   
@@ -52,7 +52,7 @@ for(i in seq_along(x.list)) {
   ) |> errorfun()
   
   
-  out <- x.list[[i]] |> mutatomic::as.mutatomic()
+  out <- x.list[[i]] |> as.mutatomic()
   y <- y.list[[i]]
   rp <- rp.list[[i]]
   

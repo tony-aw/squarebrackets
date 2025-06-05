@@ -55,9 +55,7 @@ to be used in situations where the square bracket operators are inconvenient. \c
 \section{Overview Help Pages}{
 
 
-Besides the website,
-'squarebrackets' comes with several help pages
-that can be accessed from within 'R'. \cr
+The essential documentation is split into the following help pages:
 \itemize{
 \item \link{squarebrackets_supported_structures}: \cr
 Lists the structures that are supported by 'squarebrackets',
@@ -71,10 +69,24 @@ Explains the common indexing arguments used in the main S3 methods.
 \item \link{squarebrackets_modify}: \cr
 Explains the essentials of modification in 'squarebrackets'
 \item \link{squarebrackets_options}: \cr
-Lists and explains the options the user can specify in 'squarebrackets'.
-\item \link{squarebrackets_method_dispatch}: \cr
-Gives some small additional details regarding the S3 method dispatch used in 'squarebrackets'. \cr \cr
+Lists and explains the options the user can specify in 'squarebrackets'. \cr \cr
 }
+
+The following help pages explain the pass-by-reference semantics provided by 'squarebrackets',
+and only need to be read when planning to use those semantics:
+\itemize{
+\item \link{squarebrackets_PassByReference}: \cr
+Explains Pass-by-Reference semantics, and its important consequences.
+\item \link{squarebrackets_coercion}: \cr
+Explains the difference in coercion rules between
+modification through Pass-by-Reference semantics and
+modification through copy (i.e. pass-by-value). \cr \cr
+}
+
+And finally,
+there is the \link{squarebrackets_method_dispatch} help page,
+which gives some small additional details regarding
+the S3 method dispatch used in 'squarebrackets'. \cr \cr
 }
 
 \section{Helper Functions}{

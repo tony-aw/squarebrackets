@@ -4,7 +4,7 @@
 #' Functions to rename a
 #' \link[=squarebrackets_supported_structures]{supported mutable object}
 #' using
-#' \link[=mutatomic_PassByReference]{pass-by-reference semantics}:
+#' \link[=squarebrackets_PassByReference]{pass-by-reference semantics}:
 #' 
 #'  * `sb_setFlatnames()` renames the (flat) names of a `mutatomic` object. 
 #'  * `sb_setDimnames()` renames the dimension names of a `mutatomic` object.
@@ -56,7 +56,7 @@ NULL
 sb_setFlatnames <- function(x, i = NULL, newnames, ...) {
   
   # error checks:
-  mutatomic::stopifnot_ma_safe2mutate(substitute(x), parent.frame(n = 1), sys.call())
+  stopifnot_ma_safe2mutate(substitute(x), parent.frame(n = 1), sys.call())
   
   # Case 1: remove names (also works if `x` didn't have names in the first place)
   if(is.null(newnames)) {
@@ -110,7 +110,7 @@ sb_setFlatnames <- function(x, i = NULL, newnames, ...) {
 sb_setDimnames <- function(x, m, newdimnames, ...) {
   
   # error checks:
-  mutatomic::stopifnot_ma_safe2mutate(substitute(x), parent.frame(n = 1), sys.call())
+  stopifnot_ma_safe2mutate(substitute(x), parent.frame(n = 1), sys.call())
   
   
   # remove dimnames:

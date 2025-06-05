@@ -1,7 +1,7 @@
 
 
 # dimensions ==== 
-x <- mutatomic::as.mutatomic(array(1:27, c(3,3,3)))
+x <- as.mutatomic(array(1:27, c(3,3,3)))
 expect_error(
   sb_test(x, s = list(1:10, 2:5), d = c(1:3)),
   pattern = "`length(s)` must equal `length(d)`",
@@ -67,7 +67,7 @@ enumerate <- enumerate + 1
 
 # duplicates ====
 if(!test_allow_duplicates) {
-  x <- mutatomic::as.mutatomic(matrix(1:10, ncol=2))
+  x <- as.mutatomic(matrix(1:10, ncol=2))
   names(x) <- letters[1:10]
   
   expect_error(
@@ -79,7 +79,7 @@ if(!test_allow_duplicates) {
     pattern = "duplicate integers or names not allowed"
   ) |> errorfun()
   
-  x <- mutatomic::as.mutatomic(array(1:27, c(3,3,3)))
+  x <- as.mutatomic(array(1:27, c(3,3,3)))
   rownames(x) <- c("a", "a", "b")
   expect_error(
     sb_test(x, list(c(1,1,1)), d = 1, chkdup = TRUE),
@@ -115,19 +115,19 @@ if(test_allow_duplicates) {
   
 }
 
-x <- mutatomic::mutatomic(1:10)
+x <- mutatomic(1:10)
 expect_error(
   sb_test(x, foo = TRUE),
   pattern = "unknown arguments given"
 )
 
-x <- mutatomic::mutatomic(1:20, dim = c(4,5))
+x <- mutatomic(1:20, dim = c(4,5))
 expect_error(
   sb_test(x, foo = TRUE),
   pattern = "unknown arguments given"
 )
 
-x <- mutatomic::mutatomic(1:27, dim = c(3,3,3))
+x <- mutatomic(1:27, dim = c(3,3,3))
 expect_error(
   sb_test(x, foo = TRUE),
   pattern = "unknown arguments given"

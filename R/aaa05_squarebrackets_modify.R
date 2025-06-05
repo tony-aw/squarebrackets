@@ -49,7 +49,7 @@
 #' Pass-by-Reference is fastest and the most memory efficient. \cr
 #' But it is also more involved than the other modification forms,
 #' and requires more thought. \cr
-#' See \link[mutatomic]{mutatomic_PassByReference} for more information. \cr
+#' See \link{squarebrackets_PassByReference} for more information. \cr
 #' \cr
 #' \cr
 #' 
@@ -136,7 +136,7 @@
 #' \cr
 #' When using Pass-by-Reference semantics,
 #' the user should be extra mindful of the auto-coercion rules. \cr
-#' See \link{mutatomic_coercion} for details. \cr
+#' See \link{squarebrackets_coercion} for details. \cr
 #' \cr
 #' 
 #' 

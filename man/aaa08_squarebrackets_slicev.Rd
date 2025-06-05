@@ -221,7 +221,7 @@ as doing so will avoid a lot of unnecessary confusion. \cr \cr
 
 # basic idea ====
 nms <- c(letters, LETTERS, month.abb, month.name) |> rep_len(1e6)
-x <- mutatomic::mutatomic(1:1e6, names = nms)
+x <- mutatomic(1:1e6, names = nms)
 head(x)
 
 # memory efficient form of sum(x <= 10):
@@ -238,7 +238,7 @@ head(x, n = 10)
 ################################################################################
 # Numeric range ====
 #
-x <- mutatomic::mutatomic(1:1e6)
+x <- mutatomic(1:1e6)
 head(x)
 slicev_x(x, v= c(-Inf, 5)) # x[x <= 5]
 

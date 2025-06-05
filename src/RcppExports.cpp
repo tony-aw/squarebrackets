@@ -509,6 +509,30 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
+// rcpp_address
+String rcpp_address(SEXP x);
+RcppExport SEXP _squarebrackets_rcpp_address(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_address(x));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_list_bindings
+CharacterVector rcpp_list_bindings(String ref_address, Environment env, CharacterVector ls);
+RcppExport SEXP _squarebrackets_rcpp_list_bindings(SEXP ref_addressSEXP, SEXP envSEXP, SEXP lsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< String >::type ref_address(ref_addressSEXP);
+    Rcpp::traits::input_parameter< Environment >::type env(envSEXP);
+    Rcpp::traits::input_parameter< CharacterVector >::type ls(lsSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_list_bindings(ref_address, env, ls));
+    return rcpp_result_gen;
+END_RCPP
+}
 // C_prod_int
 int C_prod_int(SEXP x, int start, int end);
 RcppExport SEXP _squarebrackets_C_prod_int(SEXP xSEXP, SEXP startSEXP, SEXP endSEXP) {
@@ -594,6 +618,39 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< IntegerVector >::type y(ySEXP);
     rcpp_result_gen = Rcpp::wrap(rcpp_recycle_seq_mlen(x, y));
     return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_serial
+SEXP rcpp_serial(SEXP x);
+RcppExport SEXP _squarebrackets_rcpp_serial(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_serial(x));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_is_ma
+bool rcpp_is_ma(RObject x);
+RcppExport SEXP _squarebrackets_rcpp_is_ma(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< RObject >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_is_ma(x));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_set_ma
+void rcpp_set_ma(RObject x, CharacterVector newclass);
+RcppExport SEXP _squarebrackets_rcpp_set_ma(SEXP xSEXP, SEXP newclassSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< RObject >::type x(xSEXP);
+    Rcpp::traits::input_parameter< CharacterVector >::type newclass(newclassSEXP);
+    rcpp_set_ma(x, newclass);
+    return R_NilValue;
 END_RCPP
 }
 // rcpp_set_array_DTYPEd_atomic
@@ -737,6 +794,7 @@ BEGIN_RCPP
 END_RCPP
 }
 
+RcppExport SEXP C_any_address(SEXP, SEXP);
 RcppExport SEXP C_any_badindx(SEXP, SEXP);
 RcppExport SEXP C_any_badmargin(SEXP, SEXP);
 RcppExport SEXP C_any_neg(SEXP);
@@ -744,8 +802,10 @@ RcppExport SEXP C_any_nonNULL(SEXP);
 RcppExport SEXP C_any_nonpos(SEXP);
 RcppExport SEXP C_convert_cplx_32(SEXP, SEXP);
 RcppExport SEXP C_convert_cplx_64(SEXP, SEXP);
+RcppExport SEXP C_copy(SEXP);
 RcppExport SEXP C_is_altrep(SEXP);
 RcppExport SEXP C_match_range(SEXP, SEXP);
+RcppExport SEXP C_serial(SEXP);
 RcppExport SEXP C_sub2ind_16d_32(SEXP, SEXP);
 RcppExport SEXP C_sub2ind_16d_64(SEXP, SEXP);
 
@@ -787,6 +847,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_squarebrackets_rcpp_whichv_32", (DL_FUNC) &_squarebrackets_rcpp_whichv_32, 8},
     {"_squarebrackets_rcpp_slicev_x_atomic", (DL_FUNC) &_squarebrackets_rcpp_slicev_x_atomic, 9},
     {"_squarebrackets_rcpp_slicev_set_atomic", (DL_FUNC) &_squarebrackets_rcpp_slicev_set_atomic, 10},
+    {"_squarebrackets_rcpp_address", (DL_FUNC) &_squarebrackets_rcpp_address, 1},
+    {"_squarebrackets_rcpp_list_bindings", (DL_FUNC) &_squarebrackets_rcpp_list_bindings, 3},
     {"_squarebrackets_C_prod_int", (DL_FUNC) &_squarebrackets_C_prod_int, 3},
     {"_squarebrackets_C_pre_coord2ind", (DL_FUNC) &_squarebrackets_C_pre_coord2ind, 3},
     {"_squarebrackets_rcpp_coord2ind", (DL_FUNC) &_squarebrackets_rcpp_coord2ind, 3},
@@ -794,6 +856,9 @@ static const R_CallMethodDef CallEntries[] = {
     {"_squarebrackets_rcpp_dt_find_name", (DL_FUNC) &_squarebrackets_rcpp_dt_find_name, 3},
     {"_squarebrackets_rcpp_seq_mlen", (DL_FUNC) &_squarebrackets_rcpp_seq_mlen, 1},
     {"_squarebrackets_rcpp_recycle_seq_mlen", (DL_FUNC) &_squarebrackets_rcpp_recycle_seq_mlen, 2},
+    {"_squarebrackets_rcpp_serial", (DL_FUNC) &_squarebrackets_rcpp_serial, 1},
+    {"_squarebrackets_rcpp_is_ma", (DL_FUNC) &_squarebrackets_rcpp_is_ma, 1},
+    {"_squarebrackets_rcpp_set_ma", (DL_FUNC) &_squarebrackets_rcpp_set_ma, 2},
     {"_squarebrackets_rcpp_set_array_DTYPEd_atomic", (DL_FUNC) &_squarebrackets_rcpp_set_array_DTYPEd_atomic, 4},
     {"_squarebrackets_rcpp_set_array_general_atomic", (DL_FUNC) &_squarebrackets_rcpp_set_array_general_atomic, 4},
     {"_squarebrackets_rcpp_set_namepointer", (DL_FUNC) &_squarebrackets_rcpp_set_namepointer, 3},
@@ -804,6 +869,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_squarebrackets_rcpp_sub2ind_general64", (DL_FUNC) &_squarebrackets_rcpp_sub2ind_general64, 6},
     {"_squarebrackets_C_sub2ind_setrange32", (DL_FUNC) &_squarebrackets_C_sub2ind_setrange32, 6},
     {"_squarebrackets_rcpp_sub2ind_general32", (DL_FUNC) &_squarebrackets_rcpp_sub2ind_general32, 6},
+    {"C_any_address",     (DL_FUNC) &C_any_address,     2},
     {"C_any_badindx",     (DL_FUNC) &C_any_badindx,     2},
     {"C_any_badmargin",   (DL_FUNC) &C_any_badmargin,   2},
     {"C_any_neg",         (DL_FUNC) &C_any_neg,         1},
@@ -811,8 +877,10 @@ static const R_CallMethodDef CallEntries[] = {
     {"C_any_nonpos",      (DL_FUNC) &C_any_nonpos,      1},
     {"C_convert_cplx_32", (DL_FUNC) &C_convert_cplx_32, 2},
     {"C_convert_cplx_64", (DL_FUNC) &C_convert_cplx_64, 2},
+    {"C_copy",            (DL_FUNC) &C_copy,            1},
     {"C_is_altrep",       (DL_FUNC) &C_is_altrep,       1},
     {"C_match_range",     (DL_FUNC) &C_match_range,     2},
+    {"C_serial",          (DL_FUNC) &C_serial,          1},
     {"C_sub2ind_16d_32",  (DL_FUNC) &C_sub2ind_16d_32,  2},
     {"C_sub2ind_16d_64",  (DL_FUNC) &C_sub2ind_16d_64,  2},
     {NULL, NULL, 0}

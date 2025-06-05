@@ -27,6 +27,8 @@ reference:
   - '`aaa06_squarebrackets_options`'
   - '`aaa07_squarebrackets_method_dispatch`'
   - '`aaa08_squarebrackets_slicev`'
+  - '`aaa09_squarebrackets_PassByReference`'
+  - '`aaa10_squarebrackets_coercion`'
 - title: Generic Methods
   contents:
   - '`i_x`'
@@ -39,6 +41,9 @@ reference:
   - '`slice_x`'
   - '`slicev_x`'
   - '`cp_seq`'
+- title: mutatomic class
+  contents:
+  - '`mutatomic`'
 - title: Specialized Functions
   contents:
   - '`dt`'
@@ -53,6 +58,7 @@ reference:
   - '`idx_ord_v`'
 - title: Developer Functions
   contents:
+  - '`stopifnot_ma_safe2mutate`'
   - '`ci_flat`'
   - '`tci_chr`'
   - '`indx_x`'

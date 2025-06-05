@@ -5,23 +5,23 @@
 #' These functions do not use Non-Standard Evaluation. \cr
 #' These functions also benefit from the security measures that
 #' 'squarebrackets' implements for 
-#' the \link[=mutatomic_PassByReference]{pass-by-reference semantics}. \cr
+#' the \link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr
 #' 
 #'  * `dt_aggregate()`
 #'  aggregates a data.table or tidytable, and returns the aggregated copy.
 #'  * `dt_setcoe()`
 #'  coercively transforms columns of a data.table or tidytable
-#'  using \link[=mutatomic_PassByReference]{pass-by-reference semantics}.
+#'  using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
 #'  * `dt_setrm()`
 #'  removes columns of a data.table or tidytable
-#'  using \link[=mutatomic_PassByReference]{pass-by-reference semantics}.
+#'  using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
 #'  * `dt_setadd(x, new)`
 #'  adds the columns from data.table/tidytable `new` to data.table/tidytable `x`,
 #'  thereby modifying `x`
-#'  using \link[=mutatomic_PassByReference]{pass-by-reference semantics}.
+#'  using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
 #'  * `dt_setreorder()`
 #'  reorders the rows and/or variables of a `data.table`
-#'  using \link[=mutatomic_PassByReference]{pass-by-reference semantics}. \cr \cr
+#'  using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr \cr
 #' 
 #' 
 #' 

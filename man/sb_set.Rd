@@ -72,14 +72,14 @@ An empty index selection leaves the original object unchanged. \cr}
 }
 \value{
 Returns: VOID. This method modifies the object by reference. \cr
-Do not use assignments like \code{x <- sb_set(x, ...)}. \cr
+Do not use assignments like \code{x <- i_set(x, ...)}. \cr
 Since this function returns void, you'll just get \code{NULL}. \cr \cr
 }
 \description{
 Methods to replace or transform a subset of a
 \link[=squarebrackets_supported_structures]{supported mutable object}
 using
-\link[=mutatomic_PassByReference]{pass-by-reference semantics}. \cr
+\link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr
 }
 \details{
 \bold{Transform or Replace} \cr
@@ -94,7 +94,7 @@ One cannot specify both \code{tf} and \code{rp}. It's either one set or the othe
 # mutatomic objects ====
 
 gen_mat <- function() {
-  obj <- mutatomic::as.mutatomic(matrix(1:16, ncol = 4))
+  obj <- as.mutatomic(matrix(1:16, ncol = 4))
   colnames(obj) <- c("a", "b", "c", "a")
   return(obj)
 }
@@ -143,7 +143,7 @@ obj2
 
 
 gen_array <- function() {
-  mutatomic::as.mutatomic(array(1:64, c(4,4,3)))
+  as.mutatomic(array(1:64, c(4,4,3)))
 }
 obj <- obj2 <- gen_array()
 obj

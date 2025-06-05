@@ -27,7 +27,9 @@
 <url><loc>https://tony-aw.github.io/squarebrackets/reference/aaa07_squarebrackets_slicev.html</loc></url>
 <url><loc>https://tony-aw.github.io/squarebrackets/reference/aaa08_squarebrackets_coercion.html</loc></url>
 <url><loc>https://tony-aw.github.io/squarebrackets/reference/aaa08_squarebrackets_slicev.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/reference/aaa09_squarebrackets_PassByReference.html</loc></url>
 <url><loc>https://tony-aw.github.io/squarebrackets/reference/aaa09_squarebrackets_slicev.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/reference/aaa10_squarebrackets_coercion.html</loc></url>
 <url><loc>https://tony-aw.github.io/squarebrackets/reference/as.mutable_atomic.default.html</loc></url>
 <url><loc>https://tony-aw.github.io/squarebrackets/reference/as.mutable_atomic.html</loc></url>
 <url><loc>https://tony-aw.github.io/squarebrackets/reference/bind.html</loc></url>
@@ -56,6 +58,8 @@
 <url><loc>https://tony-aw.github.io/squarebrackets/reference/lst_untree.html</loc></url>
 <url><loc>https://tony-aw.github.io/squarebrackets/reference/match_all.html</loc></url>
 <url><loc>https://tony-aw.github.io/squarebrackets/reference/mutable_atomic.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/reference/mutatomic_class.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/reference/mutatomic_developer.html</loc></url>
 <url><loc>https://tony-aw.github.io/squarebrackets/reference/ndim.html</loc></url>
 <url><loc>https://tony-aw.github.io/squarebrackets/reference/nest.html</loc></url>
 <url><loc>https://tony-aw.github.io/squarebrackets/reference/print.mutable_atomic.html</loc></url>
@@ -95,8 +99,6 @@
 <url><loc>https://tony-aw.github.io/squarebrackets/reference/setapply.html</loc></url>
 <url><loc>https://tony-aw.github.io/squarebrackets/reference/slice.html</loc></url>
 <url><loc>https://tony-aw.github.io/squarebrackets/reference/slicev.html</loc></url>
-<url><loc>https://tony-aw.github.io/squarebrackets/reference/squarebrackets_coercion.html</loc></url>
-<url><loc>https://tony-aw.github.io/squarebrackets/reference/squarebrackets_PassByReference.html</loc></url>
 <url><loc>https://tony-aw.github.io/squarebrackets/reference/sub2ind.html</loc></url>
 <url><loc>https://tony-aw.github.io/squarebrackets/reference/typecast.mutable_atomic.html</loc></url>
 <url><loc>https://tony-aw.github.io/squarebrackets/reference/[.mutable_atomic.html</loc></url>

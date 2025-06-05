@@ -6,7 +6,6 @@
 \alias{first}
 \alias{last}
 \alias{copy}
-\alias{address}
 \title{Objects exported from other packages}
 \keyword{internal}
 \description{
@@ -14,6 +13,6 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{data.table}{\code{\link[data.table]{address}}, \code{\link[data.table]{copy}}, \code{\link[data.table:last]{first}}, \code{\link[data.table]{last}}}
+  \item{data.table}{\code{\link[data.table]{copy}}, \code{\link[data.table:last]{first}}, \code{\link[data.table]{last}}}
 }}
 

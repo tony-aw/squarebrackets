@@ -26,7 +26,7 @@ for(iD in 1:length(x.data)) {
     temp.ind <- indices[[iIndices]]
     if(is.null(temp.ind)) temp.ind <- 1:100
     
-    x <- mutatomic::mutatomic(x.data[[iD]])
+    x <- mutatomic(x.data[[iD]])
     x2 <- x
     x2[ temp.ind ] <- rev(x2[ temp.ind ])
     rp <- rev(x[ temp.ind ])
@@ -39,7 +39,7 @@ for(iD in 1:length(x.data)) {
     enumerate <- enumerate + 1
     
     if(!is.raw(x)) {
-      x <- mutatomic::mutatomic(x.data[[iD]])
+      x <- mutatomic(x.data[[iD]])
       x.len <- length(x[ temp.ind ])
       x2 <- x
       rp <- rep(NA, x.len)
@@ -63,7 +63,7 @@ for(iD in 1:length(x.data)) {
     temp.ind <- indices[[iIndices]]
     if(is.null(temp.ind)) temp.ind <- 1:100
     
-    x <- mutatomic::mutatomic(x.data[[iD]])
+    x <- mutatomic(x.data[[iD]])
     x2 <- x
     rp <- rev(x[ temp.ind ])
     i_set(x, temp.ind, rp = rp)
@@ -75,7 +75,7 @@ for(iD in 1:length(x.data)) {
     enumerate <- enumerate + 1
     
     if(!is.raw(x)) {
-      x <- mutatomic::mutatomic(x.data[[iD]])
+      x <- mutatomic(x.data[[iD]])
       x.len <- length(x[ temp.ind ])
       x2 <- x
       rp <- rep(NA, x.len)

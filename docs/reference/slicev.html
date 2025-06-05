@@ -17,7 +17,7 @@ occurs in a vector subset y[from:to].  "></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">squarebrackets</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -99,7 +99,7 @@ occurs in a vector subset <code>y[from:to]</code>. <br><br></p>
 
 <dl><dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
 <dd><p>an atomic vector. <br>
-For <code>slicev_set()</code> it must be a <a href="https://rdrr.io/pkg/mutatomic/man/mutatomic_class.html" class="external-link">mutatomic</a> <b>variable</b>.</p></dd>
+For <code>slicev_set()</code> it must be a mutatomic <b>variable</b>.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
@@ -140,7 +140,7 @@ giving the number of elements matching the specified condition. <br><br></p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># basic idea ====</span></span></span>
 <span class="r-in"><span><span class="va">nms</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">letters</span>, <span class="va">LETTERS</span>, <span class="va">month.abb</span>, <span class="va">month.name</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep_len</a></span><span class="op">(</span><span class="fl">1e6</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">mutatomic</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/mutatomic/man/mutatomic_class.html" class="external-link">mutatomic</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">1e6</span>, names <span class="op">=</span> <span class="va">nms</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="mutatomic_class.html">mutatomic</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">1e6</span>, names <span class="op">=</span> <span class="va">nms</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> a b c d e f </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 2 3 4 5 6 </span>
@@ -170,7 +170,7 @@ giving the number of elements matching the specified condition. <br><br></p>
 <span class="r-in"><span><span class="co">################################################################################</span></span></span>
 <span class="r-in"><span><span class="co"># Numeric range ====</span></span></span>
 <span class="r-in"><span><span class="co">#</span></span></span>
-<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">mutatomic</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/mutatomic/man/mutatomic_class.html" class="external-link">mutatomic</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">1e6</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="mutatomic_class.html">mutatomic</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">1e6</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1 2 3 4 5 6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> mutatomic </span>

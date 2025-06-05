@@ -1,8 +1,6 @@
 
 if ( requireNamespace("tinytest", quietly = TRUE) ){
   
-  ON_CRAN <- FALSE # I set this to TRUE when submitting to CRAN
-  
   tinytest::test_package(
     "squarebrackets", set_env=list(LC_COLLATE="C")
   )
@@ -40,7 +38,9 @@ if ( requireNamespace("tinytest", quietly = TRUE) ){
   tinytest::test_package(
     "squarebrackets", testdir = "tinytest/generic_idx", set_env=list(LC_COLLATE="C")
   )
-  
+  tinytest::test_package(
+    "squarebrackets", testdir = "tinytest/mutatomic", set_env=list(LC_COLLATE="C")
+  )
   
 }
 

@@ -84,3 +84,21 @@
   .Call("C_match_range", o = o, m = m)
 }
 
+
+#' @keywords Internal
+#' @noRd
+.C_serial <- function(x) {
+  .Call("C_serial", x = x)
+}
+
+#' @keywords Internal
+#' @noRd
+.C_any_address <- function(x, v) {
+  .Call("C_any_address", x = x, v = v)
+}
+
+#' @keywords Internal
+#' @noRd
+.C_copy <- function(x) {
+  .Call("C_copy", x = x)
+}

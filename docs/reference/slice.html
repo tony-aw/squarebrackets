@@ -11,7 +11,7 @@ and are designed for memory efficiency.  "></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">squarebrackets</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -89,7 +89,7 @@ and are designed for memory efficiency. <br><br></p>
 
 <dl><dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
 <dd><p>an atomic object. <br>
-For <code>slice_set</code> it must be a <a href="https://rdrr.io/pkg/mutatomic/man/mutatomic_class.html" class="external-link">mutatomic</a> <b>variable</b>.</p></dd>
+For <code>slice_set</code> it must be a mutatomic <b>variable</b>.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
@@ -130,7 +130,7 @@ If <code>TRUE</code>,
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">mutatomic</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/mutatomic/man/mutatomic_class.html" class="external-link">mutatomic</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">1e7</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="mutatomic_class.html">mutatomic</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">1e7</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># extract:</span></span></span>
 <span class="r-in"><span><span class="fu">slice_x</span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span>, <span class="fl">10</span><span class="op">)</span></span></span>
@@ -152,7 +152,7 @@ If <code>TRUE</code>,
 <span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  integer </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># replace every other element:</span></span></span>
-<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">mutatomic</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/mutatomic/man/mutatomic_class.html" class="external-link">mutatomic</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">1e7</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="mutatomic_class.html">mutatomic</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">1e7</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">slice_set</span><span class="op">(</span><span class="va">x</span>, <span class="fl">2</span>, <span class="op">-</span><span class="fl">1i</span>, <span class="fl">2</span>, rp <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> coercing replacement to integer</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
@@ -161,7 +161,7 @@ If <code>TRUE</code>,
 <span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  integer </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># replace all elements except the first element:</span></span></span>
-<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">mutatomic</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/mutatomic/man/mutatomic_class.html" class="external-link">mutatomic</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">1e7</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="mutatomic_class.html">mutatomic</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">1e7</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">slice_set</span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span>, <span class="fl">1</span>, inv <span class="op">=</span> <span class="cn">TRUE</span>, rp <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> coercing replacement to integer</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>

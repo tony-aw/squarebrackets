@@ -1,6 +1,6 @@
 
 
-x <- mutatomic::as.mutatomic(1:10)
+x <- as.mutatomic(1:10)
 y <- x
 lockBinding("y", environment())
 currentBindings(x)

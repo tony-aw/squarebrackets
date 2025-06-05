@@ -89,8 +89,8 @@ slicev_x.default <- function(
     data.table::setattr(out, "levels", attr(x, "levels", exact = TRUE))
     data.table::setattr(out, "class", oldClass(x))
   }
-  if(mutatomic::is.mutatomic(x)) {
-    mutatomic::.internal_set_ma(out)
+  if(is.mutatomic(x)) {
+    .internal_set_ma(out)
   }
   if(is.logical(sticky) && length(sticky) == 1L) {
     if(sticky) {
@@ -123,7 +123,7 @@ slicev_set.default <- function(
 ) {
   
   # error checks:
-  mutatomic::stopifnot_ma_safe2mutate(substitute(x), parent.frame(n = 1), sys.call())
+  stopifnot_ma_safe2mutate(substitute(x), parent.frame(n = 1), sys.call())
   .internal_check_rptf(rp, tf, sys.call())
 
   # general checks:

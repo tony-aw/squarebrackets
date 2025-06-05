@@ -87,9 +87,9 @@ But for any data.frame \code{x}, it is the case that \code{length(x) == ncol(x)}
 \bold{Mutable vs Immutable} \cr
 Most of base R's S3 classes (except Environments) are generally immutable: \cr
 Modifying the object will create a copy (called 'copy-on-modify'). \cr
-They have no explicit \link[=mutatomic_PassByReference]{pass-by-reference} semantics. \cr
+They have no explicit \link[=squarebrackets_PassByReference]{pass-by-reference} semantics. \cr
 Most S3 objects in base 'R' are immutable: \cr
-Environments do have \link[=mutatomic_PassByReference]{pass-by-reference} semantics,
+Environments do have \link[=squarebrackets_PassByReference]{pass-by-reference} semantics,
 but they are not supported by 'squarebrackets'. \cr
 \cr
 Supported mutable structures:

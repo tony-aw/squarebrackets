@@ -7,7 +7,7 @@ loadNamespace("bench")
 library(future.apply)
 
 
-x <- mutatomic::mutatomic(1:1e6)
+x <- mutatomic(1:1e6)
 bm.setv <- bench::mark(
   "base `x[which(x==v)] <- rp`" = x[which(x==10)] <- -10,
   "squarebrackets::ma_setv" = ma_setv(x, 10, -10, NA.safety = FALSE),
@@ -21,7 +21,7 @@ save(bm.setv, file = "bm.setv.RData")
 
 
 n <- 2000
-x <- mutatomic::mutatomic(seq_len(n^2), dim = c(n,n))
+x <- mutatomic(seq_len(n^2), dim = c(n,n))
 bm.setapply <- bench::mark(
   sb = setapply(x, 1, rev),
   base = apply(x, 1, rev),

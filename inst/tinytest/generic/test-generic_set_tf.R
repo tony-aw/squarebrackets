@@ -11,7 +11,7 @@ test_PassByReference <- TRUE
 
 i_set2 <- function(x, ...) {
   x <- data.table::copy(x)
-  if(is.atomic(x)) x <- mutatomic::as.mutatomic(x)
+  if(is.atomic(x)) x <- as.mutatomic(x)
   x2 <- x
   i_set(x, ...)
   if(!identical(x, x2)) { stop("PassByReference fail")}
@@ -19,7 +19,7 @@ i_set2 <- function(x, ...) {
 }
 ss_set2 <- function(x, ...) {
   x <- data.table::copy(x)
-  if(is.atomic(x)) x <- mutatomic::as.mutatomic(x)
+  if(is.atomic(x)) x <- as.mutatomic(x)
   x2 <- x
   ss_set.default(x, ...)
   if(!identical(x, x2)) { stop("PassByReference fail")}
@@ -32,7 +32,7 @@ ss_set2 <- function(x, ...) {
 
 temp.fun <- function(x) {
   tempfun <- function(x) {
-    x <- mutatomic::as.mutatomic(x)
+    x <- as.mutatomic(x)
     x[] <- x[1]
     return(x)
   }
@@ -48,7 +48,7 @@ sys.source(file.path(getwd(), "source", "sourcetest-missingargs.R"), envir = env
 
 temp.fun <- function(x) {
   tempfun <- function(x) {
-    x <- mutatomic::as.mutatomic(x)
+    x <- as.mutatomic(x)
     x[] <- x[1]
     return(x)
   }
@@ -66,7 +66,7 @@ sys.source(file.path(getwd(), "source", "sourcetest-missingargs.R"), envir = env
 # test elements ====
 
 test_sb <- function(x, i) {
-  if(is.atomic(x)) x <- mutatomic::as.mutatomic(x)
+  if(is.atomic(x)) x <- as.mutatomic(x)
   i <- indx_x(i, x, names(x), length(x))
   if(length(i) == 0) return(x)
   x[i] <- min(x[i])
@@ -112,7 +112,7 @@ pre_subset_mat <- function(x, row = NULL, col = NULL) {
 
 f_expect.matrix <- f_expect.2d <- function(x, row = NULL, col = NULL) {
   
-  if(is.atomic(x)) x <- mutatomic::as.mutatomic(x)
+  if(is.atomic(x)) x <- as.mutatomic(x)
   
   if(!is.null(row)) row <- indx_x(row, x, rownames(x), nrow(x))
   if(!is.null(col)) col <- indx_x(col, x, colnames(x), ncol(x))
@@ -144,7 +144,7 @@ pre_subset_1d <- function(x, i) {
 
 f_expect.1d <- function(x, i) {
   
-  if(is.atomic(x)) x <- mutatomic::as.mutatomic(x)
+  if(is.atomic(x)) x <- as.mutatomic(x)
   i <- indx_x(i, x, dimnames(x)[[1]], length(x))
   
   if(any_empty_indices(i)) {
@@ -168,7 +168,7 @@ sb_test <- function(x, ...) {
 }
 
 f_expect.arbitrary <- function(x, i, j, l) {
-  if(is.atomic(x)) x <- mutatomic::as.mutatomic(x)
+  if(is.atomic(x)) x <- as.mutatomic(x)
   tf <- mean
   i <- indx_x(i, x, rownames(x), nrow(x))
   j <- indx_x(j, x, colnames(x), ncol(x))
@@ -185,7 +185,7 @@ sys.source(file.path(getwd(), "source", "sourcetest-dims.R"), envir = environmen
 
 
 sb_test <- function(x, ...) {
-  x <- mutatomic::as.mutatomic(x)
+  x <- as.mutatomic(x)
   i_set(x, ..., tf = \(x)x[1])
   return(x)
 }
@@ -193,7 +193,7 @@ sys.source(file.path(getwd(), "source", "sourcetest-errors-i.R"), envir = enviro
 
 
 sb_test <- function(x, ...) {
-  x <- mutatomic::as.mutatomic(x)
+  x <- as.mutatomic(x)
   ss_set(x, ..., tf = \(x)x[1])
   return(x)
 }
@@ -201,7 +201,7 @@ sys.source(file.path(getwd(), "source", "sourcetest-errors-ss.R"), envir = envir
 
 
 
-x <- mutatomic::as.mutatomic(x)
+x <- as.mutatomic(x)
 expect_error(
   i_set(x, i = 1, tf = "foo"),
   pattern = "`tf` must be a function"

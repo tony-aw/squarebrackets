@@ -13,7 +13,7 @@ pass-by-reference semantics. "></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">squarebrackets</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,7 +49,7 @@ pass-by-reference semantics. "></head><body>
     <p>Methods to replace or transform a subset of a
 <a href="aaa01_squarebrackets_supported_structures.html">supported mutable object</a>
 using
-pass-by-reference semantics. <br></p>
+<a href="aaa09_squarebrackets_PassByReference.html">pass-by-reference semantics</a>. <br></p>
     </div>
 
     <div class="section level2">
@@ -133,7 +133,7 @@ An empty index selection leaves the original object unchanged. <br></p></dd>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>Returns: VOID. This method modifies the object by reference. <br>
-Do not use assignments like <code>x &lt;- sb_set(x, ...)</code>. <br>
+Do not use assignments like <code>x &lt;- i_set(x, ...)</code>. <br>
 Since this function returns void, you'll just get <code>NULL</code>. <br><br></p>
     </div>
     <div class="section level2">
@@ -151,7 +151,7 @@ One cannot specify both <code>tf</code> and <code>rp</code>. It's either one set
 <span class="r-in"><span><span class="co"># mutatomic objects ====</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">gen_mat</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span>  <span class="va">obj</span> <span class="op">&lt;-</span> <span class="fu">mutatomic</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/mutatomic/man/mutatomic_class.html" class="external-link">as.mutatomic</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">16</span>, ncol <span class="op">=</span> <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">obj</span> <span class="op">&lt;-</span> <span class="fu"><a href="mutatomic_class.html">as.mutatomic</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">16</span>, ncol <span class="op">=</span> <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>, <span class="st">"a"</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
@@ -284,7 +284,7 @@ One cannot specify both <code>tf</code> and <code>rp</code>. It's either one set
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">gen_array</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span>  <span class="fu">mutatomic</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/mutatomic/man/mutatomic_class.html" class="external-link">as.mutatomic</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/array.html" class="external-link">array</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">64</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">4</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="mutatomic_class.html">as.mutatomic</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/array.html" class="external-link">array</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">64</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">4</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span><span class="va">obj</span> <span class="op">&lt;-</span> <span class="va">obj2</span> <span class="op">&lt;-</span> <span class="fu">gen_array</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">obj</span></span></span>

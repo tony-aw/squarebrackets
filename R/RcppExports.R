@@ -225,6 +225,18 @@
 
 #' @keywords internal
 #' @noRd
+.rcpp_address <- function(x) {
+    .Call(`_squarebrackets_rcpp_address`, x)
+}
+
+#' @keywords internal
+#' @noRd
+.rcpp_list_bindings <- function(ref_address, env, ls) {
+    .Call(`_squarebrackets_rcpp_list_bindings`, ref_address, env, ls)
+}
+
+#' @keywords internal
+#' @noRd
 .C_prod_int <- function(x, start, end) {
     .Call(`_squarebrackets_C_prod_int`, x, start, end)
 }
@@ -263,6 +275,24 @@
 #' @noRd
 .rcpp_recycle_seq_mlen <- function(x, y) {
     .Call(`_squarebrackets_rcpp_recycle_seq_mlen`, x, y)
+}
+
+#' @keywords internal
+#' @noRd
+.rcpp_serial <- function(x) {
+    .Call(`_squarebrackets_rcpp_serial`, x)
+}
+
+#' @keywords internal
+#' @noRd
+.rcpp_is_ma <- function(x) {
+    .Call(`_squarebrackets_rcpp_is_ma`, x)
+}
+
+#' @keywords internal
+#' @noRd
+.rcpp_set_ma <- function(x, newclass) {
+    invisible(.Call(`_squarebrackets_rcpp_set_ma`, x, newclass))
 }
 
 #' @keywords internal

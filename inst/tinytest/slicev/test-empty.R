@@ -23,7 +23,7 @@ expect_equal(
   x
 )
 
-out <- data.table::copy(x) |> mutatomic::as.mutatomic()
+out <- data.table::copy(x) |> as.mutatomic()
 expected <- data.table::copy(out)
 slicev_set(out, y = y, v = 1000, rp = -1)
 expect_equal(
@@ -31,7 +31,7 @@ expect_equal(
   expected
 )
 
-out <- data.table::copy(x) |> mutatomic::as.mutatomic()
+out <- data.table::copy(x) |> as.mutatomic()
 expected <- data.table::copy(out)
 slicev_set(out, y = y, v = 1000, r = FALSE, rp = -1)
 expected[1:length(expected)] <- -1L

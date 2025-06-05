@@ -3,7 +3,7 @@
 # mutatomic objects ====
 
 gen_mat <- function() {
-  obj <- mutatomic::as.mutatomic(matrix(1:16, ncol = 4))
+  obj <- as.mutatomic(matrix(1:16, ncol = 4))
   colnames(obj) <- c("a", "b", "c", "a")
   return(obj)
 }
@@ -52,7 +52,7 @@ obj2
 
 
 gen_array <- function() {
-  mutatomic::as.mutatomic(array(1:64, c(4,4,3)))
+  as.mutatomic(array(1:64, c(4,4,3)))
 }
 obj <- obj2 <- gen_array()
 obj

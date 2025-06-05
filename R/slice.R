@@ -68,8 +68,8 @@ slice_x.default <- function(
     data.table::setattr(out, "levels", attr(x, "levels", exact = TRUE))
     data.table::setattr(out, "class", oldClass(x))
   }
-  if(mutatomic::is.mutatomic(x)) {
-    mutatomic::.internal_set_ma(out)
+  if(is.mutatomic(x)) {
+    .internal_set_ma(out)
   }
   if(is.logical(sticky) && length(sticky) == 1L) {
     if(sticky) {
@@ -135,8 +135,8 @@ slice_wo.default <- function(
     data.table::setattr(out, "levels", attr(x, "levels", exact = TRUE))
     data.table::setattr(out, "class", oldClass(x))
   }
-  if(mutatomic::is.mutatomic(x)) {
-    mutatomic::.internal_set_ma(out)
+  if(is.mutatomic(x)) {
+    .internal_set_ma(out)
   }
   if(is.logical(sticky) && length(sticky) == 1L) {
     if(sticky) {
@@ -166,7 +166,7 @@ slice_set.default <- function(
     rp, tf
 ) {
   
-  mutatomic::stopifnot_ma_safe2mutate(substitute(x), parent.frame(n = 1), sys.call())
+  stopifnot_ma_safe2mutate(substitute(x), parent.frame(n = 1), sys.call())
   .internal_check_rptf(rp, tf, sys.call())
   
   myslice <- cp_seq(x, 0L, from, to, by)

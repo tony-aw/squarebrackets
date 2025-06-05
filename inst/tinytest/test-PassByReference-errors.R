@@ -51,15 +51,15 @@ enumerate <- enumerate + 10
 # not a variable errors ====
 
 expect_error(
-  i_set(mutatomic::as.mutatomic(1:10), i = 1, rp = -1),
+  i_set(as.mutatomic(1:10), i = 1, rp = -1),
   pattern = "only objects that exist as variables can be modified by reference"
 )
 expect_error(
-  slice_set(mutatomic::as.mutatomic(1:10), 1, 10, rp = -1),
+  slice_set(as.mutatomic(1:10), 1, 10, rp = -1),
   pattern = "only objects that exist as variables can be modified by reference"
 )
 expect_error(
-  slicev_set(mutatomic::as.mutatomic(1:10), v = 1, rp = -1),
+  slicev_set(as.mutatomic(1:10), v = 1, rp = -1),
   pattern = "only objects that exist as variables can be modified by reference"
 )
 
@@ -67,7 +67,7 @@ enumerate <- enumerate + 4
 
 
 # cannot change value of locked binding for  errors ====
-x <- mutatomic::mutatomic(1:20, dim = c(5,4), dimnames = n(letters[1:5], letters[1:4]))
+x <- mutatomic(1:20, dim = c(5,4), dimnames = n(letters[1:5], letters[1:4]))
 lockBinding("x", environment())
 expect_error(
   i_set(x, i = 1, rp = -1),

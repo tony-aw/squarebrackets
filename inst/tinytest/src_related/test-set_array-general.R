@@ -50,7 +50,7 @@ for(iSample in 1:10) {
     x.len <- prod(x.dim)
     x.data <- generate_data(x.len)
     for(iType in seq_along(x.data)) {
-      x <- mutatomic::as.mutatomic(array(x.data[[iType]], x.dim))
+      x <- as.mutatomic(array(x.data[[iType]], x.dim))
       s <- lapply(x.dim, \(x) sample(1:x, max(c(1, x)), FALSE))
       d <- 1:length(x.dim)
       
@@ -81,7 +81,7 @@ for(iSample in 1:10) {
     x.len <- prod(x.dim)
     x.data <- generate_data(x.len)
     for(iType in seq_along(x.data)) {
-      x <- mutatomic::as.mutatomic(array(x.data[[iType]], x.dim))
+      x <- as.mutatomic(array(x.data[[iType]], x.dim))
       s <- lapply(x.dim, \(x) sample(1:x, max(c(1, x)), FALSE))
       d <- 1:length(x.dim)
       

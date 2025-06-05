@@ -24,7 +24,7 @@ expect_equal(
 
 
 # use.names tests ====
-x <- mutatomic::mutatomic(sample(1:10), names = letters[1:10])
+x <- mutatomic(sample(1:10), names = letters[1:10])
 y <- sample(1:10)
 
 expect_equal(

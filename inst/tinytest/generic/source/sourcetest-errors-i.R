@@ -13,7 +13,7 @@ if(test_PassByReference) {
     matrix(1:10, ncol=2),
     array(1:27, dim = c(3,3,3))
   )
-  xlist <- lapply(xlist, \(x) if(is.atomic(x)){mutatomic::as.mutatomic(x)} else{x})
+  xlist <- lapply(xlist, \(x) if(is.atomic(x)){as.mutatomic(x)} else{x})
 }
 
 
@@ -77,7 +77,7 @@ if(test_PassByReference) {
     matrix(1:10, ncol=2),
     array(1:27, dim = c(3,3,3))
   )
-  xlist <- lapply(xlist, \(x) if(is.atomic(x)){mutatomic::as.mutatomic(x)} else{x})
+  xlist <- lapply(xlist, \(x) if(is.atomic(x)){as.mutatomic(x)} else{x})
 }
 
 
@@ -95,7 +95,7 @@ for(i in 1:length(xlist)) {
 
 # duplicates ====
 if(!test_allow_duplicates) {
-  x <- mutatomic::as.mutatomic(1:10)
+  x <- as.mutatomic(1:10)
   names(x) <- letters[1:10]
   expect_error(
     sb_test(x, i = c(1,1,1), chkdup = TRUE),
@@ -106,7 +106,7 @@ if(!test_allow_duplicates) {
     pattern = "duplicate integers or names not allowed"
   ) |> errorfun()
   
-  x <- mutatomic::as.mutatomic(matrix(1:10, ncol=2))
+  x <- as.mutatomic(matrix(1:10, ncol=2))
   names(x) <- letters[1:10]
   expect_error(
     sb_test(x, i = c(1,1,1), chkdup = TRUE),
@@ -142,19 +142,19 @@ if(test_allow_duplicates) {
   
 }
 
-x <- mutatomic::mutatomic(1:10)
+x <- mutatomic(1:10)
 expect_error(
   sb_test(x, foo = TRUE),
   pattern = "unknown arguments given"
 )
 
-x <- mutatomic::mutatomic(1:20, dim = c(4,5))
+x <- mutatomic(1:20, dim = c(4,5))
 expect_error(
   sb_test(x, foo = TRUE),
   pattern = "unknown arguments given"
 )
 
-x <- mutatomic::mutatomic(1:27, dim = c(3,3,3))
+x <- mutatomic(1:27, dim = c(3,3,3))
 expect_error(
   sb_test(x, foo = TRUE),
   pattern = "unknown arguments given"

@@ -79,23 +79,23 @@ Functional forms of special data.table operations. \cr
 These functions do not use Non-Standard Evaluation. \cr
 These functions also benefit from the security measures that
 'squarebrackets' implements for
-the \link[=mutatomic_PassByReference]{pass-by-reference semantics}. \cr
+the \link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr
 \itemize{
 \item \code{dt_aggregate()}
 aggregates a data.table or tidytable, and returns the aggregated copy.
 \item \code{dt_setcoe()}
 coercively transforms columns of a data.table or tidytable
-using \link[=mutatomic_PassByReference]{pass-by-reference semantics}.
+using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
 \item \code{dt_setrm()}
 removes columns of a data.table or tidytable
-using \link[=mutatomic_PassByReference]{pass-by-reference semantics}.
+using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
 \item \code{dt_setadd(x, new)}
 adds the columns from data.table/tidytable \code{new} to data.table/tidytable \code{x},
 thereby modifying \code{x}
-using \link[=mutatomic_PassByReference]{pass-by-reference semantics}.
+using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
 \item \code{dt_setreorder()}
 reorders the rows and/or variables of a \code{data.table}
-using \link[=mutatomic_PassByReference]{pass-by-reference semantics}. \cr \cr
+using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr \cr
 }
 }
 \details{

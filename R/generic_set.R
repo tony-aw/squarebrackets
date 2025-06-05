@@ -4,7 +4,7 @@
 #' Methods to replace or transform a subset of a
 #' \link[=squarebrackets_supported_structures]{supported mutable object}
 #' using
-#' \link[=mutatomic_PassByReference]{pass-by-reference semantics}. \cr
+#' \link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr
 #' 
 #'
 #' @param x a \bold{variable} belonging to one of the
@@ -27,7 +27,7 @@
 #' 
 #' @returns
 #' Returns: VOID. This method modifies the object by reference. \cr
-#' Do not use assignments like `x <- sb_set(x, ...)`. \cr
+#' Do not use assignments like `x <- i_set(x, ...)`. \cr
 #' Since this function returns void, you'll just get `NULL`. \cr \cr
 #'
 #'
@@ -78,7 +78,7 @@ i_set.default <- function(
 ) {
   
   # error checks:
-  mutatomic::stopifnot_ma_safe2mutate(substitute(x), parent.frame(n = 1), sys.call())
+  stopifnot_ma_safe2mutate(substitute(x), parent.frame(n = 1), sys.call())
   .internal_check_dots(list(...), sys.call())
   .internal_check_rptf(rp, tf, sys.call())
   
@@ -100,7 +100,7 @@ ss_set.default <- function(
 ) {
   
   # error checks:
-  mutatomic::stopifnot_ma_safe2mutate(substitute(x), parent.frame(n = 1), sys.call())
+  stopifnot_ma_safe2mutate(substitute(x), parent.frame(n = 1), sys.call())
   .internal_check_dots(list(...), sys.call())
   .internal_check_rptf(rp, tf, sys.call())
   .check_args_array(x, s, d, sys.call())
