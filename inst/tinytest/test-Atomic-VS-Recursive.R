@@ -4,14 +4,30 @@ sys.source(file.path(getwd(), "source", "functions4testing.R"), envir = environm
 
 
 x <- as.list(1:10)
-pattern <- "Use the `sb2_` methods for recursive objects"
+pattern <- "Use the `i2_` methods for recursive objects"
 
 meths <- list(
-  sb_x, sb_wo, sb_mod
+  i_x, i_wo, i_mod
 )
 for(i in seq_along(meths)) {
   expect_error(
     meths[[i]](x, i = 1),
+    pattern = pattern,
+    fixed = TRUE
+  ) |> errorfun()
+  enumerate <- enumerate + 1
+}
+
+
+x <- array(as.list(1:27), c(3,3,3))
+pattern <- "Use the `ss2_` methods for recursive objects"
+
+meths <- list(
+  ss_x, ss_wo, ss_mod
+)
+for(i in seq_along(meths)) {
+  expect_error(
+    meths[[i]](x, 1:2),
     pattern = pattern,
     fixed = TRUE
   ) |> errorfun()
@@ -20,10 +36,10 @@ for(i in seq_along(meths)) {
 
 
 x <- 1:10
-pattern <- "Use the `sb_` methods for atomic objects"
+pattern <- "Use the `i_` methods for atomic objects"
 
 meths <- list(
-  sb2_x, sb2_wo, sb2_mod
+  i2_x, i2_wo, i2_mod
 )
 for(i in seq_along(meths)) {
   expect_error(
@@ -35,4 +51,19 @@ for(i in seq_along(meths)) {
 }
 
 
+
+x <- array(1:27, c(3,3,3))
+pattern <- "Use the `ss_` methods for atomic objects"
+
+meths <- list(
+  ss2_x, ss2_wo, ss2_mod
+)
+for(i in seq_along(meths)) {
+  expect_error(
+    meths[[i]](x, 1:2),
+    pattern = pattern,
+    fixed = TRUE
+  ) |> errorfun()
+  enumerate <- enumerate + 1
+}
 

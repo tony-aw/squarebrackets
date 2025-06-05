@@ -16,9 +16,12 @@
   }
   else {
     lst <- lapply(dim(x), \(y) 1:y ) # create list of ALTREP compact integers
-    lst[[d]] <- as.integer(ci_margin(
-      x, s, d, inv, chkdup, uniquely_named = FALSE, .abortcall
-    ))
+    for(iD in d) {
+      lst[[iD]] <- as.integer(ci_margin(
+        x, s, iD, inv, chkdup, uniquely_named = FALSE, .abortcall
+      ))
+    }
+    
   }
   
   return(lst)
@@ -99,9 +102,6 @@
   }
   
   # check `s`:
-  if(!is.list(s) && length(d) != 1L) {
-    stop(simpleError("if `length(d) > 1`, `s` must be a list"))
-  }
   if(is.list(s)) {
     badlen <- length(s) != 1L && length(s) != length(d)
     if(badlen) {

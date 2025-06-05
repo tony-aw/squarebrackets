@@ -11,11 +11,11 @@ x2 <- x[1:2, 1:2]
 names(x2) <- x.names[1:2, 1:2]
 
 expect_equal(
-  sb_x(x, n(1:2)),
+  ss_x(x, n(1:2)),
   x2
 )
 expect_equal(
-  sb_wo(x, n(3:5, 3:4)),
+  ss_wo(x, n(3:5, 3:4)),
   x2
 )
 
@@ -31,11 +31,11 @@ x2 <- x[1:2, 1:2, 1:2]
 names(x2) <- x.names[1:2, 1:2, 1:2]
 
 expect_equal(
-  sb_x(x, list(1:2, 1:2, 1:2), 1:3),
+  ss_x(x, list(1:2, 1:2, 1:2), 1:3),
   x2
 )
 expect_equal(
-  sb_wo(x, list(3:4, 3:4, 3:4), 1:3),
+  ss_wo(x, list(3:4, 3:4, 3:4), 1:3),
   x2
 )
 
@@ -51,11 +51,11 @@ x2 <- x[1:2, 1:2, 1:2, 1:2, 1:2, 1:2, 1:2]
 names(x2) <- x.names[1:2, 1:2, 1:2, 1:2, 1:2, 1:2, 1:2]
 
 expect_equal(
-  sb_x(x, rep(list(1:2), 7), 1:7),
+  ss_x(x, rep(list(1:2), 7), 1:7),
   x2
 )
 expect_equal(
-  sb_wo(x, rep(list(3:4), 7), 1:7),
+  ss_wo(x, rep(list(3:4), 7), 1:7),
   x2
 )
 
@@ -71,11 +71,11 @@ x2 <- x[1:2, 1:2]
 names(x2) <- x.names[1:2, 1:2]
 
 expect_equal(
-  sb2_x(x, n(1:2)),
+  ss2_x(x, n(1:2)),
   x2
 )
 expect_equal(
-  sb2_wo(x, n(3:5, 3:4)),
+  ss2_wo(x, n(3:5, 3:4)),
   x2
 )
 
@@ -93,11 +93,11 @@ x2 <- x[1:2, 1:2,]
 names(x2) <- x.names[1:2, 1:2,]
 
 expect_equal(
-  sb2_x(x, n(1:2, 1:2), 1:2),
+  ss2_x(x, n(1:2, 1:2), 1:2),
   x2
 )
 expect_equal(
-  sb2_wo(x, n(3:4, 3:4), 1:2),
+  ss2_wo(x, n(3:4, 3:4), 1:2),
   x2
 )
 

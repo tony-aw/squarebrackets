@@ -30,15 +30,16 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
+<li class="nav-item"><a class="nav-link" href="../articles/squarebrackets.html">Get started</a></li>
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="../articles/a_benchmarks_x.html">Benchmarks - sb_x</a></li>
+<li><a class="dropdown-item" href="../articles/a_benchmarks_x.html">Benchmarks - extract, exchange, duplicate</a></li>
     <li><a class="dropdown-item" href="../articles/b_benchmarks_tf.html">Benchmarks - transform operations</a></li>
-    <li><a class="dropdown-item" href="../articles/c_benchmarks_lst.html">Benchmarks - Vectorized Recursive Subset Operations On Nested Lists</a></li>
   </ul>
 </li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
@@ -78,16 +79,16 @@
 <code>$&lt;-</code> methods perform in-place modification on subsets of
 objects using “copy-on-modify” semantics. The ‘squarebrackets’ R-package
 provides 2 alternative semantics for modification: “pass-by-reference”
-through the <code><a href="../reference/sb_set.html">sb_set()</a></code> method, and “deep-copy” through the
-<code><a href="../reference/sb_mod.html">sb_mod()</a></code> method. Moreover, where base ‘R’ provides direct
+through the <code>*_set</code> methods, and “pass-by-value” through the
+<code>*_mod</code> methods. Moreover, where base ‘R’ provides direct
 replacement only, ‘squarebrackets’ provides both replacement (through
 the <code>rp</code> argument) and transformation (through the
 <code>tf</code> argument) mechanics. Thus, ‘squarebrackets’ and base R
 are not really directly comparable in terms of benchmarking.
 Nonetheless, I have tried to keep the comparisons somewhat fair.</p>
-<p>The <code><a href="../reference/sb_set.html">sb_set()</a></code> method is generally several times (2 to 5
+<p>The <code>*_set</code> methods are generally several times (2 to 5
 times) faster than base R’s in-place modification, and generally uses
-about half the memory. The <code><a href="../reference/sb_mod.html">sb_mod()</a></code> method is generally
+about half the memory. The <code>*_mod</code> methods are generally
 about as fast as base R’s in-place modification, and uses about the same
 amount of memory.</p>
 <p>Below are some benchmarks to give one an idea of the speed loss.
@@ -152,8 +153,8 @@ approximately <code>1e7</code> elements.</p>
 <span><span class="va">bm.sb_tf.matrix</span> <span class="op">&lt;-</span> <span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="https://bench.r-lib.org/reference/mark.html" class="external-link">mark</a></span><span class="op">(</span></span>
 <span>  <span class="st">"base [&lt;-"</span> <span class="op">=</span>  <span class="fu">basefun</span><span class="op">(</span><span class="va">x.mat</span>, <span class="va">sel.rows</span>, <span class="va">sel.cols</span>, tf <span class="op">=</span> <span class="va">tf</span><span class="op">)</span>,</span>
 <span>  <span class="st">"idx + [&lt;-"</span> <span class="op">=</span> <span class="fu">base_plus_idx</span><span class="op">(</span><span class="va">x.mat</span>, <span class="va">sel.rows</span>, <span class="va">sel.cols</span>, tf <span class="op">=</span> <span class="va">tf</span><span class="op">)</span>,</span>
-<span>  <span class="st">"sb_set"</span> <span class="op">=</span> <span class="fu"><a href="../reference/sb_set.html">sb_set</a></span><span class="op">(</span><span class="va">x.mat2</span>, <span class="fu"><a href="../reference/nest.html">n</a></span><span class="op">(</span><span class="va">sel.rows</span>, <span class="va">sel.cols</span><span class="op">)</span>, tf <span class="op">=</span> <span class="va">tf</span><span class="op">)</span>,</span>
-<span>  <span class="st">"sb_mod"</span> <span class="op">=</span> <span class="fu"><a href="../reference/sb_mod.html">sb_mod</a></span><span class="op">(</span><span class="va">x.mat</span>, <span class="fu"><a href="../reference/nest.html">n</a></span><span class="op">(</span><span class="va">sel.rows</span>, <span class="va">sel.cols</span><span class="op">)</span>, tf <span class="op">=</span> <span class="va">tf</span><span class="op">)</span>,</span>
+<span>  <span class="st">"ss_set"</span> <span class="op">=</span> <span class="fu"><a href="../reference/sb_set.html">ss_set</a></span><span class="op">(</span><span class="va">x.mat2</span>, <span class="fu"><a href="../reference/nest.html">n</a></span><span class="op">(</span><span class="va">sel.rows</span>, <span class="va">sel.cols</span><span class="op">)</span>, tf <span class="op">=</span> <span class="va">tf</span><span class="op">)</span>,</span>
+<span>  <span class="st">"ss_mod"</span> <span class="op">=</span> <span class="fu"><a href="../reference/sb_mod.html">ss_mod</a></span><span class="op">(</span><span class="va">x.mat</span>, <span class="fu"><a href="../reference/nest.html">n</a></span><span class="op">(</span><span class="va">sel.rows</span>, <span class="va">sel.cols</span><span class="op">)</span>, tf <span class="op">=</span> <span class="va">tf</span><span class="op">)</span>,</span>
 <span>  check <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  min_iterations <span class="op">=</span> <span class="fl">500</span></span>
 <span><span class="op">)</span></span>
@@ -162,10 +163,10 @@ approximately <code>1e7</code> elements.</p>
 <pre><code><span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 4 × 6</span></span></span>
 <span><span class="co">#&gt;   expression      min   median `itr/sec` mem_alloc `gc/sec`</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:byt&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> base [&lt;-     23.5ms  25.68ms      38.5    87.7MB     2.03</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> idx + [&lt;-    26.2ms  29.08ms      33.7    95.4MB     2.38</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> sb_set        5.4ms   6.35ms     153.     15.3MB     1.23</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> sb_mod       23.6ms  25.74ms      32.3    87.7MB     1.63</span></span></code></pre>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> base [&lt;-    24.37ms  26.07ms      37.6    87.7MB     51.1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> idx + [&lt;-   26.88ms  29.35ms      33.4    95.5MB     32.6</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> ss_set       6.31ms   6.87ms     142.     15.4MB     11.7</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> ss_mod       24.1ms  26.51ms      36.7    87.8MB     30.8</span></span></code></pre>
 <p> </p>
 </div>
 <div class="section level3">
@@ -190,8 +191,8 @@ approximately <code>1e7</code> elements.</p>
 <span><span class="va">bm.sb_tf.3d</span> <span class="op">&lt;-</span> <span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="https://bench.r-lib.org/reference/mark.html" class="external-link">mark</a></span><span class="op">(</span></span>
 <span>  <span class="st">"base [&lt;-"</span> <span class="op">=</span> <span class="fu">basefun</span><span class="op">(</span><span class="va">x.3d</span>, <span class="va">sel.rows</span>, <span class="va">sel.lyrs</span>, tf <span class="op">=</span> <span class="va">tf</span> <span class="op">)</span>,</span>
 <span>  <span class="st">"idx + [&lt;-"</span> <span class="op">=</span> <span class="fu">base_plus_idx</span><span class="op">(</span><span class="va">x.3d</span>, <span class="va">sel.rows</span>, <span class="va">sel.lyrs</span>, tf <span class="op">=</span> <span class="va">tf</span><span class="op">)</span>,</span>
-<span>  <span class="st">"sb_set"</span> <span class="op">=</span>  <span class="fu"><a href="../reference/sb_set.html">sb_set</a></span><span class="op">(</span><span class="va">x.3d2</span>, <span class="fu"><a href="../reference/nest.html">n</a></span><span class="op">(</span><span class="va">sel.rows</span>, <span class="va">sel.lyrs</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span><span class="op">)</span>, tf <span class="op">=</span> <span class="va">tf</span><span class="op">)</span>,</span>
-<span>  <span class="st">"sb_mod"</span> <span class="op">=</span> <span class="fu"><a href="../reference/sb_mod.html">sb_mod</a></span><span class="op">(</span><span class="va">x.3d</span>, <span class="fu"><a href="../reference/nest.html">n</a></span><span class="op">(</span><span class="va">sel.rows</span>, <span class="va">sel.lyrs</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span>, tf <span class="op">=</span> <span class="va">tf</span><span class="op">)</span>,</span>
+<span>  <span class="st">"ss_set"</span> <span class="op">=</span>  <span class="fu"><a href="../reference/sb_set.html">ss_set</a></span><span class="op">(</span><span class="va">x.3d2</span>, <span class="fu"><a href="../reference/nest.html">n</a></span><span class="op">(</span><span class="va">sel.rows</span>, <span class="va">sel.lyrs</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span><span class="op">)</span>, tf <span class="op">=</span> <span class="va">tf</span><span class="op">)</span>,</span>
+<span>  <span class="st">"ss_mod"</span> <span class="op">=</span> <span class="fu"><a href="../reference/sb_mod.html">ss_mod</a></span><span class="op">(</span><span class="va">x.3d</span>, <span class="fu"><a href="../reference/nest.html">n</a></span><span class="op">(</span><span class="va">sel.rows</span>, <span class="va">sel.lyrs</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span>, tf <span class="op">=</span> <span class="va">tf</span><span class="op">)</span>,</span>
 <span>  check <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  min_iterations <span class="op">=</span> <span class="fl">500</span></span>
 <span><span class="op">)</span></span>
@@ -199,10 +200,10 @@ approximately <code>1e7</code> elements.</p>
 <pre><code><span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 4 × 6</span></span></span>
 <span><span class="co">#&gt;   expression      min   median `itr/sec` mem_alloc `gc/sec`</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:byt&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> base [&lt;-     30.7ms   32.7ms      29.9    67.4MB    1.05 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> idx + [&lt;-    33.1ms   36.1ms      26.7    93.5MB    1.35 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> sb_set       21.2ms   22.5ms      43.9    26.1MB    0.624</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> sb_mod       31.7ms   33.5ms      29.2    67.4MB    1.22</span></span></code></pre>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> base [&lt;-     31.2ms   33.3ms      29.7    67.4MB    14.8 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> idx + [&lt;-    31.5ms   34.4ms      28.6    93.5MB    27.5 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> ss_set       20.1ms   21.9ms      45.2    26.1MB     7.36</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> ss_mod       31.3ms   33.9ms      29.3    68.2MB    18.9</span></span></code></pre>
 <p> </p>
 </div>
 <div class="section level3">
@@ -246,10 +247,10 @@ approximately <code>1e7</code> elements.</p>
 <span><span class="op">}</span></span>
 <span><span class="va">bm.sb_tf.df</span> <span class="op">&lt;-</span> <span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="https://bench.r-lib.org/reference/mark.html" class="external-link">mark</a></span><span class="op">(</span></span>
 <span>  <span class="st">"base [&lt;-"</span> <span class="op">=</span> <span class="fu">basefun</span><span class="op">(</span><span class="va">df</span>, <span class="va">sel.rows</span>, tf <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">-</span><span class="fl">1</span> <span class="op">*</span> <span class="va">x</span><span class="op">)</span>,</span>
-<span>  <span class="st">"sb_set"</span> <span class="op">=</span> <span class="fu"><a href="../reference/sb_set.html">sb2_set</a></span><span class="op">(</span></span>
+<span>  <span class="st">"ss2_set"</span> <span class="op">=</span> <span class="fu"><a href="../reference/sb_set.html">ss2_set</a></span><span class="op">(</span></span>
 <span>    <span class="va">dt</span>, obs <span class="op">=</span> <span class="va">sel.rows</span>, vars <span class="op">=</span> <span class="va">is.numeric</span>, tf <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">-</span><span class="fl">1</span> <span class="op">*</span> <span class="va">x</span></span>
 <span>  <span class="op">)</span>,</span>
-<span>  <span class="st">"sb_mod"</span> <span class="op">=</span> <span class="fu"><a href="../reference/sb_mod.html">sb2_mod</a></span><span class="op">(</span></span>
+<span>  <span class="st">"ss2_mod"</span> <span class="op">=</span> <span class="fu"><a href="../reference/sb_mod.html">ss2_mod</a></span><span class="op">(</span></span>
 <span>    <span class="va">df</span>, obs <span class="op">=</span> <span class="va">sel.rows</span>, vars <span class="op">=</span> <span class="va">is.numeric</span>, tf <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">-</span><span class="fl">1</span> <span class="op">*</span> <span class="va">x</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  check <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -259,9 +260,9 @@ approximately <code>1e7</code> elements.</p>
 <pre><code><span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 6</span></span></span>
 <span><span class="co">#&gt;   expression      min   median `itr/sec` mem_alloc `gc/sec`</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:byt&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> base [&lt;-    246.5µs    272µs     <span style="text-decoration: underline;">3</span>357.   58.37KB        0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> sb_set       95.3µs    103µs     <span style="text-decoration: underline;">8</span>688.    6.45KB        0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> sb_mod       95.3µs    108µs     <span style="text-decoration: underline;">8</span>462.    6.45KB        0</span></span></code></pre>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> base [&lt;-    254.2µs    320µs     <span style="text-decoration: underline;">2</span>985.   62.32KB     0   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> ss2_set     104.3µs    122µs     <span style="text-decoration: underline;">7</span>756.   11.49KB     2.80</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> ss2_mod      91.4µs    100µs     <span style="text-decoration: underline;">9</span>281.    6.45KB     0</span></span></code></pre>
 <p> </p>
 <pre><code><span><span class="co">#&gt; Orientation inferred to be along y-axis; override with</span></span>
 <span><span class="co">#&gt; `position_quasirandom(orientation = 'x')`</span></span></code></pre>

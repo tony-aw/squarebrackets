@@ -14,13 +14,23 @@ test_PassByReference <- FALSE
 
 temp.fun <- function(x) {
   expect_equal(
-    sb2_wo(x),
+    i2_wo(x),
     x
   ) |> errorfun()
 }
 
 sys.source(file.path(getwd(), "source", "sourcetest-missingargs.R"), envir = environment())
 
+
+
+temp.fun <- function(x) {
+  expect_equal(
+    ss2_wo(x),
+    x
+  ) |> errorfun()
+}
+
+sys.source(file.path(getwd(), "source", "sourcetest-missingargs.R"), envir = environment())
 
 
 
@@ -37,7 +47,7 @@ test_sb <- function(x, i) {
 temp.fun <- function(x, elements) {
   for (i in 1:length(elements)) {
     expect_equal(
-      sb2_wo(x, i = elements[[i]]),
+      i2_wo(x, i = elements[[i]]),
       test_sb(x, i = elements[[i]])
     ) |> errorfun()
     assign("enumerate", enumerate + 1, envir = parent.frame(n = 1))
@@ -60,11 +70,11 @@ sys.source(file.path(getwd(), "source", "sourcetest-elements.R"), envir = enviro
 
 x <- as.list(1:10)
 expect_equal(
-  sb2_wo(x, 1:9, red = TRUE),
+  i2_wo(x, 1:9, red = TRUE),
   x[[10]]
 )
 expect_equal(
-  sb2_wo(x, c(FALSE, rep(TRUE, 9)), red = TRUE),
+  i2_wo(x, c(FALSE, rep(TRUE, 9)), red = TRUE),
   x[[1]]
 )
 enumerate <- enumerate + 2
@@ -100,13 +110,13 @@ f_expect.matrix <- f_expect.2d <- function(x, row = NULL, col = NULL) {
   if(is.null(col)) col <- base::quote(expr = )
   return(x[row, col, drop = FALSE])
 }
-f_out.matrix <- sb2_wo
-f_out.2d <- sb2_wo.array
+f_out.matrix <- ss2_wo
+f_out.2d <- ss2_wo
 f_expect.1d <- function(x, i) {
   i <- indx_wo(i, x, dimnames(x)[[1]], length(x))
   return(x[i, drop = FALSE])
 }
-f_out.1d <- sb2_wo
+f_out.1d <- ss2_wo
 
 
 pre_subset_1d <- function(x, i) {
@@ -114,7 +124,7 @@ pre_subset_1d <- function(x, i) {
 }
 
 
-sb_test <- sb2_wo.array
+sb_test <- ss2_wo.default
 
 f_expect.arbitrary <- function(x, i, j, l) {
   i <- indx_wo(i, x, rownames(x), nrow(x))
@@ -136,7 +146,7 @@ rownames(x) <- c(letters[1:8], "a", NA)
 s <- list(letters, 1:9, 1:9, 2:10)
 d <- 1:4
 expect_equal(
-  sb2_wo(x, s, d, red = TRUE),
+  ss2_wo(x, s, d, red = TRUE),
   x[[10, 10, 10, 1]]
 )
 
@@ -146,7 +156,7 @@ enumerate <- enumerate + 1
 
 # test datasets ====
 
-pre_subset_df <- sb2_wo.data.frame
+pre_subset_df <- ss2_wo.data.frame
 
 f_expect.data.frame <- function(x, row = NULL, col = NULL) {
   if(!is.null(row)) row <- indx_wo(row, x, rownames(x), nrow(x))
@@ -158,7 +168,7 @@ f_expect.data.frame <- function(x, row = NULL, col = NULL) {
   return(out)
 }
 
-f_out.data.frame <- sb2_wo.data.frame
+f_out.data.frame <- ss2_wo
 
 # rl. <- loadNamespace("rlang")
 dt. <- loadNamespace("data.table")
@@ -166,8 +176,11 @@ dt. <- loadNamespace("data.table")
 sys.source(file.path(getwd(), "source", "sourcetest-datasets.R"), envir = environment())
 
 # test errors ====
-sb_test <- sb2_wo
-sys.source(file.path(getwd(), "source", "sourcetest-errors.R"), envir = environment())
+sb_test <- i2_wo
+sys.source(file.path(getwd(), "source", "sourcetest-errors-i.R"), envir = environment())
+
+sb_test <- ss2_wo
+sys.source(file.path(getwd(), "source", "sourcetest-errors-ss.R"), envir = environment())
 
 
 # report number of tests

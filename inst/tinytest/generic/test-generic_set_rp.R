@@ -9,19 +9,19 @@ test_use_factors <- FALSE
 test_PassByReference <- TRUE
 
 
-sb_set2 <- function(x, ...) {
+i_set2 <- function(x, ...) {
   x <- data.table::copy(x)
   if(is.atomic(x)) x <- mutatomic::as.mutatomic(x)
   x2 <- x
-  sb_set(x, ...)
+  i_set(x, ...)
   if(!identical(x, x2)) { stop("PassByReference fail")}
   return(x)
 }
-sb_set2.array <- function(x, ...) {
+ss_set2 <- function(x, ...) {
   x <- data.table::copy(x)
   if(is.atomic(x)) x <- mutatomic::as.mutatomic(x)
   x2 <- x
-  sb_set.array(x, ...)
+  ss_set(x, ...)
   if(!identical(x, x2)) { stop("PassByReference fail")}
   return(x)
 }
@@ -36,7 +36,22 @@ temp.fun <- function(x) {
     return(x)
   }
   expect_equal(
-    sb_set2(x, rp = x[1]),
+    i_set2(x, rp = x[1]),
+    tempfun(x)
+  ) |> errorfun()
+}
+
+sys.source(file.path(getwd(), "source", "sourcetest-missingargs.R"), envir = environment())
+
+
+temp.fun <- function(x) {
+  tempfun <- function(x) {
+    x <- mutatomic::as.mutatomic(x)
+    x[] <- x[1]
+    return(x)
+  }
+  expect_equal(
+    ss_set2(x, rp = x[1]),
     tempfun(x)
   ) |> errorfun()
 }
@@ -61,7 +76,7 @@ temp.fun <- function(x, elements) {
     if(is.list(x)) rp1 <- as.list(rp1)
     if(is.list(x) && length(rep) != 1) rp2 <- as.list(rp)
     expect_equal(
-      sb_set2(x, i = elements[[i]], rp = rp1),
+      i_set2(x, i = elements[[i]], rp = rp1),
       test_sb(x, i = elements[[i]], rp = rp2)
     ) |> errorfun()
     assign("enumerate", enumerate + 1, envir = parent.frame(n = 1))
@@ -113,18 +128,12 @@ f_expect.matrix <- f_expect.2d <- function(x, row = NULL, col = NULL) {
   return(x)
 }
 
-f_out.matrix <- function(x, row, col) {
-  
-  rp <- parent.frame()$rp
-  
-  return(sb_set2(x, row = row, col = col, rp = rp))
-}
 
 f_out.2d <- function(x, s, d) {
   
   rp <- parent.frame()$rp
   
-  return(sb_set2.array(x, s, d, rp = rp))
+  return(sb_set2(x, s, d, rp = rp))
 }
 
 
@@ -151,14 +160,14 @@ f_out.1d <- function(x, s, d) {
   
   rp <- parent.frame()$rp
   
-  return(sb_set2(x, s, d, rp = rp))
+  return(ss_set2(x, s, d, rp = rp))
 }
 
 
 sb_test <- function(x, ...) {
   x <- mutatomic::as.mutatomic(x)
-  rp <- sb_x.array(x, ...) * -1
-  sb_set.array(x, ..., rp = rp)
+  rp <- ss_x.default(x, ...) * -1
+  ss_set(x, ..., rp = rp)
   return(x)
 }
 
@@ -194,44 +203,44 @@ rownames(x) <- c(letters[1:8], "a", NA)
 
 s <- list(c("b", "a"), c(1:3), c(rep(TRUE, 5), rep(FALSE, 5)))
 d <- c(1,2,4)
-len <- length(sb_x(x, s, d))
+len <- length(ss_x(x, s, d))
 rp <- make_rp(len)
 expect_equal(
-  sb_set2(x, s, d, rp = rp),
+  ss_set2(x, s, d, rp = rp),
   subset_arr(x, s[[1]], s[[2]], s[[3]], rp)
 )
 rp <- NA
 expect_equal(
-  sb_set2(x, s, d, rp = rp),
+  ss_set2(x, s, d, rp = rp),
   subset_arr(x, s[[1]], s[[2]], s[[3]], rp)
 )
 
 
 s <- list(c("b", "a"), logical(0), c(rep(TRUE, 5), rep(FALSE, 5)))
 d <- c(1,2,4)
-len <- length(sb_x(x, s, d))
+len <- length(ss_x(x, s, d))
 rp <- make_rp(len)
 expect_equal(
-  sb_set2(x, s, d, rp = rp),
+  ss_set2(x, s, d, rp = rp),
   subset_arr(x, s[[1]], s[[2]], s[[3]], rp)
 )
 rp <- NA
 expect_equal(
-  sb_set2(x, s, d, rp = rp),
+  ss_set2(x, s, d, rp = rp),
   subset_arr(x, s[[1]], s[[2]], s[[3]], rp)
 )
 
 s <- list(c("b", "a"), c(1:4), rep(FALSE, 10))
 d <- c(1,2,4)
-len <- length(sb_x(x, s, d))
+len <- length(ss_x(x, s, d))
 rp <- make_rp(len)
 expect_equal(
-  sb_set2(x, s, d, rp = rp),
+  ss_set2(x, s, d, rp = rp),
   subset_arr(x, s[[1]], s[[2]], s[[3]], rp)
 )
 rp <- NA
 expect_equal(
-  sb_set2(x, s, d, rp = rp),
+  ss_set2(x, s, d, rp = rp),
   subset_arr(x, s[[1]], s[[2]], s[[3]], rp)
 )
 enumerate <- enumerate + 6
@@ -241,10 +250,18 @@ enumerate <- enumerate + 6
 
 sb_test <- function(x, ...) {
   x <- mutatomic::as.mutatomic(x)
-  sb_set(x, ..., rp = 1)
+  i_set(x, ..., rp = 1)
   return(x)
 }
-sys.source(file.path(getwd(), "source", "sourcetest-errors.R"), envir = environment())
+sys.source(file.path(getwd(), "source", "sourcetest-errors-i.R"), envir = environment())
+
+
+sb_test <- function(x, ...) {
+  x <- mutatomic::as.mutatomic(x)
+  ss_set(x, ..., rp = 1)
+  return(x)
+}
+sys.source(file.path(getwd(), "source", "sourcetest-errors-ss.R"), envir = environment())
 
 
 
@@ -259,7 +276,7 @@ sb_set2 <- function(x, ...) {
 
 x <- mutatomic::as.mutatomic(1:10)
 expect_error(
-  sb_set2(x, i = 1:5, rp = 1:6),
+  i_set2(x, i = 1:5, rp = 1:6),
   pattern = "recycling not allowed",
   fixed = TRUE
 )
@@ -268,15 +285,15 @@ enumerate <- enumerate + 2
 
 x <- mutatomic::as.mutatomic(matrix(1:10, nrow = 2))
 expect_error(
-  sb_set2(x, i = 1:5, rp = as.list(1:5)),
+  i_set2(x, i = 1:5, rp = as.list(1:5)),
   pattern = "replacement must be atomic"
 )
 expect_error(
-  sb_set2(x, i = 1:5, rp = 1:6),
+  i_set2(x, i = 1:5, rp = 1:6),
   pattern = "recycling not allowed"
 )
 expect_error(
-  sb_set2(x, n(1:2), rp = 1:6),
+  ss_set2(x, n(1:2), rp = 1:6),
   pattern = "recycling not allowed"
 )
 enumerate <- enumerate + 4
@@ -284,19 +301,19 @@ enumerate <- enumerate + 4
 
 x <- mutatomic::as.mutatomic(array(1:27, dim = c(3,3,3)))
 expect_error(
-  sb_set2(x, i = 1:5, rp = as.list(1:5)),
+  i_set2(x, i = 1:5, rp = as.list(1:5)),
   pattern = "replacement must be atomic"
 )
 expect_error(
-  sb_set2(x, i = 1:5, rp = 1:6),
+  i_set2(x, i = 1:5, rp = 1:6),
   pattern = "recycling not allowed"
 )
 expect_error(
-  sb_set2(x, n(1:2, 1:2), c(1,3), rp = 1:6),
+  ss_set2(x, n(1:2, 1:2), c(1,3), rp = 1:6),
   pattern = "recycling not allowed"
 )
 expect_error(
-  sb_set2(x, n(1:2, 1:2), c(2,3), rp = 1:6),
+  ss_set2(x, n(1:2, 1:2), c(2,3), rp = 1:6),
   pattern = "recycling not allowed"
 )
 enumerate <- enumerate + 7

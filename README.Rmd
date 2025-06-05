@@ -38,9 +38,8 @@ Some nice properties of these methods include, but are not limited to, the follo
   1) The `[` and `[<-` operators use different rule-sets for different data.frame-like types (data.frames, data.tables, tibbles, tidytables, etc.). The 'squarebrackets' methods use the same rule-sets for the different data.frame-like types.
   2) Performing dimensional subset operations on an array using `[` and `[<-`, requires a-priori knowledge on the number of dimensions the array has. The 'squarebrackets' methods work on any arbitrary dimensions without requiring such prior knowledge.
   3) When selecting names with the `[` and `[<-` operators, only the first occurrence of the names are selected in case of duplicate names. The 'squarebrackets' methods always perform on all names in case of duplicates, not just the first.
-  4) The `[[` and `[[<-` operators allow operating on a recursive subset of a nested list. But these only operate on a single recursive subset, and are not vectorized for multiple recursive subsets of a nested list at once. 'squarebrackets' provides a way to reshape a nested list into a recursive matrix, thereby allowing vectorized operations on recursive subsets of such a nested list.
-  5) The `[<-` operator only supports copy-on-modify semantics for most classes. The 'squarebrackets' methods provides explicit pass-by-reference and pass-by-value semantics, whilst still respecting things like binding-locks and mutability rules.
-  6) 'squarebrackets' supports index-less sub-set operations, which is more memory efficient (and better for the environment) for `long vectors` than sub-set operations using the `[` and `[<-` operators.
+  4) The `[<-` operator only supports copy-on-modify semantics for most classes. The 'squarebrackets' methods provides explicit pass-by-reference and pass-by-value semantics, whilst still respecting things like binding-locks and mutability rules.
+  5) 'squarebrackets' supports index-less sub-set operations, which is more memory efficient (and better for the environment) for `long vectors` than sub-set operations using the `[` and `[<-` operators.
 
 &nbsp;
 
@@ -70,45 +69,3 @@ library(squarebrackets)
 
 &nbsp;
 
-
-## Changelog (EXPERIMENTAL VERSIONS)
-
- - 10 March 2024: First GitHub upload - Package is very much experimental.
- - 12 March 2024: Changed the introduction help page a bit, added `dt_setadd()`, and added tests for all `dt_` - functions. There are slightly over 50,000 tests now.
- - 15 March 2024: Added the `sb_setRename()` method, and added tests for this method also.
- - 16 March 2024: Fixed a bug in the "rcpp_set_rowcol" source code. Tweaked the documentation here and there a bit. Improved the tests a bit.
- - 17 March 2024: Added more tests, and tweaked the documentation a bit.
- - 19 March 2024: Some methods/functions did not support mutable_atomic type "complex"; this is now fixed. Added support for mutable_atomic type "raw". Added tests for atomic type handling. Added the functions `ma_setv()`, and `couldb.mutable_atomic()`. Added the options "sb.rat" and "sb.chkdup"; argument `chkdup` is now also set to `FALSE` by default. Added more badges to the documentation.
- - 20 March 2024: The user can now also specify `coe = TRUE` in `sb_mod.data.frame()`.
- - 24 March 2024: Methods are now split between methods for non-recursive objects (`sb_`), and methods for recursive objects (`sb2_`).
- - 26 March 2024: Replaced `seq_rec()` with `seq_rec2()`.
- - 27 March 2024: Added `dt_setreorder()`, and added tests for this also. 'abind' now as a dependency, and 'abind' based code removed, as it is redundant.
- - 29 March 2024: Added `sb2_before.array()` and `sb2_after.array()`, and added tests for these also. Added tests for data.frame-like coercion types. Tweaked the documentation here and there a bit.
- - 30 March 2024: Removed the separate `NA` checks, as they are redundant. Fixed some linguistic mistakes in the documentation.
- - 1 April 2024: Removed `sb_coe()` but kept `sb2_coe()`. Added `inv` argument to `sb_mod()`/`sb2_mod()`, `sb_set()`/`sb2_set()`, and `sb2_coe()`, and added tests for these. Added `idx1()` for Copy-On-Modification Substitution, and added tests for `idx1()` also.Fixed a bug in character subset ordering in the `sb`/`sb2`_`mod`/`set`/`coe` - generic methods. Fixed a bug in the introduction message. Added even more tests. Added `idx1_dim()`, and added tests for these also.
- - 5 April 2024: Replaced `idx1`/`idx0` with `idx()`.
- - 18 May 2024: Added a few tests for the `idx()` method (need to add more). Fixed the export pattern expressions in the Namespace file. Adjusted the documentation.
- - 26 May 2024: Removed `sb2_coe()`, as it is redundant.
- - 6 June 2024: Removed the `sb(2)_before/after` methods in favour of the the new `bind_`/`bind2_` implementations. Added the `lst_` functions. Added the `options` help page.
- - 30 June 2024: Re-written internal code for arrays. Added support for backward indexing via Complex Vector indices. Added more tests. Replaced `seq_names()` with the new and far more flexible `idx_r()` function.
- - 31 August 2024: Made the tests more efficient. Removed separate method dispatch for factors, as using the default atomic vector method dispatch is sufficient for factors.
- - 7 September 2024: Incorporated some ALTREP functionality into the package.
- - 15 September 2024: Replaced the `drop` argument with `red` to avoid confusion with base R's own `drop` mechanic. Small performance improvements for `sub2ind()` and `sb_set.array()`.
- - 26 September 2024: Overhauled how indexing with complex vectors work.
- - 28 September 2024: Split `sb(2)_setRename()` into `sb_setFlatnames()`, `sb_setDimnames()`, and `sb2_setVarnames()`.
- - 10 October 2024: `sb_mod()` now makes partial copies of data.frame-like objects instead of whole copies, for more memory efficiency. Also removed the old `sb_str()` and `sb_a()` functions. Renamed `ci_seq()` to `cp_seq()` (in preparation for the next update).
- - 19 October 2024: Removed the renaming methods (`sb_setRename`), and `seq_rec2()`. Added `slcseq_`.
- - 5 November 2024: Renamed `slcseq_` to `slice_`. Re-organized the documentation a bit. Fixed examples of the `ci` and `tci` help pages. Added `bind_mat()` and `bind2_mat()`. Added `ndims()`.
- - 14 November 2024: Performance improvement of `match_all()`.
- - 21 November 2024: Improved the documentation. Slightly tweaked array argument usage. Added `sticky` option. Brought back the renaming methods. Changed behaviour of the `use.names` argument in `lst_untree()`.
- - 24 November 2024: Matrices now use the same API as arrays. Adjusted the documentation accordingly. Cleaned up the internal code a bit.
- - 30 November 2024: The binding implementations can now bind mixtures of atomic and recursive objects.
- - 5 December 2024: Replaced the `_rm` post-fixes with `_wo` in all methods, to avoid confusion. Coercion for data.frame-like objects now happens automatically, and only when needed, in the `sb2_mod()` method, and updated the documentation accordingly. Slightly re-organized the documentation.
- - 14 December 2024: Removed the `ma_setv()` function in favour of the new `slicev_` set of methods. Renamed the `sub,dims` argument pair to `s,d`. Changed the documentation accordingly.
- - 27 December 2024: Overhauled the arguments for the data.frame/data.table methods and functions. Now the `s,d` argument pair is the primary argument set for all dimensional objects.
- - 11 March 2025: Overhauled the internal code for arrays; it's even faster now. Re-organised some other code in preparation for the next update. Renamed `ndims()` to `ndim()`. 
- - 13 April 2025: The binding implementations have been moved from 'squarebrackets' to my new R-package 'broadcast'.
- - 26 April 2025: Renamed the `mutable_atomic` class to `mutatomic`, and moved the entire class to its own package, which 'squarebrackets' now depends on.
-
-
-&nbsp;

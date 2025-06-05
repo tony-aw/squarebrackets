@@ -8,7 +8,7 @@ temp.fun <- function(x, lst) {
 }
 
 # NOTE:
-# sb_set.array uses Rcpp code generated from the same string as the Rcpp code for sub2ind.
+# ss_set.default uses Rcpp code generated from the same string as the Rcpp code for sub2ind.
 # Thus these tests also function as tests for arrays.
 
 generate_data <- function(x.len) {

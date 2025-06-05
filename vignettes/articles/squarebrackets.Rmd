@@ -1,0 +1,411 @@
+---
+title: "Introduction to squarebrackets"
+output:
+  rmarkdown::html_vignette:
+    toc: true
+    number_sections: true
+vignette: >
+  %\VignetteIndexEntry{Introduction to squarebrackets}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(squarebrackets)
+```
+
+
+&nbsp;
+
+# Introduction
+
+'squarebrackets' provides subset methods that may be more convenient alternatives to the `[` and `[<-` operators, whilst maintaining similar performance.
+
+This vignette uses simple examples to show some of the nice properties of these methods. Familiarity with the square-brackets operators (`[`, `[<-`) in relation to vectors, arrays, and data.frames is essential to follow this article.
+
+&nbsp;
+
+# Methods
+
+## Supported structures
+
+One can generally divide the structures supported by 'squarebrackets' along 3 key properties:
+
+ - atomic vs recursive:  
+ Types logical, integer, double, complex, character, and raw are atomic.  
+ Lists and data.frames are recursive.
+ - dimensionality:  
+ Whether an object is a vector, matrix, array, or data.frame.
+ - mutability:  
+ Base R's S3 classes (except Environments) are generally immutable:  
+ Modifying the object will create a copy (called 'copy-on-modify').  
+ 'squarebrackets' also supports data.tables and mutable_atomic objects, which are mutable:  
+ If desired, one can modify them without copy using pass-by-reference semantics.
+
+&nbsp;
+
+'squarebrackets' supports the following immutable structures:
+
+ - basic atomic classes  
+ (atomic vectors, matrices, and arrays).
+ - factor.
+ - basic list classes  
+ (recursive vectors, matrices, and arrays).
+ - data.frames  
+ (including the classes tibble, sf-data.frame and sf-tibble).
+
+'squarebrackets' supports the following mutable structures:
+
+ - mutable_atomic  
+ (mutable_atomic vectors, matrices, and arrays);
+ - data.table  
+ (including the classes tidytable, sf-data.table, and sf-tidytable).
+
+
+
+&nbsp;
+
+
+## Provided Methods
+The main methods of 'squarebrackets' use the naming convention `A_B`:
+`A` tells you on what kind of object and what kind of indices the method operates on;
+`B` tells you what operation is performed.
+
+For the `A` part, the following is available:
+
+ - `i_`: operates on subsets of atomic objects by (flat/linear) indices.
+ - `i2_`: operates on subsets of recursive objects by (flat/linear) indices.
+ - `ss_`: operates on subsets of atomic objects by (dimensional) subscripts.
+ - `ss2_`: operates on subsets of recursive objects by (dimensional) subscripts.
+ - `slice_`: uses index-less, sequence-based, and efficient operations on mutatomic objects.
+ - `slicev_`: uses uses index-less, value-based and efficient operations on mutatomic objects.
+
+For the `B` part, the following is available:
+
+ - `⁠_`x⁠: extract, exchange, or duplicate (if applicable) subsets.
+ - `⁠_w`o⁠: returns the original object without the provided subsets.
+ - `⁠_mo`d⁠: modify subsets and return copy.
+ - `_set`⁠: modify subsets using pass-by-reference semantics.
+ - `_rec`: access recursive subsets of lists - only available with the `i2_` prefix.
+ - `⁠_recin`⁠: replace, transform, delete, or extend recursive subsets of lists - only available with the `i2_` prefix.
+
+
+To illustrate, let's take the methods used for extracting subsets (∗⁠_x⁠):
+When `y` is atomic, the following holds (roughly speaking):
+
+`i_x(y, i)` corresponds to `y[i]`
+
+`ss_x(y, n(i, k), c(1, 3))` corresponds to `y[i, , k]`
+
+When `y` is a list (i.e. recursive), the following holds (roughly speaking):
+
+`i2_x(y, i)` corresponds to `y[i]` or `y[[i]]` (depending on the arguments given in `i2_x()`)
+
+`ss2_x(y, n(i, k), c(1, 3))` corresponds to `y[i, , k] or y[[i, , k]]` (depending on the arguments given in `ss2_x()`)
+
+
+
+&nbsp;
+
+# Arrays with unknown number of dimensions
+
+## Introduction
+
+In order to perform subset operations on some array `x` with the square brackets operator (`[`, `[<-`), one needs to know how many dimensions it has.
+
+For example:
+
+```{r}
+#| echo: true
+#| eval: false
+
+# if x has 3 dimensions:
+x[i, j, k, drop = FALSE]
+x[i, j, k] <- value
+
+# if x has 4 dimensions:
+x[i, j, k, l, drop = FALSE]
+x[i, j, k, l] <- value
+
+``` 
+
+Using `x[i, j, k]` on an array with 4 dimensions produces an error, since the number of indices or empty arguments does not conform to the number of dimensions.
+
+But suppose that the number of dimensions of an array `x` is unknown, for example when iterating through many arrays which all may have different number dimensions. How would one the use the `[` and `[<-` operators in such a situation? It's not strictly impossible, but it is very convoluted.
+
+The methods provided by 'squarebrackets' do not use position-based arguments, and as such work on any arbitrary dimensions without requiring prior knowledge.  
+ 
+
+&nbsp;
+
+## The s, d argument pair
+
+The `s, d` argument pair is the primary manner to specify indices for subset operations in all dimensional objects supported by 'squarebrackets' (matrices, arrays, data.frame-like objects). This argument form requires no prior knowledge on the number of dimensions an object has.
+
+The `s` argument must be a list or atomic vector, specifying the subscripts (i.e. dimensional indices).  
+The `d` argument must be an integer vector, specifying the dimensions for which `s` holds.  
+I.e. :
+
+ - To specify rows `1:10`, use `s = 1:10`, and `d = 1`.
+ - To specify columns `2:5`, use `s = 2:5` and `d = 2`.
+ - To specify layers (the third dimension)  `4:9`, use `s = 4:9` and `d = 3`.
+ - To specify rows `1:10` **and** columns `2:5`, use `s = list(1:10, 2:5)` and `d = 1:2`.
+ - To specify both rows and columbs `1:5`, one can use `s = 1:5` and `d = 1:2`.  
+ Notice you don't have to write `n(1:5, 1:5)` or `rep(n(1:5), 2)`:  
+ if `s` is an atomic vector or a list of length 1, 'squarebrackets' will use the same indices from  `s` to all dimensions specified in `d`.
+
+The `d` argument has the default specification `1:ndim(x)`, where `ndim(x) = length(dim(x))`.  
+So to specify rows `1:5` and columns `1:4` for a matrix (which by definition has 2 dimensions), specifying `s = n(1:5, 1:4)` is enough, and you don't even have to specify the `d` argument.  
+
+&nbsp;
+
+## Examples
+
+Consider the following example - Given a set of atomic arrays with different dimensions, select the first 2 indices of every available dimension:
+
+```{r}
+
+lst <- list(
+  array(1:25, c(5, 5)), # matrix / 2d array
+  array(1:48, c(4, 4, 3)), # 3d array
+  array(1:240, c(4, 3, 4, 3)) # 4d array
+)
+
+for(i in seq_along(lst)) {
+  x <- lst[[i]]
+  ss_x(x, s = 1:2, d = 1:ndim(x))
+  ss_x(x, 1:2) # the same (by default, d = 1:ndim(x))
+}
+
+
+```
+
+The `s` and `d` argument are used to perform sub-setting. Since this is not a position-based system, like base 'R', it works for matrices and arrays of any arbitrary dimension.
+
+
+&nbsp;
+
+Another example - select the first 3 indices for the first dimension, the first 2 indices for the last available dimension, and select all indices for the other dimensions.
+
+```{r}
+
+lst <- list(
+  array(1:25, c(5, 5)), # matrix / 2d array
+  array(1:48, c(4, 4, 3)), # 3d array
+  array(1:240, c(4, 3, 4, 3)) #4d array
+)
+
+for(i in seq_along(lst)) {
+  x <- lst[[i]]
+  ss_x(x, n(1:3, 1:2), c(1, ndim(x)))
+  ss_x(x, s = n(1:3, 1:2), d = c(1, ndim(x))) # the same
+}
+
+
+```
+
+Note that `n()` is short-hand for `list()`; `n()` **nests** multiple objects together, just like `c()` concatenates multiple objects together.
+
+So 'squarebrackets' allows the user to perform easy sub-set operations on arrays, even if the dimensions are not known a-priori, without ridiculously convoluted fiddling with `do.call()`, non-standard evaluation, or other ugly programming tricks. It just works.
+
+
+&nbsp;
+
+
+# Different data.frame types
+
+There are several types of data.frame-like objects available in 'R': data.frames, data.tables, tibbles, tidytables; and they all have their own rules regarding sub-set operations.
+
+Consider the following example, where values of the column "a" are being replaced with "XXX", but only in the rows for which holds that column "b" is larger than 10:
+
+
+```{r}
+#| echo: true
+#| eval: false
+
+tinycodet::import_as(~ dpr., "dplyr", dependencies = "tibble")
+
+x <- data.frame(a = month.abb, b = 1:12)
+y <- dpr.$tibble(a = month.abb, b = 1:12)
+z <- data.table::data.table(a = month.abb, b = 1:12)
+
+x[with(x, b > 10), "a"] <- "XXX" # data.frame with base
+y <- dpr.$mutate(y, a = ifelse(b > 10, "XXX", b)) # tibble with tidyverse
+z[b > 10, a:= "XXX"] # data.table with fastverse/tinyverse
+
+```
+
+
+Note the following:
+
+ 1) The syntax is different
+ 2) data.frames use copy-on modify. 'dplyr' + 'tibble' almost always uses explicit copy, and data.table almost always uses pass-by-reference.
+ 3) There's a lot of non-standard evaluation going on.
+
+On point 1): 'squarebrackets' uses the exact same methods and syntax for all data.frame types.
+
+On point 2): 'squarebrackets' always allows the user to use explicitly return a modified copy (only necessary parts are copied, so no unnecessary copies), through the `*_mod` methods. For mutable classes, such as data.tables, 'squarebrackets' additionally provides the `*_set` methods, for pass-by-reference semantics.
+
+On point 3): 'squarebrackets' will never use non-standard evaluation. All syntax in 'squarebrackets' is 100% programmatically friendly, and all input can be stored in a variable for later use. In this particular situation, the `obs` argument with formula input can be used.
+
+So let's do the same operation as above, but now using 'squarebrackets'.
+Since data.frames and tibbles are not mutable types, for this demonstration I'll stick to using `ss2_mod()`:
+
+```{r}
+
+x <- data.frame(a = month.abb, b = 1:12)
+y <- tibble::tibble(a = month.abb, b = 1:12)
+z <- data.table::data.table(a = month.abb, b = 1:12)
+
+ss2_mod(x, obs = ~ b > 10, vars = "a", rp = "XXX")
+ss2_mod(y, obs = ~ b > 10, vars = "a", rp = "XXX")
+ss2_mod(z, obs = ~ b > 10, vars = "a", rp = "XXX")
+
+
+```
+
+Notice that the syntax is exactly the same for all classes.
+
+The original attributes are also preserved when using `ss2_mod()`; i.e. nothing is forced to become a tibble, data.table, or something else. Input class = output class.
+
+For data.tables specifically, the user can also use `ss2_set()`, to perform pass-by-reference semantics, which is considerably faster and more memory efficient:
+
+```{r}
+
+z <- data.table::data.table(a = month.abb, b = 1:12)
+ss2_set(z, obs = ~ b > 10, vars = "a", rp = "XXX")
+print(z)
+
+```
+
+
+&nbsp;
+
+# mutability
+
+As shown in the previous section, 'squarebrackets' supports pass-by-reference semantics (i.e. modification without any copying) for data.tables, and it is also supported for the `mutatomic` class (a class of mutable atomic objects).
+
+
+&nbsp;
+
+# Improved indexing
+
+base 'R' supports specifying indices for sub-set operations through logical, integer, and character vectors.
+
+'squarebrackets' enhances these capabilities, and adds more possibilities.
+
+First, base 'R' only selects the first matching names when selecting indices through a character vector. 'squarebrackets' selects all matching names.
+
+For example:
+
+```{r}
+nms <- c("a", sample(letters[1:4], 9, replace = TRUE))
+x <- sample(1:10)
+names(x) <- nms
+print(x) # `x` has multiple elements with the name "a"
+
+x["a"] # only selects only the first index with name "a"
+i_x(x, "a") # selects all indices with the name "a"
+
+x[c("a", "a")] # repeats only the first index with name "a"
+i_x(x, c("a", "a")) # repeats all indices with the name "a"
+
+```
+
+
+
+Second, 'squarebrackets' introduces a new way to specify indices:  
+through imaginary numbers.  
+Positive imaginary numbers (`1i`, `2i`, etc.) works the same as regular indices.
+Negative imaginary numbers (`-1i`, `-2i`, etc.) starts from the end, counting backwards.
+
+For example:
+
+```{r}
+x <- sample(1:10)
+print(x)
+
+
+i_x(x, 1:3 * -1i) # select last 3 indices
+i_x(x, 3:1 * -1i) # select last 3 indices in tail()-like order
+
+```
+
+
+Finally, inverting indices in base 'R' is done in different ways.
+(negative numbers for numeric indexing, negation for logical indexing, manually un-matching for character vectors).
+
+'squarebrackets' provides a (somewhat) consistent syntax to invert indices:
+
+ - The `*_x` methods perform extraction;  
+ to invert extraction, i.e. return the object **without** the specified subset, use  the `*_wo` methods.
+ - In the modification methods (`*_mod` and `*_set`) one can set the argument `inv = TRUE` to invert indices.  
+ 
+
+As a consequence, removing sub-sets has the same syntax as extracting indices.
+
+For example:
+
+```{r}
+x <- sample(1:10)
+names(x) <- letters[1:10]
+
+x["a"] # extract element "a" in base R
+x[!names(x) %in% "a"] # but removing has different syntax
+
+i_x(x, "a") # extract element "a" with 'squarebrackets'
+i_wo(x, "a") # remove element "a" with 'squarebrackets'; same syntax
+
+```
+
+&nbsp;
+
+# Long Vectors
+
+Long Vectors take in quite a bit of memory. Performing a sub-set operation on a vector requires an indexing vector, which - for a long vector - may itself also be a long vector. This is a lot of memory usage. We can do better.
+
+'squarebrackets' provides 2 sets of methods to perform sub-set operations without any indexing vector at all:
+
+The `slice_` - methods:  
+To perform sequence-based sub-set operations.  
+For example:
+
+
+```{r}
+x <- 1:50
+slice_x(x, 1, 10, 2) # equivalent to x[seq(1, 10, 2)]
+
+```
+
+  
+The `slicev_` - methods:  
+To perform value-based sub-set operations.
+For example:
+
+```{r}
+
+x <- 1:50
+slicev_x(x, v = 1L, r = FALSE) # equivalent to x[x != 1L]
+
+```
+
+
+Both extracting sub-sets and pass-by-reference modification of sub-sets, is available for both methods.
+
+
+&nbsp;
+
+# Closing Remarks
+
+If this introductory article has piqued your interest, I kindly invite you to read the rest of the (admittedly rather extensive) documentation, and perhaps try out the package for yourself.
+
+&nbsp;
+
+

@@ -37,7 +37,10 @@ mutatomic
 data.table
 (including the classes tidytable, sf-data.table, and sf-tidytable).
 
-"><meta property="og:description" content="'squarebrackets' only supports the most common S3 objects,
+
+The methods provided by 'squarebrackets', like any method, can be extended
+(by other 'R' package authors)
+to support additional classes that are not already supported natively by 'squarebrackets'.  "><meta property="og:description" content="'squarebrackets' only supports the most common S3 objects,
 and only those that primarily use square brackets for sub-set operations
 (hence the name of the package).
 
@@ -75,7 +78,10 @@ mutatomic
 data.table
 (including the classes tidytable, sf-data.table, and sf-tidytable).
 
-"></head><body>
+
+The methods provided by 'squarebrackets', like any method, can be extended
+(by other 'R' package authors)
+to support additional classes that are not already supported natively by 'squarebrackets'.  "></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -91,13 +97,14 @@ data.table
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
-      <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+      <ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" href="../articles/squarebrackets.html">Get started</a></li>
+<li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/a_benchmarks_x.html">Benchmarks - sb_x</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/a_benchmarks_x.html">Benchmarks - extract, exchange, duplicate</a></li>
     <li><a class="dropdown-item" href="../articles/b_benchmarks_tf.html">Benchmarks - transform operations</a></li>
-    <li><a class="dropdown-item" href="../articles/c_benchmarks_lst.html">Benchmarks - Vectorized Recursive Subset Operations On Nested Lists</a></li>
   </ul></li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/tony-aw/squarebrackets/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
@@ -128,7 +135,7 @@ Note that a matrix is simply an array with 2 dimensions.</p></li>
 <li><p>mutability: <br>
 Base R's S3 classes (except Environments) are generally immutable: <br>
 Modifying the object will create a copy (called 'copy-on-modify'). <br>
-'squarebrackets also supports <code>data.tables</code> and mutatomic objects,
+'squarebrackets also supports <code>data.tables</code> and <a href="https://rdrr.io/pkg/mutatomic/man/mutatomic_class.html" class="external-link">mutatomic</a> objects,
 which are mutable: <br>
 If desired, one can modify them without copy using
 pass-by-reference semantics. <br><br></p></li>
@@ -140,22 +147,24 @@ pass-by-reference semantics. <br><br></p></li>
 (recursive vectors and arrays). <br></p></li>
 <li><p><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> <br>
 (including the classes <code>tibble</code>, <code>sf-data.frame</code> and <code>sf-tibble</code>). <br><br></p></li>
-</ul><p>'squarebrackets' supports the following mutable structures:</p><ul><li><p>mutatomic <br>
+</ul><p>'squarebrackets' supports the following mutable structures:</p><ul><li><p><a href="https://rdrr.io/pkg/mutatomic/man/mutatomic_class.html" class="external-link">mutatomic</a> <br>
 (<code>mutatomic</code> vectors arrays);</p></li>
 <li><p><a href="https://rdatatable.gitlab.io/data.table/reference/data.table.html" class="external-link">data.table</a> <br>
 (including the classes <code>tidytable</code>, <code>sf-data.table</code>, and <code>sf-tidytable</code>). <br><br></p></li>
-</ul></div>
+</ul><p>The methods provided by 'squarebrackets', like any method, can be extended
+(by other 'R' package authors)
+to support additional classes that are not already supported natively by 'squarebrackets'. <br><br></p>
+    </div>
 
 
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p><b>Atomic vs Recursive</b> <br>
-The <code>sb_</code> methods provided by 'squarebrackets'
+The <code>i_</code>/<code>ss_</code> methods provided by 'squarebrackets'
 work on <b>atomic</b> (see <a href="https://rdrr.io/r/base/is.recursive.html" class="external-link">is.atomic</a>) objects. <br>
-The <code>sb2_</code> methods provided by 'squarebrackets'
+The <code>i2_</code>/<code>ss2_</code> methods provided by 'squarebrackets'
 work on <b>recursive</b> (see <a href="https://rdrr.io/r/base/is.recursive.html" class="external-link">is.recursive</a>) objects. <br>
-See <a href="aaa06_squarebrackets_method_dispatch.html">squarebrackets_method_dispatch</a>
-for more details on the method dispatch used by 'squarebrackets'. <br><br></p>
+See <a href="aaa02_squarebrackets_methods.html">squarebrackets_methods</a> for more details. <br><br></p>
 <p><b>Dimensionality</b> <br>
 'squarebrackets' supports dimensionless or vector objects (i.e. <a href="ndim.html">ndim</a><code> == 0L</code>). <br>
 squarebrackets' supports arrays (see <a href="https://rdrr.io/r/base/array.html" class="external-link">is.array</a> and <a href="https://rdrr.io/r/base/matrix.html" class="external-link">is.matrix</a>);
@@ -182,8 +191,8 @@ Environments do have pass-by-reference semantics,
 but they are not supported by 'squarebrackets'. <br><br>
 Supported mutable structures:</p><ul><li><p>'squarebrackets' supports the mutable <code>data.table</code> class <br>
 (and thus also <code>tidytable</code>, which inherits from <code>data.table</code>).</p></li>
-<li><p>'squarebrackets' also includes a new class of mutable objects: <br>
-mutatomic objects. <br><code>mutatomic</code> objects are the same as atomic objects, except they are mutable (hence the name). <br><br></p></li>
+<li><p>'squarebrackets' supports the <a href="https://rdrr.io/pkg/mutatomic/man/mutatomic_class.html" class="external-link">mutatomic</a> class. <br><code>mutatomic</code> objects are the same as atomic objects,
+except they are mutable (hence the name). <br><br></p></li>
 </ul><p>Supported immutable structures: <br>
 Atomic and recursive vectors/matrices/arrays, data.frames, and tibbles. <br><br>
 All the functions in the 'squarebrackets' package with the word "set" in their name

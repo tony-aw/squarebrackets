@@ -26,7 +26,7 @@ x <- list(
 )
 myref <- x$a # view of a list
 address(myref) == address(base::letters) # FALSE: it's a copy
-sb_set(
+i_set(
   myref, i = 1, rp = "XXX"  # modifies x, does NOT modify `base::letters`
 )
 print(x) # x is modified

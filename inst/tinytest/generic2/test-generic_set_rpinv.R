@@ -9,11 +9,11 @@ test_use_factors <- FALSE
 test_PassByReference <- TRUE
 
 
-sb2_set2 <- function(x, ...) {
+ss2_set2 <- function(x, ...) {
   x <- data.table::copy(x)
   if(is.atomic(x)) x <- mutatomic::as.mutatomic(x)
   x2 <- x
-  sb2_set(x, ..., inv = TRUE)
+  ss2_set(x, ..., inv = TRUE)
   if(!identical(x, x2)) { stop("PassByReference fail")}
   return(x)
 }
@@ -22,7 +22,7 @@ sb2_set2 <- function(x, ...) {
 # test datasets ====
 
 
-pre_subset_df <- sb2_wo.data.frame
+pre_subset_df <- ss2_wo.data.frame
 
 f_expect.data.frame <- function(x, row = NULL, col = NULL) {
   
@@ -51,7 +51,7 @@ f_expect.data.frame <- function(x, row = NULL, col = NULL) {
 f_out.data.frame <- function(x, s, d) {
   
   rp <- parent.frame()$rp
-  return(sb2_set2(x, s, d, rp = rp))
+  return(ss2_set2(x, s, d, rp = rp))
   
 }
 
@@ -67,12 +67,12 @@ sb_test <- function(x, ...) {
   x <- data.table::copy(x)
   if(is.atomic(x)) x <- mutatomic::as.mutatomic(x)
   x2 <- x
-  sb2_set(x, ..., inv = TRUE, rp = x[1])
+  ss2_set(x, ..., inv = TRUE, rp = x[1])
   expect_equal(x, x2) |> errorfun()
   return(x)
 }
 
-sys.source(file.path(getwd(), "source", "sourcetest-errors.R"), envir = environment())
+sys.source(file.path(getwd(), "source", "sourcetest-errors-ss.R"), envir = environment())
 
 
 

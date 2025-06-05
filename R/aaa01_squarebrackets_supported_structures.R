@@ -17,10 +17,10 @@
 #'  * mutability: \cr
 #'  Base R's S3 classes (except Environments) are generally immutable: \cr
 #'  Modifying the object will create a copy (called 'copy-on-modify'). \cr
-#'  'squarebrackets also supports `data.tables` and \link{mutatomic} objects,
+#'  'squarebrackets also supports `data.tables` and \link[mutatomic]{mutatomic} objects,
 #'  which are mutable: \cr
 #'  If desired, one can modify them without copy using
-#'  \link[=mutatomic_PassByReference]{pass-by-reference semantics}. \cr \cr
+#'  pass-by-reference semantics. \cr \cr
 #' 
 #' \bold{Supported Structures} \cr
 #' 
@@ -36,22 +36,24 @@
 #' 
 #' 'squarebrackets' supports the following mutable structures:
 #' 
-#'  * \link{mutatomic} \cr
+#'  * \link[mutatomic]{mutatomic} \cr
 #'  (`mutatomic` vectors arrays);
 #'  * \link[data.table]{data.table} \cr
 #'  (including the classes `tidytable`, `sf-data.table`, and `sf-tidytable`). \cr \cr
 #'  
-#'  
+#' The methods provided by 'squarebrackets', like any method, can be extended
+#' (by other 'R' package authors)
+#' to support additional classes that are not already supported natively by 'squarebrackets'. \cr \cr
+#' 
 #' 
 #' @details
 #' 
 #' \bold{Atomic vs Recursive} \cr
-#' The `sb_` methods provided by 'squarebrackets'
+#' The `i_`/`ss_` methods provided by 'squarebrackets'
 #' work on \bold{atomic} (see \link[base]{is.atomic}) objects. \cr
-#' The `sb2_` methods provided by 'squarebrackets'
+#' The `i2_`/`ss2_` methods provided by 'squarebrackets'
 #' work on \bold{recursive} (see \link[base]{is.recursive}) objects. \cr
-#' See \link{squarebrackets_method_dispatch}
-#' for more details on the method dispatch used by 'squarebrackets'. \cr
+#' See \link{squarebrackets_methods} for more details. \cr
 #' \cr
 #' 
 #' 
@@ -91,15 +93,15 @@
 #' 
 #'  - 'squarebrackets' supports the mutable `data.table` class \cr
 #'  (and thus also `tidytable`, which inherits from `data.table`).
-#'  - 'squarebrackets' also includes a new class of mutable objects: \cr
-#'  \link{mutatomic} objects. \cr
-#' `mutatomic` objects are the same as atomic objects, except they are mutable (hence the name). \cr \cr
+#'  - 'squarebrackets' supports the \link[mutatomic]{mutatomic} class. \cr
+#' `mutatomic` objects are the same as atomic objects,
+#' except they are mutable (hence the name). \cr \cr
 #' 
 #' Supported immutable structures: \cr
 #' Atomic and recursive vectors/matrices/arrays, data.frames, and tibbles. \cr
 #' \cr
 #' All the functions in the 'squarebrackets' package with the word "set" in their name
-#' perform \link[=mutatomic_PassByReference]{pass-by-reference} modification,
+#' perform pass-by-reference modification,
 #' and thus only work on mutable structures. \cr
 #' All other functions work the same way for both mutable and immutable structures. \cr
 #' \cr

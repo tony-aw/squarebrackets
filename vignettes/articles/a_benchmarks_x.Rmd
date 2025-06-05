@@ -1,11 +1,11 @@
 ---
-title: "Benchmarks - sb_x"
+title: "Benchmarks - extract, exchange, duplicate"
 output:
   rmarkdown::html_vignette:
     toc: true
     number_sections: true
 vignette: >
-  %\VignetteIndexEntry{Benchmarks - sb_x}
+  %\VignetteIndexEntry{Benchmarks - extract, exchange, duplicate}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -59,7 +59,7 @@ colnames(x.mat) <- sample(c(letters, NA), n, TRUE)
 sel.rows <- 1:100
 sel.cols <- rep(sample(letters[1:13]), 10)
 bm.sb_x.matrix <- bench::mark(
-  "squarebrackets" = sb_x(x.mat, n(sel.rows, sel.cols)),
+  "squarebrackets" = ss_x(x.mat, n(sel.rows, sel.cols)),
   "base R" = x.mat[sel.rows, lapply(sel.cols, \(i) which(colnames(x.mat) == i)) |> unlist(), drop = FALSE],
   min_iterations = 500
 )
@@ -85,7 +85,7 @@ x.3d <- array(1:prod(x.dims), x.dims)
 sel.rows <- 1:900
 sel.lyrs <- c(TRUE, FALSE, TRUE, FALSE)
 bm.sb_x.3d <- bench::mark(
-  "squarebrackets" =  sb_x(x.3d, n(sel.rows, sel.lyrs), c(1,3)),
+  "squarebrackets" =  ss_x(x.3d, n(sel.rows, sel.lyrs), c(1,3)),
   "base R + abind" = abind::asub(x.3d, idx = list(sel.rows, sel.lyrs), dims = c(1,3)),
   min_iterations = 500
 )

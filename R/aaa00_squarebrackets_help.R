@@ -20,17 +20,10 @@
 #'  only the first occurrence of the names are selected in case of duplicate names. \cr
 #'  The 'squarebrackets' methods always perform on all names in case of duplicates,
 #'  not just the first.
-#'  4) The `[[` and `[[<-` operators
-#'  allow operating on a recursive subset of a nested list. \cr
-#'  But these only operate on a single recursive subset,
-#'  and are not vectorized for multiple recursive subsets of a nested list at once. \cr
-#'  'squarebrackets' provides a way to reshape a nested list
-#'  into a recursive matrix,
-#'  thereby allowing vectorized operations on recursive subsets of such a nested list.
-#'  5) The `[<-` operator only supports copy-on-modify semantics for most classes. \cr
+#'  4) The `[<-` operator only supports copy-on-modify semantics for most classes. \cr
 #'  The 'squarebrackets' methods provides explicit pass-by-reference and pass-by-value semantics,
 #'  whilst still respecting things like binding-locks and mutability rules.
-#'  6) 'squarebrackets' supports index-less sub-set operations,
+#'  5) 'squarebrackets' supports index-less sub-set operations,
 #'  which is more memory efficient
 #'  (and better for the environment)
 #'  for `long vectors` than sub-set operations using the `[` and `[<-` operators. \cr \cr
@@ -50,115 +43,38 @@
 #' but to provide \bold{alternative} sub-setting methods and functions,
 #' to be used in situations where the square bracket operators are inconvenient. \cr
 #' \cr
-#' \cr
-#' 
-#'
-#' @section Supported Structures:
-#' 'squarebrackets' only supports the most common S3 classes,
-#' and only those that primarily use square brackets for sub-setting
-#' (hence the name of the package). \cr
-#' \cr
-#' 'squarebrackets' supports the following structures:
-#' 
-#'  * basic `atomic` classes \cr
-#'  (atomic vectors, matrices, and arrays).
-#'  * \link{mutatomic} classes \cr
-#'  (\link{mutatomic} vectors, matrices, and arrays).
-#'  * \link{factor}. \cr
-#'  * basic list classes \cr
-#'  (recursive vectors, matrices, and arrays). \cr
-#'  * \link[base]{data.frame} \cr
-#'  (including the classes `tibble`, `sf-data.frame` and `sf-tibble`).
-#'  * \link[data.table]{data.table} \cr
-#'  (including the classes `tidytable`, `sf-data.table`, and `sf-tidytable`). \cr \cr
-#' 
-#' See \link{squarebrackets_supported_structures} for more details. \cr \cr
-#
-#'  
-#' @section Sub-set Operation Methods:
-#' 
-#' The main focus of this package is on its generic methods. \cr
-#' \cr
-#' Generic methods for atomic objects
-#' start with `sb_`. \cr
-#' Generic methods for recursive objects (list, data.frame, etc.)
-#' start with `sb2_`. \cr
-#' There is also the somewhat separate \link{idx} method,
-#' which works on both recursive and non-recursive objects. \cr
-#' And finally there are the `slice_` methods,
-#' which (currently) only work on (mutable) atomic vectors. \cr
-#' \cr
 #' 
 #' 
-#' `r .mybadge_intro_section("ACCESS SUBSETS", "darkgreen")` \cr
+#' @section Overview Help Pages:
 #' 
-#' Methods to access subsets (i.e. extract selection, or extract all except selection):
+#' Besides the website,
+#' 'squarebrackets' comes with several help pages
+#' that can be accessed from within 'R'. \cr
 #' 
-#'  * \link{sb_x}, \link{sb2_x}: extract, exchange, or duplicate subsets.
-#'  * \link{sb_wo},  \link{sb2_wo}: return an object without the specified subset.
-#'  * \link{sb2_rec}: access recursive subsets of lists.
-#'  * \link{slice_x}: index-less and efficient,
-#'  sequence-based extraction of a subset from a long vector.
-#'  * \link{slice_wo}: index-less and efficient,
-#'  sequence-based returning a long vector without the specified subset.
-#'  * \link{slicev_x}: index-less and efficient,
-#'  value-based extraction of a subset from a long vector. \cr \cr
-#'  
-#'  
-#' `r .mybadge_intro_section("MODIFY SUBSETS", "red")` \cr
-#'  
-#' Methods to modify subsets:
-#'  
-#'  * \link{idx}: translate given indices/subscripts,
-#'  for the purpose of copy-on-modify substitution.
-#'  * \link{sb2_recin}: replace, transform, remove, or add recursive subsets to a list,
-#'  through R's default Copy-On-Modify semantics.
-#'  * \link{sb_mod}, \link{sb2_mod}: return the object with modified
-#'  (transformed or replaced) subsets.
-#'  * Methods to \link[=sb_setRename]{rename a mutable object} using
-#'  \link[=mutatomic_PassByReference]{pass-by-reference semantics}.
-#'  * \link{sb_set}, \link{sb2_set}: modify (transform or replace)
-#'  subsets of a \link[=squarebrackets_supported_structures]{mutable object}
-#'  using \link[=mutatomic_PassByReference]{pass-by-reference semantics}.
-#'  * \link{slice_set}: index-less and efficient,
-#'  sequence-based modification of a (long) vector subset using
-#'  \link[=mutatomic_PassByReference]{pass-by-reference semantics}.
-#'  * \link{slicev_set}: index-less and efficient,
-#'  value-based modification of a (long) vector subset using
-#'  \link[=mutatomic_PassByReference]{pass-by-reference semantics}. \cr \cr
+#'  - \link{squarebrackets_supported_structures}: \cr
+#'  Lists the structures that are supported by 'squarebrackets',
+#'  and explains some related terminology.
+#'  - \link{squarebrackets_methods}: \cr
+#'  Lists the main methods provided by 'squarebrackets'.
+#'  - \link{squarebrackets_indx_fundamentals}: \cr
+#'  Explains the essential fundamentals of the indexing forms in 'squarebrackets'.
+#'  - \link{squarebrackets_indx_args}: \cr
+#'  Explains the common indexing arguments used in the main S3 methods.
+#'  - \link{squarebrackets_modify}: \cr
+#'  Explains the essentials of modification in 'squarebrackets'
+#'  - \link{squarebrackets_options}: \cr
+#'  Lists and explains the options the user can specify in 'squarebrackets'.
+#'  - \link{squarebrackets_method_dispatch}: \cr
+#'  Gives some small additional details regarding the S3 method dispatch used in 'squarebrackets'. \cr \cr
 #'  
 #' 
-#' `r .mybadge_intro_section("EXTEND BEYOND", "purple")` \cr
-#'  
-#' Methods to extend or re-arrange an object beyond its current size:
 #' 
-#'  * \link{sb_x}, \link{sb2_x}: extract, exchange, or duplicate subsets.
-#'  * \link{sb2_recin}: replace, transform, remove, or add recursive subsets to a list,
-#'  through R's default Copy-On-Modify semantics.
-#'  
+#' @section Helper Functions: 
 #' 
-#' See \link{squarebrackets_method_dispatch} for more information on how 'squarebrackets'
-#' uses its S3 Method dispatch. \cr \cr
-#' 
-#' 
-#' @section Functions: 
-#' 
-#' `r .mybadge_intro_section("SPECIALIZED FUNCTIONS", "darkred")` \cr
-#' Additional specialized sub-setting functions are provided:
-#' 
-#'  * \link{lst_untree}: unnest tree-like nested list into a recursive matrix,
-#'  to speed-up vectorized sub-setting on recursive subsets of the list.
-#'  * The \link[=dt_setcoe]{dt_}-functions
-#'  to programmatically perform `data.table`-specific `[`-operations,
-#'  with the security measures provided by the 'squarebrackets' package.
-#' 
-#' `r .mybadge_intro_section("HELPER FUNCTIONS", "lightblue")` \cr
 #' A couple of convenience functions, and helper functions for creating ranges, sequences, and indices
 #' (often needed in sub-setting)
 #' are provided:
 #' 
-#'  * \link{currentBindings}: list or lock all currently existing bindings
-#'  that share the share the same address as the input variable.
 #'  * \link{n}: Nested version of \link[base]{c},
 #'  and short-hand for \link[base]{list}.
 #'  * \link{ndim}: Get the number of dimensions of an object.
@@ -173,29 +89,6 @@
 #'  \link{idx_by} to compute grouped indices. \cr
 #'  \link[=idx_ord_v]{idx_ord_}-functions to compute ordered indices. \cr \cr
 #' 
-#' 
-#' @section Overview Help Pages:
-#' 
-#' Besides the website,
-#' 'squarebrackets' comes with several help pages
-#' that can be accessed from within 'R'. \cr
-#' 
-#'  - \link{squarebrackets_supported_structures}: \cr
-#'  Lists the structures that are supported by 'squarebrackets',
-#'  and explains some related terminology.
-#'  - \link{squarebrackets_indx_fundamentals}: \cr
-#'  Explains the essential fundamentals of the indexing forms in 'squarebrackets'.
-#'  - \link{squarebrackets_indx_args}: \cr
-#'  Explains the common indexing arguments used in the main S3 methods.
-#'  - \link{squarebrackets_modify}: \cr
-#'  Explains the essentials of modification in 'squarebrackets'
-#'  - \link{squarebrackets_options}: \cr
-#'  Lists and explains the options the user can specify in 'squarebrackets'.
-#'  - \link{squarebrackets_method_dispatch}: \cr
-#'  Gives details regarding the S3 method dispatch in 'squarebrackets'. \cr \cr
-#'  
-#' 
-#'  
 #' 
 #' @section Properties Details:
 #' The alternative sub-setting methods and functions provided by 'squarebrackets'
@@ -256,20 +149,30 @@
 #' @aliases squarebrackets_help
 #' @useDynLib squarebrackets, .registration=TRUE
 #' @importFrom Rcpp evalCpp
-#' @exportPattern "^sb_x"
-#' @exportPattern "^sb_wo"
-#' @exportPattern "^sb_set"
-#' @exportPattern "^sb_mod"
-#' @exportPattern "^sb_coe"
+#' 
 #' @exportPattern "^sb_setFlatnames"
 #' @exportPattern "^sb_setDimnames"
-#' @exportPattern "^sb2_x"
-#' @exportPattern "^sb2_wo"
-#' @exportPattern "^sb2_set"
-#' @exportPattern "^sb2_mod"
-#' @exportPattern "^sb2_rec"
 #' @exportPattern "^sb2_setVarnames"
 #' @exportPattern "^idx"
+#' 
+#' @exportPattern "^i_x"
+#' @exportPattern "^i_wo"
+#' @exportPattern "^i_set"
+#' @exportPattern "^i_mod"
+#' @exportPattern "^i2_x"
+#' @exportPattern "^i2_wo"
+#' @exportPattern "^i2_mod"
+#' @exportPattern "^i2_rec"
+#' 
+#' @exportPattern "^ss_x"
+#' @exportPattern "^ss_wo"
+#' @exportPattern "^ss_set"
+#' @exportPattern "^ss_mod"
+#' @exportPattern "^ss2_x"
+#' @exportPattern "^ss2_wo"
+#' @exportPattern "^ss2_set"
+#' @exportPattern "^ss2_mod"
+#' 
 #' 
 NULL
 #> NULL

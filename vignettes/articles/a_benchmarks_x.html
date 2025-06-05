@@ -12,7 +12,7 @@
 
 
 
-<title>Benchmarks - sb_x</title>
+<title>Benchmarks - extract, exchange, duplicate</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -336,7 +336,8 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 
-<h1 class="title toc-ignore">Benchmarks - sb_x</h1>
+<h1 class="title toc-ignore">Benchmarks - extract, exchange,
+duplicate</h1>
 
 
 
@@ -372,7 +373,7 @@ factors.</p>
 <span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>sel.rows <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span></span>
 <span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>sel.cols <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">sample</span>(letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">13</span>]), <span class="dv">10</span>)</span>
 <span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>bm.sb_x.matrix <span class="ot">&lt;-</span> bench<span class="sc">::</span><span class="fu">mark</span>(</span>
-<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>  <span class="st">&quot;squarebrackets&quot;</span> <span class="ot">=</span> <span class="fu">sb_x</span>(x.mat, <span class="fu">n</span>(sel.rows, sel.cols)),</span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>  <span class="st">&quot;squarebrackets&quot;</span> <span class="ot">=</span> <span class="fu">ss_x</span>(x.mat, <span class="fu">n</span>(sel.rows, sel.cols)),</span>
 <span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>  <span class="st">&quot;base R&quot;</span> <span class="ot">=</span> x.mat[sel.rows, <span class="fu">lapply</span>(sel.cols, \(i) <span class="fu">which</span>(<span class="fu">colnames</span>(x.mat) <span class="sc">==</span> i)) <span class="sc">|&gt;</span> <span class="fu">unlist</span>(), <span class="at">drop =</span> <span class="cn">FALSE</span>],</span>
 <span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a>  <span class="at">min_iterations =</span> <span class="dv">500</span></span>
 <span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a>)</span>
@@ -392,7 +393,7 @@ factors.</p>
 <span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>sel.rows <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">900</span></span>
 <span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>sel.lyrs <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>)</span>
 <span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>bm.sb_x<span class="fl">.3</span>d <span class="ot">&lt;-</span> bench<span class="sc">::</span><span class="fu">mark</span>(</span>
-<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>  <span class="st">&quot;squarebrackets&quot;</span> <span class="ot">=</span>  <span class="fu">sb_x</span>(x<span class="fl">.3</span>d, <span class="fu">n</span>(sel.rows, sel.lyrs), <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>)),</span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>  <span class="st">&quot;squarebrackets&quot;</span> <span class="ot">=</span>  <span class="fu">ss_x</span>(x<span class="fl">.3</span>d, <span class="fu">n</span>(sel.rows, sel.lyrs), <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>)),</span>
 <span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>  <span class="st">&quot;base R + abind&quot;</span> <span class="ot">=</span> abind<span class="sc">::</span><span class="fu">asub</span>(x<span class="fl">.3</span>d, <span class="at">idx =</span> <span class="fu">list</span>(sel.rows, sel.lyrs), <span class="at">dims =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>)),</span>
 <span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>  <span class="at">min_iterations =</span> <span class="dv">500</span></span>
 <span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a>)</span>

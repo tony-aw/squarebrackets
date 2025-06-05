@@ -1,15 +1,15 @@
 #' Access, Replace, Transform, Delete, or Extend Recursive Subsets
 #'
 #' @description
-#' The `sb2_rec()` and `sb2_recin()` methods
+#' The `i2_rec()` and `i2_recin()` methods
 #' are essentially convenient wrappers around `[[` and `[[<-`,
 #' respectively. \cr
 #' Unlike `[[` and `[[<-`, these are actually S3 methods,
 #' so package authors can create additional method dispatches. \cr
 #' \cr
-#' `sb2_rec()` will access recursive subsets of lists. \cr
+#' `i2_rec()` will access recursive subsets of lists. \cr
 #' \cr
-#' `sb2_recin()` can do the following things: \cr
+#' `i2_recin()` can do the following things: \cr
 #' 
 #'  - replace or transform recursive subsets of a list,
 #'  using R's default Copy-On-Modify semantics,
@@ -28,7 +28,7 @@
 #' 
 #' @param x a list, or list-like object.
 #' @param rec a strictly positive integer vector or character vector, of length `p`,
-#' such that `sb2_rec(x, rec)` is equivalent to `x[[ rec[1] ]]...[[ rec[p] ]]`,
+#' such that `i2_rec(x, rec)` is equivalent to `x[[ rec[1] ]]...[[ rec[p] ]]`,
 #' providing all but the final indexing results in a list. \cr
 #' When on a certain subset level of a nested list,
 #' multiple subsets with the same name exist,
@@ -45,10 +45,10 @@
 #' - Specifying `rp = NULL` will \bold{delete} (recursive) subset `sb(x, rec)`. \cr
 #' To specify actual `NULL` instead of deleting a subset, use `rp = list(NULL)`.
 #' - When `rec` is an integer, and specifies an out-of-bounds subset,
-#' `sb2_recin()` will add value `rp` to the list. \cr
+#' `i2_recin()` will add value `rp` to the list. \cr
 #' Any empty positions in between will be filled with `NA`.
 #' - When `rec` is character, and specifies a non-existing name,
-#' `sb2_recin()` will add value `rp` to the list as a new element at the end.
+#' `i2_recin()` will add value `rp` to the list as a new element at the end.
 #' @param tf an optional function. If specified, performs `x[[rec]] <- tf(x[[rec]])`,
 #' using R's default Copy-On-Modify semantics. \cr
 #' Does not support extending a list like argument `rp`.
@@ -61,15 +61,15 @@
 #' 
 #'
 #' @returns
-#' For `sb2_rec()`: \cr
+#' For `i2_rec()`: \cr
 #' Returns the recursive subset. \cr
 #' \cr
-#' For `sb2_recin(..., rp = rp)`: \cr
+#' For `i2_recin(..., rp = rp)`: \cr
 #' Returns VOID,
 #' but replaces, adds, or deletes the specified recursive subset,
 #' using R's default Copy-On-Modify semantics. \cr
 #' \cr
-#' For `sb2_recin(..., tf = tf)`: \cr
+#' For `i2_recin(..., tf = tf)`: \cr
 #' Returns VOID,
 #' but transforms the specified recursive subset,
 #' using R's default Copy-On-Modify semantics. \cr \cr
@@ -80,29 +80,29 @@
 #' @example inst/examples/generic_rec.R
 #'
 
-#' @name sb2_rec
+#' @name i2_rec
 NULL
 
 
 
-#' @rdname sb2_rec
+#' @rdname i2_rec
 #' @export
-sb2_rec <- function(x, ...) {
+i2_rec <- function(x, ...) {
   
   if(is.atomic(x)) {
-    stop("Use the `sb_` methods for atomic objects")
+    stop("Use the `i_`/`ss_` methods for atomic objects")
   }
   if(!is.list(x)) {
     stop("unsupported object")
   }
   
-  UseMethod("sb2_rec", x)
+  UseMethod("i2_rec", x)
 }
 
 
-#' @rdname sb2_rec
+#' @rdname i2_rec
 #' @export
-sb2_rec.default <- function(x, rec, ...) {
+i2_rec.default <- function(x, rec, ...) {
   
   # error handling:
   .internal_check_dots(list(...), sys.call())
@@ -117,25 +117,25 @@ sb2_rec.default <- function(x, rec, ...) {
 }
 
 
-#' @rdname sb2_rec
+#' @rdname i2_rec
 #' @export
-sb2_recin <- function(x, ...) {
+i2_recin <- function(x, ...) {
   
   if(is.atomic(x)) {
-    stop("Use the `sb_` methods for atomic objects")
+    stop("Use the `i_`/`ss_` methods for atomic objects")
   }
   if(!is.list(x)) {
     stop("unsupported object")
   }
   
-  UseMethod("sb2_recin", x)
+  UseMethod("i2_recin", x)
 }
 
 
 
-#' @rdname sb2_rec
+#' @rdname i2_rec
 #' @export
-sb2_recin.default <- function(x, rec, ..., rp, tf) {
+i2_recin.default <- function(x, rec, ..., rp, tf) {
   
   # error handling:
   .internal_check_dots(list(...), sys.call())

@@ -154,7 +154,7 @@ ci_sub <- function(
   
   .ci_sub_check(x, s, d, ndim(x), .abortcall)
   
-  if(length(d) == 1L) {
+  if(length(d) == 1L || is.atomic(s)) {
     return(.ci_sub.atomic(x, s, d, inv, chkdup, uniquely_named, .abortcall))
   }
   else if(length(s) == 1L) {

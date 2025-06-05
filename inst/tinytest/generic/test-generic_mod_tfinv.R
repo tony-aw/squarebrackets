@@ -18,7 +18,21 @@ temp.fun <- function(x) {
     return(x)
   }
   expect_equal(
-    sb_mod(x, inv = TRUE, tf = \(x)x[1]),
+    i_mod(x, inv = TRUE, tf = \(x)x[1]),
+    tempfun(x)
+  ) |> errorfun()
+}
+
+sys.source(file.path(getwd(), "source", "sourcetest-missingargs.R"), envir = environment())
+
+
+temp.fun <- function(x) {
+  tempfun <- function(x) {
+    x[] <- x[1]
+    return(x)
+  }
+  expect_equal(
+    ss_mod(x, inv = TRUE, tf = \(x)x[1]),
     tempfun(x)
   ) |> errorfun()
 }
@@ -48,7 +62,7 @@ test_sb <- function(x, i) {
 temp.fun <- function(x, elements) {
   for (i in 1:length(elements)) {
     expect_equal(
-      sb_mod(x, i = elements[[i]], tf = min, inv = TRUE),
+      i_mod(x, i = elements[[i]], tf = min, inv = TRUE),
       test_sb(x, i = elements[[i]])
     ) |> errorfun()
     assign("enumerate", enumerate + 1, envir = parent.frame(n = 1))
@@ -100,12 +114,12 @@ f_expect.matrix <- f_expect.2d <- function(x, row = NULL, col = NULL) {
 
 f_out.matrix <- function(x, row, col) {
   
-  return(sb_mod(x, row = row, col = col, inv = TRUE, tf = mean))
+  return(ss_mod(x, row = row, col = col, inv = TRUE, tf = mean))
 }
 
 f_out.2d <- function(x, s, d) {
   
-  return(sb_mod.array(x, s, d, inv = TRUE, tf = mean))
+  return(ss_mod.default(x, s, d, inv = TRUE, tf = mean))
 }
 
 
@@ -129,12 +143,12 @@ f_expect.1d <- function(x, i) {
 
 f_out.1d <- function(x, s, d) {
   
-  return(sb_mod(x, s, d, inv = TRUE, tf = mean))
+  return(ss_mod(x, s, d, inv = TRUE, tf = mean))
 }
 
 
 sb_test <- function(x, ...) {
-  return(sb_mod.array(x, ..., inv = TRUE, tf = mean))
+  return(ss_mod.default(x, ..., inv = TRUE, tf = mean))
 }
 
 f_expect.arbitrary <- function(x, i, j, l) {
@@ -150,11 +164,15 @@ sys.source(file.path(getwd(), "source", "sourcetest-dims.R"), envir = environmen
 
 
 # test errors ====
-sb_test <- function(...)sb_mod(..., tf = \(x)x[1])
-sys.source(file.path(getwd(), "source", "sourcetest-errors.R"), envir = environment())
+sb_test <- function(...)i_mod(..., tf = \(x)x[1])
+sys.source(file.path(getwd(), "source", "sourcetest-errors-i.R"), envir = environment())
+
+sb_test <- function(...)ss_mod(..., tf = \(x)x[1])
+sys.source(file.path(getwd(), "source", "sourcetest-errors-ss.R"), envir = environment())
+
 
 expect_error(
-  sb_mod(1:10, i = 1, tf = "foo", inv = TRUE),
+  i_mod(1:10, i = 1, tf = "foo", inv = TRUE),
   pattern = "`tf` must be a function"
 )
 

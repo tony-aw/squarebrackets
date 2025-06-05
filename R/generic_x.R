@@ -1,10 +1,8 @@
-#' Method to Extract, Exchange, or Duplicate Subsets of an Object
+#' Methods to Extract, Exchange, or Duplicate Subsets of an Object
 #'
 #' @description
-#' This is an S3 Method to extract, exchange,
-#' or duplicate (i.e. repeat x times) subsets of an object. \cr
-#' Use `sb_x(x, ...)` if `x` is an atomic object. \cr
-#' Use `sb2_x(x, ...)` if `x` is a recursive object (i.e. list or data.frame-like). \cr \cr
+#' Methods to extract, exchange,
+#' or duplicate (i.e. repeat x times) subsets of an object. \cr \cr
 #'
 #' @param x see \link{squarebrackets_supported_structures}.
 #' @param i,s,d,obs,vars See \link{squarebrackets_indx_args}. \cr
@@ -30,22 +28,47 @@
 
 #' @rdname sb_x
 #' @export
-sb_x <- function(x, ...) {
+i_x <- function(x, ...) {
   
-  if(is.list(x)) {
-    stop("Use the `sb2_` methods for recursive objects")
-  }
-  if(!is.atomic(x)) {
-    stop("unsupported object")
-  }
+  .methodcheck.i(x, sys.call())
   
-  UseMethod("sb_x", x)
+  UseMethod("i_x", x)
+}
+
+#' @rdname sb_x
+#' @export
+i2_x <- function(x, ...) {
+  
+  .methodcheck.i2(x, sys.call())
+  
+  UseMethod("i2_x", x)
+}
+
+#' @rdname sb_x
+#' @export
+ss_x <- function(x, ...) {
+  
+  .methodcheck.ss(x, sys.call())
+  UseMethod("ss_x", x)
 }
 
 
 #' @rdname sb_x
 #' @export
-sb_x.default <- function(x, i = NULL, ...) {
+ss2_x <- function(x, ...) {
+  
+  .methodcheck.ss2(x, sys.call())
+  
+  
+  UseMethod("ss2_x", x)
+}
+
+
+
+
+#' @rdname sb_x
+#' @export
+i_x.default <- function(x, i = NULL, ...) {
   
   .internal_check_dots(list(...), sys.call())
   if(is.null(i)){
@@ -59,35 +82,19 @@ sb_x.default <- function(x, i = NULL, ...) {
 
 #' @rdname sb_x
 #' @export
-sb_x.array <- function(
-    x, s = NULL, d = 1:ndim(x), i = NULL, ...
+ss_x.default <- function(
+    x, s = NULL, d = 1:ndim(x), ...
 ) {
   
   .internal_check_dots(list(...), sys.call())
   
-  return(.sb_x_array(x, s, d, i, FALSE, FALSE, FALSE, sys.call()))
+  return(.sb_x_array(x, s, d, NULL, FALSE, FALSE, FALSE, sys.call()))
   
 }
 
-
 #' @rdname sb_x
 #' @export
-sb2_x <- function(x, ...) {
-  
-  if(is.atomic(x)) {
-    stop("Use the `sb_` methods for atomic objects")
-  }
-  if(!is.list(x)) {
-    stop("unsupported object")
-  }
-  
-  UseMethod("sb2_x", x)
-}
-
-
-#' @rdname sb_x
-#' @export
-sb2_x.default <- function(x, i = NULL, red = FALSE, ...) {
+i2_x.default <- function(x, i = NULL, red = FALSE, ...) {
   
   .internal_check_dots(list(...), sys.call())
   
@@ -105,8 +112,8 @@ sb2_x.default <- function(x, i = NULL, red = FALSE, ...) {
 
 #' @rdname sb_x
 #' @export
-sb2_x.array <- function(
-    x, s = NULL, d = 1:ndim(x), i = NULL, red = FALSE, ...
+ss2_x.default <- function(
+    x, s = NULL, d = 1:ndim(x), red = FALSE, ...
 ) {
   
   .internal_check_dots(list(...), sys.call())
@@ -115,13 +122,13 @@ sb2_x.array <- function(
     stop("`red` must be either `TRUE` or `FALSE`")
   }
   
-  return(.sb_x_array(x, s, d, i, FALSE, red, FALSE, abortcall = sys.call()))
+  return(.sb_x_array(x, s, d, NULL, FALSE, red, FALSE, abortcall = sys.call()))
   
 }
 
 #' @rdname sb_x
 #' @export
-sb2_x.data.frame <- function(
+ss2_x.data.frame <- function(
     x, s = NULL, d = 1:2, obs = NULL, vars = NULL, ...
 ) {
   

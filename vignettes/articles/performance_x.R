@@ -6,15 +6,15 @@ library(data.table)
 
 # atomic ====
 x <- 1:1e7
-bm.sb_x.default <- bench::mark(
-  sb_x(x, i = 1:1e6),
+bm.i_x.default <- bench::mark(
+  i_x(x, i = 1:1e6),
   x[1:1e6],
   min_iterations = 500
 )
-bm.sb_x.default$result <- NULL
-summary(bm.sb_x.default)
-ggplot2::autoplot(bm.sb_x.default)
-save(bm.sb_x.default, file = "bm.sb_x.default.RData")
+bm.i_x.default$result <- NULL
+summary(bm.i_x.default)
+ggplot2::autoplot(bm.i_x.default)
+save(bm.i_x.default, file = "bm.i_x.default.RData")
 
 
 n <- 5e3
@@ -28,7 +28,7 @@ foo <- cbind(
 )
 all(apply(foo, 1, \(x)x[1] == x[2]))
 bm.sb_x.matrix <- bench::mark(
-  "squarebrackets" = sb_x.array(x.mat, n(sel.rows, sel.cols)),
+  "squarebrackets" = ss_x(x.mat, n(sel.rows, sel.cols)),
   "base R" = x.mat[sel.rows, lapply(sel.cols, \(i) which(colnames(x.mat) == i)) |> unlist(), drop = FALSE],
   min_iterations = 500
 )
@@ -43,7 +43,7 @@ x.3d <- array(1:prod(x.dims), x.dims)
 sel.rows <- 1:900
 sel.lyrs <- c(TRUE, FALSE, TRUE, FALSE)
 bm.sb_x.3d <- bench::mark(
-  "squarebrackets" =  sb_x(x.3d, n(sel.rows, sel.lyrs), c(1,3)),
+  "squarebrackets" =  ss_x(x.3d, n(sel.rows, sel.lyrs), c(1,3)),
   "base R + abind" = abind::asub(x.3d, idx = list(sel.rows, sel.lyrs), d = c(1,3)),
   min_iterations = 500
 )
@@ -68,7 +68,7 @@ colnames(x) <- make.names(colnames(x), unique = TRUE)
 sel.cols <- rep(sample(names(x), 10), 4)
 sel.rows <- 1:1000
 bm.sb_x.df <- bench::mark(
-  "squarebrackets" = sb2_x.data.frame(x, obs = sel.rows, vars = sel.cols),
+  "squarebrackets" = ss2_x.data.frame(x, obs = sel.rows, vars = sel.cols),
   "base R" = x[sel.rows, sel.cols, drop = FALSE],
   min_iterations = 500
 )
@@ -83,7 +83,7 @@ tempfun <- function(x, i, j) {
   return(x)
 }
 bm.sb_x.dt <- bench::mark(
-  "squarebrackets" = sb2_x(x, obs = sel.rows, vars  = sel.cols),
+  "squarebrackets" = ss2_x(x, obs = sel.rows, vars  = sel.cols),
   "data.table + collapse" = tempfun(x, sel.rows, sel.cols),
   min_iterations = 1e4
 )

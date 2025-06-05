@@ -42,10 +42,9 @@ expect_equal(
   ci_sub(x, n(1:4), 1),
   ci_sub(x, 1:4, 1)
 )
-expect_error(
-  ci_sub(x, 1:10, 1:2),
-  pattern = "if `length(d) > 1`, `s` must be a list",
-  fixed = TRUE
+expect_equal(
+  ci_sub(x, n(1:4, 1:4), 1:2),
+  ci_sub(x, 1:4, 1:2)
 )
 enumerate <- enumerate + 2L
 

@@ -1,12 +1,10 @@
-#' Method to Modify Subsets of a Mutable Object By Reference
+#' Methods to Modify Subsets of a Mutable Object By Reference
 #'
 #' @description
-#' This is an S3 Method to replace or transform a subset of a
+#' Methods to replace or transform a subset of a
 #' \link[=squarebrackets_supported_structures]{supported mutable object}
 #' using
-#' \link[=mutatomic_PassByReference]{pass-by-reference semantics} \cr
-#' Use `sb_set(x, ...)` if `x` is an atomic object (i.e. \link{mutatomic}). \cr
-#' Use `sb2_set(x, ...)` if `x` is a recursive object (i.e. \link{data.table}). \cr \cr
+#' \link[=mutatomic_PassByReference]{pass-by-reference semantics}. \cr
 #' 
 #'
 #' @param x a \bold{variable} belonging to one of the
@@ -38,22 +36,44 @@
 
 #' @rdname sb_set
 #' @export
-sb_set <- function(x, ...) {
+i_set <- function(x, ...) {
   
-  if(is.list(x)) {
-    stop("Use the `sb2_` methods for recursive objects")
-  }
-  if(!is.atomic(x)) {
-    stop("unsupported object")
-  }
+  .methodcheck.i(x, sys.call())
   
-  UseMethod("sb_set", x)
+  UseMethod("i_set", x)
+}
+
+#' @rdname sb_set
+#' @export
+i2_set <- function(x, ...) {
+  
+  .methodcheck.i2(x, sys.call())
+  
+  UseMethod("i2_set", x)
+}
+
+#' @rdname sb_set
+#' @export
+ss_set <- function(x, ...) {
+  
+  .methodcheck.ss(x, sys.call())
+  UseMethod("ss_set", x)
 }
 
 
 #' @rdname sb_set
 #' @export
-sb_set.default <- function(
+ss2_set <- function(x, ...) {
+  
+  .methodcheck.ss2(x, sys.call())
+  
+  
+  UseMethod("ss2_set", x)
+}
+
+#' @rdname sb_set
+#' @export
+i_set.default <- function(
     x, i = NULL, inv = FALSE, ...,  rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
@@ -75,8 +95,8 @@ sb_set.default <- function(
 
 #' @rdname sb_set
 #' @export
-sb_set.array <- function(
-    x, s = NULL, d = 1:ndim(x), i = NULL, inv = FALSE, ...,  rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
+ss_set.default <- function(
+    x, s = NULL, d = 1:ndim(x), inv = FALSE, ...,  rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
   # error checks:
@@ -87,14 +107,8 @@ sb_set.array <- function(
 
     
   # all missing arguments:
-  if(.all_NULL_indices(list(s, i))) {
+  if(.all_NULL_indices(list(s))) {
     .all_set_atomic(x, rp, tf, abortcall = sys.call())
-    return(invisible(NULL))
-  }
-  
-  # argument i:
-  if(!is.null(i)) {
-    .flat_set_atomic(x, i, inv, rp = rp, tf = tf, chkdup, abortcall = sys.call())
     return(invisible(NULL))
   }
   
@@ -123,29 +137,16 @@ sb_set.array <- function(
   return(invisible(NULL))
 }
 
-#' @rdname sb_set
-#' @export
-sb2_set <- function(x, ...) {
-  
-  if(is.atomic(x)) {
-    stop("Use the `sb_` methods for atomic objects")
-  }
-  if(!is.list(x)) {
-    stop("unsupported object")
-  }
-  
-  UseMethod("sb2_set", x)
-}
 
 #' @rdname sb_set
 #' @export
-sb2_set.default <- function(x, ...) {
+i2_set.default <- function(x, ...) {
   stop("`x` is not a (supported) mutable object")
 }
 
 #' @rdname sb_set
 #' @export
-sb2_set.data.table <- function(
+ss2_set.data.table <- function(
     x, s = NULL, d = 1:2, obs = NULL, vars = NULL, inv = FALSE,
     ..., rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE), .lapply = lapply
 ) {

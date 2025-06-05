@@ -2,17 +2,7 @@ docs/** linguist-documentation
 vignettes/** linguist-documentation
 man/** linguist-documentation
 inst/** linguist-vendored
-R/aaa00_squarebrackets_help.R -linguist-documentation
-R/aaa01_squarebrackets_supported_structures.R -linguist-documentation
-R/aaa02_squarebrackets_indx_fundamentals.R -linguist-documentation
-R/aaa03_squarebrackets_indx_args.R -linguist-documentation
-R/aaa04_squarebrackets_modify.R -linguist-documentation
-R/aaa05_squarebrackets_options.R -linguist-documentation
-R/aaa06_squarebrackets_method_dispatch.R -linguist-documentation
-R/aaa07_squarebrackets_PassByReference.R -linguist-documentation
-R/aaa08_squarebrackets_coercion.R -linguist-documentation
-R/aaa09_squarebrackets_slicev.R -linguist-documentation
-skeletons/** -linguist-vendored
+R/aaa*.R -linguist-documentationskeletons/** -linguist-vendored
 R/reexports.R -linguist-documentation
 R/meta_functions.R -linguist-documentation
 R/zzz.R -linguist-vendored

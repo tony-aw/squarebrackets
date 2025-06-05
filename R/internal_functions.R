@@ -82,10 +82,8 @@
 #' @noRd
 .check_args_array <- function(x, s, d, abortcall) {
   
-  dims_explicit <- length(d) != ndim(x) && length(d) != 0L
-  
-  if(dims_explicit && is.null(s)) {
-    stop(simpleError("improper combination of `s` and `d` specified"))
+  if(!is.list(s) && !is.atomic(s) && !is.null(s)) {
+    stop(simpleError("improper `s` specified", call = abortcall))
   }
   
 }

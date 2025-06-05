@@ -40,7 +40,7 @@ slice_set(x, ...)
 }
 \arguments{
 \item{x}{an atomic object. \cr
-For \code{slice_set} it must be a \link{mutatomic} \bold{variable}.}
+For \code{slice_set} it must be a \link[mutatomic]{mutatomic} \bold{variable}.}
 
 \item{...}{see \link{squarebrackets_method_dispatch}.}
 
@@ -60,10 +60,10 @@ If \code{TRUE},
 \item{rp, tf}{see \link{squarebrackets_modify}.}
 }
 \value{
-Similar to the \code{sb_} methods.
+Similar to the \code{i_}/\code{ss_} methods.
 }
 \description{
-The \code{slice_} - methods are similar to the \code{sb_} - methods,
+The \code{slice_} - methods are similar to the \code{i_}/\code{ss_} - methods,
 except they don't require an indexing vector,
 and are designed for memory efficiency. \cr \cr
 }

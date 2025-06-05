@@ -17,13 +17,6 @@ When selecting names with the [ and [&amp;lt;- operators,
 only the first occurrence of the names are selected in case of duplicate names.
 The 'squarebrackets' methods always perform on all names in case of duplicates,
 not just the first.
-The [[ and [[&amp;lt;- operators
-allow operating on a recursive subset of a nested list.
-But these only operate on a single recursive subset,
-and are not vectorized for multiple recursive subsets of a nested list at once.
-'squarebrackets' provides a way to reshape a nested list
-into a recursive matrix,
-thereby allowing vectorized operations on recursive subsets of such a nested list.
 The [&amp;lt;- operator only supports copy-on-modify semantics for most classes.
 The 'squarebrackets' methods provides explicit pass-by-reference and pass-by-value semantics,
 whilst still respecting things like binding-locks and mutability rules.
@@ -50,13 +43,6 @@ When selecting names with the [ and [&amp;lt;- operators,
 only the first occurrence of the names are selected in case of duplicate names.
 The 'squarebrackets' methods always perform on all names in case of duplicates,
 not just the first.
-The [[ and [[&amp;lt;- operators
-allow operating on a recursive subset of a nested list.
-But these only operate on a single recursive subset,
-and are not vectorized for multiple recursive subsets of a nested list at once.
-'squarebrackets' provides a way to reshape a nested list
-into a recursive matrix,
-thereby allowing vectorized operations on recursive subsets of such a nested list.
 The [&amp;lt;- operator only supports copy-on-modify semantics for most classes.
 The 'squarebrackets' methods provides explicit pass-by-reference and pass-by-value semantics,
 whilst still respecting things like binding-locks and mutability rules.
@@ -81,13 +67,14 @@ for long vectors than sub-set operations using the [ and [&amp;lt;- operators.
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
-      <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+      <ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" href="../articles/squarebrackets.html">Get started</a></li>
+<li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/a_benchmarks_x.html">Benchmarks - sb_x</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/a_benchmarks_x.html">Benchmarks - extract, exchange, duplicate</a></li>
     <li><a class="dropdown-item" href="../articles/b_benchmarks_tf.html">Benchmarks - transform operations</a></li>
-    <li><a class="dropdown-item" href="../articles/c_benchmarks_lst.html">Benchmarks - Vectorized Recursive Subset Operations On Nested Lists</a></li>
   </ul></li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/tony-aw/squarebrackets/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
@@ -121,13 +108,6 @@ The 'squarebrackets' methods work on any arbitrary dimensions without requiring 
 only the first occurrence of the names are selected in case of duplicate names. <br>
 The 'squarebrackets' methods always perform on all names in case of duplicates,
 not just the first.</p></li>
-<li><p>The <code>[[</code> and <code>[[&lt;-</code> operators
-allow operating on a recursive subset of a nested list. <br>
-But these only operate on a single recursive subset,
-and are not vectorized for multiple recursive subsets of a nested list at once. <br>
-'squarebrackets' provides a way to reshape a nested list
-into a recursive matrix,
-thereby allowing vectorized operations on recursive subsets of such a nested list.</p></li>
 <li><p>The <code>[&lt;-</code> operator only supports copy-on-modify semantics for most classes. <br>
 The 'squarebrackets' methods provides explicit pass-by-reference and pass-by-value semantics,
 whilst still respecting things like binding-locks and mutability rules.</p></li>
@@ -152,104 +132,8 @@ are occasionally less than optimally convenient <br><br>
 The Goal of the 'squarebrackets' package
 is not to replace the square-brackets operators,
 but to provide <b>alternative</b> sub-setting methods and functions,
-to be used in situations where the square bracket operators are inconvenient. <br><br><br></p>
+to be used in situations where the square bracket operators are inconvenient. <br><br></p>
     </div>
-    <div class="section level2">
-    <h2 id="supported-structures">Supported Structures<a class="anchor" aria-label="anchor" href="#supported-structures"></a></h2>
-
-
-<p>'squarebrackets' only supports the most common S3 classes,
-and only those that primarily use square brackets for sub-setting
-(hence the name of the package). <br><br>
-'squarebrackets' supports the following structures:</p><ul><li><p>basic <code>atomic</code> classes <br>
-(atomic vectors, matrices, and arrays).</p></li>
-<li><p>mutatomic classes <br>
-(mutatomic vectors, matrices, and arrays).</p></li>
-<li><p><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a>. <br></p></li>
-<li><p>basic list classes <br>
-(recursive vectors, matrices, and arrays). <br></p></li>
-<li><p><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> <br>
-(including the classes <code>tibble</code>, <code>sf-data.frame</code> and <code>sf-tibble</code>).</p></li>
-<li><p><a href="https://rdatatable.gitlab.io/data.table/reference/data.table.html" class="external-link">data.table</a> <br>
-(including the classes <code>tidytable</code>, <code>sf-data.table</code>, and <code>sf-tidytable</code>). <br><br></p></li>
-</ul><p>See <a href="aaa01_squarebrackets_supported_structures.html">squarebrackets_supported_structures</a> for more details. <br><br></p>
-    </div>
-    <div class="section level2">
-    <h2 id="sub-set-operation-methods">Sub-set Operation Methods<a class="anchor" aria-label="anchor" href="#sub-set-operation-methods"></a></h2>
-
-
-
-<p>The main focus of this package is on its generic methods. <br><br>
-Generic methods for atomic objects
-start with <code>sb_</code>. <br>
-Generic methods for recursive objects (list, data.frame, etc.)
-start with <code>sb2_</code>. <br>
-There is also the somewhat separate <a href="idx1.html">idx</a> method,
-which works on both recursive and non-recursive objects. <br>
-And finally there are the <code>slice_</code> methods,
-which (currently) only work on (mutable) atomic vectors. <br><br></p>
-<p><img src="figures/access_subsets-darkgreen.svg" alt="[ACCESS SUBSETS]"><br></p>
-<p>Methods to access subsets (i.e. extract selection, or extract all except selection):</p><ul><li><p><a href="sb_x.html">sb_x</a>, <a href="sb_x.html">sb2_x</a>: extract, exchange, or duplicate subsets.</p></li>
-<li><p><a href="sb_wo.html">sb_wo</a>,  <a href="sb_wo.html">sb2_wo</a>: return an object without the specified subset.</p></li>
-<li><p><a href="sb2_rec.html">sb2_rec</a>: access recursive subsets of lists.</p></li>
-<li><p><a href="slice.html">slice_x</a>: index-less and efficient,
-sequence-based extraction of a subset from a long vector.</p></li>
-<li><p><a href="slice.html">slice_wo</a>: index-less and efficient,
-sequence-based returning a long vector without the specified subset.</p></li>
-<li><p><a href="slicev.html">slicev_x</a>: index-less and efficient,
-value-based extraction of a subset from a long vector. <br><br></p></li>
-</ul><p><img src="figures/modify_subsets-red.svg" alt="[MODIFY SUBSETS]"><br></p>
-<p>Methods to modify subsets:</p><ul><li><p><a href="idx1.html">idx</a>: translate given indices/subscripts,
-for the purpose of copy-on-modify substitution.</p></li>
-<li><p><a href="sb2_rec.html">sb2_recin</a>: replace, transform, remove, or add recursive subsets to a list,
-through R's default Copy-On-Modify semantics.</p></li>
-<li><p><a href="sb_mod.html">sb_mod</a>, <a href="sb_mod.html">sb2_mod</a>: return the object with modified
-(transformed or replaced) subsets.</p></li>
-<li><p>Methods to <a href="sb_setRename.html">rename a mutable object</a> using
-pass-by-reference semantics.</p></li>
-<li><p><a href="sb_set.html">sb_set</a>, <a href="sb_set.html">sb2_set</a>: modify (transform or replace)
-subsets of a <a href="aaa01_squarebrackets_supported_structures.html">mutable object</a>
-using pass-by-reference semantics.</p></li>
-<li><p><a href="slice.html">slice_set</a>: index-less and efficient,
-sequence-based modification of a (long) vector subset using
-pass-by-reference semantics.</p></li>
-<li><p><a href="slicev.html">slicev_set</a>: index-less and efficient,
-value-based modification of a (long) vector subset using
-pass-by-reference semantics. <br><br></p></li>
-</ul><p><img src="figures/extend_beyond-purple.svg" alt="[EXTEND BEYOND]"><br></p>
-<p>Methods to extend or re-arrange an object beyond its current size:</p><ul><li><p><a href="sb_x.html">sb_x</a>, <a href="sb_x.html">sb2_x</a>: extract, exchange, or duplicate subsets.</p></li>
-<li><p><a href="sb2_rec.html">sb2_recin</a>: replace, transform, remove, or add recursive subsets to a list,
-through R's default Copy-On-Modify semantics.</p></li>
-</ul><p>See <a href="aaa06_squarebrackets_method_dispatch.html">squarebrackets_method_dispatch</a> for more information on how 'squarebrackets'
-uses its S3 Method dispatch. <br><br></p>
-    </div>
-    <div class="section level2">
-    <h2 id="functions">Functions<a class="anchor" aria-label="anchor" href="#functions"></a></h2>
-
-
-
-<p><img src="figures/specialized_functions-darkred.svg" alt="[SPECIALIZED FUNCTIONS]"><br>
-Additional specialized sub-setting functions are provided:</p><ul><li><p><a href="lst.html">lst_untree</a>: unnest tree-like nested list into a recursive matrix,
-to speed-up vectorized sub-setting on recursive subsets of the list.</p></li>
-<li><p>The <a href="dt.html">dt_</a>-functions
-to programmatically perform <code>data.table</code>-specific <code>[</code>-operations,
-with the security measures provided by the 'squarebrackets' package.</p></li>
-</ul><p><img src="figures/helper_functions-lightblue.svg" alt="[HELPER FUNCTIONS]"><br>
-A couple of convenience functions, and helper functions for creating ranges, sequences, and indices
-(often needed in sub-setting)
-are provided:</p><ul><li><p>currentBindings: list or lock all currently existing bindings
-that share the share the same address as the input variable.</p></li>
-<li><p><a href="nest.html">n</a>: Nested version of <a href="https://rdrr.io/r/base/c.html" class="external-link">c</a>,
-and short-hand for <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a>.</p></li>
-<li><p><a href="ndim.html">ndim</a>: Get the number of dimensions of an object.</p></li>
-<li><p><a href="sub2ind.html">sub2coord</a>, <a href="sub2ind.html">coord2ind</a>: Convert subscripts
-(array indices) to coordinates,
-coordinates to flat indices,
-and vice-versa.</p></li>
-<li><p><a href="match_all.html">match_all</a>: Find all matches, of one vector in another,
-taking into account the order and any duplicate values of both vectors.</p></li>
-<li><p>Computing indices: <br><a href="idx_r.html">idx_r</a> to compute an integer index range. <br><a href="idx_by.html">idx_by</a> to compute grouped indices. <br><a href="idx_ord.html">idx_ord_</a>-functions to compute ordered indices. <br><br></p></li>
-</ul></div>
     <div class="section level2">
     <h2 id="overview-help-pages">Overview Help Pages<a class="anchor" aria-label="anchor" href="#overview-help-pages"></a></h2>
 
@@ -260,16 +144,36 @@ taking into account the order and any duplicate values of both vectors.</p></li>
 that can be accessed from within 'R'. <br></p><ul><li><p><a href="aaa01_squarebrackets_supported_structures.html">squarebrackets_supported_structures</a>: <br>
 Lists the structures that are supported by 'squarebrackets',
 and explains some related terminology.</p></li>
-<li><p><a href="aaa02_squarebrackets_indx_fundamentals.html">squarebrackets_indx_fundamentals</a>: <br>
+<li><p><a href="aaa02_squarebrackets_methods.html">squarebrackets_methods</a>: <br>
+Lists the main methods provided by 'squarebrackets'.</p></li>
+<li><p><a href="aaa03_squarebrackets_indx_fundamentals.html">squarebrackets_indx_fundamentals</a>: <br>
 Explains the essential fundamentals of the indexing forms in 'squarebrackets'.</p></li>
-<li><p><a href="aaa03_squarebrackets_indx_args.html">squarebrackets_indx_args</a>: <br>
+<li><p><a href="aaa04_squarebrackets_indx_args.html">squarebrackets_indx_args</a>: <br>
 Explains the common indexing arguments used in the main S3 methods.</p></li>
-<li><p><a href="aaa04_squarebrackets_modify.html">squarebrackets_modify</a>: <br>
+<li><p><a href="aaa05_squarebrackets_modify.html">squarebrackets_modify</a>: <br>
 Explains the essentials of modification in 'squarebrackets'</p></li>
-<li><p><a href="aaa05_squarebrackets_options.html">squarebrackets_options</a>: <br>
+<li><p><a href="aaa06_squarebrackets_options.html">squarebrackets_options</a>: <br>
 Lists and explains the options the user can specify in 'squarebrackets'.</p></li>
-<li><p><a href="aaa06_squarebrackets_method_dispatch.html">squarebrackets_method_dispatch</a>: <br>
-Gives details regarding the S3 method dispatch in 'squarebrackets'. <br><br></p></li>
+<li><p><a href="aaa07_squarebrackets_method_dispatch.html">squarebrackets_method_dispatch</a>: <br>
+Gives some small additional details regarding the S3 method dispatch used in 'squarebrackets'. <br><br></p></li>
+</ul></div>
+    <div class="section level2">
+    <h2 id="helper-functions">Helper Functions<a class="anchor" aria-label="anchor" href="#helper-functions"></a></h2>
+
+
+
+<p>A couple of convenience functions, and helper functions for creating ranges, sequences, and indices
+(often needed in sub-setting)
+are provided:</p><ul><li><p><a href="nest.html">n</a>: Nested version of <a href="https://rdrr.io/r/base/c.html" class="external-link">c</a>,
+and short-hand for <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a>.</p></li>
+<li><p><a href="ndim.html">ndim</a>: Get the number of dimensions of an object.</p></li>
+<li><p><a href="sub2ind.html">sub2coord</a>, <a href="sub2ind.html">coord2ind</a>: Convert subscripts
+(array indices) to coordinates,
+coordinates to flat indices,
+and vice-versa.</p></li>
+<li><p><a href="match_all.html">match_all</a>: Find all matches, of one vector in another,
+taking into account the order and any duplicate values of both vectors.</p></li>
+<li><p>Computing indices: <br><a href="idx_r.html">idx_r</a> to compute an integer index range. <br><a href="idx_by.html">idx_by</a> to compute grouped indices. <br><a href="idx_ord.html">idx_ord_</a>-functions to compute ordered indices. <br><br></p></li>
 </ul></div>
     <div class="section level2">
     <h2 id="properties-details">Properties Details<a class="anchor" aria-label="anchor" href="#properties-details"></a></h2>

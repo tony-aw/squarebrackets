@@ -20,19 +20,20 @@ reference:
   contents:
   - '`aaa00_squarebrackets_help`'
   - '`aaa01_squarebrackets_supported_structures`'
-  - '`aaa02_squarebrackets_indx_fundamentals`'
-  - '`aaa03_squarebrackets_indx_args`'
-  - '`aaa04_squarebrackets_modify`'
-  - '`aaa05_squarebrackets_options`'
-  - '`aaa06_squarebrackets_method_dispatch`'
-  - '`aaa07_squarebrackets_slicev`'
+  - '`aaa02_squarebrackets_methods`'
+  - '`aaa03_squarebrackets_indx_fundamentals`'
+  - '`aaa04_squarebrackets_indx_args`'
+  - '`aaa05_squarebrackets_modify`'
+  - '`aaa06_squarebrackets_options`'
+  - '`aaa07_squarebrackets_method_dispatch`'
+  - '`aaa08_squarebrackets_slicev`'
 - title: Generic Methods
   contents:
-  - '`sb_x`'
-  - '`sb_wo`'
-  - '`sb_mod`'
-  - '`sb_set`'
-  - '`sb2_rec`'
+  - '`i_x`'
+  - '`i_wo`'
+  - '`i_mod`'
+  - '`i_set`'
+  - '`i2_rec`'
   - '`sb_setRename`'
   - '`idx`'
   - '`slice_x`'
@@ -40,7 +41,6 @@ reference:
   - '`cp_seq`'
 - title: Specialized Functions
   contents:
-  - '`lst`'
   - '`dt`'
 - title: Helper Functions
   contents:

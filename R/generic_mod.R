@@ -1,12 +1,7 @@
 #' Method to Return a Copy of an Object With Modified Subsets
 #'
 #' @description
-#' This is an S3 Method to return a copy of an object with modified subsets. \cr
-#' Use `sb_mod(x, ...)` if `x` is an atomic object; this returns a full copy. \cr
-#' Use `sb2_mod(x, ...)` if `x` is a recursive object
-#' (i.e. list or data.frame-like);
-#' this returns a partial copy. \cr
-#' \cr
+#' Methods to return a copy of an object with modified subsets. \cr
 #' For modifying subsets using R's default copy-on-modification semantics, see \link{idx}. \cr \cr
 #'
 #' @param x see \link{squarebrackets_supported_structures}.
@@ -35,22 +30,43 @@
 
 #' @rdname sb_mod
 #' @export
-sb_mod <- function(x, ...) {
+i_mod <- function(x, ...) {
   
-  if(is.list(x)) {
-    stop("Use the `sb2_` methods for recursive objects")
-  }
-  if(!is.atomic(x)) {
-    stop("unsupported object")
-  }
+  .methodcheck.i(x, sys.call())
   
-  UseMethod("sb_mod", x)
+  UseMethod("i_mod", x)
+}
+
+#' @rdname sb_mod
+#' @export
+i2_mod <- function(x, ...) {
+  
+  .methodcheck.i2(x, sys.call())
+  
+  UseMethod("i2_mod", x)
+}
+
+#' @rdname sb_mod
+#' @export
+ss_mod <- function(x, ...) {
+  
+  .methodcheck.ss(x, sys.call())
+  UseMethod("ss_mod", x)
 }
 
 
 #' @rdname sb_mod
 #' @export
-sb_mod.default <- function(
+ss2_mod <- function(x, ...) {
+  
+  .methodcheck.ss2(x, sys.call())
+  
+  
+  UseMethod("ss2_mod", x)
+}
+#' @rdname sb_mod
+#' @export
+i_mod.default <- function(
     x, i = NULL, inv = FALSE, ...,
     rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
@@ -69,8 +85,8 @@ sb_mod.default <- function(
 
 #' @rdname sb_mod
 #' @export
-sb_mod.array <- function(
-    x, s = NULL, d = 1:ndim(x), i = NULL, inv = FALSE, ...,
+ss_mod.default <- function(
+    x, s = NULL, d = 1:ndim(x), inv = FALSE, ...,
     rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
@@ -80,13 +96,8 @@ sb_mod.array <- function(
   .check_args_array(x, s, d, sys.call())
   
   # all empty indices:
-  if(.all_NULL_indices(list(s, i))) {
+  if(.all_NULL_indices(list(s))) {
     return(.all_mod_atomic(x, rp, tf,sys.call()))
-  }
-  
-  # argument i:
-  if(!is.null(i)) {
-    return(.flat_mod_atomic(x, i, inv, rp, tf, chkdup, sys.call()))
   }
   
   # zero-length subscripts:
@@ -120,22 +131,7 @@ sb_mod.array <- function(
 
 #' @rdname sb_mod
 #' @export
-sb2_mod <- function(x, ...) {
-  
-  if(is.atomic(x)) {
-    stop("Use the `sb_` methods for atomic objects")
-  }
-  if(!is.list(x)) {
-    stop("unsupported object")
-  }
-  
-  UseMethod("sb2_mod", x)
-}
-
-
-#' @rdname sb_mod
-#' @export
-sb2_mod.default <- function(
+i2_mod.default <- function(
     x, i = NULL, inv = FALSE, ...,
     rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE), .lapply = lapply
 ) {
@@ -156,8 +152,8 @@ sb2_mod.default <- function(
 
 #' @rdname sb_mod
 #' @export
-sb2_mod.array <- function(
-    x, s = NULL, d = 1:ndim(x), i = NULL, inv = FALSE, ...,
+ss2_mod.default <- function(
+    x, s = NULL, d = 1:ndim(x), inv = FALSE, ...,
     rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE), .lapply = lapply
 ) {
   
@@ -167,13 +163,8 @@ sb2_mod.array <- function(
   .check_args_array(x, s, d, sys.call())
   
   # all missing indices:
-  if(.all_NULL_indices(list(s, i))) {
+  if(.all_NULL_indices(list(s))) {
     return(.all_mod_list(x, rp, tf, .lapply, sys.call()))
-  }
-  
-  # argument i:
-  if(!is.null(i)) {
-    return(.flat_mod_list(x, i, inv, rp, tf, chkdup, .lapply, sys.call()))
   }
   
   # zero-length subscripts:
@@ -206,7 +197,7 @@ sb2_mod.array <- function(
 
 #' @rdname sb_mod
 #' @export
-sb2_mod.data.frame <- function(
+ss2_mod.data.frame <- function(
     x, s = NULL, d = 1:2, obs = NULL, vars = NULL, inv = FALSE, ...,
     rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE), .lapply = lapply
 ) {

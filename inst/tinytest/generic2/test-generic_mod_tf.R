@@ -16,13 +16,27 @@ temp.fun <- function(x) {
     return(x)
   }
   expect_equal(
-    sb2_mod(x, tf = \(x) return(-1)),
+    i2_mod(x, tf = \(x) return(-1)),
     tempfun(x)
   ) |> errorfun()
 }
 
 sys.source(file.path(getwd(), "source", "sourcetest-missingargs.R"), envir = environment())
 
+
+
+temp.fun <- function(x) {
+  tempfun <- function(x) {
+    x[] <- -1
+    return(x)
+  }
+  expect_equal(
+    ss2_mod(x, tf = \(x) return(-1)),
+    tempfun(x)
+  ) |> errorfun()
+}
+
+sys.source(file.path(getwd(), "source", "sourcetest-missingargs.R"), envir = environment())
 
 
 
@@ -47,7 +61,7 @@ test_sb <- function(x, i) {
 temp.fun <- function(x, elements) {
   for (i in 1:length(elements)) {
     expect_equal(
-      sb2_mod(x, i = elements[[i]], tf = min),
+      i2_mod(x, i = elements[[i]], tf = min),
       test_sb(x, i = elements[[i]])
     ) |> errorfun()
     assign("enumerate", enumerate + 1, envir = parent.frame(n = 1))
@@ -109,14 +123,10 @@ f_expect.matrix <- f_expect.2d <- function(x, row = NULL, col = NULL) {
   return(x)
 }
 
-f_out.matrix <- function(x, row, col) {
-  
-  return(sb2_mod(x, row = row, col = col, tf = mean))
-}
 
 f_out.2d <- function(x, s, d) {
   
-  return(sb2_mod.array(x, s, d, tf = mean))
+  return(ss2_mod(x, s, d, tf = mean))
 }
 
 
@@ -138,12 +148,12 @@ f_expect.1d <- function(x, i) {
 
 f_out.1d <- function(x, s, d) {
   
-  return(sb2_mod(x, s, d, tf = mean))
+  return(ss2_mod(x, s, d, tf = mean))
 }
 
 
 sb_test <- function(x, ...) {
-  return(sb2_mod.array(x, ..., tf = mean))
+  return(ss2_mod(x, ..., tf = mean))
 }
 
 f_expect.arbitrary <- function(x, i, j, l) {
@@ -162,7 +172,7 @@ sys.source(file.path(getwd(), "source", "sourcetest-dims.R"), envir = environmen
 # test datasets ====
 
 
-pre_subset_df <- sb2_x.data.frame
+pre_subset_df <- ss2_x.data.frame
 
 f_expect.data.frame <- function(x, row = NULL, col = NULL) {
   
@@ -193,7 +203,7 @@ f_expect.data.frame <- function(x, row = NULL, col = NULL) {
 
 f_out.data.frame <- function(x, s, d) {
   
-  return(sb2_mod.data.frame(x, s, d, tf = \(x)x[1]))
+  return(ss2_mod.data.frame(x, s, d, tf = \(x)x[1]))
   
 }
 
@@ -206,11 +216,15 @@ sys.source(file.path(getwd(), "source", "sourcetest-datasets.R"), envir = enviro
 
 
 # test errors ====
-sb_test <- function(...)sb2_mod(..., tf = \(x)x[1])
-sys.source(file.path(getwd(), "source", "sourcetest-errors.R"), envir = environment())
+sb_test <- function(...)i2_mod(..., tf = \(x)x[1])
+sys.source(file.path(getwd(), "source", "sourcetest-errors-i.R"), envir = environment())
+
+sb_test <- function(...)ss2_mod(..., tf = \(x)x[1])
+sys.source(file.path(getwd(), "source", "sourcetest-errors-ss.R"), envir = environment())
+
 
 expect_error(
-  sb2_mod(as.list(1:10), i = 1, tf = "foo"),
+  i2_mod(as.list(1:10), i = 1, tf = "foo"),
   pattern = "`tf` must be a function"
 )
 

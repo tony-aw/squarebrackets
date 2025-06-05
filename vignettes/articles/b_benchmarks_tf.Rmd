@@ -27,9 +27,9 @@ library(squarebrackets)
 # Introduction
 
 
-Base R's `[<-`, `[[<-`, `$<-` methods perform in-place modification on subsets of objects using "copy-on-modify" semantics. The 'squarebrackets' R-package provides 2 alternative semantics for modification: "pass-by-reference" through the `sb_set()` method, and "deep-copy" through the `sb_mod()` method. Moreover, where base 'R' provides direct replacement only, 'squarebrackets' provides both replacement (through the `rp` argument) and transformation (through the `tf` argument) mechanics. Thus, 'squarebrackets' and base R are not really directly comparable in terms of benchmarking. Nonetheless, I have tried to keep the comparisons somewhat fair.
+Base R's `[<-`, `[[<-`, `$<-` methods perform in-place modification on subsets of objects using "copy-on-modify" semantics. The 'squarebrackets' R-package provides 2 alternative semantics for modification: "pass-by-reference" through the `*_set` methods, and "pass-by-value" through the `*_mod` methods. Moreover, where base 'R' provides direct replacement only, 'squarebrackets' provides both replacement (through the `rp` argument) and transformation (through the `tf` argument) mechanics. Thus, 'squarebrackets' and base R are not really directly comparable in terms of benchmarking. Nonetheless, I have tried to keep the comparisons somewhat fair.
 
-The `sb_set()` method is generally several times (2 to 5 times) faster than base R's in-place modification, and generally uses about half the memory. The `sb_mod()` method is generally about as fast as base R's in-place modification, and uses about the same amount of memory.
+The `*_set` methods are generally several times (2 to 5 times) faster than base R's in-place modification, and generally uses about half the memory. The `*_mod` methods are generally about as fast as base R's in-place modification, and uses about the same amount of memory.
 
 
 Below are some benchmarks to give one an idea of the speed loss. These are just examples; speed is determined by a great number of factors. To keep comparisons between the classes fair, all objects have approximately `1e7` elements.
@@ -94,8 +94,8 @@ tf <- function(x) { return(-1 * x) }
 bm.sb_tf.matrix <- bench::mark(
   "base [<-" =  basefun(x.mat, sel.rows, sel.cols, tf = tf),
   "idx + [<-" = base_plus_idx(x.mat, sel.rows, sel.cols, tf = tf),
-  "sb_set" = sb_set(x.mat2, n(sel.rows, sel.cols), tf = tf),
-  "sb_mod" = sb_mod(x.mat, n(sel.rows, sel.cols), tf = tf),
+  "ss_set" = ss_set(x.mat2, n(sel.rows, sel.cols), tf = tf),
+  "ss_mod" = ss_mod(x.mat, n(sel.rows, sel.cols), tf = tf),
   check = FALSE,
   min_iterations = 500
 )
@@ -134,8 +134,8 @@ tf <- function(x) { return(-1 * x) }
 bm.sb_tf.3d <- bench::mark(
   "base [<-" = basefun(x.3d, sel.rows, sel.lyrs, tf = tf ),
   "idx + [<-" = base_plus_idx(x.3d, sel.rows, sel.lyrs, tf = tf),
-  "sb_set" =  sb_set(x.3d2, n(sel.rows, sel.lyrs), c(1,3), tf = tf),
-  "sb_mod" = sb_mod(x.3d, n(sel.rows, sel.lyrs), c(1, 3), tf = tf),
+  "ss_set" =  ss_set(x.3d2, n(sel.rows, sel.lyrs), c(1,3), tf = tf),
+  "ss_mod" = ss_mod(x.3d, n(sel.rows, sel.lyrs), c(1, 3), tf = tf),
   check = FALSE,
   min_iterations = 500
 )
@@ -184,10 +184,10 @@ basefun <- function(x, rows, tf) {
 }
 bm.sb_tf.df <- bench::mark(
   "base [<-" = basefun(df, sel.rows, tf = \(x) -1 * x),
-  "sb_set" = sb2_set(
+  "ss2_set" = ss2_set(
     dt, obs = sel.rows, vars = is.numeric, tf = \(x) -1 * x
   ),
-  "sb_mod" = sb2_mod(
+  "ss2_mod" = ss2_mod(
     df, obs = sel.rows, vars = is.numeric, tf = \(x) -1 * x
   ),
   check = FALSE,

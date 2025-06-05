@@ -24,11 +24,12 @@ base_plus_idx <- function(x, rows, cols, tf) {
   return(x)
 }
 tf <- function(x) { return(-1 * x) }
+gc()
 bm.sb_tf.matrix <- bench::mark(
   "base [<-" =  basefun(x.mat, sel.rows, sel.cols, tf = tf),
   "idx + [<-" = base_plus_idx(x.mat, sel.rows, sel.cols, tf = tf),
-  "sb_set" = sb_set.array(x.mat2, n(sel.rows, sel.cols), tf = tf),
-  "sb_mod" = sb_mod.array(x.mat, n(sel.rows, sel.cols), tf = tf),
+  "ss_set" = ss_set(x.mat2, n(sel.rows, sel.cols), tf = tf),
+  "ss_mod" = ss_mod(x.mat, n(sel.rows, sel.cols), tf = tf),
   check = FALSE,
   min_iterations = 500
 )
@@ -51,11 +52,12 @@ base_plus_idx <- function(x, rows, lyrs, tf) {
   return(x)
 }
 tf <- function(x) { return(-1L * x) }
+gc()
 bm.sb_tf.3d <- bench::mark(
   "base [<-" = basefun(x.3d, sel.rows, sel.lyrs, tf = tf ),
   "idx + [<-" = base_plus_idx(x.3d, sel.rows, sel.lyrs, tf = tf),
-  "sb_set" =  sb_set.array(x.3d2, n(sel.rows, sel.lyrs), c(1,3), tf = tf),
-  "sb_mod" = sb_mod.array(x.3d, n(sel.rows, sel.lyrs), c(1, 3), tf = tf),
+  "ss_set" =  ss_set(x.3d2, n(sel.rows, sel.lyrs), c(1,3), tf = tf),
+  "ss_mod" = ss_mod(x.3d, n(sel.rows, sel.lyrs), c(1, 3), tf = tf),
   check = FALSE,
   min_iterations = 500
 )
@@ -84,12 +86,13 @@ basefun <- function(x, rows, tf) {
   x[rows, sapply(x, is.numeric)] <- lapply(x[rows, sapply(x, is.numeric)], tf)
   return(x)
 }
+gc()
 bm.sb_tf.df <- bench::mark(
   "base [<-" = basefun(df, sel.rows, tf = \(x) -1 * x),
-  "sb_set" = sb2_set.data.table(
+  "ss2_set" = ss2_set(
     dt, obs = sel.rows, vars = is.numeric, tf = \(x) -1 * x
   ),
-  "sb_mod" = sb2_mod.data.frame(
+  "ss2_mod" = ss2_mod(
     df, obs = sel.rows, vars = is.numeric, tf = \(x) -1 * x
   ),
   check = FALSE,

@@ -1,7 +1,7 @@
 #' Efficient Value-based Subset Methods on (Long) Vectors
 #' 
 #' @description
-#' The `slicev_` - methods are similar to the `sb_` - methods,
+#' The `slicev_` - methods are similar to the `i_`/`ss_` - methods,
 #' except they don't require an indexing vector,
 #' and are designed for memory efficiency. \cr
 #' \cr
@@ -9,7 +9,7 @@
 #' occurs in a vector subset `y[from:to]`. \cr \cr
 #' 
 #' @param x an atomic vector. \cr
-#' For `slicev_set()` it must be a \link{mutatomic} \bold{variable}.
+#' For `slicev_set()` it must be a \link[mutatomic]{mutatomic} \bold{variable}.
 #' @param ... See \link{squarebrackets_slicev}.
 #' @param y,v,na,r See \link{squarebrackets_slicev}.
 #' @param from,to see \link{cp_seq}.
@@ -23,7 +23,7 @@
 #' 
 #'
 #' @returns
-#' Similar to the `sb_` methods. \cr
+#' Similar to the `i_`/`ss_` methods. \cr
 #' \cr
 #' For `countv()`: A single number,
 #' giving the number of elements matching the specified condition. \cr \cr

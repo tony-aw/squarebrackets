@@ -1,47 +1,70 @@
 
+enumerate <- 0
+
 # atomic vector ====
 x <- mutatomic::mutatomic(1:10)
 expect_error(
-  sb_mod(x),
+  i_mod(x),
   pattern = "must specify either `rp` or `tf`",
   fixed = TRUE
 )
 expect_error(
-  sb_mod(x, inv = TRUE),
+  ss_mod(x),
   pattern = "must specify either `rp` or `tf`",
   fixed = TRUE
 )
 expect_error(
-  sb_set(x),
+  i_mod(x, inv = TRUE),
   pattern = "must specify either `rp` or `tf`",
   fixed = TRUE
 )
 expect_error(
-  sb_set(x, inv = TRUE),
+  ss_mod(x, inv = TRUE),
   pattern = "must specify either `rp` or `tf`",
   fixed = TRUE
 )
+expect_error(
+  i_set(x),
+  pattern = "must specify either `rp` or `tf`",
+  fixed = TRUE
+)
+expect_error(
+  i_set(x, inv = TRUE),
+  pattern = "must specify either `rp` or `tf`",
+  fixed = TRUE
+)
+expect_error(
+  ss_set(x),
+  pattern = "must specify either `rp` or `tf`",
+  fixed = TRUE
+)
+expect_error(
+  ss_set(x, inv = TRUE),
+  pattern = "must specify either `rp` or `tf`",
+  fixed = TRUE
+)
+enumerate <- enumerate + 8L
 
 
 # atomic matrix ====
 x <- mutatomic::mutatomic(1:20, dim = c(5,4))
 expect_error(
-  sb_mod(x),
+  ss_mod(x),
   pattern = "must specify either `rp` or `tf`",
   fixed = TRUE
 )
 expect_error(
-  sb_mod(x, inv = TRUE),
+  i_mod(x, inv = TRUE),
   pattern = "must specify either `rp` or `tf`",
   fixed = TRUE
 )
 expect_error(
-  sb_set(x),
+  ss_set(x),
   pattern = "must specify either `rp` or `tf`",
   fixed = TRUE
 )
 expect_error(
-  sb_set(x, inv = TRUE),
+  i_set(x, inv = TRUE),
   pattern = "must specify either `rp` or `tf`",
   fixed = TRUE
 )
@@ -50,94 +73,128 @@ expect_error(
 # atomic 3d array ====
 x <- mutatomic::mutatomic(1:27, dim = c(3,3,3))
 expect_error(
-  sb_mod(x),
+  ss_mod(x),
   pattern = "must specify either `rp` or `tf`",
   fixed = TRUE
 )
 expect_error(
-  sb_mod(x, inv = TRUE),
+  i_mod(x, inv = TRUE),
   pattern = "must specify either `rp` or `tf`",
   fixed = TRUE
 )
 expect_error(
-  sb_set(x),
+  ss_set(x),
   pattern = "must specify either `rp` or `tf`",
   fixed = TRUE
 )
 expect_error(
-  sb_set(x, inv = TRUE),
+  i_set(x, inv = TRUE),
   pattern = "must specify either `rp` or `tf`",
   fixed = TRUE
 )
+enumerate <- enumerate + 4L
 
 
 # recursive vector ====
 x <- as.list(1:10)
 expect_error(
-  sb2_mod(x),
+  i2_mod(x),
   pattern = "must specify either `rp` or `tf`",
   fixed = TRUE
 )
 expect_error(
-  sb2_mod(x, inv = TRUE),
+  i2_mod(x, inv = TRUE),
   pattern = "must specify either `rp` or `tf`",
   fixed = TRUE
 )
+expect_error(
+  ss2_mod(x),
+  pattern = "must specify either `rp` or `tf`",
+  fixed = TRUE
+)
+expect_error(
+  ss2_mod(x, inv = TRUE),
+  pattern = "must specify either `rp` or `tf`",
+  fixed = TRUE
+)
+enumerate <- enumerate + 4L
 
 
 # recursive matrix ====
 x <- matrix(as.list(1:20, ncol = 4))
 expect_error(
-  sb2_mod(x),
+  i2_mod(x),
   pattern = "must specify either `rp` or `tf`",
   fixed = TRUE
 )
 expect_error(
-  sb2_mod(x, inv = TRUE),
+  i2_mod(x, inv = TRUE),
   pattern = "must specify either `rp` or `tf`",
   fixed = TRUE
 )
+expect_error(
+  ss2_mod(x),
+  pattern = "must specify either `rp` or `tf`",
+  fixed = TRUE
+)
+expect_error(
+  ss2_mod(x, inv = TRUE),
+  pattern = "must specify either `rp` or `tf`",
+  fixed = TRUE
+)
+enumerate <- enumerate + 4L
 
 
 # recursive 3d array ====
 x <- array(as.list(1:27), dim = c(3,3,3))
 expect_error(
-  sb2_mod(x),
+  i2_mod(x),
   pattern = "must specify either `rp` or `tf`",
   fixed = TRUE
 )
 expect_error(
-  sb2_mod(x, inv = TRUE),
+  i2_mod(x, inv = TRUE),
   pattern = "must specify either `rp` or `tf`",
   fixed = TRUE
 )
+expect_error(
+  ss2_mod(x),
+  pattern = "must specify either `rp` or `tf`",
+  fixed = TRUE
+)
+expect_error(
+  ss2_mod(x, inv = TRUE),
+  pattern = "must specify either `rp` or `tf`",
+  fixed = TRUE
+)
+enumerate <- enumerate + 4L
 
 
 # data.frame ====
 x <- data.frame(a = 1:10, b = letters[1:10])
 expect_error(
-  sb2_mod(x),
+  ss2_mod(x),
   pattern = "must specify either `rp` or `tf`",
   fixed = TRUE
 )
 expect_error(
-  sb2_mod(x, inv = TRUE),
+  ss2_mod(x, inv = TRUE),
   pattern = "must specify either `rp` or `tf`",
   fixed = TRUE
 )
+enumerate <- enumerate + 2L
 
 
 # data.table ====
 x <- data.table::data.table(a = 1:10, b = letters[1:10])
 expect_error(
-  sb2_set(x),
+  ss2_set(x),
   pattern = "must specify either `rp` or `tf`",
   fixed = TRUE
 )
 expect_error(
-  sb2_set(x, inv = TRUE),
+  ss2_set(x, inv = TRUE),
   pattern = "must specify either `rp` or `tf`",
   fixed = TRUE
 )
-
-enumerate <- 22
+enumerate <- enumerate + 2L

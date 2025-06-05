@@ -1,10 +1,7 @@
-#' Method to Return Object Without Specified Subset
+#' Methods to Return Object Without Specified Subset
 #'
 #' @description
-#' This is an S3 Method to return an object \bold{without} the specified subset. \cr
-#' `sb_wo()`/ `sb2_wo()` is essentially the inverse of \link{sb_x}/\link{sb2_x}. \cr
-#' Use `sb_wo(x, ...)` if `x` is an atomic object. \cr
-#' Use `sb2_wo(x, ...)` if `x` is a recursive object (i.e. list or data.frame-like). \cr \cr
+#' S3 Methods to return an object \bold{without} the specified subset. \cr \cr
 #'
 #' @param x see \link{squarebrackets_supported_structures}.
 #' @param i,s,d,obs,vars See \link{squarebrackets_indx_args}. \cr
@@ -32,22 +29,45 @@
 
 #' @rdname sb_wo
 #' @export
-sb_wo <- function(x, ...) {
+i_wo <- function(x, ...) {
   
-  if(is.list(x)) {
-    stop("Use the `sb2_` methods for recursive objects")
-  }
-  if(!is.atomic(x)) {
-    stop("unsupported object")
-  }
+  .methodcheck.i(x, sys.call())
   
-  UseMethod("sb_wo", x)
+  UseMethod("i_wo", x)
+}
+
+#' @rdname sb_wo
+#' @export
+i2_wo <- function(x, ...) {
+  
+  .methodcheck.i2(x, sys.call())
+  
+  UseMethod("i2_wo", x)
+}
+
+#' @rdname sb_wo
+#' @export
+ss_wo <- function(x, ...) {
+  
+  .methodcheck.ss(x, sys.call())
+  UseMethod("ss_wo", x)
 }
 
 
 #' @rdname sb_wo
 #' @export
-sb_wo.default <- function(
+ss2_wo <- function(x, ...) {
+  
+  .methodcheck.ss2(x, sys.call())
+  
+  
+  UseMethod("ss2_wo", x)
+}
+
+
+#' @rdname sb_wo
+#' @export
+i_wo.default <- function(
     x, i = NULL, ...,
     chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
@@ -65,35 +85,21 @@ sb_wo.default <- function(
 
 #' @rdname sb_wo
 #' @export
-sb_wo.array <- function(
-    x, s = NULL, d = 1:ndim(x), i = NULL, ...,
+ss_wo.default <- function(
+    x, s = NULL, d = 1:ndim(x), ...,
     chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
   .internal_check_dots(list(...), sys.call())
   
-  return(.sb_x_array(x, s, d, i, TRUE, FALSE, chkdup, sys.call()))
+  return(.sb_x_array(x, s, d, NULL, TRUE, FALSE, chkdup, sys.call()))
 }
+
 
 
 #' @rdname sb_wo
 #' @export
-sb2_wo <- function(x, ...) {
-  
-  if(is.atomic(x)) {
-    stop("Use the `sb_` methods for atomic objects")
-  }
-  if(!is.list(x)) {
-    stop("unsupported object")
-  }
-  
-  UseMethod("sb2_wo", x)
-}
-
-
-#' @rdname sb_wo
-#' @export
-sb2_wo.default <- function(
+i2_wo.default <- function(
     x, i = NULL, red = FALSE, ...,
     chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
@@ -114,8 +120,8 @@ sb2_wo.default <- function(
 
 #' @rdname sb_wo
 #' @export
-sb2_wo.array <- function(
-    x, s = NULL, d = 1:ndim(x), i = NULL, red = FALSE, ...,
+ss2_wo.default <- function(
+    x, s = NULL, d = 1:ndim(x), red = FALSE, ...,
     chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
@@ -125,13 +131,13 @@ sb2_wo.array <- function(
     stop("`red` must be either `TRUE` or `FALSE`")
   }
   
-  return(.sb_x_array(x, s, d, i, TRUE, red, chkdup, sys.call()))
+  return(.sb_x_array(x, s, d, NULL, TRUE, red, chkdup, sys.call()))
 }
 
 
 #' @rdname sb_wo
 #' @export
-sb2_wo.data.frame <- function(
+ss2_wo.data.frame <- function(
     x, s = NULL, d = 1:2, obs = NULL, vars = NULL, ...,
     chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {

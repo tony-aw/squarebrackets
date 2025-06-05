@@ -9,19 +9,19 @@ test_use_factors <- FALSE
 test_PassByReference <- TRUE
 
 
-sb_set2 <- function(x, ...) {
+i_set2 <- function(x, ...) {
   x <- data.table::copy(x)
   if(is.atomic(x)) x <- mutatomic::as.mutatomic(x)
   x2 <- x
-  sb_set(x, ..., inv = TRUE)
+  i_set(x, ..., inv = TRUE)
   if(!identical(x, x2)) { stop("PassByReference fail")}
   return(x)
 }
-sb_set2.array <- function(x, ...) {
+ss_set2 <- function(x, ...) {
   x <- data.table::copy(x)
   if(is.atomic(x)) x <- mutatomic::as.mutatomic(x)
   x2 <- x
-  sb_set.array(x, ..., inv = TRUE)
+  ss_set(x, ..., inv = TRUE)
   if(!identical(x, x2)) { stop("PassByReference fail")}
   return(x)
 }
@@ -38,7 +38,22 @@ temp.fun <- function(x) {
     return(x)
   }
   expect_equal(
-    sb_set2(x, tf = \(x)x[1]),
+    i_set2(x, tf = \(x)x[1]),
+    tempfun(x)
+  ) |> errorfun()
+}
+
+sys.source(file.path(getwd(), "source", "sourcetest-missingargs.R"), envir = environment())
+
+
+temp.fun <- function(x) {
+  tempfun <- function(x) {
+    x <- mutatomic::as.mutatomic(x)
+    x[] <- x[1]
+    return(x)
+  }
+  expect_equal(
+    ss_set2(x, tf = \(x)x[1]),
     tempfun(x)
   ) |> errorfun()
 }
@@ -61,7 +76,7 @@ test_sb <- function(x, i) {
 temp.fun <- function(x, elements) {
   for (i in 1:length(elements)) {
     expect_equal(
-      sb_set2(x, i = elements[[i]], tf = min),
+      i_set2(x, i = elements[[i]], tf = min),
       test_sb(x, i = elements[[i]])
     ) |> errorfun()
     assign("enumerate", enumerate + 1, envir = parent.frame(n = 1))
@@ -115,14 +130,10 @@ f_expect.matrix <- f_expect.2d <- function(x, row = NULL, col = NULL) {
   return(x)
 }
 
-f_out.matrix <- function(x, row, col) {
-  
-  return(sb_set2(x, row = row, col = col, tf = mean))
-}
 
 f_out.2d <- function(x, s, d) {
   
-  return(sb_set2.array(x, s, d, tf = mean))
+  return(ss_set2(x, s, d, tf = mean))
 }
 
 
@@ -147,12 +158,12 @@ f_expect.1d <- function(x, i) {
 
 f_out.1d <- function(x, s, d) {
   
-  return(sb_set2(x, s, d, tf = mean))
+  return(ss_set2(x, s, d, tf = mean))
 }
 
 
 sb_test <- function(x, ...) {
-  return(sb_set2.array(x, ..., tf = mean))
+  return(ss_set2(x, ..., tf = mean))
 }
 
 f_expect.arbitrary <- function(x, i, j, l) {
@@ -189,21 +200,21 @@ tf <- function(x) -x
 s <- list(c("a"), c(1:3), c(rep(TRUE, 5), rep(FALSE, 5)))
 d <- c(1,2,4)
 expect_equal(
-  sb_set2(x, s, d, tf = tf),
+  ss_set2(x, s, d, tf = tf),
   subset_arr(x, s[[1]], s[[2]], s[[3]], tf)
 )
 
 s <- list(c("a"), logical(0), c(rep(TRUE, 5), rep(FALSE, 5)))
 d <- c(1,2,4)
 expect_equal(
-  sb_set2(x, s, d, tf = tf),
+  ss_set2(x, s, d, tf = tf),
   subset_arr(x, s[[1]], s[[2]], s[[3]], tf)
 )
 
 s <- list(c("a"), c(1:4), rep(FALSE, 10))
 d <- c(1,2,4)
 expect_equal(
-  sb_set2(x, s, d, tf = tf),
+  ss_set2(x, s, d, tf = tf),
   subset_arr(x, s[[1]], s[[2]], s[[3]], tf)
 )
 
@@ -213,14 +224,25 @@ enumerate <- enumerate + 3
 # test errors ====
 sb_test <- function(x, ...) {
   x <- data.table::copy(x)
-  sb_set(x, ..., tf = \(x)x[1])
+  i_set(x, ..., tf = \(x)x[1])
   return(x)
 }
-sys.source(file.path(getwd(), "source", "sourcetest-errors.R"), envir = environment())
+sys.source(file.path(getwd(), "source", "sourcetest-errors-i.R"), envir = environment())
+
+
+sb_test <- function(x, ...) {
+  x <- data.table::copy(x)
+  ss_set(x, ..., tf = \(x)x[1])
+  return(x)
+}
+sys.source(file.path(getwd(), "source", "sourcetest-errors-ss.R"), envir = environment())
+
+
+
 
 x <- mutatomic::as.mutatomic(x)
 expect_error(
-  sb_set(x, i = 1, tf = "foo"),
+  i_set(x, i = 1, tf = "foo"),
   pattern = "`tf` must be a function"
 )
 

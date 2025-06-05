@@ -43,7 +43,7 @@ countv(y, ..., v = NULL, na = FALSE, r = TRUE, from = NULL, to = NULL)
 }
 \arguments{
 \item{x}{an atomic vector. \cr
-For \code{slicev_set()} it must be a \link{mutatomic} \bold{variable}.}
+For \code{slicev_set()} it must be a \link[mutatomic]{mutatomic} \bold{variable}.}
 
 \item{...}{See \link{squarebrackets_slicev}.}
 
@@ -60,13 +60,13 @@ dimensions and \code{dimnames} are always dropped.}
 \item{rp, tf}{see \link{squarebrackets_modify}.}
 }
 \value{
-Similar to the \code{sb_} methods. \cr
+Similar to the \code{i_}/\code{ss_} methods. \cr
 \cr
 For \code{countv()}: A single number,
 giving the number of elements matching the specified condition. \cr \cr
 }
 \description{
-The \code{slicev_} - methods are similar to the \code{sb_} - methods,
+The \code{slicev_} - methods are similar to the \code{i_}/\code{ss_} - methods,
 except they don't require an indexing vector,
 and are designed for memory efficiency. \cr
 \cr

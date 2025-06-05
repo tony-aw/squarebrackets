@@ -2,25 +2,25 @@
 # Coercion examples - mutatomic ====
 
 x <- mutatomic::as.mutatomic(1:16)
-sb_set(x, i = 1:6, rp = 8.5) # 8.5 coerced to 8, because `x` is of type `integer`
+i_set(x, i = 1:6, rp = 8.5) # 8.5 coerced to 8, because `x` is of type `integer`
 print(x)
 
 #############################################################################
 
 # Coercion examples - data.table - whole columns ====
 
-# sb_mod():
+# ss2_mod():
 obj <- data.table::data.table(
   a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10])
 )
 str(obj) # notice that columns "a" and "c" are INTEGER (`int`)
-sb2_mod(
+ss2_mod(
   obj, vars = is.numeric,
   tf = sqrt # SAFE: row=NULL & obs = NULL, so coercion performed
 )
 
-# sb_set():
-sb2_set(
+# ss2_set():
+ss2_set(
   obj, vars = is.numeric,
   tf = sqrt # SAFE: row=NULL & obs = NULL, so coercion performed
 )
@@ -31,23 +31,23 @@ str(obj)
 
 # Coercion examples - data.table - partial columns ====
 
-# sb_mod():
+# ss2_mod():
 obj <- data.table::data.table(
   a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10])
 )
 str(obj) # notice that columns "a" and "c" are INTEGER (`int`)
 
-sb2_mod(
+ss2_mod(
   obj, obs = ~ (a >= 2) & (c <= 17), vars = is.numeric,
   tf = sqrt # SAFE: coercion performed
 )
 
-# sb_set():
+# ss2_set():
 obj <- data.table::data.table(
   a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10])
 )
 str(obj) # notice that columns "a" and "c" are INTEGER (`int`)
-sb2_set(
+ss2_set(
   obj, obs = ~ (a >= 2) & (c <= 17), vars = is.numeric,
   tf = sqrt
   # WARNING: sqrt() results in `dbl`, but columns are `int`, so decimals lost
@@ -60,7 +60,7 @@ obj <- data.table::data.table(
 str(obj)
 dt_setcoe(obj, vars = is.numeric, v = as.numeric)
 str(obj)
-sb2_set(obj,
+ss2_set(obj,
   obs = ~ (a >= 2) & (c <= 17), vars = is.numeric,
   tf = sqrt # SAFE: coercion performed by dt_setcoe(); so no warnings
 ) 
@@ -78,7 +78,7 @@ x <- list(
 print(x)
 myref <- x$a
 address(myref) == address(x$a) # they are the same
-sb2_set(myref, vars = "cola", tf = \(x)x^2)
+ss2_set(myref, vars = "cola", tf = \(x)x^2)
 print(x) # notice x has been changed
 
 
