@@ -39,7 +39,7 @@ the \link{i_x} method extracts/exchanges/duplicates subsets of atomic objects by
 
 
 To illustrate, let's take the methods used for extracting subsets
-(\eqn{\ast}\verb{_x}): \cr
+(\verb{_x}): \cr
 When \code{y} is atomic, the following holds (roughly speaking):
 \itemize{
 \item \code{i_x(y, i)} corresponds to \code{y[i]}

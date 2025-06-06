@@ -21,7 +21,7 @@ Note that a matrix is simply an array with 2 dimensions.
 \item mutability: \cr
 Base R's S3 classes (except Environments) are generally immutable: \cr
 Modifying the object will create a copy (called 'copy-on-modify'). \cr
-'squarebrackets also supports \code{data.tables} and \link[mutatomic]{mutatomic} objects,
+'squarebrackets also supports \code{data.tables} and \link{mutatomic} objects,
 which are mutable: \cr
 If desired, one can modify them without copy using
 pass-by-reference semantics. \cr \cr
@@ -42,7 +42,7 @@ pass-by-reference semantics. \cr \cr
 
 'squarebrackets' supports the following mutable structures:
 \itemize{
-\item \link[mutatomic]{mutatomic} \cr
+\item \link{mutatomic} \cr
 (\code{mutatomic} vectors arrays);
 \item \link[data.table]{data.table} \cr
 (including the classes \code{tidytable}, \code{sf-data.table}, and \code{sf-tidytable}). \cr \cr
@@ -96,7 +96,7 @@ Supported mutable structures:
 \itemize{
 \item 'squarebrackets' supports the mutable \code{data.table} class \cr
 (and thus also \code{tidytable}, which inherits from \code{data.table}).
-\item 'squarebrackets' supports the \link[mutatomic]{mutatomic} class. \cr
+\item 'squarebrackets' supports the \link{mutatomic} class. \cr
 \code{mutatomic} objects are the same as atomic objects,
 except they are mutable (hence the name). \cr \cr
 }

@@ -135,7 +135,7 @@ Note that a matrix is simply an array with 2 dimensions.</p></li>
 <li><p>mutability: <br>
 Base R's S3 classes (except Environments) are generally immutable: <br>
 Modifying the object will create a copy (called 'copy-on-modify'). <br>
-'squarebrackets also supports <code>data.tables</code> and mutatomic objects,
+'squarebrackets also supports <code>data.tables</code> and <a href="mutatomic_class.html">mutatomic</a> objects,
 which are mutable: <br>
 If desired, one can modify them without copy using
 pass-by-reference semantics. <br><br></p></li>
@@ -147,7 +147,7 @@ pass-by-reference semantics. <br><br></p></li>
 (recursive vectors and arrays). <br></p></li>
 <li><p><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> <br>
 (including the classes <code>tibble</code>, <code>sf-data.frame</code> and <code>sf-tibble</code>). <br><br></p></li>
-</ul><p>'squarebrackets' supports the following mutable structures:</p><ul><li><p>mutatomic <br>
+</ul><p>'squarebrackets' supports the following mutable structures:</p><ul><li><p><a href="mutatomic_class.html">mutatomic</a> <br>
 (<code>mutatomic</code> vectors arrays);</p></li>
 <li><p><a href="https://rdatatable.gitlab.io/data.table/reference/data.table.html" class="external-link">data.table</a> <br>
 (including the classes <code>tidytable</code>, <code>sf-data.table</code>, and <code>sf-tidytable</code>). <br><br></p></li>
@@ -191,7 +191,7 @@ Environments do have <a href="aaa09_squarebrackets_PassByReference.html">pass-by
 but they are not supported by 'squarebrackets'. <br><br>
 Supported mutable structures:</p><ul><li><p>'squarebrackets' supports the mutable <code>data.table</code> class <br>
 (and thus also <code>tidytable</code>, which inherits from <code>data.table</code>).</p></li>
-<li><p>'squarebrackets' supports the mutatomic class. <br><code>mutatomic</code> objects are the same as atomic objects,
+<li><p>'squarebrackets' supports the <a href="mutatomic_class.html">mutatomic</a> class. <br><code>mutatomic</code> objects are the same as atomic objects,
 except they are mutable (hence the name). <br><br></p></li>
 </ul><p>Supported immutable structures: <br>
 Atomic and recursive vectors/matrices/arrays, data.frames, and tibbles. <br><br>

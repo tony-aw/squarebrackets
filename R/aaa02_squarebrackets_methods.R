@@ -34,7 +34,7 @@
 #' @section Illustration: 
 #' 
 #' To illustrate, let's take the methods used for extracting subsets
-#' (\eqn{\ast}`_x`): \cr
+#' (`_x`): \cr
 #' When `y` is atomic, the following holds (roughly speaking):
 #' 
 #'  - `i_x(y, i)` corresponds to `y[i]`

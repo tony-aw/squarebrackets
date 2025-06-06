@@ -43,7 +43,7 @@ countv(y, ..., v = NULL, na = FALSE, r = TRUE, from = NULL, to = NULL)
 }
 \arguments{
 \item{x}{an atomic vector. \cr
-For \code{slicev_set()} it must be a \link[mutatomic]{mutatomic} \bold{variable}.}
+For \code{slicev_set()} it must be a \link{mutatomic} \bold{variable}.}
 
 \item{...}{See \link{squarebrackets_slicev}.}
 

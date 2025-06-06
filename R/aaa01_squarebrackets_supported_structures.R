@@ -17,7 +17,7 @@
 #'  * mutability: \cr
 #'  Base R's S3 classes (except Environments) are generally immutable: \cr
 #'  Modifying the object will create a copy (called 'copy-on-modify'). \cr
-#'  'squarebrackets also supports `data.tables` and \link[mutatomic]{mutatomic} objects,
+#'  'squarebrackets also supports `data.tables` and \link{mutatomic} objects,
 #'  which are mutable: \cr
 #'  If desired, one can modify them without copy using
 #'  pass-by-reference semantics. \cr \cr
@@ -36,7 +36,7 @@
 #' 
 #' 'squarebrackets' supports the following mutable structures:
 #' 
-#'  * \link[mutatomic]{mutatomic} \cr
+#'  * \link{mutatomic} \cr
 #'  (`mutatomic` vectors arrays);
 #'  * \link[data.table]{data.table} \cr
 #'  (including the classes `tidytable`, `sf-data.table`, and `sf-tidytable`). \cr \cr
@@ -93,7 +93,7 @@
 #' 
 #'  - 'squarebrackets' supports the mutable `data.table` class \cr
 #'  (and thus also `tidytable`, which inherits from `data.table`).
-#'  - 'squarebrackets' supports the \link[mutatomic]{mutatomic} class. \cr
+#'  - 'squarebrackets' supports the \link{mutatomic} class. \cr
 #' `mutatomic` objects are the same as atomic objects,
 #' except they are mutable (hence the name). \cr \cr
 #' 

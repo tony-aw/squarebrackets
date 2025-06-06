@@ -158,13 +158,13 @@ efficient operations on mutatomic objects.</li>
 <p>For the <code>B</code> part, the following is available:</p>
 <ul>
 <li>
-<code>⁠_</code>x⁠: extract, exchange, or duplicate (if applicable)
+<code>_x</code>⁠: extract, exchange, or duplicate (if applicable)
 subsets.</li>
 <li>
-<code>⁠_w</code>o⁠: returns the original object without the provided
+<code>_wo</code>⁠: returns the original object without the provided
 subsets.</li>
 <li>
-<code>⁠_mo</code>d⁠: modify subsets and return copy.</li>
+<code>_mod</code>⁠: modify subsets and return copy.</li>
 <li>
 <code>_set</code>⁠: modify subsets using pass-by-reference
 semantics.</li>
@@ -176,19 +176,30 @@ available with the <code>i2_</code> prefix.</li>
 subsets of lists - only available with the <code>i2_</code> prefix.</li>
 </ul>
 <p>To illustrate, let’s take the methods used for extracting subsets
-(∗⁠_x⁠): When <code>y</code> is atomic, the following holds (roughly
+(∗⁠_x⁠):</p>
+<p>When <code>y</code> is atomic, the following holds (roughly
 speaking):</p>
-<p><code>i_x(y, i)</code> corresponds to <code>y[i]</code></p>
-<p><code>ss_x(y, n(i, k), c(1, 3))</code> corresponds to
-<code>y[i, , k]</code></p>
+<ul>
+<li>
+<code>i_x(y, i)</code> corresponds to <code>y[i]</code>
+</li>
+<li>
+<code>ss_x(y, n(i, k), c(1, 3))</code> corresponds to
+<code>y[i, , k]</code>
+</li>
+</ul>
 <p>When <code>y</code> is a list (i.e. recursive), the following holds
 (roughly speaking):</p>
-<p><code>i2_x(y, i)</code> corresponds to <code>y[i]</code> or
+<ul>
+<li>
+<code>i2_x(y, i)</code> corresponds to <code>y[i]</code> or
 <code>y[[i]]</code> (depending on the arguments given in
-<code><a href="../reference/sb_x.html">i2_x()</a></code>)</p>
-<p><code>ss2_x(y, n(i, k), c(1, 3))</code> corresponds to
+<code><a href="../reference/sb_x.html">i2_x()</a></code>)</li>
+<li>
+<code>ss2_x(y, n(i, k), c(1, 3))</code> corresponds to
 <code>y[i, , k] or y[[i, , k]]</code> (depending on the arguments given
-in <code><a href="../reference/sb_x.html">ss2_x()</a></code>)</p>
+in <code><a href="../reference/sb_x.html">ss2_x()</a></code>)</li>
+</ul>
 <p> </p>
 </div>
 </div>
@@ -231,36 +242,34 @@ indices for subset operations in all dimensional objects supported by
 ‘squarebrackets’ (matrices, arrays, data.frame-like objects). This
 argument form requires no prior knowledge on the number of dimensions an
 object has.</p>
-<p>The <code>s</code> argument must be a list or atomic vector,
-specifying the subscripts (i.e. dimensional indices).<br>
-The <code>d</code> argument must be an integer vector, specifying the
-dimensions for which <code>s</code> holds.<br>
-I.e. :</p>
+<p><code>s</code> and <code>d</code> must be specified as follows:</p>
+<ul>
+<li>The <code>s</code> argument must be a list, specifying the
+subscripts (i.e. dimensional indices).</li>
+<li>The <code>d</code> argument must be an integer vector, specifying
+the dimensions for which <code>s</code> holds.</li>
+<li>If the subscripts are the same for all dimensions specified in
+<code>d</code>, <code>s</code> can also be given as an atomic vector, or
+as a list of length 1.</li>
+</ul>
+<p>To minimize keystrokes, ‘squarebrackets’ provides the
+<code><a href="../reference/nest.html">n()</a></code> function, which is short-hand for <code><a href="https://rdrr.io/r/base/list.html" class="external-link">list()</a></code>;
+<code><a href="../reference/nest.html">n()</a></code> <strong>nests</strong> multiple objects together, just
+like <code><a href="https://rdrr.io/r/base/c.html" class="external-link">c()</a></code> concatenates multiple objects together.</p>
+<p>I.e. :</p>
 <ul>
 <li>To specify rows <code>1:10</code>, use <code>s = 1:10</code>, and
 <code>d = 1</code>.</li>
-<li>To specify columns <code>2:5</code>, use <code>s = 2:5</code> and
-<code>d = 2</code>.</li>
 <li>To specify layers (the third dimension) <code>4:9</code>, use
 <code>s = 4:9</code> and <code>d = 3</code>.</li>
 <li>To specify rows <code>1:10</code> <strong>and</strong> columns
-<code>2:5</code>, use <code>s = list(1:10, 2:5)</code> and
+<code>2:5</code>, use <code>s = n(1:10, 2:5)</code> and
 <code>d = 1:2</code>.</li>
-<li>To specify both rows and columbs <code>1:5</code>, one can use
-<code>s = 1:5</code> and <code>d = 1:2</code>.<br>
-Notice you don’t have to write <code>n(1:5, 1:5)</code> or
-<code>rep(n(1:5), 2)</code>:<br>
-if <code>s</code> is an atomic vector or a list of length 1,
-‘squarebrackets’ will use the same indices from <code>s</code> to all
-dimensions specified in <code>d</code>.</li>
+<li>To specify both rows and columns <code>1:5</code>, one can use
+<code>s = 1:5</code> and <code>d = 1:2</code>.</li>
 </ul>
 <p>The <code>d</code> argument has the default specification
-<code>1:ndim(x)</code>, where
-<code>ndim(x) = length(dim(x))</code>.<br>
-So to specify rows <code>1:5</code> and columns <code>1:4</code> for a
-matrix (which by definition has 2 dimensions), specifying
-<code>s = n(1:5, 1:4)</code> is enough, and you don’t even have to
-specify the <code>d</code> argument.</p>
+<code>1:ndim(x)</code>, where <code>ndim(x) = length(dim(x))</code>.</p>
 <p> </p>
 </div>
 <div class="section level3">
@@ -302,9 +311,6 @@ indices for the other dimensions.</p>
 <span>  <span class="fu"><a href="../reference/sb_x.html">ss_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="../reference/nest.html">n</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="../reference/ndim.html">ndim</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="../reference/sb_x.html">ss_x</a></span><span class="op">(</span><span class="va">x</span>, s <span class="op">=</span> <span class="fu"><a href="../reference/nest.html">n</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span>, d <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="../reference/ndim.html">ndim</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="co"># the same</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<p>Note that <code><a href="../reference/nest.html">n()</a></code> is short-hand for <code><a href="https://rdrr.io/r/base/list.html" class="external-link">list()</a></code>;
-<code><a href="../reference/nest.html">n()</a></code> <strong>nests</strong> multiple objects together, just
-like <code><a href="https://rdrr.io/r/base/c.html" class="external-link">c()</a></code> concatenates multiple objects together.</p>
 <p>So ‘squarebrackets’ allows the user to perform easy sub-set
 operations on arrays, even if the dimensions are not known a-priori,
 without ridiculously convoluted fiddling with <code><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call()</a></code>,
@@ -476,6 +482,7 @@ matching names.</p>
 <span><span class="fu"><a href="../reference/sb_x.html">i_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"a"</span><span class="op">)</span><span class="op">)</span> <span class="co"># repeats all indices with the name "a"</span></span>
 <span><span class="co">#&gt; a a a a a a </span></span>
 <span><span class="co">#&gt; 4 6 9 4 6 9</span></span></code></pre></div>
+<p> </p>
 <p>Second, ‘squarebrackets’ introduces a new way to specify
 indices:<br>
 through imaginary numbers.<br>
@@ -494,6 +501,16 @@ backwards.</p>
 <span><span class="co">#&gt; [1] 3 1 6</span></span>
 <span><span class="fu"><a href="../reference/sb_x.html">i_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">3</span><span class="op">:</span><span class="fl">1</span> <span class="op">*</span> <span class="op">-</span><span class="fl">1i</span><span class="op">)</span> <span class="co"># select last 3 indices in tail()-like order</span></span>
 <span><span class="co">#&gt; [1] 6 1 3</span></span></code></pre></div>
+<p>This syntax becomes especially advantageous for arrays:</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/array.html" class="external-link">array</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">27</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">3</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># select last 2 layers using base 'R':</span></span>
+<span><span class="va">x</span><span class="op">[</span>,, <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">[</span><span class="fl">3L</span><span class="op">]</span> <span class="op">-</span> <span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">[</span><span class="fl">3L</span><span class="op">]</span><span class="op">)</span><span class="op">]</span></span>
+<span></span>
+<span><span class="co"># select last 2 layers using 'squarebrackets':</span></span>
+<span><span class="fu"><a href="../reference/sb_x.html">ss_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">1</span> <span class="op">*</span> <span class="op">-</span><span class="fl">1i</span>, <span class="fl">3L</span><span class="op">)</span></span></code></pre></div>
+<p> </p>
 <p>Finally, inverting indices in base ‘R’ is done in different ways.
 (negative numbers for numeric indexing, negation for logical indexing,
 manually un-matching for character vectors).</p>
@@ -510,7 +527,7 @@ invert indices.</li>
 <p>As a consequence, removing sub-sets has the same syntax as extracting
 indices.</p>
 <p>For example:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span></span>
 <span></span>
@@ -541,13 +558,13 @@ operations without any indexing vector at all:</p>
 <p>The <code>slice_</code> - methods:<br>
 To perform sequence-based sub-set operations.<br>
 For example:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">50</span></span>
 <span><span class="fu"><a href="../reference/slice.html">slice_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span>, <span class="fl">10</span>, <span class="fl">2</span><span class="op">)</span> <span class="co"># equivalent to x[seq(1, 10, 2)]</span></span>
 <span><span class="co">#&gt; [1] 1 3 5 7 9</span></span></code></pre></div>
 <p>The <code>slicev_</code> - methods:<br>
 To perform value-based sub-set operations. For example:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">50</span></span>
 <span><span class="fu"><a href="../reference/slicev.html">slicev_x</a></span><span class="op">(</span><span class="va">x</span>, v <span class="op">=</span> <span class="fl">1L</span>, r <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="co"># equivalent to x[x != 1L]</span></span>

@@ -55,6 +55,7 @@ to be used in situations where the square bracket operators are inconvenient. \c
 \section{Overview Help Pages}{
 
 
+\bold{Essentials} \cr
 The essential documentation is split into the following help pages:
 \itemize{
 \item \link{squarebrackets_supported_structures}: \cr
@@ -63,15 +64,25 @@ and explains some related terminology.
 \item \link{squarebrackets_methods}: \cr
 Lists the main methods provided by 'squarebrackets'.
 \item \link{squarebrackets_indx_fundamentals}: \cr
-Explains the essential fundamentals of the indexing forms in 'squarebrackets'.
+Explains the essential fundamentals of the indexing forms in 'squarebrackets'. \cr \cr
+}
+
+\bold{Arguments} \cr
+The methods in 'squarebrackets' share a lot of common arguments. \cr
+The explanations for these common arguments are given in the following help pages:
+\itemize{
 \item \link{squarebrackets_indx_args}: \cr
 Explains the common indexing arguments used in the main S3 methods.
 \item \link{squarebrackets_modify}: \cr
-Explains the essentials of modification in 'squarebrackets'
+Explains the modification-related arguments,
+and other essential information regarding modification.
 \item \link{squarebrackets_options}: \cr
-Lists and explains the options the user can specify in 'squarebrackets'. \cr \cr
+Lists and explains the options the user can specify in 'squarebrackets'.
+\item \link{squarebrackets_slicev}: \cr
+Explains the special argument structure used in the \code{slicev_} methods. \cr \cr
 }
 
+\bold{Pass-By-Reference} \cr
 The following help pages explain the pass-by-reference semantics provided by 'squarebrackets',
 and only need to be read when planning to use those semantics:
 \itemize{
@@ -83,6 +94,7 @@ modification through Pass-by-Reference semantics and
 modification through copy (i.e. pass-by-value). \cr \cr
 }
 
+\bold{Other} \cr
 And finally,
 there is the \link{squarebrackets_method_dispatch} help page,
 which gives some small additional details regarding

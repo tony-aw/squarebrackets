@@ -257,7 +257,7 @@
 #' @section Argument inv:
 #' `r .mybadge_all_classes()` \cr
 #' 
-#' Relevant for the \eqn{\ast}`_mod`,\eqn{\ast}`_set`,
+#' Relevant for the `_mod`,`_set`,
 #' and \link{idx} methods. \cr
 #' By default, `inv = FALSE`, which translates the indices like normally. \cr
 #' When `inv = TRUE`, the inverse of the indices is taken. \cr
@@ -295,7 +295,7 @@
 #' @section All Missing Indices:
 #' `NULL` in the indexing arguments corresponds to a missing argument. \cr
 #' For `s, d`, specifying `d` of length 0 also corresponds to all subscripts being missing. \cr
-#' Thus, for \bold{both} the \eqn{\ast}`_x` and \eqn{\ast}`_wo` methods,
+#' Thus, for \bold{both} the `_x` and `_wo` methods,
 #' using missing or `NULL` indexing arguments for all indexing arguments corresponds to something like the following:
 #' 
 #' ```{r eval = FALSE, echo = TRUE}
@@ -304,7 +304,7 @@
 #' 
 #' ```
 #' 
-#' Similarly, for the \eqn{\ast}`_mod` and \eqn{\ast}`_set` methods,
+#' Similarly, for the `_mod` and `_set` methods,
 #' using missing or `NULL` indexing arguments corresponds to something like the following:
 #' 
 #' ```{r eval = FALSE, echo = TRUE}

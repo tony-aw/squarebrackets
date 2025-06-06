@@ -263,7 +263,7 @@ So using the \verb{obs, vars} arguments corresponds to doing something like the 
 
 \ifelse{html}{\figure{all_classes-blue.svg}{options: alt='[all classes]'}}{\link[=squarebrackets_indx_args]{all classes}} \cr
 
-Relevant for the \eqn{\ast}\verb{_mod},\eqn{\ast}\verb{_set},
+Relevant for the \verb{_mod},\verb{_set},
 and \link{idx} methods. \cr
 By default, \code{inv = FALSE}, which translates the indices like normally. \cr
 When \code{inv = TRUE}, the inverse of the indices is taken. \cr
@@ -300,7 +300,7 @@ For replacement with a single value or with a transformation function,
 
 \code{NULL} in the indexing arguments corresponds to a missing argument. \cr
 For \verb{s, d}, specifying \code{d} of length 0 also corresponds to all subscripts being missing. \cr
-Thus, for \bold{both} the \eqn{\ast}\verb{_x} and \eqn{\ast}\verb{_wo} methods,
+Thus, for \bold{both} the \verb{_x} and \verb{_wo} methods,
 using missing or \code{NULL} indexing arguments for all indexing arguments corresponds to something like the following:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{
@@ -308,7 +308,7 @@ x[]
 
 }\if{html}{\out{</div>}}
 
-Similarly, for the \eqn{\ast}\verb{_mod} and \eqn{\ast}\verb{_set} methods,
+Similarly, for the \verb{_mod} and \verb{_set} methods,
 using missing or \code{NULL} indexing arguments corresponds to something like the following:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{

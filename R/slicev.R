@@ -9,7 +9,7 @@
 #' occurs in a vector subset `y[from:to]`. \cr \cr
 #' 
 #' @param x an atomic vector. \cr
-#' For `slicev_set()` it must be a \link[mutatomic]{mutatomic} \bold{variable}.
+#' For `slicev_set()` it must be a \link{mutatomic} \bold{variable}.
 #' @param ... See \link{squarebrackets_slicev}.
 #' @param y,v,na,r See \link{squarebrackets_slicev}.
 #' @param from,to see \link{cp_seq}.

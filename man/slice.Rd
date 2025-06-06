@@ -40,7 +40,7 @@ slice_set(x, ...)
 }
 \arguments{
 \item{x}{an atomic object. \cr
-For \code{slice_set} it must be a \link[mutatomic]{mutatomic} \bold{variable}.}
+For \code{slice_set} it must be a \link{mutatomic} \bold{variable}.}
 
 \item{...}{see \link{squarebrackets_method_dispatch}.}
 

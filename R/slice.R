@@ -6,7 +6,7 @@
 #' and are designed for memory efficiency. \cr \cr
 #' 
 #' @param x an atomic object. \cr
-#' For `slice_set` it must be a \link[mutatomic]{mutatomic} \bold{variable}.
+#' For `slice_set` it must be a \link{mutatomic} \bold{variable}.
 #' @param from,to,by see \link{cp_seq}.
 #' @param rp,tf see \link{squarebrackets_modify}.
 #' @param inv Boolean, indicating whether to invert the sequence. \cr

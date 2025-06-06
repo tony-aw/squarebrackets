@@ -38,7 +38,7 @@ whilst still using R's default copy-on-modification semantics
 \section{Explicit Copy}{
 
 'squarebrackets' provides
-the \eqn{\ast}\verb{_mod} method
+the \verb{_mod} method
 to modify through a (shallow) copy. \cr
 This method returns the modified object. \cr
 For recursive objects, \link{i2_mod}/\link{ss2_mod} returns the original object,
