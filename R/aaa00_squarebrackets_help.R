@@ -186,7 +186,7 @@
 #' @exportPattern "^i2_x"
 #' @exportPattern "^i2_wo"
 #' @exportPattern "^i2_mod"
-#' @exportPattern "^i2_rec"
+#' @exportPattern "^lst_rec"
 #' 
 #' @exportPattern "^ss_x"
 #' @exportPattern "^ss_wo"

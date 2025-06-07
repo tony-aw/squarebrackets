@@ -35,11 +35,11 @@ reference:
   - '`i_wo`'
   - '`i_mod`'
   - '`i_set`'
-  - '`i2_rec`'
-  - '`sb_setRename`'
-  - '`idx`'
   - '`slice_x`'
   - '`slicev_x`'
+  - '`sb_setRename`'
+  - '`lst_rec`'
+  - '`idx`'
   - '`cp_seq`'
 - title: mutatomic class
   contents:

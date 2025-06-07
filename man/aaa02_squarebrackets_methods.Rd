@@ -24,22 +24,12 @@ For the \code{B} part, the following is available:
 \item \verb{_x}: extract, exchange, or duplicate (if applicable) subsets.
 \item \verb{_wo}: returns the original object \bold{without} the provided subsets.
 \item \verb{_mod}: modify subsets and return copy.
-\item \verb{_set}: modify subsets using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
-\item \verb{_rec}: access recursive subsets of lists - ONLY available with the \code{i2_} prefix.
-\item \verb{_recin}: replace, transform, delete, or extend recursive subsets of lists - ONLY available with the \code{i2_} prefix. \cr \cr
+\item \verb{_set}: modify subsets using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr \cr
 }
-
-There is also the somewhat separate \link{idx} method,
-which works on both recursive and non-recursive objects. \cr
-
-Thus, for example,
-the \link{i_x} method extracts/exchanges/duplicates subsets of atomic objects by flat/linear indices. \cr \cr
-}
-\section{Illustration}{
-
 
 To illustrate, let's take the methods used for extracting subsets
-(\verb{_x}): \cr
+(\verb{_x}). \cr
+\cr
 When \code{y} is atomic, the following holds (roughly speaking):
 \itemize{
 \item \code{i_x(y, i)} corresponds to \code{y[i]}
@@ -52,19 +42,35 @@ When \code{y} is a list (i.e. recursive), the following holds (roughly speaking)
 \item \code{ss2_x(y, n(i, k), c(1, 3))} corresponds to \code{y[i, , k]} or \code{y[[i, , k]]} (depending on the arguments given in \code{ss2_x()}) \cr \cr
 }
 }
+\section{Other Methods}{
+
+Besides the main methods, 'squarebrackets' provides some additional methods that do not neatly fit into the above methods. \cr
+\cr
+First, there is the \link[=lst_rec]{lst_} set of methods,
+which deal with sub-set operations that are only relevant for (nested) lists,
+but not for the other types of supported objects. \cr
+\cr
+Second, there is \link{idx} method,
+which works on both recursive and non-recursive objects,
+and transforms/translates indices to be used in R's default copy-on-modify semantics. \cr
+\cr
+Finally, there are the \code{sb_} and \code{sb2_} sets of methods,
+which cover miscellaneous operations for atomic and recursive objects,
+respectively. \cr \cr
+}
 
 \section{Finding the Appropriate Help Pages}{
 
 
 Now that it is clear what the naming convention is of the main methods,
 one can easily find out information about a particular method by usign the \verb{?} operator. \cr
-So to find out about modifying recursive objects by reference using dimensional indices,
+So to find out about modifying recursive objects by subscripts using Pass-by-Reference semantics,
 type in: \cr
 \code{?ss2_set} \cr
 \cr
 Note that some combinations of \code{A} and \code{B} are not available. \cr
 For example, as the \verb{_rec} \verb{_recin} suffices are only applicable for recursive objects using linear indices,
-only \code{i2_rec} and \code{i2_recin} exist; \cr
+only \code{lst_rec} and \code{lst_recin} exist; \cr
 combinations like \code{i_rec}, \code{ss_recin}, etc. don't exist. \cr
 Another example: there is no \verb{_mod} suffix available for the \code{slice_} and \code{slicev_} methods. \cr \cr
 }

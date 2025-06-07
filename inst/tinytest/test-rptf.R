@@ -2,7 +2,7 @@
 enumerate <- 0
 
 # atomic vector ====
-x <- mutatomic(1:10)
+x <- mutatomic(1:27, dim = c(3,3,3))
 expect_error(
   i_mod(x),
   pattern = "must specify either `rp` or `tf`",
@@ -96,7 +96,7 @@ enumerate <- enumerate + 4L
 
 
 # recursive vector ====
-x <- as.list(1:10)
+x <- array(as.list(1:27), c(3,3,3))
 expect_error(
   i2_mod(x),
   pattern = "must specify either `rp` or `tf`",
@@ -198,3 +198,4 @@ expect_error(
   fixed = TRUE
 )
 enumerate <- enumerate + 2L
+

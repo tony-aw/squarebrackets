@@ -126,19 +126,19 @@ if(test_allow_duplicates) {
   expect_error(
     sb_test(x, inv = TRUE),
     pattern = "unknown arguments given"
-  )
+  ) |> errorfun()
   
   x <- matrix(1:20, nrow = 5)
   expect_error(
     sb_test(x, inv = TRUE),
     pattern = "unknown arguments given"
-  )
+  ) |> errorfun()
   
   x <- array(1:27, c(3,3,3))
   expect_error(
     sb_test(x, inv = TRUE),
     pattern = "unknown arguments given"
-  )
+  ) |> errorfun()
   
 }
 
@@ -146,18 +146,18 @@ x <- mutatomic(1:10)
 expect_error(
   sb_test(x, foo = TRUE),
   pattern = "unknown arguments given"
-)
+) |> errorfun()
 
 x <- mutatomic(1:20, dim = c(4,5))
 expect_error(
   sb_test(x, foo = TRUE),
   pattern = "unknown arguments given"
-)
+) |> errorfun()
 
 x <- mutatomic(1:27, dim = c(3,3,3))
 expect_error(
   sb_test(x, foo = TRUE),
   pattern = "unknown arguments given"
-)
+) |> errorfun()
 
 

@@ -36,6 +36,9 @@ if ( requireNamespace("tinytest", quietly = TRUE) ){
     "squarebrackets", testdir = "tinytest/generic2", set_env=list(LC_COLLATE="C")
   )
   tinytest::test_package(
+    "squarebrackets", testdir = "tinytest/generic_lst", set_env=list(LC_COLLATE="C")
+  )
+  tinytest::test_package(
     "squarebrackets", testdir = "tinytest/generic_idx", set_env=list(LC_COLLATE="C")
   )
   tinytest::test_package(

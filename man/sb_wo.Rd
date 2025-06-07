@@ -122,7 +122,7 @@ i2_wo(obj, is.numeric, red = TRUE)
 obj <- list(a = 1:10, b = letters[1:11], c = letters)
 i2_wo(obj, is.numeric)
 # above is equivalent to obj[!sapply(obj, is.numeric)] # this time singular brackets?
-# for recusive indexing, see i2_rec()
+# for recusive indexing, see lst_rec()
 
 
 obj <- rbind(

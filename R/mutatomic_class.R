@@ -26,12 +26,11 @@
 #' @param ... method dependent arguments.
 #' 
 #' 
-#' @section Warning: 
+#' @note 
 #' Always use
-#' the exported functions given by 'mutatomic'
+#' the exported functions given by 'squarebrackets'
 #' to create a `mutatomic` object,
-#' as they make necessary checks. \cr
-#' Circumventing these checks may break things! \cr
+#' as they make necessary safety checks. \cr
 #' \cr
 #' 
 #' 

@@ -250,12 +250,12 @@
 #' 
 #' Recursive subset operations (`[[`, `[[<-`, and `$` in base 'R'), on the other hand,
 #' operate on an object a subset of the recursive object references to. \cr
-#' I.e. \link{i2_rec}`(x, 1)`, or equivalently `x[[1]]`,
+#' I.e. \link{lst_rec}`(x, 1)`, or equivalently `x[[1]]`,
 #' returns the \bold{integer vector} `1:10`:
 #' 
 #' ```{r}
 #' 
-#' i2_rec(x, 1) # equivalent to x[[1]]; returns 1:10
+#' lst_rec(x, 1) # equivalent to x[[1]]; returns 1:10
 #' 
 #' ```
 #' 
@@ -265,15 +265,15 @@
 #' So, for example,
 #' to extract the character vector `month.abb` from the aforementioned list `x`,
 #' one would need to do: \cr
-#' \link{i2_rec}`(x, c("C","B"))`, (in base R: `x$C$B`):
+#' \link{lst_rec}`(x, c("C","B"))`, (in base R: `x$C$B`):
 #' 
 #' ```{r}
 #' 
-#' i2_rec(x, c("C","B")) # equivalent to x$C$B
+#' lst_rec(x, c("C","B")) # equivalent to x$C$B
 #' 
 #' # or:
 #' 
-#' i2_rec(x, c(3, 2)) # equivalent to x[[3]][[2]]
+#' lst_rec(x, c(3, 2)) # equivalent to x[[3]][[2]]
 #' 
 #' ```
 #' 
@@ -283,7 +283,7 @@
 #' (or "shallow") subsets: 
 #' 
 #'  - Recursive subset operations
-#'  using \link{i2_rec}/\link{i2_recin}
+#'  using \link{lst_rec}/\link{lst_recin}
 #'  only support positive integer vectors and character vectors.
 #'  - Imaginary numbers (using complex vectors) and logical vectors are not supported.
 #'  - Since a recursive subset operation only operates on a single element,

@@ -1,15 +1,13 @@
 #' Access, Replace, Transform, Delete, or Extend Recursive Subsets
 #'
 #' @description
-#' The `i2_rec()` and `i2_recin()` methods
+#' The `lst_rec()` and `lst_recin()` methods
 #' are essentially convenient wrappers around `[[` and `[[<-`,
 #' respectively. \cr
-#' Unlike `[[` and `[[<-`, these are actually S3 methods,
-#' so package authors can create additional method dispatches. \cr
 #' \cr
-#' `i2_rec()` will access recursive subsets of lists. \cr
+#' `lst_rec()` will access recursive subsets of lists. \cr
 #' \cr
-#' `i2_recin()` can do the following things: \cr
+#' `lst_recin()` can do the following things: \cr
 #' 
 #'  - replace or transform recursive subsets of a list,
 #'  using R's default Copy-On-Modify semantics,
@@ -28,7 +26,7 @@
 #' 
 #' @param x a list, or list-like object.
 #' @param rec a strictly positive integer vector or character vector, of length `p`,
-#' such that `i2_rec(x, rec)` is equivalent to `x[[ rec[1] ]]...[[ rec[p] ]]`,
+#' such that `lst_rec(x, rec)` is equivalent to `x[[ rec[1] ]]...[[ rec[p] ]]`,
 #' providing all but the final indexing results in a list. \cr
 #' When on a certain subset level of a nested list,
 #' multiple subsets with the same name exist,
@@ -42,13 +40,13 @@
 #' Since this is a replacement of a recursive subset,
 #' `rp` does not necessarily have to be a list itself; \cr
 #' `rp` can be any type of object.
-#' - Specifying `rp = NULL` will \bold{delete} (recursive) subset `sb(x, rec)`. \cr
+#' - Specifying `rp = NULL` will \bold{delete} (recursive) subset `lst_rec(x, rec)`. \cr
 #' To specify actual `NULL` instead of deleting a subset, use `rp = list(NULL)`.
 #' - When `rec` is an integer, and specifies an out-of-bounds subset,
-#' `i2_recin()` will add value `rp` to the list. \cr
+#' `lst_recin()` will add value `rp` to the list. \cr
 #' Any empty positions in between will be filled with `NA`.
 #' - When `rec` is character, and specifies a non-existing name,
-#' `i2_recin()` will add value `rp` to the list as a new element at the end.
+#' `lst_recin()` will add value `rp` to the list as a new element at the end.
 #' @param tf an optional function. If specified, performs `x[[rec]] <- tf(x[[rec]])`,
 #' using R's default Copy-On-Modify semantics. \cr
 #' Does not support extending a list like argument `rp`.
@@ -61,15 +59,15 @@
 #' 
 #'
 #' @returns
-#' For `i2_rec()`: \cr
+#' For `lst_rec()`: \cr
 #' Returns the recursive subset. \cr
 #' \cr
-#' For `i2_recin(..., rp = rp)`: \cr
+#' For `lst_recin(..., rp = rp)`: \cr
 #' Returns VOID,
 #' but replaces, adds, or deletes the specified recursive subset,
 #' using R's default Copy-On-Modify semantics. \cr
 #' \cr
-#' For `i2_recin(..., tf = tf)`: \cr
+#' For `lst_recin(..., tf = tf)`: \cr
 #' Returns VOID,
 #' but transforms the specified recursive subset,
 #' using R's default Copy-On-Modify semantics. \cr \cr
@@ -80,14 +78,14 @@
 #' @example inst/examples/generic_rec.R
 #'
 
-#' @name i2_rec
+#' @name lst_rec
 NULL
 
 
 
-#' @rdname i2_rec
+#' @rdname lst_rec
 #' @export
-i2_rec <- function(x, ...) {
+lst_rec <- function(x, ...) {
   
   if(is.atomic(x)) {
     stop("Use the `i_`/`ss_` methods for atomic objects")
@@ -96,13 +94,13 @@ i2_rec <- function(x, ...) {
     stop("unsupported object")
   }
   
-  UseMethod("i2_rec", x)
+  UseMethod("lst_rec", x)
 }
 
 
-#' @rdname i2_rec
+#' @rdname lst_rec
 #' @export
-i2_rec.default <- function(x, rec, ...) {
+lst_rec.default <- function(x, rec, ...) {
   
   # error handling:
   .internal_check_dots(list(...), sys.call())
@@ -117,9 +115,9 @@ i2_rec.default <- function(x, rec, ...) {
 }
 
 
-#' @rdname i2_rec
+#' @rdname lst_rec
 #' @export
-i2_recin <- function(x, ...) {
+lst_recin <- function(x, ...) {
   
   if(is.atomic(x)) {
     stop("Use the `i_`/`ss_` methods for atomic objects")
@@ -128,14 +126,14 @@ i2_recin <- function(x, ...) {
     stop("unsupported object")
   }
   
-  UseMethod("i2_recin", x)
+  UseMethod("lst_recin", x)
 }
 
 
 
-#' @rdname i2_rec
+#' @rdname lst_rec
 #' @export
-i2_recin.default <- function(x, rec, ..., rp, tf) {
+lst_recin.default <- function(x, rec, ..., rp, tf) {
   
   # error handling:
   .internal_check_dots(list(...), sys.call())

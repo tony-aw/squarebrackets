@@ -221,16 +221,16 @@ expect_equal(
 expect_error(
   sb_test(x, n(1:3), "a"),
   pattern = "`d` must be a integer vector"
-)
+) |> errorfun()
 expect_error(
   sb_test(x, n(1:3, 1:3, 1:3), 1:2),
   pattern = "`length(s)` must equal `length(d)`",
   fixed = TRUE
-)
+) |> errorfun()
 expect_error(
   sb_test(x, n(1:3), 1:10),
   pattern = "`d` out of range"
-)
+) |> errorfun()
 
 enumerate <- enumerate + 7L
 

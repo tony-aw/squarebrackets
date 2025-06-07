@@ -265,11 +265,11 @@ i2_x(x, 1) # equivalent to x[1]; returns list(A = 1:10)
 
 Recursive subset operations (\code{[[}, \verb{[[<-}, and \code{$} in base 'R'), on the other hand,
 operate on an object a subset of the recursive object references to. \cr
-I.e. \link{i2_rec}\verb{(x, 1)}, or equivalently \code{x[[1]]},
+I.e. \link{lst_rec}\verb{(x, 1)}, or equivalently \code{x[[1]]},
 returns the \bold{integer vector} \code{1:10}:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{
-i2_rec(x, 1) # equivalent to x[[1]]; returns 1:10
+lst_rec(x, 1) # equivalent to x[[1]]; returns 1:10
 #>  [1]  1  2  3  4  5  6  7  8  9 10
 }\if{html}{\out{</div>}}
 
@@ -279,15 +279,15 @@ Recursive subsets can go however deep you want. \cr
 So, for example,
 to extract the character vector \code{month.abb} from the aforementioned list \code{x},
 one would need to do: \cr
-\link{i2_rec}\verb{(x, c("C","B"))}, (in base R: \code{x$C$B}):
+\link{lst_rec}\verb{(x, c("C","B"))}, (in base R: \code{x$C$B}):
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{
-i2_rec(x, c("C","B")) # equivalent to x$C$B
+lst_rec(x, c("C","B")) # equivalent to x$C$B
 #>  [1] "Jan" "Feb" "Mar" "Apr" "May" "Jun" "Jul" "Aug" "Sep" "Oct" "Nov" "Dec"
 
 # or:
 
-i2_rec(x, c(3, 2)) # equivalent to x[[3]][[2]]
+lst_rec(x, c(3, 2)) # equivalent to x[[3]][[2]]
 #>  [1] "Jan" "Feb" "Mar" "Apr" "May" "Jun" "Jul" "Aug" "Sep" "Oct" "Nov" "Dec"
 }\if{html}{\out{</div>}}
 
@@ -296,7 +296,7 @@ Indexing in recursive subsets is significantly more limited than in regular
 (or "shallow") subsets:
 \itemize{
 \item Recursive subset operations
-using \link{i2_rec}/\link{i2_recin}
+using \link{lst_rec}/\link{lst_recin}
 only support positive integer vectors and character vectors.
 \item Imaginary numbers (using complex vectors) and logical vectors are not supported.
 \item Since a recursive subset operation only operates on a single element,

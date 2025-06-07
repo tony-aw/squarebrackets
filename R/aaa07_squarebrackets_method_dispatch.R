@@ -21,7 +21,7 @@
 #'  - **recursive subsets**: Recursive objects distinguish between "regular" subset operations
 #'  (in base R using `[`, `[<-`),
 #'  and recursive subset operations (in base R using `[[`, `[[<-`). \cr
-#'  See for example the \link{i2_rec} method,
+#'  See for example the \link{lst_rec} method,
 #'  or the `red = TRUE` argument in the \eqn{\ast}`_x` and \eqn{\ast}`_wo` methods. \cr
 #'  For atomic objects, these 2 have no meaningful difference
 #'  (safe for perhaps some minor attribute handling). \cr

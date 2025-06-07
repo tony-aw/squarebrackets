@@ -20,6 +20,9 @@ temp.fun <- function(x) {
 
 sys.source(file.path(getwd(), "source", "sourcetest-missingargs.R"), envir = environment())
 
+x <- factor(letters)
+temp.fun(x)
+
 
 temp.fun <- function(x) {
   expect_equal(

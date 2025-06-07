@@ -24,7 +24,7 @@ whereas recursive objects often require loops or apply-like functions. \cr
 \item \strong{recursive subsets}: Recursive objects distinguish between "regular" subset operations
 (in base R using \code{[}, \verb{[<-}),
 and recursive subset operations (in base R using \code{[[}, \verb{[[<-}). \cr
-See for example the \link{i2_rec} method,
+See for example the \link{lst_rec} method,
 or the \code{red = TRUE} argument in the \eqn{\ast}\verb{_x} and \eqn{\ast}\verb{_wo} methods. \cr
 For atomic objects, these 2 have no meaningful difference
 (safe for perhaps some minor attribute handling). \cr

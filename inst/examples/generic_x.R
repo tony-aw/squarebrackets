@@ -31,7 +31,7 @@ i2_x(obj, 1) # obj[1]
 i2_x(obj, 1, red = TRUE) # obj[[1]]
 i2_x(obj, 1:2) # obj[1:2]
 i2_x(obj, is.numeric) # obj[sapply(obj, is.numeric)]
-# for recursive subsets, see i2_rec()
+# for recursive subsets, see lst_rec()
 
 
 obj <- rbind(

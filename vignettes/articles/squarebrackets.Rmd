@@ -93,8 +93,6 @@ For the `B` part, the following is available:
  - `_wo`⁠: returns the original object without the provided subsets.
  - `_mod`⁠: modify subsets and return copy.
  - `_set`⁠: modify subsets using pass-by-reference semantics.
- - `_rec`: access recursive subsets of lists - only available with the `i2_` prefix.
- - `⁠_recin`⁠: replace, transform, delete, or extend recursive subsets of lists - only available with the `i2_` prefix.
 
 
 To illustrate, let's take the methods used for extracting subsets (∗⁠_x⁠):

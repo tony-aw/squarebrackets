@@ -1,7 +1,7 @@
 
 enumerate <- 0
 
-# i2_rec ====
+# lst_rec ====
 x <- list(
   A = list(
     A = list(A = "AAA", B = "AAB"),
@@ -13,29 +13,29 @@ x <- list(
   )
 )
 expect_equal(
-  i2_rec(x, c(1,2,2)),
+  lst_rec(x, c(1,2,2)),
   "ABB"
 )
 expect_equal(
-  i2_rec(x, c(2,2,1)),
+  lst_rec(x, c(2,2,1)),
   "BBA"
 )
 
 expect_equal(
-  i2_rec(x, 1:2),
+  lst_rec(x, 1:2),
   x[[1:2]]
 )
 
 x2 <- x
 x2[[1:2]] <- "foo"
-i2_recin(x, 1:2, rp = "foo")
+lst_recin(x, 1:2, rp = "foo")
 expect_equal(
   x,
   x2
 )
 
 x2[[2:1]] <- stringi::stri_reverse(x2[[2:1]])
-i2_recin(x, 2:1, tf = stringi::stri_reverse)
+lst_recin(x, 2:1, tf = stringi::stri_reverse)
 expect_equal(
   x,
   x2
@@ -46,19 +46,19 @@ enumerate <- enumerate + 5
 
 # error checks ====
 expect_error(
-  i2_rec(x, NA),
+  lst_rec(x, NA),
   pattern = "`rec` cannot contain `NA`"
 )
 expect_error(
-  i2_rec(x, c("a", NA)),
+  lst_rec(x, c("a", NA)),
   pattern = "`rec` cannot contain `NA`"
 )
 expect_error(
-  i2_rec(x, c(1L, NA)),
+  lst_rec(x, c(1L, NA)),
   pattern = "`rec` cannot contain `NA`"
 )
 expect_error(
-  i2_rec(x, TRUE),
+  lst_rec(x, TRUE),
   pattern = "`rec` must be an integer vector or a character vector"
 )
 

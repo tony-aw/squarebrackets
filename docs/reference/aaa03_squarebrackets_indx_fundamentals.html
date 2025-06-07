@@ -11,7 +11,7 @@ Some familiarity with base R's [ and [&amp;lt;- operators is required to follow 
 
     <a class="navbar-brand me-2" href="../index.html">squarebrackets</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9001</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -255,29 +255,29 @@ returns the <b>list</b> <code>list(A = 1:10)</code>:</p>
 <span><span class="co">#&gt;  [1]  1  2  3  4  5  6  7  8  9 10</span></span></code></pre><p></p></div>
 <p>Recursive subset operations (<code>[[</code>, <code>[[&lt;-</code>, and <code>$</code> in base 'R'), on the other hand,
 operate on an object a subset of the recursive object references to. <br>
-I.e. <a href="i2_rec.html">i2_rec</a><code>(x, 1)</code>, or equivalently <code>x[[1]]</code>,
+I.e. <a href="lst_rec.html">lst_rec</a><code>(x, 1)</code>, or equivalently <code>x[[1]]</code>,
 returns the <b>integer vector</b> <code>1:10</code>:</p>
 <p></p><div class="sourceCode r"><pre><code><span></span>
-<span><span class="fu"><a href="../reference/i2_rec.html">i2_rec</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">)</span> <span class="co"># equivalent to x[[1]]; returns 1:10</span></span>
+<span><span class="fu"><a href="../reference/lst_rec.html">lst_rec</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">)</span> <span class="co"># equivalent to x[[1]]; returns 1:10</span></span>
 <span><span class="co">#&gt;  [1]  1  2  3  4  5  6  7  8  9 10</span></span></code></pre><p></p></div>
 <p>Recursive objects can refer to other recursive objects,
 which can themselves refer to recursive objects, and so on. <br>
 Recursive subsets can go however deep you want. <br>
 So, for example,
 to extract the character vector <code>month.abb</code> from the aforementioned list <code>x</code>,
-one would need to do: <br><a href="i2_rec.html">i2_rec</a><code>(x, c("C","B"))</code>, (in base R: <code>x$C$B</code>):</p>
+one would need to do: <br><a href="lst_rec.html">lst_rec</a><code>(x, c("C","B"))</code>, (in base R: <code>x$C$B</code>):</p>
 <p></p><div class="sourceCode r"><pre><code><span></span>
-<span><span class="fu"><a href="../reference/i2_rec.html">i2_rec</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"C"</span>,<span class="st">"B"</span><span class="op">)</span><span class="op">)</span> <span class="co"># equivalent to x$C$B</span></span>
+<span><span class="fu"><a href="../reference/lst_rec.html">lst_rec</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"C"</span>,<span class="st">"B"</span><span class="op">)</span><span class="op">)</span> <span class="co"># equivalent to x$C$B</span></span>
 <span><span class="co">#&gt;  [1] "Jan" "Feb" "Mar" "Apr" "May" "Jun" "Jul" "Aug" "Sep" "Oct" "Nov" "Dec"</span></span>
 <span></span>
 <span><span class="co"># or:</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/i2_rec.html">i2_rec</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span> <span class="co"># equivalent to x[[3]][[2]]</span></span>
+<span><span class="fu"><a href="../reference/lst_rec.html">lst_rec</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span> <span class="co"># equivalent to x[[3]][[2]]</span></span>
 <span><span class="co">#&gt;  [1] "Jan" "Feb" "Mar" "Apr" "May" "Jun" "Jul" "Aug" "Sep" "Oct" "Nov" "Dec"</span></span></code></pre><p></p></div>
 <p><b>LIMITATIONS</b> <br>
 Indexing in recursive subsets is significantly more limited than in regular
 (or "shallow") subsets:</p><ul><li><p>Recursive subset operations
-using <a href="i2_rec.html">i2_rec</a>/<a href="i2_rec.html">i2_recin</a>
+using <a href="lst_rec.html">lst_rec</a>/<a href="lst_rec.html">lst_recin</a>
 only support positive integer vectors and character vectors.</p></li>
 <li><p>Imaginary numbers (using complex vectors) and logical vectors are not supported.</p></li>
 <li><p>Since a recursive subset operation only operates on a single element,
