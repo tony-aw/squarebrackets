@@ -597,29 +597,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// rcpp_seq_mlen
-List rcpp_seq_mlen(IntegerVector x);
-RcppExport SEXP _squarebrackets_rcpp_seq_mlen(SEXP xSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< IntegerVector >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_seq_mlen(x));
-    return rcpp_result_gen;
-END_RCPP
-}
-// rcpp_recycle_seq_mlen
-List rcpp_recycle_seq_mlen(IntegerVector x, IntegerVector y);
-RcppExport SEXP _squarebrackets_rcpp_recycle_seq_mlen(SEXP xSEXP, SEXP ySEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< IntegerVector >::type x(xSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type y(ySEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_recycle_seq_mlen(x, y));
-    return rcpp_result_gen;
-END_RCPP
-}
 // rcpp_serial
 SEXP rcpp_serial(SEXP x);
 RcppExport SEXP _squarebrackets_rcpp_serial(SEXP xSEXP) {
@@ -676,18 +653,6 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const SEXP >::type xdims(xdimsSEXP);
     Rcpp::traits::input_parameter< const SEXP >::type rp(rpSEXP);
     rcpp_set_array_general_atomic(x, s, xdims, rp);
-    return R_NilValue;
-END_RCPP
-}
-// rcpp_set_namepointer
-void rcpp_set_namepointer(CharacterVector nms, IntegerVector ind, CharacterVector rp);
-RcppExport SEXP _squarebrackets_rcpp_set_namepointer(SEXP nmsSEXP, SEXP indSEXP, SEXP rpSEXP) {
-BEGIN_RCPP
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< CharacterVector >::type nms(nmsSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type ind(indSEXP);
-    Rcpp::traits::input_parameter< CharacterVector >::type rp(rpSEXP);
-    rcpp_set_namepointer(nms, ind, rp);
     return R_NilValue;
 END_RCPP
 }
@@ -798,7 +763,6 @@ RcppExport SEXP C_any_address(SEXP, SEXP);
 RcppExport SEXP C_any_badindx(SEXP, SEXP);
 RcppExport SEXP C_any_badmargin(SEXP, SEXP);
 RcppExport SEXP C_any_neg(SEXP);
-RcppExport SEXP C_any_nonNULL(SEXP);
 RcppExport SEXP C_any_nonpos(SEXP);
 RcppExport SEXP C_convert_cplx_32(SEXP, SEXP);
 RcppExport SEXP C_convert_cplx_64(SEXP, SEXP);
@@ -806,8 +770,6 @@ RcppExport SEXP C_copy(SEXP);
 RcppExport SEXP C_is_altrep(SEXP);
 RcppExport SEXP C_match_range(SEXP, SEXP);
 RcppExport SEXP C_serial(SEXP);
-RcppExport SEXP C_sub2ind_16d_32(SEXP, SEXP);
-RcppExport SEXP C_sub2ind_16d_64(SEXP, SEXP);
 
 static const R_CallMethodDef CallEntries[] = {
     {"_squarebrackets_rcpp_set_all_atomic", (DL_FUNC) &_squarebrackets_rcpp_set_all_atomic, 2},
@@ -854,14 +816,11 @@ static const R_CallMethodDef CallEntries[] = {
     {"_squarebrackets_rcpp_coord2ind", (DL_FUNC) &_squarebrackets_rcpp_coord2ind, 3},
     {"_squarebrackets_rcpp_dt_needcoe", (DL_FUNC) &_squarebrackets_rcpp_dt_needcoe, 3},
     {"_squarebrackets_rcpp_dt_find_name", (DL_FUNC) &_squarebrackets_rcpp_dt_find_name, 3},
-    {"_squarebrackets_rcpp_seq_mlen", (DL_FUNC) &_squarebrackets_rcpp_seq_mlen, 1},
-    {"_squarebrackets_rcpp_recycle_seq_mlen", (DL_FUNC) &_squarebrackets_rcpp_recycle_seq_mlen, 2},
     {"_squarebrackets_rcpp_serial", (DL_FUNC) &_squarebrackets_rcpp_serial, 1},
     {"_squarebrackets_rcpp_is_ma", (DL_FUNC) &_squarebrackets_rcpp_is_ma, 1},
     {"_squarebrackets_rcpp_set_ma", (DL_FUNC) &_squarebrackets_rcpp_set_ma, 2},
     {"_squarebrackets_rcpp_set_array_DTYPEd_atomic", (DL_FUNC) &_squarebrackets_rcpp_set_array_DTYPEd_atomic, 4},
     {"_squarebrackets_rcpp_set_array_general_atomic", (DL_FUNC) &_squarebrackets_rcpp_set_array_general_atomic, 4},
-    {"_squarebrackets_rcpp_set_namepointer", (DL_FUNC) &_squarebrackets_rcpp_set_namepointer, 3},
     {"_squarebrackets_rcpp_sub2coord", (DL_FUNC) &_squarebrackets_rcpp_sub2coord, 6},
     {"_squarebrackets_rcpp_sub2ind_d_32", (DL_FUNC) &_squarebrackets_rcpp_sub2ind_d_32, 2},
     {"_squarebrackets_rcpp_sub2ind_d_64", (DL_FUNC) &_squarebrackets_rcpp_sub2ind_d_64, 2},
@@ -873,7 +832,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"C_any_badindx",     (DL_FUNC) &C_any_badindx,     2},
     {"C_any_badmargin",   (DL_FUNC) &C_any_badmargin,   2},
     {"C_any_neg",         (DL_FUNC) &C_any_neg,         1},
-    {"C_any_nonNULL",     (DL_FUNC) &C_any_nonNULL,     1},
     {"C_any_nonpos",      (DL_FUNC) &C_any_nonpos,      1},
     {"C_convert_cplx_32", (DL_FUNC) &C_convert_cplx_32, 2},
     {"C_convert_cplx_64", (DL_FUNC) &C_convert_cplx_64, 2},
@@ -881,8 +839,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"C_is_altrep",       (DL_FUNC) &C_is_altrep,       1},
     {"C_match_range",     (DL_FUNC) &C_match_range,     2},
     {"C_serial",          (DL_FUNC) &C_serial,          1},
-    {"C_sub2ind_16d_32",  (DL_FUNC) &C_sub2ind_16d_32,  2},
-    {"C_sub2ind_16d_64",  (DL_FUNC) &C_sub2ind_16d_64,  2},
     {NULL, NULL, 0}
 };
 

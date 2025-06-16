@@ -83,53 +83,165 @@ properties of these methods. Familiarity with the square-brackets
 operators (<code>[</code>, <code>[&lt;-</code>) in relation to vectors,
 arrays, and data.frames is essential to follow this article.</p>
 <p> </p>
-</div>
-<div class="section level2">
-<h2 id="methods">Methods<a class="anchor" aria-label="anchor" href="#methods"></a>
-</h2>
-<div class="section level3">
-<h3 id="supported-structures">Supported structures<a class="anchor" aria-label="anchor" href="#supported-structures"></a>
-</h3>
-<p>One can generally divide the structures supported by ‘squarebrackets’
-along 3 key properties:</p>
+<p>‘squarebrackets’ supports the following structures:</p>
 <ul>
-<li>atomic vs recursive:<br>
-Types logical, integer, double, complex, character, and raw are
-atomic.<br>
-Lists and data.frames are recursive.</li>
-<li>dimensionality:<br>
-Whether an object is a vector, matrix, array, or data.frame.</li>
-<li>mutability:<br>
-Base R’s S3 classes (except Environments) are generally immutable:<br>
-Modifying the object will create a copy (called ‘copy-on-modify’).<br>
-‘squarebrackets’ also supports data.tables and mutable_atomic objects,
-which are mutable:<br>
-If desired, one can modify them without copy using pass-by-reference
-semantics.</li>
-</ul>
-<p> </p>
-<p>‘squarebrackets’ supports the following immutable structures:</p>
-<ul>
-<li>basic atomic classes<br>
+<li>basic atomic structures<br>
 (atomic vectors, matrices, and arrays).</li>
+<li>mutatomic structures (mutable atomic vectors, matrices, and
+arrays).</li>
 <li>factor.</li>
-<li>basic list classes<br>
+<li>basic list structures<br>
 (recursive vectors, matrices, and arrays).</li>
 <li>data.frames<br>
 (including the classes tibble, sf-data.frame and sf-tibble).</li>
-</ul>
-<p>‘squarebrackets’ supports the following mutable structures:</p>
-<ul>
-<li>mutable_atomic<br>
-(mutable_atomic vectors, matrices, and arrays);</li>
 <li>data.table<br>
 (including the classes tidytable, sf-data.table, and sf-tidytable).</li>
 </ul>
 <p> </p>
 </div>
+<div class="section level2">
+<h2 id="improved-index-specification">Improved Index Specification<a class="anchor" aria-label="anchor" href="#improved-index-specification"></a>
+</h2>
+<p>base ‘R’ supports specifying indices for sub-set operations through
+logical, integer, and character vectors.</p>
+<p>‘squarebrackets’ enhances these capabilities, and adds more
+possibilities.</p>
+<p> </p>
 <div class="section level3">
-<h3 id="provided-methods">Provided Methods<a class="anchor" aria-label="anchor" href="#provided-methods"></a>
+<h3 id="specify-indices-by-names">Specify Indices by Names<a class="anchor" aria-label="anchor" href="#specify-indices-by-names"></a>
 </h3>
+<p>Base ‘R’ only selects the first matching names when selecting indices
+through a character vector. ‘squarebrackets’ selects all matching
+names.</p>
+<p>For example:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">nms</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>, <span class="fl">9</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">nms</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="co"># `x` has multiple elements with the name "a"</span></span>
+<span><span class="co">#&gt;  a  a  c  d  c  a  b  c  c  c </span></span>
+<span><span class="co">#&gt;  4  6  1  5  7  9  2 10  8  3</span></span>
+<span></span>
+<span><span class="va">x</span><span class="op">[</span><span class="st">"a"</span><span class="op">]</span> <span class="co"># only selects only the first index with name "a"</span></span>
+<span><span class="co">#&gt; a </span></span>
+<span><span class="co">#&gt; 4</span></span>
+<span><span class="fu"><a href="../reference/sb_x.html">i_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"a"</span><span class="op">)</span> <span class="co"># selects all indices with the name "a"</span></span>
+<span><span class="co">#&gt; a a a </span></span>
+<span><span class="co">#&gt; 4 6 9</span></span>
+<span></span>
+<span><span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"a"</span><span class="op">)</span><span class="op">]</span> <span class="co"># repeats only the first index with name "a"</span></span>
+<span><span class="co">#&gt; a a </span></span>
+<span><span class="co">#&gt; 4 4</span></span>
+<span><span class="fu"><a href="../reference/sb_x.html">i_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"a"</span><span class="op">)</span><span class="op">)</span> <span class="co"># repeats all indices with the name "a"</span></span>
+<span><span class="co">#&gt; a a a a a a </span></span>
+<span><span class="co">#&gt; 4 6 9 4 6 9</span></span></code></pre></div>
+<p>To select the indices <code>c("a", "a", "b")</code>, whilst ensuring
+<strong>all</strong> indices with those names get selected, once needs
+to do the following in base ‘R’:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"a"</span>, <span class="st">"b"</span><span class="op">)</span>, \<span class="op">(</span><span class="va">i</span><span class="op">)</span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">==</span> <span class="va">i</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="co">#&gt; a a a a a a b </span></span>
+<span><span class="co">#&gt; 4 6 9 4 6 9 2</span></span></code></pre></div>
+<p>See how much easier it is with ‘squarebrackets’!:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/sb_x.html">i_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"a"</span>, <span class="st">"b"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; a a a a a a b </span></span>
+<span><span class="co">#&gt; 4 6 9 4 6 9 2</span></span></code></pre></div>
+<p>This syntax becomes especially advantageous for arrays;<br>
+For example, let’s select all layers (i.e. the 3rd dimension) with the
+name “a”, twice:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/array.html" class="external-link">array</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">27</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">3</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/dimnames.html" class="external-link">dimnames</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>, <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"a"</span>, <span class="st">"b"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># in base 'R':</span></span>
+<span><span class="va">x</span><span class="op">[</span>,, <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"a"</span><span class="op">)</span>, \<span class="op">(</span><span class="va">i</span><span class="op">)</span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/dimnames.html" class="external-link">dimnames</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">[[</span><span class="fl">3L</span><span class="op">]</span><span class="op">]</span> <span class="op">==</span> <span class="va">i</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="op">)</span><span class="op">]</span></span>
+<span></span>
+<span><span class="co"># using 'squarebrackets' (shorter and more readable, and FASTER):</span></span>
+<span><span class="fu"><a href="../reference/sb_x.html">ss_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"a"</span><span class="op">)</span>, <span class="fl">3L</span><span class="op">)</span></span></code></pre></div>
+<p>It’s not just shorter by the way, ‘squarebrackets’ is
+<strong>faster</strong>, as it does not rely on <code><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply()</a></code>
+(or friends) to do this, but uses compiled ‘C’ code.</p>
+<p> </p>
+</div>
+<div class="section level3">
+<h3 id="specify-indices-by-imaginary-numbers">Specify Indices by Imaginary Numbers<a class="anchor" aria-label="anchor" href="#specify-indices-by-imaginary-numbers"></a>
+</h3>
+<p>‘squarebrackets’ introduces a new way to specify indices:<br>
+through imaginary numbers.<br>
+Positive imaginary numbers (<code>1i</code>, <code>2i</code>, etc.)
+works the same as regular indices. Negative imaginary numbers
+(<code>-1i</code>, <code>-2i</code>, etc.) starts from the end, counting
+backwards.</p>
+<p>For example:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1]  5 10  4  9  2  8  7  6  1  3</span></span>
+<span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/sb_x.html">i_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span> <span class="op">*</span> <span class="op">-</span><span class="fl">1i</span><span class="op">)</span> <span class="co"># select last 3 indices</span></span>
+<span><span class="co">#&gt; [1] 3 1 6</span></span>
+<span><span class="fu"><a href="../reference/sb_x.html">i_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">3</span><span class="op">:</span><span class="fl">1</span> <span class="op">*</span> <span class="op">-</span><span class="fl">1i</span><span class="op">)</span> <span class="co"># select last 3 indices in tail()-like order</span></span>
+<span><span class="co">#&gt; [1] 6 1 3</span></span></code></pre></div>
+<p>This syntax becomes especially advantageous for arrays:</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/array.html" class="external-link">array</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">27</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">3</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># select last 2 layers using base 'R':</span></span>
+<span><span class="va">x</span><span class="op">[</span>,, <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">[</span><span class="fl">3L</span><span class="op">]</span> <span class="op">-</span> <span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">[</span><span class="fl">3L</span><span class="op">]</span><span class="op">)</span><span class="op">]</span></span>
+<span></span>
+<span><span class="co"># select last 2 layers using 'squarebrackets':</span></span>
+<span><span class="fu"><a href="../reference/sb_x.html">ss_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">1</span> <span class="op">*</span> <span class="op">-</span><span class="fl">1i</span>, <span class="fl">3L</span><span class="op">)</span></span></code></pre></div>
+<p> </p>
+</div>
+<div class="section level3">
+<h3 id="inverting-index-specification">Inverting Index Specification<a class="anchor" aria-label="anchor" href="#inverting-index-specification"></a>
+</h3>
+<p>Inverting indices in base ‘R’ is done in different ways. (negative
+numbers for numeric indexing, negation for logical indexing, manually
+un-matching for character vectors).</p>
+<p>‘squarebrackets’ provides a (somewhat) consistent syntax to invert
+indices:</p>
+<ul>
+<li>The methods whose names end with <code>_x</code> (like the
+<code><a href="../reference/sb_x.html">i_x()</a></code> shown before) perform extraction;<br>
+to invert extraction, i.e. return the object <strong>without</strong>
+the specified subset, use the methods whose names end with
+<code>_wo</code>.</li>
+<li>In the modification methods (those whose names end with
+<code>_mod</code> or <code>_set</code>) one can set the argument
+<code>inv = TRUE</code> to invert indices.</li>
+</ul>
+<p>As a consequence, removing sub-sets has the same syntax as extracting
+indices.</p>
+<p>For example:</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span></span>
+<span></span>
+<span><span class="va">x</span><span class="op">[</span><span class="st">"a"</span><span class="op">]</span> <span class="co"># extract element "a" in base R</span></span>
+<span><span class="co">#&gt; a </span></span>
+<span><span class="co">#&gt; 6</span></span>
+<span><span class="va">x</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="st">"a"</span><span class="op">]</span> <span class="co"># but removing has different syntax</span></span>
+<span><span class="co">#&gt;  b  c  d  e  f  g  h  i  j </span></span>
+<span><span class="co">#&gt;  7  8  5 10  1  2  3  4  9</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/sb_x.html">i_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"a"</span><span class="op">)</span> <span class="co"># extract element "a" with 'squarebrackets'</span></span>
+<span><span class="co">#&gt; a </span></span>
+<span><span class="co">#&gt; 6</span></span>
+<span><span class="fu"><a href="../reference/sb_wo.html">i_wo</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"a"</span><span class="op">)</span> <span class="co"># remove element "a" with 'squarebrackets'; same syntax</span></span>
+<span><span class="co">#&gt;  b  c  d  e  f  g  h  i  j </span></span>
+<span><span class="co">#&gt;  7  8  5 10  1  2  3  4  9</span></span></code></pre></div>
+<p> </p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="provided-methods">Provided Methods<a class="anchor" aria-label="anchor" href="#provided-methods"></a>
+</h2>
+<p>In the previous section about the improved forms of indexing, we’ve
+already seen some of the methods provided by ‘squarebrackets’; this
+section gives a more formal introduction to the methods.</p>
 <p>The main methods of ‘squarebrackets’ use the naming convention
 <code>A_B</code>: <code>A</code> tells you on what kind of object and
 what kind of indices the method operates on; <code>B</code> tells you
@@ -170,7 +282,7 @@ subsets.</li>
 semantics.</li>
 </ul>
 <p>To illustrate, let’s take the methods used for extracting subsets
-(∗⁠_x⁠):</p>
+(<code>∗⁠_x</code>⁠):</p>
 <p>When <code>y</code> is atomic, the following holds (roughly
 speaking):</p>
 <ul>
@@ -196,7 +308,6 @@ in <code><a href="../reference/sb_x.html">ss2_x()</a></code>)</li>
 </ul>
 <p> </p>
 </div>
-</div>
 <div class="section level2">
 <h2 id="arrays-with-unknown-number-of-dimensions">Arrays with unknown number of dimensions<a class="anchor" aria-label="anchor" href="#arrays-with-unknown-number-of-dimensions"></a>
 </h2>
@@ -207,7 +318,7 @@ in <code><a href="../reference/sb_x.html">ss2_x()</a></code>)</li>
 with the square brackets operator (<code>[</code>, <code>[&lt;-</code>),
 one needs to know how many dimensions it has.</p>
 <p>For example:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># if x has 3 dimensions:</span></span>
 <span><span class="va">x</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span>, <span class="va">k</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span></span>
 <span><span class="va">x</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span>, <span class="va">k</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
@@ -272,7 +383,7 @@ like <code><a href="https://rdrr.io/r/base/c.html" class="external-link">c()</a>
 <p>Consider the following example - Given a set of atomic arrays with
 different dimensions, select the first 2 indices of every available
 dimension:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="va">lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/array.html" class="external-link">array</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">25</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span>, <span class="co"># matrix / 2d array</span></span>
@@ -292,7 +403,7 @@ it works for matrices and arrays of any arbitrary dimension.</p>
 <p>Another example - select the first 3 indices for the first dimension,
 the first 2 indices for the last available dimension, and select all
 indices for the other dimensions.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="va">lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/array.html" class="external-link">array</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">25</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span>, <span class="co"># matrix / 2d array</span></span>
@@ -322,7 +433,7 @@ own rules regarding sub-set operations.</p>
 <p>Consider the following example, where values of the column “a” are
 being replaced with “XXX”, but only in the rows for which holds that
 column “b” is larger than 10:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">tinycodet</span><span class="fu">::</span><span class="fu"><a href="https://tony-aw.github.io/tinycodet/reference/import_as.html" class="external-link">import_as</a></span><span class="op">(</span><span class="op">~</span> <span class="va">dpr.</span>, <span class="st">"dplyr"</span>, dependencies <span class="op">=</span> <span class="st">"tibble"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>a <span class="op">=</span> <span class="va">month.abb</span>, b <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">12</span><span class="op">)</span></span>
@@ -356,57 +467,15 @@ used.</p>
 <p>So let’s do the same operation as above, but now using
 ‘squarebrackets’. Since data.frames and tibbles are not mutable types,
 for this demonstration I’ll stick to using <code><a href="../reference/sb_mod.html">ss2_mod()</a></code>:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>a <span class="op">=</span> <span class="va">month.abb</span>, b <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">12</span><span class="op">)</span></span>
 <span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>a <span class="op">=</span> <span class="va">month.abb</span>, b <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">12</span><span class="op">)</span></span>
 <span><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://rdatatable.gitlab.io/data.table/reference/data.table.html" class="external-link">data.table</a></span><span class="op">(</span>a <span class="op">=</span> <span class="va">month.abb</span>, b <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">12</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/sb_mod.html">ss2_mod</a></span><span class="op">(</span><span class="va">x</span>, obs <span class="op">=</span> <span class="op">~</span> <span class="va">b</span> <span class="op">&gt;</span> <span class="fl">10</span>, vars <span class="op">=</span> <span class="st">"a"</span>, rp <span class="op">=</span> <span class="st">"XXX"</span><span class="op">)</span></span>
-<span><span class="co">#&gt;      a  b</span></span>
-<span><span class="co">#&gt; 1  Jan  1</span></span>
-<span><span class="co">#&gt; 2  Feb  2</span></span>
-<span><span class="co">#&gt; 3  Mar  3</span></span>
-<span><span class="co">#&gt; 4  Apr  4</span></span>
-<span><span class="co">#&gt; 5  May  5</span></span>
-<span><span class="co">#&gt; 6  Jun  6</span></span>
-<span><span class="co">#&gt; 7  Jul  7</span></span>
-<span><span class="co">#&gt; 8  Aug  8</span></span>
-<span><span class="co">#&gt; 9  Sep  9</span></span>
-<span><span class="co">#&gt; 10 Oct 10</span></span>
-<span><span class="co">#&gt; 11 XXX 11</span></span>
-<span><span class="co">#&gt; 12 XXX 12</span></span>
 <span><span class="fu"><a href="../reference/sb_mod.html">ss2_mod</a></span><span class="op">(</span><span class="va">y</span>, obs <span class="op">=</span> <span class="op">~</span> <span class="va">b</span> <span class="op">&gt;</span> <span class="fl">10</span>, vars <span class="op">=</span> <span class="st">"a"</span>, rp <span class="op">=</span> <span class="st">"XXX"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 12 × 2</span></span></span>
-<span><span class="co">#&gt;    a         b</span></span>
-<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> Jan       1</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> Feb       2</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> Mar       3</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> Apr       4</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> May       5</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> Jun       6</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> Jul       7</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> Aug       8</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> Sep       9</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> Oct      10</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> XXX      11</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span> XXX      12</span></span>
-<span><span class="fu"><a href="../reference/sb_mod.html">ss2_mod</a></span><span class="op">(</span><span class="va">z</span>, obs <span class="op">=</span> <span class="op">~</span> <span class="va">b</span> <span class="op">&gt;</span> <span class="fl">10</span>, vars <span class="op">=</span> <span class="st">"a"</span>, rp <span class="op">=</span> <span class="st">"XXX"</span><span class="op">)</span></span>
-<span><span class="co">#&gt;          a     b</span></span>
-<span><span class="co">#&gt;     &lt;char&gt; &lt;int&gt;</span></span>
-<span><span class="co">#&gt;  1:    Jan     1</span></span>
-<span><span class="co">#&gt;  2:    Feb     2</span></span>
-<span><span class="co">#&gt;  3:    Mar     3</span></span>
-<span><span class="co">#&gt;  4:    Apr     4</span></span>
-<span><span class="co">#&gt;  5:    May     5</span></span>
-<span><span class="co">#&gt;  6:    Jun     6</span></span>
-<span><span class="co">#&gt;  7:    Jul     7</span></span>
-<span><span class="co">#&gt;  8:    Aug     8</span></span>
-<span><span class="co">#&gt;  9:    Sep     9</span></span>
-<span><span class="co">#&gt; 10:    Oct    10</span></span>
-<span><span class="co">#&gt; 11:    XXX    11</span></span>
-<span><span class="co">#&gt; 12:    XXX    12</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/sb_mod.html">ss2_mod</a></span><span class="op">(</span><span class="va">z</span>, obs <span class="op">=</span> <span class="op">~</span> <span class="va">b</span> <span class="op">&gt;</span> <span class="fl">10</span>, vars <span class="op">=</span> <span class="st">"a"</span>, rp <span class="op">=</span> <span class="st">"XXX"</span><span class="op">)</span></span></code></pre></div>
 <p>Notice that the syntax is exactly the same for all classes.</p>
 <p>The original attributes are also preserved when using
 <code><a href="../reference/sb_mod.html">ss2_mod()</a></code>; i.e. nothing is forced to become a tibble,
@@ -414,7 +483,7 @@ data.table, or something else. Input class = output class.</p>
 <p>For data.tables specifically, the user can also use
 <code><a href="../reference/sb_set.html">ss2_set()</a></code>, to perform pass-by-reference semantics, which is
 considerably faster and more memory efficient:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://rdatatable.gitlab.io/data.table/reference/data.table.html" class="external-link">data.table</a></span><span class="op">(</span>a <span class="op">=</span> <span class="va">month.abb</span>, b <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">12</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/sb_set.html">ss2_set</a></span><span class="op">(</span><span class="va">z</span>, obs <span class="op">=</span> <span class="op">~</span> <span class="va">b</span> <span class="op">&gt;</span> <span class="fl">10</span>, vars <span class="op">=</span> <span class="st">"a"</span>, rp <span class="op">=</span> <span class="st">"XXX"</span><span class="op">)</span></span>
@@ -436,108 +505,12 @@ considerably faster and more memory efficient:</p>
 <p> </p>
 </div>
 <div class="section level2">
-<h2 id="mutability">mutability<a class="anchor" aria-label="anchor" href="#mutability"></a>
+<h2 id="mutability">Mutability<a class="anchor" aria-label="anchor" href="#mutability"></a>
 </h2>
 <p>As shown in the previous section, ‘squarebrackets’ supports
 pass-by-reference semantics (i.e. modification without any copying) for
 data.tables, and it is also supported for the <code>mutatomic</code>
 class (a class of mutable atomic objects).</p>
-<p> </p>
-</div>
-<div class="section level2">
-<h2 id="improved-indexing">Improved indexing<a class="anchor" aria-label="anchor" href="#improved-indexing"></a>
-</h2>
-<p>base ‘R’ supports specifying indices for sub-set operations through
-logical, integer, and character vectors.</p>
-<p>‘squarebrackets’ enhances these capabilities, and adds more
-possibilities.</p>
-<p>First, base ‘R’ only selects the first matching names when selecting
-indices through a character vector. ‘squarebrackets’ selects all
-matching names.</p>
-<p>For example:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">nms</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>, <span class="fl">9</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">nms</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="co"># `x` has multiple elements with the name "a"</span></span>
-<span><span class="co">#&gt;  a  a  c  d  c  a  b  c  c  c </span></span>
-<span><span class="co">#&gt;  4  6  1  5  7  9  2 10  8  3</span></span>
-<span></span>
-<span><span class="va">x</span><span class="op">[</span><span class="st">"a"</span><span class="op">]</span> <span class="co"># only selects only the first index with name "a"</span></span>
-<span><span class="co">#&gt; a </span></span>
-<span><span class="co">#&gt; 4</span></span>
-<span><span class="fu"><a href="../reference/sb_x.html">i_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"a"</span><span class="op">)</span> <span class="co"># selects all indices with the name "a"</span></span>
-<span><span class="co">#&gt; a a a </span></span>
-<span><span class="co">#&gt; 4 6 9</span></span>
-<span></span>
-<span><span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"a"</span><span class="op">)</span><span class="op">]</span> <span class="co"># repeats only the first index with name "a"</span></span>
-<span><span class="co">#&gt; a a </span></span>
-<span><span class="co">#&gt; 4 4</span></span>
-<span><span class="fu"><a href="../reference/sb_x.html">i_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"a"</span><span class="op">)</span><span class="op">)</span> <span class="co"># repeats all indices with the name "a"</span></span>
-<span><span class="co">#&gt; a a a a a a </span></span>
-<span><span class="co">#&gt; 4 6 9 4 6 9</span></span></code></pre></div>
-<p> </p>
-<p>Second, ‘squarebrackets’ introduces a new way to specify
-indices:<br>
-through imaginary numbers.<br>
-Positive imaginary numbers (<code>1i</code>, <code>2i</code>, etc.)
-works the same as regular indices. Negative imaginary numbers
-(<code>-1i</code>, <code>-2i</code>, etc.) starts from the end, counting
-backwards.</p>
-<p>For example:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1]  5 10  4  9  2  8  7  6  1  3</span></span>
-<span></span>
-<span></span>
-<span><span class="fu"><a href="../reference/sb_x.html">i_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span> <span class="op">*</span> <span class="op">-</span><span class="fl">1i</span><span class="op">)</span> <span class="co"># select last 3 indices</span></span>
-<span><span class="co">#&gt; [1] 3 1 6</span></span>
-<span><span class="fu"><a href="../reference/sb_x.html">i_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">3</span><span class="op">:</span><span class="fl">1</span> <span class="op">*</span> <span class="op">-</span><span class="fl">1i</span><span class="op">)</span> <span class="co"># select last 3 indices in tail()-like order</span></span>
-<span><span class="co">#&gt; [1] 6 1 3</span></span></code></pre></div>
-<p>This syntax becomes especially advantageous for arrays:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/array.html" class="external-link">array</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">27</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">3</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># select last 2 layers using base 'R':</span></span>
-<span><span class="va">x</span><span class="op">[</span>,, <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">[</span><span class="fl">3L</span><span class="op">]</span> <span class="op">-</span> <span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">[</span><span class="fl">3L</span><span class="op">]</span><span class="op">)</span><span class="op">]</span></span>
-<span></span>
-<span><span class="co"># select last 2 layers using 'squarebrackets':</span></span>
-<span><span class="fu"><a href="../reference/sb_x.html">ss_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">1</span> <span class="op">*</span> <span class="op">-</span><span class="fl">1i</span>, <span class="fl">3L</span><span class="op">)</span></span></code></pre></div>
-<p> </p>
-<p>Finally, inverting indices in base ‘R’ is done in different ways.
-(negative numbers for numeric indexing, negation for logical indexing,
-manually un-matching for character vectors).</p>
-<p>‘squarebrackets’ provides a (somewhat) consistent syntax to invert
-indices:</p>
-<ul>
-<li>The <code>*_x</code> methods perform extraction;<br>
-to invert extraction, i.e. return the object <strong>without</strong>
-the specified subset, use the <code>*_wo</code> methods.</li>
-<li>In the modification methods (<code>*_mod</code> and
-<code>*_set</code>) one can set the argument <code>inv = TRUE</code> to
-invert indices.</li>
-</ul>
-<p>As a consequence, removing sub-sets has the same syntax as extracting
-indices.</p>
-<p>For example:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span></span>
-<span></span>
-<span><span class="va">x</span><span class="op">[</span><span class="st">"a"</span><span class="op">]</span> <span class="co"># extract element "a" in base R</span></span>
-<span><span class="co">#&gt; a </span></span>
-<span><span class="co">#&gt; 6</span></span>
-<span><span class="va">x</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="st">"a"</span><span class="op">]</span> <span class="co"># but removing has different syntax</span></span>
-<span><span class="co">#&gt;  b  c  d  e  f  g  h  i  j </span></span>
-<span><span class="co">#&gt;  7  8  5 10  1  2  3  4  9</span></span>
-<span></span>
-<span><span class="fu"><a href="../reference/sb_x.html">i_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"a"</span><span class="op">)</span> <span class="co"># extract element "a" with 'squarebrackets'</span></span>
-<span><span class="co">#&gt; a </span></span>
-<span><span class="co">#&gt; 6</span></span>
-<span><span class="fu"><a href="../reference/sb_wo.html">i_wo</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"a"</span><span class="op">)</span> <span class="co"># remove element "a" with 'squarebrackets'; same syntax</span></span>
-<span><span class="co">#&gt;  b  c  d  e  f  g  h  i  j </span></span>
-<span><span class="co">#&gt;  7  8  5 10  1  2  3  4  9</span></span></code></pre></div>
 <p> </p>
 </div>
 <div class="section level2">
@@ -552,13 +525,13 @@ operations without any indexing vector at all:</p>
 <p>The <code>slice_</code> - methods:<br>
 To perform sequence-based sub-set operations.<br>
 For example:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">50</span></span>
 <span><span class="fu"><a href="../reference/slice.html">slice_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span>, <span class="fl">10</span>, <span class="fl">2</span><span class="op">)</span> <span class="co"># equivalent to x[seq(1, 10, 2)]</span></span>
 <span><span class="co">#&gt; [1] 1 3 5 7 9</span></span></code></pre></div>
 <p>The <code>slicev_</code> - methods:<br>
 To perform value-based sub-set operations. For example:</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">50</span></span>
 <span><span class="fu"><a href="../reference/slicev.html">slicev_x</a></span><span class="op">(</span><span class="va">x</span>, v <span class="op">=</span> <span class="fl">1L</span>, r <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="co"># equivalent to x[x != 1L]</span></span>

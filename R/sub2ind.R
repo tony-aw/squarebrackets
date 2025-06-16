@@ -185,20 +185,12 @@ sub2ind <- function(sub, x.dim, checks = TRUE) {
   if(n == 1L) {
     return(sub[[1L]])
   }
-  else if(n <= 8L) {
+  else if(n <= 16L) {
     if(prod(x.dim) < (2^31 - 1)) {
       return(.sub2ind_d32(sub, x.dim))
     }
     else {
       return(.sub2ind_d64(sub, x.dim))
-    }
-  }
-  else if(n <= 16L) {
-    if(prod(x.dim) < (2^31 - 1)) {
-      return(.sub2ind_chunk32(sub, x.dim))
-    }
-    else {
-      return(.sub2ind_chunk64(sub, x.dim))
     }
   }
   else {
@@ -227,34 +219,6 @@ sub2ind <- function(sub, x.dim, checks = TRUE) {
   return(.rcpp_sub2ind_d_64(sub, dimcumprod))
 }
 
-
-
-#' @keywords internal
-#' @noRd
-.sub2ind_chunk32 <- function(sub, x.dim) {
-  
-  n <- length(x.dim)
-  
-  if(n < 16) {
-    sub[(n+1):16] <- list(1L)
-  }
-  dimcumprod <- cumprod(c(x.dim, rep(0, 16 - n))) |> as.integer()
-  return(.C_sub2ind_16d_32(sub, dimcumprod))
-}
-
-
-#' @keywords internal
-#' @noRd
-.sub2ind_chunk64 <- function(sub, x.dim) {
-  
-  n <- length(x.dim)
-  
-  if(n < 16L) {
-    sub[(n+1):16L] <- list(1L)
-  }
-  dimcumprod <- cumprod(c(x.dim, rep(0L, 16L - n))) |> as.double()
-  return(.C_sub2ind_16d_64(sub, dimcumprod))
-}
 
 
 #' @keywords internal

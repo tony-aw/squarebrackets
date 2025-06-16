@@ -267,18 +267,6 @@
 
 #' @keywords internal
 #' @noRd
-.rcpp_seq_mlen <- function(x) {
-    .Call(`_squarebrackets_rcpp_seq_mlen`, x)
-}
-
-#' @keywords internal
-#' @noRd
-.rcpp_recycle_seq_mlen <- function(x, y) {
-    .Call(`_squarebrackets_rcpp_recycle_seq_mlen`, x, y)
-}
-
-#' @keywords internal
-#' @noRd
 .rcpp_serial <- function(x) {
     .Call(`_squarebrackets_rcpp_serial`, x)
 }
@@ -305,12 +293,6 @@
 #' @noRd
 .rcpp_set_array_general_atomic <- function(x, s, xdims, rp) {
     invisible(.Call(`_squarebrackets_rcpp_set_array_general_atomic`, x, s, xdims, rp))
-}
-
-#' @keywords internal
-#' @noRd
-.rcpp_set_namepointer <- function(nms, ind, rp) {
-    invisible(.Call(`_squarebrackets_rcpp_set_namepointer`, nms, ind, rp))
 }
 
 #' @keywords internal

@@ -32,48 +32,152 @@ This vignette uses simple examples to show some of the nice properties of these 
 
 &nbsp;
 
-# Methods
+'squarebrackets' supports the following structures:
 
-## Supported structures
-
-One can generally divide the structures supported by 'squarebrackets' along 3 key properties:
-
- - atomic vs recursive:  
- Types logical, integer, double, complex, character, and raw are atomic.  
- Lists and data.frames are recursive.
- - dimensionality:  
- Whether an object is a vector, matrix, array, or data.frame.
- - mutability:  
- Base R's S3 classes (except Environments) are generally immutable:  
- Modifying the object will create a copy (called 'copy-on-modify').  
- 'squarebrackets' also supports data.tables and mutable_atomic objects, which are mutable:  
- If desired, one can modify them without copy using pass-by-reference semantics.
-
-&nbsp;
-
-'squarebrackets' supports the following immutable structures:
-
- - basic atomic classes  
+ - basic atomic structures  
  (atomic vectors, matrices, and arrays).
+ - mutatomic structures
+ (mutable atomic vectors, matrices, and arrays).
  - factor.
- - basic list classes  
+ - basic list structures  
  (recursive vectors, matrices, and arrays).
  - data.frames  
  (including the classes tibble, sf-data.frame and sf-tibble).
-
-'squarebrackets' supports the following mutable structures:
-
- - mutable_atomic  
- (mutable_atomic vectors, matrices, and arrays);
  - data.table  
  (including the classes tidytable, sf-data.table, and sf-tidytable).
 
 
+&nbsp;
+
+# Improved Index Specification
+
+base 'R' supports specifying indices for sub-set operations through logical, integer, and character vectors.
+
+'squarebrackets' enhances these capabilities, and adds more possibilities.
 
 &nbsp;
 
+## Specify Indices by Names
 
-## Provided Methods
+Base 'R' only selects the first matching names when selecting indices through a character vector. 'squarebrackets' selects all matching names.
+
+For example:
+
+```{r}
+nms <- c("a", sample(letters[1:4], 9, replace = TRUE))
+x <- sample(1:10)
+names(x) <- nms
+print(x) # `x` has multiple elements with the name "a"
+
+x["a"] # only selects only the first index with name "a"
+i_x(x, "a") # selects all indices with the name "a"
+
+x[c("a", "a")] # repeats only the first index with name "a"
+i_x(x, c("a", "a")) # repeats all indices with the name "a"
+```
+
+To select the indices `c("a", "a", "b")`, whilst ensuring **all** indices with those names get selected, once needs to do the following in base 'R':
+
+```{r}
+x[lapply(c("a", "a", "b"), \(i)which(names(x) == i)) |> unlist()]
+```
+
+See how much easier it is with 'squarebrackets'!: 
+
+```{r}
+i_x(x, c("a", "a", "b"))
+```
+
+
+This syntax becomes especially advantageous for arrays;  
+For example, let's select all layers (i.e. the 3rd dimension) with the name "a", twice:
+
+```{r eval=FALSE, echo=TRUE}
+x <- array(1:27, c(3,3,3))
+dimnames(x) <- list(letters[1:3], letters[1:3], c("a", "a", "b"))
+
+# in base 'R':
+x[,, lapply(c("a", "a"), \(i)which(dimnames(x)[[3L]] == i)) |> unlist()]
+
+# using 'squarebrackets' (shorter and more readable, and FASTER):
+ss_x(x, c("a", "a"), 3L)
+
+```
+
+It's not just shorter by the way, 'squarebrackets' is **faster**, as it does not rely on `lapply()` (or friends) to do this, but uses compiled 'C' code.
+
+
+&nbsp;
+
+## Specify Indices by Imaginary Numbers
+
+'squarebrackets' introduces a new way to specify indices:  
+through imaginary numbers.  
+Positive imaginary numbers (`1i`, `2i`, etc.) works the same as regular indices.
+Negative imaginary numbers (`-1i`, `-2i`, etc.) starts from the end, counting backwards.
+
+For example:
+
+```{r}
+x <- sample(1:10)
+print(x)
+
+
+i_x(x, 1:3 * -1i) # select last 3 indices
+i_x(x, 3:1 * -1i) # select last 3 indices in tail()-like order
+
+```
+
+This syntax becomes especially advantageous for arrays:
+
+```{r eval=FALSE, echo=TRUE}
+x <- array(1:27, c(3,3,3))
+
+# select last 2 layers using base 'R':
+x[,, seq(dim(x)[3L] - 1, dim(x)[3L])]
+
+# select last 2 layers using 'squarebrackets':
+ss_x(x, 2:1 * -1i, 3L)
+
+```
+
+&nbsp;
+
+## Inverting Index Specification
+
+Inverting indices in base 'R' is done in different ways.
+(negative numbers for numeric indexing, negation for logical indexing, manually un-matching for character vectors).
+
+'squarebrackets' provides a (somewhat) consistent syntax to invert indices:
+
+ - The methods whose names end with `_x` (like the `i_x()` shown before) perform extraction;  
+ to invert extraction, i.e. return the object **without** the specified subset, use  the methods whose names end with `_wo`.
+ - In the modification methods (those whose names end with `_mod` or `_set`) one can set the argument `inv = TRUE` to invert indices.  
+ 
+
+As a consequence, removing sub-sets has the same syntax as extracting indices.
+
+For example:
+
+```{r}
+x <- sample(1:10)
+names(x) <- letters[1:10]
+
+x["a"] # extract element "a" in base R
+x[!names(x) %in% "a"] # but removing has different syntax
+
+i_x(x, "a") # extract element "a" with 'squarebrackets'
+i_wo(x, "a") # remove element "a" with 'squarebrackets'; same syntax
+
+```
+
+
+&nbsp;
+
+# Provided Methods
+
+In the previous section about the improved forms of indexing, we've already seen some of the methods provided by 'squarebrackets'; this section gives a more formal introduction to the methods.  
+
 The main methods of 'squarebrackets' use the naming convention `A_B`:
 `A` tells you on what kind of object and what kind of indices the method operates on;
 `B` tells you what operation is performed.
@@ -95,7 +199,7 @@ For the `B` part, the following is available:
  - `_set`⁠: modify subsets using pass-by-reference semantics.
 
 
-To illustrate, let's take the methods used for extracting subsets (∗⁠_x⁠):
+To illustrate, let's take the methods used for extracting subsets (`∗⁠_x`⁠):
 
 When `y` is atomic, the following holds (roughly speaking):
 
@@ -106,7 +210,6 @@ When `y` is a list (i.e. recursive), the following holds (roughly speaking):
 
  - `i2_x(y, i)` corresponds to `y[i]` or `y[[i]]` (depending on the arguments given in `i2_x()`)
  - `ss2_x(y, n(i, k), c(1, 3))` corresponds to `y[i, , k] or y[[i, , k]]` (depending on the arguments given in `ss2_x()`)
-
 
 
 &nbsp;
@@ -256,7 +359,7 @@ On point 3): 'squarebrackets' will never use non-standard evaluation. All syntax
 So let's do the same operation as above, but now using 'squarebrackets'.
 Since data.frames and tibbles are not mutable types, for this demonstration I'll stick to using `ss2_mod()`:
 
-```{r}
+```{r echo=TRUE, eval=FALSE}
 
 x <- data.frame(a = month.abb, b = 1:12)
 y <- tibble::tibble(a = month.abb, b = 1:12)
@@ -286,96 +389,10 @@ print(z)
 
 &nbsp;
 
-# mutability
+# Mutability
 
 As shown in the previous section, 'squarebrackets' supports pass-by-reference semantics (i.e. modification without any copying) for data.tables, and it is also supported for the `mutatomic` class (a class of mutable atomic objects).
 
-
-&nbsp;
-
-# Improved indexing
-
-base 'R' supports specifying indices for sub-set operations through logical, integer, and character vectors.
-
-'squarebrackets' enhances these capabilities, and adds more possibilities.
-
-First, base 'R' only selects the first matching names when selecting indices through a character vector. 'squarebrackets' selects all matching names.
-
-For example:
-
-```{r}
-nms <- c("a", sample(letters[1:4], 9, replace = TRUE))
-x <- sample(1:10)
-names(x) <- nms
-print(x) # `x` has multiple elements with the name "a"
-
-x["a"] # only selects only the first index with name "a"
-i_x(x, "a") # selects all indices with the name "a"
-
-x[c("a", "a")] # repeats only the first index with name "a"
-i_x(x, c("a", "a")) # repeats all indices with the name "a"
-
-```
-
-&nbsp;
-
-Second, 'squarebrackets' introduces a new way to specify indices:  
-through imaginary numbers.  
-Positive imaginary numbers (`1i`, `2i`, etc.) works the same as regular indices.
-Negative imaginary numbers (`-1i`, `-2i`, etc.) starts from the end, counting backwards.
-
-For example:
-
-```{r}
-x <- sample(1:10)
-print(x)
-
-
-i_x(x, 1:3 * -1i) # select last 3 indices
-i_x(x, 3:1 * -1i) # select last 3 indices in tail()-like order
-
-```
-
-This syntax becomes especially advantageous for arrays:
-
-```{r eval=FALSE, echo=TRUE}
-x <- array(1:27, c(3,3,3))
-
-# select last 2 layers using base 'R':
-x[,, seq(dim(x)[3L] - 1, dim(x)[3L])]
-
-# select last 2 layers using 'squarebrackets':
-ss_x(x, 2:1 * -1i, 3L)
-
-```
-
-&nbsp;
-
-Finally, inverting indices in base 'R' is done in different ways.
-(negative numbers for numeric indexing, negation for logical indexing, manually un-matching for character vectors).
-
-'squarebrackets' provides a (somewhat) consistent syntax to invert indices:
-
- - The `*_x` methods perform extraction;  
- to invert extraction, i.e. return the object **without** the specified subset, use  the `*_wo` methods.
- - In the modification methods (`*_mod` and `*_set`) one can set the argument `inv = TRUE` to invert indices.  
- 
-
-As a consequence, removing sub-sets has the same syntax as extracting indices.
-
-For example:
-
-```{r}
-x <- sample(1:10)
-names(x) <- letters[1:10]
-
-x["a"] # extract element "a" in base R
-x[!names(x) %in% "a"] # but removing has different syntax
-
-i_x(x, "a") # extract element "a" with 'squarebrackets'
-i_wo(x, "a") # remove element "a" with 'squarebrackets'; same syntax
-
-```
 
 &nbsp;
 

@@ -75,11 +75,8 @@
 #'
 #'
 #'
-#' @example inst/examples/generic_rec.R
+#' @example inst/examples/lst_rec.R
 #'
-
-#' @name lst_rec
-NULL
 
 
 
@@ -87,11 +84,8 @@ NULL
 #' @export
 lst_rec <- function(x, ...) {
   
-  if(is.atomic(x)) {
-    stop("Use the `i_`/`ss_` methods for atomic objects")
-  }
   if(!is.list(x)) {
-    stop("unsupported object")
+    stop("The `lst_` methods only support (nested) lists")
   }
   
   UseMethod("lst_rec", x)
@@ -119,11 +113,8 @@ lst_rec.default <- function(x, rec, ...) {
 #' @export
 lst_recin <- function(x, ...) {
   
-  if(is.atomic(x)) {
-    stop("Use the `i_`/`ss_` methods for atomic objects")
-  }
   if(!is.list(x)) {
-    stop("unsupported object")
+    stop("The `lst_` methods only support (nested) lists")
   }
   
   UseMethod("lst_recin", x)
@@ -157,3 +148,4 @@ lst_recin.default <- function(x, rec, ..., rp, tf) {
   return(invisible(NULL))
   
 }
+
