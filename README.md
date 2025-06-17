@@ -49,7 +49,9 @@ the following:
 
 ## Get Started
 
-To get started see `?squarebrackets_help`
+To get started see the [Get
+Started](https://tony-aw.github.io/squarebrackets/articles/squarebrackets.html)
+page.
 
  
 
@@ -70,5 +72,7 @@ functions to the namespace - using:
 ``` r
 library(squarebrackets)
 ```
+
+ 
 
  

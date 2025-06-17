@@ -52,6 +52,13 @@ to be used in situations where the square bracket operators are inconvenient. \c
 \cr
 }
 
+\section{Quick Start Guide}{
+
+For the Quick Start Guide, see: \cr
+\url{https://tony-aw.github.io/squarebrackets/articles/squarebrackets.html}. \cr
+\cr
+}
+
 \section{Overview Help Pages}{
 
 

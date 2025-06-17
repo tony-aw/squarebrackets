@@ -76,7 +76,7 @@ x[c("a", "a")] # repeats only the first index with name "a"
 i_x(x, c("a", "a")) # repeats all indices with the name "a"
 ```
 
-To select the indices `c("a", "a", "b")`, whilst ensuring **all** indices with those names get selected, once needs to do the following in base 'R':
+To select the indices `c("a", "a", "b")`, whilst ensuring **all** indices with those names get selected, one needs to do the following in base 'R':
 
 ```{r}
 x[lapply(c("a", "a", "b"), \(i)which(names(x) == i)) |> unlist()]
@@ -99,7 +99,7 @@ dimnames(x) <- list(letters[1:3], letters[1:3], c("a", "a", "b"))
 # in base 'R':
 x[,, lapply(c("a", "a"), \(i)which(dimnames(x)[[3L]] == i)) |> unlist()]
 
-# using 'squarebrackets' (shorter and more readable, and FASTER):
+# using 'squarebrackets' (shorter, more readable, and FASTER):
 ss_x(x, c("a", "a"), 3L)
 
 ```
@@ -194,7 +194,7 @@ For the `A` part, the following is available:
 For the `B` part, the following is available:
 
  - `_x`⁠: extract, exchange, or duplicate (if applicable) subsets.
- - `_wo`⁠: returns the original object without the provided subsets.
+ - `_wo`⁠: returns the original object **without** the selected subsets.
  - `_mod`⁠: modify subsets and return copy.
  - `_set`⁠: modify subsets using pass-by-reference semantics.
 
@@ -437,4 +437,4 @@ If this introductory article has piqued your interest, I kindly invite you to re
 
 &nbsp;
 
-
+&nbsp;
