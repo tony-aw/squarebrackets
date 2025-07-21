@@ -39,9 +39,9 @@
 #' names(x) <- nms
 #' print(x) #' `x` has multiple elements with the name "a"
 #' 
-#' i_x(x, "a") # extracts all indices with the name "a"
+#' fi_x(x, "a") # extracts all indices with the name "a"
 #' 
-#' i_x(x, c("a", "a")) # repeats all indices with the name "a"
+#' fi_x(x, c("a", "a")) # repeats all indices with the name "a"
 #' 
 #' ```
 #' 
@@ -72,11 +72,11 @@
 #' 
 #' x <- 1:30 # vector of 30 elements
 #' 
-#' i_x(x, 1:10 * 1i) # extract first 10 elements
+#' fi_x(x, 1:10 * 1i) # extract first 10 elements
 #' 
-#' i_x(x, 1:10 * -1i) # extract last 10 elements
+#' fi_x(x, 1:10 * -1i) # extract last 10 elements
 #' 
-#' i_x(x, 10:1 * -1i) # last 10 elements, in tail()-like order
+#' fi_x(x, 10:1 * -1i) # last 10 elements, in tail()-like order
 #' 
 #' ```
 #' Thus complex vectors allow the user to choose between counting from the beginning,
@@ -88,7 +88,7 @@
 #' @section Flat Indices and Subscripts:
 #' 
 #' One can operate on flat/linear indices (often simply referred to as "indices")
-#' using the `i_`/ `i2_` methods; \cr
+#' using the `fi_`/ `fi2_` methods; \cr
 #' These primarily use the \link[=squarebrackets_indx_args]{i} argument. \cr
 #' \cr
 #' One can operate on subscripts (= dimensional indices)
@@ -105,7 +105,7 @@
 #' This is particularly useful for arrays, which can have any number of dimensions. \cr
 #' \cr
 #' Arrays and matrices (matrices are simply arrays with 2 dimensions)
-#' support both flat indices (using the `i_`/ `i2_` methods)
+#' support both flat indices (using the `fi_`/ `fi2_` methods)
 #' and subscripts (using the `ss_`/ `ss2_` methods). \cr
 #' In the flat indices, also called linear indices,
 #' specify the indices of an array as-if it is vector,
@@ -146,14 +146,14 @@
 #' print(x)
 #' 
 #' 
-#' i_x(x, 1:5) # extract first 5 elements
+#' fi_x(x, 1:5) # extract first 5 elements
 #' 
-#' i_wo(x, 1:5) # return WITHOUT first 5 elements
+#' fi_wo(x, 1:5) # return WITHOUT first 5 elements
 #' 
 #' 
-#' i_mod(x, 1:5, rp = "XXX") # copy, replace first 5 elements, return result
+#' fi_mod(x, 1:5, rp = "XXX") # copy, replace first 5 elements, return result
 #' 
-#' i_mod(x, 1:5, inv = T, rp = "XXX") # same, but for all except first 5 elements
+#' fi_mod(x, 1:5, inv = T, rp = "XXX") # same, but for all except first 5 elements
 #' 
 #' ```
 #' 
@@ -237,12 +237,12 @@
 #' ```
 #' Regular subsets, AKA surface-level subset operations (`[`, `[<-` in base 'R'),
 #' operate on the recursive object itself. \cr
-#' I.e. \link{i2_x}`(x, 1)`, or equivalently `x[1]`,
+#' I.e. \link{fi2_x}`(x, 1)`, or equivalently `x[1]`,
 #' returns the \bold{list} `list(A = 1:10)`:
 #' 
 #' ```{r}
 #' 
-#' i2_x(x, 1) # equivalent to x[1]; returns list(A = 1:10)
+#' fi2_x(x, 1) # equivalent to x[1]; returns list(A = 1:10)
 #' 
 #' ```
 #' 

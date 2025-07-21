@@ -11,7 +11,7 @@ Some familiarity with base R's [ and [&amp;lt;- operators is required to follow 
 
     <a class="navbar-brand me-2" href="../index.html">squarebrackets</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9001</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9002</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -76,11 +76,11 @@ base 'R' only selects the first matches in the names. <br>
 <span><span class="co">#&gt;  a  d  c  b  a  a  b  c  d  e</span></span>
 <span><span class="co">#&gt;  1  2  3  4  5  6  7  8  9 10</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/sb_x.html">i_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"a"</span><span class="op">)</span> <span class="co"># extracts all indices with the name "a"</span></span>
+<span><span class="fu"><a href="../reference/sb_x.html">fi_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"a"</span><span class="op">)</span> <span class="co"># extracts all indices with the name "a"</span></span>
 <span><span class="co">#&gt; a a a</span></span>
 <span><span class="co">#&gt; 1 5 6</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/sb_x.html">i_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"a"</span><span class="op">)</span><span class="op">)</span> <span class="co"># repeats all indices with the name "a"</span></span>
+<span><span class="fu"><a href="../reference/sb_x.html">fi_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"a"</span><span class="op">)</span><span class="op">)</span> <span class="co"># repeats all indices with the name "a"</span></span>
 <span><span class="co">#&gt; a a a a a a</span></span>
 <span><span class="co">#&gt; 1 5 6 1 5 6</span></span></code></pre><p></p></div>
 <p>Character indices are internally translated to integer indices using
@@ -101,13 +101,13 @@ See the results of the following code as an example:</p>
 <p></p><div class="sourceCode r"><pre><code><span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">30</span> <span class="co"># vector of 30 elements</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/sb_x.html">i_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">10</span> <span class="op">*</span> <span class="fl">1i</span><span class="op">)</span> <span class="co"># extract first 10 elements</span></span>
+<span><span class="fu"><a href="../reference/sb_x.html">fi_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">10</span> <span class="op">*</span> <span class="fl">1i</span><span class="op">)</span> <span class="co"># extract first 10 elements</span></span>
 <span><span class="co">#&gt;  [1]  1  2  3  4  5  6  7  8  9 10</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/sb_x.html">i_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">10</span> <span class="op">*</span> <span class="op">-</span><span class="fl">1i</span><span class="op">)</span> <span class="co"># extract last 10 elements</span></span>
+<span><span class="fu"><a href="../reference/sb_x.html">fi_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">10</span> <span class="op">*</span> <span class="op">-</span><span class="fl">1i</span><span class="op">)</span> <span class="co"># extract last 10 elements</span></span>
 <span><span class="co">#&gt;  [1] 30 29 28 27 26 25 24 23 22 21</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/sb_x.html">i_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">10</span><span class="op">:</span><span class="fl">1</span> <span class="op">*</span> <span class="op">-</span><span class="fl">1i</span><span class="op">)</span> <span class="co"># last 10 elements, in tail()-like order</span></span>
+<span><span class="fu"><a href="../reference/sb_x.html">fi_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">10</span><span class="op">:</span><span class="fl">1</span> <span class="op">*</span> <span class="op">-</span><span class="fl">1i</span><span class="op">)</span> <span class="co"># last 10 elements, in tail()-like order</span></span>
 <span><span class="co">#&gt;  [1] 21 22 23 24 25 26 27 28 29 30</span></span></code></pre><p></p></div>
 <p>Thus complex vectors allow the user to choose between counting from the beginning,
 like regular integers,
@@ -119,7 +119,7 @@ or backwards counting from the end. <br><br><br></p>
 
 
 <p>One can operate on flat/linear indices (often simply referred to as "indices")
-using the <code>i_</code>/ <code>i2_</code> methods; <br>
+using the <code>fi_</code>/ <code>fi2_</code> methods; <br>
 These primarily use the <a href="aaa04_squarebrackets_indx_args.html">i</a> argument. <br><br>
 One can operate on subscripts (= dimensional indices)
 using the <code>ss_</code>/ <code>ss2_</code> methods; <br>
@@ -133,7 +133,7 @@ supported by 'squarebrackets',
 and does not require a-priori knowledge on the number of dimensions the object has. <br>
 This is particularly useful for arrays, which can have any number of dimensions. <br><br>
 Arrays and matrices (matrices are simply arrays with 2 dimensions)
-support both flat indices (using the <code>i_</code>/ <code>i2_</code> methods)
+support both flat indices (using the <code>fi_</code>/ <code>fi2_</code> methods)
 and subscripts (using the <code>ss_</code>/ <code>ss2_</code> methods). <br>
 In the flat indices, also called linear indices,
 specify the indices of an array as-if it is vector,
@@ -165,17 +165,17 @@ use the methods that end with <code>_wo</code>. <br></p></li>
 <span><span class="co">#&gt;  [1] "Jan" "Feb" "Mar" "Apr" "May" "Jun" "Jul" "Aug" "Sep" "Oct" "Nov" "Dec"</span></span>
 <span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/sb_x.html">i_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span> <span class="co"># extract first 5 elements</span></span>
+<span><span class="fu"><a href="../reference/sb_x.html">fi_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span> <span class="co"># extract first 5 elements</span></span>
 <span><span class="co">#&gt; [1] "Jan" "Feb" "Mar" "Apr" "May"</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/sb_wo.html">i_wo</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span> <span class="co"># return WITHOUT first 5 elements</span></span>
+<span><span class="fu"><a href="../reference/sb_wo.html">fi_wo</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span> <span class="co"># return WITHOUT first 5 elements</span></span>
 <span><span class="co">#&gt; [1] "Jun" "Jul" "Aug" "Sep" "Oct" "Nov" "Dec"</span></span>
 <span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/sb_mod.html">i_mod</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, rp <span class="op">=</span> <span class="st">"XXX"</span><span class="op">)</span> <span class="co"># copy, replace first 5 elements, return result</span></span>
+<span><span class="fu"><a href="../reference/sb_mod.html">fi_mod</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, rp <span class="op">=</span> <span class="st">"XXX"</span><span class="op">)</span> <span class="co"># copy, replace first 5 elements, return result</span></span>
 <span><span class="co">#&gt;  [1] "XXX" "XXX" "XXX" "XXX" "XXX" "Jun" "Jul" "Aug" "Sep" "Oct" "Nov" "Dec"</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/sb_mod.html">i_mod</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, inv <span class="op">=</span> <span class="cn">T</span>, rp <span class="op">=</span> <span class="st">"XXX"</span><span class="op">)</span> <span class="co"># same, but for all except first 5 elements</span></span>
+<span><span class="fu"><a href="../reference/sb_mod.html">fi_mod</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, inv <span class="op">=</span> <span class="cn">T</span>, rp <span class="op">=</span> <span class="st">"XXX"</span><span class="op">)</span> <span class="co"># same, but for all except first 5 elements</span></span>
 <span><span class="co">#&gt;  [1] "Jan" "Feb" "Mar" "Apr" "May" "XXX" "XXX" "XXX" "XXX" "XXX" "XXX" "XXX"</span></span></code></pre><p></p></div>
 <p><b>ABOUT ORDERING</b> <br>
 The order in which the user gives indices when inverting indices generally does not matter. <br>
@@ -247,10 +247,10 @@ Consider the following list <code>x</code>:</p>
 <span></span></code></pre><p></p></div>
 <p>Regular subsets, AKA surface-level subset operations (<code>[</code>, <code>[&lt;-</code> in base 'R'),
 operate on the recursive object itself. <br>
-I.e. <a href="sb_x.html">i2_x</a><code>(x, 1)</code>, or equivalently <code>x[1]</code>,
+I.e. <a href="sb_x.html">fi2_x</a><code>(x, 1)</code>, or equivalently <code>x[1]</code>,
 returns the <b>list</b> <code>list(A = 1:10)</code>:</p>
 <p></p><div class="sourceCode r"><pre><code><span></span>
-<span><span class="fu"><a href="../reference/sb_x.html">i2_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">)</span> <span class="co"># equivalent to x[1]; returns list(A = 1:10)</span></span>
+<span><span class="fu"><a href="../reference/sb_x.html">fi2_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">)</span> <span class="co"># equivalent to x[1]; returns list(A = 1:10)</span></span>
 <span><span class="co">#&gt; $A</span></span>
 <span><span class="co">#&gt;  [1]  1  2  3  4  5  6  7  8  9 10</span></span></code></pre><p></p></div>
 <p>Recursive subset operations (<code>[[</code>, <code>[[&lt;-</code>, and <code>$</code> in base 'R'), on the other hand,

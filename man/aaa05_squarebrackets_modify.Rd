@@ -41,7 +41,7 @@ whilst still using R's default copy-on-modification semantics
 the \verb{_mod} method
 to modify through a (shallow) copy. \cr
 This method returns the modified object. \cr
-For recursive objects, \link{i2_mod}/\link{ss2_mod} returns the original object,
+For recursive objects, \link{fi2_mod}/\link{ss2_mod} returns the original object,
 where only the modified subsets are copied,
 thus preventing unnecessary usage of memory. \cr
 \cr
@@ -51,7 +51,7 @@ thus preventing unnecessary usage of memory. \cr
 \section{Pass-by-Reference}{
 
 'squarebrackets' provides
-the \link{i_set}, \link{ss_set}, \link{ss2_set} and \link{slice_set} methods
+the \link{fi_set}, \link{ss_set}, \link{ss2_set} and \link{slice_set} methods
 to modify by reference,
 meaning no copy is made at all. \cr
 Pass-by-Reference is fastest and the most memory efficient. \cr

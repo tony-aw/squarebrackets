@@ -152,4 +152,5 @@ couldb.mutatomic <- function(x) {
   )
 }
 
-
+#' @importFrom methods setOldClass
+setOldClass("mutatomic")

@@ -1,7 +1,7 @@
 #' Efficient Value-based Subset Methods on (Long) Vectors
 #' 
 #' @description
-#' The `slicev_` - methods are similar to the `i_`/`ss_` - methods,
+#' The `slicev_` - methods are similar to the `fi_`/`ss_` - methods,
 #' except they don't require an indexing vector,
 #' and are designed for memory efficiency. \cr
 #' \cr
@@ -23,7 +23,7 @@
 #' 
 #'
 #' @returns
-#' Similar to the `i_`/`ss_` methods. \cr
+#' Similar to the `fi_`/`ss_` methods. \cr
 #' \cr
 #' For `countv()`: A single number,
 #' giving the number of elements matching the specified condition. \cr \cr

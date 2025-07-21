@@ -2,7 +2,7 @@
 # Coercion examples - mutatomic ====
 
 x <- as.mutatomic(1:16)
-i_set(x, i = 1:6, rp = 8.5) # 8.5 coerced to 8, because `x` is of type `integer`
+fi_set(x, i = 1:6, rp = 8.5) # 8.5 coerced to 8, because `x` is of type `integer`
 print(x)
 
 #############################################################################

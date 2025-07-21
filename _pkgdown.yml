@@ -2,8 +2,8 @@ template:
   bootstrap: 5
   bslib:
     base_font: {google: "Roboto Serif"}
-    bg: "#FCF5E5"
-    fg: "#000000"
+    bg: "#F5F5F5"
+    fg: "black"
     font_scale: 1.25
 navbar:
   structure:
@@ -31,10 +31,10 @@ reference:
   - '`aaa10_squarebrackets_coercion`'
 - title: Generic Methods
   contents:
-  - '`i_x`'
-  - '`i_wo`'
-  - '`i_mod`'
-  - '`i_set`'
+  - '`fi_x`'
+  - '`fi_wo`'
+  - '`fi_mod`'
+  - '`fi_set`'
   - '`slice_x`'
   - '`slicev_x`'
   - '`sb_setRename`'

@@ -14,7 +14,7 @@ test_PassByReference <- FALSE
 
 temp.fun <- function(x) {
   expect_equal(
-    i2_x(x),
+    fi2_x(x),
     x
   ) |> errorfun()
 }
@@ -44,7 +44,7 @@ test_sb <- function(x, i) {
 temp.fun <- function(x, elements) {
   for (i in 1:length(elements)) {
     expect_equal(
-      i2_x(x, i = elements[[i]]),
+      fi2_x(x, i = elements[[i]]),
       test_sb(x, i = elements[[i]])
     ) |> errorfun()
     assign("enumerate", enumerate + 1, envir = parent.frame(n = 1))
@@ -66,11 +66,11 @@ sys.source(file.path(getwd(), "source", "sourcetest-elements.R"), envir = enviro
 
 x <- as.list(1:10)
 expect_equal(
-  i2_x(x, 1, red = TRUE),
+  fi2_x(x, 1, red = TRUE),
   x[[1]]
 )
 expect_equal(
-  i2_x(x, c(TRUE, rep(FALSE, 9)), red = TRUE),
+  fi2_x(x, c(TRUE, rep(FALSE, 9)), red = TRUE),
   x[[1]]
 )
 enumerate <- enumerate + 2
@@ -182,7 +182,7 @@ dt. <- loadNamespace("data.table")
 sys.source(file.path(getwd(), "source", "sourcetest-datasets.R"), envir = environment())
 
 # test errors ====
-sb_test <- i2_x
+sb_test <- fi2_x
 sys.source(file.path(getwd(), "source", "sourcetest-errors-i.R"), envir = environment())
 
 sb_test <- ss2_x

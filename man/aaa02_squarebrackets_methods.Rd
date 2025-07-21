@@ -15,8 +15,8 @@ The main methods of 'squarebrackets' use the naming convention \code{A_B}: \cr
 \cr
 For the \code{A} part, the following is available:
 \itemize{
-\item \code{i_}: operates on subsets of \bold{atomic} objects by (flat/linear) indices.
-\item \code{i2_}: operates on subsets of \bold{recursive} objects by (flat/linear) indices.
+\item \code{fi_}: operates on subsets of \bold{atomic} objects by \bold{flat} indices.
+\item \code{fi2_}: operates on subsets of \bold{recursive} objects by \bold{flat} indices.
 \item \code{ss_}: operates on subsets of \bold{atomic} objects by (dimensional) subscripts.
 \item \code{ss2_}: operates on subsets of \bold{recursive} objects by (dimensional) subscripts.
 \item \code{slice_}: uses \bold{index-less}, \bold{sequence-based}, and efficient operations on \code{mutatomic} objects.
@@ -36,14 +36,14 @@ To illustrate, let's take the methods used for extracting subsets
 \cr
 When \code{y} is atomic, the following holds (roughly speaking):
 \itemize{
-\item \code{i_x(y, i)} corresponds to \code{y[i]}
+\item \code{fi_x(y, i)} corresponds to \code{y[i]}
 \item \code{ss_x(y, n(i, k), c(1, 3))} corresponds to \code{y[i, , k]} \cr \cr
 }
 
 When \code{y} is a list (i.e. recursive), the following holds (roughly speaking):
 \itemize{
-\item \code{i2_x(y, i)} corresponds to \code{y[i]} or \code{y[[i]]}
-(depending on the arguments given in \code{i2_x()})
+\item \code{fi2_x(y, i)} corresponds to \code{y[i]} or \code{y[[i]]}
+(depending on the arguments given in \code{fi2_x()})
 \item \code{ss2_x(y, n(i, k), c(1, 3))} corresponds to \code{y[i, , k]} or \code{y[[i, , k]]}
 (depending on the arguments given in \code{ss2_x()}) \cr \cr
 }

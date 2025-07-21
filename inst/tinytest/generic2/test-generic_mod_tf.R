@@ -16,7 +16,7 @@ temp.fun <- function(x) {
     return(x)
   }
   expect_equal(
-    i2_mod(x, tf = \(x) return(-1)),
+    fi2_mod(x, tf = \(x) return(-1)),
     tempfun(x)
   ) |> errorfun()
 }
@@ -61,7 +61,7 @@ test_sb <- function(x, i) {
 temp.fun <- function(x, elements) {
   for (i in 1:length(elements)) {
     expect_equal(
-      i2_mod(x, i = elements[[i]], tf = min),
+      fi2_mod(x, i = elements[[i]], tf = min),
       test_sb(x, i = elements[[i]])
     ) |> errorfun()
     assign("enumerate", enumerate + 1, envir = parent.frame(n = 1))
@@ -216,7 +216,7 @@ sys.source(file.path(getwd(), "source", "sourcetest-datasets.R"), envir = enviro
 
 
 # test errors ====
-sb_test <- function(...)i2_mod(..., tf = \(x)x[1])
+sb_test <- function(...)fi2_mod(..., tf = \(x)x[1])
 sys.source(file.path(getwd(), "source", "sourcetest-errors-i.R"), envir = environment())
 
 sb_test <- function(...)ss2_mod(..., tf = \(x)x[1])
@@ -224,7 +224,7 @@ sys.source(file.path(getwd(), "source", "sourcetest-errors-ss.R"), envir = envir
 
 
 expect_error(
-  i2_mod(as.list(1:10), i = 1, tf = "foo"),
+  fi2_mod(as.list(1:10), i = 1, tf = "foo"),
   pattern = "`tf` must be a function"
 )
 

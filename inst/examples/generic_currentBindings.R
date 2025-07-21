@@ -8,7 +8,7 @@ currentBindings(x, "checklock") # only y is locked
 
 
 # since only y is locked, we can still modify y through x by reference:
-i_set(x, i = 1, rp = -1)
+fi_set(x, i = 1, rp = -1)
 print(y) # modified!
 rm(list= c("y")) # clean up
 
@@ -23,7 +23,7 @@ currentBindings(x, "checklock") # all bindings are locked, including y
 
 if(requireNamespace("tinytest")) {
   tinytest::expect_error(
-    i_set(x, i = 1, rp = -1),
+    fi_set(x, i = 1, rp = -1),
     pattern = "object binding is locked"
   )
 }
@@ -36,7 +36,7 @@ currentBindings(x, "checklock") # now z is also locked
 
 if(requireNamespace("tinytest")) {
   tinytest::expect_error( # now z is also protected
-    i_set(z, i = 1, rp = -1),
+    fi_set(z, i = 1, rp = -1),
     pattern = "object binding is locked"
   )
 }

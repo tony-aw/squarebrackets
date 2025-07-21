@@ -5,7 +5,7 @@ enumerate <- 0
 x <- setNames(1:10, letters[1:10])
 pattern <- "not a 'mutatomic' object"
 expect_error(
-  i_set(x, i = 1, rp = -1),
+  fi_set(x, i = 1, rp = -1),
   pattern = pattern,
   fixed = TRUE
 )
@@ -23,14 +23,14 @@ expect_error(
 x <- matrix(1:20, ncol = 4)
 colnames(x) <- letters[1:4]
 expect_error(
-  i_set(x, i = 1, rp = -1),
+  fi_set(x, i = 1, rp = -1),
   pattern = pattern,
   fixed = TRUE
 )
 
 x <- array(1:21, dim = c(3,3,3), dimnames = n(letters[1:3], letters[1:3], letters[1:3]))
 expect_error(
-  i_set(x, i = 1, rp = -1),
+  fi_set(x, i = 1, rp = -1),
   pattern = pattern,
   fixed = TRUE
 )
@@ -42,7 +42,7 @@ expect_error(
 
 x <- list( a = letters, b = 1:20)
 expect_error(
-  i2_set(x, i = "a", rp = letters[11:20])
+  fi2_set(x, i = "a", rp = letters[11:20])
 )
 
 enumerate <- enumerate + 10
@@ -51,7 +51,7 @@ enumerate <- enumerate + 10
 # not a variable errors ====
 
 expect_error(
-  i_set(as.mutatomic(1:10), i = 1, rp = -1),
+  fi_set(as.mutatomic(1:10), i = 1, rp = -1),
   pattern = "only objects that exist as variables can be modified by reference"
 )
 expect_error(
@@ -70,7 +70,7 @@ enumerate <- enumerate + 4
 x <- mutatomic(1:20, dim = c(5,4), dimnames = n(letters[1:5], letters[1:4]))
 lockBinding("x", environment())
 expect_error(
-  i_set(x, i = 1, rp = -1),
+  fi_set(x, i = 1, rp = -1),
   pattern = "cannot change value of locked binding for "
 )
 expect_error(

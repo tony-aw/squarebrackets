@@ -60,13 +60,13 @@ dimensions and \code{dimnames} are always dropped.}
 \item{rp, tf}{see \link{squarebrackets_modify}.}
 }
 \value{
-Similar to the \code{i_}/\code{ss_} methods. \cr
+Similar to the \code{fi_}/\code{ss_} methods. \cr
 \cr
 For \code{countv()}: A single number,
 giving the number of elements matching the specified condition. \cr \cr
 }
 \description{
-The \code{slicev_} - methods are similar to the \code{i_}/\code{ss_} - methods,
+The \code{slicev_} - methods are similar to the \code{fi_}/\code{ss_} - methods,
 except they don't require an indexing vector,
 and are designed for memory efficiency. \cr
 \cr

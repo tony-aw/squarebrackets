@@ -30,20 +30,20 @@
 
 #' @rdname sb_mod
 #' @export
-i_mod <- function(x, ...) {
+fi_mod <- function(x, ...) {
   
   .methodcheck.i(x, sys.call())
   
-  UseMethod("i_mod", x)
+  UseMethod("fi_mod", x)
 }
 
 #' @rdname sb_mod
 #' @export
-i2_mod <- function(x, ...) {
+fi2_mod <- function(x, ...) {
   
   .methodcheck.i2(x, sys.call())
   
-  UseMethod("i2_mod", x)
+  UseMethod("fi2_mod", x)
 }
 
 #' @rdname sb_mod
@@ -66,7 +66,7 @@ ss2_mod <- function(x, ...) {
 }
 #' @rdname sb_mod
 #' @export
-i_mod.default <- function(
+fi_mod.default <- function(
     x, i = NULL, inv = FALSE, ...,
     rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
@@ -131,7 +131,7 @@ ss_mod.default <- function(
 
 #' @rdname sb_mod
 #' @export
-i2_mod.default <- function(
+fi2_mod.default <- function(
     x, i = NULL, inv = FALSE, ...,
     rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE), .lapply = lapply
 ) {

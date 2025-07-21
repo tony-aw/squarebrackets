@@ -44,11 +44,11 @@ print(x) #' `x` has multiple elements with the name "a"
 #>  a  d  c  b  a  a  b  c  d  e 
 #>  1  2  3  4  5  6  7  8  9 10
 
-i_x(x, "a") # extracts all indices with the name "a"
+fi_x(x, "a") # extracts all indices with the name "a"
 #> a a a 
 #> 1 5 6
 
-i_x(x, c("a", "a")) # repeats all indices with the name "a"
+fi_x(x, c("a", "a")) # repeats all indices with the name "a"
 #> a a a a a a 
 #> 1 5 6 1 5 6
 }\if{html}{\out{</div>}}
@@ -78,13 +78,13 @@ See the results of the following code as an example:
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{
 x <- 1:30 # vector of 30 elements
 
-i_x(x, 1:10 * 1i) # extract first 10 elements
+fi_x(x, 1:10 * 1i) # extract first 10 elements
 #>  [1]  1  2  3  4  5  6  7  8  9 10
 
-i_x(x, 1:10 * -1i) # extract last 10 elements
+fi_x(x, 1:10 * -1i) # extract last 10 elements
 #>  [1] 30 29 28 27 26 25 24 23 22 21
 
-i_x(x, 10:1 * -1i) # last 10 elements, in tail()-like order
+fi_x(x, 10:1 * -1i) # last 10 elements, in tail()-like order
 #>  [1] 21 22 23 24 25 26 27 28 29 30
 }\if{html}{\out{</div>}}
 
@@ -99,7 +99,7 @@ or backwards counting from the end. \cr
 
 
 One can operate on flat/linear indices (often simply referred to as "indices")
-using the \code{i_}/ \code{i2_} methods; \cr
+using the \code{fi_}/ \code{fi2_} methods; \cr
 These primarily use the \link[=squarebrackets_indx_args]{i} argument. \cr
 \cr
 One can operate on subscripts (= dimensional indices)
@@ -116,7 +116,7 @@ and does not require a-priori knowledge on the number of dimensions the object h
 This is particularly useful for arrays, which can have any number of dimensions. \cr
 \cr
 Arrays and matrices (matrices are simply arrays with 2 dimensions)
-support both flat indices (using the \code{i_}/ \code{i2_} methods)
+support both flat indices (using the \code{fi_}/ \code{fi2_} methods)
 and subscripts (using the \code{ss_}/ \code{ss2_} methods). \cr
 In the flat indices, also called linear indices,
 specify the indices of an array as-if it is vector,
@@ -157,17 +157,17 @@ print(x)
 #>  [1] "Jan" "Feb" "Mar" "Apr" "May" "Jun" "Jul" "Aug" "Sep" "Oct" "Nov" "Dec"
 
 
-i_x(x, 1:5) # extract first 5 elements
+fi_x(x, 1:5) # extract first 5 elements
 #> [1] "Jan" "Feb" "Mar" "Apr" "May"
 
-i_wo(x, 1:5) # return WITHOUT first 5 elements
+fi_wo(x, 1:5) # return WITHOUT first 5 elements
 #> [1] "Jun" "Jul" "Aug" "Sep" "Oct" "Nov" "Dec"
 
 
-i_mod(x, 1:5, rp = "XXX") # copy, replace first 5 elements, return result
+fi_mod(x, 1:5, rp = "XXX") # copy, replace first 5 elements, return result
 #>  [1] "XXX" "XXX" "XXX" "XXX" "XXX" "Jun" "Jul" "Aug" "Sep" "Oct" "Nov" "Dec"
 
-i_mod(x, 1:5, inv = T, rp = "XXX") # same, but for all except first 5 elements
+fi_mod(x, 1:5, inv = T, rp = "XXX") # same, but for all except first 5 elements
 #>  [1] "Jan" "Feb" "Mar" "Apr" "May" "XXX" "XXX" "XXX" "XXX" "XXX" "XXX" "XXX"
 }\if{html}{\out{</div>}}
 
@@ -254,11 +254,11 @@ x <- list(
 
 Regular subsets, AKA surface-level subset operations (\code{[}, \verb{[<-} in base 'R'),
 operate on the recursive object itself. \cr
-I.e. \link{i2_x}\verb{(x, 1)}, or equivalently \code{x[1]},
+I.e. \link{fi2_x}\verb{(x, 1)}, or equivalently \code{x[1]},
 returns the \bold{list} \code{list(A = 1:10)}:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{
-i2_x(x, 1) # equivalent to x[1]; returns list(A = 1:10)
+fi2_x(x, 1) # equivalent to x[1]; returns list(A = 1:10)
 #> $A
 #>  [1]  1  2  3  4  5  6  7  8  9 10
 }\if{html}{\out{</div>}}

@@ -6,15 +6,15 @@ library(data.table)
 
 # atomic ====
 x <- 1:1e7
-bm.i_x.default <- bench::mark(
-  i_x(x, i = 1:1e6),
+bm.fi_x.default <- bench::mark(
+  fi_x(x, i = 1:1e6),
   x[1:1e6],
   min_iterations = 500
 )
-bm.i_x.default$result <- NULL
-summary(bm.i_x.default)
-ggplot2::autoplot(bm.i_x.default)
-save(bm.i_x.default, file = "bm.i_x.default.RData")
+bm.fi_x.default$result <- NULL
+summary(bm.fi_x.default)
+ggplot2::autoplot(bm.fi_x.default)
+save(bm.fi_x.default, file = "bm.fi_x.default.RData")
 
 
 n <- 5e3
@@ -83,7 +83,7 @@ tempfun <- function(x, i, j) {
   return(x)
 }
 bm.sb_x.dt <- bench::mark(
-  "squarebrackets" = ss2_x(x, obs = sel.rows, vars  = sel.cols),
+  "squarebrackets" = ss2_x(x, obs = sel.rows, vars = sel.cols),
   "data.table + collapse" = tempfun(x, sel.rows, sel.cols),
   min_iterations = 1e4
 )

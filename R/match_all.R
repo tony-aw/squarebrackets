@@ -56,9 +56,6 @@ match_all <- function(needles, haystack, unlist = TRUE) {
     if(unlist) return(integer(0L))
     return(list())
   }
-  if(anyNA(needles)) {
-    stop("`NA` not allowed in `needles`")
-  }
   if(collapse::allNA(haystack)) {
     if(unlist) return(integer(0L))
     return(list())
@@ -69,6 +66,9 @@ match_all <- function(needles, haystack, unlist = TRUE) {
   
   
   v <- collapse::funique(needles)
+  if(anyNA(v)) {
+    stop("`NA` not allowed in `needles`")
+  }
   is_simple_match <- unlist && (length(v) == length(needles))
   
   if(length(v) == 1L) {

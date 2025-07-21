@@ -57,15 +57,15 @@ For recursive objects, \code{i} is interpreted as \code{lapply(x, i)}. \cr
 
 Using the \code{i} arguments corresponds to doing something like the following:
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{ i_x(x, i = i) # ==> x[i]   # if `x` is atomic
- i2_x(x, i = i) # ==> x[i]  # if `x` is recursive
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{ fi_x(x, i = i) # ==> x[i]   # if `x` is atomic
+ fi2_x(x, i = i) # ==> x[i]  # if `x` is recursive
  
 }\if{html}{\out{</div>}}
 
 If \code{i} is a function, it corresponds to the following:
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{ i_x(x, i = i) # ==> x[i(x)] # if `x` is atomic
- i2_x(x, i = i) # ==> x[lapply(x, i)] # if `x` is recursive
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{ fi_x(x, i = i) # ==> x[i(x)] # if `x` is atomic
+ fi2_x(x, i = i) # ==> x[lapply(x, i)] # if `x` is recursive
  
 }\if{html}{\out{</div>}}
 }
@@ -268,7 +268,7 @@ and \link{idx} methods. \cr
 By default, \code{inv = FALSE}, which translates the indices like normally. \cr
 When \code{inv = TRUE}, the inverse of the indices is taken. \cr
 Consider, for example, an atomic matrix \code{x}; \cr
-using \code{i_mod(x, 1:2, 2L, tf = tf)}
+using \code{fi_mod(x, 1:2, 2L, tf = tf)}
 corresponds to something like the following:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{

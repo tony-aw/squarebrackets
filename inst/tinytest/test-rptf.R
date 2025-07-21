@@ -4,7 +4,7 @@ enumerate <- 0
 # atomic vector ====
 x <- mutatomic(1:27, dim = c(3,3,3))
 expect_error(
-  i_mod(x),
+  fi_mod(x),
   pattern = "must specify either `rp` or `tf`",
   fixed = TRUE
 )
@@ -14,7 +14,7 @@ expect_error(
   fixed = TRUE
 )
 expect_error(
-  i_mod(x, inv = TRUE),
+  fi_mod(x, inv = TRUE),
   pattern = "must specify either `rp` or `tf`",
   fixed = TRUE
 )
@@ -24,12 +24,12 @@ expect_error(
   fixed = TRUE
 )
 expect_error(
-  i_set(x),
+  fi_set(x),
   pattern = "must specify either `rp` or `tf`",
   fixed = TRUE
 )
 expect_error(
-  i_set(x, inv = TRUE),
+  fi_set(x, inv = TRUE),
   pattern = "must specify either `rp` or `tf`",
   fixed = TRUE
 )
@@ -54,7 +54,7 @@ expect_error(
   fixed = TRUE
 )
 expect_error(
-  i_mod(x, inv = TRUE),
+  fi_mod(x, inv = TRUE),
   pattern = "must specify either `rp` or `tf`",
   fixed = TRUE
 )
@@ -64,7 +64,7 @@ expect_error(
   fixed = TRUE
 )
 expect_error(
-  i_set(x, inv = TRUE),
+  fi_set(x, inv = TRUE),
   pattern = "must specify either `rp` or `tf`",
   fixed = TRUE
 )
@@ -78,7 +78,7 @@ expect_error(
   fixed = TRUE
 )
 expect_error(
-  i_mod(x, inv = TRUE),
+  fi_mod(x, inv = TRUE),
   pattern = "must specify either `rp` or `tf`",
   fixed = TRUE
 )
@@ -88,7 +88,7 @@ expect_error(
   fixed = TRUE
 )
 expect_error(
-  i_set(x, inv = TRUE),
+  fi_set(x, inv = TRUE),
   pattern = "must specify either `rp` or `tf`",
   fixed = TRUE
 )
@@ -98,12 +98,12 @@ enumerate <- enumerate + 4L
 # recursive vector ====
 x <- array(as.list(1:27), c(3,3,3))
 expect_error(
-  i2_mod(x),
+  fi2_mod(x),
   pattern = "must specify either `rp` or `tf`",
   fixed = TRUE
 )
 expect_error(
-  i2_mod(x, inv = TRUE),
+  fi2_mod(x, inv = TRUE),
   pattern = "must specify either `rp` or `tf`",
   fixed = TRUE
 )
@@ -123,12 +123,12 @@ enumerate <- enumerate + 4L
 # recursive matrix ====
 x <- matrix(as.list(1:20, ncol = 4))
 expect_error(
-  i2_mod(x),
+  fi2_mod(x),
   pattern = "must specify either `rp` or `tf`",
   fixed = TRUE
 )
 expect_error(
-  i2_mod(x, inv = TRUE),
+  fi2_mod(x, inv = TRUE),
   pattern = "must specify either `rp` or `tf`",
   fixed = TRUE
 )
@@ -148,12 +148,12 @@ enumerate <- enumerate + 4L
 # recursive 3d array ====
 x <- array(as.list(1:27), dim = c(3,3,3))
 expect_error(
-  i2_mod(x),
+  fi2_mod(x),
   pattern = "must specify either `rp` or `tf`",
   fixed = TRUE
 )
 expect_error(
-  i2_mod(x, inv = TRUE),
+  fi2_mod(x, inv = TRUE),
   pattern = "must specify either `rp` or `tf`",
   fixed = TRUE
 )

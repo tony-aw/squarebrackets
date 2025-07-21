@@ -5,11 +5,11 @@ enumerate <- 0L
 # recursive vector ====
 x <- lapply(1:20, \(x)sample(letters))
 expect_equal(
-  i2_x(x, 2, red = TRUE),
+  fi2_x(x, 2, red = TRUE),
   x[[2L]]
 )
 expect_equal(
-  i2_x(x, red = TRUE),
+  fi2_x(x, red = TRUE),
   x
 )
 enumerate <- enumerate + 2L

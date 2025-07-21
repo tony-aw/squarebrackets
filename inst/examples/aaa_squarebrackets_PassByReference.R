@@ -14,7 +14,7 @@ bindingIsLocked("myref", environment()) # ... but this pointer is not!
 
 if(requireNamespace("tinytest")) {
   tinytest::expect_error(
-    i_set(myref, i = 1, rp = "XXX") # this still gives an error though ...
+    fi_set(myref, i = 1, rp = "XXX") # this still gives an error though ...
   )
 }
 
@@ -26,7 +26,7 @@ x <- list(
 )
 myref <- x$a # view of a list
 address(myref) == address(base::letters) # FALSE: it's a copy
-i_set(
+fi_set(
   myref, i = 1, rp = "XXX"  # modifies x, does NOT modify `base::letters`
 )
 print(x) # x is modified

@@ -28,20 +28,20 @@
 
 #' @rdname sb_x
 #' @export
-i_x <- function(x, ...) {
+fi_x <- function(x, ...) {
   
   .methodcheck.i(x, sys.call())
   
-  UseMethod("i_x", x)
+  UseMethod("fi_x", x)
 }
 
 #' @rdname sb_x
 #' @export
-i2_x <- function(x, ...) {
+fi2_x <- function(x, ...) {
   
   .methodcheck.i2(x, sys.call())
   
-  UseMethod("i2_x", x)
+  UseMethod("fi2_x", x)
 }
 
 #' @rdname sb_x
@@ -68,7 +68,7 @@ ss2_x <- function(x, ...) {
 
 #' @rdname sb_x
 #' @export
-i_x.default <- function(x, i = NULL, ...) {
+fi_x.default <- function(x, i = NULL, ...) {
   
   .internal_check_dots(list(...), sys.call())
   if(is.null(i)){
@@ -94,7 +94,7 @@ ss_x.default <- function(
 
 #' @rdname sb_x
 #' @export
-i2_x.default <- function(x, i = NULL, red = FALSE, ...) {
+fi2_x.default <- function(x, i = NULL, red = FALSE, ...) {
   
   .internal_check_dots(list(...), sys.call())
   

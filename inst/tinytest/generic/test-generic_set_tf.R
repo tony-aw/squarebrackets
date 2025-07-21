@@ -9,11 +9,11 @@ test_use_factors <- FALSE
 test_PassByReference <- TRUE
 
 
-i_set2 <- function(x, ...) {
+fi_set2 <- function(x, ...) {
   x <- data.table::copy(x)
   if(is.atomic(x)) x <- as.mutatomic(x)
   x2 <- x
-  i_set(x, ...)
+  fi_set(x, ...)
   if(!identical(x, x2)) { stop("PassByReference fail")}
   return(x)
 }
@@ -37,7 +37,7 @@ temp.fun <- function(x) {
     return(x)
   }
   expect_equal(
-    i_set2(x, tf = \(x)x[1]),
+    fi_set2(x, tf = \(x)x[1]),
     tempfun(x)
   ) |> errorfun()
 }
@@ -77,7 +77,7 @@ test_sb <- function(x, i) {
 temp.fun <- function(x, elements) {
   for (i in 1:length(elements)) {
     expect_equal(
-      i_set2(x, i = elements[[i]], tf = min),
+      fi_set2(x, i = elements[[i]], tf = min),
       test_sb(x, i = elements[[i]])
     ) |> errorfun()
     assign("enumerate", enumerate + 1, envir = parent.frame(n = 1))
@@ -186,7 +186,7 @@ sys.source(file.path(getwd(), "source", "sourcetest-dims.R"), envir = environmen
 
 sb_test <- function(x, ...) {
   x <- as.mutatomic(x)
-  i_set(x, ..., tf = \(x)x[1])
+  fi_set(x, ..., tf = \(x)x[1])
   return(x)
 }
 sys.source(file.path(getwd(), "source", "sourcetest-errors-i.R"), envir = environment())
@@ -203,7 +203,7 @@ sys.source(file.path(getwd(), "source", "sourcetest-errors-ss.R"), envir = envir
 
 x <- as.mutatomic(x)
 expect_error(
-  i_set(x, i = 1, tf = "foo"),
+  fi_set(x, i = 1, tf = "foo"),
   pattern = "`tf` must be a function"
 )
 

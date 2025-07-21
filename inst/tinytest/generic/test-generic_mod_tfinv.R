@@ -18,7 +18,7 @@ temp.fun <- function(x) {
     return(x)
   }
   expect_equal(
-    i_mod(x, inv = TRUE, tf = \(x)x[1]),
+    fi_mod(x, inv = TRUE, tf = \(x)x[1]),
     tempfun(x)
   ) |> errorfun()
 }
@@ -62,7 +62,7 @@ test_sb <- function(x, i) {
 temp.fun <- function(x, elements) {
   for (i in 1:length(elements)) {
     expect_equal(
-      i_mod(x, i = elements[[i]], tf = min, inv = TRUE),
+      fi_mod(x, i = elements[[i]], tf = min, inv = TRUE),
       test_sb(x, i = elements[[i]])
     ) |> errorfun()
     assign("enumerate", enumerate + 1, envir = parent.frame(n = 1))
@@ -164,7 +164,7 @@ sys.source(file.path(getwd(), "source", "sourcetest-dims.R"), envir = environmen
 
 
 # test errors ====
-sb_test <- function(...)i_mod(..., tf = \(x)x[1])
+sb_test <- function(...)fi_mod(..., tf = \(x)x[1])
 sys.source(file.path(getwd(), "source", "sourcetest-errors-i.R"), envir = environment())
 
 sb_test <- function(...)ss_mod(..., tf = \(x)x[1])
@@ -172,7 +172,7 @@ sys.source(file.path(getwd(), "source", "sourcetest-errors-ss.R"), envir = envir
 
 
 expect_error(
-  i_mod(1:10, i = 1, tf = "foo", inv = TRUE),
+  fi_mod(1:10, i = 1, tf = "foo", inv = TRUE),
   pattern = "`tf` must be a function"
 )
 

@@ -28,7 +28,7 @@
 #' ```{r}
 #' 
 #' x <- mutatomic(1:16)
-#' i_set(x, i = 1:6, rp = 8.5)
+#' fi_set(x, i = 1:6, rp = 8.5)
 #' print(x)
 #' 
 #' ```
@@ -84,14 +84,14 @@
 #'  b = mutatomic(letters[11:20])
 #' )
 #' myref <- x$a
-#' i_set(myref, 1, rp = "xxx")
+#' fi_set(myref, 1, rp = "xxx")
 #' 
 #' ```
 #' Notice in the above code that `myref` is not a copy of `x$a`,
 #' since they have the same address. \cr
 #' Thus changing `myref` also changes `x$a`. \cr
 #' In other words: `myref` is what could be called a "view" of `x$a`. \cr
-#' Notice also that \link{i_set}`(x$a, ...)` will not work. \cr
+#' Notice also that \link{fi_set}`(x$a, ...)` will not work. \cr
 #' This is because \link{stopifnot_ma_safe2mutate} will give an error
 #' if `x` is not an \bold{actual variable},
 #' similar to in-place functions in the style of \code{`myfun()<-`}. \cr

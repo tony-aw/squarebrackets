@@ -5,7 +5,7 @@ sys.source(file.path(getwd(), "source", "functions4testing.R"), envir = environm
 enumerate <- 0
 tempfun2 <- function(x, rp) {
   x <- data.table::copy(x)
-  i_set(x, rp = rp)
+  fi_set(x, rp = rp)
   return(x)
 }
 tempfun1 <- function(x, rp) {
@@ -51,7 +51,7 @@ for(iSample in 1:10) {
       out[[i]] <- tempfun2(x, rp.lst[[iType]])
       
       x2 <- x
-      i_set(x, rp = rp.lst[[iType]])
+      fi_set(x, rp = rp.lst[[iType]])
       expect_equal(x,x2) |> errorfun() # test indexing & pass-by-reference
       enumerate <- enumerate + 2
       i <- i + 1
@@ -80,7 +80,7 @@ for(i in 1:10) {
     out[[i]] <- tempfun2(x, rp.lst[[j]])
     
     x2 <- x
-    i_set(x, rp = rp.lst[[j]])
+    fi_set(x, rp = rp.lst[[j]])
     expect_equal(x,x2) |> errorfun() # test indexing & pass-by-reference
     enumerate <- enumerate + 2
     i <- i + 1
@@ -107,7 +107,7 @@ for(i in 1:10) {
     
     x <- data.table::copy(x)
     x2 <- x
-    i_set(x, rp = rp.lst[[j]])
+    fi_set(x, rp = rp.lst[[j]])
     expect_equal(x,x2) |> errorfun() # test indexing & pass-by-reference
     
     enumerate <- enumerate + 2

@@ -19,7 +19,7 @@ as provided by 'squarebrackets'.
 
     <a class="navbar-brand me-2" href="../index.html">squarebrackets</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9001</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9002</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -77,7 +77,7 @@ does not support coercion.
 Thus, for example, the following code,</p>
 <p></p><div class="sourceCode r"><pre><code><span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mutatomic_class.html">mutatomic</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">16</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/sb_set.html">i_set</a></span><span class="op">(</span><span class="va">x</span>, i <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">6</span>, rp <span class="op">=</span> <span class="fl">8.5</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/sb_set.html">fi_set</a></span><span class="op">(</span><span class="va">x</span>, i <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">6</span>, rp <span class="op">=</span> <span class="fl">8.5</span><span class="op">)</span></span>
 <span><span class="co">#&gt; coercing replacement to integer</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [1]  8  8  8  8  8  8  7  8  9 10 11 12 13 14 15 16</span></span>
@@ -133,13 +133,13 @@ Therefore, the following will work: <br></p>
 <span> b <span class="op">=</span> <span class="fu"><a href="../reference/mutatomic_class.html">mutatomic</a></span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">11</span><span class="op">:</span><span class="fl">20</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="va">myref</span> <span class="op">&lt;-</span> <span class="va">x</span><span class="op">$</span><span class="va">a</span></span>
-<span><span class="fu"><a href="../reference/sb_set.html">i_set</a></span><span class="op">(</span><span class="va">myref</span>, <span class="fl">1</span>, rp <span class="op">=</span> <span class="st">"xxx"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/sb_set.html">fi_set</a></span><span class="op">(</span><span class="va">myref</span>, <span class="fl">1</span>, rp <span class="op">=</span> <span class="st">"xxx"</span><span class="op">)</span></span>
 <span></span></code></pre><p></p></div>
 <p>Notice in the above code that <code>myref</code> is not a copy of <code>x$a</code>,
 since they have the same address. <br>
 Thus changing <code>myref</code> also changes <code>x$a</code>. <br>
 In other words: <code>myref</code> is what could be called a "view" of <code>x$a</code>. <br>
-Notice also that <a href="sb_set.html">i_set</a><code>(x$a, ...)</code> will not work. <br>
+Notice also that <a href="sb_set.html">fi_set</a><code>(x$a, ...)</code> will not work. <br>
 This is because <a href="mutatomic_developer.html">stopifnot_ma_safe2mutate</a> will give an error
 if <code>x</code> is not an <b>actual variable</b>,
 similar to in-place functions in the style of <code>`myfun()&lt;-`</code>. <br><br>
@@ -158,7 +158,7 @@ etc. <br><br></p>
 <span class="r-in"><span><span class="co"># Coercion examples - mutatomic ====</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="mutatomic_class.html">as.mutatomic</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">16</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="sb_set.html">i_set</a></span><span class="op">(</span><span class="va">x</span>, i <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">6</span>, rp <span class="op">=</span> <span class="fl">8.5</span><span class="op">)</span> <span class="co"># 8.5 coerced to 8, because `x` is of type `integer`</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="sb_set.html">fi_set</a></span><span class="op">(</span><span class="va">x</span>, i <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">6</span>, rp <span class="op">=</span> <span class="fl">8.5</span><span class="op">)</span> <span class="co"># 8.5 coerced to 8, because `x` is of type `integer`</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> coercing replacement to integer</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  8  8  8  8  8  8  7  8  9 10 11 12 13 14 15 16</span>

@@ -7,7 +7,7 @@ sys.source(file.path(getwd(), "source", "functions4testing.R"), envir = environm
 pattern <- "Use the `ss2_` methods for data.frame-like objects"
 x <- data.frame(letters, LETTERS)
 meths <- list(
-  i2_x, i2_wo, i2_mod
+  fi2_x, fi2_wo, fi2_mod
 )
 for(i in seq_along(meths)) {
   expect_error(

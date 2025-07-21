@@ -42,7 +42,7 @@ all generic methods have the ellipsis argument (\code{...}). \cr
 For the user's safety,
 'squarebrackets' does check that the user doesn't accidentally
 add arguments that make no sense for that method
-(like specifying the \code{inv} argument when calling \link{i_x}). \cr
+(like specifying the \code{inv} argument when calling \link{fi_x}). \cr
 \cr
 \cr
 }
