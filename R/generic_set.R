@@ -27,7 +27,7 @@
 #' 
 #' @returns
 #' Returns: VOID. This method modifies the object by reference. \cr
-#' Do not use assignments like `x <- fi_set(x, ...)`. \cr
+#' Do not use assignments like `x <- ii_set(x, ...)`. \cr
 #' Since this function returns void, you'll just get `NULL`. \cr \cr
 #'
 #'
@@ -36,20 +36,20 @@
 
 #' @rdname sb_set
 #' @export
-fi_set <- function(x, ...) {
+ii_set <- function(x, ...) {
   
   .methodcheck.i(x, sys.call())
   
-  UseMethod("fi_set", x)
+  UseMethod("ii_set", x)
 }
 
 #' @rdname sb_set
 #' @export
-fi2_set <- function(x, ...) {
+ii2_set <- function(x, ...) {
   
   .methodcheck.i2(x, sys.call())
   
-  UseMethod("fi2_set", x)
+  UseMethod("ii2_set", x)
 }
 
 #' @rdname sb_set
@@ -73,7 +73,7 @@ ss2_set <- function(x, ...) {
 
 #' @rdname sb_set
 #' @export
-fi_set.default <- function(
+ii_set.default <- function(
     x, i = NULL, inv = FALSE, ...,  rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
@@ -140,7 +140,7 @@ ss_set.default <- function(
 
 #' @rdname sb_set
 #' @export
-fi2_set.default <- function(x, ...) {
+ii2_set.default <- function(x, ...) {
   stop("`x` is not a (supported) mutable object")
 }
 

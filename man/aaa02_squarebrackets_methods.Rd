@@ -15,10 +15,10 @@ The main methods of 'squarebrackets' use the naming convention \code{A_B}: \cr
 \cr
 For the \code{A} part, the following is available:
 \itemize{
-\item \code{fi_}: operates on subsets of \bold{atomic} objects by \bold{flat} indices.
-\item \code{fi2_}: operates on subsets of \bold{recursive} objects by \bold{flat} indices.
-\item \code{ss_}: operates on subsets of \bold{atomic} objects by (dimensional) subscripts.
-\item \code{ss2_}: operates on subsets of \bold{recursive} objects by (dimensional) subscripts.
+\item \code{ii_}: operates on subsets of \bold{atomic} objects by \bold{flat/interior} indices.
+\item \code{ii2_}: operates on subsets of \bold{recursive} objects by \bold{flat/interior} indices.
+\item \code{ss_}: operates on subsets of \bold{atomic} objects by (dimensional) \bold{subscripts}.
+\item \code{ss2_}: operates on subsets of \bold{recursive} objects by (dimensional) \bold{subscripts}.
 \item \code{slice_}: uses \bold{index-less}, \bold{sequence-based}, and efficient operations on \code{mutatomic} objects.
 \item \code{slicev_}: uses \bold{index-less}, \bold{value-based} and efficient operations on \code{mutatomic} objects. \cr \cr
 }
@@ -36,14 +36,14 @@ To illustrate, let's take the methods used for extracting subsets
 \cr
 When \code{y} is atomic, the following holds (roughly speaking):
 \itemize{
-\item \code{fi_x(y, i)} corresponds to \code{y[i]}
+\item \code{ii_x(y, i)} corresponds to \code{y[i]}
 \item \code{ss_x(y, n(i, k), c(1, 3))} corresponds to \code{y[i, , k]} \cr \cr
 }
 
 When \code{y} is a list (i.e. recursive), the following holds (roughly speaking):
 \itemize{
-\item \code{fi2_x(y, i)} corresponds to \code{y[i]} or \code{y[[i]]}
-(depending on the arguments given in \code{fi2_x()})
+\item \code{ii2_x(y, i)} corresponds to \code{y[i]} or \code{y[[i]]}
+(depending on the arguments given in \code{ii2_x()})
 \item \code{ss2_x(y, n(i, k), c(1, 3))} corresponds to \code{y[i, , k]} or \code{y[[i, , k]]}
 (depending on the arguments given in \code{ss2_x()}) \cr \cr
 }

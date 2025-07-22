@@ -125,14 +125,14 @@ names.</p>
 <span><span class="va">x</span><span class="op">[</span><span class="st">"a"</span><span class="op">]</span> <span class="co"># only selects only the first index with name "a"</span></span>
 <span><span class="co">#&gt; a </span></span>
 <span><span class="co">#&gt; 4</span></span>
-<span><span class="fu"><a href="../reference/sb_x.html">fi_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"a"</span><span class="op">)</span> <span class="co"># selects all indices with the name "a"</span></span>
+<span><span class="fu"><a href="../reference/sb_x.html">ii_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"a"</span><span class="op">)</span> <span class="co"># selects all indices with the name "a"</span></span>
 <span><span class="co">#&gt; a a a </span></span>
 <span><span class="co">#&gt; 4 6 9</span></span>
 <span></span>
 <span><span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"a"</span><span class="op">)</span><span class="op">]</span> <span class="co"># repeats only the first index with name "a"</span></span>
 <span><span class="co">#&gt; a a </span></span>
 <span><span class="co">#&gt; 4 4</span></span>
-<span><span class="fu"><a href="../reference/sb_x.html">fi_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"a"</span><span class="op">)</span><span class="op">)</span> <span class="co"># repeats all indices with the name "a"</span></span>
+<span><span class="fu"><a href="../reference/sb_x.html">ii_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"a"</span><span class="op">)</span><span class="op">)</span> <span class="co"># repeats all indices with the name "a"</span></span>
 <span><span class="co">#&gt; a a a a a a </span></span>
 <span><span class="co">#&gt; 4 6 9 4 6 9</span></span></code></pre></div>
 <p>To select the indices <code>c("a", "a", "b")</code>, whilst ensuring
@@ -144,7 +144,7 @@ do the following in base ‘R’:</p>
 <span><span class="co">#&gt; 4 6 9 4 6 9 2</span></span></code></pre></div>
 <p>See how much easier it is with ‘squarebrackets’!:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/sb_x.html">fi_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"a"</span>, <span class="st">"b"</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/sb_x.html">ii_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"a"</span>, <span class="st">"b"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; a a a a a a b </span></span>
 <span><span class="co">#&gt; 4 6 9 4 6 9 2</span></span></code></pre></div>
 <p>This syntax becomes especially advantageous for arrays;<br>
@@ -180,9 +180,9 @@ backwards.</p>
 <span><span class="co">#&gt;  [1]  5 10  4  9  2  8  7  6  1  3</span></span>
 <span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/sb_x.html">fi_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span> <span class="op">*</span> <span class="op">-</span><span class="fl">1i</span><span class="op">)</span> <span class="co"># select last 3 indices</span></span>
+<span><span class="fu"><a href="../reference/sb_x.html">ii_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span> <span class="op">*</span> <span class="op">-</span><span class="fl">1i</span><span class="op">)</span> <span class="co"># select last 3 indices</span></span>
 <span><span class="co">#&gt; [1] 3 1 6</span></span>
-<span><span class="fu"><a href="../reference/sb_x.html">fi_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">3</span><span class="op">:</span><span class="fl">1</span> <span class="op">*</span> <span class="op">-</span><span class="fl">1i</span><span class="op">)</span> <span class="co"># select last 3 indices in tail()-like order</span></span>
+<span><span class="fu"><a href="../reference/sb_x.html">ii_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">3</span><span class="op">:</span><span class="fl">1</span> <span class="op">*</span> <span class="op">-</span><span class="fl">1i</span><span class="op">)</span> <span class="co"># select last 3 indices in tail()-like order</span></span>
 <span><span class="co">#&gt; [1] 6 1 3</span></span></code></pre></div>
 <p>This syntax becomes especially advantageous for arrays:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
@@ -205,7 +205,7 @@ un-matching for character vectors).</p>
 indices:</p>
 <ul>
 <li>The methods whose names end with <code>_x</code> (like the
-<code><a href="../reference/sb_x.html">fi_x()</a></code> shown before) perform extraction;<br>
+<code><a href="../reference/sb_x.html">ii_x()</a></code> shown before) perform extraction;<br>
 to invert extraction, i.e. return the object <strong>without</strong>
 the specified subset, use the methods whose names end with
 <code>_wo</code>.</li>
@@ -227,10 +227,10 @@ indices.</p>
 <span><span class="co">#&gt;  b  c  d  e  f  g  h  i  j </span></span>
 <span><span class="co">#&gt;  7  8  5 10  1  2  3  4  9</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/sb_x.html">fi_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"a"</span><span class="op">)</span> <span class="co"># extract element "a" with 'squarebrackets'</span></span>
+<span><span class="fu"><a href="../reference/sb_x.html">ii_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"a"</span><span class="op">)</span> <span class="co"># extract element "a" with 'squarebrackets'</span></span>
 <span><span class="co">#&gt; a </span></span>
 <span><span class="co">#&gt; 6</span></span>
-<span><span class="fu"><a href="../reference/sb_wo.html">fi_wo</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"a"</span><span class="op">)</span> <span class="co"># remove element "a" with 'squarebrackets'; same syntax</span></span>
+<span><span class="fu"><a href="../reference/sb_wo.html">ii_wo</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"a"</span><span class="op">)</span> <span class="co"># remove element "a" with 'squarebrackets'; same syntax</span></span>
 <span><span class="co">#&gt;  b  c  d  e  f  g  h  i  j </span></span>
 <span><span class="co">#&gt;  7  8  5 10  1  2  3  4  9</span></span></code></pre></div>
 <p> </p>
@@ -249,10 +249,10 @@ what operation is performed.</p>
 <p>For the <code>A</code> part, the following is available:</p>
 <ul>
 <li>
-<code>fi_</code>: operates on subsets of atomic objects by
+<code>ii_</code>: operates on subsets of atomic objects by
 (flat/linear) indices.</li>
 <li>
-<code>fi2_</code>: operates on subsets of recursive objects by
+<code>ii2_</code>: operates on subsets of recursive objects by
 (flat/linear) indices.</li>
 <li>
 <code>ss_</code>: operates on subsets of atomic objects by
@@ -287,7 +287,7 @@ semantics.</li>
 speaking):</p>
 <ul>
 <li>
-<code>fi_x(y, i)</code> corresponds to <code>y[i]</code>
+<code>ii_x(y, i)</code> corresponds to <code>y[i]</code>
 </li>
 <li>
 <code>ss_x(y, n(i, k), c(1, 3))</code> corresponds to
@@ -298,9 +298,9 @@ speaking):</p>
 (roughly speaking):</p>
 <ul>
 <li>
-<code>fi2_x(y, i)</code> corresponds to <code>y[i]</code> or
+<code>ii2_x(y, i)</code> corresponds to <code>y[i]</code> or
 <code>y[[i]]</code> (depending on the arguments given in
-<code><a href="../reference/sb_x.html">fi2_x()</a></code>)</li>
+<code><a href="../reference/sb_x.html">ii2_x()</a></code>)</li>
 <li>
 <code>ss2_x(y, n(i, k), c(1, 3))</code> corresponds to
 <code>y[i, , k] or y[[i, , k]]</code> (depending on the arguments given

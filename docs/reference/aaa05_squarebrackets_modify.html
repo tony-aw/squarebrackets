@@ -78,7 +78,7 @@ whilst still using R's default copy-on-modification semantics
 the <code>_mod</code> method
 to modify through a (shallow) copy. <br>
 This method returns the modified object. <br>
-For recursive objects, <a href="sb_mod.html">fi2_mod</a>/<a href="sb_mod.html">ss2_mod</a> returns the original object,
+For recursive objects, <a href="sb_mod.html">ii2_mod</a>/<a href="sb_mod.html">ss2_mod</a> returns the original object,
 where only the modified subsets are copied,
 thus preventing unnecessary usage of memory. <br><br><br></p>
     </div>
@@ -87,7 +87,7 @@ thus preventing unnecessary usage of memory. <br><br><br></p>
 
 
 <p>'squarebrackets' provides
-the <a href="sb_set.html">fi_set</a>, <a href="sb_set.html">ss_set</a>, <a href="sb_set.html">ss2_set</a> and <a href="slice.html">slice_set</a> methods
+the <a href="sb_set.html">ii_set</a>, <a href="sb_set.html">ss_set</a>, <a href="sb_set.html">ss2_set</a> and <a href="slice.html">slice_set</a> methods
 to modify by reference,
 meaning no copy is made at all. <br>
 Pass-by-Reference is fastest and the most memory efficient. <br>

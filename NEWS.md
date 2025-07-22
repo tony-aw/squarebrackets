@@ -8,4 +8,5 @@
 * The `ss_`/`ss2_` methods will now give an error if dimensional sub-set operations are attempted on non-dimensional objects.
 
 # squarebrackets 0.0.0.9002
-* Renamed the `i_` and `i2_` methods to `fi_` and `fi2_`, to avoid confusion.
+* Renamed the `i_` and `i2_` methods to `ii_` and `ii2_`, to avoid confusion.
+* Renamed `ci_flat()` to `ci_ii()` and `ci_sub()` to `ci_ss()`.

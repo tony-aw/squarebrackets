@@ -60,10 +60,10 @@ If \code{TRUE},
 \item{rp, tf}{see \link{squarebrackets_modify}.}
 }
 \value{
-Similar to the \code{fi_}/\code{ss_} methods.
+Similar to the \code{ii_}/\code{ss_} methods.
 }
 \description{
-The \code{slice_} - methods are similar to the \code{fi_}/\code{ss_} - methods,
+The \code{slice_} - methods are similar to the \code{ii_}/\code{ss_} - methods,
 except they don't require an indexing vector,
 and are designed for memory efficiency. \cr \cr
 }

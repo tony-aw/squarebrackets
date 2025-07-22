@@ -12,7 +12,7 @@ tci_int(int, ncol(x), inv = TRUE)
 tci_chr(chr, colnames(x))
 tci_cplx(cplx, nrow(x))
 
-ci_flat(x, 1:10 * -1i)
+ci_ii(x, 1:10 * -1i)
 ci_margin(x, 1:4, 2)
-ci_sub(x, n(1:5 * -1i, 1:4), 1:2)
+ci_ss(x, n(1:5 * -1i, 1:4), 1:2)
 

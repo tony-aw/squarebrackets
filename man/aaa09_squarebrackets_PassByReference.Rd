@@ -32,7 +32,7 @@ changing one variable also changes the other ones. \cr
 I.e. the following code,
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{x <- y <- mutatomic(1:16)
-fi_set(x, 1:6, rp = 8)
+ii_set(x, 1:6, rp = 8)
 }\if{html}{\out{</div>}}
 
 modifies not just \code{x}, but also \code{y}. \cr
@@ -43,7 +43,7 @@ I.e. the following code,
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{x <- mutatomic(1:16)
 y <- x
 lockBinding("y", environment())
-fi_set(x, i = 1:6, rp = 8)
+ii_set(x, i = 1:6, rp = 8)
 }\if{html}{\out{</div>}}
 
 modifies both \code{x} and \code{y} without error,
@@ -128,7 +128,7 @@ x <- list(
  b = mutatomic(letters[11:20])
 )
 myref <- x$a
-fi_set(myref, 1, rp = "xxx")
+ii_set(myref, 1, rp = "xxx")
 
 }\if{html}{\out{</div>}}
 
@@ -144,7 +144,7 @@ Methods/functions that perform in-place modification by reference
 only works on objects that actually exist as an actual variable,
 similar to functions in the style of \code{some_function(x, ...) <- value}. \cr
 Thus things like any of the following, \cr
-\code{fi_set(1:10, ...)}, \code{fi_set(x$a, ...)}, or \code{fi_set(base::letters)}, \cr
+\code{ii_set(1:10, ...)}, \code{ii_set(x$a, ...)}, or \code{ii_set(base::letters)}, \cr
 will not and should not work. \cr \cr
 }
 
@@ -170,7 +170,7 @@ Due to the properties described above in this help page,
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{
 # letters = base::letters
-fi_set(letters, i = 1, rp = "XXX")
+ii_set(letters, i = 1, rp = "XXX")
 
 }\if{html}{\out{</div>}}
 
@@ -202,7 +202,7 @@ bindingIsLocked("myref", environment()) # ... but this pointer is not!
 
 if(requireNamespace("tinytest")) {
   tinytest::expect_error(
-    fi_set(myref, i = 1, rp = "XXX") # this still gives an error though ...
+    ii_set(myref, i = 1, rp = "XXX") # this still gives an error though ...
   )
 }
 
@@ -214,7 +214,7 @@ x <- list(
 )
 myref <- x$a # view of a list
 address(myref) == address(base::letters) # FALSE: it's a copy
-fi_set(
+ii_set(
   myref, i = 1, rp = "XXX"  # modifies x, does NOT modify `base::letters`
 )
 print(x) # x is modified

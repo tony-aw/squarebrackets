@@ -30,7 +30,7 @@ for(iD in 1:length(x.data)) {
     x2 <- x
     x2[ temp.ind ] <- rev(x2[ temp.ind ])
     rp <- rev(x[ temp.ind ])
-    fi_set(x, temp.ind, rp = rp)
+    ii_set(x, temp.ind, rp = rp)
     invisible(x) # waking up R
     expect_equal(
       x, x2
@@ -44,7 +44,7 @@ for(iD in 1:length(x.data)) {
       x2 <- x
       rp <- rep(NA, x.len)
       x2[ temp.ind ] <- rp
-      fi_set(x, temp.ind, rp = rp)
+      ii_set(x, temp.ind, rp = rp)
       invisible(x) # waking up R
       expect_equal(
         x, x2
@@ -66,7 +66,7 @@ for(iD in 1:length(x.data)) {
     x <- mutatomic(x.data[[iD]])
     x2 <- x
     rp <- rev(x[ temp.ind ])
-    fi_set(x, temp.ind, rp = rp)
+    ii_set(x, temp.ind, rp = rp)
     invisible(x) # waking up R
     expect_equal(
       x, x2
@@ -79,7 +79,7 @@ for(iD in 1:length(x.data)) {
       x.len <- length(x[ temp.ind ])
       x2 <- x
       rp <- rep(NA, x.len)
-      fi_set(x, temp.ind, rp = rp)
+      ii_set(x, temp.ind, rp = rp)
       invisible(x) # waking up R
       expect_equal(
         x, x2

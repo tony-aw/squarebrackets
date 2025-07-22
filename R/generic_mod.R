@@ -30,20 +30,20 @@
 
 #' @rdname sb_mod
 #' @export
-fi_mod <- function(x, ...) {
+ii_mod <- function(x, ...) {
   
   .methodcheck.i(x, sys.call())
   
-  UseMethod("fi_mod", x)
+  UseMethod("ii_mod", x)
 }
 
 #' @rdname sb_mod
 #' @export
-fi2_mod <- function(x, ...) {
+ii2_mod <- function(x, ...) {
   
   .methodcheck.i2(x, sys.call())
   
-  UseMethod("fi2_mod", x)
+  UseMethod("ii2_mod", x)
 }
 
 #' @rdname sb_mod
@@ -66,7 +66,7 @@ ss2_mod <- function(x, ...) {
 }
 #' @rdname sb_mod
 #' @export
-fi_mod.default <- function(
+ii_mod.default <- function(
     x, i = NULL, inv = FALSE, ...,
     rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
@@ -117,7 +117,7 @@ ss_mod.default <- function(
   }
   
   # s, d arguments:
-  lst <- ci_sub(x, s, d, inv, chkdup, .abortcall = sys.call())
+  lst <- ci_ss(x, s, d, inv, chkdup, .abortcall = sys.call())
 
   if(!missing(rp)) {
     if(!is.atomic(rp)) stop("replacement must be atomic")
@@ -131,7 +131,7 @@ ss_mod.default <- function(
 
 #' @rdname sb_mod
 #' @export
-fi2_mod.default <- function(
+ii2_mod.default <- function(
     x, i = NULL, inv = FALSE, ...,
     rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE), .lapply = lapply
 ) {
@@ -183,7 +183,7 @@ ss2_mod.default <- function(
     return(.mat_mod_list(x, s, d, inv, rp, tf, chkdup, .lapply, sys.call()))
   }
   
-  lst <- ci_sub(x, s, d, inv, chkdup, .abortcall = sys.call())
+  lst <- ci_ss(x, s, d, inv, chkdup, .abortcall = sys.call())
   
   if(!missing(rp)) {
     if(!is.list(rp)) stop("replacement must be a list")

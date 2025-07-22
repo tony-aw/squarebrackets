@@ -18,7 +18,7 @@ print(obj2)
 obj <- obj2 <- gen_mat()
 obj
 
-fi_set(obj, i = \(x) x <= 5, rp = -1:-5)
+ii_set(obj, i = \(x) x <= 5, rp = -1:-5)
 print(obj2)
 # above is like x[x <= 5] <- -1:-5, but using pass-by-reference
 
@@ -39,7 +39,7 @@ print(obj2)
 obj <- obj2 <- gen_mat()
 obj
 
-fi_set(obj, i = \(x) x <= 5, tf = \(x) -x)
+ii_set(obj, i = \(x) x <= 5, tf = \(x) -x)
 print(obj2)
 # above is like x[x <= 5] <- -1 * x[x <= 5], but using pass-by-reference
 
@@ -64,7 +64,7 @@ print(obj2)
 
 obj <- obj2 <- gen_array()
 obj
-fi_set(obj, i = \(x)x <= 5, rp = -1:-5)
+ii_set(obj, i = \(x)x <= 5, rp = -1:-5)
 print(obj2)
 # above is like x[x <= 5] <- -1:-5, but using pass-by-reference
 

@@ -2,15 +2,15 @@
 % Please edit documentation in R/ci.R
 \name{developer_ci}
 \alias{developer_ci}
-\alias{ci_flat}
+\alias{ci_ii}
 \alias{ci_margin}
-\alias{ci_sub}
+\alias{ci_ss}
 \alias{ci_df}
 \alias{ci_obs}
 \alias{ci_vars}
 \title{Construct Indices}
 \usage{
-ci_flat(
+ci_ii(
   x,
   i,
   inv = FALSE,
@@ -29,7 +29,7 @@ ci_margin(
   .abortcall = sys.call()
 )
 
-ci_sub(
+ci_ss(
   x,
   s,
   d,
@@ -86,11 +86,11 @@ But specifying \code{TRUE} when the relevant names are not unique will result in
 An integer vector of constructed indices.
 }
 \description{
-These functions construct flat or dimensional indices. \cr
+These functions construct indices. \cr
 \itemize{
-\item \code{ci_flat()} constructs an integer vector flat indices.
+\item \code{ci_ii()} constructs an integer vector flat/interior indices.
 \item \code{ci_margin()} constructs an integer vector of indices for one particular dimension margin.
-\item \code{ci_sub()} constructs a list of integer subscripts.
+\item \code{ci_ss()} constructs a list of integer subscripts.
 \item \code{ci_df()} is the same as \code{ci_margin()},
 except it is specifically designed for data.frame-like objects. \cr
 It is a separate function,
@@ -116,8 +116,8 @@ tci_int(int, ncol(x), inv = TRUE)
 tci_chr(chr, colnames(x))
 tci_cplx(cplx, nrow(x))
 
-ci_flat(x, 1:10 * -1i)
+ci_ii(x, 1:10 * -1i)
 ci_margin(x, 1:4, 2)
-ci_sub(x, n(1:5 * -1i, 1:4), 1:2)
+ci_ss(x, n(1:5 * -1i, 1:4), 1:2)
 
 }

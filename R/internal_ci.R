@@ -1,7 +1,7 @@
 
 #' @keywords internal
 #' @noRd
-.ci_sub.atomic <- function(
+.ci_ss.atomic <- function(
     x, s, d, inv, chkdup, uniquely_named, .abortcall
 ) {
   
@@ -11,7 +11,7 @@
   
   if(ndim(x) == 1L) {
     lst <- list(
-      ci_flat(x, s, inv, chkdup, uniquely_named = FALSE, .abortcall)
+      ci_ii(x, s, inv, chkdup, uniquely_named = FALSE, .abortcall)
     )
   }
   else {
@@ -30,7 +30,7 @@
 
 #' @keywords internal
 #' @noRd
-.ci_sub1 <- function(
+.ci_ss1 <- function(
     x, s, d, inv, chkdup, uniquely_named, .abortcall
 ) {
   
@@ -38,7 +38,7 @@
   
   if(ndim(x) == 1L) {
     lst <- list(
-      ci_flat(x, s, inv, chkdup, uniquely_named = FALSE, .abortcall)
+      ci_ii(x, s, inv, chkdup, uniquely_named = FALSE, .abortcall)
     )
   }
   else {
@@ -56,11 +56,11 @@
 
 #' @keywords internal
 #' @noRd
-.ci_sub0 <- function(
+.ci_ss0 <- function(
     x, s, d, inv, chkdup, uniquely_named, .abortcall
 ) {
   
-  s <- .ci_sub_make_sub(s, d)
+  s <- .ci_ss_make_sub(s, d)
   
   lst <- lapply(dim(x), \(y) 1:y ) # create list of ALTREP compact integers
   for(i in seq_along(d)) {
@@ -77,7 +77,7 @@
 
 #' @keywords internal
 #' @noRd
-.ci_sub_make_sub <- function(s, d) {
+.ci_ss_make_sub <- function(s, d) {
   if(is.list(s) && length(s) == 1L && length(d) != 1L) {
     s <- rep(s, length(d))
   }
@@ -88,7 +88,7 @@
 
 #' @keywords internal
 #' @noRd
-.ci_sub_check <- function(x, s, d, ndim, .abortcall) {
+.ci_ss_check <- function(x, s, d, ndim, .abortcall) {
   
   # check `d`:
   if(length(d) == 0L) {

@@ -49,10 +49,10 @@
 
 
 <p>The main methods of 'squarebrackets' use the naming convention <code>A_B</code>: <br><code>A</code> tells you on what kind of object and what kind of indices the method operates on; <br><code>B</code> tells you <b>what operation</b> is performed. <br><br>
-For the <code>A</code> part, the following is available:</p><ul><li><p><code>fi_</code>: operates on subsets of <b>atomic</b> objects by <b>flat</b> indices.</p></li>
-<li><p><code>fi2_</code>: operates on subsets of <b>recursive</b> objects by <b>flat</b> indices.</p></li>
-<li><p><code>ss_</code>: operates on subsets of <b>atomic</b> objects by (dimensional) subscripts.</p></li>
-<li><p><code>ss2_</code>: operates on subsets of <b>recursive</b> objects by (dimensional) subscripts.</p></li>
+For the <code>A</code> part, the following is available:</p><ul><li><p><code>ii_</code>: operates on subsets of <b>atomic</b> objects by <b>flat/interior</b> indices.</p></li>
+<li><p><code>ii2_</code>: operates on subsets of <b>recursive</b> objects by <b>flat/interior</b> indices.</p></li>
+<li><p><code>ss_</code>: operates on subsets of <b>atomic</b> objects by (dimensional) <b>subscripts</b>.</p></li>
+<li><p><code>ss2_</code>: operates on subsets of <b>recursive</b> objects by (dimensional) <b>subscripts</b>.</p></li>
 <li><p><code>slice_</code>: uses <b>index-less</b>, <b>sequence-based</b>, and efficient operations on <code>mutatomic</code> objects.</p></li>
 <li><p><code>slicev_</code>: uses <b>index-less</b>, <b>value-based</b> and efficient operations on <code>mutatomic</code> objects. <br><br></p></li>
 </ul><p>For the <code>B</code> part, the following is available:</p><ul><li><p><code>_x</code>: extract, exchange, or duplicate (if applicable) subsets.</p></li>
@@ -61,10 +61,10 @@ For the <code>A</code> part, the following is available:</p><ul><li><p><code>fi_
 <li><p><code>_set</code>: modify subsets using <a href="aaa09_squarebrackets_PassByReference.html">pass-by-reference semantics</a>. <br><br></p></li>
 </ul><p>To illustrate, let's take the methods used for extracting subsets
 (<code>_x</code>). <br><br>
-When <code>y</code> is atomic, the following holds (roughly speaking):</p><ul><li><p><code>fi_x(y, i)</code> corresponds to <code>y[i]</code></p></li>
+When <code>y</code> is atomic, the following holds (roughly speaking):</p><ul><li><p><code>ii_x(y, i)</code> corresponds to <code>y[i]</code></p></li>
 <li><p><code>ss_x(y, n(i, k), c(1, 3))</code> corresponds to <code>y[i, , k]</code> <br><br></p></li>
-</ul><p>When <code>y</code> is a list (i.e. recursive), the following holds (roughly speaking):</p><ul><li><p><code>fi2_x(y, i)</code> corresponds to <code>y[i]</code> or <code>y[[i]]</code>
-(depending on the arguments given in <code><a href="sb_x.html">fi2_x()</a></code>)</p></li>
+</ul><p>When <code>y</code> is a list (i.e. recursive), the following holds (roughly speaking):</p><ul><li><p><code>ii2_x(y, i)</code> corresponds to <code>y[i]</code> or <code>y[[i]]</code>
+(depending on the arguments given in <code><a href="sb_x.html">ii2_x()</a></code>)</p></li>
 <li><p><code>ss2_x(y, n(i, k), c(1, 3))</code> corresponds to <code>y[i, , k]</code> or <code>y[[i, , k]]</code>
 (depending on the arguments given in <code><a href="sb_x.html">ss2_x()</a></code>) <br><br></p></li>
 </ul></div>

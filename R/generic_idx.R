@@ -79,7 +79,7 @@ idx.default <- function(
   
   .internal_check_dots(list(...), sys.call())
   
-  elements <- ci_flat(
+  elements <- ci_ii(
     x, i, inv, chkdup, .abortcall = sys.call()
   )
   return(elements)
@@ -111,7 +111,7 @@ idx.array <- function(
   
   # flat indices:
   if(!is.null(i)) {
-    elements <- elements <- ci_flat(
+    elements <- elements <- ci_ii(
       x, i, inv, chkdup, .abortcall = sys.call()
     )
     return(elements)
@@ -128,7 +128,7 @@ idx.array <- function(
   }
   .check_args_array(x, s, d, sys.call())
   x.dim <- dim(x)
-  lst <- ci_sub(
+  lst <- ci_ss(
     x, s, d, inv, chkdup, .abortcall = sys.call()
   )
   elements <- sub2ind(lst, x.dim, checks = FALSE)

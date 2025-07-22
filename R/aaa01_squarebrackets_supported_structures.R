@@ -49,9 +49,9 @@
 #' @details
 #' 
 #' \bold{Atomic vs Recursive} \cr
-#' The `fi_`/`ss_` methods provided by 'squarebrackets'
+#' The `ii_`/`ss_` methods provided by 'squarebrackets'
 #' work on \bold{atomic} (see \link[base]{is.atomic}) objects. \cr
-#' The `fi2_`/`ss2_` methods provided by 'squarebrackets'
+#' The `ii2_`/`ss2_` methods provided by 'squarebrackets'
 #' work on \bold{recursive} (see \link[base]{is.recursive}) objects. \cr
 #' See \link{squarebrackets_methods} for more details. \cr
 #' \cr

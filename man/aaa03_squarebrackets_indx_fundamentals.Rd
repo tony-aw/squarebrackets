@@ -44,11 +44,11 @@ print(x) #' `x` has multiple elements with the name "a"
 #>  a  d  c  b  a  a  b  c  d  e 
 #>  1  2  3  4  5  6  7  8  9 10
 
-fi_x(x, "a") # extracts all indices with the name "a"
+ii_x(x, "a") # extracts all indices with the name "a"
 #> a a a 
 #> 1 5 6
 
-fi_x(x, c("a", "a")) # repeats all indices with the name "a"
+ii_x(x, c("a", "a")) # repeats all indices with the name "a"
 #> a a a a a a 
 #> 1 5 6 1 5 6
 }\if{html}{\out{</div>}}
@@ -78,13 +78,13 @@ See the results of the following code as an example:
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{
 x <- 1:30 # vector of 30 elements
 
-fi_x(x, 1:10 * 1i) # extract first 10 elements
+ii_x(x, 1:10 * 1i) # extract first 10 elements
 #>  [1]  1  2  3  4  5  6  7  8  9 10
 
-fi_x(x, 1:10 * -1i) # extract last 10 elements
+ii_x(x, 1:10 * -1i) # extract last 10 elements
 #>  [1] 30 29 28 27 26 25 24 23 22 21
 
-fi_x(x, 10:1 * -1i) # last 10 elements, in tail()-like order
+ii_x(x, 10:1 * -1i) # last 10 elements, in tail()-like order
 #>  [1] 21 22 23 24 25 26 27 28 29 30
 }\if{html}{\out{</div>}}
 
@@ -95,11 +95,11 @@ or backwards counting from the end. \cr
 \cr
 }
 
-\section{Flat Indices and Subscripts}{
+\section{Interior Indices and Subscripts}{
 
 
-One can operate on flat/linear indices (often simply referred to as "indices")
-using the \code{fi_}/ \code{fi2_} methods; \cr
+One can operate on flat/interior indices (often simply referred to as "indices")
+using the \code{ii_}/ \code{ii2_} methods; \cr
 These primarily use the \link[=squarebrackets_indx_args]{i} argument. \cr
 \cr
 One can operate on subscripts (= dimensional indices)
@@ -116,13 +116,13 @@ and does not require a-priori knowledge on the number of dimensions the object h
 This is particularly useful for arrays, which can have any number of dimensions. \cr
 \cr
 Arrays and matrices (matrices are simply arrays with 2 dimensions)
-support both flat indices (using the \code{fi_}/ \code{fi2_} methods)
+support both flat/interior indices (using the \code{ii_}/ \code{ii2_} methods)
 and subscripts (using the \code{ss_}/ \code{ss2_} methods). \cr
-In the flat indices, also called linear indices,
+In the flat/interior indices, also called linear indices,
 specify the indices of an array as-if it is vector,
 thus ignoring dimensions. \cr
 \cr
-For the relationship between flat indices and subscripts for arrays,
+For the relationship between flat/interior indices and subscripts for arrays,
 see the \link{sub2ind} help page. \cr
 \cr
 \cr
@@ -157,17 +157,17 @@ print(x)
 #>  [1] "Jan" "Feb" "Mar" "Apr" "May" "Jun" "Jul" "Aug" "Sep" "Oct" "Nov" "Dec"
 
 
-fi_x(x, 1:5) # extract first 5 elements
+ii_x(x, 1:5) # extract first 5 elements
 #> [1] "Jan" "Feb" "Mar" "Apr" "May"
 
-fi_wo(x, 1:5) # return WITHOUT first 5 elements
+ii_wo(x, 1:5) # return WITHOUT first 5 elements
 #> [1] "Jun" "Jul" "Aug" "Sep" "Oct" "Nov" "Dec"
 
 
-fi_mod(x, 1:5, rp = "XXX") # copy, replace first 5 elements, return result
+ii_mod(x, 1:5, rp = "XXX") # copy, replace first 5 elements, return result
 #>  [1] "XXX" "XXX" "XXX" "XXX" "XXX" "Jun" "Jul" "Aug" "Sep" "Oct" "Nov" "Dec"
 
-fi_mod(x, 1:5, inv = T, rp = "XXX") # same, but for all except first 5 elements
+ii_mod(x, 1:5, inv = T, rp = "XXX") # same, but for all except first 5 elements
 #>  [1] "Jan" "Feb" "Mar" "Apr" "May" "XXX" "XXX" "XXX" "XXX" "XXX" "XXX" "XXX"
 }\if{html}{\out{</div>}}
 
@@ -254,11 +254,11 @@ x <- list(
 
 Regular subsets, AKA surface-level subset operations (\code{[}, \verb{[<-} in base 'R'),
 operate on the recursive object itself. \cr
-I.e. \link{fi2_x}\verb{(x, 1)}, or equivalently \code{x[1]},
+I.e. \link{ii2_x}\verb{(x, 1)}, or equivalently \code{x[1]},
 returns the \bold{list} \code{list(A = 1:10)}:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{
-fi2_x(x, 1) # equivalent to x[1]; returns list(A = 1:10)
+ii2_x(x, 1) # equivalent to x[1]; returns list(A = 1:10)
 #> $A
 #>  [1]  1  2  3  4  5  6  7  8  9 10
 }\if{html}{\out{</div>}}

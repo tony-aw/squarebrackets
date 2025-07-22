@@ -1,11 +1,11 @@
 #' Construct Indices
 #'
 #' @description
-#' These functions construct flat or dimensional indices. \cr
+#' These functions construct indices. \cr
 #'
-#'  * `ci_flat()` constructs an integer vector flat indices.
+#'  * `ci_ii()` constructs an integer vector flat/interior indices.
 #'  * `ci_margin()` constructs an integer vector of indices for one particular dimension margin.
-#'  * `ci_sub()` constructs a list of integer subscripts.
+#'  * `ci_ss()` constructs a list of integer subscripts.
 #'  * `ci_df()` is the same as `ci_margin()`,
 #'  except it is specifically designed for data.frame-like objects. \cr
 #'  It is a separate function,
@@ -42,7 +42,7 @@ NULL
 
 #' @rdname developer_ci
 #' @export
-ci_flat <- function(
+ci_ii <- function(
     x, i, inv = FALSE, chkdup = FALSE, uniquely_named = FALSE, .abortcall = sys.call()
 ) {
   
@@ -144,7 +144,7 @@ ci_margin <- function(
 
 #' @rdname developer_ci
 #' @export
-ci_sub <- function(
+ci_ss <- function(
     x, s, d, inv = FALSE, chkdup = FALSE, uniquely_named = FALSE, .abortcall = sys.call()
 ) {
   # Note: since arrays have many dimensions,
@@ -152,16 +152,16 @@ ci_sub <- function(
   # the maximum of each dimension reduces.
   # Thus, creating sequences here is not so expensive.
   
-  .ci_sub_check(x, s, d, ndim(x), .abortcall)
+  .ci_ss_check(x, s, d, ndim(x), .abortcall)
   
   if(length(d) == 1L || is.atomic(s)) {
-    return(.ci_sub.atomic(x, s, d, inv, chkdup, uniquely_named, .abortcall))
+    return(.ci_ss.atomic(x, s, d, inv, chkdup, uniquely_named, .abortcall))
   }
   else if(length(s) == 1L) {
-    return(.ci_sub1(x, s, d, inv, chkdup, uniquely_named, .abortcall))
+    return(.ci_ss1(x, s, d, inv, chkdup, uniquely_named, .abortcall))
   }
   else {
-    return(.ci_sub0(x, s, d, inv, chkdup, uniquely_named, .abortcall))
+    return(.ci_ss0(x, s, d, inv, chkdup, uniquely_named, .abortcall))
   }
 }
 

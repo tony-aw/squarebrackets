@@ -7,20 +7,20 @@ print(obj)
 rp <- -1:-9
 ss_mod(obj, n(1:3), 1:ndim(obj), rp = rp)
 # above is equivalent to  obj[1:3, 1:3] <- -1:-9; obj
-fi_mod(obj, i = \(x)x<=5, rp = -1:-5)
+ii_mod(obj, i = \(x)x<=5, rp = -1:-5)
 # above is equivalent to  obj[obj <= 5] <- -1:-5; obj
 ss_mod(obj, n("a"), 2L, rp = -1:-8)
 # above is equivalent to  obj[, which(colnames(obj) %in% "a")] <- -1:-8; obj
 ss_mod(obj, n(1:3), 1:ndim(obj), tf = \(x) -x)
 # above is equivalent to  obj[1:3, 1:3] <- (-1 * obj[1:3, 1:3]); obj
-fi_mod(obj, i = \(x)x <= 5, tf = \(x) -x)
+ii_mod(obj, i = \(x)x <= 5, tf = \(x) -x)
 # above is equivalent to  obj[obj <= 5] <- (-1 * obj[obj <= 5]); obj
 
 obj <- array(1:64, c(4,4,3))
 print(obj)
 ss_mod(obj, n(1:3, 1:2), c(1,3), rp = -1:-24)
 # above is equivalent to obj[1:3, , 1:2] <- -1:-24
-fi_mod(obj, i = \(x)x <= 5, rp = -1:-5)
+ii_mod(obj, i = \(x)x <= 5, rp = -1:-5)
 # above is equivalent to obj[obj <= 5] <- -1:-5
 
 #############################################################################
@@ -30,9 +30,9 @@ fi_mod(obj, i = \(x)x <= 5, rp = -1:-5)
 
 obj <- list(a = 1:10, b = letters[1:11], c = 11:20)
 print(obj)
-fi2_mod(obj, "a", rp = list(1L))
+ii2_mod(obj, "a", rp = list(1L))
 # above is equivalent to  obj[["a"]] <- 1L; obj
-fi2_mod(obj, is.numeric, rp = list(-1:-10, -11:-20))
+ii2_mod(obj, is.numeric, rp = list(-1:-10, -11:-20))
 # above is equivalent to  obj[which(sapply(obj, is.numeric))] <- list(-1:-10, -11:-20); obj
 
 obj <- rbind(
@@ -45,7 +45,7 @@ colnames(obj) <- c("a", "b", "c", "a")
 print(obj)
 ss2_mod(obj, n(1:3), 1:ndim(obj),rp = n(-1))
 # above is equivalent to obj[1:3, 1:3] <- list(-1)
-fi2_mod(obj, i = is.numeric, rp = n(-1))
+ii2_mod(obj, i = is.numeric, rp = n(-1))
 # above is equivalent to obj[sapply(obj, is.numeric)] <- list(-1)
 ss2_mod(obj, n("a"), 2L, rp = n(-1))
 # above is equivalent to
@@ -56,7 +56,7 @@ obj <- array(as.list(1:64), c(4,4,3))
 print(obj)
 ss2_mod(obj, n(1:3, 1:2), c(1,3), rp = as.list(-1:-24))
 # above is equivalent to obj[1:3, , 1:2] <- as.list(-1:-24)
-fi2_mod(obj, i = \(x) x <= 5, rp = as.list(-1:-5))
+ii2_mod(obj, i = \(x) x <= 5, rp = as.list(-1:-5))
 # above is equivalent to obj[sapply(onj, \(x) x <= 5)] <- as.list(-1:-5)
 
 

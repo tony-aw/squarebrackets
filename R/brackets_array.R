@@ -79,11 +79,11 @@
   # Prep:
   x.dim <- dim(x)
   ndim <- length(x.dim)
-  .ci_sub_check(x, s, d, ndim, .abortcall = abortcall)
+  .ci_ss_check(x, s, d, ndim, .abortcall = abortcall)
   
-  lst <- ci_sub(
+  lst <- ci_ss(
     x, s, d, inv, chkdup, .abortcall = abortcall
-  ) # Note: ci_sub will already ensure the subs are integers.
+  ) # Note: ci_ss will already ensure the subs are integers.
   
   if(!missing(tf)) {
     if(!is.function(tf)) stop(simpleError("`tf` must be a function", call = abortcall))

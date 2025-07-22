@@ -10,10 +10,10 @@
 #' \cr
 #' For the `A` part, the following is available:
 #' 
-#'  - `fi_`: operates on subsets of \bold{atomic} objects by \bold{flat} indices.
-#'  - `fi2_`: operates on subsets of \bold{recursive} objects by \bold{flat} indices.
-#'  - `ss_`: operates on subsets of \bold{atomic} objects by (dimensional) subscripts.
-#'  - `ss2_`: operates on subsets of \bold{recursive} objects by (dimensional) subscripts.
+#'  - `ii_`: operates on subsets of \bold{atomic} objects by \bold{flat/interior} indices.
+#'  - `ii2_`: operates on subsets of \bold{recursive} objects by \bold{flat/interior} indices.
+#'  - `ss_`: operates on subsets of \bold{atomic} objects by (dimensional) \bold{subscripts}.
+#'  - `ss2_`: operates on subsets of \bold{recursive} objects by (dimensional) \bold{subscripts}.
 #'  - `slice_`: uses \bold{index-less}, \bold{sequence-based}, and efficient operations on `mutatomic` objects.
 #'  - `slicev_`: uses \bold{index-less}, \bold{value-based} and efficient operations on `mutatomic` objects. \cr \cr
 #' 
@@ -31,13 +31,13 @@
 #' \cr
 #' When `y` is atomic, the following holds (roughly speaking):
 #' 
-#'  - `fi_x(y, i)` corresponds to `y[i]`
+#'  - `ii_x(y, i)` corresponds to `y[i]`
 #'  - `ss_x(y, n(i, k), c(1, 3))` corresponds to `y[i, , k]` \cr \cr
 #'  
 #' When `y` is a list (i.e. recursive), the following holds (roughly speaking):
 #' 
-#'  - `fi2_x(y, i)` corresponds to `y[i]` or `y[[i]]`
-#'  (depending on the arguments given in `fi2_x()`)
+#'  - `ii2_x(y, i)` corresponds to `y[i]` or `y[[i]]`
+#'  (depending on the arguments given in `ii2_x()`)
 #'  - `ss2_x(y, n(i, k), c(1, 3))` corresponds to `y[i, , k]` or `y[[i, , k]]`
 #'  (depending on the arguments given in `ss2_x()`) \cr \cr
 #' 

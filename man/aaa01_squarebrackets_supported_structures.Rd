@@ -54,9 +54,9 @@ to support additional classes that are not already supported natively by 'square
 }
 \details{
 \bold{Atomic vs Recursive} \cr
-The \code{fi_}/\code{ss_} methods provided by 'squarebrackets'
+The \code{ii_}/\code{ss_} methods provided by 'squarebrackets'
 work on \bold{atomic} (see \link[base]{is.atomic}) objects. \cr
-The \code{fi2_}/\code{ss2_} methods provided by 'squarebrackets'
+The \code{ii2_}/\code{ss2_} methods provided by 'squarebrackets'
 work on \bold{recursive} (see \link[base]{is.recursive}) objects. \cr
 See \link{squarebrackets_methods} for more details. \cr
 \cr

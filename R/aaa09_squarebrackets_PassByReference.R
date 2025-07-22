@@ -31,7 +31,7 @@
 #' 
 #' ```{r eval = FALSE}
 #' x <- y <- mutatomic(1:16)
-#' fi_set(x, 1:6, rp = 8)
+#' ii_set(x, 1:6, rp = 8)
 #' ```
 #' modifies not just `x`, but also `y`. \cr
 #' This is true even if one of the variables is locked
@@ -42,7 +42,7 @@
 #' x <- mutatomic(1:16)
 #' y <- x
 #' lockBinding("y", environment())
-#' fi_set(x, i = 1:6, rp = 8)
+#' ii_set(x, i = 1:6, rp = 8)
 #' ```
 #' modifies both `x` and `y` without error,
 #' even though `y` is a locked constant. \cr
@@ -122,7 +122,7 @@
 #'  b = mutatomic(letters[11:20])
 #' )
 #' myref <- x$a
-#' fi_set(myref, 1, rp = "xxx")
+#' ii_set(myref, 1, rp = "xxx")
 #' 
 #' ```
 #' Notice in the above code that `myref` has the same address as `x$a`,
@@ -136,7 +136,7 @@
 #' only works on objects that actually exist as an actual variable,
 #' similar to functions in the style of `some_function(x, ...) <- value`. \cr
 #' Thus things like any of the following, \cr
-#' `fi_set(1:10, ...)`, `fi_set(x$a, ...)`, or `fi_set(base::letters)`, \cr
+#' `ii_set(1:10, ...)`, `ii_set(x$a, ...)`, or `ii_set(base::letters)`, \cr
 #' will not and should not work. \cr \cr
 #' 
 #' 
@@ -161,7 +161,7 @@
 #' ```{r eval = FALSE}
 #' 
 #' # letters = base::letters
-#' fi_set(letters, i = 1, rp = "XXX")
+#' ii_set(letters, i = 1, rp = "XXX")
 #' 
 #' ```
 #' 

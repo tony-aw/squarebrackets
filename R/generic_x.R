@@ -28,20 +28,20 @@
 
 #' @rdname sb_x
 #' @export
-fi_x <- function(x, ...) {
+ii_x <- function(x, ...) {
   
   .methodcheck.i(x, sys.call())
   
-  UseMethod("fi_x", x)
+  UseMethod("ii_x", x)
 }
 
 #' @rdname sb_x
 #' @export
-fi2_x <- function(x, ...) {
+ii2_x <- function(x, ...) {
   
   .methodcheck.i2(x, sys.call())
   
-  UseMethod("fi2_x", x)
+  UseMethod("ii2_x", x)
 }
 
 #' @rdname sb_x
@@ -68,14 +68,14 @@ ss2_x <- function(x, ...) {
 
 #' @rdname sb_x
 #' @export
-fi_x.default <- function(x, i = NULL, ...) {
+ii_x.default <- function(x, i = NULL, ...) {
   
   .internal_check_dots(list(...), sys.call())
   if(is.null(i)){
     return(x)
   }
   
-  elements <- ci_flat(x, i, .abortcall = sys.call())
+  elements <- ci_ii(x, i, .abortcall = sys.call())
   return(x[elements])
 }
 
@@ -94,7 +94,7 @@ ss_x.default <- function(
 
 #' @rdname sb_x
 #' @export
-fi2_x.default <- function(x, i = NULL, red = FALSE, ...) {
+ii2_x.default <- function(x, i = NULL, red = FALSE, ...) {
   
   .internal_check_dots(list(...), sys.call())
   
@@ -194,7 +194,7 @@ ss2_x.data.frame <- function(
   
   
   # s, d arguments:
-  lst <- ci_sub(x, s, d, inv = inv, chkdup, .abortcall = abortcall)
+  lst <- ci_ss(x, s, d, inv = inv, chkdup, .abortcall = abortcall)
   
   if(red && collapse::allv(collapse::vlengths(lst), 1L)) {
     x <- .arr_x(x, lst, abortcall = abortcall)

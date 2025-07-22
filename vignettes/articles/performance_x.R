@@ -6,15 +6,15 @@ library(data.table)
 
 # atomic ====
 x <- 1:1e7
-bm.fi_x.default <- bench::mark(
-  fi_x(x, i = 1:1e6),
+bm.ii_x.default <- bench::mark(
+  ii_x(x, i = 1:1e6),
   x[1:1e6],
   min_iterations = 500
 )
-bm.fi_x.default$result <- NULL
-summary(bm.fi_x.default)
-ggplot2::autoplot(bm.fi_x.default)
-save(bm.fi_x.default, file = "bm.fi_x.default.RData")
+bm.ii_x.default$result <- NULL
+summary(bm.ii_x.default)
+ggplot2::autoplot(bm.ii_x.default)
+save(bm.ii_x.default, file = "bm.ii_x.default.RData")
 
 
 n <- 5e3

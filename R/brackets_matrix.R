@@ -43,7 +43,7 @@
 #' @noRd
 .mat_x <- function(x, s, d, inv, red, chkdup, abortcall) {
   
-  .ci_sub_check(x, s, d, ndim(x), abortcall)
+  .ci_ss_check(x, s, d, ndim(x), abortcall)
   
   rowcol <- .mat_rowcol(x, s, d, inv, chkdup, abortcall)
   row <- rowcol[[1L]]
@@ -93,7 +93,7 @@
 #' @noRd
 .mat_mod_atomic <- function(x, s, d, inv, rp, tf, chkdup, abortcall) {
   
-  .ci_sub_check(x, s, d, ndim(x), abortcall)
+  .ci_ss_check(x, s, d, ndim(x), abortcall)
   rowcol <- .mat_rowcol(x, s, d, inv, chkdup, abortcall)
   row <- rowcol$row
   col <- rowcol$col
@@ -117,7 +117,7 @@
 #' @noRd
 .mat_mod_list <- function(x, s, d, inv, rp, tf, chkdup, .lapply, abortcall) {
   
-  .ci_sub_check(x, s, d, ndim(x), abortcall)
+  .ci_ss_check(x, s, d, ndim(x), abortcall)
   rowcol <- .mat_rowcol(x, s, d, inv, chkdup, abortcall)
   row <- rowcol$row
   col <- rowcol$col
@@ -142,7 +142,7 @@
 #' @noRd
 .mat_set <- function(x, s, d, inv, chkdup, rp, tf, abortcall) {
   
-  .ci_sub_check(x, s, d, ndim(x), abortcall)
+  .ci_ss_check(x, s, d, ndim(x), abortcall)
   rowcol <- .mat_rowcol(x, s, d, inv, chkdup, abortcall)
   row <- rowcol$row
   col <- rowcol$col

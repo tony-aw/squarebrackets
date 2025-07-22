@@ -9,11 +9,11 @@ test_use_factors <- FALSE
 test_PassByReference <- TRUE
 
 
-fi_set2 <- function(x, ...) {
+ii_set2 <- function(x, ...) {
   x <- data.table::copy(x)
   if(is.atomic(x)) x <- as.mutatomic(x)
   x2 <- x
-  fi_set(x, ...)
+  ii_set(x, ...)
   if(!identical(x, x2)) { stop("PassByReference fail")}
   return(x)
 }
@@ -36,7 +36,7 @@ temp.fun <- function(x) {
     return(x)
   }
   expect_equal(
-    fi_set2(x, rp = x[1]),
+    ii_set2(x, rp = x[1]),
     tempfun(x)
   ) |> errorfun()
 }
@@ -76,7 +76,7 @@ temp.fun <- function(x, elements) {
     if(is.list(x)) rp1 <- as.list(rp1)
     if(is.list(x) && length(rep) != 1) rp2 <- as.list(rp)
     expect_equal(
-      fi_set2(x, i = elements[[i]], rp = rp1),
+      ii_set2(x, i = elements[[i]], rp = rp1),
       test_sb(x, i = elements[[i]], rp = rp2)
     ) |> errorfun()
     assign("enumerate", enumerate + 1, envir = parent.frame(n = 1))
@@ -250,7 +250,7 @@ enumerate <- enumerate + 6
 
 sb_test <- function(x, ...) {
   x <- as.mutatomic(x)
-  fi_set(x, ..., rp = 1)
+  ii_set(x, ..., rp = 1)
   return(x)
 }
 sys.source(file.path(getwd(), "source", "sourcetest-errors-i.R"), envir = environment())
@@ -276,7 +276,7 @@ sb_set2 <- function(x, ...) {
 
 x <- as.mutatomic(1:10)
 expect_error(
-  fi_set2(x, i = 1:5, rp = 1:6),
+  ii_set2(x, i = 1:5, rp = 1:6),
   pattern = "recycling not allowed",
   fixed = TRUE
 )
@@ -285,11 +285,11 @@ enumerate <- enumerate + 2
 
 x <- as.mutatomic(matrix(1:10, nrow = 2))
 expect_error(
-  fi_set2(x, i = 1:5, rp = as.list(1:5)),
+  ii_set2(x, i = 1:5, rp = as.list(1:5)),
   pattern = "replacement must be atomic"
 )
 expect_error(
-  fi_set2(x, i = 1:5, rp = 1:6),
+  ii_set2(x, i = 1:5, rp = 1:6),
   pattern = "recycling not allowed"
 )
 expect_error(
@@ -301,11 +301,11 @@ enumerate <- enumerate + 4
 
 x <- as.mutatomic(array(1:27, dim = c(3,3,3)))
 expect_error(
-  fi_set2(x, i = 1:5, rp = as.list(1:5)),
+  ii_set2(x, i = 1:5, rp = as.list(1:5)),
   pattern = "replacement must be atomic"
 )
 expect_error(
-  fi_set2(x, i = 1:5, rp = 1:6),
+  ii_set2(x, i = 1:5, rp = 1:6),
   pattern = "recycling not allowed"
 )
 expect_error(

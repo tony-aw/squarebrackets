@@ -31,10 +31,10 @@ reference:
   - '`aaa10_squarebrackets_coercion`'
 - title: Generic Methods
   contents:
-  - '`fi_x`'
-  - '`fi_wo`'
-  - '`fi_mod`'
-  - '`fi_set`'
+  - '`ii_x`'
+  - '`ii_wo`'
+  - '`ii_mod`'
+  - '`ii_set`'
   - '`slice_x`'
   - '`slicev_x`'
   - '`sb_setRename`'
@@ -59,7 +59,7 @@ reference:
 - title: Developer Functions
   contents:
   - '`stopifnot_ma_safe2mutate`'
-  - '`ci_flat`'
+  - '`ci_ii`'
   - '`tci_chr`'
   - '`indx_x`'
   

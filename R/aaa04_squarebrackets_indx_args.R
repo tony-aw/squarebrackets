@@ -54,16 +54,16 @@
 #' Using the `i` arguments corresponds to doing something like the following:
 #' 
 #' ```{r eval = FALSE, echo = TRUE}
-#'  fi_x(x, i = i) # ==> x[i]   # if `x` is atomic
-#'  fi2_x(x, i = i) # ==> x[i]  # if `x` is recursive
+#'  ii_x(x, i = i) # ==> x[i]   # if `x` is atomic
+#'  ii2_x(x, i = i) # ==> x[i]  # if `x` is recursive
 #'  
 #' ```
 #' 
 #' If `i` is a function, it corresponds to the following:
 #' 
 #' ```{r eval = FALSE, echo = TRUE}
-#'  fi_x(x, i = i) # ==> x[i(x)] # if `x` is atomic
-#'  fi2_x(x, i = i) # ==> x[lapply(x, i)] # if `x` is recursive
+#'  ii_x(x, i = i) # ==> x[i(x)] # if `x` is atomic
+#'  ii2_x(x, i = i) # ==> x[lapply(x, i)] # if `x` is recursive
 #'  
 #' ```
 #' 
@@ -262,7 +262,7 @@
 #' By default, `inv = FALSE`, which translates the indices like normally. \cr
 #' When `inv = TRUE`, the inverse of the indices is taken. \cr
 #' Consider, for example, an atomic matrix `x`; \cr
-#' using `fi_mod(x, 1:2, 2L, tf = tf)`
+#' using `ii_mod(x, 1:2, 2L, tf = tf)`
 #' corresponds to something like the following:
 #' 
 #' ```{r eval = FALSE, echo = TRUE}

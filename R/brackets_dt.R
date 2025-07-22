@@ -42,7 +42,7 @@
     )
   }
   if(length(d) > 0L && !is.null(s)) {
-    .ci_sub_check(x, s, d, 2L, sys.call())
+    .ci_ss_check(x, s, d, 2L, sys.call())
     rowcol <- .dt_rowcol(x, s, d, inv, chkdup, abortcall = sys.call())
   }
   return(rowcol)

@@ -113,12 +113,12 @@ giving the element indices to select for the operation. <br>
 For atomic objects, <code>i</code> is interpreted as <code>i(x)</code>. <br>
 For recursive objects, <code>i</code> is interpreted as <code>lapply(x, i)</code>. <br><br></p></li>
 </ul><p>Using the <code>i</code> arguments corresponds to doing something like the following:</p>
-<p></p><div class="sourceCode r"><pre><code><span> <span class="fu"><a href="../reference/sb_x.html">fi_x</a></span><span class="op">(</span><span class="va">x</span>, i <span class="op">=</span> <span class="va">i</span><span class="op">)</span> <span class="co"># ==&gt; x[i]   # if `x` is atomic</span></span>
-<span> <span class="fu"><a href="../reference/sb_x.html">fi2_x</a></span><span class="op">(</span><span class="va">x</span>, i <span class="op">=</span> <span class="va">i</span><span class="op">)</span> <span class="co"># ==&gt; x[i]  # if `x` is recursive</span></span>
+<p></p><div class="sourceCode r"><pre><code><span> <span class="fu"><a href="../reference/sb_x.html">ii_x</a></span><span class="op">(</span><span class="va">x</span>, i <span class="op">=</span> <span class="va">i</span><span class="op">)</span> <span class="co"># ==&gt; x[i]   # if `x` is atomic</span></span>
+<span> <span class="fu"><a href="../reference/sb_x.html">ii2_x</a></span><span class="op">(</span><span class="va">x</span>, i <span class="op">=</span> <span class="va">i</span><span class="op">)</span> <span class="co"># ==&gt; x[i]  # if `x` is recursive</span></span>
 <span></span></code></pre><p></p></div>
 <p>If <code>i</code> is a function, it corresponds to the following:</p>
-<p></p><div class="sourceCode r"><pre><code><span> <span class="fu"><a href="../reference/sb_x.html">fi_x</a></span><span class="op">(</span><span class="va">x</span>, i <span class="op">=</span> <span class="va">i</span><span class="op">)</span> <span class="co"># ==&gt; x[i(x)] # if `x` is atomic</span></span>
-<span> <span class="fu"><a href="../reference/sb_x.html">fi2_x</a></span><span class="op">(</span><span class="va">x</span>, i <span class="op">=</span> <span class="va">i</span><span class="op">)</span> <span class="co"># ==&gt; x[lapply(x, i)] # if `x` is recursive</span></span>
+<p></p><div class="sourceCode r"><pre><code><span> <span class="fu"><a href="../reference/sb_x.html">ii_x</a></span><span class="op">(</span><span class="va">x</span>, i <span class="op">=</span> <span class="va">i</span><span class="op">)</span> <span class="co"># ==&gt; x[i(x)] # if `x` is atomic</span></span>
+<span> <span class="fu"><a href="../reference/sb_x.html">ii2_x</a></span><span class="op">(</span><span class="va">x</span>, i <span class="op">=</span> <span class="va">i</span><span class="op">)</span> <span class="co"># ==&gt; x[lapply(x, i)] # if `x` is recursive</span></span>
 <span></span></code></pre><p></p></div>
     </div>
     <div class="section level2">
@@ -272,7 +272,7 @@ and <a href="idx1.html">idx</a> methods. <br>
 By default, <code>inv = FALSE</code>, which translates the indices like normally. <br>
 When <code>inv = TRUE</code>, the inverse of the indices is taken. <br>
 Consider, for example, an atomic matrix <code>x</code>; <br>
-using <code>fi_mod(x, 1:2, 2L, tf = tf)</code>
+using <code>ii_mod(x, 1:2, 2L, tf = tf)</code>
 corresponds to something like the following:</p>
 <p></p><div class="sourceCode r"><pre><code><span></span>
 <span><span class="va">x</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">tf</span><span class="op">(</span><span class="va">x</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>

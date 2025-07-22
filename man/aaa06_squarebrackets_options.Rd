@@ -94,7 +94,7 @@ The reason
 the \link{slice_x}, \link{slice_wo}, and \link{slicev_x} methods
 need the \code{sticky} option,
 is because of the following. \cr
-Unlike the \code{fi_}, \code{fi2_}, \code{ss_}, and \code{ss2_} methods,
+Unlike the \code{ii_}, \code{ii2_}, \code{ss_}, and \code{ss2_} methods,
 the \link{slice_x}, \link{slice_wo}, and \link{slicev_x} methods
 are not wrappers around the \code{[} and \verb{[<-} operators. \cr
 Therefore,

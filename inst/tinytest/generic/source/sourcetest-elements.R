@@ -38,7 +38,7 @@ names(x) <- c(general_names[1:45], "ab", "ab", NA)
 temp.fun(x, indx_named)
 if(isTRUE(test_allow_duplicates)) {
   expect_equal(
-    fi_x(x, i = c("ab", "ab", "ab")),
+    ii_x(x, i = c("ab", "ab", "ab")),
     rep(x[which(names(x) %in% "ab")], 3)
   ) |> errorfun()
 }
@@ -61,7 +61,7 @@ names(x) <- c(general_names[1:45], "ab", "ab", NA)
 temp.fun(x, indx_named)
 if(isTRUE(test_allow_duplicates)) {
   expect_equal(
-    fi_x(x, i = c("ab", "ab", "ab")),
+    ii_x(x, i = c("ab", "ab", "ab")),
     rep(x[which(names(x) %in% "ab")], 3)
   ) |> errorfun()
 }
@@ -83,7 +83,7 @@ names(x) <- c(general_names[1:45], "ab", "ab", NA)
 temp.fun(x, indx_named)
 if(isTRUE(test_allow_duplicates)) {
   expect_equal(
-    fi_x(x, i = c("ab", "ab", "ab")),
+    ii_x(x, i = c("ab", "ab", "ab")),
     rep(x[which(names(x) %in% "ab")], 3)
   ) |> errorfun()
 }

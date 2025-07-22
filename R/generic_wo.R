@@ -29,20 +29,20 @@
 
 #' @rdname sb_wo
 #' @export
-fi_wo <- function(x, ...) {
+ii_wo <- function(x, ...) {
   
   .methodcheck.i(x, sys.call())
   
-  UseMethod("fi_wo", x)
+  UseMethod("ii_wo", x)
 }
 
 #' @rdname sb_wo
 #' @export
-fi2_wo <- function(x, ...) {
+ii2_wo <- function(x, ...) {
   
   .methodcheck.i2(x, sys.call())
   
-  UseMethod("fi2_wo", x)
+  UseMethod("ii2_wo", x)
 }
 
 #' @rdname sb_wo
@@ -67,7 +67,7 @@ ss2_wo <- function(x, ...) {
 
 #' @rdname sb_wo
 #' @export
-fi_wo.default <- function(
+ii_wo.default <- function(
     x, i = NULL, ...,
     chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
@@ -78,7 +78,7 @@ fi_wo.default <- function(
     return(x)
   }
   
-  elements <- ci_flat(x, i, inv = TRUE, chkdup = chkdup, .abortcall = sys.call())
+  elements <- ci_ii(x, i, inv = TRUE, chkdup = chkdup, .abortcall = sys.call())
   return(x[elements])
 }
 
@@ -99,7 +99,7 @@ ss_wo.default <- function(
 
 #' @rdname sb_wo
 #' @export
-fi2_wo.default <- function(
+ii2_wo.default <- function(
     x, i = NULL, red = FALSE, ...,
     chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {

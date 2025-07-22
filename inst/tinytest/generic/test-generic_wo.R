@@ -13,7 +13,7 @@ test_PassByReference <- FALSE
 
 temp.fun <- function(x) {
   expect_equal(
-    fi_wo(x),
+    ii_wo(x),
     x
   ) |> errorfun()
 }
@@ -48,7 +48,7 @@ test_sb <- function(x, i) {
 temp.fun <- function(x, elements) {
   for (i in 1:length(elements)) {
     expect_equal(
-      fi_wo(x, i = elements[[i]]),
+      ii_wo(x, i = elements[[i]]),
       test_sb(x, i = elements[[i]])
     ) |> errorfun()
     assign("enumerate", enumerate + 1, envir = parent.frame(n = 1))
@@ -116,7 +116,7 @@ sys.source(file.path(getwd(), "source", "sourcetest-dims.R"), envir = environmen
 
 
 # test errors ====
-sb_test <- fi_wo
+sb_test <- ii_wo
 sys.source(file.path(getwd(), "source", "sourcetest-errors-i.R"), envir = environment())
 
 

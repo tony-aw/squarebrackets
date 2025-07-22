@@ -90,7 +90,7 @@
 #' the \link{slice_x}, \link{slice_wo}, and \link{slicev_x} methods
 #' need the `sticky` option,
 #' is because of the following. \cr
-#' Unlike the `fi_`, `fi2_`, `ss_`, and `ss2_` methods,
+#' Unlike the `ii_`, `ii2_`, `ss_`, and `ss2_` methods,
 #' the \link{slice_x}, \link{slice_wo}, and \link{slicev_x} methods
 #' are not wrappers around the `[` and `[<-` operators. \cr
 #' Therefore,

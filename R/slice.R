@@ -1,7 +1,7 @@
 #' Efficient Sequence-based Subset Methods on (Long) Vectors
 #' 
 #' @description
-#' The `slice_` - methods are similar to the `fi_`/`ss_` - methods,
+#' The `slice_` - methods are similar to the `ii_`/`ss_` - methods,
 #' except they don't require an indexing vector,
 #' and are designed for memory efficiency. \cr \cr
 #' 
@@ -21,7 +21,7 @@
 #' 
 #'
 #' @returns
-#' Similar to the `fi_`/`ss_` methods.
+#' Similar to the `ii_`/`ss_` methods.
 #' 
 #' @example inst/examples/slice.R
 #

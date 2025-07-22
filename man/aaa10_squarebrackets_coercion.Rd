@@ -31,7 +31,7 @@ Thus, for example, the following code,
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{
 x <- mutatomic(1:16)
-fi_set(x, i = 1:6, rp = 8.5)
+ii_set(x, i = 1:6, rp = 8.5)
 #> coercing replacement to integer
 print(x)
 #>  [1]  8  8  8  8  8  8  7  8  9 10 11 12 13 14 15 16
@@ -96,7 +96,7 @@ x <- list(
  b = mutatomic(letters[11:20])
 )
 myref <- x$a
-fi_set(myref, 1, rp = "xxx")
+ii_set(myref, 1, rp = "xxx")
 
 }\if{html}{\out{</div>}}
 
@@ -104,7 +104,7 @@ Notice in the above code that \code{myref} is not a copy of \code{x$a},
 since they have the same address. \cr
 Thus changing \code{myref} also changes \code{x$a}. \cr
 In other words: \code{myref} is what could be called a "view" of \code{x$a}. \cr
-Notice also that \link{fi_set}\verb{(x$a, ...)} will not work. \cr
+Notice also that \link{ii_set}\verb{(x$a, ...)} will not work. \cr
 This is because \link{stopifnot_ma_safe2mutate} will give an error
 if \code{x} is not an \bold{actual variable},
 similar to in-place functions in the style of \code{`myfun()<-`}. \cr
@@ -123,7 +123,7 @@ etc. \cr \cr
 # Coercion examples - mutatomic ====
 
 x <- as.mutatomic(1:16)
-fi_set(x, i = 1:6, rp = 8.5) # 8.5 coerced to 8, because `x` is of type `integer`
+ii_set(x, i = 1:6, rp = 8.5) # 8.5 coerced to 8, because `x` is of type `integer`
 print(x)
 
 #############################################################################
