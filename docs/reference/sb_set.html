@@ -13,7 +13,7 @@ pass-by-reference semantics. "></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">squarebrackets</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9002</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9003</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -188,6 +188,7 @@ One cannot specify both <code>tf</code> and <code>rp</code>. It's either one set
 <span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  integer </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">ii_set</span><span class="op">(</span><span class="va">obj</span>, i <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">&lt;=</span> <span class="fl">5</span>, rp <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">:</span><span class="op">-</span><span class="fl">5</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> coercing replacement to integer</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">obj2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       a  b  c  a</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -1 -5  9 13</span>
@@ -251,6 +252,7 @@ One cannot specify both <code>tf</code> and <code>rp</code>. It's either one set
 <span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  integer </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">ii_set</span><span class="op">(</span><span class="va">obj</span>, i <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">&lt;=</span> <span class="fl">5</span>, tf <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">-</span><span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> coercing replacement to integer</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">obj2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       a  b  c  a</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -1 -5  9 13</span>
@@ -316,6 +318,7 @@ One cannot specify both <code>tf</code> and <code>rp</code>. It's either one set
 <span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  integer </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">ss_set</span><span class="op">(</span><span class="va">obj</span>, <span class="fu"><a href="nest.html">n</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, rp <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">:</span><span class="op">-</span><span class="fl">12</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> coercing replacement to integer</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">obj2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> , , 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -375,6 +378,7 @@ One cannot specify both <code>tf</code> and <code>rp</code>. It's either one set
 <span class="r-out co"><span class="r-pr">#&gt;</span> mutatomic </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  integer </span>
 <span class="r-in"><span><span class="fu">ii_set</span><span class="op">(</span><span class="va">obj</span>, i <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="va">x</span> <span class="op">&lt;=</span> <span class="fl">5</span>, rp <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">:</span><span class="op">-</span><span class="fl">5</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> coercing replacement to integer</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">obj2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> , , 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>

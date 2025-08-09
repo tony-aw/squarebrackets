@@ -11,7 +11,7 @@ header <- "
 using namespace Rcpp;
 
 
-int rcpp_count_stringmatches(String y, SEXP v) {
+inline int rcpp_count_stringmatches(String y, SEXP v) {
   int n = Rf_length(v);
   const SEXP *pv = STRING_PTR_RO(v);
   int count = 0;

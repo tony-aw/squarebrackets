@@ -236,7 +236,7 @@ with column indices to select for the operation.
 \item a \bold{complex} vector, as explained in \link{squarebrackets_indx_fundamentals}.
 \item a \bold{logical} vector of the same length as the number of columns,
 giving the column indices to select for the operation.
-\item a \bold{character} vector giving the \code{colnamess} to select. \cr
+\item a \bold{character} vector giving the \code{colnames} to select. \cr
 Note that 'squarebrackets' assumes data.frame-like objects have unique column names.
 \item a \bold{function} that returns a logical vector,
 giving the column indices to select for the operation. \cr

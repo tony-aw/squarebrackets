@@ -97,7 +97,7 @@ x <- list(
 )
 myref <- x$a
 ii_set(myref, 1, rp = "xxx")
-
+#> coercing replacement to character
 }\if{html}{\out{</div>}}
 
 Notice in the above code that \code{myref} is not a copy of \code{x$a},

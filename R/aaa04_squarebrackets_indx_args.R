@@ -230,7 +230,7 @@
 #'  * a \bold{complex} vector, as explained in \link{squarebrackets_indx_fundamentals}.
 #'  * a \bold{logical} vector of the same length as the number of columns,
 #'  giving the column indices to select for the operation.
-#'  * a \bold{character} vector giving the `colnamess` to select. \cr
+#'  * a \bold{character} vector giving the `colnames` to select. \cr
 #'  Note that 'squarebrackets' assumes data.frame-like objects have unique column names.
 #'  * a \bold{function} that returns a logical vector,
 #'  giving the column indices to select for the operation. \cr

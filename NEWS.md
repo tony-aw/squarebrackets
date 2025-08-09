@@ -10,3 +10,9 @@
 # squarebrackets 0.0.0.9002
 * Renamed the `i_` and `i2_` methods to `ii_` and `ii2_`, to avoid confusion.
 * Renamed `ci_flat()` to `ci_ii()` and `ci_sub()` to `ci_ss()`.
+
+# squarebrackets 0.0.0.9003
+* Improved speed for the `slice_` and `slicev_` methods.
+
+
+

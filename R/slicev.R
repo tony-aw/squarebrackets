@@ -346,4 +346,3 @@ countv <- function(y, ..., v = NULL, na = FALSE, r = TRUE, from = NULL, to = NUL
 }
 
 
-

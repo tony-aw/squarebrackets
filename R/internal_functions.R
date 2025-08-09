@@ -226,20 +226,18 @@
 #' @keywords internal
 #' @noRd
 .internal_coerce_rp <- function(x, rp, abortcall) {
-  rp_na <- length(rp) == 1L && is.na(rp)
-  if(!rp_na && typeof(x) != typeof(rp)) {
-    message(sprintf("coercing replacement to %s", typeof(x)))
-    if(is.logical(x)) rp <- as.logical(rp)
-    else if(is.integer(x)) rp <- as.integer(rp)
-    else if(is.double(x)) rp <- as.double(rp)
-    else if(is.complex(x)) rp <- as.complex(rp)
-    else if(is.character(x)) rp <- as.character(rp)
-    else if(is.raw(x)) rp <- as.raw(rp)
-    else {
-      stop(simpleError(
-        "unsupported atomic type", call = abortcall
-      ))
-    }
+
+  message(sprintf("coercing replacement to %s", typeof(x)))
+  if(is.logical(x)) rp <- as.logical(rp)
+  else if(is.integer(x)) rp <- as.integer(rp)
+  else if(is.double(x)) rp <- as.double(rp)
+  else if(is.complex(x)) rp <- as.complex(rp)
+  else if(is.character(x)) rp <- as.character(rp)
+  else if(is.raw(x)) rp <- as.raw(rp)
+  else {
+    stop(simpleError(
+      "unsupported atomic type", call = abortcall
+    ))
   }
   return(rp)
 }
