@@ -24,7 +24,7 @@
 #' @rdname exported_uilities
 #' @export
 indx_x <- function(i, x, xnames, xsize) {
-  if(is.null(i)) return(base::quote(expr = ))
+  if(is.null(i) || .is.0(i)) return(base::quote(expr = ))
   if(is.function(i)) return(which(lapply(x, i) |> unname() |> unlist()))
   if(length(i)==0) return(numeric(0)) 
   if(is.character(i)) {
@@ -48,7 +48,7 @@ indx_x <- function(i, x, xnames, xsize) {
 #' @rdname exported_uilities
 #' @export
 indx_wo <- function(i, x, xnames, xsize) {
-  if(is.null(i)) return(base::quote(expr = ))
+  if(is.null(i) || .is.0(i)) return(base::quote(expr = ))
   if(is.function(i)) return(which(!(lapply(x, i) |> unname() |> unlist())))
   if(length(i)==0) return(seq_len(xsize)) 
   if(is.character(i)) {
@@ -64,4 +64,11 @@ indx_wo <- function(i, x, xnames, xsize) {
     )
   }
   if(is.numeric(i)) return(seq_len(xsize)[-i])
+}
+
+
+#' @rdname exported_uilities
+#' @export
+.is.0 <- function(x) {
+  length(x) == 1L && is.numeric(x) && x == 0L
 }

@@ -146,7 +146,7 @@ ss2_wo.data.frame <- function(
   .check_args_df(x, s, d, obs, vars, abortcall = sys.call())
   
   # all missing arguments:
-  if(.all_missing_s_d(s, d) && .all_NULL_indices(list(obs, vars))) {
+  if(.all_missing_s_d(s, d) && .all_missing_indices(list(obs, vars))) {
     return(x)
   }
   

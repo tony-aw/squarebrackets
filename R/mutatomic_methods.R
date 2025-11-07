@@ -150,6 +150,22 @@ c.mutatomic <- function(..., use.names = TRUE) {
 
 
 #' @export
+`length<-.mutatomic` <- function(x, value) {
+  
+  if(!is.mutatomic(x)) {
+    stop("malformed mutatomic")
+  }
+  
+  oc <- oldClass(x)
+  class(x) <- NULL
+  length(x) <- value
+  class(x) <- oc
+  attr(x, "serial") <- .C_serial(x)
+  x
+}
+
+
+#' @export
 format.mutatomic <- function(x, ...) {
   
   if(!is.mutatomic(x)) {

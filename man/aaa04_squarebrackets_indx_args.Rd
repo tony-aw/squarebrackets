@@ -35,7 +35,7 @@ In this help page \code{x} refers to the object on which subset operations are p
 
 Any of the following can be specified for argument \code{i}:
 \itemize{
-\item \code{NULL}, corresponds to missing argument.
+\item \code{NULL} or \code{0L}, corresponds to missing argument.
 \item a vector of length 0,
 in which case no indices are selected for the operation
 (i.e. empty selection).
@@ -98,6 +98,7 @@ and (as with the previous case) recycled to become the same length as \code{d}. 
 Each element of \code{s} when \code{s} is a list, or \code{s} as a whole when \code{s} is atomic,
 can be any of the following:
 \itemize{
+\item \code{NULL} or \code{0L}, which corresponds to a missing index argument.
 \item a vector of length 0,
 in which case no indices are selected for the operation (i.e. empty selection).
 \item a numeric vector of \bold{strictly positive whole numbers}
@@ -125,13 +126,14 @@ the user can use the \link{n} function instead of \code{list()} to specify \code
 Here are some examples for clarity,
 using an atomic array \code{x} of 3 dimensions:
 \itemize{
-\item \code{ss_x(x, n(1:10, 1:5), c(1, 3))} \cr
+\item \code{ss_x(x, n(1:10, 1:5), c(1, 3))},
 extracts the first 10 rows, all columns, and the first 5 layers,
 of array \code{x}. \cr
+\code{ss_x(x, n(1:10, 0L, 1:5))} is the same.
 \item \code{ss_x(x, n(1:10), 2)} \cr
-extracts the first 10 columns of array \code{x}. \cr
+extracts the first 10 columns of array \code{x}.
 \item \code{ss_x(x, 1:10)}, \cr
-extracts the first 10 rows, columns, and layers of array \code{x}. \cr
+extracts the first 10 rows, columns, and layers of array \code{x}.
 \item \code{ss_x(x, 1:10, c(1, 3))}, \cr
 extracts the first 10 rows, all columns, and the first 10 layers,
 of array \code{x}. \cr
@@ -141,6 +143,8 @@ I.e.:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{
 ss_x(x, n(1:10, 1:5), c(1, 3)) # ==> x[1:10, , 1:5, drop = FALSE]
+
+ss_x(x, n(1:10, 0L, 1:5))      # ==> x[1:10, , 1:5, drop = FALSE]
 
 ss_x(x, 1:10, 2)               # ==> x[ , 1:10, , drop = FALSE]
 
@@ -169,6 +173,7 @@ etc. \cr
 \cr
 The \code{slice} argument can be any of the following:
 \itemize{
+\item \code{NULL} or \code{0L}, which corresponds to a missing index argument.
 \item a numeric vector of \bold{strictly positive whole numbers}
 with dimension indices to select for the operation.
 \item a \bold{complex} vector, as explained in \link{squarebrackets_indx_fundamentals}.
@@ -202,7 +207,7 @@ as to keep 'squarebrackets' fully programmatically friendly. \cr
 \bold{The \code{obs} Argument} \cr
 The \code{obs} argument can be any of the following:
 \itemize{
-\item \code{NULL} (default), corresponds to a missing argument.
+\item \code{NULL} or \code{0L}, which corresponds to a missing index argument.
 \item a vector of length 0,
 in which case no indices are selected for the operation (i.e. empty selection).
 \item a numeric vector of \bold{strictly positive whole numbers}
@@ -228,7 +233,7 @@ any variables not found in the data set will be searched from the environment. \
 \bold{The \code{vars} Argument} \cr
 The \code{vars} argument can be any of the following
 \itemize{
-\item \code{NULL} (default), corresponds to a missing argument.
+\item \code{NULL} (default) or \code{0L}, corresponds to a missing argument.
 \item a vector of length 0,
 in which case no indices are selected for the operation (i.e. empty selection).
 \item a numeric vector of \bold{strictly positive whole numbers}
@@ -298,10 +303,10 @@ For replacement with a single value or with a transformation function,
 
 \section{All Missing Indices}{
 
-\code{NULL} in the indexing arguments corresponds to a missing argument. \cr
+\code{NULL} and \code{0L} in the indexing arguments correspond to a missing argument. \cr
 For \verb{s, d}, specifying \code{d} of length 0 also corresponds to all subscripts being missing. \cr
 Thus, for \bold{both} the \verb{_x} and \verb{_wo} methods,
-using missing or \code{NULL} indexing arguments for all indexing arguments corresponds to something like the following:
+using missing indexing arguments for all indexing arguments corresponds to something like the following:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{
 x[]

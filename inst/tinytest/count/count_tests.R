@@ -42,15 +42,12 @@ rm(list = rem)
 
 # sub folder tests ====
 
-subfolders <- c(
-  "generic", "generic2", "generic_idx",
-  "helper", "sub2ind", "developer", "special", "src_related", "slice", "slicev"
-)
+subfolders <- list.dirs() |> basename() |> setdiff(c(".", "count", "source"))
 wd <- SourceFileLocation()
 setwd(wd)
 setwd("..")
 path <- file.path(getwd(), subfolders) |> normalizePath()
-files <- list.files(path, pattern = "*.R", full.names = TRUE)
+files <- list.files(path, pattern = "test-", full.names = TRUE)
 max.width <- max(stringi::stri_width(basename(files))) + 8
 
 for(iSubFolder in subfolders) {
@@ -60,7 +57,7 @@ for(iSubFolder in subfolders) {
   setwd("..")
   setwd(normalizePath(iSubFolder))
   getwd()
-  files <- list.files(normalizePath(getwd()), pattern = ".R", full.names = TRUE)
+  files <- list.files(normalizePath(getwd()), pattern = "test-", full.names = TRUE)
   print(iSubFolder)
   for(iFile in files) {
     capture.output(source(normalizePath(iFile)), file = nullfile()) |> suppressMessages()

@@ -41,7 +41,7 @@ tci_bool <- function(indx, n, inv = FALSE, .abortcall = sys.call()) {
     stop(simpleError("incorrect length of logical indices", call = .abortcall))
   }
   if(!inv) return(which(indx))
-  if(inv) return(which(!indx))
+  if(inv) return(collapse::whichv(indx, FALSE))
 }
 
 
@@ -58,7 +58,21 @@ tci_int <- function(indx, n, inv = FALSE, chkdup = FALSE, .abortcall = sys.call(
       stop(simpleError("duplicate integers or names not allowed", call = .abortcall))
     }
   }
+  
   if(!inv) { return(indx) }
+  
+  if(inv && length(indx) == 1L && n >= 2L) {
+    if(indx == 1L) { return(2L:n) }
+    else if(indx == n) { return(1:(n - 1L)) }
+    else { return(seq_len(n)[-indx]) }
+  }
+  if(inv && length(indx) == 2L && n >= 3L) {
+    if(all(sort(indx) == c(1L, n))) {
+      return(2L:(n - 1L))
+    }
+    else { return(seq_len(n)[-indx]) }
+  }
+  
   if(inv) { return(seq_len(n)[-indx]) }
   
 }
@@ -95,7 +109,7 @@ tci_chr <- function(
 
 #' @rdname developer_tci
 #' @export
-tci_cplx <- function(indx, n, inv = FALSE, chkdup = FALSE, .abortcall = sys.call()) {
+tci_im <- function(indx, n, inv = FALSE, chkdup = FALSE, .abortcall = sys.call()) {
   
   indx <- .C_convert_cplx(indx, n)
   
@@ -103,3 +117,7 @@ tci_cplx <- function(indx, n, inv = FALSE, chkdup = FALSE, .abortcall = sys.call
 }
 
 
+tci_zerolen <- function(n, inv = FALSE) {
+  if(!inv) return(integer(0L))
+  if(inv) return(1:n)
+}

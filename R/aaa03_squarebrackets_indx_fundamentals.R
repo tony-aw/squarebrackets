@@ -45,7 +45,6 @@
 #' 
 #' ```
 #' 
-#' 
 #' Character indices are internally translated to integer indices using
 #' \link{match_all}. \cr
 #' \cr
@@ -63,6 +62,8 @@
 #' Imaginary numbers that are negative integers,
 #' like `1:10 * -1i`,
 #' index by counting backwards (i.e. from the end). \cr
+#' Positive and negative numbers can be combined,
+#' like `c(-10:1, 1:10) * 1i`. \cr
 #' Note that \bold{only} the `Imaginary` part of a complex vector is used (`Im(y)`); \cr
 #' the `Real` part (`Re(y)`) is \bold{ignored}. \cr
 #' \cr
@@ -78,10 +79,17 @@
 #' 
 #' ii_x(x, 10:1 * -1i) # last 10 elements, in tail()-like order
 #' 
+#' ii_x(x, c(1, -1) * 1i) # extract first and last element
+#' 
 #' ```
 #' Thus complex vectors allow the user to choose between counting from the beginning,
 #' like regular integers,
-#' or backwards counting from the end. \cr
+#' or backwards counting from the end, or a combination of both. \cr
+#' \cr
+#' \cr
+#' \bold{Missing Index Argument} \cr
+#' Both `NULL` and the numeric scalar `0L` can be used to specify an missing index argument. \cr
+#' For example, given a matrix `x`, `ss_x(x, n(0, 1:10))` is equivalent to `x[ , 1:10]`. \cr
 #' \cr
 #' \cr
 #' 

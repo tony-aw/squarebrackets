@@ -16,7 +16,6 @@ indx_general <- function(x, dim.i) {
   dim.n1 <- dim.n - round(dim.n/2)
   dim.n2 <- dim.n - dim.n1
   out <- list(
-    NULL,
     logical(0),
     rep(TRUE, dim.n),
     rep(FALSE, dim.n),
@@ -69,11 +68,6 @@ for(iRow in 1:length(rows)) {
       
       s <- n(rows[[iRow]], cols[[iCol]])
       d <- 1:2
-      rem <- which(vapply(s, is.null, logical(1L)))
-      if(length(rem) > 0L) {
-        s <- s[-rem]
-        d <- d[-rem]
-      }
       
       list_sd[[i]] <- .dt_make_args(
         x, s = s, d = d, obs = NULL, vars = NULL,
@@ -83,6 +77,7 @@ for(iRow in 1:length(rows)) {
         x, s = NULL, d = integer(0L), obs = rows[[iRow]], vars = cols[[iCol]],
         iInv, FALSE, sys.call()
       )
+      
       i <- i + 1L
       
       

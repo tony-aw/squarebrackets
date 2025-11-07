@@ -19,7 +19,7 @@ if(!test_PassByReference) {
   
   
   expect_error(
-    sb_test(x, s = list(0), d = 1),
+    sb_test(x, s = list(c(0, 0)), d = 1),
     pattern = "integers must be >= 1 and <= bounds",
     fixed = TRUE
   ) |> errorfun()

@@ -274,7 +274,7 @@ expect_error(
   pattern = "recycling not allowed",
   fixed = TRUE
 )
-enumerate <- enumerate + 2
+enumerate <- enumerate + 1
 
 
 x <- as.mutatomic(matrix(1:10, nrow = 2))
@@ -287,7 +287,7 @@ expect_error(
   pattern = "recycling not allowed"
 )
 expect_error(
-  ss_set2(x, n(1:2), rp = 1:6),
+  ss_set2(x, n(1:2), rp = 1:4),
   pattern = "recycling not allowed"
 )
 enumerate <- enumerate + 4

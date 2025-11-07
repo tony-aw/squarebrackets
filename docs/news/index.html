@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">squarebrackets</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9003</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9005</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -39,8 +39,29 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.0.0.9000" id="squarebrackets-0009000">squarebrackets 0.0.0.9000<a class="anchor" aria-label="anchor" href="#squarebrackets-0009000"></a></h2>
-<ul><li>First “real” experimental version of ‘squarebrackets’ on GitHub.</li>
+<h2 class="pkg-version" data-toc-text="0.0.0.9005" id="squarebrackets-0009005">squarebrackets 0.0.0.9005<a class="anchor" aria-label="anchor" href="#squarebrackets-0009005"></a></h2>
+<ul><li>
+<code>0L</code> can now be used as an alias for <code>NULL</code> in the indexing arguments.</li>
+<li>
+<code>NULL</code> or <code>0L</code> can now be used in a list for the <code>ss</code> argument, for more convenience.</li>
+<li>Added proper tests for the <code>obs, vars</code> arguments.</li>
+<li>Improved speed of the array-related methods.</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.0.0.9004" id="squarebrackets-0009004">squarebrackets 0.0.0.9004<a class="anchor" aria-label="anchor" href="#squarebrackets-0009004"></a></h2>
+<ul><li>Improved speed for the <code>_set</code> methods.</li>
+<li>Simplified the internal code used for matrices.</li>
+<li>
+<strong>Bug fix</strong> in the <code>ss, d</code> argument pair, where something like <code>1:2, 1:2</code> behave differently then <code>list(1:2), 1:2</code> for data.frames.</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.0.0.9003" id="squarebrackets-0009003">squarebrackets 0.0.0.9003<a class="anchor" aria-label="anchor" href="#squarebrackets-0009003"></a></h2>
+<ul><li>Improved speed for the <code>slice_</code> and <code>slicev_</code> methods.</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.0.0.9002" id="squarebrackets-0009002">squarebrackets 0.0.0.9002<a class="anchor" aria-label="anchor" href="#squarebrackets-0009002"></a></h2>
+<ul><li>Renamed the <code>i_</code> and <code>i2_</code> methods to <code>ii_</code> and <code>ii2_</code>, to avoid confusion.</li>
+<li>Renamed <code>ci_flat()</code> to <code><a href="../reference/developer_ci.html">ci_ii()</a></code> and <code>ci_sub()</code> to <code><a href="../reference/developer_ci.html">ci_ss()</a></code>.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9001" id="squarebrackets-0009001">squarebrackets 0.0.0.9001<a class="anchor" aria-label="anchor" href="#squarebrackets-0009001"></a></h2>
@@ -49,13 +70,8 @@
 <li>The <code>ss_</code>/<code>ss2_</code> methods will now give an error if dimensional sub-set operations are attempted on non-dimensional objects.</li>
 </ul></div>
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.0.0.9002" id="squarebrackets-0009002">squarebrackets 0.0.0.9002<a class="anchor" aria-label="anchor" href="#squarebrackets-0009002"></a></h2>
-<ul><li>Renamed the <code>i_</code> and <code>i2_</code> methods to <code>ii_</code> and <code>ii2_</code>, to avoid confusion.</li>
-<li>Renamed <code>ci_flat()</code> to <code><a href="../reference/developer_ci.html">ci_ii()</a></code> and <code>ci_sub()</code> to <code><a href="../reference/developer_ci.html">ci_ss()</a></code>.</li>
-</ul></div>
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.0.0.9003" id="squarebrackets-0009003">squarebrackets 0.0.0.9003<a class="anchor" aria-label="anchor" href="#squarebrackets-0009003"></a></h2>
-<ul><li>Improved speed for the <code>slice_</code> and <code>slicev_</code> methods.</li>
+<h2 class="pkg-version" data-toc-text="0.0.0.9000" id="squarebrackets-0009000">squarebrackets 0.0.0.9000<a class="anchor" aria-label="anchor" href="#squarebrackets-0009000"></a></h2>
+<ul><li>First “real” experimental version of ‘squarebrackets’ on GitHub.</li>
 </ul></div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>

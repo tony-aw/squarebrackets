@@ -2,7 +2,8 @@ docs/** linguist-documentation
 vignettes/** linguist-documentation
 man/** linguist-documentation
 inst/** linguist-vendored
-R/aaa*.R -linguist-documentationskeletons/** -linguist-vendored
+R/aaa*.R -linguist-documentation
+skeletons/** -linguist-vendored
 R/reexports.R -linguist-documentation
 R/meta_functions.R -linguist-documentation
 R/zzz.R -linguist-vendored

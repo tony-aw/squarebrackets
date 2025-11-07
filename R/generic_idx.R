@@ -97,20 +97,20 @@ idx.array <- function(
   # error checks:
   .internal_check_dots(list(...), sys.call())
   check_args <- c(
-    !is.null(s) && !is.null(d),
-    !is.null(slice) && !is.null(margin),
-    !is.null(i)
+    !.C_is_missing_idx(s) && !.C_is_missing_idx(d),
+    !.C_is_missing_idx(slice) && !.C_is_missing_idx(margin),
+    !.C_is_missing_idx(i)
   )
   if(sum(check_args) > 1L) {
     stop("incorrect combination of arguments given")
   }
-  check_args <- is.null(slice) == is.null(margin)
+  check_args <- .C_is_missing_idx(slice) == .C_is_missing_idx(margin)
   if(!check_args) {
     stop("incorrect combination of arguments given")
   }
   
   # flat indices:
-  if(!is.null(i)) {
+  if(!.C_is_missing_idx(i)) {
     elements <- elements <- ci_ii(
       x, i, inv, chkdup, .abortcall = sys.call()
     )
@@ -118,12 +118,12 @@ idx.array <- function(
   }
   
   # slice, margin:
-  if(!is.null(slice) && !is.null(margin)) {
+  if(!.C_is_missing_idx(slice) && !.C_is_missing_idx(margin)) {
     return(ci_margin(x, slice, margin, inv, chkdup, .abortcall = sys.call()))
   }
   
   # s, d:
-  if(is.null(s) || is.null(d)) {
+  if(.C_is_missing_idx(s) || .C_is_missing_idx(d)) {
     stop("`s` and/or `d` not specified")
   }
   .check_args_array(x, s, d, sys.call())

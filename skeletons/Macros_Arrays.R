@@ -2,11 +2,8 @@
 
 library(stringi)
 
-DTYPES <- seq(2, 16, 1)
+DTYPES <- 2:16
 
-# set-up ====
-
-library(stringi)
 
 SXPTYPES <- c("LGLSXP", "INTSXP", "REALSXP", "CPLXSXP", "STRSXP", "RAWSXP")
 RCPPTYPES <- c("Logical", "Integer", "Numeric", "Complex", "Character", "Raw")
@@ -30,20 +27,17 @@ make_pointers <- sprintf("const int *pind%d = INTEGER_RO(ind%d);\t\\", 1:16, 1:1
 all_lengths <- paste("len", 1:16, sep = "")
 all_parts_decl <- sprintf("i_parts%d", 1:16)
 
+
 fortext <- "for(int iter%d = 0; iter%d < len%d; ++iter%d) {\t\\
-\ti_parts%d = pdim[%d] * (pind%d[iter%d] - 1);\t\\"
+\ti_parts%d = pdcp[%d] * (pind%d[iter%d] - 1) + i_parts%d;\t\\"
 
 fortext1 <- "for(int iter1 = 0; iter1 < len1; ++iter1) {\t\\
-\ti_parts1 = pind1[iter1];\t\\"
+\ti_parts1 = pind1[iter1] + i_parts2;\t\\"
 
 all_for <- c(
   fortext1,
-  sprintf(fortext, 2:16, 2:16, 2:16, 2:16,
-          2:16, 0:14, 2:16, 2:16)
-)
-
-all_parts <- c(
-  sprintf("i_parts%d", 1:16)
+  sprintf(fortext, DTYPES, DTYPES, DTYPES, DTYPES,
+          DTYPES, DTYPES - 2L, DTYPES, DTYPES, DTYPES + 1L)
 )
 
 
@@ -53,12 +47,11 @@ templatecode <- "
   <setlengths>
   <make_pointers>
   R_xlen_t <parts_decl>;  \\
-  double *pdim;              \\
-  pdim = REAL(dimcumprod); \\
+  const double *pdcp = REAL_RO(dimcumprod); \\
   R_xlen_t flatind = 0;           \\
                               \\
   <startfor>
-        flatind = <main>;     \\
+        flatind = i_parts1;     \\
         DOCODE;               \\
   <endfor>
 } while(0)
@@ -77,7 +70,10 @@ for(i in DTYPES) {
   current_parts_decl <- stri_c(all_parts_decl[1:i], collapse = ", ")
   current_setlength_mult <- stri_c(all_lengths[1:i], collapse = " * ")
   current_for <- stri_c(all_for[i:1], collapse = "\n")
-  current_main <- stri_c(all_parts[1:i], collapse = " + ")
+  find <- sprintf(c(" + i_parts%d"), i + 1)
+  current_for <- stri_replace_all(
+    current_for, c(""), fixed = find, vectorise_all = FALSE
+  )
   current_end <- stri_c(rep("\t }\t\\", i), collapse = "\n")
   
   current_fixed <- c(
@@ -88,7 +84,6 @@ for(i in DTYPES) {
     "<parts_decl>",
     "<setlength_mult>",
     "<startfor>",
-    "<main>",
     "<endfor>"
   )
   current_replacement <- c(
@@ -99,7 +94,6 @@ for(i in DTYPES) {
     current_parts_decl,
     current_setlength_mult,
     current_for,
-    current_main,
     current_end
   )
   

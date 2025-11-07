@@ -31,7 +31,7 @@
 #' 
 #' Any of the following can be specified for argument `i`:
 #' 
-#'  * `NULL`, corresponds to missing argument.
+#'  * `NULL` or `0L`, corresponds to missing argument.
 #'  * a vector of length 0,
 #'  in which case no indices are selected for the operation
 #'  (i.e. empty selection).
@@ -95,6 +95,7 @@
 #' Each element of `s` when `s` is a list, or `s` as a whole when `s` is atomic,
 #' can be any of the following:
 #' 
+#'  * `NULL` or `0L`, which corresponds to a missing index argument.
 #'  * a vector of length 0,
 #'  in which case no indices are selected for the operation (i.e. empty selection).
 #'  * a numeric vector of \bold{strictly positive whole numbers}
@@ -119,13 +120,14 @@
 #' Here are some examples for clarity,
 #' using an atomic array `x` of 3 dimensions:
 #' 
-#'  * `ss_x(x, n(1:10, 1:5), c(1, 3))` \cr
+#'  * `ss_x(x, n(1:10, 1:5), c(1, 3))`,
 #'  extracts the first 10 rows, all columns, and the first 5 layers,
 #'  of array `x`. \cr
+#'  `ss_x(x, n(1:10, 0L, 1:5))` is the same.
 #'  * `ss_x(x, n(1:10), 2)` \cr
-#'  extracts the first 10 columns of array `x`. \cr
+#'  extracts the first 10 columns of array `x`.
 #'  * `ss_x(x, 1:10)`, \cr
-#'  extracts the first 10 rows, columns, and layers of array `x`. \cr
+#'  extracts the first 10 rows, columns, and layers of array `x`.
 #'  * `ss_x(x, 1:10, c(1, 3))`, \cr
 #'  extracts the first 10 rows, all columns, and the first 10 layers,
 #'  of array `x`. \cr
@@ -135,6 +137,8 @@
 #' ```{r eval = FALSE, echo = TRUE}
 #' 
 #' ss_x(x, n(1:10, 1:5), c(1, 3)) # ==> x[1:10, , 1:5, drop = FALSE]
+#' 
+#' ss_x(x, n(1:10, 0L, 1:5))      # ==> x[1:10, , 1:5, drop = FALSE]
 #' 
 #' ss_x(x, 1:10, 2)               # ==> x[ , 1:10, , drop = FALSE]
 #' 
@@ -162,6 +166,7 @@
 #' \cr
 #' The `slice` argument can be any of the following:
 #' 
+#'  * `NULL` or `0L`, which corresponds to a missing index argument.
 #'  * a numeric vector of \bold{strictly positive whole numbers}
 #'  with dimension indices to select for the operation.
 #'  * a \bold{complex} vector, as explained in \link{squarebrackets_indx_fundamentals}.
@@ -195,7 +200,7 @@
 #' \bold{The \code{obs} Argument} \cr
 #' The `obs` argument can be any of the following:
 #' 
-#'  * `NULL` (default), corresponds to a missing argument.
+#'  * `NULL` or `0L`, which corresponds to a missing index argument.
 #'  * a vector of length 0,
 #'  in which case no indices are selected for the operation (i.e. empty selection).
 #'  * a numeric vector of \bold{strictly positive whole numbers}
@@ -222,7 +227,7 @@
 #' \bold{The \code{vars} Argument} \cr
 #' The `vars` argument can be any of the following
 #' 
-#'  * `NULL` (default), corresponds to a missing argument.
+#'  * `NULL` (default) or `0L`, corresponds to a missing argument.
 #'  * a vector of length 0,
 #'  in which case no indices are selected for the operation (i.e. empty selection).
 #'  * a numeric vector of \bold{strictly positive whole numbers}
@@ -293,10 +298,10 @@
 #' 
 #' 
 #' @section All Missing Indices:
-#' `NULL` in the indexing arguments corresponds to a missing argument. \cr
+#' `NULL` and `0L` in the indexing arguments correspond to a missing argument. \cr
 #' For `s, d`, specifying `d` of length 0 also corresponds to all subscripts being missing. \cr
 #' Thus, for \bold{both} the `_x` and `_wo` methods,
-#' using missing or `NULL` indexing arguments for all indexing arguments corresponds to something like the following:
+#' using missing indexing arguments for all indexing arguments corresponds to something like the following:
 #' 
 #' ```{r eval = FALSE, echo = TRUE}
 #' 

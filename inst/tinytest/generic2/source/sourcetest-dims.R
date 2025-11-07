@@ -12,6 +12,7 @@ indx_general <- function(x, dim.i) {
   dim.n2 <- dim.n - dim.n1
   out <- list(
     NULL,
+    0L,
     logical(0),
     rep(TRUE, dim.n),
     rep(FALSE, dim.n),
@@ -51,11 +52,6 @@ temp.fun.2d <- function(x, row, col, f_expect, f_out) {
       
       s <- n(row[[i]], col[[j]])
       d <- 1:2
-      rem <- which(vapply(s, is.null, logical(1L)))
-      if(length(rem) > 0L) {
-        s <- s[-rem]
-        d <- d[-rem]
-      }
       
       expected[[k]] <- f_expect(x, row[[i]], col[[j]])
       out[[k]] <- f_out(x, s, d)
@@ -191,8 +187,6 @@ enumerate <- enumerate + 3
 
 
 # early capture s,d equivalence checks ====
-
-
 # matrix
 x <- matrix(as.list(1:20), ncol = 4)
 expect_equal(
@@ -204,7 +198,21 @@ expect_equal(
   sb_test(x, list(1:4, 1:3), 1:2)
 ) |> errorfun()
 
-# errors
+
+
+# NULL/0L equivalence checks ====
+x <- matrix(as.list(1:20), ncol = 4)
+expect_equal(
+  sb_test(x, list(1:3, 0)),
+  sb_test(x, list(1:3, NULL))
+) |> errorfun()
+expect_equal(
+  sb_test(x, list(0, 1:3)),
+  sb_test(x, list(NULL, 1:3))
+) |> errorfun()
+
+
+# errors ====
 expect_error(
   sb_test(x, n(1:3), "a"),
   pattern = "`d` must be a integer vector"

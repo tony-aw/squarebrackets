@@ -13,7 +13,7 @@
 #'  do not always return the same output for certain data.frame-like objects.
 #'  * `ci_obs()` and `ci_vars()` construct row and column indices,
 #'  respectively,
-#'  data.frame-like objects. \cr
+#'  for data.frame-like objects. \cr
 #'
 #'
 #' @param x the object for which the indices are meant.
@@ -67,14 +67,13 @@ ci_ii <- function(
   n.i <- length(i)
   
   if(n.i == 0L) {
-    n <- length(x)
-    if(!inv) return(integer(0L))
-    if(inv) return(seq_len(n))
+    return(tci_zerolen(length(x), inv))
   }
+  
   
   if(is.complex(i)) {
     n <- length(x)
-    return(tci_cplx(i, n, inv, chkdup))
+    return(tci_im(i, n, inv, chkdup))
   }
   
   if(is.numeric(i)) {
@@ -112,13 +111,12 @@ ci_margin <- function(
   
   
   if(n.slice == 0L) {
-    if(!inv) return(integer(0L))
-    if(inv) return(seq_len(dim(x)[margin]))
+    return(tci_zerolen(dim(x)[margin], inv))
   }
   
   if(is.complex(slice)) {
     dlength <- dim(x)[margin]
-    return(tci_cplx(slice, dlength, inv, chkdup))
+    return(tci_im(slice, dlength, inv, chkdup))
   }
   
   if(is.numeric(slice)) {
@@ -142,17 +140,34 @@ ci_margin <- function(
 }
 
 
+
 #' @rdname developer_ci
 #' @export
 ci_ss <- function(
-    x, s, d, inv = FALSE, chkdup = FALSE, uniquely_named = FALSE, .abortcall = sys.call()
+    x, s, d = 1:ndim(x), inv = FALSE, chkdup = FALSE, uniquely_named = FALSE, .abortcall = sys.call()
 ) {
   # Note: since arrays have many dimensions,
   # but the maximum total number of elements remains the same
   # the maximum of each dimension reduces.
   # Thus, creating sequences here is not so expensive.
   
+  if(.all_missing_indices(s) || .C_is_missing_idx(d)) {
+    lst <- lapply(dim(x), \(n)1:n)
+    return(lst)
+  }
+  
   .ci_ss_check(x, s, d, ndim(x), .abortcall)
+  
+  # remove missing indices:
+  if(is.list(s)) {
+    s <- unclass(s)
+    rem.ind <- which(vapply(s, .C_is_missing_idx, logical(1L)))
+    if(length(rem.ind)) {
+      s <- s[-rem.ind]
+      d <- d[-rem.ind]
+    }
+  }
+  
   
   if(length(d) == 1L || is.atomic(s)) {
     return(.ci_ss.atomic(x, s, d, inv, chkdup, uniquely_named, .abortcall))
@@ -182,14 +197,13 @@ ci_df <- function(
   
   
   if(n.slice == 0L) {
-    if(!inv) return(integer(0L))
-    if(inv) return(seq_len(dim(x)[margin]))
+    return(tci_zerolen(dim(x)[margin], inv))
   }
   
   if(is.complex(slice)) {
     if(margin == 1L) dlength <- nrow(x)
     if(margin == 2L) dlength <- ncol(x)
-    return(tci_cplx(slice, dlength, inv, chkdup))
+    return(tci_im(slice, dlength, inv, chkdup))
   }
   
   if(is.numeric(slice)) {
@@ -225,8 +239,7 @@ ci_obs <- function(
   
   
   if(length(obs) == 0L) {
-    if(!inv) return(integer(0L))
-    if(inv) return(1:nrow(x))
+    return(tci_zerolen(nrow(x), inv))
   }
   
   if(.internal_is_formula(obs)) {
@@ -234,7 +247,7 @@ ci_obs <- function(
   }
   
   if(is.complex(obs)) {
-    return(tci_cplx(obs, nrow(x), inv, chkdup))
+    return(tci_im(obs, nrow(x), inv, chkdup))
   }
   
   if(is.numeric(obs)) {
@@ -264,16 +277,16 @@ ci_vars <- function(
   }
   
   if(length(vars) == 0L) {
-    if(!inv) return(integer(0L))
-    if(inv) return(1:ncol(x))
+    return(tci_zerolen(ncol(x), inv))
   }
+  
   
   if(.internal_is_formula(vars)) {
     return(.indx_make_vars_range(x, vars, inv, .abortcall))
   }
   
   if(is.complex(vars)) {
-    return(tci_cplx(vars, ncol(x), inv, chkdup))
+    return(tci_im(vars, ncol(x), inv, chkdup))
   }
   
   if(is.numeric(vars)) {

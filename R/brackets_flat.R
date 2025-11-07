@@ -109,12 +109,15 @@
   
   rp <- .internal_coerce_rp(x, rp, abortcall)
   
-  if(length(x) < (2^31 - 1)) {
-    .rcpp_set_vind_32_atomic(x, as.integer(ind - 1L), rp)
+  if(is.integer(ind)) {
+    .rcpp_set_vind_32_atomic(x, ind, rp)
+    return(invisible(NULL))
+  }
+  if(is.double(ind)) {
+    .rcpp_set_vind_64_atomic(x, ind, rp)
     return(invisible(NULL))
   }
   else {
-    .rcpp_set_vind_64_atomic(x, as.double(ind - 1), rp)
     return(invisible(NULL))
   }
 }

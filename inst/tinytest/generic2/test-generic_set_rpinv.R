@@ -48,10 +48,10 @@ f_expect.data.frame <- function(x, row = NULL, col = NULL) {
   return(x)
 }
 
-f_out.data.frame <- function(x, s, d) {
+f_out.data.frame <- function(x, s = NULL, d = NULL, obs = NULL, vars = NULL) {
   
   rp <- parent.frame()$rp
-  return(ss2_set2(x, s, d, rp = rp))
+  return(ss2_set2(x, s, d, obs, vars, rp = rp))
   
 }
 
@@ -60,6 +60,8 @@ f_out.data.frame <- function(x, s, d) {
 dt. <- loadNamespace("data.table")
 
 sys.source(file.path(getwd(), "source", "sourcetest-datasets.R"), envir = environment())
+sys.source(file.path(getwd(), "source", "sourcetest-obsvars.R"), envir = environment())
+
 
 # test errors ====
 

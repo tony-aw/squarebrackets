@@ -10,7 +10,7 @@ because things like dimnames(x)[1] and rownames(x)
 do not always return the same output for certain data.frame-like objects.
 ci_obs() and ci_vars() construct row and column indices,
 respectively,
-data.frame-like objects.
+for data.frame-like objects.
 
 "><meta property="og:description" content="These functions construct indices.
 ci_ii() constructs an integer vector flat/interior indices.
@@ -23,7 +23,7 @@ because things like dimnames(x)[1] and rownames(x)
 do not always return the same output for certain data.frame-like objects.
 ci_obs() and ci_vars() construct row and column indices,
 respectively,
-data.frame-like objects.
+for data.frame-like objects.
 
 "></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -33,7 +33,7 @@ data.frame-like objects.
 
     <a class="navbar-brand me-2" href="../index.html">squarebrackets</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9003</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9005</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -76,7 +76,7 @@ because things like <code>dimnames(x)[1]</code> and <code>rownames(x)</code>
 do not always return the same output for certain data.frame-like objects.</p></li>
 <li><p><code>ci_obs()</code> and <code>ci_vars()</code> construct row and column indices,
 respectively,
-data.frame-like objects. <br></p></li>
+for data.frame-like objects. <br></p></li>
 </ul></div>
 
     <div class="section level2">
@@ -103,7 +103,7 @@ data.frame-like objects. <br></p></li>
 <span><span class="fu">ci_ss</span><span class="op">(</span></span>
 <span>  <span class="va">x</span>,</span>
 <span>  <span class="va">s</span>,</span>
-<span>  <span class="va">d</span>,</span>
+<span>  d <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="ndim.html">ndim</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span>
 <span>  inv <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  chkdup <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  uniquely_named <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -194,7 +194,7 @@ But specifying <code>TRUE</code> when the relevant names are not unique will res
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 5</span>
 <span class="r-in"><span><span class="fu"><a href="developer_tci.html">tci_chr</a></span><span class="op">(</span><span class="va">chr</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1 2 1 2</span>
-<span class="r-in"><span><span class="fu"><a href="developer_tci.html">tci_cplx</a></span><span class="op">(</span><span class="va">cplx</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="developer_tci.html">tci_im</a></span><span class="op">(</span><span class="va">cplx</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 5 4 3 2</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">ci_ii</span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">10</span> <span class="op">*</span> <span class="op">-</span><span class="fl">1i</span><span class="op">)</span></span></span>

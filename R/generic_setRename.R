@@ -179,7 +179,7 @@ sb2_setVarnames <- function(x, old, new, skip_absent = FALSE, ...) {
     return(tci_chr(i, nms, .abortcall = abortcall))
   }
   else if(is.complex(i)) {
-    return(tci_cplx(i, length(nms), .abortcall = abortcall))
+    return(tci_im(i, length(nms), .abortcall = abortcall))
   }
   else {
     .indx_stop(abortcall)

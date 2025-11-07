@@ -19,7 +19,7 @@ if(!test_PassByReference) {
   
   for(i in 1:length(xlist)) {
     expect_error(
-      sb_test(xlist[[i]], i = 0),
+      sb_test(xlist[[i]], i = c(0, 0)),
       pattern = "integers must be >= 1 and <= bounds",
       fixed = TRUE
     )|> errorfun()

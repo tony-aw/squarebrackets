@@ -18,15 +18,15 @@ int len2 = Rf_length(ind2);	\
   const int *pind1 = INTEGER_RO(ind1);	\
 const int *pind2 = INTEGER_RO(ind2);	\
   R_xlen_t i_parts1, i_parts2;  \
-  double *pdim;              \
-  pdim = REAL(dimcumprod); \
+  double *pdcp;              \
+  pdcp = REAL(dimcumprod); \
   R_xlen_t flatind = 0;           \
                               \
   for(int iter2 = 0; iter2 < len2; ++iter2) {	\
-	i_parts2 = pdim[0] * (pind2[iter2] - 1);	\
+	i_parts2 = pdcp[0] * (pind2[iter2] - 1);	\
 for(int iter1 = 0; iter1 < len1; ++iter1) {	\
-	i_parts1 = pind1[iter1];	\
-        flatind = i_parts1 + i_parts2;     \
+	i_parts1 = pind1[iter1] + i_parts2;	\
+        flatind = i_parts1;     \
         DOCODE;               \
   	 }	\
 	 }	\
@@ -48,17 +48,17 @@ int len3 = Rf_length(ind3);	\
 const int *pind2 = INTEGER_RO(ind2);	\
 const int *pind3 = INTEGER_RO(ind3);	\
   R_xlen_t i_parts1, i_parts2, i_parts3;  \
-  double *pdim;              \
-  pdim = REAL(dimcumprod); \
+  double *pdcp;              \
+  pdcp = REAL(dimcumprod); \
   R_xlen_t flatind = 0;           \
                               \
   for(int iter3 = 0; iter3 < len3; ++iter3) {	\
-	i_parts3 = pdim[1] * (pind3[iter3] - 1);	\
+	i_parts3 = pdcp[1] * (pind3[iter3] - 1);	\
 for(int iter2 = 0; iter2 < len2; ++iter2) {	\
-	i_parts2 = pdim[0] * (pind2[iter2] - 1);	\
+	i_parts2 = pdcp[0] * (pind2[iter2] - 1) + i_parts3;	\
 for(int iter1 = 0; iter1 < len1; ++iter1) {	\
-	i_parts1 = pind1[iter1];	\
-        flatind = i_parts1 + i_parts2 + i_parts3;     \
+	i_parts1 = pind1[iter1] + i_parts2;	\
+        flatind = i_parts1;     \
         DOCODE;               \
   	 }	\
 	 }	\
@@ -84,19 +84,19 @@ const int *pind2 = INTEGER_RO(ind2);	\
 const int *pind3 = INTEGER_RO(ind3);	\
 const int *pind4 = INTEGER_RO(ind4);	\
   R_xlen_t i_parts1, i_parts2, i_parts3, i_parts4;  \
-  double *pdim;              \
-  pdim = REAL(dimcumprod); \
+  double *pdcp;              \
+  pdcp = REAL(dimcumprod); \
   R_xlen_t flatind = 0;           \
                               \
   for(int iter4 = 0; iter4 < len4; ++iter4) {	\
-	i_parts4 = pdim[2] * (pind4[iter4] - 1);	\
+	i_parts4 = pdcp[2] * (pind4[iter4] - 1);	\
 for(int iter3 = 0; iter3 < len3; ++iter3) {	\
-	i_parts3 = pdim[1] * (pind3[iter3] - 1);	\
+	i_parts3 = pdcp[1] * (pind3[iter3] - 1) + i_parts4;	\
 for(int iter2 = 0; iter2 < len2; ++iter2) {	\
-	i_parts2 = pdim[0] * (pind2[iter2] - 1);	\
+	i_parts2 = pdcp[0] * (pind2[iter2] - 1) + i_parts3;	\
 for(int iter1 = 0; iter1 < len1; ++iter1) {	\
-	i_parts1 = pind1[iter1];	\
-        flatind = i_parts1 + i_parts2 + i_parts3 + i_parts4;     \
+	i_parts1 = pind1[iter1] + i_parts2;	\
+        flatind = i_parts1;     \
         DOCODE;               \
   	 }	\
 	 }	\
@@ -126,21 +126,21 @@ const int *pind3 = INTEGER_RO(ind3);	\
 const int *pind4 = INTEGER_RO(ind4);	\
 const int *pind5 = INTEGER_RO(ind5);	\
   R_xlen_t i_parts1, i_parts2, i_parts3, i_parts4, i_parts5;  \
-  double *pdim;              \
-  pdim = REAL(dimcumprod); \
+  double *pdcp;              \
+  pdcp = REAL(dimcumprod); \
   R_xlen_t flatind = 0;           \
                               \
   for(int iter5 = 0; iter5 < len5; ++iter5) {	\
-	i_parts5 = pdim[3] * (pind5[iter5] - 1);	\
+	i_parts5 = pdcp[3] * (pind5[iter5] - 1);	\
 for(int iter4 = 0; iter4 < len4; ++iter4) {	\
-	i_parts4 = pdim[2] * (pind4[iter4] - 1);	\
+	i_parts4 = pdcp[2] * (pind4[iter4] - 1) + i_parts5;	\
 for(int iter3 = 0; iter3 < len3; ++iter3) {	\
-	i_parts3 = pdim[1] * (pind3[iter3] - 1);	\
+	i_parts3 = pdcp[1] * (pind3[iter3] - 1) + i_parts4;	\
 for(int iter2 = 0; iter2 < len2; ++iter2) {	\
-	i_parts2 = pdim[0] * (pind2[iter2] - 1);	\
+	i_parts2 = pdcp[0] * (pind2[iter2] - 1) + i_parts3;	\
 for(int iter1 = 0; iter1 < len1; ++iter1) {	\
-	i_parts1 = pind1[iter1];	\
-        flatind = i_parts1 + i_parts2 + i_parts3 + i_parts4 + i_parts5;     \
+	i_parts1 = pind1[iter1] + i_parts2;	\
+        flatind = i_parts1;     \
         DOCODE;               \
   	 }	\
 	 }	\
@@ -174,23 +174,23 @@ const int *pind4 = INTEGER_RO(ind4);	\
 const int *pind5 = INTEGER_RO(ind5);	\
 const int *pind6 = INTEGER_RO(ind6);	\
   R_xlen_t i_parts1, i_parts2, i_parts3, i_parts4, i_parts5, i_parts6;  \
-  double *pdim;              \
-  pdim = REAL(dimcumprod); \
+  double *pdcp;              \
+  pdcp = REAL(dimcumprod); \
   R_xlen_t flatind = 0;           \
                               \
   for(int iter6 = 0; iter6 < len6; ++iter6) {	\
-	i_parts6 = pdim[4] * (pind6[iter6] - 1);	\
+	i_parts6 = pdcp[4] * (pind6[iter6] - 1);	\
 for(int iter5 = 0; iter5 < len5; ++iter5) {	\
-	i_parts5 = pdim[3] * (pind5[iter5] - 1);	\
+	i_parts5 = pdcp[3] * (pind5[iter5] - 1) + i_parts6;	\
 for(int iter4 = 0; iter4 < len4; ++iter4) {	\
-	i_parts4 = pdim[2] * (pind4[iter4] - 1);	\
+	i_parts4 = pdcp[2] * (pind4[iter4] - 1) + i_parts5;	\
 for(int iter3 = 0; iter3 < len3; ++iter3) {	\
-	i_parts3 = pdim[1] * (pind3[iter3] - 1);	\
+	i_parts3 = pdcp[1] * (pind3[iter3] - 1) + i_parts4;	\
 for(int iter2 = 0; iter2 < len2; ++iter2) {	\
-	i_parts2 = pdim[0] * (pind2[iter2] - 1);	\
+	i_parts2 = pdcp[0] * (pind2[iter2] - 1) + i_parts3;	\
 for(int iter1 = 0; iter1 < len1; ++iter1) {	\
-	i_parts1 = pind1[iter1];	\
-        flatind = i_parts1 + i_parts2 + i_parts3 + i_parts4 + i_parts5 + i_parts6;     \
+	i_parts1 = pind1[iter1] + i_parts2;	\
+        flatind = i_parts1;     \
         DOCODE;               \
   	 }	\
 	 }	\
@@ -228,25 +228,25 @@ const int *pind5 = INTEGER_RO(ind5);	\
 const int *pind6 = INTEGER_RO(ind6);	\
 const int *pind7 = INTEGER_RO(ind7);	\
   R_xlen_t i_parts1, i_parts2, i_parts3, i_parts4, i_parts5, i_parts6, i_parts7;  \
-  double *pdim;              \
-  pdim = REAL(dimcumprod); \
+  double *pdcp;              \
+  pdcp = REAL(dimcumprod); \
   R_xlen_t flatind = 0;           \
                               \
   for(int iter7 = 0; iter7 < len7; ++iter7) {	\
-	i_parts7 = pdim[5] * (pind7[iter7] - 1);	\
+	i_parts7 = pdcp[5] * (pind7[iter7] - 1);	\
 for(int iter6 = 0; iter6 < len6; ++iter6) {	\
-	i_parts6 = pdim[4] * (pind6[iter6] - 1);	\
+	i_parts6 = pdcp[4] * (pind6[iter6] - 1) + i_parts7;	\
 for(int iter5 = 0; iter5 < len5; ++iter5) {	\
-	i_parts5 = pdim[3] * (pind5[iter5] - 1);	\
+	i_parts5 = pdcp[3] * (pind5[iter5] - 1) + i_parts6;	\
 for(int iter4 = 0; iter4 < len4; ++iter4) {	\
-	i_parts4 = pdim[2] * (pind4[iter4] - 1);	\
+	i_parts4 = pdcp[2] * (pind4[iter4] - 1) + i_parts5;	\
 for(int iter3 = 0; iter3 < len3; ++iter3) {	\
-	i_parts3 = pdim[1] * (pind3[iter3] - 1);	\
+	i_parts3 = pdcp[1] * (pind3[iter3] - 1) + i_parts4;	\
 for(int iter2 = 0; iter2 < len2; ++iter2) {	\
-	i_parts2 = pdim[0] * (pind2[iter2] - 1);	\
+	i_parts2 = pdcp[0] * (pind2[iter2] - 1) + i_parts3;	\
 for(int iter1 = 0; iter1 < len1; ++iter1) {	\
-	i_parts1 = pind1[iter1];	\
-        flatind = i_parts1 + i_parts2 + i_parts3 + i_parts4 + i_parts5 + i_parts6 + i_parts7;     \
+	i_parts1 = pind1[iter1] + i_parts2;	\
+        flatind = i_parts1;     \
         DOCODE;               \
   	 }	\
 	 }	\
@@ -288,27 +288,27 @@ const int *pind6 = INTEGER_RO(ind6);	\
 const int *pind7 = INTEGER_RO(ind7);	\
 const int *pind8 = INTEGER_RO(ind8);	\
   R_xlen_t i_parts1, i_parts2, i_parts3, i_parts4, i_parts5, i_parts6, i_parts7, i_parts8;  \
-  double *pdim;              \
-  pdim = REAL(dimcumprod); \
+  double *pdcp;              \
+  pdcp = REAL(dimcumprod); \
   R_xlen_t flatind = 0;           \
                               \
   for(int iter8 = 0; iter8 < len8; ++iter8) {	\
-	i_parts8 = pdim[6] * (pind8[iter8] - 1);	\
+	i_parts8 = pdcp[6] * (pind8[iter8] - 1);	\
 for(int iter7 = 0; iter7 < len7; ++iter7) {	\
-	i_parts7 = pdim[5] * (pind7[iter7] - 1);	\
+	i_parts7 = pdcp[5] * (pind7[iter7] - 1) + i_parts8;	\
 for(int iter6 = 0; iter6 < len6; ++iter6) {	\
-	i_parts6 = pdim[4] * (pind6[iter6] - 1);	\
+	i_parts6 = pdcp[4] * (pind6[iter6] - 1) + i_parts7;	\
 for(int iter5 = 0; iter5 < len5; ++iter5) {	\
-	i_parts5 = pdim[3] * (pind5[iter5] - 1);	\
+	i_parts5 = pdcp[3] * (pind5[iter5] - 1) + i_parts6;	\
 for(int iter4 = 0; iter4 < len4; ++iter4) {	\
-	i_parts4 = pdim[2] * (pind4[iter4] - 1);	\
+	i_parts4 = pdcp[2] * (pind4[iter4] - 1) + i_parts5;	\
 for(int iter3 = 0; iter3 < len3; ++iter3) {	\
-	i_parts3 = pdim[1] * (pind3[iter3] - 1);	\
+	i_parts3 = pdcp[1] * (pind3[iter3] - 1) + i_parts4;	\
 for(int iter2 = 0; iter2 < len2; ++iter2) {	\
-	i_parts2 = pdim[0] * (pind2[iter2] - 1);	\
+	i_parts2 = pdcp[0] * (pind2[iter2] - 1) + i_parts3;	\
 for(int iter1 = 0; iter1 < len1; ++iter1) {	\
-	i_parts1 = pind1[iter1];	\
-        flatind = i_parts1 + i_parts2 + i_parts3 + i_parts4 + i_parts5 + i_parts6 + i_parts7 + i_parts8;     \
+	i_parts1 = pind1[iter1] + i_parts2;	\
+        flatind = i_parts1;     \
         DOCODE;               \
   	 }	\
 	 }	\
@@ -354,29 +354,29 @@ const int *pind7 = INTEGER_RO(ind7);	\
 const int *pind8 = INTEGER_RO(ind8);	\
 const int *pind9 = INTEGER_RO(ind9);	\
   R_xlen_t i_parts1, i_parts2, i_parts3, i_parts4, i_parts5, i_parts6, i_parts7, i_parts8, i_parts9;  \
-  double *pdim;              \
-  pdim = REAL(dimcumprod); \
+  double *pdcp;              \
+  pdcp = REAL(dimcumprod); \
   R_xlen_t flatind = 0;           \
                               \
   for(int iter9 = 0; iter9 < len9; ++iter9) {	\
-	i_parts9 = pdim[7] * (pind9[iter9] - 1);	\
+	i_parts9 = pdcp[7] * (pind9[iter9] - 1);	\
 for(int iter8 = 0; iter8 < len8; ++iter8) {	\
-	i_parts8 = pdim[6] * (pind8[iter8] - 1);	\
+	i_parts8 = pdcp[6] * (pind8[iter8] - 1) + i_parts9;	\
 for(int iter7 = 0; iter7 < len7; ++iter7) {	\
-	i_parts7 = pdim[5] * (pind7[iter7] - 1);	\
+	i_parts7 = pdcp[5] * (pind7[iter7] - 1) + i_parts8;	\
 for(int iter6 = 0; iter6 < len6; ++iter6) {	\
-	i_parts6 = pdim[4] * (pind6[iter6] - 1);	\
+	i_parts6 = pdcp[4] * (pind6[iter6] - 1) + i_parts7;	\
 for(int iter5 = 0; iter5 < len5; ++iter5) {	\
-	i_parts5 = pdim[3] * (pind5[iter5] - 1);	\
+	i_parts5 = pdcp[3] * (pind5[iter5] - 1) + i_parts6;	\
 for(int iter4 = 0; iter4 < len4; ++iter4) {	\
-	i_parts4 = pdim[2] * (pind4[iter4] - 1);	\
+	i_parts4 = pdcp[2] * (pind4[iter4] - 1) + i_parts5;	\
 for(int iter3 = 0; iter3 < len3; ++iter3) {	\
-	i_parts3 = pdim[1] * (pind3[iter3] - 1);	\
+	i_parts3 = pdcp[1] * (pind3[iter3] - 1) + i_parts4;	\
 for(int iter2 = 0; iter2 < len2; ++iter2) {	\
-	i_parts2 = pdim[0] * (pind2[iter2] - 1);	\
+	i_parts2 = pdcp[0] * (pind2[iter2] - 1) + i_parts3;	\
 for(int iter1 = 0; iter1 < len1; ++iter1) {	\
-	i_parts1 = pind1[iter1];	\
-        flatind = i_parts1 + i_parts2 + i_parts3 + i_parts4 + i_parts5 + i_parts6 + i_parts7 + i_parts8 + i_parts9;     \
+	i_parts1 = pind1[iter1] + i_parts2;	\
+        flatind = i_parts1;     \
         DOCODE;               \
   	 }	\
 	 }	\
@@ -426,31 +426,31 @@ const int *pind8 = INTEGER_RO(ind8);	\
 const int *pind9 = INTEGER_RO(ind9);	\
 const int *pind10 = INTEGER_RO(ind10);	\
   R_xlen_t i_parts1, i_parts2, i_parts3, i_parts4, i_parts5, i_parts6, i_parts7, i_parts8, i_parts9, i_parts10;  \
-  double *pdim;              \
-  pdim = REAL(dimcumprod); \
+  double *pdcp;              \
+  pdcp = REAL(dimcumprod); \
   R_xlen_t flatind = 0;           \
                               \
   for(int iter10 = 0; iter10 < len10; ++iter10) {	\
-	i_parts10 = pdim[8] * (pind10[iter10] - 1);	\
+	i_parts10 = pdcp[8] * (pind10[iter10] - 1);	\
 for(int iter9 = 0; iter9 < len9; ++iter9) {	\
-	i_parts9 = pdim[7] * (pind9[iter9] - 1);	\
+	i_parts9 = pdcp[7] * (pind9[iter9] - 1) + i_parts10;	\
 for(int iter8 = 0; iter8 < len8; ++iter8) {	\
-	i_parts8 = pdim[6] * (pind8[iter8] - 1);	\
+	i_parts8 = pdcp[6] * (pind8[iter8] - 1) + i_parts9;	\
 for(int iter7 = 0; iter7 < len7; ++iter7) {	\
-	i_parts7 = pdim[5] * (pind7[iter7] - 1);	\
+	i_parts7 = pdcp[5] * (pind7[iter7] - 1) + i_parts8;	\
 for(int iter6 = 0; iter6 < len6; ++iter6) {	\
-	i_parts6 = pdim[4] * (pind6[iter6] - 1);	\
+	i_parts6 = pdcp[4] * (pind6[iter6] - 1) + i_parts7;	\
 for(int iter5 = 0; iter5 < len5; ++iter5) {	\
-	i_parts5 = pdim[3] * (pind5[iter5] - 1);	\
+	i_parts5 = pdcp[3] * (pind5[iter5] - 1) + i_parts6;	\
 for(int iter4 = 0; iter4 < len4; ++iter4) {	\
-	i_parts4 = pdim[2] * (pind4[iter4] - 1);	\
+	i_parts4 = pdcp[2] * (pind4[iter4] - 1) + i_parts5;	\
 for(int iter3 = 0; iter3 < len3; ++iter3) {	\
-	i_parts3 = pdim[1] * (pind3[iter3] - 1);	\
+	i_parts3 = pdcp[1] * (pind3[iter3] - 1) + i_parts4;	\
 for(int iter2 = 0; iter2 < len2; ++iter2) {	\
-	i_parts2 = pdim[0] * (pind2[iter2] - 1);	\
+	i_parts2 = pdcp[0] * (pind2[iter2] - 1) + i_parts3;	\
 for(int iter1 = 0; iter1 < len1; ++iter1) {	\
-	i_parts1 = pind1[iter1];	\
-        flatind = i_parts1 + i_parts2 + i_parts3 + i_parts4 + i_parts5 + i_parts6 + i_parts7 + i_parts8 + i_parts9 + i_parts10;     \
+	i_parts1 = pind1[iter1] + i_parts2;	\
+        flatind = i_parts1;     \
         DOCODE;               \
   	 }	\
 	 }	\
@@ -504,33 +504,33 @@ const int *pind9 = INTEGER_RO(ind9);	\
 const int *pind10 = INTEGER_RO(ind10);	\
 const int *pind11 = INTEGER_RO(ind11);	\
   R_xlen_t i_parts1, i_parts2, i_parts3, i_parts4, i_parts5, i_parts6, i_parts7, i_parts8, i_parts9, i_parts10, i_parts11;  \
-  double *pdim;              \
-  pdim = REAL(dimcumprod); \
+  double *pdcp;              \
+  pdcp = REAL(dimcumprod); \
   R_xlen_t flatind = 0;           \
                               \
   for(int iter11 = 0; iter11 < len11; ++iter11) {	\
-	i_parts11 = pdim[9] * (pind11[iter11] - 1);	\
+	i_parts11 = pdcp[9] * (pind11[iter11] - 1);	\
 for(int iter10 = 0; iter10 < len10; ++iter10) {	\
-	i_parts10 = pdim[8] * (pind10[iter10] - 1);	\
+	i_parts10 = pdcp[8] * (pind10[iter10] - 1) + i_parts11;	\
 for(int iter9 = 0; iter9 < len9; ++iter9) {	\
-	i_parts9 = pdim[7] * (pind9[iter9] - 1);	\
+	i_parts9 = pdcp[7] * (pind9[iter9] - 1) + i_parts10;	\
 for(int iter8 = 0; iter8 < len8; ++iter8) {	\
-	i_parts8 = pdim[6] * (pind8[iter8] - 1);	\
+	i_parts8 = pdcp[6] * (pind8[iter8] - 1) + i_parts9;	\
 for(int iter7 = 0; iter7 < len7; ++iter7) {	\
-	i_parts7 = pdim[5] * (pind7[iter7] - 1);	\
+	i_parts7 = pdcp[5] * (pind7[iter7] - 1) + i_parts8;	\
 for(int iter6 = 0; iter6 < len6; ++iter6) {	\
-	i_parts6 = pdim[4] * (pind6[iter6] - 1);	\
+	i_parts6 = pdcp[4] * (pind6[iter6] - 1) + i_parts7;	\
 for(int iter5 = 0; iter5 < len5; ++iter5) {	\
-	i_parts5 = pdim[3] * (pind5[iter5] - 1);	\
+	i_parts5 = pdcp[3] * (pind5[iter5] - 1) + i_parts6;	\
 for(int iter4 = 0; iter4 < len4; ++iter4) {	\
-	i_parts4 = pdim[2] * (pind4[iter4] - 1);	\
+	i_parts4 = pdcp[2] * (pind4[iter4] - 1) + i_parts5;	\
 for(int iter3 = 0; iter3 < len3; ++iter3) {	\
-	i_parts3 = pdim[1] * (pind3[iter3] - 1);	\
+	i_parts3 = pdcp[1] * (pind3[iter3] - 1) + i_parts4;	\
 for(int iter2 = 0; iter2 < len2; ++iter2) {	\
-	i_parts2 = pdim[0] * (pind2[iter2] - 1);	\
+	i_parts2 = pdcp[0] * (pind2[iter2] - 1) + i_parts3;	\
 for(int iter1 = 0; iter1 < len1; ++iter1) {	\
-	i_parts1 = pind1[iter1];	\
-        flatind = i_parts1 + i_parts2 + i_parts3 + i_parts4 + i_parts5 + i_parts6 + i_parts7 + i_parts8 + i_parts9 + i_parts10 + i_parts11;     \
+	i_parts1 = pind1[iter1] + i_parts2;	\
+        flatind = i_parts1;     \
         DOCODE;               \
   	 }	\
 	 }	\
@@ -588,35 +588,35 @@ const int *pind10 = INTEGER_RO(ind10);	\
 const int *pind11 = INTEGER_RO(ind11);	\
 const int *pind12 = INTEGER_RO(ind12);	\
   R_xlen_t i_parts1, i_parts2, i_parts3, i_parts4, i_parts5, i_parts6, i_parts7, i_parts8, i_parts9, i_parts10, i_parts11, i_parts12;  \
-  double *pdim;              \
-  pdim = REAL(dimcumprod); \
+  double *pdcp;              \
+  pdcp = REAL(dimcumprod); \
   R_xlen_t flatind = 0;           \
                               \
   for(int iter12 = 0; iter12 < len12; ++iter12) {	\
-	i_parts12 = pdim[10] * (pind12[iter12] - 1);	\
+	i_parts12 = pdcp[10] * (pind12[iter12] - 1);	\
 for(int iter11 = 0; iter11 < len11; ++iter11) {	\
-	i_parts11 = pdim[9] * (pind11[iter11] - 1);	\
+	i_parts11 = pdcp[9] * (pind11[iter11] - 1) + i_parts12;	\
 for(int iter10 = 0; iter10 < len10; ++iter10) {	\
-	i_parts10 = pdim[8] * (pind10[iter10] - 1);	\
+	i_parts10 = pdcp[8] * (pind10[iter10] - 1) + i_parts11;	\
 for(int iter9 = 0; iter9 < len9; ++iter9) {	\
-	i_parts9 = pdim[7] * (pind9[iter9] - 1);	\
+	i_parts9 = pdcp[7] * (pind9[iter9] - 1) + i_parts10;	\
 for(int iter8 = 0; iter8 < len8; ++iter8) {	\
-	i_parts8 = pdim[6] * (pind8[iter8] - 1);	\
+	i_parts8 = pdcp[6] * (pind8[iter8] - 1) + i_parts9;	\
 for(int iter7 = 0; iter7 < len7; ++iter7) {	\
-	i_parts7 = pdim[5] * (pind7[iter7] - 1);	\
+	i_parts7 = pdcp[5] * (pind7[iter7] - 1) + i_parts8;	\
 for(int iter6 = 0; iter6 < len6; ++iter6) {	\
-	i_parts6 = pdim[4] * (pind6[iter6] - 1);	\
+	i_parts6 = pdcp[4] * (pind6[iter6] - 1) + i_parts7;	\
 for(int iter5 = 0; iter5 < len5; ++iter5) {	\
-	i_parts5 = pdim[3] * (pind5[iter5] - 1);	\
+	i_parts5 = pdcp[3] * (pind5[iter5] - 1) + i_parts6;	\
 for(int iter4 = 0; iter4 < len4; ++iter4) {	\
-	i_parts4 = pdim[2] * (pind4[iter4] - 1);	\
+	i_parts4 = pdcp[2] * (pind4[iter4] - 1) + i_parts5;	\
 for(int iter3 = 0; iter3 < len3; ++iter3) {	\
-	i_parts3 = pdim[1] * (pind3[iter3] - 1);	\
+	i_parts3 = pdcp[1] * (pind3[iter3] - 1) + i_parts4;	\
 for(int iter2 = 0; iter2 < len2; ++iter2) {	\
-	i_parts2 = pdim[0] * (pind2[iter2] - 1);	\
+	i_parts2 = pdcp[0] * (pind2[iter2] - 1) + i_parts3;	\
 for(int iter1 = 0; iter1 < len1; ++iter1) {	\
-	i_parts1 = pind1[iter1];	\
-        flatind = i_parts1 + i_parts2 + i_parts3 + i_parts4 + i_parts5 + i_parts6 + i_parts7 + i_parts8 + i_parts9 + i_parts10 + i_parts11 + i_parts12;     \
+	i_parts1 = pind1[iter1] + i_parts2;	\
+        flatind = i_parts1;     \
         DOCODE;               \
   	 }	\
 	 }	\
@@ -678,37 +678,37 @@ const int *pind11 = INTEGER_RO(ind11);	\
 const int *pind12 = INTEGER_RO(ind12);	\
 const int *pind13 = INTEGER_RO(ind13);	\
   R_xlen_t i_parts1, i_parts2, i_parts3, i_parts4, i_parts5, i_parts6, i_parts7, i_parts8, i_parts9, i_parts10, i_parts11, i_parts12, i_parts13;  \
-  double *pdim;              \
-  pdim = REAL(dimcumprod); \
+  double *pdcp;              \
+  pdcp = REAL(dimcumprod); \
   R_xlen_t flatind = 0;           \
                               \
   for(int iter13 = 0; iter13 < len13; ++iter13) {	\
-	i_parts13 = pdim[11] * (pind13[iter13] - 1);	\
+	i_parts13 = pdcp[11] * (pind13[iter13] - 1);	\
 for(int iter12 = 0; iter12 < len12; ++iter12) {	\
-	i_parts12 = pdim[10] * (pind12[iter12] - 1);	\
+	i_parts12 = pdcp[10] * (pind12[iter12] - 1) + i_parts13;	\
 for(int iter11 = 0; iter11 < len11; ++iter11) {	\
-	i_parts11 = pdim[9] * (pind11[iter11] - 1);	\
+	i_parts11 = pdcp[9] * (pind11[iter11] - 1) + i_parts12;	\
 for(int iter10 = 0; iter10 < len10; ++iter10) {	\
-	i_parts10 = pdim[8] * (pind10[iter10] - 1);	\
+	i_parts10 = pdcp[8] * (pind10[iter10] - 1) + i_parts11;	\
 for(int iter9 = 0; iter9 < len9; ++iter9) {	\
-	i_parts9 = pdim[7] * (pind9[iter9] - 1);	\
+	i_parts9 = pdcp[7] * (pind9[iter9] - 1) + i_parts10;	\
 for(int iter8 = 0; iter8 < len8; ++iter8) {	\
-	i_parts8 = pdim[6] * (pind8[iter8] - 1);	\
+	i_parts8 = pdcp[6] * (pind8[iter8] - 1) + i_parts9;	\
 for(int iter7 = 0; iter7 < len7; ++iter7) {	\
-	i_parts7 = pdim[5] * (pind7[iter7] - 1);	\
+	i_parts7 = pdcp[5] * (pind7[iter7] - 1) + i_parts8;	\
 for(int iter6 = 0; iter6 < len6; ++iter6) {	\
-	i_parts6 = pdim[4] * (pind6[iter6] - 1);	\
+	i_parts6 = pdcp[4] * (pind6[iter6] - 1) + i_parts7;	\
 for(int iter5 = 0; iter5 < len5; ++iter5) {	\
-	i_parts5 = pdim[3] * (pind5[iter5] - 1);	\
+	i_parts5 = pdcp[3] * (pind5[iter5] - 1) + i_parts6;	\
 for(int iter4 = 0; iter4 < len4; ++iter4) {	\
-	i_parts4 = pdim[2] * (pind4[iter4] - 1);	\
+	i_parts4 = pdcp[2] * (pind4[iter4] - 1) + i_parts5;	\
 for(int iter3 = 0; iter3 < len3; ++iter3) {	\
-	i_parts3 = pdim[1] * (pind3[iter3] - 1);	\
+	i_parts3 = pdcp[1] * (pind3[iter3] - 1) + i_parts4;	\
 for(int iter2 = 0; iter2 < len2; ++iter2) {	\
-	i_parts2 = pdim[0] * (pind2[iter2] - 1);	\
+	i_parts2 = pdcp[0] * (pind2[iter2] - 1) + i_parts3;	\
 for(int iter1 = 0; iter1 < len1; ++iter1) {	\
-	i_parts1 = pind1[iter1];	\
-        flatind = i_parts1 + i_parts2 + i_parts3 + i_parts4 + i_parts5 + i_parts6 + i_parts7 + i_parts8 + i_parts9 + i_parts10 + i_parts11 + i_parts12 + i_parts13;     \
+	i_parts1 = pind1[iter1] + i_parts2;	\
+        flatind = i_parts1;     \
         DOCODE;               \
   	 }	\
 	 }	\
@@ -774,39 +774,39 @@ const int *pind12 = INTEGER_RO(ind12);	\
 const int *pind13 = INTEGER_RO(ind13);	\
 const int *pind14 = INTEGER_RO(ind14);	\
   R_xlen_t i_parts1, i_parts2, i_parts3, i_parts4, i_parts5, i_parts6, i_parts7, i_parts8, i_parts9, i_parts10, i_parts11, i_parts12, i_parts13, i_parts14;  \
-  double *pdim;              \
-  pdim = REAL(dimcumprod); \
+  double *pdcp;              \
+  pdcp = REAL(dimcumprod); \
   R_xlen_t flatind = 0;           \
                               \
   for(int iter14 = 0; iter14 < len14; ++iter14) {	\
-	i_parts14 = pdim[12] * (pind14[iter14] - 1);	\
+	i_parts14 = pdcp[12] * (pind14[iter14] - 1);	\
 for(int iter13 = 0; iter13 < len13; ++iter13) {	\
-	i_parts13 = pdim[11] * (pind13[iter13] - 1);	\
+	i_parts13 = pdcp[11] * (pind13[iter13] - 1) + i_parts14;	\
 for(int iter12 = 0; iter12 < len12; ++iter12) {	\
-	i_parts12 = pdim[10] * (pind12[iter12] - 1);	\
+	i_parts12 = pdcp[10] * (pind12[iter12] - 1) + i_parts13;	\
 for(int iter11 = 0; iter11 < len11; ++iter11) {	\
-	i_parts11 = pdim[9] * (pind11[iter11] - 1);	\
+	i_parts11 = pdcp[9] * (pind11[iter11] - 1) + i_parts12;	\
 for(int iter10 = 0; iter10 < len10; ++iter10) {	\
-	i_parts10 = pdim[8] * (pind10[iter10] - 1);	\
+	i_parts10 = pdcp[8] * (pind10[iter10] - 1) + i_parts11;	\
 for(int iter9 = 0; iter9 < len9; ++iter9) {	\
-	i_parts9 = pdim[7] * (pind9[iter9] - 1);	\
+	i_parts9 = pdcp[7] * (pind9[iter9] - 1) + i_parts10;	\
 for(int iter8 = 0; iter8 < len8; ++iter8) {	\
-	i_parts8 = pdim[6] * (pind8[iter8] - 1);	\
+	i_parts8 = pdcp[6] * (pind8[iter8] - 1) + i_parts9;	\
 for(int iter7 = 0; iter7 < len7; ++iter7) {	\
-	i_parts7 = pdim[5] * (pind7[iter7] - 1);	\
+	i_parts7 = pdcp[5] * (pind7[iter7] - 1) + i_parts8;	\
 for(int iter6 = 0; iter6 < len6; ++iter6) {	\
-	i_parts6 = pdim[4] * (pind6[iter6] - 1);	\
+	i_parts6 = pdcp[4] * (pind6[iter6] - 1) + i_parts7;	\
 for(int iter5 = 0; iter5 < len5; ++iter5) {	\
-	i_parts5 = pdim[3] * (pind5[iter5] - 1);	\
+	i_parts5 = pdcp[3] * (pind5[iter5] - 1) + i_parts6;	\
 for(int iter4 = 0; iter4 < len4; ++iter4) {	\
-	i_parts4 = pdim[2] * (pind4[iter4] - 1);	\
+	i_parts4 = pdcp[2] * (pind4[iter4] - 1) + i_parts5;	\
 for(int iter3 = 0; iter3 < len3; ++iter3) {	\
-	i_parts3 = pdim[1] * (pind3[iter3] - 1);	\
+	i_parts3 = pdcp[1] * (pind3[iter3] - 1) + i_parts4;	\
 for(int iter2 = 0; iter2 < len2; ++iter2) {	\
-	i_parts2 = pdim[0] * (pind2[iter2] - 1);	\
+	i_parts2 = pdcp[0] * (pind2[iter2] - 1) + i_parts3;	\
 for(int iter1 = 0; iter1 < len1; ++iter1) {	\
-	i_parts1 = pind1[iter1];	\
-        flatind = i_parts1 + i_parts2 + i_parts3 + i_parts4 + i_parts5 + i_parts6 + i_parts7 + i_parts8 + i_parts9 + i_parts10 + i_parts11 + i_parts12 + i_parts13 + i_parts14;     \
+	i_parts1 = pind1[iter1] + i_parts2;	\
+        flatind = i_parts1;     \
         DOCODE;               \
   	 }	\
 	 }	\
@@ -876,41 +876,41 @@ const int *pind13 = INTEGER_RO(ind13);	\
 const int *pind14 = INTEGER_RO(ind14);	\
 const int *pind15 = INTEGER_RO(ind15);	\
   R_xlen_t i_parts1, i_parts2, i_parts3, i_parts4, i_parts5, i_parts6, i_parts7, i_parts8, i_parts9, i_parts10, i_parts11, i_parts12, i_parts13, i_parts14, i_parts15;  \
-  double *pdim;              \
-  pdim = REAL(dimcumprod); \
+  double *pdcp;              \
+  pdcp = REAL(dimcumprod); \
   R_xlen_t flatind = 0;           \
                               \
   for(int iter15 = 0; iter15 < len15; ++iter15) {	\
-	i_parts15 = pdim[13] * (pind15[iter15] - 1);	\
+	i_parts15 = pdcp[13] * (pind15[iter15] - 1);	\
 for(int iter14 = 0; iter14 < len14; ++iter14) {	\
-	i_parts14 = pdim[12] * (pind14[iter14] - 1);	\
+	i_parts14 = pdcp[12] * (pind14[iter14] - 1) + i_parts15;	\
 for(int iter13 = 0; iter13 < len13; ++iter13) {	\
-	i_parts13 = pdim[11] * (pind13[iter13] - 1);	\
+	i_parts13 = pdcp[11] * (pind13[iter13] - 1) + i_parts14;	\
 for(int iter12 = 0; iter12 < len12; ++iter12) {	\
-	i_parts12 = pdim[10] * (pind12[iter12] - 1);	\
+	i_parts12 = pdcp[10] * (pind12[iter12] - 1) + i_parts13;	\
 for(int iter11 = 0; iter11 < len11; ++iter11) {	\
-	i_parts11 = pdim[9] * (pind11[iter11] - 1);	\
+	i_parts11 = pdcp[9] * (pind11[iter11] - 1) + i_parts12;	\
 for(int iter10 = 0; iter10 < len10; ++iter10) {	\
-	i_parts10 = pdim[8] * (pind10[iter10] - 1);	\
+	i_parts10 = pdcp[8] * (pind10[iter10] - 1) + i_parts11;	\
 for(int iter9 = 0; iter9 < len9; ++iter9) {	\
-	i_parts9 = pdim[7] * (pind9[iter9] - 1);	\
+	i_parts9 = pdcp[7] * (pind9[iter9] - 1) + i_parts10;	\
 for(int iter8 = 0; iter8 < len8; ++iter8) {	\
-	i_parts8 = pdim[6] * (pind8[iter8] - 1);	\
+	i_parts8 = pdcp[6] * (pind8[iter8] - 1) + i_parts9;	\
 for(int iter7 = 0; iter7 < len7; ++iter7) {	\
-	i_parts7 = pdim[5] * (pind7[iter7] - 1);	\
+	i_parts7 = pdcp[5] * (pind7[iter7] - 1) + i_parts8;	\
 for(int iter6 = 0; iter6 < len6; ++iter6) {	\
-	i_parts6 = pdim[4] * (pind6[iter6] - 1);	\
+	i_parts6 = pdcp[4] * (pind6[iter6] - 1) + i_parts7;	\
 for(int iter5 = 0; iter5 < len5; ++iter5) {	\
-	i_parts5 = pdim[3] * (pind5[iter5] - 1);	\
+	i_parts5 = pdcp[3] * (pind5[iter5] - 1) + i_parts6;	\
 for(int iter4 = 0; iter4 < len4; ++iter4) {	\
-	i_parts4 = pdim[2] * (pind4[iter4] - 1);	\
+	i_parts4 = pdcp[2] * (pind4[iter4] - 1) + i_parts5;	\
 for(int iter3 = 0; iter3 < len3; ++iter3) {	\
-	i_parts3 = pdim[1] * (pind3[iter3] - 1);	\
+	i_parts3 = pdcp[1] * (pind3[iter3] - 1) + i_parts4;	\
 for(int iter2 = 0; iter2 < len2; ++iter2) {	\
-	i_parts2 = pdim[0] * (pind2[iter2] - 1);	\
+	i_parts2 = pdcp[0] * (pind2[iter2] - 1) + i_parts3;	\
 for(int iter1 = 0; iter1 < len1; ++iter1) {	\
-	i_parts1 = pind1[iter1];	\
-        flatind = i_parts1 + i_parts2 + i_parts3 + i_parts4 + i_parts5 + i_parts6 + i_parts7 + i_parts8 + i_parts9 + i_parts10 + i_parts11 + i_parts12 + i_parts13 + i_parts14 + i_parts15;     \
+	i_parts1 = pind1[iter1] + i_parts2;	\
+        flatind = i_parts1;     \
         DOCODE;               \
   	 }	\
 	 }	\
@@ -984,43 +984,43 @@ const int *pind14 = INTEGER_RO(ind14);	\
 const int *pind15 = INTEGER_RO(ind15);	\
 const int *pind16 = INTEGER_RO(ind16);	\
   R_xlen_t i_parts1, i_parts2, i_parts3, i_parts4, i_parts5, i_parts6, i_parts7, i_parts8, i_parts9, i_parts10, i_parts11, i_parts12, i_parts13, i_parts14, i_parts15, i_parts16;  \
-  double *pdim;              \
-  pdim = REAL(dimcumprod); \
+  double *pdcp;              \
+  pdcp = REAL(dimcumprod); \
   R_xlen_t flatind = 0;           \
                               \
   for(int iter16 = 0; iter16 < len16; ++iter16) {	\
-	i_parts16 = pdim[14] * (pind16[iter16] - 1);	\
+	i_parts16 = pdcp[14] * (pind16[iter16] - 1);	\
 for(int iter15 = 0; iter15 < len15; ++iter15) {	\
-	i_parts15 = pdim[13] * (pind15[iter15] - 1);	\
+	i_parts15 = pdcp[13] * (pind15[iter15] - 1) + i_parts16;	\
 for(int iter14 = 0; iter14 < len14; ++iter14) {	\
-	i_parts14 = pdim[12] * (pind14[iter14] - 1);	\
+	i_parts14 = pdcp[12] * (pind14[iter14] - 1) + i_parts15;	\
 for(int iter13 = 0; iter13 < len13; ++iter13) {	\
-	i_parts13 = pdim[11] * (pind13[iter13] - 1);	\
+	i_parts13 = pdcp[11] * (pind13[iter13] - 1) + i_parts14;	\
 for(int iter12 = 0; iter12 < len12; ++iter12) {	\
-	i_parts12 = pdim[10] * (pind12[iter12] - 1);	\
+	i_parts12 = pdcp[10] * (pind12[iter12] - 1) + i_parts13;	\
 for(int iter11 = 0; iter11 < len11; ++iter11) {	\
-	i_parts11 = pdim[9] * (pind11[iter11] - 1);	\
+	i_parts11 = pdcp[9] * (pind11[iter11] - 1) + i_parts12;	\
 for(int iter10 = 0; iter10 < len10; ++iter10) {	\
-	i_parts10 = pdim[8] * (pind10[iter10] - 1);	\
+	i_parts10 = pdcp[8] * (pind10[iter10] - 1) + i_parts11;	\
 for(int iter9 = 0; iter9 < len9; ++iter9) {	\
-	i_parts9 = pdim[7] * (pind9[iter9] - 1);	\
+	i_parts9 = pdcp[7] * (pind9[iter9] - 1) + i_parts10;	\
 for(int iter8 = 0; iter8 < len8; ++iter8) {	\
-	i_parts8 = pdim[6] * (pind8[iter8] - 1);	\
+	i_parts8 = pdcp[6] * (pind8[iter8] - 1) + i_parts9;	\
 for(int iter7 = 0; iter7 < len7; ++iter7) {	\
-	i_parts7 = pdim[5] * (pind7[iter7] - 1);	\
+	i_parts7 = pdcp[5] * (pind7[iter7] - 1) + i_parts8;	\
 for(int iter6 = 0; iter6 < len6; ++iter6) {	\
-	i_parts6 = pdim[4] * (pind6[iter6] - 1);	\
+	i_parts6 = pdcp[4] * (pind6[iter6] - 1) + i_parts7;	\
 for(int iter5 = 0; iter5 < len5; ++iter5) {	\
-	i_parts5 = pdim[3] * (pind5[iter5] - 1);	\
+	i_parts5 = pdcp[3] * (pind5[iter5] - 1) + i_parts6;	\
 for(int iter4 = 0; iter4 < len4; ++iter4) {	\
-	i_parts4 = pdim[2] * (pind4[iter4] - 1);	\
+	i_parts4 = pdcp[2] * (pind4[iter4] - 1) + i_parts5;	\
 for(int iter3 = 0; iter3 < len3; ++iter3) {	\
-	i_parts3 = pdim[1] * (pind3[iter3] - 1);	\
+	i_parts3 = pdcp[1] * (pind3[iter3] - 1) + i_parts4;	\
 for(int iter2 = 0; iter2 < len2; ++iter2) {	\
-	i_parts2 = pdim[0] * (pind2[iter2] - 1);	\
+	i_parts2 = pdcp[0] * (pind2[iter2] - 1) + i_parts3;	\
 for(int iter1 = 0; iter1 < len1; ++iter1) {	\
-	i_parts1 = pind1[iter1];	\
-        flatind = i_parts1 + i_parts2 + i_parts3 + i_parts4 + i_parts5 + i_parts6 + i_parts7 + i_parts8 + i_parts9 + i_parts10 + i_parts11 + i_parts12 + i_parts13 + i_parts14 + i_parts15 + i_parts16;     \
+	i_parts1 = pind1[iter1] + i_parts2;	\
+        flatind = i_parts1;     \
         DOCODE;               \
   	 }	\
 	 }	\

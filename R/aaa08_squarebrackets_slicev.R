@@ -129,7 +129,6 @@
 #' But note one can also specify something like `v = c(-Inf, 4)`,
 #' which essentially corresponds to the condition `y <= 4`. \cr
 #' Thus, when `v` specifies a range, "greater-than" and "smaller-than" comparisons are also possible. \cr
-#' This also holds for `y` of type `complex`. \cr
 #' \cr
 #' \cr
 #' 

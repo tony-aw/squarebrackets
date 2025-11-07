@@ -12,6 +12,11 @@ header_for_source <- "
 using namespace Rcpp;
 
 
+#define MACRO_SET_ATOMIC(POINTER, INDEX, REPLACEMENT) do {  \\
+  POINTER[INDEX] = REPLACEMENT; \\
+} while(0)
+
+
 inline int rcpp_count_stringmatches(String y, SEXP v) {
   int n = Rf_length(v);
   const SEXP *pv = STRING_PTR_RO(v);
@@ -145,7 +150,7 @@ SEXP rcpp_slicev_x_<Rcpp_Type>(
     if(Rf_xlength(x) != Rf_xlength(y)) {
       stop(\"`x` and `y` must have equal lengths\");
     }
-    <scalar_type> *px = <FUN_TYPE>(x);
+    const <scalar_type> *px = <FUN_TYPE>_RO(x);
     
     R_xlen_t size = rcpp_countv(y, v, na, invert, start, end, by, len);
     SEXP out = PROTECT(Rf_allocVector(<SXP_TYPE>, size));
@@ -229,7 +234,7 @@ void rcpp_slicev_set_<Rcpp_Type>(
   }
   
   <COMMENT> <scalar_type> *px = <FUN_TYPE>(x);
-  <scalar_type> *prp = <FUN_TYPE>(rp);
+  const <scalar_type> *prp = <FUN_TYPE>_RO(rp);
 
   if(Rf_xlength(rp) == 1 && len > 0) {
     MACRO_SLICEV_DO(<SET_FUN>x, i, prp[0]));
@@ -304,7 +309,6 @@ Rcpp::sourceCpp(code = code) # no errors, good!
 
 code <- stri_paste(
   header_for_package,
-  macros_slicev,
   code_countv,
   code_whichv,
   code_slicev_x,

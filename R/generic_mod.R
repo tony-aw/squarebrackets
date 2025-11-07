@@ -96,12 +96,12 @@ ss_mod.default <- function(
   .check_args_array(x, s, d, sys.call())
   
   # all empty indices:
-  if(.all_NULL_indices(list(s))) {
+  if(.all_missing_indices(list(s))) {
     return(.all_mod_atomic(x, rp, tf,sys.call()))
   }
   
   # zero-length subscripts:
-  if(length(d) == 0) {
+  if(length(d) == 0L || .C_is_missing_idx(d)) {
     return(.all_mod_atomic(x, rp, tf, sys.call()))
   }
   
@@ -111,10 +111,6 @@ ss_mod.default <- function(
     return(.flat_mod_atomic(x, i, inv, rp, tf, chkdup, sys.call()))
   }
   
-  # matrix:
-  if(is.matrix(x)) {
-    return(.mat_mod_atomic(x, s, d, inv, rp, tf, chkdup, sys.call()))
-  }
   
   # s, d arguments:
   lst <- ci_ss(x, s, d, inv, chkdup, .abortcall = sys.call())
@@ -163,12 +159,12 @@ ss2_mod.default <- function(
   .check_args_array(x, s, d, sys.call())
   
   # all missing indices:
-  if(.all_NULL_indices(list(s))) {
+  if(.all_missing_indices(list(s))) {
     return(.all_mod_list(x, rp, tf, .lapply, sys.call()))
   }
   
   # zero-length subscripts:
-  if(length(d) == 0) {
+  if(length(d) == 0L || .C_is_missing_idx(d)) {
     return(.all_mod_list(x, rp, tf, .lapply, sys.call()))
   }
   
@@ -176,11 +172,6 @@ ss2_mod.default <- function(
   if(ndim(x) == 1L) {
     i <- .flat_s2i(x, s, d)
     return(.flat_mod_list(x, i, inv, rp, tf, chkdup, .lapply, sys.call()))
-  }
-  
-  # matrix:
-  if(is.matrix(x)) {
-    return(.mat_mod_list(x, s, d, inv, rp, tf, chkdup, .lapply, sys.call()))
   }
   
   lst <- ci_ss(x, s, d, inv, chkdup, .abortcall = sys.call())

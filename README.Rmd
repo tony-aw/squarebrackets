@@ -20,8 +20,8 @@ set.seed(1)
 # squarebrackets
 
 <!-- badges: start -->
+`r badge_github_actions("tony-aw/squarebrackets")`
 `r badge_repostatus("WIP")`
-`r badge_lifecycle("experimental")`
 `r badge_custom("ORCID", "0000-0001-9498-8379", "green",   "https://orcid.org/0000-0001-9498-8379")`
 <!-- badges: end -->
 

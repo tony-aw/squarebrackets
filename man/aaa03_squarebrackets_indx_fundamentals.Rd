@@ -70,6 +70,8 @@ like \code{1:10 * 1i}, work the same as regular integers. \cr
 Imaginary numbers that are negative integers,
 like \code{1:10 * -1i},
 index by counting backwards (i.e. from the end). \cr
+Positive and negative numbers can be combined,
+like \code{c(-10:1, 1:10) * 1i}. \cr
 Note that \bold{only} the \code{Imaginary} part of a complex vector is used (\code{Im(y)}); \cr
 the \code{Real} part (\code{Re(y)}) is \bold{ignored}. \cr
 \cr
@@ -86,11 +88,19 @@ ii_x(x, 1:10 * -1i) # extract last 10 elements
 
 ii_x(x, 10:1 * -1i) # last 10 elements, in tail()-like order
 #>  [1] 21 22 23 24 25 26 27 28 29 30
+
+ii_x(x, c(1, -1) * 1i) # extract first and last element
+#> [1]  1 30
 }\if{html}{\out{</div>}}
 
 Thus complex vectors allow the user to choose between counting from the beginning,
 like regular integers,
-or backwards counting from the end. \cr
+or backwards counting from the end, or a combination of both. \cr
+\cr
+\cr
+\bold{Missing Index Argument} \cr
+Both \code{NULL} and the numeric scalar \code{0L} can be used to specify an missing index argument. \cr
+For example, given a matrix \code{x}, \code{ss_x(x, n(0, 1:10))} is equivalent to \code{x[ , 1:10]}. \cr
 \cr
 \cr
 }

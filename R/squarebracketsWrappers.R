@@ -5,6 +5,13 @@
   .Call("C_is_altrep", x = x)
 }
 
+#' @keywords Internal
+#' @noRd
+.C_is_missing_idx <- function(x) {
+  .Call("C_is_missing_idx", x = x)
+}
+
+
 
 #' @keywords Internal
 #' @noRd

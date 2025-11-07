@@ -5,7 +5,7 @@
 \alias{tci_bool}
 \alias{tci_int}
 \alias{tci_chr}
-\alias{tci_cplx}
+\alias{tci_im}
 \title{Type Cast Indices}
 \usage{
 tci_bool(indx, n, inv = FALSE, .abortcall = sys.call())
@@ -21,7 +21,7 @@ tci_chr(
   .abortcall = sys.call()
 )
 
-tci_cplx(indx, n, inv = FALSE, chkdup = FALSE, .abortcall = sys.call())
+tci_im(indx, n, inv = FALSE, chkdup = FALSE, .abortcall = sys.call())
 }
 \arguments{
 \item{indx}{the indices to typecast}
@@ -72,7 +72,7 @@ cplx <- 1:4 * -1i
 tci_bool(bool, nrow(x))
 tci_int(int, ncol(x), inv = TRUE)
 tci_chr(chr, colnames(x))
-tci_cplx(cplx, nrow(x))
+tci_im(cplx, nrow(x))
 
 ci_ii(x, 1:10 * -1i)
 ci_margin(x, 1:4, 2)

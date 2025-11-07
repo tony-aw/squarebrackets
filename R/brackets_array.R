@@ -92,7 +92,7 @@
   rp <- .internal_coerce_rp(x, rp, abortcall)
   
   
-  # CASE 1: `x` has between 3 and 16 dimensions (emtpy args, 1d, and 2d already captured earlier)
+  # CASE 1: `x` has between 2 and 16 dimensions (empty args and 1d arrays already captured earlier)
   if(ndim <= 8L) {
     .rcpp_set_array_d(x, rp, lst, x.dim, abortcall = abortcall)
     return(invisible(NULL))

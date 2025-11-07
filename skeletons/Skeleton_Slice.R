@@ -293,7 +293,7 @@ cat(templatecodes)
 
 code <- stri_c(
   header_for_source,
-  templatecodes,
+  stri_c(templatecodes, collapse = "\n"),
   collapse = "\n\n"
 )
 

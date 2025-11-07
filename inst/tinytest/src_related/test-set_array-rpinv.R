@@ -43,13 +43,17 @@ for(iSample in 1:10) {
     x.dim <- sample(1:6, size = iDim, replace = TRUE)
     x.len <- prod(x.dim)
     x.data <- generate_data(x.len)
-    for(iType in seq_along(x.data)) {
+    for(iType in 6) {
       x <- as.mutatomic(array(x.data[[iType]], x.dim))
       s <- lapply(x.dim, \(x) sample(1:x, max(c(1, x)), FALSE))
       d <- 1:length(x.dim)
       
+      cat("type = ", iType, "\n")
+      cat("ndim = ", iDim, "\n")
+      
       expected[[i]] <- tempfun1(x, s, rp.lst[[iType]])
       out[[i]] <- tempfun2(x, s, d, rp.lst[[iType]])
+      
       
       x <- data.table::copy(x)
       x2 <- x

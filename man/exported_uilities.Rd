@@ -3,11 +3,14 @@
 \name{indx_x}
 \alias{indx_x}
 \alias{indx_wo}
+\alias{.is.0}
 \title{Exported Utilities}
 \usage{
 indx_x(i, x, xnames, xsize)
 
 indx_wo(i, x, xnames, xsize)
+
+.is.0(x)
 }
 \arguments{
 \item{i}{See \link{squarebrackets_indx_args}.}

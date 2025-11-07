@@ -1,8 +1,8 @@
 
 #' @keywords internal
 #' @noRd
-.all_NULL_indices <- function(lst) {
-  check <- vapply(lst, \(x) is.null(x), FUN.VALUE = logical(1L))
+.all_missing_indices <- function(lst) {
+  check <- vapply(lst, .C_is_missing_idx, FUN.VALUE = logical(1L))
   if(all(check)) {
     return(TRUE)
   } else {
@@ -13,10 +13,10 @@
 #' @keywords internal
 #' @noRd
 .all_missing_s_d <- function(s, d) {
-  if(is.null(s) || length(s) == 0L) {
+  if(.C_is_missing_idx(s) || length(s) == 0L) {
     return(TRUE)
   }
-  if(is.null(d) || length(d) == 0L) {
+  if(.C_is_missing_idx(d) || length(d) == 0L) {
     return(TRUE)
   }
   return(FALSE)
@@ -66,22 +66,4 @@
 }
 
 
-
-#' @keywords internal
-#' @noRd
-.rcpp_set_all <- function(x, rp, tf, abortcall) {
-  
-  if(!missing(tf)) {
-    if(!is.function(tf)) {
-      stop(simpleError("`tf` must be a function", call = abortcall))
-    }
-    rp <- tf(x)
-  }
-  
-  rp <- .internal_coerce_rp(x, rp, abortcall)
-  
-  .rcpp_set_all_atomic(x, rp)
-  return(invisible(NULL))
-  
-}
 

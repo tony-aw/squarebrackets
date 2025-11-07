@@ -107,13 +107,13 @@ ss_set.default <- function(
 
     
   # all missing arguments:
-  if(.all_NULL_indices(list(s))) {
+  if(.all_missing_indices(list(s))) {
     .all_set_atomic(x, rp, tf, abortcall = sys.call())
     return(invisible(NULL))
   }
   
   # zero-length subscripts:
-  if(length(d) == 0) {
+  if(length(d) == 0L || .C_is_missing_idx(d)) {
     .all_set_atomic(x, rp, tf, abortcall = sys.call())
     return(invisible(NULL))
   }
@@ -124,13 +124,6 @@ ss_set.default <- function(
     .flat_set_atomic(x, i, inv, rp, tf, chkdup, sys.call())
     return(invisible(NULL))
   }
-  
-  # matrix:
-  if(is.matrix(x)) {
-    .mat_set(x, s, d, inv, chkdup, rp, tf, sys.call())
-    return(invisible(NULL))
-  }
-  
   
   # s, d arguments:
   .arr_set(x, s, d, chkdup, inv, rp, tf, abortcall = sys.call())

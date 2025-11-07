@@ -41,7 +41,7 @@ In this help page x refers to the object on which subset operations are performe
 
     <a class="navbar-brand me-2" href="../index.html">squarebrackets</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9003</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9005</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -95,7 +95,7 @@ In this help page <code>x</code> refers to the object on which subset operations
 
 
 <p><img src="figures/class-atomic_vector-blue.svg" alt="[class: atomic vector]"><br><img src="figures/class-derived_atomic_vector-blue.svg" alt="[class: derived atomic vector]"><br><img src="figures/class-recursive_vector-blue.svg" alt="[class: recursive vector]"><br><img src="figures/class-atomic_array-blue.svg" alt="[class: atomic array]"><br><img src="figures/class-recursive_array-blue.svg" alt="[class: recursive array]"><br></p>
-<p>Any of the following can be specified for argument <code>i</code>:</p><ul><li><p><code>NULL</code>, corresponds to missing argument.</p></li>
+<p>Any of the following can be specified for argument <code>i</code>:</p><ul><li><p><code>NULL</code> or <code>0L</code>, corresponds to missing argument.</p></li>
 <li><p>a vector of length 0,
 in which case no indices are selected for the operation
 (i.e. empty selection).</p></li>
@@ -142,7 +142,8 @@ If <code>s</code> is an atomic vector,
 it is internally treated as <code>list(s)</code>,
 and (as with the previous case) recycled to become the same length as <code>d</code>. <br><br>
 Each element of <code>s</code> when <code>s</code> is a list, or <code>s</code> as a whole when <code>s</code> is atomic,
-can be any of the following:</p><ul><li><p>a vector of length 0,
+can be any of the following:</p><ul><li><p><code>NULL</code> or <code>0L</code>, which corresponds to a missing index argument.</p></li>
+<li><p>a vector of length 0,
 in which case no indices are selected for the operation (i.e. empty selection).</p></li>
 <li><p>a numeric vector of <b>strictly positive whole numbers</b>
 with indices of the specified dimension to select for the operation.</p></li>
@@ -159,19 +160,21 @@ it is taken as "all index margins are missing".</p></li>
 </ul><p>To keep the syntax short,
 the user can use the <a href="nest.html">n</a> function instead of <code><a href="https://rdrr.io/r/base/list.html" class="external-link">list()</a></code> to specify <code>s</code>. <br><br><b>EXAMPLES</b> <br>
 Here are some examples for clarity,
-using an atomic array <code>x</code> of 3 dimensions:</p><ul><li><p><code>ss_x(x, n(1:10, 1:5), c(1, 3))</code> <br>
+using an atomic array <code>x</code> of 3 dimensions:</p><ul><li><p><code>ss_x(x, n(1:10, 1:5), c(1, 3))</code>,
 extracts the first 10 rows, all columns, and the first 5 layers,
-of array <code>x</code>. <br></p></li>
+of array <code>x</code>. <br><code>ss_x(x, n(1:10, 0L, 1:5))</code> is the same.</p></li>
 <li><p><code>ss_x(x, n(1:10), 2)</code> <br>
-extracts the first 10 columns of array <code>x</code>. <br></p></li>
+extracts the first 10 columns of array <code>x</code>.</p></li>
 <li><p><code>ss_x(x, 1:10)</code>, <br>
-extracts the first 10 rows, columns, and layers of array <code>x</code>. <br></p></li>
+extracts the first 10 rows, columns, and layers of array <code>x</code>.</p></li>
 <li><p><code>ss_x(x, 1:10, c(1, 3))</code>, <br>
 extracts the first 10 rows, all columns, and the first 10 layers,
 of array <code>x</code>. <br></p></li>
 </ul><p>I.e.:</p>
 <p></p><div class="sourceCode r"><pre><code><span></span>
 <span><span class="fu"><a href="../reference/sb_x.html">ss_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="../reference/nest.html">n</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="co"># ==&gt; x[1:10, , 1:5, drop = FALSE]</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/sb_x.html">ss_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="../reference/nest.html">n</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">0L</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span>      <span class="co"># ==&gt; x[1:10, , 1:5, drop = FALSE]</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/sb_x.html">ss_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">2</span><span class="op">)</span>               <span class="co"># ==&gt; x[ , 1:10, , drop = FALSE]</span></span>
 <span></span>
@@ -193,7 +196,8 @@ The <code>margin</code> argument specifies the dimension on which argument <code
 I.e. when <code>margin = 1</code>, <code>slice</code> selects rows; <br>
 when <code>margin = 2</code>, <code>slice</code> selects columns; <br>
 etc. <br><br>
-The <code>slice</code> argument can be any of the following:</p><ul><li><p>a numeric vector of <b>strictly positive whole numbers</b>
+The <code>slice</code> argument can be any of the following:</p><ul><li><p><code>NULL</code> or <code>0L</code>, which corresponds to a missing index argument.</p></li>
+<li><p>a numeric vector of <b>strictly positive whole numbers</b>
 with dimension indices to select for the operation.</p></li>
 <li><p>a <b>complex</b> vector, as explained in <a href="aaa03_squarebrackets_indx_fundamentals.html">squarebrackets_indx_fundamentals</a>.</p></li>
 <li><p>a <b>logical</b> vector of the same length as the corresponding dimension size,
@@ -221,7 +225,7 @@ arguments, respectively, of base R's <a href="https://rdrr.io/r/base/subset.html
 However, the <code>obs</code> and  <code>vars</code> arguments do <b>not</b> use
 non-standard evaluation,
 as to keep 'squarebrackets' fully programmatically friendly. <br><br><b>The <code>obs</code> Argument</b> <br>
-The <code>obs</code> argument can be any of the following:</p><ul><li><p><code>NULL</code> (default), corresponds to a missing argument.</p></li>
+The <code>obs</code> argument can be any of the following:</p><ul><li><p><code>NULL</code> or <code>0L</code>, which corresponds to a missing index argument.</p></li>
 <li><p>a vector of length 0,
 in which case no indices are selected for the operation (i.e. empty selection).</p></li>
 <li><p>a numeric vector of <b>strictly positive whole numbers</b>
@@ -238,7 +242,7 @@ specify the following formula:</p>
 <p>If the formula is linked to an environment,
 any variables not found in the data set will be searched from the environment. <br><br></p>
 <p><b>The <code>vars</code> Argument</b> <br>
-The <code>vars</code> argument can be any of the following</p><ul><li><p><code>NULL</code> (default), corresponds to a missing argument.</p></li>
+The <code>vars</code> argument can be any of the following</p><ul><li><p><code>NULL</code> (default) or <code>0L</code>, corresponds to a missing argument.</p></li>
 <li><p>a vector of length 0,
 in which case no indices are selected for the operation (i.e. empty selection).</p></li>
 <li><p>a numeric vector of <b>strictly positive whole numbers</b>
@@ -297,10 +301,10 @@ For replacement with a single value or with a transformation function,
     <h2 id="all-missing-indices">All Missing Indices<a class="anchor" aria-label="anchor" href="#all-missing-indices"></a></h2>
 
 
-<p><code>NULL</code> in the indexing arguments corresponds to a missing argument. <br>
+<p><code>NULL</code> and <code>0L</code> in the indexing arguments correspond to a missing argument. <br>
 For <code>s, d</code>, specifying <code>d</code> of length 0 also corresponds to all subscripts being missing. <br>
 Thus, for <b>both</b> the <code>_x</code> and <code>_wo</code> methods,
-using missing or <code>NULL</code> indexing arguments for all indexing arguments corresponds to something like the following:</p>
+using missing indexing arguments for all indexing arguments corresponds to something like the following:</p>
 <p></p><div class="sourceCode r"><pre><code><span></span>
 <span><span class="va">x</span><span class="op">[</span><span class="op">]</span></span>
 <span></span></code></pre><p></p></div>

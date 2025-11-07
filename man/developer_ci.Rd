@@ -32,7 +32,7 @@ ci_margin(
 ci_ss(
   x,
   s,
-  d,
+  d = 1:ndim(x),
   inv = FALSE,
   chkdup = FALSE,
   uniquely_named = FALSE,
@@ -98,7 +98,7 @@ because things like \code{dimnames(x)[1]} and \code{rownames(x)}
 do not always return the same output for certain data.frame-like objects.
 \item \code{ci_obs()} and \code{ci_vars()} construct row and column indices,
 respectively,
-data.frame-like objects. \cr
+for data.frame-like objects. \cr
 }
 }
 \examples{
@@ -114,7 +114,7 @@ cplx <- 1:4 * -1i
 tci_bool(bool, nrow(x))
 tci_int(int, ncol(x), inv = TRUE)
 tci_chr(chr, colnames(x))
-tci_cplx(cplx, nrow(x))
+tci_im(cplx, nrow(x))
 
 ci_ii(x, 1:10 * -1i)
 ci_margin(x, 1:4, 2)

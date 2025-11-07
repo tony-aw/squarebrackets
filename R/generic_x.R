@@ -71,7 +71,7 @@ ss2_x <- function(x, ...) {
 ii_x.default <- function(x, i = NULL, ...) {
   
   .internal_check_dots(list(...), sys.call())
-  if(is.null(i)){
+  if(.C_is_missing_idx(i)){
     return(x)
   }
   
@@ -101,7 +101,7 @@ ii2_x.default <- function(x, i = NULL, red = FALSE, ...) {
   if(!isTRUE(red) && !isFALSE(red)) {
     stop("`red` must be either `TRUE` or `FALSE`")
   }
-  if(is.null(i)) {
+  if(.C_is_missing_idx(i)) {
     return(x)
   }
   
@@ -136,7 +136,7 @@ ss2_x.data.frame <- function(
   .check_args_df(x, s, d, obs, vars, abortcall = sys.call())
   
   # all missing arguments:
-  if(.all_missing_s_d(s, d) && .all_NULL_indices(list(obs, vars))) {
+  if(.all_missing_s_d(s, d) && .all_missing_indices(list(obs, vars))) {
     return(x)
   }
   
@@ -167,17 +167,17 @@ ss2_x.data.frame <- function(
   .check_args_array(x, s, d, abortcall)
   
   # empty arguments:
-  if(.all_NULL_indices(list(s, i))) {
+  if(.all_missing_indices(list(s, i))) {
     return(x)
   }
   
   # argument i:
-  if(!is.null(i)) {
+  if(!.C_is_missing_idx(i)) {
     return(.flat_x(x, i, inv, red, chkdup, abortcall))
   }
   
   # zero-length subscripts:
-  if(length(d) == 0L) {
+  if(length(d) == 0L || .C_is_missing_idx(d)) {
     return(x)
   }
   
@@ -186,12 +186,6 @@ ss2_x.data.frame <- function(
     i <- .flat_s2i(x, s, d, abortcall)
     return(.flat_a1d_x(x, i, inv, red, chkdup, abortcall))
   }
-  
-  # matrix:
-  if(is.matrix(x)) {
-    return(.mat_x(x, s, d, inv, red, chkdup, sys.call()))
-  }
-  
   
   # s, d arguments:
   lst <- ci_ss(x, s, d, inv = inv, chkdup, .abortcall = abortcall)

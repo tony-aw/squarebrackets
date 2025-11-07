@@ -14,8 +14,8 @@
 #'  - `ii2_`: operates on subsets of \bold{recursive} objects by \bold{flat/interior} indices.
 #'  - `ss_`: operates on subsets of \bold{atomic} objects by (dimensional) \bold{subscripts}.
 #'  - `ss2_`: operates on subsets of \bold{recursive} objects by (dimensional) \bold{subscripts}.
-#'  - `slice_`: uses \bold{index-less}, \bold{sequence-based}, and efficient operations on `mutatomic` objects.
-#'  - `slicev_`: uses \bold{index-less}, \bold{value-based} and efficient operations on `mutatomic` objects. \cr \cr
+#'  - `slice_`: uses \bold{index-less}, \bold{sequence-based}, and efficient operations on (`mutatomic`) long vectors.
+#'  - `slicev_`: uses \bold{index-less}, \bold{value-based} and efficient operations on (`mutatomic`) long vectors. \cr \cr
 #' 
 #' 
 #' For the `B` part, the following is available:

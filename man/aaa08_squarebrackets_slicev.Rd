@@ -131,7 +131,6 @@ For numeric \code{y}, one can specify a range for \code{v}, as explained earlier
 But note one can also specify something like \code{v = c(-Inf, 4)},
 which essentially corresponds to the condition \code{y <= 4}. \cr
 Thus, when \code{v} specifies a range, "greater-than" and "smaller-than" comparisons are also possible. \cr
-This also holds for \code{y} of type \code{complex}. \cr
 \cr
 \cr
 }

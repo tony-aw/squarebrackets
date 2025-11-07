@@ -19,8 +19,8 @@ For the \code{A} part, the following is available:
 \item \code{ii2_}: operates on subsets of \bold{recursive} objects by \bold{flat/interior} indices.
 \item \code{ss_}: operates on subsets of \bold{atomic} objects by (dimensional) \bold{subscripts}.
 \item \code{ss2_}: operates on subsets of \bold{recursive} objects by (dimensional) \bold{subscripts}.
-\item \code{slice_}: uses \bold{index-less}, \bold{sequence-based}, and efficient operations on \code{mutatomic} objects.
-\item \code{slicev_}: uses \bold{index-less}, \bold{value-based} and efficient operations on \code{mutatomic} objects. \cr \cr
+\item \code{slice_}: uses \bold{index-less}, \bold{sequence-based}, and efficient operations on (\code{mutatomic}) long vectors.
+\item \code{slicev_}: uses \bold{index-less}, \bold{value-based} and efficient operations on (\code{mutatomic}) long vectors. \cr \cr
 }
 
 For the \code{B} part, the following is available:

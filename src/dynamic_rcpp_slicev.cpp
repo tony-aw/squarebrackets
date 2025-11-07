@@ -26,385 +26,6 @@ inline int rcpp_count_stringmatches(String y, SEXP v) {
 
 
 
-#define MACRO_SLICEV_DO_NARM(DOCODE) do {	\
-  	\
-  switch(TYPEOF(y)) {	\
-    	\
-    case LGLSXP:	\
-    {	\
-      bool condition = !invert[0];	\
-      const int *py = LOGICAL(y);	\
-      const int pv = LOGICAL(v)[0];	\
-      for(R_xlen_t i = start; i != (end + by); i += by) {	\
-        if(py[i] != NA_LOGICAL && (py[i] == pv) == condition) {	\
-          DOCODE;	\
-        }	\
-      }	\
-      break;	\
-    }	\
-    case CPLXSXP:	\
-    {	\
-      bool condition = !invert[0];	\
-      const Rcomplex *py = COMPLEX(y);	\
-      const Rcomplex pv = COMPLEX(v)[0];	\
-      bool checkNA;	\
-      for(R_xlen_t i = start; i != (end + by); i += by) {	\
-        checkNA = R_isnancpp(py[i].r) || R_isnancpp(py[i].i);	\
-        if(!checkNA && (py[i].r == pv.r && py[i].i == pv.i) == condition) {	\
-          DOCODE;	\
-        }	\
-      }	\
-      break;	\
-    }	\
-    case RAWSXP :	\
-    {	\
-      bool condition = !invert[0];	\
-      const Rbyte *py = RAW(y);	\
-      const Rbyte pv = RAW(v)[0];	\
-      for(R_xlen_t i = start; i != (end + by); i += by) {	\
-        if((py[i] == pv) == condition) {	\
-          DOCODE;	\
-        }	\
-      }	\
-      break;	\
-    }	\
-    case INTSXP:	\
-    {	\
-      bool condition = !invert[0];	\
-      const int *py = INTEGER(y);	\
-      if(Rf_xlength(v) == 1) {	\
-        int pv;	\
-        pv = Rf_asInteger(v);	\
-        for(R_xlen_t i = start; i != (end + by); i += by) {	\
-          if(py[i] != NA_INTEGER && (py[i] == pv) == condition) {	\
-            DOCODE;	\
-          }	\
-        }	\
-      }	\
-      else if(Rf_xlength(v) == 2) {	\
-        double *pv = REAL(v);	\
-        for(R_xlen_t i = start; i != (end + by); i += by) {	\
-          if(py[i] != NA_INTEGER && (py[i] >= pv[0] && py[i] <= pv[1]) == condition) {	\
-            DOCODE;	\
-          }	\
-        }	\
-      }	\
-      else {	\
-        stop("improper length for `v`");	\
-      }	\
-      break;	\
-    }	\
-    case REALSXP:	\
-    {	\
-      bool condition = !invert[0];	\
-      const double *py = REAL(y);	\
-      if(Rf_xlength(v) == 1) {	\
-        double pv;	\
-        pv = Rf_asReal(v);	\
-        for(R_xlen_t i = start; i != (end + by); i += by) {	\
-          if(!R_isnancpp(py[i]) && (py[i] == pv) == condition) {	\
-            DOCODE;	\
-          }	\
-        }	\
-      }	\
-      else if(Rf_xlength(v) == 2) {	\
-        double *pv = REAL(v);	\
-        for(R_xlen_t i = start; i != (end + by); i += by) {	\
-          if(!R_isnancpp(py[i]) && (py[i] >= pv[0] && py[i] <= pv[1]) == condition) {	\
-            DOCODE;	\
-          }	\
-        }	\
-      }	\
-      else {	\
-        stop("improper length for `v`");	\
-      }	\
-      	\
-      break;	\
-    }	\
-    case STRSXP:	\
-    {	\
-      const SEXP *py = STRING_PTR_RO(y);	\
-      if(Rf_length(v) == 1) {	\
-        const SEXP *pv = STRING_PTR_RO(v);	\
-        if(invert[0]) {	\
-          for(R_xlen_t i = start; i != (end + by); i += by) {	\
-            if(py[i] != NA_STRING && py[i] != pv[0]) {	\
-              DOCODE;	\
-            }	\
-          }	\
-        }	\
-        else {	\
-          for(R_xlen_t i = start; i != (end + by); i += by) {	\
-            if(py[i] == pv[0]) {	\
-              DOCODE;	\
-            }	\
-          }	\
-        }	\
-      }	\
-      if(Rf_length(v) > 1) {	\
-        if(invert[0]) {	\
-          for(R_xlen_t i = start; i != (end + by); i += by) {	\
-            if(py[i] != NA_STRING) {	\
-              if(rcpp_count_stringmatches(py[i], v) == 0) {	\
-                DOCODE;	\
-              }	\
-              	\
-            }	\
-          }	\
-        }	\
-        else {	\
-          for(R_xlen_t i = start; i != (end + by); i += by) {	\
-            if(rcpp_count_stringmatches(py[i], v) > 0) {	\
-              DOCODE;	\
-            }	\
-          }	\
-        }	\
-      }	\
-      	\
-      break;	\
-    }	\
-    default: stop("Unsupported type ");	\
-  }	\
-} while(0)
-
-
-#define MACRO_SLICEV_DO_NAKEEP(DOCODE) do {	\
-  switch(TYPEOF(y)) {	\
-    	\
-    case LGLSXP:	\
-    {	\
-      bool condition = !invert[0];	\
-      const int *py = LOGICAL(y);	\
-      const int pv = LOGICAL(v)[0];	\
-      for(R_xlen_t i = start; i != (end + by); i += by) {	\
-        if(py[i] == NA_LOGICAL || (py[i] == pv) == condition) {	\
-          DOCODE;	\
-          	\
-        }	\
-      }	\
-      break;	\
-    }	\
-    case CPLXSXP:	\
-    {	\
-      bool condition = !invert[0];	\
-      const Rcomplex *py = COMPLEX(y);	\
-      const Rcomplex pv = COMPLEX(v)[0];	\
-      bool checkNA;	\
-      for(R_xlen_t i = start; i != (end + by); i += by) {	\
-        checkNA = R_isnancpp(py[i].r) || R_isnancpp(py[i].i);	\
-        if(checkNA || (py[i].r == pv.r && py[i].i == pv.i) == condition) {	\
-          DOCODE;	\
-          	\
-        }	\
-      }	\
-      break;	\
-    }	\
-    case RAWSXP :	\
-    {	\
-      bool condition = !invert[0];	\
-      const Rbyte *py = RAW(y);	\
-      const Rbyte pv = RAW(v)[0];	\
-      for(R_xlen_t i = start; i != (end + by); i += by) {	\
-        if((py[i] == pv) == condition) {	\
-          DOCODE;	\
-          	\
-        }	\
-      }	\
-      break;	\
-    }	\
-    case INTSXP:	\
-    {	\
-      bool condition = !invert[0];	\
-      const int *py = INTEGER(y);	\
-      if(Rf_xlength(v) == 1) {	\
-        int pv;	\
-        pv = Rf_asInteger(v);	\
-        for(R_xlen_t i = start; i != (end + by); i += by) {	\
-          if(py[i] == NA_INTEGER || (py[i] == pv) == condition) {	\
-            DOCODE;	\
-            	\
-          }	\
-        }	\
-      }	\
-      else if(Rf_xlength(v) == 2) {	\
-        double *pv = REAL(v);	\
-        for(R_xlen_t i = start; i != (end + by); i += by) {	\
-          if(py[i] == NA_INTEGER || (py[i] >= pv[0] && py[i] <= pv[1]) == condition) {	\
-            DOCODE;	\
-            	\
-          }	\
-        }	\
-      }	\
-      else {	\
-        stop("improper length for `v`");	\
-      }	\
-      break;	\
-    }	\
-    case REALSXP:	\
-    {	\
-      bool condition = !invert[0];	\
-      const double *py = REAL(y);	\
-      if(Rf_xlength(v) == 1) {	\
-        double pv;	\
-        pv = Rf_asReal(v);	\
-        for(R_xlen_t i = start; i != (end + by); i += by) {	\
-          if(R_isnancpp(py[i]) || (py[i] == pv) == condition) {	\
-            DOCODE;	\
-            	\
-          }	\
-        }	\
-      }	\
-      else if(Rf_xlength(v) == 2) {	\
-        double *pv = REAL(v);	\
-        for(R_xlen_t i = start; i != (end + by); i += by) {	\
-          if(R_isnancpp(py[i]) || (py[i] >= pv[0] && py[i] <= pv[1]) == condition) {	\
-            DOCODE;	\
-            	\
-          }	\
-        }	\
-      }	\
-      else {	\
-        stop("improper length for `v`");	\
-      }	\
-      	\
-      break;	\
-    }	\
-    case STRSXP:	\
-    {	\
-      const SEXP *py = STRING_PTR_RO(y);	\
-      if(Rf_length(v) == 1) {	\
-        const SEXP *pv = STRING_PTR_RO(v);	\
-        if(invert[0]) {	\
-          for(R_xlen_t i = start; i != (end + by); i += by) {	\
-            if(py[i] == NA_STRING || py[i] != pv[0]) {	\
-              DOCODE;	\
-              	\
-            }	\
-          }	\
-        }	\
-        else {	\
-          for(R_xlen_t i = start; i != (end + by); i += by) {	\
-            if(py[i] == NA_STRING || py[i] == pv[0]) {	\
-              DOCODE;	\
-              	\
-            }	\
-          }	\
-        }	\
-      }	\
-      if(Rf_length(v) > 1) {	\
-        if(invert[0]) {	\
-          for(R_xlen_t i = start; i != (end + by); i += by) {	\
-            if(py[i] == NA_STRING || rcpp_count_stringmatches(py[i], v) == 0) {	\
-              DOCODE;	\
-              	\
-            }	\
-          }	\
-        }	\
-        else {	\
-          for(R_xlen_t i = start; i != (end + by); i += by) {	\
-            if(py[i] == NA_STRING || rcpp_count_stringmatches(py[i], v) > 0) {	\
-              DOCODE;	\
-              	\
-            }	\
-          }	\
-        }	\
-      }	\
-      	\
-      break;	\
-    }	\
-    default: stop("Unsupported type ");	\
-  }	\
-} while(0)
-
-
-#define MACRO_SLICEV_DO_NAONLY(DOCODE) do {	\
-  switch(TYPEOF(y)) {	\
-    	\
-    case LGLSXP:	\
-    {	\
-      bool condition = !invert[0];	\
-      const int *py = LOGICAL(y);	\
-      for(R_xlen_t i = start; i != (end + by); i += by) {	\
-        if((py[i] == NA_LOGICAL) == condition) {	\
-          DOCODE;	\
-          	\
-        }	\
-      }	\
-      break;	\
-    }	\
-    case INTSXP:	\
-    {	\
-      bool condition = !invert[0];	\
-      const int *py = INTEGER(y);	\
-      for(R_xlen_t i = start; i != (end + by); i += by) {	\
-        if((py[i] == NA_INTEGER) == condition) {	\
-          DOCODE;	\
-          	\
-        }	\
-      }	\
-      break;	\
-    }	\
-    case REALSXP:	\
-    {	\
-      bool condition = !invert[0];	\
-      const double *py = REAL(y);	\
-      for(R_xlen_t i = start; i != (end + by); i += by) {	\
-        if(R_isnancpp(py[i]) == condition) {	\
-          DOCODE;	\
-          	\
-        }	\
-      }	\
-      break;	\
-    }	\
-    case CPLXSXP:	\
-    {	\
-      const Rcomplex *py = COMPLEX(y);	\
-      bool condition = !invert[0];	\
-      for(R_xlen_t i = start; i != (end + by); i += by) {	\
-        if((R_isnancpp(py[i].r) || R_isnancpp(py[i].i)) == condition){	\
-          DOCODE;	\
-          	\
-        }	\
-      }	\
-      break;	\
-    }	\
-    case STRSXP:	\
-    {	\
-      const SEXP *py = STRING_PTR_RO(y);	\
-      bool condition = !invert[0];	\
-      for(R_xlen_t i = start; i != (end + by); i += by) {	\
-        if((py[i] == NA_STRING) == condition) {	\
-          DOCODE;	\
-          	\
-        }	\
-      }	\
-      break;	\
-    }	\
-    case RAWSXP :	\
-    {	\
-      stop("NAs not defined for type `raw`");	\
-    }	\
-    default: stop("Unsupported type ");	\
-  }	\
-} while(0)
-
-
-#define MACRO_SLICEV_DO(DOCODE) do {	\
-  if(LogicalVector::is_na(na[0])) {	\
-    MACRO_SLICEV_DO_NAONLY(DOCODE);	\
-  }	\
-  else if(na[0]) {	\
-    MACRO_SLICEV_DO_NAKEEP(DOCODE);	\
-  }	\
-  else if(!na[0]) {	\
-    MACRO_SLICEV_DO_NARM(DOCODE);	\
-  }	\
-  else {	\
-    stop("unknow value for `na` given");	\
-  }	\
-} while(0)
-
-
 
 //' @keywords internal
 //' @noRd
@@ -458,7 +79,7 @@ SEXP rcpp_slicev_x_Logical(
     if(Rf_xlength(x) != Rf_xlength(y)) {
       stop("`x` and `y` must have equal lengths");
     }
-    int *px = LOGICAL(x);
+    const int *px = LOGICAL_RO(x);
     
     R_xlen_t size = rcpp_countv(y, v, na, invert, start, end, by, len);
     SEXP out = PROTECT(Rf_allocVector(LGLSXP, size));
@@ -487,7 +108,7 @@ SEXP rcpp_slicev_x_Integer(
     if(Rf_xlength(x) != Rf_xlength(y)) {
       stop("`x` and `y` must have equal lengths");
     }
-    int *px = INTEGER(x);
+    const int *px = INTEGER_RO(x);
     
     R_xlen_t size = rcpp_countv(y, v, na, invert, start, end, by, len);
     SEXP out = PROTECT(Rf_allocVector(INTSXP, size));
@@ -516,7 +137,7 @@ SEXP rcpp_slicev_x_Numeric(
     if(Rf_xlength(x) != Rf_xlength(y)) {
       stop("`x` and `y` must have equal lengths");
     }
-    double *px = REAL(x);
+    const double *px = REAL_RO(x);
     
     R_xlen_t size = rcpp_countv(y, v, na, invert, start, end, by, len);
     SEXP out = PROTECT(Rf_allocVector(REALSXP, size));
@@ -545,7 +166,7 @@ SEXP rcpp_slicev_x_Complex(
     if(Rf_xlength(x) != Rf_xlength(y)) {
       stop("`x` and `y` must have equal lengths");
     }
-    Rcomplex *px = COMPLEX(x);
+    const Rcomplex *px = COMPLEX_RO(x);
     
     R_xlen_t size = rcpp_countv(y, v, na, invert, start, end, by, len);
     SEXP out = PROTECT(Rf_allocVector(CPLXSXP, size));
@@ -574,7 +195,7 @@ SEXP rcpp_slicev_x_Raw(
     if(Rf_xlength(x) != Rf_xlength(y)) {
       stop("`x` and `y` must have equal lengths");
     }
-    Rbyte *px = RAW(x);
+    const Rbyte *px = RAW_RO(x);
     
     R_xlen_t size = rcpp_countv(y, v, na, invert, start, end, by, len);
     SEXP out = PROTECT(Rf_allocVector(RAWSXP, size));
@@ -603,7 +224,7 @@ SEXP rcpp_slicev_x_Character(
     if(Rf_xlength(x) != Rf_xlength(y)) {
       stop("`x` and `y` must have equal lengths");
     }
-    SEXP *px = STRING_PTR(x);
+    const SEXP *px = STRING_PTR_RO(x);
     
     R_xlen_t size = rcpp_countv(y, v, na, invert, start, end, by, len);
     SEXP out = PROTECT(Rf_allocVector(STRSXP, size));
@@ -677,7 +298,7 @@ void rcpp_slicev_set_Logical(
   }
   
    int *px = LOGICAL(x);
-  int *prp = LOGICAL(rp);
+  const int *prp = LOGICAL_RO(rp);
 
   if(Rf_xlength(rp) == 1 && len > 0) {
     MACRO_SLICEV_DO(MACRO_SET_ATOMIC(px, i, prp[0]));
@@ -705,7 +326,7 @@ void rcpp_slicev_set_Integer(
   }
   
    int *px = INTEGER(x);
-  int *prp = INTEGER(rp);
+  const int *prp = INTEGER_RO(rp);
 
   if(Rf_xlength(rp) == 1 && len > 0) {
     MACRO_SLICEV_DO(MACRO_SET_ATOMIC(px, i, prp[0]));
@@ -733,7 +354,7 @@ void rcpp_slicev_set_Numeric(
   }
   
    double *px = REAL(x);
-  double *prp = REAL(rp);
+  const double *prp = REAL_RO(rp);
 
   if(Rf_xlength(rp) == 1 && len > 0) {
     MACRO_SLICEV_DO(MACRO_SET_ATOMIC(px, i, prp[0]));
@@ -761,7 +382,7 @@ void rcpp_slicev_set_Complex(
   }
   
    Rcomplex *px = COMPLEX(x);
-  Rcomplex *prp = COMPLEX(rp);
+  const Rcomplex *prp = COMPLEX_RO(rp);
 
   if(Rf_xlength(rp) == 1 && len > 0) {
     MACRO_SLICEV_DO(MACRO_SET_ATOMIC(px, i, prp[0]));
@@ -789,7 +410,7 @@ void rcpp_slicev_set_Raw(
   }
   
    Rbyte *px = RAW(x);
-  Rbyte *prp = RAW(rp);
+  const Rbyte *prp = RAW_RO(rp);
 
   if(Rf_xlength(rp) == 1 && len > 0) {
     MACRO_SLICEV_DO(MACRO_SET_ATOMIC(px, i, prp[0]));
@@ -817,7 +438,7 @@ void rcpp_slicev_set_Character(
   }
   
   // SEXP *px = STRING_PTR(x);
-  SEXP *prp = STRING_PTR(rp);
+  const SEXP *prp = STRING_PTR_RO(rp);
 
   if(Rf_xlength(rp) == 1 && len > 0) {
     MACRO_SLICEV_DO(SET_STRING_ELT(x, i, prp[0]));

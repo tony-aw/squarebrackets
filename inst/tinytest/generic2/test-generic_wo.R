@@ -174,6 +174,9 @@ f_out.data.frame <- ss2_wo
 dt. <- loadNamespace("data.table")
 
 sys.source(file.path(getwd(), "source", "sourcetest-datasets.R"), envir = environment())
+sys.source(file.path(getwd(), "source", "sourcetest-obsvars.R"), envir = environment())
+
+
 
 # test errors ====
 sb_test <- ii2_wo
