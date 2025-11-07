@@ -9,6 +9,50 @@ This help page explains the fundamentals regarding how 'squarebrackets' treats i
 Some familiarity with base R's \code{[} and \verb{[<-} operators is required to follow this help page. \cr
 \cr
 }
+\section{Indexing Forms}{
+
+
+Consider the following representation of array indices for a (in this case) 5 by 4 matrix:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{     [,1] [,2] [,3] [,4]
+[1,]    1    6   11   16
+[2,]    2    7   12   17
+[3,]    3    8   13   18
+[4,]    4    9   14   19
+[5,]    5   10   15   20
+}\if{html}{\out{</div>}}
+
+The numbers \code{1} to \code{20} on the interior of this representation,
+are referred to in this documentation as "interior indices"
+(abbreviated as "ii"),
+also known as "flat indices". \cr
+The numbers on the edges of this representations,
+\code{1} to \code{5} for the rows and \code{1} to \code{4} for the columns,
+are referred to in this documentation as "subscripts"
+(abbreviated as "ss"),
+also known as "dimensional indices". \cr
+\cr
+Thus 'squarebracets' supports these 2 forms of indexing: \cr
+Indexing by interior indices, and indexing by subscripts. \cr
+\cr
+Arrays support both interior indices as well as subscripts. \cr
+Vectors only support interiod indices. \cr
+Data.frames only support subscripts. \cr
+\cr
+One can operate on flat/interior indices (often simply referred to as "indices")
+using the \code{ii_}/ \code{ii2_} methods; \cr
+These primarily use the \link[=squarebrackets_indx_args]{i} argument. \cr
+\cr
+One can operate on subscripts (= dimensional indices)
+using the \code{ss_}/ \code{ss2_} methods; \cr
+These primarily use the the \link[=squarebrackets_indx_args]{s, d} argument pair. \cr
+\cr
+For the relationship between flat/interior indices and subscripts for arrays,
+see the \link{sub2ind} help page. \cr
+\cr
+\cr
+}
+
 \section{Indexing Types}{
 
 Base 'R' supports indexing through \code{logical}, \code{integer}, and \code{character} vectors. \cr
@@ -101,39 +145,6 @@ or backwards counting from the end, or a combination of both. \cr
 \bold{Missing Index Argument} \cr
 Both \code{NULL} and the numeric scalar \code{0L} can be used to specify an missing index argument. \cr
 For example, given a matrix \code{x}, \code{ss_x(x, n(0, 1:10))} is equivalent to \code{x[ , 1:10]}. \cr
-\cr
-\cr
-}
-
-\section{Interior Indices and Subscripts}{
-
-
-One can operate on flat/interior indices (often simply referred to as "indices")
-using the \code{ii_}/ \code{ii2_} methods; \cr
-These primarily use the \link[=squarebrackets_indx_args]{i} argument. \cr
-\cr
-One can operate on subscripts (= dimensional indices)
-using the \code{ss_}/ \code{ss2_} methods; \cr
-These primarily use the the \link[=squarebrackets_indx_args]{s, d} argument pair. \cr
-(Given, for example, a 3-dimensional array,
-the subscript \verb{[1:10, 2:5, 3:9]},
-refers to rows 1 to 10, columns 2 to 5, and layers 3 to 9.) \cr
-\cr
-The \link[=squarebrackets_indx_args]{s, d} argument pair
-works consistently for any dimensional object
-supported by 'squarebrackets',
-and does not require a-priori knowledge on the number of dimensions the object has. \cr
-This is particularly useful for arrays, which can have any number of dimensions. \cr
-\cr
-Arrays and matrices (matrices are simply arrays with 2 dimensions)
-support both flat/interior indices (using the \code{ii_}/ \code{ii2_} methods)
-and subscripts (using the \code{ss_}/ \code{ss2_} methods). \cr
-In the flat/interior indices, also called linear indices,
-specify the indices of an array as-if it is vector,
-thus ignoring dimensions. \cr
-\cr
-For the relationship between flat/interior indices and subscripts for arrays,
-see the \link{sub2ind} help page. \cr
 \cr
 \cr
 }

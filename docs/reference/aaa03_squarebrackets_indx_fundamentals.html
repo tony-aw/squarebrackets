@@ -50,6 +50,41 @@ Some familiarity with base R's <code>[</code> and <code>[&lt;-</code> operators 
 
 
     <div class="section level2">
+    <h2 id="indexing-forms">Indexing Forms<a class="anchor" aria-label="anchor" href="#indexing-forms"></a></h2>
+
+
+
+<p>Consider the following representation of array indices for a (in this case) 5 by 4 matrix:</p>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>     [,<span class="dv">1</span>] [,<span class="dv">2</span>] [,<span class="dv">3</span>] [,<span class="dv">4</span>]</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>[<span class="dv">1</span>,]    <span class="dv">1</span>    <span class="dv">6</span>   <span class="dv">11</span>   <span class="dv">16</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>[<span class="dv">2</span>,]    <span class="dv">2</span>    <span class="dv">7</span>   <span class="dv">12</span>   <span class="dv">17</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>[<span class="dv">3</span>,]    <span class="dv">3</span>    <span class="dv">8</span>   <span class="dv">13</span>   <span class="dv">18</span></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>[<span class="dv">4</span>,]    <span class="dv">4</span>    <span class="dv">9</span>   <span class="dv">14</span>   <span class="dv">19</span></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>[<span class="dv">5</span>,]    <span class="dv">5</span>   <span class="dv">10</span>   <span class="dv">15</span>   <span class="dv">20</span></span></code></pre><p></p></div>
+<p>The numbers <code>1</code> to <code>20</code> on the interior of this representation,
+are referred to in this documentation as "interior indices"
+(abbreviated as "ii"),
+also known as "flat indices". <br>
+The numbers on the edges of this representations,
+<code>1</code> to <code>5</code> for the rows and <code>1</code> to <code>4</code> for the columns,
+are referred to in this documentation as "subscripts"
+(abbreviated as "ss"),
+also known as "dimensional indices". <br><br>
+Thus 'squarebracets' supports these 2 forms of indexing: <br>
+Indexing by interior indices, and indexing by subscripts. <br><br>
+Arrays support both interior indices as well as subscripts. <br>
+Vectors only support interiod indices. <br>
+Data.frames only support subscripts. <br><br>
+One can operate on flat/interior indices (often simply referred to as "indices")
+using the <code>ii_</code>/ <code>ii2_</code> methods; <br>
+These primarily use the <a href="aaa04_squarebrackets_indx_args.html">i</a> argument. <br><br>
+One can operate on subscripts (= dimensional indices)
+using the <code>ss_</code>/ <code>ss2_</code> methods; <br>
+These primarily use the the <a href="aaa04_squarebrackets_indx_args.html">s, d</a> argument pair. <br><br>
+For the relationship between flat/interior indices and subscripts for arrays,
+see the <a href="sub2ind.html">sub2ind</a> help page. <br><br><br></p>
+    </div>
+    <div class="section level2">
     <h2 id="indexing-types">Indexing Types<a class="anchor" aria-label="anchor" href="#indexing-types"></a></h2>
 
 
@@ -119,34 +154,6 @@ like regular integers,
 or backwards counting from the end, or a combination of both. <br><br><br><b>Missing Index Argument</b> <br>
 Both <code>NULL</code> and the numeric scalar <code>0L</code> can be used to specify an missing index argument. <br>
 For example, given a matrix <code>x</code>, <code>ss_x(x, n(0, 1:10))</code> is equivalent to <code>x[ , 1:10]</code>. <br><br><br></p>
-    </div>
-    <div class="section level2">
-    <h2 id="interior-indices-and-subscripts">Interior Indices and Subscripts<a class="anchor" aria-label="anchor" href="#interior-indices-and-subscripts"></a></h2>
-
-
-
-<p>One can operate on flat/interior indices (often simply referred to as "indices")
-using the <code>ii_</code>/ <code>ii2_</code> methods; <br>
-These primarily use the <a href="aaa04_squarebrackets_indx_args.html">i</a> argument. <br><br>
-One can operate on subscripts (= dimensional indices)
-using the <code>ss_</code>/ <code>ss2_</code> methods; <br>
-These primarily use the the <a href="aaa04_squarebrackets_indx_args.html">s, d</a> argument pair. <br>
-(Given, for example, a 3-dimensional array,
-the subscript <code>[1:10, 2:5, 3:9]</code>,
-refers to rows 1 to 10, columns 2 to 5, and layers 3 to 9.) <br><br>
-The <a href="aaa04_squarebrackets_indx_args.html">s, d</a> argument pair
-works consistently for any dimensional object
-supported by 'squarebrackets',
-and does not require a-priori knowledge on the number of dimensions the object has. <br>
-This is particularly useful for arrays, which can have any number of dimensions. <br><br>
-Arrays and matrices (matrices are simply arrays with 2 dimensions)
-support both flat/interior indices (using the <code>ii_</code>/ <code>ii2_</code> methods)
-and subscripts (using the <code>ss_</code>/ <code>ss2_</code> methods). <br>
-In the flat/interior indices, also called linear indices,
-specify the indices of an array as-if it is vector,
-thus ignoring dimensions. <br><br>
-For the relationship between flat/interior indices and subscripts for arrays,
-see the <a href="sub2ind.html">sub2ind</a> help page. <br><br><br></p>
     </div>
     <div class="section level2">
     <h2 id="inverting">Inverting<a class="anchor" aria-label="anchor" href="#inverting"></a></h2>

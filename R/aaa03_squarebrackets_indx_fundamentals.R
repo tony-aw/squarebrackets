@@ -5,6 +5,44 @@
 #' Some familiarity with base R's `[` and `[<-` operators is required to follow this help page. \cr
 #' \cr
 #' 
+#' @section Indexing Forms:
+#' 
+#' Consider the following representation of array indices for a (in this case) 5 by 4 matrix:
+#' 
+#' ```{r echo = FALSE, eval = TRUE, comment = NA}
+#' matrix(1:20, 5, 4)
+#' ```
+#' 
+#' The numbers `1` to `20` on the interior of this representation,
+#' are referred to in this documentation as "interior indices"
+#' (abbreviated as "ii"),
+#' also known as "flat indices". \cr
+#' The numbers on the edges of this representations,
+#' `1` to `5` for the rows and `1` to `4` for the columns,
+#' are referred to in this documentation as "subscripts"
+#' (abbreviated as "ss"),
+#' also known as "dimensional indices". \cr
+#' \cr
+#' Thus 'squarebracets' supports these 2 forms of indexing: \cr
+#' Indexing by interior indices, and indexing by subscripts. \cr
+#' \cr
+#' Arrays support both interior indices as well as subscripts. \cr
+#' Vectors only support interiod indices. \cr
+#' Data.frames only support subscripts. \cr
+#' \cr
+#' One can operate on flat/interior indices (often simply referred to as "indices")
+#' using the `ii_`/ `ii2_` methods; \cr
+#' These primarily use the \link[=squarebrackets_indx_args]{i} argument. \cr
+#' \cr
+#' One can operate on subscripts (= dimensional indices)
+#' using the `ss_`/ `ss2_` methods; \cr
+#' These primarily use the the \link[=squarebrackets_indx_args]{s, d} argument pair. \cr
+#' \cr
+#' For the relationship between flat/interior indices and subscripts for arrays,
+#' see the \link{sub2ind} help page. \cr
+#' \cr
+#' \cr
+#' 
 #' @section Indexing Types:
 #' Base 'R' supports indexing through `logical`, `integer`, and `character` vectors. \cr
 #' 'squarebrackets' supports these also (albeit with some improvements),
@@ -93,36 +131,7 @@
 #' \cr
 #' \cr
 #' 
-#' @section Interior Indices and Subscripts:
 #' 
-#' One can operate on flat/interior indices (often simply referred to as "indices")
-#' using the `ii_`/ `ii2_` methods; \cr
-#' These primarily use the \link[=squarebrackets_indx_args]{i} argument. \cr
-#' \cr
-#' One can operate on subscripts (= dimensional indices)
-#' using the `ss_`/ `ss2_` methods; \cr
-#' These primarily use the the \link[=squarebrackets_indx_args]{s, d} argument pair. \cr
-#' (Given, for example, a 3-dimensional array,
-#' the subscript `[1:10, 2:5, 3:9]`,
-#' refers to rows 1 to 10, columns 2 to 5, and layers 3 to 9.) \cr
-#' \cr
-#' The \link[=squarebrackets_indx_args]{s, d} argument pair
-#' works consistently for any dimensional object
-#' supported by 'squarebrackets',
-#' and does not require a-priori knowledge on the number of dimensions the object has. \cr
-#' This is particularly useful for arrays, which can have any number of dimensions. \cr
-#' \cr
-#' Arrays and matrices (matrices are simply arrays with 2 dimensions)
-#' support both flat/interior indices (using the `ii_`/ `ii2_` methods)
-#' and subscripts (using the `ss_`/ `ss2_` methods). \cr
-#' In the flat/interior indices, also called linear indices,
-#' specify the indices of an array as-if it is vector,
-#' thus ignoring dimensions. \cr
-#' \cr
-#' For the relationship between flat/interior indices and subscripts for arrays,
-#' see the \link{sub2ind} help page. \cr
-#' \cr
-#' \cr
 #' 
 #' 
 #' @section Inverting:

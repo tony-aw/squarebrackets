@@ -4,8 +4,8 @@
 #' There are several types of arguments that can be used
 #' in the generic methods of 'squarebrackets' to specify the indices to perform operations on:
 #' 
-#'  * `i`: to specify flat (i.e. dimensionless) indices.
-#'  * `s, d`: to specify indices of arbitrary dimensions
+#'  * `i`: to specify interior (i.e. dimensionless) indices.
+#'  * `s, d`: to specify subscripts of arbitrary dimensions
 #'  in any dimensional object supported by 'squarebrackets'
 #'  (i.e. arrays and data.frame-like objects).
 #'  *  `margin, slice`: to specify indices of one particular dimension
@@ -148,7 +148,7 @@
 #' 
 #' ```
 #' 
-#' For a brief explanation of the relationship between flat indices (`i`)
+#' For a brief explanation on the relationship between flat indices (`i`)
 #' and subscripts (`s`, `d`) in arrays,
 #' see \link{sub2ind}. \cr \cr
 #' 

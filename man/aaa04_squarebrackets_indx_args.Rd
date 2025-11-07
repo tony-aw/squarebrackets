@@ -8,8 +8,8 @@
 There are several types of arguments that can be used
 in the generic methods of 'squarebrackets' to specify the indices to perform operations on:
 \itemize{
-\item \code{i}: to specify flat (i.e. dimensionless) indices.
-\item \verb{s, d}: to specify indices of arbitrary dimensions
+\item \code{i}: to specify interior (i.e. dimensionless) indices.
+\item \verb{s, d}: to specify subscripts of arbitrary dimensions
 in any dimensional object supported by 'squarebrackets'
 (i.e. arrays and data.frame-like objects).
 \item \verb{margin, slice}: to specify indices of one particular dimension
@@ -154,7 +154,7 @@ ss_x(x, 1:10, c(1, 3))         # ==> x[1:10, , 1:10, drop = FALSE]
 
 }\if{html}{\out{</div>}}
 
-For a brief explanation of the relationship between flat indices (\code{i})
+For a brief explanation on the relationship between flat indices (\code{i})
 and subscripts (\code{s}, \code{d}) in arrays,
 see \link{sub2ind}. \cr \cr
 }
