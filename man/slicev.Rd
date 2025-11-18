@@ -60,7 +60,7 @@ dimensions and \code{dimnames} are always dropped.}
 \item{rp, tf}{see \link{squarebrackets_modify}.}
 }
 \value{
-Similar to the \code{ii_}/\code{ss_} methods. \cr
+Similar to the \code{ii_} methods. \cr
 \cr
 For \code{countv()}: A single number,
 giving the number of elements matching the specified condition. \cr \cr
@@ -102,12 +102,15 @@ slicev_x(x, v= c(-Inf, 5)) # x[x <= 5]
 ################################################################################
 # Character ====
 #
-x <- stringi::stri_rand_shuffle(rep("hello", 1e5))
-head(x)
-slicev_x(x, v = "hello") |> head() # find "hello"
-
-# find 2 possible misspellings of "hello":
-slicev_x(x, v = c("holle", "helol")) |> head()
+if(require(stringi)) {
+  x <- stringi::stri_rand_shuffle(rep("hello", 1e5))
+  head(x)
+  slicev_x(x, v = "hello") |> head() # find "hello"
+  
+  # find 2 possible misspellings of "hello":
+  slicev_x(x, v = c("holle", "helol")) |> head()
+  
+}
 
 
 

@@ -88,14 +88,15 @@ for(f in funlist) {
 # recursive ====
 
 funlist <- list(
-  \(x, ss, d, inv = FALSE) ss2_x(x, ss, d),
-  \(x, ss, d, inv = FALSE) ss2_wo(x, ss, d),
-  \(x, ss, d, inv = FALSE) ss2_mod(x, ss, d, inv = inv, chkdup = FALSE, rp = -1)
+  \(x, ss, d, inv = FALSE) ss_x(x, ss, d),
+  \(x, ss, d, inv = FALSE) ss_wo(x, ss, d),
+  \(x, ss, d, inv = FALSE) ss_mod(x, ss, d, inv = inv, chkdup = FALSE, rp = list("a"))
 )
 
 for(f in funlist) {
   
-  x <- data.frame(letters, LETTERS)
+  x <- c(letters, LETTERS) |> as.list()
+  dim(x) <- c(26, 2)
   
   # check dims order equivalence ====
   expect_equal(

@@ -9,7 +9,7 @@ For modifying subsets using R's default copy-on-modification semantics, see idx.
 
     <a class="navbar-brand me-2" href="../index.html">squarebrackets</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9005</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9006</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -50,11 +50,9 @@ For modifying subsets using R's default copy-on-modification semantics, see <a h
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ii_mod</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">ii2_mod</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
-<span></span>
 <span><span class="fu">ss_mod</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">ss2_mod</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">sbt_mod</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Default S3 method</span></span>
 <span><span class="fu">ii_mod</span><span class="op">(</span></span>
@@ -80,43 +78,27 @@ For modifying subsets using R's default copy-on-modification semantics, see <a h
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Default S3 method</span></span>
-<span><span class="fu">ii2_mod</span><span class="op">(</span></span>
+<span><span class="fu">sbt_mod</span><span class="op">(</span></span>
 <span>  <span class="va">x</span>,</span>
-<span>  i <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  row <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  col <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  inv <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  <span class="va">...</span>,</span>
 <span>  <span class="va">rp</span>,</span>
 <span>  <span class="va">tf</span>,</span>
-<span>  chkdup <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"squarebrackets.chkdup"</span>, <span class="cn">FALSE</span><span class="op">)</span>,</span>
-<span>  .lapply <span class="op">=</span> <span class="va">lapply</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Default S3 method</span></span>
-<span><span class="fu">ss2_mod</span><span class="op">(</span></span>
-<span>  <span class="va">x</span>,</span>
-<span>  s <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  d <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="ndim.html">ndim</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span>
-<span>  inv <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  <span class="va">...</span>,</span>
-<span>  <span class="va">rp</span>,</span>
-<span>  <span class="va">tf</span>,</span>
-<span>  chkdup <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"squarebrackets.chkdup"</span>, <span class="cn">FALSE</span><span class="op">)</span>,</span>
-<span>  .lapply <span class="op">=</span> <span class="va">lapply</span></span>
+<span>  chkdup <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"squarebrackets.chkdup"</span>, <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'data.frame'</span></span>
-<span><span class="fu">ss2_mod</span><span class="op">(</span></span>
+<span><span class="fu">sbt_mod</span><span class="op">(</span></span>
 <span>  <span class="va">x</span>,</span>
-<span>  s <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  d <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
 <span>  obs <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  vars <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  inv <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  <span class="va">...</span>,</span>
 <span>  <span class="va">rp</span>,</span>
 <span>  <span class="va">tf</span>,</span>
-<span>  chkdup <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"squarebrackets.chkdup"</span>, <span class="cn">FALSE</span><span class="op">)</span>,</span>
-<span>  .lapply <span class="op">=</span> <span class="va">lapply</span></span>
+<span>  chkdup <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"squarebrackets.chkdup"</span>, <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -125,19 +107,19 @@ For modifying subsets using R's default copy-on-modification semantics, see <a h
 
 
 <dl><dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
-<dd><p>see <a href="aaa01_squarebrackets_supported_structures.html">squarebrackets_supported_structures</a>.</p></dd>
+<dd><p>see <a href="aaa03_squarebrackets_supported_structures.html">squarebrackets_supported_structures</a>.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>see <a href="aaa07_squarebrackets_method_dispatch.html">squarebrackets_method_dispatch</a>.</p></dd>
 
 
-<dt id="arg-i-s-d-obs-vars-inv">i, s, d, obs, vars, inv<a class="anchor" aria-label="anchor" href="#arg-i-s-d-obs-vars-inv"></a></dt>
+<dt id="arg-i-s-d-row-col-obs-vars-inv">i, s, d, row, col, obs, vars, inv<a class="anchor" aria-label="anchor" href="#arg-i-s-d-row-col-obs-vars-inv"></a></dt>
 <dd><p>See <a href="aaa04_squarebrackets_indx_args.html">squarebrackets_indx_args</a>. <br>
 An empty index selection returns the original object unchanged. <br></p></dd>
 
 
-<dt id="arg-rp-tf-lapply">rp, tf, .lapply<a class="anchor" aria-label="anchor" href="#arg-rp-tf-lapply"></a></dt>
+<dt id="arg-rp-tf">rp, tf<a class="anchor" aria-label="anchor" href="#arg-rp-tf"></a></dt>
 <dd><p>see <a href="aaa05_squarebrackets_modify.html">squarebrackets_modify</a>.</p></dd>
 
 
@@ -302,7 +284,7 @@ One cannot specify both <code>tf</code> and <code>rp</code>. It's either one set
 <span class="r-out co"><span class="r-pr">#&gt;</span> $c</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 11 12 13 14 15 16 17 18 19 20</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span><span class="fu">ii2_mod</span><span class="op">(</span><span class="va">obj</span>, <span class="st">"a"</span>, rp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fl">1L</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">ii_mod</span><span class="op">(</span><span class="va">obj</span>, <span class="st">"a"</span>, rp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fl">1L</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $a</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -313,7 +295,7 @@ One cannot specify both <code>tf</code> and <code>rp</code>. It's either one set
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 11 12 13 14 15 16 17 18 19 20</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="co"># above is equivalent to  obj[["a"]] &lt;- 1L; obj</span></span></span>
-<span class="r-in"><span><span class="fu">ii2_mod</span><span class="op">(</span><span class="va">obj</span>, <span class="va">is.numeric</span>, rp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span><span class="op">:</span><span class="op">-</span><span class="fl">10</span>, <span class="op">-</span><span class="fl">11</span><span class="op">:</span><span class="op">-</span><span class="fl">20</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">ii_mod</span><span class="op">(</span><span class="va">obj</span>, <span class="va">is.numeric</span>, rp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span><span class="op">:</span><span class="op">-</span><span class="fl">10</span>, <span class="op">-</span><span class="fl">11</span><span class="op">:</span><span class="op">-</span><span class="fl">20</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $a</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  -1  -2  -3  -4  -5  -6  -7  -8  -9 -10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -338,21 +320,21 @@ One cannot specify both <code>tf</code> and <code>rp</code>. It's either one set
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,] integer,10   integer,10   integer,10   integer,10  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,] numeric,10   numeric,10   numeric,10   numeric,10  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [4,] character,26 character,26 character,26 character,26</span>
-<span class="r-in"><span><span class="fu">ss2_mod</span><span class="op">(</span><span class="va">obj</span>, <span class="fu"><a href="nest.html">n</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span>, <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="ndim.html">ndim</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span>,rp <span class="op">=</span> <span class="fu"><a href="nest.html">n</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">ss_mod</span><span class="op">(</span><span class="va">obj</span>, <span class="fu"><a href="nest.html">n</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span>, <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="ndim.html">ndim</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span>,rp <span class="op">=</span> <span class="fu"><a href="nest.html">n</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      a            b            c            a           </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -1           -1           -1           logical,3   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -1           -1           -1           integer,10  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,] -1           -1           -1           numeric,10  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [4,] character,26 character,26 character,26 character,26</span>
 <span class="r-in"><span><span class="co"># above is equivalent to obj[1:3, 1:3] &lt;- list(-1)</span></span></span>
-<span class="r-in"><span><span class="fu">ii2_mod</span><span class="op">(</span><span class="va">obj</span>, i <span class="op">=</span> <span class="va">is.numeric</span>, rp <span class="op">=</span> <span class="fu"><a href="nest.html">n</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">ii_mod</span><span class="op">(</span><span class="va">obj</span>, i <span class="op">=</span> <span class="va">is.numeric</span>, rp <span class="op">=</span> <span class="fu"><a href="nest.html">n</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      a            b            c            a           </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,] logical,3    logical,3    logical,3    logical,3   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -1           -1           -1           -1          </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,] -1           -1           -1           -1          </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [4,] character,26 character,26 character,26 character,26</span>
 <span class="r-in"><span><span class="co"># above is equivalent to obj[sapply(obj, is.numeric)] &lt;- list(-1)</span></span></span>
-<span class="r-in"><span><span class="fu">ss2_mod</span><span class="op">(</span><span class="va">obj</span>, <span class="fu"><a href="nest.html">n</a></span><span class="op">(</span><span class="st">"a"</span><span class="op">)</span>, <span class="fl">2L</span>, rp <span class="op">=</span> <span class="fu"><a href="nest.html">n</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">ss_mod</span><span class="op">(</span><span class="va">obj</span>, <span class="fu"><a href="nest.html">n</a></span><span class="op">(</span><span class="st">"a"</span><span class="op">)</span>, <span class="fl">2L</span>, rp <span class="op">=</span> <span class="fu"><a href="nest.html">n</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      a  b            c            a </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -1 logical,3    logical,3    -1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -1 integer,10   integer,10   -1</span>
@@ -388,7 +370,7 @@ One cannot specify both <code>tf</code> and <code>rp</code>. It's either one set
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 35   39   43   47  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [4,] 36   40   44   48  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span><span class="fu">ss2_mod</span><span class="op">(</span><span class="va">obj</span>, <span class="fu"><a href="nest.html">n</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span><span class="op">)</span>, rp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span><span class="op">:</span><span class="op">-</span><span class="fl">24</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">ss_mod</span><span class="op">(</span><span class="va">obj</span>, <span class="fu"><a href="nest.html">n</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span><span class="op">)</span>, rp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span><span class="op">:</span><span class="op">-</span><span class="fl">24</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> , , 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2] [,3] [,4]</span>
@@ -414,7 +396,7 @@ One cannot specify both <code>tf</code> and <code>rp</code>. It's either one set
 <span class="r-out co"><span class="r-pr">#&gt;</span> [4,] 36   40   44   48  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="co"># above is equivalent to obj[1:3, , 1:2] &lt;- as.list(-1:-24)</span></span></span>
-<span class="r-in"><span><span class="fu">ii2_mod</span><span class="op">(</span><span class="va">obj</span>, i <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">&lt;=</span> <span class="fl">5</span>, rp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span><span class="op">:</span><span class="op">-</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">ii_mod</span><span class="op">(</span><span class="va">obj</span>, i <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">&lt;=</span> <span class="fl">5</span>, rp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">as.list</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span><span class="op">:</span><span class="op">-</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> , , 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2] [,3] [,4]</span>
@@ -453,7 +435,7 @@ One cannot specify both <code>tf</code> and <code>rp</code>. It's either one set
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ b: chr  "a" "b" "c" "d" ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ c: int  11 12 13 14 15 16 17 18 19 20</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ d: Factor w/ 10 levels "a","b","c","d",..: 1 2 3 4 5 6 7 8 9 10</span>
-<span class="r-in"><span><span class="fu">ss2_mod</span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="fu">sbt_mod</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">obj</span>, vars <span class="op">=</span> <span class="va">is.numeric</span>,</span></span>
 <span class="r-in"><span>  tf <span class="op">=</span> <span class="va">sqrt</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
@@ -481,8 +463,8 @@ One cannot specify both <code>tf</code> and <code>rp</code>. It's either one set
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ c: int  11 12 13 14 15 16 17 18 19 20</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ d: Factor w/ 10 levels "a","b","c","d",..: 1 2 3 4 5 6 7 8 9 10</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">ss2_mod</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="va">obj</span>, obs <span class="op">=</span> <span class="op">~</span> <span class="op">(</span><span class="va">a</span> <span class="op">&gt;=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">(</span><span class="va">c</span> <span class="op">&lt;=</span> <span class="fl">17</span><span class="op">)</span>, vars <span class="op">=</span> <span class="va">is.numeric</span>,</span></span>
+<span class="r-in"><span><span class="fu">sbt_mod</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">obj</span>, <span class="op">~</span> <span class="op">(</span><span class="va">a</span> <span class="op">&gt;=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">(</span><span class="va">c</span> <span class="op">&lt;=</span> <span class="fl">17</span><span class="op">)</span>, <span class="va">is.numeric</span>,</span></span>
 <span class="r-in"><span>  tf <span class="op">=</span> <span class="va">sqrt</span></span></span>
 <span class="r-in"><span><span class="op">)</span> </span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            a b         c d</span>
@@ -496,8 +478,8 @@ One cannot specify both <code>tf</code> and <code>rp</code>. It's either one set
 <span class="r-out co"><span class="r-pr">#&gt;</span> 8   8.000000 h 18.000000 h</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 9   9.000000 i 19.000000 i</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10 10.000000 j 20.000000 j</span>
-<span class="r-in"><span><span class="fu">ss2_mod</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="va">obj</span>, obs <span class="op">=</span> <span class="op">~</span> <span class="op">(</span><span class="va">a</span> <span class="op">&gt;=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">(</span><span class="va">c</span> <span class="op">&lt;=</span> <span class="fl">17</span><span class="op">)</span>, vars <span class="op">=</span> <span class="va">is.numeric</span>,</span></span>
+<span class="r-in"><span><span class="fu">sbt_mod</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">obj</span>, <span class="op">~</span> <span class="op">(</span><span class="va">a</span> <span class="op">&gt;=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">(</span><span class="va">c</span> <span class="op">&lt;=</span> <span class="fl">17</span><span class="op">)</span>, <span class="va">is.numeric</span>,</span></span>
 <span class="r-in"><span>  tf <span class="op">=</span> <span class="va">sqrt</span></span></span>
 <span class="r-in"><span><span class="op">)</span> </span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            a b         c d</span>
@@ -511,8 +493,8 @@ One cannot specify both <code>tf</code> and <code>rp</code>. It's either one set
 <span class="r-out co"><span class="r-pr">#&gt;</span> 8   8.000000 h 18.000000 h</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 9   9.000000 i 19.000000 i</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10 10.000000 j 20.000000 j</span>
-<span class="r-in"><span><span class="fu">ss2_mod</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="va">obj</span>, obs <span class="op">=</span> <span class="op">~</span> <span class="op">(</span><span class="va">a</span> <span class="op">&gt;=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">(</span><span class="va">c</span> <span class="op">&lt;=</span> <span class="fl">17</span><span class="op">)</span>, vars <span class="op">=</span> <span class="va">is.numeric</span>,</span></span>
+<span class="r-in"><span><span class="fu">sbt_mod</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">obj</span>, <span class="op">~</span> <span class="op">(</span><span class="va">a</span> <span class="op">&gt;=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">(</span><span class="va">c</span> <span class="op">&lt;=</span> <span class="fl">17</span><span class="op">)</span>, <span class="va">is.numeric</span>,</span></span>
 <span class="r-in"><span>  tf <span class="op">=</span> <span class="va">sqrt</span></span></span>
 <span class="r-in"><span><span class="op">)</span> </span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            a b         c d</span>

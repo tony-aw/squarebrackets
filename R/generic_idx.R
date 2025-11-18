@@ -23,8 +23,8 @@
 #' 
 #' ```{r eval = FALSE, echo = TRUE}
 #' x <- array(...)
-#' my_sub2ind <- idx(x, s, d)
-#' x[my_sub2ind] <- value
+#' my_ss2ii <- idx(x, s, d)
+#' x[my_ss2ii] <- value
 #' 
 #' y <- data.frame(...)
 #' rows <- idx(y, 1:10, 1, inv = TRUE)
@@ -131,7 +131,7 @@ idx.array <- function(
   lst <- ci_ss(
     x, s, d, inv, chkdup, .abortcall = sys.call()
   )
-  elements <- sub2ind(lst, x.dim, checks = FALSE)
+  elements <- ss2ii(lst, x.dim, checks = FALSE)
   return(elements)
   
 }

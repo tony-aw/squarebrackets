@@ -86,8 +86,8 @@ structure of references to other objects. \cr
 Thus, even if a list itself is not treated as mutable,
 subsets of a list which are themselves mutable classes, are mutable. \cr
 For example,
-if you have a list of \code{data.table} objects,
-the data.tables themselves are mutable. \cr
+if you have a list of \link{mutatomic} objects,
+the mutatomic objects themselves are mutable. \cr
 Therefore, the following will work: \cr
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{
@@ -97,7 +97,7 @@ x <- list(
 )
 myref <- x$a
 ii_set(myref, 1, rp = "xxx")
-#> coercing replacement to character
+
 }\if{html}{\out{</div>}}
 
 Notice in the above code that \code{myref} is not a copy of \code{x$a},
@@ -130,20 +130,20 @@ print(x)
 
 # Coercion examples - data.table - whole columns ====
 
-# ss2_mod():
+# sbt_mod():
 obj <- data.table::data.table(
   a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10])
 )
 str(obj) # notice that columns "a" and "c" are INTEGER (`int`)
-ss2_mod(
+sbt_mod(
   obj, vars = is.numeric,
-  tf = sqrt # SAFE: row=NULL & obs = NULL, so coercion performed
+  tf = sqrt # SAFE: obs = NULL, so coercion performed
 )
 
-# ss2_set():
-ss2_set(
+# sbt_set():
+sbt_set(
   obj, vars = is.numeric,
-  tf = sqrt # SAFE: row=NULL & obs = NULL, so coercion performed
+  tf = sqrt # SAFE: obs = NULL, so coercion performed
 )
 str(obj)
 
@@ -152,23 +152,23 @@ str(obj)
 
 # Coercion examples - data.table - partial columns ====
 
-# ss2_mod():
+# sbt_mod():
 obj <- data.table::data.table(
   a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10])
 )
 str(obj) # notice that columns "a" and "c" are INTEGER (`int`)
 
-ss2_mod(
+sbt_mod(
   obj, obs = ~ (a >= 2) & (c <= 17), vars = is.numeric,
   tf = sqrt # SAFE: coercion performed
 )
 
-# ss2_set():
+# sbt_set():
 obj <- data.table::data.table(
   a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10])
 )
 str(obj) # notice that columns "a" and "c" are INTEGER (`int`)
-ss2_set(
+sbt_set(
   obj, obs = ~ (a >= 2) & (c <= 17), vars = is.numeric,
   tf = sqrt
   # WARNING: sqrt() results in `dbl`, but columns are `int`, so decimals lost
@@ -179,9 +179,9 @@ obj <- data.table::data.table(
   a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10])
 )
 str(obj)
-dt_setcoe(obj, vars = is.numeric, v = as.numeric)
+sbt_set(obj, vars = is.numeric, tf = as.numeric) # first coerce type by whole columns
 str(obj)
-ss2_set(obj,
+sbt_set(obj,
   obs = ~ (a >= 2) & (c <= 17), vars = is.numeric,
   tf = sqrt # SAFE: coercion performed by dt_setcoe(); so no warnings
 ) 
@@ -199,7 +199,7 @@ x <- list(
 print(x)
 myref <- x$a
 address(myref) == address(x$a) # they are the same
-ss2_set(myref, vars = "cola", tf = \(x)x^2)
+sbt_set(myref, vars = "cola", tf = \(x)x^2)
 print(x) # notice x has been changed
 
 

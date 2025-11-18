@@ -32,7 +32,7 @@
 #' multiple subsets with the same name exist,
 #' only the first one will be selected when performing recursive indexing by name,
 #' since recursive indexing can only select a single element. \cr
-#' `NA, NaN, Inf, -Inf` are not valid values for `rec`.
+#' `NA, NaN, Inf, -Inf, NULL` are not valid values for `rec`.
 #' @param ... see \link{squarebrackets_method_dispatch}.
 #' @param rp optional, and allows for multiple functionalities:
 #'  - In the simplest case, performs `x[[rec]] <- rp`,
@@ -55,7 +55,10 @@
 #' @details
 #' Since recursive objects are references to other objects,
 #' extending a list or deleting an element of a list does not copy the entire list,
-#' in contrast to atomic vectors. \cr \cr
+#' in contrast to atomic vectors. \cr
+#' \cr
+#' 
+#' 
 #' 
 #'
 #' @returns
@@ -72,8 +75,7 @@
 #' but transforms the specified recursive subset,
 #' using R's default Copy-On-Modify semantics. \cr \cr
 #' 
-#'
-#'
+#' 
 #'
 #' @example inst/examples/lst_rec.R
 #'
@@ -119,7 +121,6 @@ lst_recin <- function(x, ...) {
   
   UseMethod("lst_recin", x)
 }
-
 
 
 #' @rdname lst_rec

@@ -8,33 +8,6 @@
 This help page gives some additional details regarding the S3 method dispatch
 used in 'squarebrackets'. \cr \cr
 }
-\section{Atomic vs Recursive}{
-
-Atomic and recursive objects are quite different from each other in some ways:
-\itemize{
-\item \strong{homo- or heterogeneous}: an atomic object can only have values of one data type. \cr
-recursive objects can hold values of any combination of data types. \cr
-\item \strong{nesting}: Recursive objects can be nested, while atomic objects cannot be nested.
-\item \strong{copy and coercion effect}: One can coerce or copy a subset of a recursive object,
-without copying the rest of the object. \cr
-For atomic objects, however, a coercion or copy operation coerces or copies the entire vector
-(ignoring attributes). \cr
-\item \strong{vectorization}: most vectorized operations generally work on atomic objects,
-whereas recursive objects often require loops or apply-like functions. \cr
-\item \strong{recursive subsets}: Recursive objects distinguish between "regular" subset operations
-(in base R using \code{[}, \verb{[<-}),
-and recursive subset operations (in base R using \code{[[}, \verb{[[<-}). \cr
-See for example the \link{lst_rec} method,
-or the \code{red = TRUE} argument in the \eqn{\ast}\verb{_x} and \eqn{\ast}\verb{_wo} methods. \cr
-For atomic objects, these 2 have no meaningful difference
-(safe for perhaps some minor attribute handling). \cr
-\item \strong{views}: For recursive objects,
-one can create a View of a recursive subset
-(see the documentation in the 'mutatomic' package for details). \cr
-Subset views do not exist for atomic objects. \cr \cr
-}
-}
-
 \section{Ellipsis}{
 
 Due to how the S3 method dispatch system works in 'R',

@@ -74,8 +74,8 @@ can be used inside the regular square-brackets operators. \cr
 For example like so:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{x <- array(...)
-my_sub2ind <- idx(x, s, d)
-x[my_sub2ind] <- value
+my_ss2ii <- idx(x, s, d)
+x[my_ss2ii] <- value
 
 y <- data.frame(...)
 rows <- idx(y, 1:10, 1, inv = TRUE)

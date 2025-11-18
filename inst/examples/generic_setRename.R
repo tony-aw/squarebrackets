@@ -38,6 +38,6 @@ x <- data.table::data.table(
   b = letters[1:20]
 )
 print(x)
-sb2_setVarnames(x, old = names(x), new = rev(names(x)))
+sb_setVarnames(x, old = names(x), new = rev(names(x)))
 print(x)
 

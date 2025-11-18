@@ -175,9 +175,9 @@ Rcpp::sourceCpp(
 #
 
 
-macro_sub2ind <- "
+macro_ss2ii <- "
 
-#define MACRO_SUB2IND do {  \\
+#define MACRO_ss2ii do {  \\
   pout[counter] = flatind;   \\
   counter++;              \\
 } while(0)
@@ -202,7 +202,7 @@ macro_setarray1 <- "
 "
 
 macros_action <- stri_c(
-  macro_sub2ind, macro_setarray0, macro_setarray1, collapse = "\n\n"
+  macro_ss2ii, macro_setarray0, macro_setarray1, collapse = "\n\n"
 )
 
 Rcpp::sourceCpp(code = macros_action)

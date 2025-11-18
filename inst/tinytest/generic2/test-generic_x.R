@@ -14,7 +14,7 @@ test_PassByReference <- FALSE
 
 temp.fun <- function(x) {
   expect_equal(
-    ii2_x(x),
+    ii_x(x),
     x
   ) |> errorfun()
 }
@@ -24,7 +24,7 @@ sys.source(file.path(getwd(), "source", "sourcetest-missingargs.R"), envir = env
 
 temp.fun <- function(x) {
   expect_equal(
-    ss2_x(x),
+    ss_x(x),
     x
   ) |> errorfun()
 }
@@ -44,7 +44,7 @@ test_sb <- function(x, i) {
 temp.fun <- function(x, elements) {
   for (i in 1:length(elements)) {
     expect_equal(
-      ii2_x(x, i = elements[[i]]),
+      ii_x(x, i = elements[[i]]),
       test_sb(x, i = elements[[i]])
     ) |> errorfun()
     assign("enumerate", enumerate + 1, envir = parent.frame(n = 1))
@@ -63,17 +63,6 @@ indx_general <- list(
 indx_named <- c(indx_general, "ab", list(c("ab", "ab")))
 
 sys.source(file.path(getwd(), "source", "sourcetest-elements.R"), envir = environment())
-
-x <- as.list(1:10)
-expect_equal(
-  ii2_x(x, 1, red = TRUE),
-  x[[1]]
-)
-expect_equal(
-  ii2_x(x, c(TRUE, rep(FALSE, 9)), red = TRUE),
-  x[[1]]
-)
-enumerate <- enumerate + 2
 
 
 
@@ -108,20 +97,20 @@ f_expect.matrix <- f_expect.2d <- function(x, row = NULL, col = NULL) {
   if(is.null(col)) col <- base::quote(expr = )
   return(x[row, col, drop = FALSE])
 }
-f_out.matrix <- ss2_x
-f_out.2d <- ss2_x
+f_out.matrix <- ss_x
+f_out.2d <- ss_x
 f_expect.1d <- function(x, i) {
   i <- indx_x(i, x, dimnames(x)[[1]], length(x))
   return(x[i, drop = FALSE])
 }
-f_out.1d <- ss2_x
+f_out.1d <- ss_x
 
 
 pre_subset_1d <- function(x, i) {
   return(indx_x(i, x, names(x), length(x)))
 }
 
-sb_test <- ss2_x
+sb_test <- ss_x
 
 f_expect.arbitrary <- function(x, i, j, l) {
   i <- indx_x(i, x, rownames(x), nrow(x))
@@ -135,32 +124,11 @@ sys.source(file.path(getwd(), "source", "sourcetest-dims.R"), envir = environmen
 
 
 
-# test arbitrary dimensions ====
-
-subset_arr <- function(x, i, j, l) {
-  i <- indx_x(i, x, rownames(x), nrow(x))
-  j <- indx_x(j, x, colnames(x), ncol(x))
-  l <- indx_x(l, x, dimnames(x)[4], dim(x)[4])
-  x[i, j, , l, drop = FALSE]
-}
-
-x <- array(as.list(seq_len(10^4)), dim = c(10, 10, 10, 10))
-rownames(x) <- c(letters[1:8], "a", NA)
-
-s <- list("b", 1, 1, 2)
-d <- 1:4
-expect_equal(
-  ss2_x(x, s, d, red = TRUE),
-  x[["b", 1, 1, 2]]
-)
-
-enumerate <- enumerate + 1
-
 
 # test datasets ====
 
 
-pre_subset_df <- ss2_x.data.frame
+pre_subset_df <- sbt_x
 
 f_expect.data.frame <- function(x, row = NULL, col = NULL) {
   if(!is.null(row)) row <- indx_x(row, x, rownames(x), nrow(x))
@@ -172,22 +140,21 @@ f_expect.data.frame <- function(x, row = NULL, col = NULL) {
   return(out)
 }
 
-f_out.data.frame <- ss2_x
+f_out.data.frame <- sbt_x
 
 
 # rl. <- loadNamespace("rlang")
 dt. <- loadNamespace("data.table")
 
 
-sys.source(file.path(getwd(), "source", "sourcetest-datasets.R"), envir = environment())
 sys.source(file.path(getwd(), "source", "sourcetest-obsvars.R"), envir = environment())
 
 
 # test errors ====
-sb_test <- ii2_x
+sb_test <- ii_x
 sys.source(file.path(getwd(), "source", "sourcetest-errors-i.R"), envir = environment())
 
-sb_test <- ss2_x
+sb_test <- ss_x
 sys.source(file.path(getwd(), "source", "sourcetest-errors-ss.R"), envir = environment())
 
 

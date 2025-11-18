@@ -35,7 +35,7 @@
 #' @noRd
 .dt_prep_rp <- function(rp) {
   if(is.list(rp)) {
-    rp <- unname(unclass(rp), force = TRUE)
+    attributes(rp) <- NULL
     return(rp)
   }
   else {
@@ -46,12 +46,12 @@
 
 #' @keywords internal
 #' @noRd
-.dt_transform <- function(x, row, col, tf, .lapply) {
+.dt_transform <- function(x, row, col, tf) {
   if(.C_is_missing_idx(row)) {
-    rp <- .lapply(collapse::ss(x, j = col, check = FALSE), tf)
+    rp <- tf(collapse::ss(x, j = col, check = FALSE))
   }
   else {
-    rp <- .lapply(collapse::ss(x, i = as.integer(row), j = col, check = FALSE), tf)
+    rp <- tf(collapse::ss(x, i = as.integer(row), j = col, check = FALSE))
   }
   
   rp <- .dt_prep_rp(rp)
@@ -62,7 +62,7 @@
 
 #' @keywords internal
 #' @noRd
-.dt_mod_whole <- function(x, col, rp, .lapply, abortcall) {
+.dt_mod_whole <- function(x, col, rp, abortcall) {
   
   data.table::set(x, j = col, value = rp)
   

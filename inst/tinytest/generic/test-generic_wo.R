@@ -112,6 +112,10 @@ f_expect.arbitrary <- function(x, i, j, l) {
 
 sys.source(file.path(getwd(), "source", "sourcetest-dims.R"), envir = environment())
 
+# row,col ===
+f_out.matrix <- sbt_wo
+f_out.2d <- sbt_wo
+sys.source(file.path(getwd(), "source", "sourcetest-rowcol.R"), envir = environment())
 
 
 

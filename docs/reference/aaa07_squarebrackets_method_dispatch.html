@@ -9,7 +9,7 @@ used in 'squarebrackets'.  "></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">squarebrackets</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9005</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9006</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,31 +48,6 @@ used in 'squarebrackets'. <br><br></p>
 
 
     <div class="section level2">
-    <h2 id="atomic-vs-recursive">Atomic vs Recursive<a class="anchor" aria-label="anchor" href="#atomic-vs-recursive"></a></h2>
-
-
-<p>Atomic and recursive objects are quite different from each other in some ways:</p><ul><li><p><strong>homo- or heterogeneous</strong>: an atomic object can only have values of one data type. <br>
-recursive objects can hold values of any combination of data types. <br></p></li>
-<li><p><strong>nesting</strong>: Recursive objects can be nested, while atomic objects cannot be nested.</p></li>
-<li><p><strong>copy and coercion effect</strong>: One can coerce or copy a subset of a recursive object,
-without copying the rest of the object. <br>
-For atomic objects, however, a coercion or copy operation coerces or copies the entire vector
-(ignoring attributes). <br></p></li>
-<li><p><strong>vectorization</strong>: most vectorized operations generally work on atomic objects,
-whereas recursive objects often require loops or apply-like functions. <br></p></li>
-<li><p><strong>recursive subsets</strong>: Recursive objects distinguish between "regular" subset operations
-(in base R using <code>[</code>, <code>[&lt;-</code>),
-and recursive subset operations (in base R using <code>[[</code>, <code>[[&lt;-</code>). <br>
-See for example the <a href="lst_rec.html">lst_rec</a> method,
-or the <code>red = TRUE</code> argument in the \(\ast\)<code>_x</code> and \(\ast\)<code>_wo</code> methods. <br>
-For atomic objects, these 2 have no meaningful difference
-(safe for perhaps some minor attribute handling). <br></p></li>
-<li><p><strong>views</strong>: For recursive objects,
-one can create a View of a recursive subset
-(see the documentation in the 'mutatomic' package for details). <br>
-Subset views do not exist for atomic objects. <br><br></p></li>
-</ul></div>
-    <div class="section level2">
     <h2 id="ellipsis">Ellipsis<a class="anchor" aria-label="anchor" href="#ellipsis"></a></h2>
 
 
@@ -84,8 +59,7 @@ add arguments that make no sense for that method
 (like specifying the <code>inv</code> argument when calling <a href="sb_x.html">ii_x</a>). <br><br><br></p>
     </div>
 
-  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
-    </nav></aside></div>
+  </main></div>
 
 
     <footer><div class="pkgdown-footer-left">

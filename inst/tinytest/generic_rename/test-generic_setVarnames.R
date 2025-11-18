@@ -10,12 +10,12 @@ x <- data.table::as.data.table(x)
 names(x) <- letters
 y <- x
 
-sb2_setVarnames(x, old = names(x), new = rev(names(x)))
+sb_setVarnames(x, old = names(x), new = rev(names(x)))
 expect_equal(
   names(x),
   rev(letters)
 )
-sb2_setVarnames(x, new = letters)
+sb_setVarnames(x, new = letters)
 expect_equal(
   names(x),
   letters

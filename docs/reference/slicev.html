@@ -17,7 +17,7 @@ occurs in a vector subset y[from:to].  "></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">squarebrackets</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9005</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9006</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -130,7 +130,7 @@ dimensions and <code>dimnames</code> are always dropped.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>Similar to the <code>ii_</code>/<code>ss_</code> methods. <br><br>
+    <p>Similar to the <code>ii_</code> methods. <br><br>
 For <code>countv()</code>: A single number,
 giving the number of elements matching the specified condition. <br><br></p>
     </div>
@@ -160,7 +160,6 @@ giving the number of elements matching the specified condition. <br><br></p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># find all x smaller than or equal to 5, and replace with `-1000`:</span></span></span>
 <span class="r-in"><span><span class="fu">slicev_set</span><span class="op">(</span><span class="va">x</span>, y <span class="op">=</span> <span class="va">x</span>, v <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="cn">Inf</span>, <span class="fl">5</span><span class="op">)</span>, rp <span class="op">=</span> <span class="op">-</span><span class="fl">1000L</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> coercing replacement to integer</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">x</span>, n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     a     b     c     d     e     f     g     h     i     j </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -1000 -1000 -1000 -1000 -1000     6     7     8     9    10 </span>
@@ -185,15 +184,16 @@ giving the number of elements matching the specified condition. <br><br></p>
 <span class="r-in"><span><span class="co">################################################################################</span></span></span>
 <span class="r-in"><span><span class="co"># Character ====</span></span></span>
 <span class="r-in"><span><span class="co">#</span></span></span>
-<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">stringi</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/stringi/man/stri_rand_shuffle.html" class="external-link">stri_rand_shuffle</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"hello"</span>, <span class="fl">1e5</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "ehllo" "olelh" "olhle" "elohl" "olhel" "lleoh"</span>
-<span class="r-in"><span><span class="fu">slicev_x</span><span class="op">(</span><span class="va">x</span>, v <span class="op">=</span> <span class="st">"hello"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># find "hello"</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "hello" "hello" "hello" "hello" "hello" "hello"</span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># find 2 possible misspellings of "hello":</span></span></span>
-<span class="r-in"><span><span class="fu">slicev_x</span><span class="op">(</span><span class="va">x</span>, v <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"holle"</span>, <span class="st">"helol"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "helol" "helol" "holle" "holle" "holle" "helol"</span>
+<span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://stringi.gagolewski.com/" class="external-link">stringi</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">stringi</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/stringi/man/stri_rand_shuffle.html" class="external-link">stri_rand_shuffle</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"hello"</span>, <span class="fl">1e5</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu">slicev_x</span><span class="op">(</span><span class="va">x</span>, v <span class="op">=</span> <span class="st">"hello"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># find "hello"</span></span></span>
+<span class="r-in"><span>  </span></span>
+<span class="r-in"><span>  <span class="co"># find 2 possible misspellings of "hello":</span></span></span>
+<span class="r-in"><span>  <span class="fu">slicev_x</span><span class="op">(</span><span class="va">x</span>, v <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"holle"</span>, <span class="st">"helol"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  </span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "holle" "helol" "helol" "helol" "helol" "holle"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>

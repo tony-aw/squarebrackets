@@ -163,7 +163,6 @@ plotfun("Matrix", bm.sb_tf.matrix, "Array (3D)", bm.sb_tf.3d)
 
 
 ```{r eval=FALSE, echo=TRUE}
-
 n <- 1e5
 ncol <- 200 # times 2
 chrmat <- matrix(
@@ -182,18 +181,19 @@ basefun <- function(x, rows, tf) {
   x[rows, sapply(x, is.numeric)] <- lapply(x[rows, sapply(x, is.numeric)], tf)
   return(x)
 }
+gc()
 bm.sb_tf.df <- bench::mark(
   "base [<-" = basefun(df, sel.rows, tf = \(x) -1 * x),
-  "ss2_set" = ss2_set(
+  "sbt_set" = sbt_set(
     dt, obs = sel.rows, vars = is.numeric, tf = \(x) -1 * x
   ),
-  "ss2_mod" = ss2_mod(
+  "sbt_mod" = sbt_mod(
     df, obs = sel.rows, vars = is.numeric, tf = \(x) -1 * x
   ),
   check = FALSE,
   min_iterations = 500
 )
-summary(bm.sb_tf.df)
+
 ```
 
 ```{r echo = FALSE, eval = TRUE}

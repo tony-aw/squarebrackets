@@ -5,7 +5,7 @@ using
 pass-by-reference semantics:
 sb_setFlatnames() renames the (flat) names of a mutatomic object.
 sb_setDimnames() renames the dimension names of a mutatomic object.
-sb2_setVarnames() renames the variable names of a data.table object.
+sb_setVarnames() renames the variable names of a data.table object.
 
 "><meta property="og:description" content="Functions to rename a
 supported mutable object
@@ -13,7 +13,7 @@ using
 pass-by-reference semantics:
 sb_setFlatnames() renames the (flat) names of a mutatomic object.
 sb_setDimnames() renames the dimension names of a mutatomic object.
-sb2_setVarnames() renames the variable names of a data.table object.
+sb_setVarnames() renames the variable names of a data.table object.
 
 "></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -23,7 +23,7 @@ sb2_setVarnames() renames the variable names of a data.table object.
 
     <a class="navbar-brand me-2" href="../index.html">squarebrackets</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9005</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9006</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -57,11 +57,11 @@ sb2_setVarnames() renames the variable names of a data.table object.
 
     <div class="ref-description section level2">
     <p>Functions to rename a
-<a href="aaa01_squarebrackets_supported_structures.html">supported mutable object</a>
+<a href="aaa03_squarebrackets_supported_structures.html">supported mutable object</a>
 using
 <a href="aaa09_squarebrackets_PassByReference.html">pass-by-reference semantics</a>:</p><ul><li><p><code>sb_setFlatnames()</code> renames the (flat) names of a <code>mutatomic</code> object.</p></li>
 <li><p><code>sb_setDimnames()</code> renames the dimension names of a <code>mutatomic</code> object.</p></li>
-<li><p><code>sb2_setVarnames()</code> renames the variable names of a <code>data.table</code> object. <br><br></p></li>
+<li><p><code>sb_setVarnames()</code> renames the variable names of a <code>data.table</code> object. <br><br></p></li>
 </ul></div>
 
     <div class="section level2">
@@ -70,7 +70,7 @@ using
 <span></span>
 <span><span class="fu">sb_setDimnames</span><span class="op">(</span><span class="va">x</span>, <span class="va">m</span>, <span class="va">newdimnames</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">sb2_setVarnames</span><span class="op">(</span><span class="va">x</span>, <span class="va">old</span>, <span class="va">new</span>, skip_absent <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">sb_setVarnames</span><span class="op">(</span><span class="va">x</span>, <span class="va">old</span>, <span class="va">new</span>, skip_absent <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -79,7 +79,7 @@ using
 
 <dl><dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
 <dd><p>a <b>variable</b> belonging to one of the
-<a href="aaa01_squarebrackets_supported_structures.html">supported mutable classes</a>. <br></p></dd>
+<a href="aaa03_squarebrackets_supported_structures.html">supported mutable classes</a>. <br></p></dd>
 
 
 <dt id="arg-i">i<a class="anchor" aria-label="anchor" href="#arg-i"></a></dt>
@@ -231,7 +231,7 @@ Since this function returns void, you'll just get <code>NULL</code>. <br><br></p
 <span class="r-out co"><span class="r-pr">#&gt;</span> 19:    19      s</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 20:    20      t</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         a      b</span>
-<span class="r-in"><span><span class="fu">sb2_setVarnames</span><span class="op">(</span><span class="va">x</span>, old <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, new <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rev.html" class="external-link">rev</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">sb_setVarnames</span><span class="op">(</span><span class="va">x</span>, old <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, new <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rev.html" class="external-link">rev</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         b      a</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;int&gt; &lt;char&gt;</span>

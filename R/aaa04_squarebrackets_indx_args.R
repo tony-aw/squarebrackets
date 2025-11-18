@@ -10,9 +10,9 @@
 #'  (i.e. arrays and data.frame-like objects).
 #'  *  `margin, slice`: to specify indices of one particular dimension
 #'  (for arrays and data.frame-like objects). \cr
-#'  Only used in the \link{idx} method. \cr
-#'  * `obs, vars`: to specify observations and/or variables
-#'  in specifically in data.frame-like objects.
+#'  Currently only used in the \link{idx} method. \cr
+#'  * tabular indices (`row`, `col`, `obs, vars`):
+#'  to specify rows and columns in tabular objects (matrices and data.frames). \cr \cr
 #'  
 #' For the fundamentals of indexing in 'squarebrackets',
 #' see \link{squarebrackets_indx_fundamentals}. \cr
@@ -55,7 +55,7 @@
 #' 
 #' ```{r eval = FALSE, echo = TRUE}
 #'  ii_x(x, i = i) # ==> x[i]   # if `x` is atomic
-#'  ii2_x(x, i = i) # ==> x[i]  # if `x` is recursive
+#'  ii_x(x, i = i) # ==> x[i]  # if `x` is recursive
 #'  
 #' ```
 #' 
@@ -63,7 +63,7 @@
 #' 
 #' ```{r eval = FALSE, echo = TRUE}
 #'  ii_x(x, i = i) # ==> x[i(x)] # if `x` is atomic
-#'  ii2_x(x, i = i) # ==> x[lapply(x, i)] # if `x` is recursive
+#'  ii_x(x, i = i) # ==> x[lapply(x, i)] # if `x` is recursive
 #'  
 #' ```
 #' 
@@ -71,7 +71,6 @@
 #' @section Argument Pair s, d:
 #' `r .mybadge_class("atomic array")` \cr
 #' `r .mybadge_class("recursive array")` \cr
-#' `r .mybadge_class("data.frame-like")` \cr
 #' The `s, d` argument pair, inspired by the
 #' \code{abind::}\link[abind]{asub} function from the 'abind' package,
 #' is the primary indexing argument for sub-set operations on dimensional objects. \cr
@@ -150,7 +149,7 @@
 #' 
 #' For a brief explanation on the relationship between flat indices (`i`)
 #' and subscripts (`s`, `d`) in arrays,
-#' see \link{sub2ind}. \cr \cr
+#' see \link{ss2ii}. \cr \cr
 #' 
 #' 
 #' @section Argument Pair margin, slice:
@@ -182,6 +181,26 @@
 #' Thus the effect of a zero-length index specification depends on the rule-set of
 #' `[.class(x)` and `[<-.class(x)`. \cr \cr
 #' 
+#' 
+#' @section Arguments row, col:
+#' `r .mybadge_class("atomic matrix")` \cr
+#' `r .mybadge_class("recursive matrix")` \cr
+#' 
+#' Specifies rows and columns in a matrix.
+#'  The argument `row` and `col` can each be any of the following:
+#' 
+#'  * `NULL` or `0L`, which corresponds to a missing index argument.
+#'  * a vector of length 0,
+#'  in which case no indices are selected for the operation (i.e. empty selection).
+#'  * a numeric vector of \bold{strictly positive whole numbers}
+#'  with dimension indices to select for the operation.
+#'  * a \bold{complex} vector, as explained in \link{squarebrackets_indx_fundamentals}.
+#'  * a \bold{logical} vector of the same length as the corresponding dimension size,
+#'  giving the dimension indices to select for the operation.
+#'  * a \bold{character} vector of index names. \cr
+#'  If a dimension has multiple indices with the given name,
+#'  ALL the corresponding indices will be selected for the operation. \cr \cr
+#'  
 #' 
 #' 
 #' 
@@ -253,7 +272,7 @@
 #' So using the `obs, vars` arguments corresponds to doing something like the following:
 #' 
 #' ```{r eval = FALSE, echo = TRUE}
-#'  ss2_x(x, obs = obs, vars = vars) # ==> subset(x, ...obs..., ...vars...)
+#'  sbt_x(x, obs, vars) # ==> subset(x, ...obs..., ...vars...)
 #'  
 #' ```
 #' 
@@ -267,7 +286,7 @@
 #' By default, `inv = FALSE`, which translates the indices like normally. \cr
 #' When `inv = TRUE`, the inverse of the indices is taken. \cr
 #' Consider, for example, an atomic matrix `x`; \cr
-#' using `ii_mod(x, 1:2, 2L, tf = tf)`
+#' using `ss_mod(x, 1:2, 2L, tf = tf)`
 #' corresponds to something like the following:
 #' 
 #' ```{r eval = FALSE, echo = TRUE}
@@ -319,22 +338,13 @@
 #' 
 #' ```
 #' 
-#' The above is true \bold{even if} `inv = TRUE` and/or `red = TRUE`. \cr \cr
+#' The above is true \bold{even if} `inv = TRUE`. \cr \cr
 #' 
 #' 
-#' 
-#' @section Disallowed Combinations of Index Arguments:
-#' 
-#' One cannot specify the `s, d` pair and `obs, vars` pair simultaneously;
-#' it's either one pair or the other pair. \cr
-#' One cannot specify the `s, d` pair and `slice, margin` pair simultaneously;
-#' it's either one pair or the other pair. \cr
-#' In the above cases it holds that if one set is specified, the other is set is ignored. \cr
-#' \cr
 #' 
 #' @section Drop:
 #' Sub-setting with the generic methods from the 'squarebrackets' R-package using dimensional arguments
-#' (`s, d, row, col filter, vars`)
+#' (`s, d, row, col obs, vars`)
 #' always use `drop = FALSE`. \cr
 #' To drop potentially redundant (i.e. single level) dimensions,
 #' use the \link[base]{drop} function, like so:

@@ -2,22 +2,19 @@
 % Please edit documentation in R/generic_set.R
 \name{ii_set}
 \alias{ii_set}
-\alias{ii2_set}
 \alias{ss_set}
-\alias{ss2_set}
+\alias{sbt_set}
 \alias{ii_set.default}
 \alias{ss_set.default}
-\alias{ii2_set.default}
-\alias{ss2_set.data.table}
+\alias{sbt_set.default}
+\alias{sbt_set.data.table}
 \title{Methods to Modify Subsets of a Mutable Object By Reference}
 \usage{
 ii_set(x, ...)
 
-ii2_set(x, ...)
-
 ss_set(x, ...)
 
-ss2_set(x, ...)
+sbt_set(x, ...)
 
 \method{ii_set}{default}(
   x,
@@ -40,20 +37,26 @@ ss2_set(x, ...)
   chkdup = getOption("squarebrackets.chkdup", FALSE)
 )
 
-\method{ii2_set}{default}(x, ...)
-
-\method{ss2_set}{data.table}(
+\method{sbt_set}{default}(
   x,
-  s = NULL,
-  d = 1:2,
+  row = NULL,
+  col = NULL,
+  inv = FALSE,
+  ...,
+  rp,
+  tf,
+  chkdup = getOption("squarebrackets.chkdup", FALSE)
+)
+
+\method{sbt_set}{data.table}(
+  x,
   obs = NULL,
   vars = NULL,
   inv = FALSE,
   ...,
   rp,
   tf,
-  chkdup = getOption("squarebrackets.chkdup", FALSE),
-  .lapply = lapply
+  chkdup = getOption("squarebrackets.chkdup", FALSE)
 )
 }
 \arguments{
@@ -62,10 +65,10 @@ ss2_set(x, ...)
 
 \item{...}{see \link{squarebrackets_method_dispatch}.}
 
-\item{i, s, d, obs, vars, inv}{See \link{squarebrackets_indx_args}. \cr
+\item{i, s, d, row, col, obs, vars, inv}{See \link{squarebrackets_indx_args}. \cr
 An empty index selection leaves the original object unchanged. \cr}
 
-\item{rp, tf, .lapply}{see \link{squarebrackets_modify}.}
+\item{rp, tf}{see \link{squarebrackets_modify}.}
 
 \item{chkdup}{see \link{squarebrackets_options}. \cr
 \ifelse{html}{\figure{for_performance-set_to_FALSE-red.svg}{options: alt='[for performance: set to FALSE]'}}{\link[=squarebrackets_help]{for performance: set to FALSE}} \cr}
@@ -167,26 +170,26 @@ print(obj2)
 
 obj <- data.table::data.table(a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10]))
 str(obj) # notice that columns "a" and "c" are INTEGER (`int`)
-ss2_set(
-  obj, obs = ~ (a >= 2) & (c <= 17), vars = is.numeric,
+sbt_set(
+  obj, ~ (a >= 2) & (c <= 17), is.numeric,
   tf = sqrt # WARNING: sqrt() results in `dbl`, but columns are `int`, so decimals lost
 )
 print(obj)
 
 obj <- data.table::data.table(a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10]))
-dt_setcoe(obj, vars = is.numeric, v = as.numeric)
+sbt_set(obj, vars = is.numeric, tf = as.numeric) # first coerce type by whole columns
 str(obj)
-ss2_set(obj,
-  obs = ~ (a >= 2) & (c <= 17), vars = is.numeric,
-  tf = sqrt # SAFE: coercion performed by dt_setcoe(); so no warnings
+sbt_set(obj, ~ (a >= 2) & (c <= 17), is.numeric,
+  tf = sqrt # SAFE: coercion performed by column first
 ) 
 print(obj)
 
 obj <- data.table::data.table(a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10]))
 str(obj) # notice that columns "a" and "c" are INTEGER (`int`)
-ss2_set(
-  obj, vars = is.numeric,
-  tf = sqrt # SAFE: row=NULL & obs = NULL, so coercion performed
+sbt_set(
+  obj,
+  vars = is.numeric,
+  tf = sqrt # SAFE: obs = NULL, so coercion performed
 )
 str(obj)
 

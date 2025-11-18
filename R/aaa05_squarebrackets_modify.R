@@ -36,14 +36,14 @@
 #' the `_mod` method
 #' to modify through a (shallow) copy. \cr
 #' This method returns the modified object. \cr
-#' For recursive objects, \link{ii2_mod}/\link{ss2_mod} returns the original object,
+#' For recursive objects, \link{ii_mod}/\link{ss_mod} returns the original object,
 #' where only the modified subsets are copied,
 #' thus preventing unnecessary usage of memory. \cr
 #' \cr
 #' \cr
 #' @section Pass-by-Reference:
 #' 'squarebrackets' provides
-#' the \link{ii_set}, \link{ss_set}, \link{ss2_set} and \link{slice_set} methods
+#' the `*_set` methods
 #' to modify by reference,
 #' meaning no copy is made at all. \cr
 #' Pass-by-Reference is fastest and the most memory efficient. \cr
@@ -102,19 +102,6 @@
 #' x[...] <- lapply(x[...], tf)
 #' 
 #' ```
-#' 
-#' In the methods for recursive objects,
-#' the `tf` argument is accompanied by the `.lapply` argument. \cr
-#' By default, `.lapply = lapply`. \cr
-#' The user may supply a custom `lapply()`-like function
-#' in this argument to use instead. \cr
-#' For example, to perform parallel transformation,
-#' the user may supply `future.apply::`\link[future.apply]{future_lapply}. \cr
-#' The supplied function must use the exact same argument convention as
-#' \link[base]{lapply},
-#' otherwise errors or unexpected behaviour may occur. \cr
-#' \cr
-#' \cr
 #' 
 #' 
 #' @section Replacement and Transformation in data.frame-like Objects:

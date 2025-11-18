@@ -27,7 +27,7 @@ When on a certain subset level of a nested list,
 multiple subsets with the same name exist,
 only the first one will be selected when performing recursive indexing by name,
 since recursive indexing can only select a single element. \cr
-\verb{NA, NaN, Inf, -Inf} are not valid values for \code{rec}.}
+\verb{NA, NaN, Inf, -Inf, NULL} are not valid values for \code{rec}.}
 
 \item{rp}{optional, and allows for multiple functionalities:
 \itemize{
@@ -89,7 +89,8 @@ will delete the dimension attributes of that list. \cr \cr
 \details{
 Since recursive objects are references to other objects,
 extending a list or deleting an element of a list does not copy the entire list,
-in contrast to atomic vectors. \cr \cr
+in contrast to atomic vectors. \cr
+\cr
 }
 \examples{
 
@@ -164,7 +165,7 @@ x <- list(
 print(x)
 myref <- lst_rec(x, "a")
 address(myref) == address(x$a) # they are the same
-ss2_set(myref, vars = "cola", tf = \(x)x^2)
+sbt_set(myref, vars = "cola", tf = \(x)x^2)
 print(x) # notice x has been changed
 
 

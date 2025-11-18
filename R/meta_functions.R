@@ -101,6 +101,17 @@
 
 #' @keywords internal
 #' @noRd
+.mybadge_tip <- function() {
+  file <- "Tip-Green.svg"
+  text <- "\bold{Tip}"
+  html <- sprintf(
+    "\\figure{%s}{options: alt='[%s]'}",
+    file, text)
+  sprintf("\\ifelse{html}{%s}{%s}", html, text)
+}
+
+#' @keywords internal
+#' @noRd
 .mybadge_performance_set2 <- function(x) {
   if(x == "TRUE") x2 <- "TRUE-darkgreen"
   if(x == "FALSE") x2 <- "FALSE-red"

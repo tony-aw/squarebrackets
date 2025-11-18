@@ -22,21 +22,7 @@
   
   temp.fun <- function(...) {
     rp <- tf(x[..., drop = FALSE])
-    .check_rp_atomic(rp, prod(collapse::vlengths(lst)), abortcall)
-    x[...] <- rp
-    return(x)
-  }
-  out <- do.call(temp.fun, lst)
-  return(out)
-}
-
-#' @keywords internal
-#' @noRd
-.arr_tf_list <- function(x, lst, tf, .lapply, abortcall) {
-  
-  temp.fun <- function(...) {
-    rp <-  .lapply(x[..., drop = FALSE], tf)
-    .check_rp_list(rp, prod(collapse::vlengths(lst)), abortcall)
+    .check_rp(x, rp, prod(collapse::vlengths(lst)), abortcall)
     x[...] <- rp
     return(x)
   }
@@ -50,7 +36,7 @@
 .arr_repl <- function(x, lst, rp, abortcall) {
   
   temp.fun <- function(...) {
-    .check_rp_atomic(rp, prod(collapse::vlengths(lst)), abortcall) # used to be.arr_length(x, lst, d)
+    .check_rp(x, rp, prod(collapse::vlengths(lst)), abortcall) # used to be.arr_length(x, lst, d)
     x[...] <- rp
     return(x)
   }
@@ -60,21 +46,7 @@
 
 #' @keywords internal
 #' @noRd
-.arr_repl_list <- function(x, lst, rp, abortcall) {
-  
-  temp.fun <- function(...) {
-    .check_rp_list(rp, prod(collapse::vlengths(lst)), abortcall) # used to be.arr_length(x, lst, d)
-    x[...] <- rp
-    return(x)
-  }
-  x <- do.call(temp.fun, lst)
-  return(x)
-}
-
-
-#' @keywords internal
-#' @noRd
-.arr_set <- function(x, s, d, chkdup, inv, rp, tf, abortcall) {
+.arr_set_atomic <- function(x, s, d, chkdup, inv, rp, tf, abortcall) {
   
   # Prep:
   x.dim <- dim(x)

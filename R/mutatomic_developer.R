@@ -25,15 +25,7 @@
 #' @export
 stopifnot_ma_safe2mutate <- function(sym, envir, .abortcall) {
   
-  if(!is.symbol(sym) || length(sym) > 1L) {
-    stop(simpleError(
-      "only objects that exist as variables can be modified by reference", call = .abortcall
-    ))
-  }
-  if(bindingIsLocked(sym, env = envir)){
-    txt <- paste0("cannot change value of locked binding for '", sym, "'")
-    stop(simpleError(txt, call = .abortcall))
-  }
+  .check_bindingIsLocked(sym, envir, .abortcall)
   x <- get(sym, envir = envir)
   if(!is.atomic(x)) {
     txt <- paste0("'", sym, "' is not atomic")

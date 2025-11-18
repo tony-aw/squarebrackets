@@ -8,7 +8,7 @@
 #' 
 #'  * `sb_setFlatnames()` renames the (flat) names of a `mutatomic` object. 
 #'  * `sb_setDimnames()` renames the dimension names of a `mutatomic` object.
-#'  * `sb2_setVarnames()` renames the variable names of a `data.table` object. \cr \cr
+#'  * `sb_setVarnames()` renames the variable names of a `data.table` object. \cr \cr
 #' 
 #' 
 #'
@@ -152,7 +152,7 @@ sb_setDimnames <- function(x, m, newdimnames, ...) {
 
 #' @rdname sb_setRename
 #' @export
-sb2_setVarnames <- function(x, old, new, skip_absent = FALSE, ...) {
+sb_setVarnames <- function(x, old, new, skip_absent = FALSE, ...) {
   if(!data.table::is.data.table(x)) {
     stop("`x` is not a (supported) mutable object")
   }

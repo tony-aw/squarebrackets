@@ -60,7 +60,7 @@ If \code{TRUE},
 \item{rp, tf}{see \link{squarebrackets_modify}.}
 }
 \value{
-Similar to the \code{ii_}/\code{ss_} methods.
+Similar to the \code{ii_} methods.
 }
 \description{
 The \code{slice_} - methods are similar to the \code{ii_}/\code{ss_} - methods,

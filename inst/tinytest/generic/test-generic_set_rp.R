@@ -87,53 +87,10 @@ temp.fun <- function(x, elements) {
 sys.source(file.path(getwd(), "source", "sourcetest-elements.R"), envir = environment())
 
 
-# test matrix & array ====
+# test array ====
 
 rep3.bind <- function(x, dim) {
   return(abind::abind(x, x, x, along = dim))
-}
-
-pre_subset_mat <- function(x, row = NULL, col = NULL) {
-  
-  if(!is.null(row)) row <- indx_x(row, x, rownames(x), nrow(x))
-  if(!is.null(col)) col <- indx_x(col, x, colnames(x), ncol(x))
-  
-  if(any_empty_indices(row, col)) {
-    return(x)
-  }
-  
-  if(is.null(row)) row <- seq_len(nrow(x))
-  if(is.null(col)) col <- seq_len(ncol(x))
-  return(x[row, col])
-}
-
-
-f_expect.matrix <- f_expect.2d <- function(x, row = NULL, col = NULL) {
-  
-  rp <- parent.frame()$rp
-  
-  if(is.atomic(x)) x <- as.mutatomic(x)
-  
-  if(!is.null(row)) row <- indx_x(row, x, rownames(x), nrow(x))
-  if(!is.null(col)) col <- indx_x(col, x, colnames(x), ncol(x))
-  
-  if(any_empty_indices(row, col)) {
-    return(x)
-  }
-  
-  if(is.null(row)) row <- seq_len(nrow(x))
-  if(is.null(col)) col <- seq_len(ncol(x))
-  x[row, col] <- rp
-  
-  return(x)
-}
-
-
-f_out.2d <- function(x, s, d) {
-  
-  rp <- parent.frame()$rp
-  
-  return(sb_set2(x, s, d, rp = rp))
 }
 
 
@@ -183,6 +140,46 @@ f_expect.arbitrary <- function(x, i, j, l) {
 }
 
 sys.source(file.path(getwd(), "source", "sourcetest-dims.R"), envir = environment())
+
+
+# row,col ====
+
+
+f_expect.matrix <- f_expect.2d <- function(x, row = NULL, col = NULL) {
+  
+  x <- as.mutatomic(x)
+  
+  rp <- parent.frame()$rp
+  
+  if(!is.null(row)) row <- indx_x(row, x, rownames(x), nrow(x))
+  if(!is.null(col)) col <- indx_x(col, x, colnames(x), ncol(x))
+  
+  if(any_empty_indices(row, col)) {
+    return(x)
+  }
+  
+  if(is.null(row)) row <- seq_len(nrow(x))
+  if(is.null(col)) col <- seq_len(ncol(x))
+  x[row, col] <- rp
+  
+  return(x)
+}
+
+pre_subset_mat <- function(x, row = NULL, col = NULL) {
+  
+  sbt_x(x, row, col)
+}
+
+f_out.matrix <- f_out.2d <- function(x, row, col) {
+  
+  x <- as.mutatomic(x)
+  rp <- parent.frame()$rp
+  sbt_set(x, row, col, rp = rp)
+  return(x)
+}
+
+sys.source(file.path(getwd(), "source", "sourcetest-rowcol.R"), envir = environment())
+
 
 
 # test arbitrary dimensions with NA ====
@@ -286,7 +283,8 @@ enumerate <- enumerate + 2
 x <- as.mutatomic(matrix(1:10, nrow = 2))
 expect_error(
   ii_set2(x, i = 1:5, rp = as.list(1:5)),
-  pattern = "replacement must be atomic"
+  pattern = "replacement must match `is.atomic(x)` and `is.list(x)`",
+  fixed = TRUE
 )
 expect_error(
   ii_set2(x, i = 1:5, rp = 1:6),
@@ -302,7 +300,8 @@ enumerate <- enumerate + 4
 x <- as.mutatomic(array(1:27, dim = c(3,3,3)))
 expect_error(
   ii_set2(x, i = 1:5, rp = as.list(1:5)),
-  pattern = "replacement must be atomic"
+  pattern = "replacement must match `is.atomic(x)` and `is.list(x)`",
+  fixed = TRUE
 )
 expect_error(
   ii_set2(x, i = 1:5, rp = 1:6),

@@ -73,8 +73,8 @@
 #' Thus, even if a list itself is not treated as mutable,
 #' subsets of a list which are themselves mutable classes, are mutable. \cr
 #' For example,
-#' if you have a list of `data.table` objects,
-#' the data.tables themselves are mutable. \cr
+#' if you have a list of \link{mutatomic} objects,
+#' the mutatomic objects themselves are mutable. \cr
 #' Therefore, the following will work: \cr
 #' 
 #' ```{r}

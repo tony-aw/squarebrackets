@@ -14,9 +14,9 @@ in any dimensional object supported by 'squarebrackets'
 (i.e. arrays and data.frame-like objects).
 \item \verb{margin, slice}: to specify indices of one particular dimension
 (for arrays and data.frame-like objects). \cr
-Only used in the \link{idx} method. \cr
-\item \verb{obs, vars}: to specify observations and/or variables
-in specifically in data.frame-like objects.
+Currently only used in the \link{idx} method. \cr
+\item tabular indices (\code{row}, \code{col}, \verb{obs, vars}):
+to specify rows and columns in tabular objects (matrices and data.frames). \cr \cr
 }
 
 For the fundamentals of indexing in 'squarebrackets',
@@ -58,14 +58,14 @@ For recursive objects, \code{i} is interpreted as \code{lapply(x, i)}. \cr
 Using the \code{i} arguments corresponds to doing something like the following:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{ ii_x(x, i = i) # ==> x[i]   # if `x` is atomic
- ii2_x(x, i = i) # ==> x[i]  # if `x` is recursive
+ ii_x(x, i = i) # ==> x[i]  # if `x` is recursive
  
 }\if{html}{\out{</div>}}
 
 If \code{i} is a function, it corresponds to the following:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{ ii_x(x, i = i) # ==> x[i(x)] # if `x` is atomic
- ii2_x(x, i = i) # ==> x[lapply(x, i)] # if `x` is recursive
+ ii_x(x, i = i) # ==> x[lapply(x, i)] # if `x` is recursive
  
 }\if{html}{\out{</div>}}
 }
@@ -74,7 +74,6 @@ If \code{i} is a function, it corresponds to the following:
 
 \ifelse{html}{\figure{class-atomic_array-blue.svg}{options: alt='[class: atomic array]'}}{\link[=squarebrackets_indx_args]{class: atomic array}} \cr
 \ifelse{html}{\figure{class-recursive_array-blue.svg}{options: alt='[class: recursive array]'}}{\link[=squarebrackets_indx_args]{class: recursive array}} \cr
-\ifelse{html}{\figure{class-data.frame-like-blue.svg}{options: alt='[class: data.frame-like]'}}{\link[=squarebrackets_indx_args]{class: data.frame-like}} \cr
 The \verb{s, d} argument pair, inspired by the
 \code{abind::}\link[abind]{asub} function from the 'abind' package,
 is the primary indexing argument for sub-set operations on dimensional objects. \cr
@@ -156,7 +155,7 @@ ss_x(x, 1:10, c(1, 3))         # ==> x[1:10, , 1:10, drop = FALSE]
 
 For a brief explanation on the relationship between flat indices (\code{i})
 and subscripts (\code{s}, \code{d}) in arrays,
-see \link{sub2ind}. \cr \cr
+see \link{ss2ii}. \cr \cr
 }
 
 \section{Argument Pair margin, slice}{
@@ -189,6 +188,28 @@ Argument \code{slice} is only used in the \link{idx} method ,
 and the result of \link{idx} are meant to be used inside the regular \code{[} and \verb{[<-} operators. \cr
 Thus the effect of a zero-length index specification depends on the rule-set of
 \verb{[.class(x)} and \verb{[<-.class(x)}. \cr \cr
+}
+
+\section{Arguments row, col}{
+
+\ifelse{html}{\figure{class-atomic_matrix-blue.svg}{options: alt='[class: atomic matrix]'}}{\link[=squarebrackets_indx_args]{class: atomic matrix}} \cr
+\ifelse{html}{\figure{class-recursive_matrix-blue.svg}{options: alt='[class: recursive matrix]'}}{\link[=squarebrackets_indx_args]{class: recursive matrix}} \cr
+
+Specifies rows and columns in a matrix.
+The argument \code{row} and \code{col} can each be any of the following:
+\itemize{
+\item \code{NULL} or \code{0L}, which corresponds to a missing index argument.
+\item a vector of length 0,
+in which case no indices are selected for the operation (i.e. empty selection).
+\item a numeric vector of \bold{strictly positive whole numbers}
+with dimension indices to select for the operation.
+\item a \bold{complex} vector, as explained in \link{squarebrackets_indx_fundamentals}.
+\item a \bold{logical} vector of the same length as the corresponding dimension size,
+giving the dimension indices to select for the operation.
+\item a \bold{character} vector of index names. \cr
+If a dimension has multiple indices with the given name,
+ALL the corresponding indices will be selected for the operation. \cr \cr
+}
 }
 
 \section{Arguments obs, vars}{
@@ -259,7 +280,7 @@ specify the following: \cr
 
 So using the \verb{obs, vars} arguments corresponds to doing something like the following:
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{ ss2_x(x, obs = obs, vars = vars) # ==> subset(x, ...obs..., ...vars...)
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{ sbt_x(x, obs, vars) # ==> subset(x, ...obs..., ...vars...)
  
 }\if{html}{\out{</div>}}
 }
@@ -273,7 +294,7 @@ and \link{idx} methods. \cr
 By default, \code{inv = FALSE}, which translates the indices like normally. \cr
 When \code{inv = TRUE}, the inverse of the indices is taken. \cr
 Consider, for example, an atomic matrix \code{x}; \cr
-using \code{ii_mod(x, 1:2, 2L, tf = tf)}
+using \code{ss_mod(x, 1:2, 2L, tf = tf)}
 corresponds to something like the following:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{
@@ -322,24 +343,13 @@ x[] <- tf(x) # for transformation
 
 }\if{html}{\out{</div>}}
 
-The above is true \bold{even if} \code{inv = TRUE} and/or \code{red = TRUE}. \cr \cr
-}
-
-\section{Disallowed Combinations of Index Arguments}{
-
-
-One cannot specify the \verb{s, d} pair and \verb{obs, vars} pair simultaneously;
-it's either one pair or the other pair. \cr
-One cannot specify the \verb{s, d} pair and \verb{slice, margin} pair simultaneously;
-it's either one pair or the other pair. \cr
-In the above cases it holds that if one set is specified, the other is set is ignored. \cr
-\cr
+The above is true \bold{even if} \code{inv = TRUE}. \cr \cr
 }
 
 \section{Drop}{
 
 Sub-setting with the generic methods from the 'squarebrackets' R-package using dimensional arguments
-(\verb{s, d, row, col filter, vars})
+(\verb{s, d, row, col obs, vars})
 always use \code{drop = FALSE}. \cr
 To drop potentially redundant (i.e. single level) dimensions,
 use the \link[base]{drop} function, like so:

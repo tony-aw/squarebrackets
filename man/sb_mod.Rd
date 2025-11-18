@@ -2,23 +2,19 @@
 % Please edit documentation in R/generic_mod.R
 \name{ii_mod}
 \alias{ii_mod}
-\alias{ii2_mod}
 \alias{ss_mod}
-\alias{ss2_mod}
+\alias{sbt_mod}
 \alias{ii_mod.default}
 \alias{ss_mod.default}
-\alias{ii2_mod.default}
-\alias{ss2_mod.default}
-\alias{ss2_mod.data.frame}
+\alias{sbt_mod.default}
+\alias{sbt_mod.data.frame}
 \title{Method to Return a Copy of an Object With Modified Subsets}
 \usage{
 ii_mod(x, ...)
 
-ii2_mod(x, ...)
-
 ss_mod(x, ...)
 
-ss2_mod(x, ...)
+sbt_mod(x, ...)
 
 \method{ii_mod}{default}(
   x,
@@ -41,41 +37,26 @@ ss2_mod(x, ...)
   chkdup = getOption("squarebrackets.chkdup", FALSE)
 )
 
-\method{ii2_mod}{default}(
+\method{sbt_mod}{default}(
   x,
-  i = NULL,
+  row = NULL,
+  col = NULL,
   inv = FALSE,
   ...,
   rp,
   tf,
-  chkdup = getOption("squarebrackets.chkdup", FALSE),
-  .lapply = lapply
+  chkdup = getOption("squarebrackets.chkdup", FALSE)
 )
 
-\method{ss2_mod}{default}(
+\method{sbt_mod}{data.frame}(
   x,
-  s = NULL,
-  d = 1:ndim(x),
-  inv = FALSE,
-  ...,
-  rp,
-  tf,
-  chkdup = getOption("squarebrackets.chkdup", FALSE),
-  .lapply = lapply
-)
-
-\method{ss2_mod}{data.frame}(
-  x,
-  s = NULL,
-  d = 1:2,
   obs = NULL,
   vars = NULL,
   inv = FALSE,
   ...,
   rp,
   tf,
-  chkdup = getOption("squarebrackets.chkdup", FALSE),
-  .lapply = lapply
+  chkdup = getOption("squarebrackets.chkdup", FALSE)
 )
 }
 \arguments{
@@ -83,10 +64,10 @@ ss2_mod(x, ...)
 
 \item{...}{see \link{squarebrackets_method_dispatch}.}
 
-\item{i, s, d, obs, vars, inv}{See \link{squarebrackets_indx_args}. \cr
+\item{i, s, d, row, col, obs, vars, inv}{See \link{squarebrackets_indx_args}. \cr
 An empty index selection returns the original object unchanged. \cr}
 
-\item{rp, tf, .lapply}{see \link{squarebrackets_modify}.}
+\item{rp, tf}{see \link{squarebrackets_modify}.}
 
 \item{chkdup}{see \link{squarebrackets_options}. \cr
 \ifelse{html}{\figure{for_performance-set_to_FALSE-red.svg}{options: alt='[for performance: set to FALSE]'}}{\link[=squarebrackets_help]{for performance: set to FALSE}}}
@@ -138,9 +119,9 @@ ii_mod(obj, i = \(x)x <= 5, rp = -1:-5)
 
 obj <- list(a = 1:10, b = letters[1:11], c = 11:20)
 print(obj)
-ii2_mod(obj, "a", rp = list(1L))
+ii_mod(obj, "a", rp = list(1L))
 # above is equivalent to  obj[["a"]] <- 1L; obj
-ii2_mod(obj, is.numeric, rp = list(-1:-10, -11:-20))
+ii_mod(obj, is.numeric, rp = list(-1:-10, -11:-20))
 # above is equivalent to  obj[which(sapply(obj, is.numeric))] <- list(-1:-10, -11:-20); obj
 
 obj <- rbind(
@@ -151,20 +132,20 @@ obj <- rbind(
 )
 colnames(obj) <- c("a", "b", "c", "a")
 print(obj)
-ss2_mod(obj, n(1:3), 1:ndim(obj),rp = n(-1))
+ss_mod(obj, n(1:3), 1:ndim(obj),rp = n(-1))
 # above is equivalent to obj[1:3, 1:3] <- list(-1)
-ii2_mod(obj, i = is.numeric, rp = n(-1))
+ii_mod(obj, i = is.numeric, rp = n(-1))
 # above is equivalent to obj[sapply(obj, is.numeric)] <- list(-1)
-ss2_mod(obj, n("a"), 2L, rp = n(-1))
+ss_mod(obj, n("a"), 2L, rp = n(-1))
 # above is equivalent to
 # obj[, lapply(c("a", "a"), \(i) which(colnames(obj) == i)) |> unlist()] <- list(-1)
 
 
 obj <- array(as.list(1:64), c(4,4,3))
 print(obj)
-ss2_mod(obj, n(1:3, 1:2), c(1,3), rp = as.list(-1:-24))
+ss_mod(obj, n(1:3, 1:2), c(1,3), rp = as.list(-1:-24))
 # above is equivalent to obj[1:3, , 1:2] <- as.list(-1:-24)
-ii2_mod(obj, i = \(x) x <= 5, rp = as.list(-1:-5))
+ii_mod(obj, i = \(x) x <= 5, rp = as.list(-1:-5))
 # above is equivalent to obj[sapply(onj, \(x) x <= 5)] <- as.list(-1:-5)
 
 
@@ -174,7 +155,7 @@ ii2_mod(obj, i = \(x) x <= 5, rp = as.list(-1:-5))
 
 obj <- data.frame(a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10]))
 str(obj) # notice that columns "a" and "c" are INTEGER (`int`)
-ss2_mod(
+sbt_mod(
   obj, vars = is.numeric,
   tf = sqrt
 )
@@ -186,16 +167,16 @@ ss2_mod(
 obj <- data.frame(a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10]))
 str(obj) # notice that columns "a" and "c" are INTEGER (`int`)
 
-ss2_mod(
-  obj, obs = ~ (a >= 2) & (c <= 17), vars = is.numeric,
+sbt_mod(
+  obj, ~ (a >= 2) & (c <= 17), is.numeric,
   tf = sqrt
 ) 
-ss2_mod(
-  obj, obs = ~ (a >= 2) & (c <= 17), vars = is.numeric,
+sbt_mod(
+  obj, ~ (a >= 2) & (c <= 17), is.numeric,
   tf = sqrt
 ) 
-ss2_mod(
-  obj, obs = ~ (a >= 2) & (c <= 17), vars = is.numeric,
+sbt_mod(
+  obj, ~ (a >= 2) & (c <= 17), is.numeric,
   tf = sqrt
 ) 
 

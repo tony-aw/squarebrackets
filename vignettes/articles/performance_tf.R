@@ -89,10 +89,10 @@ basefun <- function(x, rows, tf) {
 gc()
 bm.sb_tf.df <- bench::mark(
   "base [<-" = basefun(df, sel.rows, tf = \(x) -1 * x),
-  "ss2_set" = ss2_set(
+  "sbt_set" = sbt_set(
     dt, obs = sel.rows, vars = is.numeric, tf = \(x) -1 * x
   ),
-  "ss2_mod" = ss2_mod(
+  "sbt_mod" = sbt_mod(
     df, obs = sel.rows, vars = is.numeric, tf = \(x) -1 * x
   ),
   check = FALSE,

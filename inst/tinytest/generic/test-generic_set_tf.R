@@ -89,54 +89,11 @@ sys.source(file.path(getwd(), "source", "sourcetest-elements.R"), envir = enviro
 
 
 
-# test matrix & array ====
+# test array ====
 
 rep3.bind <- function(x, dim) {
   return(abind::abind(x, x, x, along = dim))
 }
-
-pre_subset_mat <- function(x, row = NULL, col = NULL) {
-  
-  if(!is.null(row)) row <- indx_x(row, x, rownames(x), nrow(x))
-  if(!is.null(col)) col <- indx_x(col, x, colnames(x), ncol(x))
-  
-  if(any_empty_indices(row, col)) {
-    return(x)
-  }
-  
-  if(is.null(row)) row <- seq_len(nrow(x))
-  if(is.null(col)) col <- seq_len(ncol(x))
-  return(x[row, col])
-}
-
-
-f_expect.matrix <- f_expect.2d <- function(x, row = NULL, col = NULL) {
-  
-  if(is.atomic(x)) x <- as.mutatomic(x)
-  
-  if(!is.null(row)) row <- indx_x(row, x, rownames(x), nrow(x))
-  if(!is.null(col)) col <- indx_x(col, x, colnames(x), ncol(x))
-  
-  if(any_empty_indices(row, col)) {
-    return(x)
-  }
-  
-  if(is.null(row)) row <- seq_len(nrow(x))
-  if(is.null(col)) col <- seq_len(ncol(x))
-  
-  tf <- mean
-  
-  x[row, col] <- tf(x[row, col])
-  
-  return(x)
-}
-
-
-f_out.2d <- function(x, s, d) {
-  
-  return(ss_set2(x, s, d, tf = mean))
-}
-
 
 pre_subset_1d <- function(x, i) {
   return(indx_x(i, x, names(x), length(x)))
@@ -179,6 +136,34 @@ f_expect.arbitrary <- function(x, i, j, l) {
 }
 
 sys.source(file.path(getwd(), "source", "sourcetest-dims.R"), envir = environment())
+
+
+
+# row,col ===
+
+pre_subset_mat <- function(x, row = NULL, col = NULL) {
+  
+  sbt_x(x, row, col)
+}
+
+
+f_expect.matrix <- f_expect.2d <- function(x, row = NULL, col = NULL) {
+  
+  tf <- mean
+  i <- indx_x(row, x, rownames(x), nrow(x))
+  j <- indx_x(col, x, colnames(x), ncol(x))
+  x[i, j] <- tf(x[i, j])
+  return(x)
+}
+
+f_out.2d <- f_out.matrix <- function(x, row, col) {
+  
+  return(sbt_mod(x, row = row, col = col, tf = mean))
+}
+
+
+sys.source(file.path(getwd(), "source", "sourcetest-rowcol.R"), envir = environment())
+
 
 
 # test errors ====

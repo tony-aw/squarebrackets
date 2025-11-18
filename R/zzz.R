@@ -7,7 +7,7 @@
     squarebrackets.cn = FALSE,
     squarebrackets.chkdup = FALSE,
     squarebrackets.ma_messages = FALSE,
-    squarebrackets.sticky = c("difftime", "Date", "POSIXct", "roman", "hexmode", "octmode")
+    squarebrackets.sticky = c("difftime", "Date", "POSIXct", "roman", "hexmode", "octmode", "broadcaster")
   )
   .pkgenv_mutatomic[["protected"]] <- .protected_addresses()
 }

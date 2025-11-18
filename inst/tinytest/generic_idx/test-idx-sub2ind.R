@@ -67,12 +67,12 @@ enumerate <- enumerate + 10L
 # error checks ====
 
 expect_error(
-  sub2ind(list(), integer(0)),
+  ss2ii(list(), integer(0)),
   pattern = "`length(x.dim) == 0`",
   fixed = TRUE
 )
 expect_error(
-  sub2ind(list(ind1), integer(2)),
+  ss2ii(list(ind1), integer(2)),
   pattern = "`length(sub) != length(x.dim)`",
   fixed = TRUE
 )

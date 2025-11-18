@@ -33,16 +33,16 @@ using namespace Rcpp;
 
 
 ################################################################################
-# rcpp_sub2ind_d_32 ====
+# rcpp_ss2ii_d_32 ====
 
 
 
-sub2ind_32 <- "
+ss2ii_32 <- "
 
 //' @keywords internal
 //' @noRd
 // [[Rcpp::export(.rcpp_sub2ind_d_32)]]
-SEXP rcpp_sub2ind_d_32(
+SEXP rcpp_ss2ii_d_32(
   SEXP sub, SEXP dimcumprod
 ) {
 
@@ -58,7 +58,7 @@ int temp = 0;
 int *pout;
 SEXP out = PROTECT(Rf_allocVector(INTSXP, n));
 pout = INTEGER(out);
-MACRO_DIM_DOCALL(MACRO_SUB2IND);
+MACRO_DIM_DOCALL(MACRO_ss2ii);
 UNPROTECT(1);
 return out;
 
@@ -68,13 +68,13 @@ return out;
 "
 
 
-rcpp_code <- stri_c(header_for_sourcing, sub2ind_32, collapse = "\n\n\n")
+rcpp_code <- stri_c(header_for_sourcing, ss2ii_32, collapse = "\n\n\n")
 cat(rcpp_code)
 Rcpp::sourceCpp(code = rcpp_code)
 
-rcpp_code <- stri_c(header_for_package, sub2ind_32, collapse = "\n\n\n")
+rcpp_code <- stri_c(header_for_package, ss2ii_32, collapse = "\n\n\n")
 setwd("..")
-fileConn <- file("src/rcpp_sub2ind_d_32.cpp")
+fileConn <- file("src/rcpp_ss2ii_d_32.cpp")
 writeLines(rcpp_code, fileConn)
 close(fileConn)
 
@@ -83,15 +83,15 @@ getwd()
 
 
 ################################################################################
-# rcpp_sub2ind_d_64 ====
+# rcpp_ss2ii_d_64 ====
 
 
-sub2ind_64 <- "
+ss2ii_64 <- "
 
 //' @keywords internal
 //' @noRd
 // [[Rcpp::export(.rcpp_sub2ind_d_64)]]
-SEXP rcpp_sub2ind_d_64(
+SEXP rcpp_ss2ii_d_64(
   SEXP sub, SEXP dimcumprod
 ) {
 
@@ -108,7 +108,7 @@ R_xlen_t temp = 0;
 double *pout;
 SEXP out = PROTECT(Rf_allocVector(REALSXP, n));
 pout = REAL(out);
-MACRO_DIM_DOCALL(MACRO_SUB2IND);
+MACRO_DIM_DOCALL(MACRO_ss2ii);
 UNPROTECT(1);
 return out;
 
@@ -118,13 +118,13 @@ return out;
 "
 
 
-rcpp_code <- stri_c(header_for_sourcing, sub2ind_64, collapse = "\n\n\n")
+rcpp_code <- stri_c(header_for_sourcing, ss2ii_64, collapse = "\n\n\n")
 cat(rcpp_code)
 Rcpp::sourceCpp(code = rcpp_code)
 
-rcpp_code <- stri_c(header_for_package, sub2ind_64, collapse = "\n\n\n")
+rcpp_code <- stri_c(header_for_package, ss2ii_64, collapse = "\n\n\n")
 setwd("..")
-fileConn <- file("src/rcpp_sub2ind_d_64.cpp")
+fileConn <- file("src/rcpp_ss2ii_d_64.cpp")
 writeLines(rcpp_code, fileConn)
 close(fileConn)
 

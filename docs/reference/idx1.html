@@ -19,8 +19,8 @@ The result of the idx() method
 can be used inside the regular square-brackets operators.
 For example like so:
 x &amp;lt;- array(...)
-my_sub2ind &amp;lt;- idx(x, s, d)
-x[my_sub2ind] &amp;lt;- value
+my_ss2ii &amp;lt;- idx(x, s, d)
+x[my_ss2ii] &amp;lt;- value
 
 y &amp;lt;- data.frame(...)
 rows &amp;lt;- idx(y, 1:10, 1, inv = TRUE)
@@ -50,8 +50,8 @@ The result of the idx() method
 can be used inside the regular square-brackets operators.
 For example like so:
 x &amp;lt;- array(...)
-my_sub2ind &amp;lt;- idx(x, s, d)
-x[my_sub2ind] &amp;lt;- value
+my_ss2ii &amp;lt;- idx(x, s, d)
+x[my_ss2ii] &amp;lt;- value
 
 y &amp;lt;- data.frame(...)
 rows &amp;lt;- idx(y, 1:10, 1, inv = TRUE)
@@ -69,7 +69,7 @@ whilst still using R's default copy-on-modification semantics
 
     <a class="navbar-brand me-2" href="../index.html">squarebrackets</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9005</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9006</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -118,8 +118,8 @@ The result of the <code>idx()</code> method
 can be used inside the regular square-brackets operators. <br>
 For example like so:</p>
 <p></p><div class="sourceCode r"><pre><code><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/array.html" class="external-link">array</a></span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span>
-<span><span class="va">my_sub2ind</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/idx1.html">idx</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">s</span>, <span class="va">d</span><span class="op">)</span></span>
-<span><span class="va">x</span><span class="op">[</span><span class="va">my_sub2ind</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
+<span><span class="va">my_ss2ii</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/idx1.html">idx</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">s</span>, <span class="va">d</span><span class="op">)</span></span>
+<span><span class="va">x</span><span class="op">[</span><span class="va">my_ss2ii</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
 <span></span>
 <span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span>
 <span><span class="va">rows</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/idx1.html">idx</a></span><span class="op">(</span><span class="va">y</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">1</span>, inv <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
@@ -304,16 +304,16 @@ for the dimension specified in <code>margin</code>. <br><br></p>
 <span class="r-in"><span><span class="va">x</span><span class="op">[</span><span class="va">rows</span>, <span class="va">cols</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        a  b           c d e</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   TRUE  1 -0.24301788 a k</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  FALSE  2  0.09305645 b l</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  FALSE  3  0.04682464 c m</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  FALSE  4 -1.16805345 d n</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5   TRUE  5  0.03247200 e o</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6     NA NA -0.67331493 f p</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7     NA NA -1.64588928 g q</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8     NA NA -0.13946087 h r</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9     NA NA -0.36253040 i s</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10    NA NA  2.13264138 j t</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   TRUE  1 -0.31966240 a k</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  FALSE  2  0.26491352 b l</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   TRUE  3 -0.99044044 c m</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  FALSE  4  1.00790915 d n</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   TRUE  5  0.19031222 e o</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6     NA NA -1.41032315 f p</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7     NA NA -0.01069827 g q</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8     NA NA  0.79808063 h r</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9     NA NA  0.58953258 i s</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10    NA NA -0.94363267 j t</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

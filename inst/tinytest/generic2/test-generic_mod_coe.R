@@ -15,7 +15,7 @@ obj1 <- obj2 <- data.frame(
 )
 obj2[1:5, "a"] <- 1:5
 expect_equal(
-  ss2_mod(obj1, n(1:5, "a"), rp = 1:5),
+  sbt_mod(obj1, 1:5, "a", rp = 1:5),
   obj2
 )
 
@@ -27,7 +27,7 @@ obj1 <- obj2 <- data.frame(
 )
 obj2[1:5, "b"] <- sqrt(1:5)
 expect_equal(
-  ss2_mod(obj1, n(1:5, "b"), rp = sqrt(1:5)),
+  sbt_mod(obj1, 1:5, "b", rp = sqrt(1:5)),
   obj2
 )
 
@@ -39,7 +39,7 @@ obj1 <- obj2 <- data.frame(
 )
 obj2[1:5, "c"] <- obj2$d[5:1]
 expect_equal(
-  ss2_mod(obj1, n(1:5, "c"), rp = obj2$d[5:1]),
+  sbt_mod(obj1, 1:5, "c", rp = obj2$d[5:1]),
   obj2
 )
 enumerate <- enumerate + 3L
@@ -53,7 +53,7 @@ obj1 <- obj2 <- data.frame(
 )
 obj2[1:5, "c"] <- 1:5
 expect_equal(
-  ss2_mod(obj1, n(1:5, "c"), rp = 1:5),
+  sbt_mod(obj1, 1:5, "c", rp = 1:5),
   obj2
 )
 

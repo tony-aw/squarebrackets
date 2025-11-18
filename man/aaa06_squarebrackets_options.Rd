@@ -79,14 +79,14 @@ the \code{squarebrackets.sticky} option is set as follows:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{
 squarebrackets.sticky = c(
-   "difftime", "Date", "POSIXct", "roman", "hexmode", "octmode"
+   "difftime", "Date", "POSIXct", "roman", "hexmode", "octmode", "broadcaster"
 )
 
 }\if{html}{\out{</div>}}
 
 So in the above default setting,
 \code{sticky = TRUE} for \cr
-"difftime", "Date", "POSIXct", "roman", "hexmode", "octmode". \cr
+"difftime", "Date", "POSIXct", "roman", "hexmode", "octmode", "broadcaster". \cr
 Also in the above default setting,
 \code{sticky = FALSE} for other classes. \cr
 \cr
@@ -94,7 +94,7 @@ The reason
 the \link{slice_x}, \link{slice_wo}, and \link{slicev_x} methods
 need the \code{sticky} option,
 is because of the following. \cr
-Unlike the \code{ii_}, \code{ii2_}, \code{ss_}, and \code{ss2_} methods,
+Unlike the \code{ii_}, \code{ii_}, \code{ss_}, and \code{ss_} methods,
 the \link{slice_x}, \link{slice_wo}, and \link{slicev_x} methods
 are not wrappers around the \code{[} and \verb{[<-} operators. \cr
 Therefore,

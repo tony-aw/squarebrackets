@@ -18,7 +18,7 @@ temp.fun <- function(x) {
     return(x)
   }
   expect_equal(
-    ii2_mod(x, rp = x[1]),
+    ii_mod(x, rp = x[1]),
     tempfun(x)
   ) |> errorfun()
 }
@@ -32,7 +32,7 @@ temp.fun <- function(x) {
     return(x)
   }
   expect_equal(
-    ss2_mod(x, rp = x[1]),
+    ss_mod(x, rp = x[1]),
     tempfun(x)
   ) |> errorfun()
 }
@@ -65,7 +65,7 @@ temp.fun <- function(x, elements) {
     if(is.list(x)) rp1 <- as.list(rp1)
     if(is.list(x) && length(rep) != 1) rp2 <- as.list(rp)
     expect_equal(
-      ii2_mod(x, i = elements[[i]], rp = rp1),
+      ii_mod(x, i = elements[[i]], rp = rp1),
       test_sb(x, i = elements[[i]], rp = rp2)
     ) |> errorfun()
     assign("enumerate", enumerate + 1, envir = parent.frame(n = 1))
@@ -131,14 +131,14 @@ f_out.matrix <- function(x, row, col) {
   
   rp <- parent.frame()$rp
   
-  return(ss2_mod(x, row = row, col = col, rp = rp))
+  return(ss_mod(x, row = row, col = col, rp = rp))
 }
 
 f_out.2d <- function(x, s, d) {
   
   rp <- parent.frame()$rp
   
-  return(ss2_mod.default(x, s, d, rp = rp))
+  return(ss_mod.default(x, s, d, rp = rp))
 }
 
 
@@ -164,13 +164,13 @@ f_out.1d <- function(x, s, d) {
   
   rp <- parent.frame()$rp
   
-  return(ss2_mod(x, s, d, rp = rp))
+  return(ss_mod(x, s, d, rp = rp))
 }
 
 
 sb_test <- function(x, ...) {
-  rp <- lapply(ss2_x.default(x, ...), \(x) x * -1)
-  return(ss2_mod.default(x, ..., rp = rp))
+  rp <- lapply(ss_x.default(x, ...), \(x) x * -1)
+  return(ss_mod.default(x, ..., rp = rp))
 }
 
 f_expect.arbitrary <- function(x, i, j, l) {
@@ -189,7 +189,7 @@ sys.source(file.path(getwd(), "source", "sourcetest-dims.R"), envir = environmen
 # test datasets ====
 
 
-pre_subset_df <- ss2_x.data.frame
+pre_subset_df <- sbt_x
 
 f_expect.data.frame <- function(x, row = NULL, col = NULL) {
   
@@ -215,10 +215,10 @@ f_expect.data.frame <- function(x, row = NULL, col = NULL) {
   return(x)
 }
 
-f_out.data.frame <- function(x, s = NULL, d = NULL, obs = NULL, vars = NULL) {
+f_out.data.frame <- function(x, obs = NULL, vars = NULL) {
   
   rp <- parent.frame()$rp
-  return(ss2_mod.data.frame(x, s, d, obs, vars, rp = rp, inv = FALSE))
+  return(sbt_mod(x, obs, vars, rp = rp, inv = FALSE))
   
 }
 
@@ -227,26 +227,26 @@ f_out.data.frame <- function(x, s = NULL, d = NULL, obs = NULL, vars = NULL) {
 # rl. <- loadNamespace("rlang")
 dt. <- loadNamespace("data.table")
 
-sys.source(file.path(getwd(), "source", "sourcetest-datasets.R"), envir = environment())
 sys.source(file.path(getwd(), "source", "sourcetest-obsvars.R"), envir = environment())
 
 
 # test errors ====
 
-sb_test <- function(x, ...)ii2_mod(x, ..., rp = x[1])
+sb_test <- function(x, ...)ii_mod(x, ..., rp = x[1])
 sys.source(file.path(getwd(), "source", "sourcetest-errors-i.R"), envir = environment())
 
-sb_test <- function(x, ...)ss2_mod(x, ..., rp = x[1])
+sb_test <- function(x, ...)ss_mod(x, ..., rp = x[1])
 sys.source(file.path(getwd(), "source", "sourcetest-errors-ss.R"), envir = environment())
 
 
 x <- as.list(1:10)
 expect_error(
-  ii2_mod(x, i = 1:5, rp = 1:10),
-  pattern = "replacement must be a list"
+  ii_mod(x, i = 1:5, rp = 1:10),
+  pattern = "replacement must match `is.atomic(x)` and `is.list(x)`",
+  fixed = TRUE
 )
 expect_error(
-  ii2_mod(x, i = 1:5, rp = as.list(1:6)),
+  ii_mod(x, i = 1:5, rp = as.list(1:6)),
   pattern = "recycling not allowed"
 )
 enumerate <- enumerate + 3
@@ -254,15 +254,15 @@ enumerate <- enumerate + 3
 
 x <- array(as.list(1:27), dim = c(3,3,3))
 expect_error(
-  ii2_mod(x, i = 1:5, rp = as.list(1:6)),
+  ii_mod(x, i = 1:5, rp = as.list(1:6)),
   pattern = "recycling not allowed"
 )
 expect_error(
-  ss2_mod(x, list(1:2, 1:2), c(1,3), rp = as.list(1:6)),
+  ss_mod(x, list(1:2, 1:2), c(1,3), rp = as.list(1:6)),
   pattern = "recycling not allowed"
 )
 expect_error(
-  ss2_mod(x, list(1:2, 1:2), c(2,3), rp = as.list(1:6)),
+  ss_mod(x, list(1:2, 1:2), c(2,3), rp = as.list(1:6)),
   pattern = "recycling not allowed"
 )
 enumerate <- enumerate + 5

@@ -5,13 +5,10 @@ if ( requireNamespace("tinytest", quietly = TRUE) ){
     "squarebrackets", set_env=list(LC_COLLATE="C")
   )
   tinytest::test_package(
-    "squarebrackets", testdir = "tinytest/special", set_env=list(LC_COLLATE="C")
-  )
-  tinytest::test_package(
     "squarebrackets", testdir = "tinytest/helper", set_env=list(LC_COLLATE="C")
   )
   tinytest::test_package(
-    "squarebrackets", testdir = "tinytest/sub2ind", set_env=list(LC_COLLATE="C")
+    "squarebrackets", testdir = "tinytest/ss2ii", set_env=list(LC_COLLATE="C")
   )
   tinytest::test_package(
     "squarebrackets", testdir = "tinytest/src_related", set_env=list(LC_COLLATE="C")
@@ -23,6 +20,9 @@ if ( requireNamespace("tinytest", quietly = TRUE) ){
     "squarebrackets", testdir = "tinytest/args", set_env=list(LC_COLLATE="C")
   )
   
+  tinytest::test_package(
+    "squarebrackets", testdir = "tinytest/internal", set_env=list(LC_COLLATE="C")
+  )
   
   tinytest::test_package(
     "squarebrackets", testdir = "tinytest/slice", set_env=list(LC_COLLATE="C")

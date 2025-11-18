@@ -55,10 +55,7 @@
 #' 
 #' \bold{Essentials} \cr
 #' The essential documentation is split into the following help pages:
-#' 
-#'  - \link{squarebrackets_supported_structures}: \cr
-#'  Lists the structures that are supported by 'squarebrackets',
-#'  and explains some related terminology.
+#'  
 #'  - \link{squarebrackets_methods}: \cr
 #'  Lists the main methods provided by 'squarebrackets'.
 #'  - \link{squarebrackets_indx_fundamentals}: \cr
@@ -69,7 +66,10 @@
 #' The methods in 'squarebrackets' share a lot of common arguments. \cr
 #' The explanations for these common arguments are given in the following help pages:
 #' 
-#' - \link{squarebrackets_indx_args}: \cr
+#'  - \link{squarebrackets_supported_structures}: \cr
+#'  Lists the structures that are supported by 'squarebrackets',
+#'  and explains some related terminology.
+#'  - \link{squarebrackets_indx_args}: \cr
 #'  Explains the common indexing arguments used in the main S3 methods.
 #'  - \link{squarebrackets_modify}: \cr
 #'  Explains the modification-related arguments,
@@ -108,7 +108,7 @@
 #'  * \link{n}: Nested version of \link[base]{c},
 #'  and short-hand for \link[base]{list}.
 #'  * \link{ndim}: Get the number of dimensions of an object.
-#'  * \link{sub2coord}, \link{coord2ind}: Convert subscripts
+#'  * \link{ss2coord}, \link{coord2ii}: Convert subscripts
 #'  (array indices) to coordinates,
 #'  coordinates to flat indices,
 #'  and vice-versa.
@@ -116,8 +116,7 @@
 #'  taking into account the order and any duplicate values of both vectors.
 #'  * Computing indices: \cr
 #'  \link{idx_r} to compute an integer index range. \cr
-#'  \link{idx_by} to compute grouped indices. \cr
-#'  \link[=idx_ord_v]{idx_ord_}-functions to compute ordered indices. \cr \cr
+#'  \link{idx_by} to compute grouped indices. \cr \cr
 #' 
 #' 
 #' @section Properties Details:
@@ -156,8 +155,6 @@
 #'    not just the first.
 #'    * Data.frame-like objects (see supported classes below)
 #'    are forced to have unique column names.
-#'    * Sub-setting arrays using `x[indx1, indx2, etc.]` will drop `names(x)`. \cr
-#'    The methods from 'squarebrackets' will not drop `names(x)`.
 #'  * \bold{Concise function and argument names}.
 #'  * \bold{Performance & Energy aware}: \cr
 #'  Despite the many checks performed, the functions are kept reasonably speedy,
@@ -182,26 +179,26 @@
 #' 
 #' @exportPattern "^sb_setFlatnames"
 #' @exportPattern "^sb_setDimnames"
-#' @exportPattern "^sb2_setVarnames"
+#' @exportPattern "^sb_setVarnames"
 #' @exportPattern "^idx"
 #' 
 #' @exportPattern "^ii_x"
 #' @exportPattern "^ii_wo"
 #' @exportPattern "^ii_set"
 #' @exportPattern "^ii_mod"
-#' @exportPattern "^ii2_x"
-#' @exportPattern "^ii2_wo"
-#' @exportPattern "^ii2_mod"
+#' @exportPattern "^ii_x"
+#' @exportPattern "^ii_wo"
+#' @exportPattern "^ii_mod"
 #' @exportPattern "^lst_rec"
 #' 
 #' @exportPattern "^ss_x"
 #' @exportPattern "^ss_wo"
 #' @exportPattern "^ss_set"
 #' @exportPattern "^ss_mod"
-#' @exportPattern "^ss2_x"
-#' @exportPattern "^ss2_wo"
-#' @exportPattern "^ss2_set"
-#' @exportPattern "^ss2_mod"
+#' @exportPattern "^ss_x"
+#' @exportPattern "^ss_wo"
+#' @exportPattern "^ss_set"
+#' @exportPattern "^ss_mod"
 #' 
 #' 
 NULL

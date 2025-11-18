@@ -1,4 +1,11 @@
 
+# squarebrackets 0.0.0.9006
+* Overhauled the main methods: replaced {`ii_`, `ii2_`, `ss_`, `ss2_`} methods with { `ii_`, `ss_`, `sbt_` }
+* Removed the `dt_*` functions.
+* Removed the `idx_ord_*` functions.
+* Renamed `sub2ind` and friends to `ss2ii` and so on.
+
+
 
 # squarebrackets 0.0.0.9005
 * `0L` can now be used as an alias for `NULL` in the indexing arguments.

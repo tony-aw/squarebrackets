@@ -24,29 +24,15 @@
 
 #' @keywords internal
 #' @noRd
-.all_mod_atomic <- function(x, rp, tf, abortcall) {
+.all_mod <- function(x, rp, tf, abortcall) {
   if(!missing(tf) && !is.null(tf)) {
     rp <- tf(x)
   }
-  .check_rp_atomic(rp, length(x), abortcall = sys.call())
+  .check_rp(x, rp, length(x), abortcall = sys.call())
   x[] <- rp
   return(x)
 }
 
-
-#' @keywords internal
-#' @noRd
-.all_mod_list <- function(x, rp, tf, .lapply, abortcall) {
-  
-  if(!missing(tf)) {
-    rp <- .lapply(x, tf)
-  }
-  
-  .check_rp_list(rp, length(x), abortcall = sys.call())
-  x[] <- rp
-  return(x)
-  
-}
 
 
 #' @keywords internal

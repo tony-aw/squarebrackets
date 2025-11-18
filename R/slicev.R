@@ -23,7 +23,7 @@
 #' 
 #'
 #' @returns
-#' Similar to the `ii_`/`ss_` methods. \cr
+#' Similar to the `ii_` methods. \cr
 #' \cr
 #' For `countv()`: A single number,
 #' giving the number of elements matching the specified condition. \cr \cr

@@ -19,9 +19,9 @@ reference:
 - title: Overview Help Pages
   contents:
   - '`aaa00_squarebrackets_help`'
-  - '`aaa01_squarebrackets_supported_structures`'
-  - '`aaa02_squarebrackets_methods`'
-  - '`aaa03_squarebrackets_indx_fundamentals`'
+  - '`aaa01_squarebrackets_methods`'
+  - '`aaa02_squarebrackets_indx_fundamentals`'
+  - '`aaa03_squarebrackets_supported_structures`'
   - '`aaa04_squarebrackets_indx_args`'
   - '`aaa05_squarebrackets_modify`'
   - '`aaa06_squarebrackets_options`'
@@ -29,7 +29,7 @@ reference:
   - '`aaa08_squarebrackets_slicev`'
   - '`aaa09_squarebrackets_PassByReference`'
   - '`aaa10_squarebrackets_coercion`'
-- title: Generic Methods
+- title: Main Methods
   contents:
   - '`ii_x`'
   - '`ii_wo`'
@@ -37,29 +37,29 @@ reference:
   - '`ii_set`'
   - '`slice_x`'
   - '`slicev_x`'
-  - '`sb_setRename`'
-  - '`lst_rec`'
+- title: Other Methods
+  contents:
   - '`idx`'
+  - '`lst_rec`'
+  - '`sb_setRename`'
   - '`cp_seq`'
 - title: mutatomic class
   contents:
   - '`mutatomic`'
-- title: Specialized Functions
-  contents:
-  - '`dt`'
 - title: Helper Functions
   contents:
   - '`n`'
+  - '`s`'
   - '`ndim`'
-  - '`sub2ind`'
+  - '`ss2ii`'
   - '`match_all`'
   - '`idx_r`'
   - '`idx_by`'
-  - '`idx_ord_v`'
+  - '`dropl`'
+  - '`ci_ii`'
 - title: Developer Functions
   contents:
   - '`stopifnot_ma_safe2mutate`'
-  - '`ci_ii`'
   - '`tci_chr`'
   - '`indx_x`'
   

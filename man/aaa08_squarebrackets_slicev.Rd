@@ -245,12 +245,15 @@ slicev_x(x, v= c(-Inf, 5)) # x[x <= 5]
 ################################################################################
 # Character ====
 #
-x <- stringi::stri_rand_shuffle(rep("hello", 1e5))
-head(x)
-slicev_x(x, v = "hello") |> head() # find "hello"
-
-# find 2 possible misspellings of "hello":
-slicev_x(x, v = c("holle", "helol")) |> head()
+if(require(stringi)) {
+  x <- stringi::stri_rand_shuffle(rep("hello", 1e5))
+  head(x)
+  slicev_x(x, v = "hello") |> head() # find "hello"
+  
+  # find 2 possible misspellings of "hello":
+  slicev_x(x, v = c("holle", "helol")) |> head()
+  
+}
 
 
 

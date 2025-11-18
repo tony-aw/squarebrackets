@@ -2,23 +2,19 @@
 % Please edit documentation in R/generic_wo.R
 \name{ii_wo}
 \alias{ii_wo}
-\alias{ii2_wo}
 \alias{ss_wo}
-\alias{ss2_wo}
+\alias{sbt_wo}
 \alias{ii_wo.default}
 \alias{ss_wo.default}
-\alias{ii2_wo.default}
-\alias{ss2_wo.default}
-\alias{ss2_wo.data.frame}
+\alias{sbt_wo.default}
+\alias{sbt_wo.data.frame}
 \title{Methods to Return Object Without Specified Subset}
 \usage{
 ii_wo(x, ...)
 
-ii2_wo(x, ...)
-
 ss_wo(x, ...)
 
-ss2_wo(x, ...)
+sbt_wo(x, ...)
 
 \method{ii_wo}{default}(x, i = NULL, ..., chkdup = getOption("squarebrackets.chkdup", FALSE))
 
@@ -30,27 +26,16 @@ ss2_wo(x, ...)
   chkdup = getOption("squarebrackets.chkdup", FALSE)
 )
 
-\method{ii2_wo}{default}(
+\method{sbt_wo}{default}(
   x,
-  i = NULL,
-  red = FALSE,
+  row = NULL,
+  col = NULL,
   ...,
   chkdup = getOption("squarebrackets.chkdup", FALSE)
 )
 
-\method{ss2_wo}{default}(
+\method{sbt_wo}{data.frame}(
   x,
-  s = NULL,
-  d = 1:ndim(x),
-  red = FALSE,
-  ...,
-  chkdup = getOption("squarebrackets.chkdup", FALSE)
-)
-
-\method{ss2_wo}{data.frame}(
-  x,
-  s = NULL,
-  d = 1:2,
   obs = NULL,
   vars = NULL,
   ...,
@@ -62,19 +47,12 @@ ss2_wo(x, ...)
 
 \item{...}{see \link{squarebrackets_method_dispatch}.}
 
-\item{i, s, d, obs, vars}{See \link{squarebrackets_indx_args}. \cr
+\item{i, s, d, row, col, obs, vars}{See \link{squarebrackets_indx_args}. \cr
 An empty index selection results in nothing being removed,
 and the entire object is returned. \cr}
 
 \item{chkdup}{see \link{squarebrackets_options}. \cr
 \ifelse{html}{\figure{for_performance-set_to_FALSE-red.svg}{options: alt='[for performance: set to FALSE]'}}{\link[=squarebrackets_help]{for performance: set to FALSE}} \cr}
-
-\item{red}{Boolean, for recursive objects only,
-indicating if the result should be reduced. \cr
-If \code{red = TRUE},
-selecting a single element will give the simplified result,
-like using \verb{[[]]}. \cr
-If \code{red = FALSE}, a list is always returned regardless of the number of elements. \cr}
 }
 \value{
 A copy of the sub-setted object.
@@ -112,15 +90,13 @@ ii_wo(obj, i = \(x)x > 5)
 
 obj <- list(a = 1:10, b = letters[1:11], c = 11:20)
 print(obj)
-ii2_wo(obj, "a")
+ii_wo(obj, "a")
 # above is equivalent to obj[which(!names(obj) \%in\% "a")]
-ii2_wo(obj, 1) # obj[-1]
-ii2_wo(obj, 1:2)
+ii_wo(obj, 1) # obj[-1]
+ii_wo(obj, 1:2)
 # above is equivalent to obj[seq_len(length(obj))[-1:-2]]
-ii2_wo(obj, is.numeric, red = TRUE)
-# above is equivalent to obj[[!sapply(obj, is.numeric)]] IF this returns a single element
 obj <- list(a = 1:10, b = letters[1:11], c = letters)
-ii2_wo(obj, is.numeric)
+ii_wo(obj, is.numeric)
 # above is equivalent to obj[!sapply(obj, is.numeric)] # this time singular brackets?
 # for recusive indexing, see lst_rec()
 
@@ -133,18 +109,18 @@ obj <- rbind(
 )
 colnames(obj) <- c("a", "b", "c", "a")
 print(obj)
-ss2_wo(obj, n(1:3), 1:ndim(obj))
+ss_wo(obj, n(1:3), 1:ndim(obj))
 # above is equivalent to obj[1:3, 1:3, drop = FALSE]
-ii2_wo(obj, i = is.numeric)
+ii_wo(obj, i = is.numeric)
 # above is equivalent to obj[sapply(obj, is.numeric)]
-ss2_wo(obj, n(c("a", "a")), 2L)
+ss_wo(obj, n(c("a", "a")), 2L)
 # above is equivalent to obj[, lapply(c("a", "a"), \(i) which(colnames(obj) == i)) |> unlist()]
 
 obj <- array(as.list(1:64), c(4,4,3))
 print(obj)
-ss2_wo(obj, n(1, c(1, 3)), c(1, 3))
+ss_wo(obj, n(1, c(1, 3)), c(1, 3))
 # above is equivalent to obj[-1, , c(-1, -3), drop = FALSE]
-ii2_wo(obj, i = \(x)x>5)
+ii_wo(obj, i = \(x)x>5)
 # above is equivalent to obj[!sapply(obj, \(x) x > 5)]
 
 
@@ -155,9 +131,9 @@ ii2_wo(obj, i = \(x)x>5)
 
 obj <- data.frame(a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10]))
 print(obj)
-ss2_wo(obj, n(1:3))
+sbt_wo(obj, 1:3, 1:3)
 # above is equivalent to obj[-1:-3, -1:-3, drop = FALSE]
-ss2_wo(obj, obs = ~ (a > 5) & (c < 19), vars = is.numeric)
+sbt_wo(obj, ~ (a > 5) & (c < 19), is.numeric)
 
 
 

@@ -47,7 +47,7 @@ will delete the dimension attributes of that list.
 
     <a class="navbar-brand me-2" href="../index.html">squarebrackets</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9005</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9006</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -128,7 +128,7 @@ providing all but the final indexing results in a list. <br>
 When on a certain subset level of a nested list,
 multiple subsets with the same name exist,
 only the first one will be selected when performing recursive indexing by name,
-since recursive indexing can only select a single element. <br><code>NA, NaN, Inf, -Inf</code> are not valid values for <code>rec</code>.</p></dd>
+since recursive indexing can only select a single element. <br><code>NA, NaN, Inf, -Inf, NULL</code> are not valid values for <code>rec</code>.</p></dd>
 
 
 <dt id="arg-rp">rp<a class="anchor" aria-label="anchor" href="#arg-rp"></a></dt>
@@ -490,7 +490,7 @@ in contrast to atomic vectors. <br><br></p>
 <span class="r-in"><span><span class="va">myref</span> <span class="op">&lt;-</span> <span class="fu">lst_rec</span><span class="op">(</span><span class="va">x</span>, <span class="st">"a"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="mutatomic_developer.html">address</a></span><span class="op">(</span><span class="va">myref</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="mutatomic_developer.html">address</a></span><span class="op">(</span><span class="va">x</span><span class="op">$</span><span class="va">a</span><span class="op">)</span> <span class="co"># they are the same</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
-<span class="r-in"><span><span class="fu"><a href="sb_set.html">ss2_set</a></span><span class="op">(</span><span class="va">myref</span>, vars <span class="op">=</span> <span class="st">"cola"</span>, tf <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="sb_set.html">sbt_set</a></span><span class="op">(</span><span class="va">myref</span>, vars <span class="op">=</span> <span class="st">"cola"</span>, tf <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="co"># notice x has been changed</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $a</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      cola   colb</span>

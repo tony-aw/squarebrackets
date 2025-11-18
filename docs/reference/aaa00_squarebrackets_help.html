@@ -59,7 +59,7 @@ for long vectors than sub-set operations using the [ and [&amp;lt;- operators.
 
     <a class="navbar-brand me-2" href="../index.html">squarebrackets</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9005</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9006</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -146,16 +146,16 @@ to be used in situations where the square bracket operators are inconvenient. <b
 
 
 <p><b>Essentials</b> <br>
-The essential documentation is split into the following help pages:</p><ul><li><p><a href="aaa01_squarebrackets_supported_structures.html">squarebrackets_supported_structures</a>: <br>
-Lists the structures that are supported by 'squarebrackets',
-and explains some related terminology.</p></li>
-<li><p><a href="aaa02_squarebrackets_methods.html">squarebrackets_methods</a>: <br>
+The essential documentation is split into the following help pages:</p><ul><li><p><a href="aaa01_squarebrackets_methods.html">squarebrackets_methods</a>: <br>
 Lists the main methods provided by 'squarebrackets'.</p></li>
-<li><p><a href="aaa03_squarebrackets_indx_fundamentals.html">squarebrackets_indx_fundamentals</a>: <br>
+<li><p><a href="aaa02_squarebrackets_indx_fundamentals.html">squarebrackets_indx_fundamentals</a>: <br>
 Explains the essential fundamentals of the indexing forms in 'squarebrackets'. <br><br></p></li>
 </ul><p><b>Arguments</b> <br>
 The methods in 'squarebrackets' share a lot of common arguments. <br>
-The explanations for these common arguments are given in the following help pages:</p><ul><li><p><a href="aaa04_squarebrackets_indx_args.html">squarebrackets_indx_args</a>: <br>
+The explanations for these common arguments are given in the following help pages:</p><ul><li><p><a href="aaa03_squarebrackets_supported_structures.html">squarebrackets_supported_structures</a>: <br>
+Lists the structures that are supported by 'squarebrackets',
+and explains some related terminology.</p></li>
+<li><p><a href="aaa04_squarebrackets_indx_args.html">squarebrackets_indx_args</a>: <br>
 Explains the common indexing arguments used in the main S3 methods.</p></li>
 <li><p><a href="aaa05_squarebrackets_modify.html">squarebrackets_modify</a>: <br>
 Explains the modification-related arguments,
@@ -188,13 +188,13 @@ the S3 method dispatch used in 'squarebrackets'. <br><br></p>
 are provided:</p><ul><li><p><a href="nest.html">n</a>: Nested version of <a href="https://rdrr.io/r/base/c.html" class="external-link">c</a>,
 and short-hand for <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a>.</p></li>
 <li><p><a href="ndim.html">ndim</a>: Get the number of dimensions of an object.</p></li>
-<li><p><a href="sub2ind.html">sub2coord</a>, <a href="sub2ind.html">coord2ind</a>: Convert subscripts
+<li><p><a href="ss2ii.html">ss2coord</a>, <a href="ss2ii.html">coord2ii</a>: Convert subscripts
 (array indices) to coordinates,
 coordinates to flat indices,
 and vice-versa.</p></li>
 <li><p><a href="match_all.html">match_all</a>: Find all matches, of one vector in another,
 taking into account the order and any duplicate values of both vectors.</p></li>
-<li><p>Computing indices: <br><a href="idx_r.html">idx_r</a> to compute an integer index range. <br><a href="idx_by.html">idx_by</a> to compute grouped indices. <br><a href="idx_ord.html">idx_ord_</a>-functions to compute ordered indices. <br><br></p></li>
+<li><p>Computing indices: <br><a href="idx_r.html">idx_r</a> to compute an integer index range. <br><a href="idx_by.html">idx_by</a> to compute grouped indices. <br><br></p></li>
 </ul></div>
     <div class="section level2">
     <h2 id="properties-details">Properties Details<a class="anchor" aria-label="anchor" href="#properties-details"></a></h2>
@@ -232,8 +232,6 @@ or choose a method that returns a <b>(partial) copy</b>.</p></li>
 not just the first.</p></li>
 <li><p>Data.frame-like objects (see supported classes below)
 are forced to have unique column names.</p></li>
-<li><p>Sub-setting arrays using <code>x[indx1, indx2, etc.]</code> will drop <code>names(x)</code>. <br>
-The methods from 'squarebrackets' will not drop <code>names(x)</code>.</p></li>
 </ul></li>
 <li><p><b>Concise function and argument names</b>.</p></li>
 <li><p><b>Performance &amp; Energy aware</b>: <br>

@@ -4,14 +4,14 @@
 \alias{sb_setRename}
 \alias{sb_setFlatnames}
 \alias{sb_setDimnames}
-\alias{sb2_setVarnames}
+\alias{sb_setVarnames}
 \title{Safely Change the Names of a Mutable Object By Reference}
 \usage{
 sb_setFlatnames(x, i = NULL, newnames, ...)
 
 sb_setDimnames(x, m, newdimnames, ...)
 
-sb2_setVarnames(x, old, new, skip_absent = FALSE, ...)
+sb_setVarnames(x, old, new, skip_absent = FALSE, ...)
 }
 \arguments{
 \item{x}{a \bold{variable} belonging to one of the
@@ -59,7 +59,7 @@ using
 \itemize{
 \item \code{sb_setFlatnames()} renames the (flat) names of a \code{mutatomic} object.
 \item \code{sb_setDimnames()} renames the dimension names of a \code{mutatomic} object.
-\item \code{sb2_setVarnames()} renames the variable names of a \code{data.table} object. \cr \cr
+\item \code{sb_setVarnames()} renames the variable names of a \code{data.table} object. \cr \cr
 }
 }
 \examples{
@@ -103,7 +103,7 @@ x <- data.table::data.table(
   b = letters[1:20]
 )
 print(x)
-sb2_setVarnames(x, old = names(x), new = rev(names(x)))
+sb_setVarnames(x, old = names(x), new = rev(names(x)))
 print(x)
 
 }

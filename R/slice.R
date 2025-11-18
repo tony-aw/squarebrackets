@@ -21,7 +21,7 @@
 #' 
 #'
 #' @returns
-#' Similar to the `ii_`/`ss_` methods.
+#' Similar to the `ii_` methods.
 #' 
 #' @example inst/examples/slice.R
 #

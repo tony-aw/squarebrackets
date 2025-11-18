@@ -65,9 +65,6 @@ For the Quick Start Guide, see: \cr
 \bold{Essentials} \cr
 The essential documentation is split into the following help pages:
 \itemize{
-\item \link{squarebrackets_supported_structures}: \cr
-Lists the structures that are supported by 'squarebrackets',
-and explains some related terminology.
 \item \link{squarebrackets_methods}: \cr
 Lists the main methods provided by 'squarebrackets'.
 \item \link{squarebrackets_indx_fundamentals}: \cr
@@ -78,6 +75,9 @@ Explains the essential fundamentals of the indexing forms in 'squarebrackets'. \
 The methods in 'squarebrackets' share a lot of common arguments. \cr
 The explanations for these common arguments are given in the following help pages:
 \itemize{
+\item \link{squarebrackets_supported_structures}: \cr
+Lists the structures that are supported by 'squarebrackets',
+and explains some related terminology.
 \item \link{squarebrackets_indx_args}: \cr
 Explains the common indexing arguments used in the main S3 methods.
 \item \link{squarebrackets_modify}: \cr
@@ -118,7 +118,7 @@ are provided:
 \item \link{n}: Nested version of \link[base]{c},
 and short-hand for \link[base]{list}.
 \item \link{ndim}: Get the number of dimensions of an object.
-\item \link{sub2coord}, \link{coord2ind}: Convert subscripts
+\item \link{ss2coord}, \link{coord2ii}: Convert subscripts
 (array indices) to coordinates,
 coordinates to flat indices,
 and vice-versa.
@@ -126,8 +126,7 @@ and vice-versa.
 taking into account the order and any duplicate values of both vectors.
 \item Computing indices: \cr
 \link{idx_r} to compute an integer index range. \cr
-\link{idx_by} to compute grouped indices. \cr
-\link[=idx_ord_v]{idx_ord_}-functions to compute ordered indices. \cr \cr
+\link{idx_by} to compute grouped indices. \cr \cr
 }
 }
 
@@ -175,8 +174,6 @@ or choose a method that returns a \bold{(partial) copy}.
 not just the first.
 \item Data.frame-like objects (see supported classes below)
 are forced to have unique column names.
-\item Sub-setting arrays using \code{x[indx1, indx2, etc.]} will drop \code{names(x)}. \cr
-The methods from 'squarebrackets' will not drop \code{names(x)}.
 }
 \item \bold{Concise function and argument names}.
 \item \bold{Performance & Energy aware}: \cr

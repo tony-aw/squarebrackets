@@ -2,14 +2,15 @@
 
 #' @keywords internal
 #' @noRd
-.check_bindingIsLocked <- function(subx, env, abortcall) {
-  if(!is.symbol(subx)) {
+.check_bindingIsLocked <- function(sym, env, abortcall) {
+  if(!is.symbol(sym)) {
     stop(simpleError(
-      "only existing variables can be modified by reference", call = abortcall
+      "only objects that exist as variables can be modified by reference", call = abortcall
       ))
   }
-  if(bindingIsLocked(subx, env = env)){
-    stop(simpleError("object binding is locked", call = abortcall))
+  if(bindingIsLocked(sym, env = env)){
+    txt <- paste0("cannot change value of locked binding for '", sym, "'")
+    stop(simpleError(txt, call = abortcall))
   }
 }
 
@@ -153,10 +154,10 @@
 
 #' @keywords internal
 #' @noRd
-.check_rp_atomic <- function(rp, sslength, abortcall) {
+.check_rp <- function(x, rp, sslength, abortcall) {
   n.rp <- length(rp)
-  if(!is.atomic(rp)) {
-    stop(simpleError("replacement must be atomic", call = abortcall))
+  if(is.atomic(rp) != is.atomic(x) || is.list(rp) != is.list(x)) {
+    stop(simpleError("replacement must match `is.atomic(x)` and `is.list(x)`", call = abortcall))
   }
   if(n.rp != sslength && n.rp != 1L) {
     stop(simpleError("recycling not allowed", call = abortcall))
@@ -165,19 +166,6 @@
 }
 
 
-
-#' @keywords internal
-#' @noRd
-.check_rp_list <- function(rp, sslength, abortcall) {
-  n.rp <- length(rp)
-  if(!is.list(rp)) {
-    stop(simpleError("replacement must be a list", call = abortcall))
-  }
-  if(sslength != n.rp && n.rp != 1L) {
-    stop(simpleError("recycling not allowed", call = abortcall))
-  }
-  # if(any(collapse::vtypes(rp) != sstypes)) stop("type coercion not allowed")
-}
 
 #' @keywords internal
 #' @noRd
@@ -226,18 +214,20 @@
 #' @keywords internal
 #' @noRd
 .internal_coerce_rp <- function(x, rp, abortcall) {
-
-  message(sprintf("coercing replacement to %s", typeof(x)))
-  if(is.logical(x)) rp <- as.logical(rp)
-  else if(is.integer(x)) rp <- as.integer(rp)
-  else if(is.double(x)) rp <- as.double(rp)
-  else if(is.complex(x)) rp <- as.complex(rp)
-  else if(is.character(x)) rp <- as.character(rp)
-  else if(is.raw(x)) rp <- as.raw(rp)
-  else {
-    stop(simpleError(
-      "unsupported atomic type", call = abortcall
-    ))
+  if(typeof(rp) != typeof(x)) {
+    message(sprintf("coercing replacement to %s", typeof(x)))
+    if(is.logical(x)) rp <- as.logical(rp)
+    else if(is.integer(x)) rp <- as.integer(rp)
+    else if(is.double(x)) rp <- as.double(rp)
+    else if(is.complex(x)) rp <- as.complex(rp)
+    else if(is.character(x)) rp <- as.character(rp)
+    else if(is.raw(x)) rp <- as.raw(rp)
+    else {
+      stop(simpleError(
+        "unsupported atomic type", call = abortcall
+      ))
+    }
   }
   return(rp)
+  
 }

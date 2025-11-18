@@ -111,6 +111,17 @@ tci_chr <- function(
 #' @export
 tci_im <- function(indx, n, inv = FALSE, chkdup = FALSE, .abortcall = sys.call()) {
   
+  if(Re(indx[1L]) != 0 || Re(indx[length(1L)]) != 0L) {
+    txt <- paste0(
+      "non-zero real parts detected in complex indices.",
+      "\n",
+      "complex numbers are treated as imaginary numbers;",
+      "\n",
+      "the real part is ignored"
+    )
+    warning(simpleWarning(txt, call = .abortcall))
+  }
+  
   indx <- .C_convert_cplx(indx, n)
   
   return(tci_int(indx, n, inv, chkdup, .abortcall = .abortcall))

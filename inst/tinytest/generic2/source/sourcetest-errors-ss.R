@@ -63,54 +63,6 @@ if(!test_PassByReference) {
 
 
 
-# data.frame-like objects ====
-if(test_PassByReference) {
-  if(requireNamespace("tidytable")) {
-    xlist <- list(
-      dt = data.table::data.table(a = 1:26, b = letters),
-      tt = tidytable::tidytable(a = 1:26, b = letters)
-    )
-  } else {
-    xlist <- list(
-      dt = data.table::data.table(a = 1:26, b = letters)
-    )
-  }
-  
-}
-if(!test_PassByReference) {
-  if(requireNamespace("tibble") && requireNamespace("tidytable")) {
-    xlist <- list(
-      df = data.frame(a = 1:26, b = letters),
-      dt = data.table::data.table(a = 1:26, b = letters),
-      tb = tibble::tibble(a = 1:26, b = letters),
-      tt = tidytable::tidytable(a = 1:26, b = letters)
-    )
-  } else {
-    xlist <- list(
-      df = data.frame(a = 1:26, b = letters),
-      dt = data.table::data.table(a = 1:26, b = letters),
-    )
-  }
-  
-}
-
-
-# multi ====
-if(test_PassByReference) {
-  xlist <- list(
-    dt = data.table::data.table(a = 1:26, b = letters),
-    tt = tidytable::tidytable(a = 1:26, b = letters)
-  )
-}
-if(!test_PassByReference) {
-  xlist <- list(
-    df = data.frame(a = 1:26, b = letters),
-    dt = data.table::data.table(a = 1:26, b = letters),
-    tb = tibble::tibble(a = 1:26, b = letters),
-    tt = tidytable::tidytable(a = 1:26, b = letters)
-  )
-}
-
 # duplicates ====
 if(!test_allow_duplicates && !test_PassByReference) {
   
@@ -145,12 +97,6 @@ if(test_allow_duplicates) {
     pattern = "unknown arguments given"
   ) |> errorfun()
   
-  x <- data.frame(a = letters[1:10], b = 1:10)
-  expect_error(
-    sb_test(x, inv = TRUE),
-    pattern = "unknown arguments given"
-  ) |> errorfun()
-  
 }
 
 
@@ -168,18 +114,6 @@ if(!test_PassByReference) {
     pattern = "unknown arguments given"
   ) |> errorfun()
   
-  x <- data.frame(a = letters[1:10], b = 1:10)
-  expect_error(
-    sb_test(x, foo = TRUE),
-    pattern = "unknown arguments given"
-  ) |> errorfun()
-}
-
-if(test_PassByReference) {
-  x <- data.table::data.table(a = letters[1:10], b = 1:10)
-  expect_error(
-    sb_test(x, foo = TRUE),
-    pattern = "unknown arguments given"
-  ) |> errorfun()
+ 
 }
 

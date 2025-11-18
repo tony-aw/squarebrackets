@@ -7,9 +7,9 @@ in any dimensional object supported by 'squarebrackets'
 (i.e. arrays and data.frame-like objects).
 margin, slice: to specify indices of one particular dimension
 (for arrays and data.frame-like objects).
-Only used in the idx method.
-obs, vars: to specify observations and/or variables
-in specifically in data.frame-like objects.
+Currently only used in the idx method.
+tabular indices (row, col, obs, vars):
+to specify rows and columns in tabular objects (matrices and data.frames).
 
 
 For the fundamentals of indexing in 'squarebrackets',
@@ -24,9 +24,9 @@ in any dimensional object supported by 'squarebrackets'
 (i.e. arrays and data.frame-like objects).
 margin, slice: to specify indices of one particular dimension
 (for arrays and data.frame-like objects).
-Only used in the idx method.
-obs, vars: to specify observations and/or variables
-in specifically in data.frame-like objects.
+Currently only used in the idx method.
+tabular indices (row, col, obs, vars):
+to specify rows and columns in tabular objects (matrices and data.frames).
 
 
 For the fundamentals of indexing in 'squarebrackets',
@@ -41,7 +41,7 @@ In this help page x refers to the object on which subset operations are performe
 
     <a class="navbar-brand me-2" href="../index.html">squarebrackets</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9005</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9006</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -81,11 +81,11 @@ in any dimensional object supported by 'squarebrackets'
 (i.e. arrays and data.frame-like objects).</p></li>
 <li><p><code>margin, slice</code>: to specify indices of one particular dimension
 (for arrays and data.frame-like objects). <br>
-Only used in the <a href="idx1.html">idx</a> method. <br></p></li>
-<li><p><code>obs, vars</code>: to specify observations and/or variables
-in specifically in data.frame-like objects.</p></li>
+Currently only used in the <a href="idx1.html">idx</a> method. <br></p></li>
+<li><p>tabular indices (<code>row</code>, <code>col</code>, <code>obs, vars</code>):
+to specify rows and columns in tabular objects (matrices and data.frames). <br><br></p></li>
 </ul><p>For the fundamentals of indexing in 'squarebrackets',
-see <a href="aaa03_squarebrackets_indx_fundamentals.html">squarebrackets_indx_fundamentals</a>. <br>
+see <a href="aaa02_squarebrackets_indx_fundamentals.html">squarebrackets_indx_fundamentals</a>. <br>
 In this help page <code>x</code> refers to the object on which subset operations are performed. <br><br><br></p>
     </div>
 
@@ -100,7 +100,7 @@ In this help page <code>x</code> refers to the object on which subset operations
 in which case no indices are selected for the operation
 (i.e. empty selection).</p></li>
 <li><p>a numeric vector of <b>strictly positive whole numbers</b> giving indices.</p></li>
-<li><p>a <b>complex</b> vector, as explained in <a href="aaa03_squarebrackets_indx_fundamentals.html">squarebrackets_indx_fundamentals</a>.</p></li>
+<li><p>a <b>complex</b> vector, as explained in <a href="aaa02_squarebrackets_indx_fundamentals.html">squarebrackets_indx_fundamentals</a>.</p></li>
 <li><p>a <b>logical vector</b>,
 of the same length as <code>x</code>,
 giving the indices to select for the operation.</p></li>
@@ -114,18 +114,18 @@ For atomic objects, <code>i</code> is interpreted as <code>i(x)</code>. <br>
 For recursive objects, <code>i</code> is interpreted as <code>lapply(x, i)</code>. <br><br></p></li>
 </ul><p>Using the <code>i</code> arguments corresponds to doing something like the following:</p>
 <p></p><div class="sourceCode r"><pre><code><span> <span class="fu"><a href="../reference/sb_x.html">ii_x</a></span><span class="op">(</span><span class="va">x</span>, i <span class="op">=</span> <span class="va">i</span><span class="op">)</span> <span class="co"># ==&gt; x[i]   # if `x` is atomic</span></span>
-<span> <span class="fu"><a href="../reference/sb_x.html">ii2_x</a></span><span class="op">(</span><span class="va">x</span>, i <span class="op">=</span> <span class="va">i</span><span class="op">)</span> <span class="co"># ==&gt; x[i]  # if `x` is recursive</span></span>
+<span> <span class="fu"><a href="../reference/sb_x.html">ii_x</a></span><span class="op">(</span><span class="va">x</span>, i <span class="op">=</span> <span class="va">i</span><span class="op">)</span> <span class="co"># ==&gt; x[i]  # if `x` is recursive</span></span>
 <span></span></code></pre><p></p></div>
 <p>If <code>i</code> is a function, it corresponds to the following:</p>
 <p></p><div class="sourceCode r"><pre><code><span> <span class="fu"><a href="../reference/sb_x.html">ii_x</a></span><span class="op">(</span><span class="va">x</span>, i <span class="op">=</span> <span class="va">i</span><span class="op">)</span> <span class="co"># ==&gt; x[i(x)] # if `x` is atomic</span></span>
-<span> <span class="fu"><a href="../reference/sb_x.html">ii2_x</a></span><span class="op">(</span><span class="va">x</span>, i <span class="op">=</span> <span class="va">i</span><span class="op">)</span> <span class="co"># ==&gt; x[lapply(x, i)] # if `x` is recursive</span></span>
+<span> <span class="fu"><a href="../reference/sb_x.html">ii_x</a></span><span class="op">(</span><span class="va">x</span>, i <span class="op">=</span> <span class="va">i</span><span class="op">)</span> <span class="co"># ==&gt; x[lapply(x, i)] # if `x` is recursive</span></span>
 <span></span></code></pre><p></p></div>
     </div>
     <div class="section level2">
     <h2 id="argument-pair-s-d">Argument Pair s, d<a class="anchor" aria-label="anchor" href="#argument-pair-s-d"></a></h2>
 
 
-<p><img src="figures/class-atomic_array-blue.svg" alt="[class: atomic array]"><br><img src="figures/class-recursive_array-blue.svg" alt="[class: recursive array]"><br><img src="figures/class-data.frame-like-blue.svg" alt="[class: data.frame-like]"><br>
+<p><img src="figures/class-atomic_array-blue.svg" alt="[class: atomic array]"><br><img src="figures/class-recursive_array-blue.svg" alt="[class: recursive array]"><br>
 The <code>s, d</code> argument pair, inspired by the
 <code>abind::</code><a href="https://rdrr.io/pkg/abind/man/asub.html" class="external-link">asub</a> function from the 'abind' package,
 is the primary indexing argument for sub-set operations on dimensional objects. <br><br>
@@ -147,7 +147,7 @@ can be any of the following:</p><ul><li><p><code>NULL</code> or <code>0L</code>,
 in which case no indices are selected for the operation (i.e. empty selection).</p></li>
 <li><p>a numeric vector of <b>strictly positive whole numbers</b>
 with indices of the specified dimension to select for the operation.</p></li>
-<li><p>a <b>complex</b> vector, as explained in <a href="aaa03_squarebrackets_indx_fundamentals.html">squarebrackets_indx_fundamentals</a>.</p></li>
+<li><p>a <b>complex</b> vector, as explained in <a href="aaa02_squarebrackets_indx_fundamentals.html">squarebrackets_indx_fundamentals</a>.</p></li>
 <li><p>a <b>logical</b> vector of the same length as the corresponding dimension size,
 giving the indices of the specified dimension to select for the operation.</p></li>
 <li><p>a <b>character</b> vector giving the <code>dimnames</code> to select. <br>
@@ -184,7 +184,7 @@ of array <code>x</code>. <br></p></li>
 <span></span></code></pre><p></p></div>
 <p>For a brief explanation on the relationship between flat indices (<code>i</code>)
 and subscripts (<code>s</code>, <code>d</code>) in arrays,
-see <a href="sub2ind.html">sub2ind</a>. <br><br></p>
+see <a href="ss2ii.html">ss2ii</a>. <br><br></p>
     </div>
     <div class="section level2">
     <h2 id="argument-pair-margin-slice">Argument Pair margin, slice<a class="anchor" aria-label="anchor" href="#argument-pair-margin-slice"></a></h2>
@@ -199,7 +199,7 @@ etc. <br><br>
 The <code>slice</code> argument can be any of the following:</p><ul><li><p><code>NULL</code> or <code>0L</code>, which corresponds to a missing index argument.</p></li>
 <li><p>a numeric vector of <b>strictly positive whole numbers</b>
 with dimension indices to select for the operation.</p></li>
-<li><p>a <b>complex</b> vector, as explained in <a href="aaa03_squarebrackets_indx_fundamentals.html">squarebrackets_indx_fundamentals</a>.</p></li>
+<li><p>a <b>complex</b> vector, as explained in <a href="aaa02_squarebrackets_indx_fundamentals.html">squarebrackets_indx_fundamentals</a>.</p></li>
 <li><p>a <b>logical</b> vector of the same length as the corresponding dimension size,
 giving the dimension indices to select for the operation.</p></li>
 <li><p>a <b>character</b> vector of index names. <br>
@@ -211,6 +211,24 @@ and the result of <a href="idx1.html">idx</a> are meant to be used inside the re
 Thus the effect of a zero-length index specification depends on the rule-set of
 <code>[.class(x)</code> and <code>[&lt;-.class(x)</code>. <br><br></p>
     </div>
+    <div class="section level2">
+    <h2 id="arguments-row-col">Arguments row, col<a class="anchor" aria-label="anchor" href="#arguments-row-col"></a></h2>
+
+
+<p><img src="figures/class-atomic_matrix-blue.svg" alt="[class: atomic matrix]"><br><img src="figures/class-recursive_matrix-blue.svg" alt="[class: recursive matrix]"><br></p>
+<p>Specifies rows and columns in a matrix.
+The argument <code>row</code> and <code>col</code> can each be any of the following:</p><ul><li><p><code>NULL</code> or <code>0L</code>, which corresponds to a missing index argument.</p></li>
+<li><p>a vector of length 0,
+in which case no indices are selected for the operation (i.e. empty selection).</p></li>
+<li><p>a numeric vector of <b>strictly positive whole numbers</b>
+with dimension indices to select for the operation.</p></li>
+<li><p>a <b>complex</b> vector, as explained in <a href="aaa02_squarebrackets_indx_fundamentals.html">squarebrackets_indx_fundamentals</a>.</p></li>
+<li><p>a <b>logical</b> vector of the same length as the corresponding dimension size,
+giving the dimension indices to select for the operation.</p></li>
+<li><p>a <b>character</b> vector of index names. <br>
+If a dimension has multiple indices with the given name,
+ALL the corresponding indices will be selected for the operation. <br><br></p></li>
+</ul></div>
     <div class="section level2">
     <h2 id="arguments-obs-vars">Arguments obs, vars<a class="anchor" aria-label="anchor" href="#arguments-obs-vars"></a></h2>
 
@@ -230,7 +248,7 @@ The <code>obs</code> argument can be any of the following:</p><ul><li><p><code>N
 in which case no indices are selected for the operation (i.e. empty selection).</p></li>
 <li><p>a numeric vector of <b>strictly positive whole numbers</b>
 with row indices to select for the operation.</p></li>
-<li><p>a <b>complex</b> vector, as explained in <a href="aaa03_squarebrackets_indx_fundamentals.html">squarebrackets_indx_fundamentals</a>.</p></li>
+<li><p>a <b>complex</b> vector, as explained in <a href="aaa02_squarebrackets_indx_fundamentals.html">squarebrackets_indx_fundamentals</a>.</p></li>
 <li><p>a <b>logical</b> vector of the same length as the number of rows,
 giving the row indices to select for the operation. <br></p></li>
 <li><p>a <b>one-sided formula</b>,
@@ -247,7 +265,7 @@ The <code>vars</code> argument can be any of the following</p><ul><li><p><code>N
 in which case no indices are selected for the operation (i.e. empty selection).</p></li>
 <li><p>a numeric vector of <b>strictly positive whole numbers</b>
 with column indices to select for the operation.</p></li>
-<li><p>a <b>complex</b> vector, as explained in <a href="aaa03_squarebrackets_indx_fundamentals.html">squarebrackets_indx_fundamentals</a>.</p></li>
+<li><p>a <b>complex</b> vector, as explained in <a href="aaa02_squarebrackets_indx_fundamentals.html">squarebrackets_indx_fundamentals</a>.</p></li>
 <li><p>a <b>logical</b> vector of the same length as the number of columns,
 giving the column indices to select for the operation.</p></li>
 <li><p>a <b>character</b> vector giving the <code>colnames</code> to select. <br>
@@ -263,7 +281,7 @@ to select all variables between and including the variables "height" and "weight
 specify the following: <br><code>vars =  heigth ~ weight</code>. <br><br></p></li>
 </ul><p><b>EXAMPLE</b> <br></p>
 <p>So using the <code>obs, vars</code> arguments corresponds to doing something like the following:</p>
-<p></p><div class="sourceCode r"><pre><code><span> <span class="fu"><a href="../reference/sb_x.html">ss2_x</a></span><span class="op">(</span><span class="va">x</span>, obs <span class="op">=</span> <span class="va">obs</span>, vars <span class="op">=</span> <span class="va">vars</span><span class="op">)</span> <span class="co"># ==&gt; subset(x, ...obs..., ...vars...)</span></span>
+<p></p><div class="sourceCode r"><pre><code><span> <span class="fu"><a href="../reference/sb_x.html">sbt_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">obs</span>, <span class="va">vars</span><span class="op">)</span> <span class="co"># ==&gt; subset(x, ...obs..., ...vars...)</span></span>
 <span></span></code></pre><p></p></div>
     </div>
     <div class="section level2">
@@ -276,7 +294,7 @@ and <a href="idx1.html">idx</a> methods. <br>
 By default, <code>inv = FALSE</code>, which translates the indices like normally. <br>
 When <code>inv = TRUE</code>, the inverse of the indices is taken. <br>
 Consider, for example, an atomic matrix <code>x</code>; <br>
-using <code>ii_mod(x, 1:2, 2L, tf = tf)</code>
+using <code>ss_mod(x, 1:2, 2L, tf = tf)</code>
 corresponds to something like the following:</p>
 <p></p><div class="sourceCode r"><pre><code><span></span>
 <span><span class="va">x</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">tf</span><span class="op">(</span><span class="va">x</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
@@ -314,25 +332,14 @@ using missing or <code>NULL</code> indexing arguments corresponds to something l
 <span><span class="va">x</span><span class="op">[</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">rp</span> <span class="co"># for replacement</span></span>
 <span><span class="va">x</span><span class="op">[</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">tf</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="co"># for transformation</span></span>
 <span></span></code></pre><p></p></div>
-<p>The above is true <b>even if</b> <code>inv = TRUE</code> and/or <code>red = TRUE</code>. <br><br></p>
-    </div>
-    <div class="section level2">
-    <h2 id="disallowed-combinations-of-index-arguments">Disallowed Combinations of Index Arguments<a class="anchor" aria-label="anchor" href="#disallowed-combinations-of-index-arguments"></a></h2>
-
-
-
-<p>One cannot specify the <code>s, d</code> pair and <code>obs, vars</code> pair simultaneously;
-it's either one pair or the other pair. <br>
-One cannot specify the <code>s, d</code> pair and <code>slice, margin</code> pair simultaneously;
-it's either one pair or the other pair. <br>
-In the above cases it holds that if one set is specified, the other is set is ignored. <br><br></p>
+<p>The above is true <b>even if</b> <code>inv = TRUE</code>. <br><br></p>
     </div>
     <div class="section level2">
     <h2 id="drop">Drop<a class="anchor" aria-label="anchor" href="#drop"></a></h2>
 
 
 <p>Sub-setting with the generic methods from the 'squarebrackets' R-package using dimensional arguments
-(<code>s, d, row, col filter, vars</code>)
+(<code>s, d, row, col obs, vars</code>)
 always use <code>drop = FALSE</code>. <br>
 To drop potentially redundant (i.e. single level) dimensions,
 use the <a href="https://rdrr.io/r/base/drop.html" class="external-link">drop</a> function, like so:</p>

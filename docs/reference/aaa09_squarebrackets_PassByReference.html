@@ -29,7 +29,7 @@ use pass-by-reference semantics.  "></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">squarebrackets</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9005</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9006</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -171,7 +171,7 @@ Therefore, the following pass-by-reference modification will work without issue:
 <span><span class="op">)</span></span>
 <span><span class="va">myref</span> <span class="op">&lt;-</span> <span class="va">x</span><span class="op">$</span><span class="va">a</span></span>
 <span><span class="fu"><a href="../reference/sb_set.html">ii_set</a></span><span class="op">(</span><span class="va">myref</span>, <span class="fl">1</span>, rp <span class="op">=</span> <span class="st">"xxx"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; coercing replacement to character</span></span></code></pre><p></p></div>
+<span></span></code></pre><p></p></div>
 <p>Notice in the above code that <code>myref</code> has the same address as <code>x$a</code>,
 and is therefore not a copy of <code>x$a</code>. <br>
 Thus changing <code>myref</code> also changes <code>x$a</code>. <br>
@@ -259,7 +259,6 @@ thus keeping the original object safe from modification by reference);</p></li>
 <span class="r-in"><span><span class="fu"><a href="sb_set.html">ii_set</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">myref</span>, i <span class="op">=</span> <span class="fl">1</span>, rp <span class="op">=</span> <span class="st">"XXX"</span>  <span class="co"># modifies x, does NOT modify `base::letters`</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> coercing replacement to character</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="co"># x is modified</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $a</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "XXX" "b"   "c"   "d"   "e"   "f"   "g"   "h"   "i"   "j"   "k"   "l"  </span>

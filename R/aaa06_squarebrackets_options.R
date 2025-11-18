@@ -75,14 +75,14 @@
 #' ```{r eval = FALSE, echo = TRUE}
 #' 
 #' squarebrackets.sticky = c(
-#'    "difftime", "Date", "POSIXct", "roman", "hexmode", "octmode"
+#'    "difftime", "Date", "POSIXct", "roman", "hexmode", "octmode", "broadcaster"
 #' )
 #' 
 #' ```
 #' 
 #' So in the above default setting,
 #' `sticky = TRUE` for \cr
-#' "difftime", "Date", "POSIXct", "roman", "hexmode", "octmode". \cr
+#' "difftime", "Date", "POSIXct", "roman", "hexmode", "octmode", "broadcaster". \cr
 #' Also in the above default setting,
 #' `sticky = FALSE` for other classes. \cr
 #' \cr
@@ -90,7 +90,7 @@
 #' the \link{slice_x}, \link{slice_wo}, and \link{slicev_x} methods
 #' need the `sticky` option,
 #' is because of the following. \cr
-#' Unlike the `ii_`, `ii2_`, `ss_`, and `ss2_` methods,
+#' Unlike the `ii_`, `ii_`, `ss_`, and `ss_` methods,
 #' the \link{slice_x}, \link{slice_wo}, and \link{slicev_x} methods
 #' are not wrappers around the `[` and `[<-` operators. \cr
 #' Therefore,

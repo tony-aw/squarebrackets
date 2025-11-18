@@ -21,7 +21,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">squarebrackets</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9005</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9006</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -225,8 +225,7 @@ approximately <code>1e7</code> elements.</p>
 <h2 id="data-frame-like">Data.frame-like<a class="anchor" aria-label="anchor" href="#data-frame-like"></a>
 </h2>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">1e5</span></span>
+<code class="sourceCode R"><span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">1e5</span></span>
 <span><span class="va">ncol</span> <span class="op">&lt;-</span> <span class="fl">200</span> <span class="co"># times 2</span></span>
 <span><span class="va">chrmat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="va">letters</span>, <span class="va">n</span><span class="op">*</span><span class="va">ncol</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="va">ncol</span></span>
@@ -244,24 +243,24 @@ approximately <code>1e7</code> elements.</p>
 <span>  <span class="va">x</span><span class="op">[</span><span class="va">rows</span>, <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">is.numeric</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="va">rows</span>, <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">is.numeric</span><span class="op">)</span><span class="op">]</span>, <span class="va">tf</span><span class="op">)</span></span>
 <span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/gc.html" class="external-link">gc</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">bm.sb_tf.df</span> <span class="op">&lt;-</span> <span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="https://bench.r-lib.org/reference/mark.html" class="external-link">mark</a></span><span class="op">(</span></span>
 <span>  <span class="st">"base [&lt;-"</span> <span class="op">=</span> <span class="fu">basefun</span><span class="op">(</span><span class="va">df</span>, <span class="va">sel.rows</span>, tf <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">-</span><span class="fl">1</span> <span class="op">*</span> <span class="va">x</span><span class="op">)</span>,</span>
-<span>  <span class="st">"ss2_set"</span> <span class="op">=</span> <span class="fu"><a href="../reference/sb_set.html">ss2_set</a></span><span class="op">(</span></span>
+<span>  <span class="st">"sbt_set"</span> <span class="op">=</span> <span class="fu"><a href="../reference/sb_set.html">sbt_set</a></span><span class="op">(</span></span>
 <span>    <span class="va">dt</span>, obs <span class="op">=</span> <span class="va">sel.rows</span>, vars <span class="op">=</span> <span class="va">is.numeric</span>, tf <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">-</span><span class="fl">1</span> <span class="op">*</span> <span class="va">x</span></span>
 <span>  <span class="op">)</span>,</span>
-<span>  <span class="st">"ss2_mod"</span> <span class="op">=</span> <span class="fu"><a href="../reference/sb_mod.html">ss2_mod</a></span><span class="op">(</span></span>
+<span>  <span class="st">"sbt_mod"</span> <span class="op">=</span> <span class="fu"><a href="../reference/sb_mod.html">sbt_mod</a></span><span class="op">(</span></span>
 <span>    <span class="va">df</span>, obs <span class="op">=</span> <span class="va">sel.rows</span>, vars <span class="op">=</span> <span class="va">is.numeric</span>, tf <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">-</span><span class="fl">1</span> <span class="op">*</span> <span class="va">x</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  check <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  min_iterations <span class="op">=</span> <span class="fl">500</span></span>
-<span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">bm.sb_tf.df</span><span class="op">)</span></span></code></pre></div>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 6</span></span></span>
 <span><span class="co">#&gt;   expression      min   median `itr/sec` mem_alloc `gc/sec`</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:byt&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> base [&lt;-    254.2µs    320µs     <span style="text-decoration: underline;">2</span>985.   62.32KB     0   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> ss2_set     104.3µs    122µs     <span style="text-decoration: underline;">7</span>756.   11.49KB     2.80</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> ss2_mod      91.4µs    100µs     <span style="text-decoration: underline;">9</span>281.    6.45KB     0</span></span></code></pre>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> base [&lt;-      226µs    288µs     <span style="text-decoration: underline;">3</span>229.    62.3KB        0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> sbt_set       112µs    149µs     <span style="text-decoration: underline;">6</span>239.   120.8KB        0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> sbt_mod       113µs    171µs     <span style="text-decoration: underline;">5</span>517.    41.3KB        0</span></span></code></pre>
 <p> </p>
 <pre><code><span><span class="co">#&gt; Orientation inferred to be along y-axis; override with</span></span>
 <span><span class="co">#&gt; `position_quasirandom(orientation = 'x')`</span></span></code></pre>
