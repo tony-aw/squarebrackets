@@ -1,7 +1,7 @@
 Package: squarebrackets
 Type: Package
 Title: Subset Methods as Alternatives to the Square Brackets Operators for Programming
-Version: 0.0.0.9006
+Version: 0.0.0.9007
 Authors@R: c(
     person("Tony", "Wilkes",
            email = "tony_a_wilkes@outlook.com",

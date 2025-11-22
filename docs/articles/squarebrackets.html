@@ -21,7 +21,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">squarebrackets</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9006</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9007</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -360,27 +360,10 @@ column “b” is larger than 10:</p>
 <span><span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">b</span> <span class="op">&gt;</span> <span class="fl">10</span><span class="op">)</span>, <span class="st">"a"</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"XXX"</span> <span class="co"># data.frame with base</span></span>
 <span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">dpr.</span><span class="op">$</span><span class="fu">mutate</span><span class="op">(</span><span class="va">y</span>, a <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">b</span> <span class="op">&gt;</span> <span class="fl">10</span>, <span class="st">"XXX"</span>, <span class="va">b</span><span class="op">)</span><span class="op">)</span> <span class="co"># tibble with tidyverse</span></span>
 <span><span class="va">z</span><span class="op">[</span><span class="va">b</span> <span class="op">&gt;</span> <span class="fl">10</span>, <span class="va">a</span><span class="op">:=</span> <span class="st">"XXX"</span><span class="op">]</span> <span class="co"># data.table with fastverse/tinyverse</span></span></code></pre></div>
-<p>Note the following:</p>
-<ol style="list-style-type: decimal">
-<li>The syntax is different for each type of data.frame</li>
-<li>data.frames use copy-on modify. ‘dplyr’ + ‘tibble’ almost always
-uses explicit copy, and data.table almost always uses
-pass-by-reference.</li>
-<li>There’s a lot of non-standard evaluation going on.</li>
-</ol>
-<p>On point 1): ‘squarebrackets’ uses the exact same methods and syntax
-for all data.frame types.</p>
-<p>On point 2): ‘squarebrackets’ always allows the user to use
-explicitly return a modified copy (only necessary parts are copied, so
-no unnecessary copies), through the <code>*_mod</code> methods. For
-mutable classes, such as data.tables, ‘squarebrackets’ additionally
-provides the <code>*_set</code> methods, for pass-by-reference
-semantics.</p>
-<p>On point 3): ‘squarebrackets’ will never use non-standard evaluation.
-All syntax in ‘squarebrackets’ is 100% programmatically friendly, and
-all input can be stored in a variable for later use.</p>
-<p>So ‘squarebrackets’ provides a set of methods that work consistently
-on all manner of tabular (data.frames and matrix) types:</p>
+<p>Note that the syntax is different for each type of data.frame.<br>
+‘squarebrackets’ provides a set of methods that work consistently on all
+manner of tabular (data.frames and matrix) types, with the exact same
+syntax:</p>
 <ul>
 <li>
 <code>sbt_x</code> to extract subsets</li>
@@ -393,8 +376,7 @@ subset</li>
 <code>sbt_set</code> to modify an object by reference.</li>
 </ul>
 <p>So let’s do the same operation as above, but now using
-‘squarebrackets’; since data.frames and tibbles are not mutable types,
-for this demonstration I’ll stick to using <code><a href="../reference/sb_mod.html">sbt_mod()</a></code>:</p>
+‘squarebrackets’:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>a <span class="op">=</span> <span class="va">month.abb</span>, b <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">12</span><span class="op">)</span></span>
@@ -435,6 +417,32 @@ considerably faster and more memory efficient:</p>
 <p> </p>
 </div>
 <div class="section level2">
+<h2 id="pass-by-reference-or-pass-by-value">Pass by Reference or Pass By Value?<a class="anchor" aria-label="anchor" href="#pass-by-reference-or-pass-by-value"></a>
+</h2>
+<p>R’s <code>[&lt;-</code> and <code>[[&lt;-</code> sometimes make a
+copy of an object, and sometimes they perhaps don’t. This brings 2
+issues:</p>
+<ul>
+<li>Making unnecessary copies wastes memory (and speed);</li>
+<li>On a technical level, it may be difficult to predict if a copy is
+made or not.</li>
+</ul>
+<p>Data.tables from the ‘data.table’ package natively uses
+pass-by-reference semantics, meaning no copy is made. Tibbles from the
+‘tidyverse’ often returns a (very wasteful) copy.</p>
+<p>‘squarebrackets’ provides the user the ability to explicitly
+<strong>choose</strong> whether to modify an object by reference (like
+data.table), or to return an explicit <strong>copy</strong>. The
+<code>*_mod</code> methods return a modified copy. The
+<code>*_set</code> methods modify an object by reference. The
+<code>*_set</code> methods are only available for the mutable classes
+<code>data.table</code> and <code>mutatomic</code>;
+<code>mutatomic</code> is a class of mutable atomic object provided by
+‘squarebrackets’ for the explicit purpose of being able to modify atomic
+objects by reference, and doing so <strong>safely</strong>.</p>
+<p> </p>
+</div>
+<div class="section level2">
 <h2 id="long-vectors-so-much-memory-usage">Long Vectors: So much memory usage<a class="anchor" aria-label="anchor" href="#long-vectors-so-much-memory-usage"></a>
 </h2>
 <div class="section level3">
@@ -466,7 +474,7 @@ sub-sets, is available for both methods.</p>
 <p> </p>
 </div>
 <div class="section level3">
-<h3 id="sub-set-operations-without-copies">Sub-set operations without copies<a class="anchor" aria-label="anchor" href="#sub-set-operations-without-copies"></a>
+<h3 id="sub-set-modifications-without-copies">Sub-set Modifications without Copies<a class="anchor" aria-label="anchor" href="#sub-set-modifications-without-copies"></a>
 </h3>
 <p>R’s <code>[&lt;-</code> operator (sometimes) makes copies of objects;
 making copies of long vectors, however, is an enormous waste of

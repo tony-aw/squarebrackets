@@ -11,7 +11,7 @@ slicev_ methods and the countv function.
 
     <a class="navbar-brand me-2" href="../index.html">squarebrackets</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9006</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9007</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -182,30 +182,12 @@ if <code>Re(y[i])</code> is <code>NA</code>/<code>NaN</code> and/or <code>Im(y[i
 Argument <code>v</code> is never allowed to contain <code>NA</code>/<code>NaN</code>. <br><br><br></p>
     </div>
     <div class="section level2">
-    <h2 id="from-to">From, To<a class="anchor" aria-label="anchor" href="#from-to"></a></h2>
-
-
-<p>Like the <code>slice</code> methods,
-one can specify the range within to perform the sub-set operations,
-using the <code>from, to</code> arguments. <br>
-For example,
-if you wish to extract all values of <code>x</code> for which holds that <code>y != v</code>,
-but <b>only</b> want the extractions between index 10 and 100,
-one can specify the following: <br><code>slicev_x(x, y = y, v = v, r = FALSE, from = 10, to = 100</code>. <br><br>
-Just like <code>slice</code>,
-the <code>from,to</code> argument can also be used for reverse the order of the result,
-by specifying a higher value for <code>from</code> than for <code>to</code>. <br>
-The step-size in the <code>slicev</code>/<code>countv</code> functions is always <code>1L</code> (or  <code>-1L</code> if <code>from &gt; to</code>). <br><br>
-Also like <code>slice</code>, <code>from, to</code> can be imaginary numbers also, as explained in <a href="cp_seq.html">cp_seq</a>. <br><br><br></p>
-    </div>
-    <div class="section level2">
     <h2 id="inverting">Inverting<a class="anchor" aria-label="anchor" href="#inverting"></a></h2>
 
 
 <p><code><a href="slicev.html">countv()</a></code> and <code><a href="slicev.html">slicev_set()</a></code> do not have an "invert" argument,
 and likewise there is no <code>slicev_wo()</code> function. <br>
-One can only invert the sub-set condition, by specifying <code>r = FALSE</code>. <br>
-But <code>r = FALSE</code> only inverts the condition; it does not invert the range specified by <code>from, to</code>. <br><br><br></p>
+One can only invert the sub-set condition, by specifying <code>r = FALSE</code>. <br><br><br></p>
     </div>
     <div class="section level2">
     <h2 id="ellipsis">Ellipsis<a class="anchor" aria-label="anchor" href="#ellipsis"></a></h2>

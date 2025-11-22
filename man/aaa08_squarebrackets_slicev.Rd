@@ -177,33 +177,11 @@ Argument \code{v} is never allowed to contain \code{NA}/\code{NaN}. \cr
 \cr
 }
 
-\section{From, To}{
-
-Like the \code{slice} methods,
-one can specify the range within to perform the sub-set operations,
-using the \verb{from, to} arguments. \cr
-For example,
-if you wish to extract all values of \code{x} for which holds that \code{y != v},
-but \bold{only} want the extractions between index 10 and 100,
-one can specify the following: \cr
-\verb{slicev_x(x, y = y, v = v, r = FALSE, from = 10, to = 100}. \cr
-\cr
-Just like \code{slice},
-the \verb{from,to} argument can also be used for reverse the order of the result,
-by specifying a higher value for \code{from} than for \code{to}. \cr
-The step-size in the \code{slicev}/\code{countv} functions is always \code{1L} (or  \code{-1L} if \code{from > to}). \cr
-\cr
-Also like \code{slice}, \verb{from, to} can be imaginary numbers also, as explained in \link{cp_seq}. \cr
-\cr
-\cr
-}
-
 \section{Inverting}{
 
 \code{countv()} and \code{slicev_set()} do not have an "invert" argument,
 and likewise there is no \code{slicev_wo()} function. \cr
 One can only invert the sub-set condition, by specifying \code{r = FALSE}. \cr
-But \code{r = FALSE} only inverts the condition; it does not invert the range specified by \verb{from, to}. \cr
 \cr
 \cr
 }

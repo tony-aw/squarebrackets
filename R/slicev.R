@@ -5,14 +5,13 @@
 #' except they don't require an indexing vector,
 #' and are designed for memory efficiency. \cr
 #' \cr
-#' `counv(y, v, from, to)` counts how often a value, or range of values, `v`,
-#' occurs in a vector subset `y[from:to]`. \cr \cr
+#' `counv(y, v)` counts how often a value, or range of values, `v`,
+#' occurs in a vector `y`. \cr \cr
 #' 
 #' @param x an atomic vector. \cr
 #' For `slicev_set()` it must be a \link{mutatomic} \bold{variable}.
 #' @param ... See \link{squarebrackets_slicev}.
 #' @param y,v,na,r See \link{squarebrackets_slicev}.
-#' @param from,to see \link{cp_seq}.
 #' @param use.names Boolean, indicating if flat names should be preserved. \cr
 #' Note that, since the `slicev_` methods operates on flat indices only,
 #' dimensions and `dimnames` are always dropped.
@@ -50,7 +49,7 @@ slicev_x <- function(x, ...) {
 #' @export
 slicev_x.default <- function(
     x, ...,
-    y = x, v = NULL, na = FALSE, r = TRUE, from = NULL, to = NULL,
+    y = x, v = NULL, na = FALSE, r = TRUE,
     use.names = TRUE, sticky = getOption("squarebrackets.sticky", FALSE)
 ) {
   
@@ -65,22 +64,15 @@ slicev_x.default <- function(
     r <- myval$r
   }
   
-  # construct range parameters:
-  myslice <- cp_seq(y, 0L, from = from, to = to)
-  start <- myslice$start
-  end <- myslice$end
-  by <- myslice$by
-  len <- myslice$length.out
-  
   # run function:
   out <- .rcpp_slicev_x_atomic(
-    x, y, v, na, !r, start - 1L, end - 1L, by, len
+    x, y, v, na, !r
   )
   
   # attributes handling:
-  if(!is.null(names(x)) && use.names && len != 0L) {
+  if(!is.null(names(x)) && use.names && length(y) != 0L) {
     nms <- .rcpp_slicev_x_atomic(
-      names(x), y, v, na, !r, start - 1L, end - 1L, by, len
+      names(x), y, v, na, !r
     )
     data.table::setattr(out, "names", nms)
   }
@@ -118,7 +110,7 @@ slicev_set <- function(x, ...) {
 #' @export
 slicev_set.default <- function(
     x, ...,
-    y = x, v = NULL, na = FALSE, r = TRUE, from = NULL, to = NULL,
+    y = x, v = NULL, na = FALSE, r = TRUE,
     rp, tf
 ) {
   
@@ -137,12 +129,6 @@ slicev_set.default <- function(
     r <- myval$r
   }
   
-  # construct range parameters:
-  myslice <- cp_seq(y, 0L, from = from, to = to)
-  start <- myslice$start
-  end <- myslice$end
-  by <- myslice$by
-  len <- myslice$length.out
   
   # replacement checks:
   if(!missing(rp)) {
@@ -158,7 +144,7 @@ slicev_set.default <- function(
       stop("`tf` must be a function")
     }
     check <- .rcpp_slicev_x_atomic(
-      x, y, v, na, !r, start - 1L, end - 1L, by, len
+      x, y, v, na, !r
     )
     value <- tf(check)
     if(length(value) != length(check) && length(value) != 1L) {
@@ -170,7 +156,7 @@ slicev_set.default <- function(
   value <- .internal_coerce_rp(x, value, sys.call())
   
   # run function:
-  .rcpp_slicev_set_atomic(x, y, v, na, !r, start-1, end-1, by, len, value)
+  .rcpp_slicev_set_atomic(x, y, v, na, !r, value)
   return(invisible(NULL))
 }
 
@@ -178,7 +164,7 @@ slicev_set.default <- function(
 
 #' @rdname slicev
 #' @export
-countv <- function(y, ..., v = NULL, na = FALSE, r = TRUE, from = NULL, to = NULL) {
+countv <- function(y, ..., v = NULL, na = FALSE, r = TRUE) {
   
   # general checks:
   .internal_check_dots(list(...), sys.call())
@@ -191,15 +177,8 @@ countv <- function(y, ..., v = NULL, na = FALSE, r = TRUE, from = NULL, to = NUL
     r <- myval$r
   }
   
-  # construct range parameters:
-  myslice <- cp_seq(y, 0L, from = from, to = to)
-  start <- myslice$start
-  end <- myslice$end
-  by <- myslice$by
-  len <- myslice$length
-  
   # run function:
-  out <- .rcpp_countv(y, v, na, !r, start - 1L, end - 1L, by, len)
+  out <- .rcpp_countv(y, v, na, !r)
   
   return(out)
 }
@@ -234,7 +213,7 @@ countv <- function(y, ..., v = NULL, na = FALSE, r = TRUE, from = NULL, to = NUL
   }
   if(is.na(na)) {
     if(!is.null(v)) {
-      if(!is.na(v)) {
+      if(!collapse::allNA(v)) {
         message(simpleMessage("`na = NA`, so argument `v` will be ignored", call = abortcall))
       }
     }

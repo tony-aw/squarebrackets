@@ -173,30 +173,11 @@
 #' \cr
 #' \cr
 #' 
-#' @section From, To: 
-#' Like the `slice` methods,
-#' one can specify the range within to perform the sub-set operations,
-#' using the `from, to` arguments. \cr
-#' For example,
-#' if you wish to extract all values of `x` for which holds that `y != v`,
-#' but \bold{only} want the extractions between index 10 and 100,
-#' one can specify the following: \cr
-#' `slicev_x(x, y = y, v = v, r = FALSE, from = 10, to = 100`. \cr
-#' \cr
-#' Just like `slice`,
-#' the `from,to` argument can also be used for reverse the order of the result,
-#' by specifying a higher value for `from` than for `to`. \cr
-#' The step-size in the `slicev`/`countv` functions is always `1L` (or  `-1L` if `from > to`). \cr
-#' \cr
-#' Also like `slice`, `from, to` can be imaginary numbers also, as explained in \link{cp_seq}. \cr
-#' \cr
-#' \cr
 #' 
 #' @section Inverting: 
 #' `countv()` and `slicev_set()` do not have an "invert" argument,
 #' and likewise there is no `slicev_wo()` function. \cr
 #' One can only invert the sub-set condition, by specifying \code{r = FALSE}. \cr
-#' But \code{r = FALSE} only inverts the condition; it does not invert the range specified by `from, to`. \cr
 #' \cr
 #' \cr
 #' 

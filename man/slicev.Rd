@@ -18,28 +18,15 @@ slicev_x(x, ...)
   v = NULL,
   na = FALSE,
   r = TRUE,
-  from = NULL,
-  to = NULL,
   use.names = TRUE,
   sticky = getOption("squarebrackets.sticky", FALSE)
 )
 
 slicev_set(x, ...)
 
-\method{slicev_set}{default}(
-  x,
-  ...,
-  y = x,
-  v = NULL,
-  na = FALSE,
-  r = TRUE,
-  from = NULL,
-  to = NULL,
-  rp,
-  tf
-)
+\method{slicev_set}{default}(x, ..., y = x, v = NULL, na = FALSE, r = TRUE, rp, tf)
 
-countv(y, ..., v = NULL, na = FALSE, r = TRUE, from = NULL, to = NULL)
+countv(y, ..., v = NULL, na = FALSE, r = TRUE)
 }
 \arguments{
 \item{x}{an atomic vector. \cr
@@ -48,8 +35,6 @@ For \code{slicev_set()} it must be a \link{mutatomic} \bold{variable}.}
 \item{...}{See \link{squarebrackets_slicev}.}
 
 \item{y, v, na, r}{See \link{squarebrackets_slicev}.}
-
-\item{from, to}{see \link{cp_seq}.}
 
 \item{use.names}{Boolean, indicating if flat names should be preserved. \cr
 Note that, since the \code{slicev_} methods operates on flat indices only,
@@ -70,8 +55,8 @@ The \code{slicev_} - methods are similar to the \code{ii_}/\code{ss_} - methods,
 except they don't require an indexing vector,
 and are designed for memory efficiency. \cr
 \cr
-\code{counv(y, v, from, to)} counts how often a value, or range of values, \code{v},
-occurs in a vector subset \code{y[from:to]}. \cr \cr
+\code{counv(y, v)} counts how often a value, or range of values, \code{v},
+occurs in a vector \code{y}. \cr \cr
 }
 \examples{
 

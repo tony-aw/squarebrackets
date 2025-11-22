@@ -7,13 +7,9 @@ errorfun <- function(tt) {
 enumerate <- 0L
 n <- 10
 rel <- c(TRUE, FALSE)
-from <- n(NULL, 1, 2, -1i, -2i)
-start <- c(1, 1, 2, n, n - 1)
-to <- n(NULL, -1i, -2i, 1, 2)
-end <- c(n, n, n-1, 1, 2)
 
-tempfun1 <- function(x, v, rel, start, end) {
-  x <- x[start:end]
+
+tempfun1 <- function(x, v, rel) {
   x <- x[!is.na(x)]
   
   if(!rel) {
@@ -24,8 +20,7 @@ tempfun1 <- function(x, v, rel, start, end) {
   }
 }
 
-tempfun2 <- function(x, v, rel, start, end) {
-  x <- x[start:end]
+tempfun2 <- function(x, v, rel) {
   x <- x[!is.na(x)]
   
   check <- x >= v[1] & x <= v[2]
@@ -39,8 +34,7 @@ tempfun2 <- function(x, v, rel, start, end) {
 
 
 
-tempfun_multistring <- function(x, v, rel, start, end) {
-  x <- x[start:end]
+tempfun_multistring <- function(x, v, rel) {
   x <- x[!is.na(x)]
   
   if(!rel) {
@@ -58,15 +52,14 @@ tempfun_multistring <- function(x, v, rel, start, end) {
 # logical, complex, raw ====
 x <- sample(c(TRUE, FALSE, NA), n, TRUE)
 v <- c(TRUE, FALSE)
-expected <- out <- vector("list", length(v) * length(rel) * length(from))
+expected <- out <- vector("list", length(v) * length(rel) )
 counter <- 1L
 for(iV in v) {
   for(iInv in rel) {
-    for(i in seq_along(from)) {
-      expected[[counter]] <- tempfun1(x, iV, iInv, start[i], end[i])
-      out[[counter]] <- countv(x, v = iV, r = iInv, from = from[[i]], to = to[[i]])
+    
+      expected[[counter]] <- tempfun1(x, iV, iInv)
+      out[[counter]] <- countv(x, v = iV, r = iInv)
       counter <- counter + 1L
-    }
   }
 }
 expect_equal(
@@ -78,15 +71,14 @@ samp1 <- c(rnorm(n - 4), NA, NaN, Inf -Inf, 1)
 samp2 <- c(rnorm(n - 4), NA, NaN, Inf -Inf, 1)
 x <- samp1 + samp2 * - 1i
 v <- 1 -1i
-expected <- out <- vector("list", length(v) * length(rel) * length(from))
+expected <- out <- vector("list", length(v) * length(rel) )
 counter <- 1L
 for(iV in v) {
   for(iInv in rel) {
-    for(i in seq_along(from)) {
-      expected[[counter]] <- tempfun1(x, iV, iInv, start[i], end[i])
-      out[[counter]] <- countv(x, v = iV, r = iInv, from = from[[i]], to = to[[i]])
+    
+      expected[[counter]] <- tempfun1(x, iV, iInv)
+      out[[counter]] <- countv(x, v = iV, r = iInv)
       counter <- counter + 1L
-    }
   }
 }
 expect_equal(
@@ -96,15 +88,14 @@ enumerate <- enumerate + counter
 
 x <- as.raw(sample(1:10))
 v <- c(x[1], x[2])
-expected <- out <- vector("list", length(v) * length(rel) * length(from))
+expected <- out <- vector("list", length(v) * length(rel) )
 counter <- 1L
 for(iV in v) {
   for(iInv in rel) {
-    for(i in seq_along(from)) {
-      expected[[counter]] <- tempfun1(x, iV, iInv, start[i], end[i])
-      out[[counter]] <- countv(x, v = iV, r = iInv, from = from[[i]], to = to[[i]])
+    
+      expected[[counter]] <- tempfun1(x, iV, iInv)
+      out[[counter]] <- countv(x, v = iV, r = iInv)
       counter <- counter + 1L
-    }
   }
 }
 expect_equal(
@@ -117,15 +108,14 @@ enumerate <- enumerate + counter
 # integer, single ====
 x <- sample(c(1:5, NA), n, TRUE)
 v <- n(2, 3, 2.0, 3.0)
-expected <- out <- vector("list", length(v) * length(rel) * length(from))
+expected <- out <- vector("list", length(v) * length(rel) )
 counter <- 1L
 for(iV in seq_along(v)) {
   for(iInv in rel) {
-    for(i in seq_along(from)) {
-      expected[[counter]] <- tempfun1(x, v[[iV]], iInv, start[i], end[i])
-      out[[counter]] <- countv(x, v = v[[iV]], r = iInv, from = from[[i]], to = to[[i]])
+    
+      expected[[counter]] <- tempfun1(x, v[[iV]], iInv)
+      out[[counter]] <- countv(x, v = v[[iV]], r = iInv)
       counter <- counter + 1L
-    }
   }
 }
 expect_equal(
@@ -137,15 +127,14 @@ enumerate <- enumerate + counter
 # integer, range ====
 x <- sample(c(1:5, NA), n, TRUE)
 v <- n(as.integer(2:3), as.double(2.0:3.0))
-expected <- out <- vector("list", length(v) * length(rel) * length(from))
+expected <- out <- vector("list", length(v) * length(rel) )
 counter <- 1L
 for(iV in seq_along(v)) {
   for(iInv in rel) {
-    for(i in seq_along(from)) {
-      expected[[counter]] <- tempfun2(x, v[[iV]], iInv, start[i], end[i])
-      out[[counter]] <- countv(x, v = v[[iV]], r = iInv, from = from[[i]], to = to[[i]])
+    
+      expected[[counter]] <- tempfun2(x, v[[iV]], iInv)
+      out[[counter]] <- countv(x, v = v[[iV]], r = iInv)
       counter <- counter + 1L
-    }
   }
 }
 expect_equal(
@@ -158,15 +147,14 @@ enumerate <- enumerate + counter
 # double, single ====
 x <- sample(c(1.0:5.0, NA, NaN, Inf, -Inf), n, TRUE)
 v <- n(2, 3, 2.0, 3.0)
-expected <- out <- vector("list", length(v) * length(rel) * length(from))
+expected <- out <- vector("list", length(v) * length(rel) )
 counter <- 1L
 for(iV in seq_along(v)) {
   for(iInv in rel) {
-    for(i in seq_along(from)) {
-      expected[[counter]] <- tempfun1(x, v[[iV]], iInv, start[i], end[i])
-      out[[counter]] <- countv(x, v = v[[iV]], r = iInv, from = from[[i]], to = to[[i]])
+    
+      expected[[counter]] <- tempfun1(x, v[[iV]], iInv)
+      out[[counter]] <- countv(x, v = v[[iV]], r = iInv)
       counter <- counter + 1L
-    }
   }
 }
 expect_equal(
@@ -178,15 +166,14 @@ enumerate <- enumerate + counter
 # double, range ====
 x <- sample(c(1.0:5.0, NA, NaN, Inf, -Inf), n, TRUE)
 v <- n(as.integer(2:3), as.double(2.0:3.0))
-expected <- out <- vector("list", length(v) * length(rel) * length(from))
+expected <- out <- vector("list", length(v) * length(rel) )
 counter <- 1L
 for(iV in seq_along(v)) {
   for(iInv in rel) {
-    for(i in seq_along(from)) {
-      expected[[counter]] <- tempfun2(x, v[[iV]], iInv, start[i], end[i])
-      out[[counter]] <- countv(x, v = v[[iV]], r = iInv, from = from[[i]], to = to[[i]])
+    
+      expected[[counter]] <- tempfun2(x, v[[iV]], iInv)
+      out[[counter]] <- countv(x, v = v[[iV]], r = iInv)
       counter <- counter + 1L
-    }
   }
 }
 expect_equal(
@@ -199,15 +186,14 @@ enumerate <- enumerate + counter
 x <- sample(c(letters[1:5], "回收站", NA), 10, TRUE)
 v <- c("a", "z", "回收站")
 
-expected <- out <- vector("list", length(v) * length(rel) * length(from))
+expected <- out <- vector("list", length(v) * length(rel) )
 counter <- 1L
 for(iV in seq_along(v)) {
   for(iInv in rel) {
-    for(i in seq_along(from)) {
-      expected[[counter]] <- tempfun1(x, v[[iV]], iInv, start[i], end[i])
-      out[[counter]] <- countv(x, v = v[[iV]], r = iInv, from = from[[i]], to = to[[i]])
+    
+      expected[[counter]] <- tempfun1(x, v[[iV]], iInv)
+      out[[counter]] <- countv(x, v = v[[iV]], r = iInv)
       counter <- counter + 1L
-    }
   }
 }
 expect_equal(
@@ -227,15 +213,14 @@ Encoding(v2) <- "unknown"
 v <- c(v1, v2)
 Encoding(v)
 
-expected <- out <- vector("list", length(v) * length(rel) * length(from))
+expected <- out <- vector("list", length(v) * length(rel) )
 counter <- 1L
 for(iV in seq_along(v)) {
   for(iInv in rel) {
-    for(i in seq_along(from)) {
-      expected[[counter]] <- tempfun_multistring(x, v, iInv, start[i], end[i])
-      out[[counter]] <- countv(x, v = v, r = iInv, from = from[[i]], to = to[[i]])
+    
+      expected[[counter]] <- tempfun_multistring(x, v, iInv)
+      out[[counter]] <- countv(x, v = v, r = iInv)
       counter <- counter + 1L
-    }
   }
 }
 expect_equal(
@@ -250,15 +235,14 @@ enumerate <- enumerate + counter
 x <- factor(sample(letters, 10, TRUE))
 v <- sample(x, 2)
 
-expected <- out <- vector("list", length(v) * length(rel) * length(from))
+expected <- out <- vector("list", length(v) * length(rel) )
 counter <- 1L
 for(iV in seq_along(v)) {
   for(iInv in rel) {
-    for(i in seq_along(from)) {
-      expected[[counter]] <- tempfun1(x, v[[iV]], iInv, start[i], end[i])
-      out[[counter]] <- countv(x, v = v[[iV]], r = iInv, from = from[[i]], to = to[[i]])
+    
+      expected[[counter]] <- tempfun1(x, v[[iV]], iInv)
+      out[[counter]] <- countv(x, v = v[[iV]], r = iInv)
       counter <- counter + 1L
-    }
   }
 }
 expect_equal(
@@ -273,15 +257,14 @@ enumerate <- enumerate + counter
 x <- factor(sample(letters, 10, TRUE))
 v <- sample(as.character(x), 2L)
 
-expected <- out <- vector("list", length(v) * length(rel) * length(from))
+expected <- out <- vector("list", length(v) * length(rel) )
 counter <- 1L
 for(iV in seq_along(v)) {
   for(iInv in rel) {
-    for(i in seq_along(from)) {
-      expected[[counter]] <- tempfun1(x, v[[iV]], iInv, start[i], end[i])
-      out[[counter]] <- countv(x, v = v[[iV]], r = iInv, from = from[[i]], to = to[[i]])
+    
+      expected[[counter]] <- tempfun1(x, v[[iV]], iInv)
+      out[[counter]] <- countv(x, v = v[[iV]], r = iInv)
       counter <- counter + 1L
-    }
   }
 }
 expect_equal(
@@ -294,15 +277,14 @@ enumerate <- enumerate + counter
 x <- factor(sample(letters, 10, TRUE))
 v <- 1:2
 
-expected <- out <- vector("list", length(v) * length(rel) * length(from))
+expected <- out <- vector("list", length(v) * length(rel) )
 counter <- 1L
 for(iV in seq_along(v)) {
   for(iInv in rel) {
-    for(i in seq_along(from)) {
-      expected[[counter]] <- tempfun1(unclass(x), v[[iV]], iInv, start[i], end[i])
-      out[[counter]] <- countv(x, v = v[[iV]], r = iInv, from = from[[i]], to = to[[i]])
+    
+      expected[[counter]] <- tempfun1(unclass(x), v[[iV]], iInv)
+      out[[counter]] <- countv(x, v = v[[iV]], r = iInv)
       counter <- counter + 1L
-    }
   }
 }
 expect_equal(

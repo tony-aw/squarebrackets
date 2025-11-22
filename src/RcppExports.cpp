@@ -162,8 +162,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // rcpp_countv
-R_xlen_t rcpp_countv(SEXP y, SEXP v, LogicalVector na, LogicalVector invert, R_xlen_t start, R_xlen_t end, R_xlen_t by, R_xlen_t len);
-RcppExport SEXP _squarebrackets_rcpp_countv(SEXP ySEXP, SEXP vSEXP, SEXP naSEXP, SEXP invertSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+R_xlen_t rcpp_countv(SEXP y, SEXP v, LogicalVector na, LogicalVector invert);
+RcppExport SEXP _squarebrackets_rcpp_countv(SEXP ySEXP, SEXP vSEXP, SEXP naSEXP, SEXP invertSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -171,17 +171,13 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< SEXP >::type v(vSEXP);
     Rcpp::traits::input_parameter< LogicalVector >::type na(naSEXP);
     Rcpp::traits::input_parameter< LogicalVector >::type invert(invertSEXP);
-    Rcpp::traits::input_parameter< R_xlen_t >::type start(startSEXP);
-    Rcpp::traits::input_parameter< R_xlen_t >::type end(endSEXP);
-    Rcpp::traits::input_parameter< R_xlen_t >::type by(bySEXP);
-    Rcpp::traits::input_parameter< R_xlen_t >::type len(lenSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_countv(y, v, na, invert, start, end, by, len));
+    rcpp_result_gen = Rcpp::wrap(rcpp_countv(y, v, na, invert));
     return rcpp_result_gen;
 END_RCPP
 }
 // rcpp_whichv_32
-IntegerVector rcpp_whichv_32(SEXP y, SEXP v, LogicalVector na, LogicalVector invert, R_xlen_t start, R_xlen_t end, R_xlen_t by, R_xlen_t len);
-RcppExport SEXP _squarebrackets_rcpp_whichv_32(SEXP ySEXP, SEXP vSEXP, SEXP naSEXP, SEXP invertSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+IntegerVector rcpp_whichv_32(SEXP y, SEXP v, LogicalVector na, LogicalVector invert);
+RcppExport SEXP _squarebrackets_rcpp_whichv_32(SEXP ySEXP, SEXP vSEXP, SEXP naSEXP, SEXP invertSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -189,17 +185,13 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< SEXP >::type v(vSEXP);
     Rcpp::traits::input_parameter< LogicalVector >::type na(naSEXP);
     Rcpp::traits::input_parameter< LogicalVector >::type invert(invertSEXP);
-    Rcpp::traits::input_parameter< R_xlen_t >::type start(startSEXP);
-    Rcpp::traits::input_parameter< R_xlen_t >::type end(endSEXP);
-    Rcpp::traits::input_parameter< R_xlen_t >::type by(bySEXP);
-    Rcpp::traits::input_parameter< R_xlen_t >::type len(lenSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_whichv_32(y, v, na, invert, start, end, by, len));
+    rcpp_result_gen = Rcpp::wrap(rcpp_whichv_32(y, v, na, invert));
     return rcpp_result_gen;
 END_RCPP
 }
 // rcpp_slicev_x_atomic
-SEXP rcpp_slicev_x_atomic(SEXP x, SEXP y, SEXP v, LogicalVector na, LogicalVector invert, R_xlen_t start, R_xlen_t end, R_xlen_t by, R_xlen_t len);
-RcppExport SEXP _squarebrackets_rcpp_slicev_x_atomic(SEXP xSEXP, SEXP ySEXP, SEXP vSEXP, SEXP naSEXP, SEXP invertSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+SEXP rcpp_slicev_x_atomic(SEXP x, SEXP y, SEXP v, LogicalVector na, LogicalVector invert);
+RcppExport SEXP _squarebrackets_rcpp_slicev_x_atomic(SEXP xSEXP, SEXP ySEXP, SEXP vSEXP, SEXP naSEXP, SEXP invertSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -208,17 +200,13 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< SEXP >::type v(vSEXP);
     Rcpp::traits::input_parameter< LogicalVector >::type na(naSEXP);
     Rcpp::traits::input_parameter< LogicalVector >::type invert(invertSEXP);
-    Rcpp::traits::input_parameter< R_xlen_t >::type start(startSEXP);
-    Rcpp::traits::input_parameter< R_xlen_t >::type end(endSEXP);
-    Rcpp::traits::input_parameter< R_xlen_t >::type by(bySEXP);
-    Rcpp::traits::input_parameter< R_xlen_t >::type len(lenSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_slicev_x_atomic(x, y, v, na, invert, start, end, by, len));
+    rcpp_result_gen = Rcpp::wrap(rcpp_slicev_x_atomic(x, y, v, na, invert));
     return rcpp_result_gen;
 END_RCPP
 }
 // rcpp_slicev_set_atomic
-void rcpp_slicev_set_atomic(SEXP x, SEXP y, SEXP v, LogicalVector na, LogicalVector invert, R_xlen_t start, R_xlen_t end, R_xlen_t by, R_xlen_t len, SEXP rp);
-RcppExport SEXP _squarebrackets_rcpp_slicev_set_atomic(SEXP xSEXP, SEXP ySEXP, SEXP vSEXP, SEXP naSEXP, SEXP invertSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP, SEXP rpSEXP) {
+void rcpp_slicev_set_atomic(SEXP x, SEXP y, SEXP v, LogicalVector na, LogicalVector invert, SEXP rp);
+RcppExport SEXP _squarebrackets_rcpp_slicev_set_atomic(SEXP xSEXP, SEXP ySEXP, SEXP vSEXP, SEXP naSEXP, SEXP invertSEXP, SEXP rpSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
@@ -226,12 +214,8 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< SEXP >::type v(vSEXP);
     Rcpp::traits::input_parameter< LogicalVector >::type na(naSEXP);
     Rcpp::traits::input_parameter< LogicalVector >::type invert(invertSEXP);
-    Rcpp::traits::input_parameter< R_xlen_t >::type start(startSEXP);
-    Rcpp::traits::input_parameter< R_xlen_t >::type end(endSEXP);
-    Rcpp::traits::input_parameter< R_xlen_t >::type by(bySEXP);
-    Rcpp::traits::input_parameter< R_xlen_t >::type len(lenSEXP);
     Rcpp::traits::input_parameter< SEXP >::type rp(rpSEXP);
-    rcpp_slicev_set_atomic(x, y, v, na, invert, start, end, by, len, rp);
+    rcpp_slicev_set_atomic(x, y, v, na, invert, rp);
     return R_NilValue;
 END_RCPP
 }
@@ -484,10 +468,10 @@ static const R_CallMethodDef CallEntries[] = {
     {"_squarebrackets_rcpp_slice_setrev_atomic", (DL_FUNC) &_squarebrackets_rcpp_slice_setrev_atomic, 6},
     {"_squarebrackets_rcpp_slice_wo_atomic", (DL_FUNC) &_squarebrackets_rcpp_slice_wo_atomic, 5},
     {"_squarebrackets_rcpp_slice_setinv_atomic", (DL_FUNC) &_squarebrackets_rcpp_slice_setinv_atomic, 6},
-    {"_squarebrackets_rcpp_countv", (DL_FUNC) &_squarebrackets_rcpp_countv, 8},
-    {"_squarebrackets_rcpp_whichv_32", (DL_FUNC) &_squarebrackets_rcpp_whichv_32, 8},
-    {"_squarebrackets_rcpp_slicev_x_atomic", (DL_FUNC) &_squarebrackets_rcpp_slicev_x_atomic, 9},
-    {"_squarebrackets_rcpp_slicev_set_atomic", (DL_FUNC) &_squarebrackets_rcpp_slicev_set_atomic, 10},
+    {"_squarebrackets_rcpp_countv", (DL_FUNC) &_squarebrackets_rcpp_countv, 4},
+    {"_squarebrackets_rcpp_whichv_32", (DL_FUNC) &_squarebrackets_rcpp_whichv_32, 4},
+    {"_squarebrackets_rcpp_slicev_x_atomic", (DL_FUNC) &_squarebrackets_rcpp_slicev_x_atomic, 5},
+    {"_squarebrackets_rcpp_slicev_set_atomic", (DL_FUNC) &_squarebrackets_rcpp_slicev_set_atomic, 6},
     {"_squarebrackets_rcpp_address", (DL_FUNC) &_squarebrackets_rcpp_address, 1},
     {"_squarebrackets_rcpp_list_bindings", (DL_FUNC) &_squarebrackets_rcpp_list_bindings, 3},
     {"_squarebrackets_C_prod_int", (DL_FUNC) &_squarebrackets_C_prod_int, 3},

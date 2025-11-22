@@ -1,4 +1,10 @@
 
+# squarebrackets 0.0.0.9007
+* Simplified the input for `slicev()`.
+* Restructured the unit tests for the `slice()` and `slicev()` methods.
+
+
+
 # squarebrackets 0.0.0.9006
 * Overhauled the main methods: replaced {`ii_`, `ii2_`, `ss_`, `ss2_`} methods with { `ii_`, `ss_`, `sbt_` }
 * Removed the `dt_*` functions.

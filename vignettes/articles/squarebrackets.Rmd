@@ -266,21 +266,8 @@ z[b > 10, a:= "XXX"] # data.table with fastverse/tinyverse
 ```
 
 
-Note the following:
-
- 1) The syntax is different for each type of data.frame
- 2) data.frames use copy-on modify. 'dplyr' + 'tibble' almost always uses explicit copy, and data.table almost always uses pass-by-reference.
- 3) There's a lot of non-standard evaluation going on.
-
-
-On point 1): 'squarebrackets' uses the exact same methods and syntax for all data.frame types.
-
-On point 2): 'squarebrackets' always allows the user to use explicitly return a modified copy (only necessary parts are copied, so no unnecessary copies), through the `*_mod` methods. For mutable classes, such as data.tables, 'squarebrackets' additionally provides the `*_set` methods, for pass-by-reference semantics.
-
-On point 3): 'squarebrackets' will never use non-standard evaluation. All syntax in 'squarebrackets' is 100% programmatically friendly, and all input can be stored in a variable for later use.
-
-
-So 'squarebrackets' provides a set of methods that work consistently on all manner of tabular (data.frames and matrix) types:
+Note that the syntax is different for each type of data.frame.  
+'squarebrackets' provides a set of methods that work consistently on all manner of tabular (data.frames and matrix) types, with the exact same syntax:
 
  - `sbt_x` to extract subsets
  - `sbt_wo` to return object without the selected subset
@@ -288,7 +275,7 @@ So 'squarebrackets' provides a set of methods that work consistently on all mann
  - `sbt_set` to modify an object by reference.
 
 
-So let's do the same operation as above, but now using 'squarebrackets'; since data.frames and tibbles are not mutable types, for this demonstration I'll stick to using `sbt_mod()`:
+So let's do the same operation as above, but now using 'squarebrackets':
 
 ```{r echo=TRUE, eval=FALSE}
 
@@ -318,6 +305,20 @@ print(z)
 ```
 
 This is all powered by the class-agnostic 'C' code from the fantastic 'collapse' and 'data.table' packages.
+
+&nbsp;
+
+# Pass by Reference or Pass By Value?
+
+R's `[<-` and  `[[<-` sometimes make a copy of an object, and sometimes they perhaps don't. This brings 2 issues:
+
+ - Making unnecessary copies wastes memory (and speed);
+ - On a technical level, it may be difficult to predict if a copy is made or not.
+
+
+Data.tables from the 'data.table' package natively uses pass-by-reference semantics, meaning no copy is made. Tibbles from the 'tidyverse' often returns a (very wasteful) copy.
+
+'squarebrackets' provides the user the ability to explicitly **choose** whether to modify an object by reference (like data.table), or to return an explicit **copy**. The `*_mod` methods return a modified copy. The `*_set` methods modify an object by reference. The `*_set` methods are only available for the mutable classes `data.table` and `mutatomic`; `mutatomic` is a class of mutable atomic object provided by 'squarebrackets' for the explicit purpose of being able to modify atomic objects by reference, and doing so **safely**.
 
 
 &nbsp;
@@ -357,7 +358,7 @@ Both extracting sub-sets and pass-by-reference modification of sub-sets, is avai
 
 &nbsp;
 
-## Sub-set operations without copies
+## Sub-set Modifications without Copies
 
 R's `[<-` operator (sometimes) makes copies of objects; making copies of long vectors, however, is an enormous waste of memory.
 

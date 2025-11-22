@@ -3,13 +3,13 @@
 except they don't require an indexing vector,
 and are designed for memory efficiency.
 
-counv(y, v, from, to) counts how often a value, or range of values, v,
-occurs in a vector subset y[from:to].  "><meta property="og:description" content="The slicev_ - methods are similar to the ii_/ss_ - methods,
+counv(y, v) counts how often a value, or range of values, v,
+occurs in a vector y.  "><meta property="og:description" content="The slicev_ - methods are similar to the ii_/ss_ - methods,
 except they don't require an indexing vector,
 and are designed for memory efficiency.
 
-counv(y, v, from, to) counts how often a value, or range of values, v,
-occurs in a vector subset y[from:to].  "></head><body>
+counv(y, v) counts how often a value, or range of values, v,
+occurs in a vector y.  "></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -17,7 +17,7 @@ occurs in a vector subset y[from:to].  "></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">squarebrackets</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9006</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9007</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,8 +52,8 @@ occurs in a vector subset y[from:to].  "></head><body>
     <div class="ref-description section level2">
     <p>The <code>slicev_</code> - methods are similar to the <code>ii_</code>/<code>ss_</code> - methods,
 except they don't require an indexing vector,
-and are designed for memory efficiency. <br><br><code>counv(y, v, from, to)</code> counts how often a value, or range of values, <code>v</code>,
-occurs in a vector subset <code>y[from:to]</code>. <br><br></p>
+and are designed for memory efficiency. <br><br><code>counv(y, v)</code> counts how often a value, or range of values, <code>v</code>,
+occurs in a vector <code>y</code>. <br><br></p>
     </div>
 
     <div class="section level2">
@@ -68,8 +68,6 @@ occurs in a vector subset <code>y[from:to]</code>. <br><br></p>
 <span>  v <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  na <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  r <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  from <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  to <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  use.names <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  sticky <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"squarebrackets.sticky"</span>, <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
@@ -77,20 +75,9 @@ occurs in a vector subset <code>y[from:to]</code>. <br><br></p>
 <span><span class="fu">slicev_set</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Default S3 method</span></span>
-<span><span class="fu">slicev_set</span><span class="op">(</span></span>
-<span>  <span class="va">x</span>,</span>
-<span>  <span class="va">...</span>,</span>
-<span>  y <span class="op">=</span> <span class="va">x</span>,</span>
-<span>  v <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  na <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  r <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  from <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  to <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  <span class="va">rp</span>,</span>
-<span>  <span class="va">tf</span></span>
-<span><span class="op">)</span></span>
+<span><span class="fu">slicev_set</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span>, y <span class="op">=</span> <span class="va">x</span>, v <span class="op">=</span> <span class="cn">NULL</span>, na <span class="op">=</span> <span class="cn">FALSE</span>, r <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">rp</span>, <span class="va">tf</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">countv</span><span class="op">(</span><span class="va">y</span>, <span class="va">...</span>, v <span class="op">=</span> <span class="cn">NULL</span>, na <span class="op">=</span> <span class="cn">FALSE</span>, r <span class="op">=</span> <span class="cn">TRUE</span>, from <span class="op">=</span> <span class="cn">NULL</span>, to <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">countv</span><span class="op">(</span><span class="va">y</span>, <span class="va">...</span>, v <span class="op">=</span> <span class="cn">NULL</span>, na <span class="op">=</span> <span class="cn">FALSE</span>, r <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -108,10 +95,6 @@ For <code>slicev_set()</code> it must be a <a href="mutatomic_class.html">mutato
 
 <dt id="arg-y-v-na-r">y, v, na, r<a class="anchor" aria-label="anchor" href="#arg-y-v-na-r"></a></dt>
 <dd><p>See <a href="aaa08_squarebrackets_slicev.html">squarebrackets_slicev</a>.</p></dd>
-
-
-<dt id="arg-from-to">from, to<a class="anchor" aria-label="anchor" href="#arg-from-to"></a></dt>
-<dd><p>see <a href="cp_seq.html">cp_seq</a>.</p></dd>
 
 
 <dt id="arg-use-names">use.names<a class="anchor" aria-label="anchor" href="#arg-use-names"></a></dt>
