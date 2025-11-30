@@ -49,10 +49,10 @@ Regarding which set of \link[=squarebrackets_methods]{methods} support which kin
 \itemize{
 \item One can operate on flat/interior indices (often simply referred to as "indices")
 using the \link[=squarebrackets_methods]{ii_} methods; \cr
-These primarily use the \link[=squarebrackets_indx_args]{i} argument.
+These primarily use the \link[=squarebrackets_indx_args]{i, use} argument pair.
 \item One can operate on general subscripts (= dimensional indices)
 using the \link[=squarebrackets_methods]{ss_} methods; \cr
-These primarily use the the \link[=squarebrackets_indx_args]{s, d} argument pair.
+These primarily use the the \link[=squarebrackets_indx_args]{s, use} argument pair.
 \item One can operate on tabular indices
 using the  \link[=squarebrackets_methods]{sbt_} methods; \cr
 These primarily use the the
@@ -113,53 +113,6 @@ ii_x(x, c("a", "a")) # repeats all indices with the name "a"
 Character indices are internally translated to integer indices using
 \link{match_all}. \cr
 \cr
-\cr
-\bold{Imaginary Numbers (For advanced users)} \cr
-A \link[base]{complex} vector \code{y} is structured as \cr
-\code{y = a + b * i} \cr
-where \code{Re(y)} returns the real numbers \code{a}, and \code{Im(y)} returns the imaginary numbers \code{b}. \cr
-'squarebrackets' includes support for indexing through \bold{imaginary numbers} (\code{Im(y)}). \cr
-Indexing with imaginary numbers is a generalization of indexing with regular integers. \cr
-\cr
-It works as follows: \cr
-Imaginary numbers that are positive integers,
-like \code{1:10 * 1i}, work the same as regular integers. \cr
-Imaginary numbers that are negative integers,
-like \code{1:10 * -1i},
-index by counting backwards (i.e. from the end). \cr
-Positive and negative numbers can be combined,
-like \code{c(-10:-1, 1:10) * 1i}. \cr
-Note that \bold{only} the \code{Imaginary} part of a complex vector is used (\code{Im(y)}); \cr
-the \code{Real} part (\code{Re(y)}) is \bold{ignored}. \cr
-\cr
-See the results of the following code as an example:
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{
-x <- 1:30 # vector of 30 elements
-
-ii_x(x, 1:10 * 1i) # extract first 10 elements
-#>  [1]  1  2  3  4  5  6  7  8  9 10
-
-ii_x(x, 1:10 * -1i) # extract last 10 elements
-#>  [1] 30 29 28 27 26 25 24 23 22 21
-
-ii_x(x, 10:1 * -1i) # last 10 elements, in tail()-like order
-#>  [1] 21 22 23 24 25 26 27 28 29 30
-
-ii_x(x, c(1, -1) * 1i) # extract first and last element
-#> [1]  1 30
-}\if{html}{\out{</div>}}
-
-Thus complex vectors allow the user to choose between counting from the beginning,
-like regular integers,
-or backwards counting from the end, or a combination of both. \cr
-\cr
-\cr
-\bold{Missing Index Argument} \cr
-Both \code{NULL} and the numeric scalar \code{0L} can be used to specify an missing index argument. \cr
-For example, given a matrix \code{x}, \code{ss_x(x, n(0, 1:10))} is equivalent to \code{x[ , 1:10]}. \cr
-\cr
-\cr
 }
 
 \section{Inverting}{
@@ -173,15 +126,10 @@ In base 'R', inverting an index is done in different ways. \cr
 (negative numbers for numeric indexing, negation for logical indexing,
 manually un-matching for character vectors). \cr
 \cr
-'squarebrackets' provides a (somewhat) consistent syntax to invert indices: \cr
-\itemize{
-\item The methods that end with \verb{_x} perform extraction; \cr
-to invert extraction,
-i.e. return the object \bold{without} the specified subset,
-use the methods that end with \verb{_wo}. \cr
-\item In the modification methods (\verb{_mod}/\verb{_set}) one can set the argument
-\link[=squarebrackets_indx_args]{inv}\code{ = TRUE} to invert indices. \cr \cr
-}
+In 'squarebrackets', inverting is consistently done through the \code{use} argument: \cr
+A positive sign for \code{use} means to select the specified indices,
+a negative sign for \code{use} means to select all indices \strong{except} the specified indices. \cr
+\cr
 
 \bold{EXAMPLES}
 
@@ -194,14 +142,14 @@ print(x)
 ii_x(x, 1:5) # extract first 5 elements
 #> [1] "Jan" "Feb" "Mar" "Apr" "May"
 
-ii_wo(x, 1:5) # return WITHOUT first 5 elements
+ii_x(x, 1:5, -1) # return WITHOUT first 5 elements
 #> [1] "Jun" "Jul" "Aug" "Sep" "Oct" "Nov" "Dec"
 
 
 ii_mod(x, 1:5, rp = "XXX") # copy, replace first 5 elements, return result
 #>  [1] "XXX" "XXX" "XXX" "XXX" "XXX" "Jun" "Jul" "Aug" "Sep" "Oct" "Nov" "Dec"
 
-ii_mod(x, 1:5, inv = T, rp = "XXX") # same, but for all except first 5 elements
+ii_mod(x, 1:5, -1, rp = "XXX") # same, but for all except first 5 elements
 #>  [1] "Jan" "Feb" "Mar" "Apr" "May" "XXX" "XXX" "XXX" "XXX" "XXX" "XXX" "XXX"
 }\if{html}{\out{</div>}}
 

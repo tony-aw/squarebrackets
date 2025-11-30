@@ -9,7 +9,7 @@ tempfun2 <- function(x, s, d, tf) {
   return(x)
 }
 tempfun1 <- function(x, s, tf) {
-  ind <- idx.array(x, s, d)
+  ind <- ss_icom(x, s, d)
   x[ind] <- tf(x[ind])
   return(x)
 }

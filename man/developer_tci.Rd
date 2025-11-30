@@ -2,26 +2,37 @@
 % Please edit documentation in R/tci.R
 \name{developer_tci}
 \alias{developer_tci}
+\alias{tci_atomic}
 \alias{tci_bool}
 \alias{tci_int}
 \alias{tci_chr}
-\alias{tci_im}
+\alias{tci_formula}
 \title{Type Cast Indices}
 \usage{
-tci_bool(indx, n, inv = FALSE, .abortcall = sys.call())
-
-tci_int(indx, n, inv = FALSE, chkdup = FALSE, .abortcall = sys.call())
-
-tci_chr(
+tci_atomic(
   indx,
+  n,
   nms,
-  inv = FALSE,
+  use = 1,
   chkdup = FALSE,
   uniquely_named = FALSE,
   .abortcall = sys.call()
 )
 
-tci_im(indx, n, inv = FALSE, chkdup = FALSE, .abortcall = sys.call())
+tci_bool(indx, n, use = 1L, .abortcall = sys.call())
+
+tci_int(indx, n, use = 1L, chkdup = FALSE, .abortcall = sys.call())
+
+tci_chr(
+  indx,
+  nms,
+  use = 1L,
+  chkdup = FALSE,
+  uniquely_named = FALSE,
+  .abortcall = sys.call()
+)
+
+tci_formula(x, m, form, .abortcall)
 }
 \arguments{
 \item{indx}{the indices to typecast}
@@ -33,14 +44,6 @@ Examples:
 \item If the target is flat indices, input the length for \code{n}.
 }}
 
-\item{inv}{Boolean, indicating if the indices should be inverted. \cr
-See \link{squarebrackets_indx_args}.}
-
-\item{.abortcall}{environment where the error message is passed to.}
-
-\item{chkdup}{see \link{squarebrackets_options}. \cr
-\ifelse{html}{\figure{for_performance-set_to_FALSE-red.svg}{options: alt='[for performance: set to FALSE]'}}{\link[=squarebrackets_help]{for performance: set to FALSE}} \cr}
-
 \item{nms}{the relevant names, when typecasting character indices. \cr
 Examples:
 \itemize{
@@ -48,10 +51,18 @@ Examples:
 \item If the target is flat indices, input flat names for \code{nms}.
 }}
 
+\item{use}{1 or -1, indicating how to use the indices. \cr
+See \link{squarebrackets_indx_args}.}
+
+\item{chkdup}{see \link{squarebrackets_options}. \cr
+\ifelse{html}{\figure{for_performance-set_to_FALSE-red.svg}{options: alt='[for performance: set to FALSE]'}}{\link[=squarebrackets_help]{for performance: set to FALSE}} \cr}
+
 \item{uniquely_named}{Boolean,
 indicating if the user knows a-priori that the relevant names of \code{x} are unique. \cr
 If set to \code{TRUE}, speed may increase. \cr
 But specifying \code{TRUE} when the relevant names are not unique will result in incorrect output.}
+
+\item{.abortcall}{environment where the error message is passed to.}
 }
 \value{
 An integer vector of type-cast indices.
@@ -68,14 +79,12 @@ print(x)
 bool <- sample(c(TRUE, FALSE), 5, TRUE)
 int <- 1:4
 chr <- c("a", "a")
-cplx <- 1:4 * -1i
 tci_bool(bool, nrow(x))
-tci_int(int, ncol(x), inv = TRUE)
+tci_int(int, ncol(x), -1)
 tci_chr(chr, colnames(x))
-tci_im(cplx, nrow(x))
 
-ci_ii(x, 1:10 * -1i)
+ci_ii(x, 1:10)
 ci_margin(x, 1:4, 2)
-ci_ss(x, n(1:5 * -1i, 1:4), 1:2)
+ci_ss(x, n(~ .bi(-1:-5), 1:4), 1:2)
 
 }

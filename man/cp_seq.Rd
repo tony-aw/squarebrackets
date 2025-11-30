@@ -9,14 +9,14 @@ cp_seq(x, m = 0L, from = NULL, to = NULL, by = 1L)
 \arguments{
 \item{x}{the object for which to compute margin-based sequence parameters.}
 
-\item{m}{integer or complex, giving the margin(s). \cr
+\item{m}{integer, giving the margin(s). \cr
 For non-dimensional objects or for flat indices, specify \code{m = 0L}.}
 
-\item{from}{integer or complex, of the same length as \code{m} or of length 1,
-specifying the from point.}
+\item{from}{integer, of the same length as \code{m} or of length 1,
+specifying the from point. Negative numbers count from the end.}
 
-\item{to}{integer or complex, of the same length as \code{m} or of length 1,
-specifying the \bold{maximally allowed} end value.}
+\item{to}{integer, of the same length as \code{m} or of length 1,
+specifying the \bold{maximally allowed} end value. Negative numbers count from the end.}
 
 \item{by}{integer, of the same length as \code{m} or of length 1,
 specifying the step size. \cr}
@@ -41,7 +41,7 @@ specifies \code{to = 10L}. \cr
 But the sequence doesn't actually end at \code{10}; it ends at \code{9}. \cr
 Therefore, \code{cp_seq(x, m, 1, 10, 2)} will return \code{end = 9}, not \code{end = 10}. \cr
 This allows the user to easily predict where an sequence given in
-\link{idx_r}/\link{slice} will actually end. \cr
+\link{slice} will actually end. \cr
 \cr
 \bold{\verb{$by}}: \cr
 This will give \code{by}, but with it's sign adjusted, if needed. \cr
@@ -52,7 +52,7 @@ given the translated parameters. \cr \cr
 }
 \description{
 \code{cp_seq()} returns a list of parameters to construct a sequence based on the margins of an object. \cr
-It is internally used by the \link{idx_r} function and \link{slice} method. \cr \cr
+It is internally used by the \link{slice} method. \cr \cr
 }
 \section{Arguments Details}{
 
@@ -79,19 +79,26 @@ and the sign  of \code{by} is automatically adjusted to ensure a sensible sequen
 
 \examples{
 
-x <- data.frame(
-  a = 1:10, b = letters[1:10], c = factor(letters[1:10]), d = -1:-10
-)
-print(x)
-ind1 <- idx_r(x, 1, 2, 2* -1i) # rows 2:(nrow(x)-1)
-sbt_x(x, ind1) # extract the row range
 
-x <- array(1:125, c(5,5,5))
-d <- 1:3
-s <- idx_r(x, d, 2, 2* -1i) # 2:(n-1) for every dimension
-ss_x(x, s = s, d = d) # same as x[ 2:4, 2:4, 2:4, drop = FALSE]
+x <- mutatomic(1:1e7)
 
-x <- letters
-x[idx_r(x, 0, 2, 2* -1i)]
+# extract:
+slice_x(x, 1, 10)
+
+# reverse:
+slice_x(x, length(x), 1) |> head()
+
+# remove:
+slice_wo(x, 1, length(x) - 10) # all elements except the last 10
+
+# replace every other element:
+x <- mutatomic(1:1e7)
+slice_set(x, 2, length(x), 2, rp = -1)
+head(x)
+
+# replace all elements except the first element:
+x <- mutatomic(1:1e7)
+slice_set(x, 1, 1, inv = TRUE, rp = -1)
+head(x)
 
 }

@@ -40,10 +40,10 @@
 #' 
 #'  - One can operate on flat/interior indices (often simply referred to as "indices")
 #'  using the \link[=squarebrackets_methods]{ii_} methods; \cr
-#'  These primarily use the \link[=squarebrackets_indx_args]{i} argument.
+#'  These primarily use the \link[=squarebrackets_indx_args]{i, use} argument pair.
 #'  - One can operate on general subscripts (= dimensional indices)
 #'  using the \link[=squarebrackets_methods]{ss_} methods; \cr
-#'  These primarily use the the \link[=squarebrackets_indx_args]{s, d} argument pair.
+#'  These primarily use the the \link[=squarebrackets_indx_args]{s, use} argument pair.
 #'  - One can operate on tabular indices
 #'  using the  \link[=squarebrackets_methods]{sbt_} methods; \cr
 #'  These primarily use the the
@@ -98,50 +98,6 @@
 #' Character indices are internally translated to integer indices using
 #' \link{match_all}. \cr
 #' \cr
-#' \cr
-#' \bold{Imaginary Numbers (For advanced users)} \cr
-#' A \link[base]{complex} vector `y` is structured as \cr
-#' `y = a + b * i` \cr
-#' where `Re(y)` returns the real numbers `a`, and `Im(y)` returns the imaginary numbers `b`. \cr
-#' 'squarebrackets' includes support for indexing through \bold{imaginary numbers} (`Im(y)`). \cr
-#' Indexing with imaginary numbers is a generalization of indexing with regular integers. \cr
-#' \cr
-#' It works as follows: \cr
-#' Imaginary numbers that are positive integers,
-#' like `1:10 * 1i`, work the same as regular integers. \cr
-#' Imaginary numbers that are negative integers,
-#' like `1:10 * -1i`,
-#' index by counting backwards (i.e. from the end). \cr
-#' Positive and negative numbers can be combined,
-#' like `c(-10:-1, 1:10) * 1i`. \cr
-#' Note that \bold{only} the `Imaginary` part of a complex vector is used (`Im(y)`); \cr
-#' the `Real` part (`Re(y)`) is \bold{ignored}. \cr
-#' \cr
-#' See the results of the following code as an example:
-#' 
-#' ```{r eval = TRUE, echo = TRUE}
-#' 
-#' x <- 1:30 # vector of 30 elements
-#' 
-#' ii_x(x, 1:10 * 1i) # extract first 10 elements
-#' 
-#' ii_x(x, 1:10 * -1i) # extract last 10 elements
-#' 
-#' ii_x(x, 10:1 * -1i) # last 10 elements, in tail()-like order
-#' 
-#' ii_x(x, c(1, -1) * 1i) # extract first and last element
-#' 
-#' ```
-#' Thus complex vectors allow the user to choose between counting from the beginning,
-#' like regular integers,
-#' or backwards counting from the end, or a combination of both. \cr
-#' \cr
-#' \cr
-#' \bold{Missing Index Argument} \cr
-#' Both `NULL` and the numeric scalar `0L` can be used to specify an missing index argument. \cr
-#' For example, given a matrix `x`, `ss_x(x, n(0, 1:10))` is equivalent to `x[ , 1:10]`. \cr
-#' \cr
-#' \cr
 #' 
 #' 
 #' 
@@ -156,15 +112,10 @@
 #' (negative numbers for numeric indexing, negation for logical indexing,
 #' manually un-matching for character vectors). \cr
 #' \cr
-#' 'squarebrackets' provides a (somewhat) consistent syntax to invert indices: \cr
-#' 
-#'  - The methods that end with `_x` perform extraction; \cr
-#'  to invert extraction,
-#'  i.e. return the object \bold{without} the specified subset,
-#'  use the methods that end with `_wo`. \cr
-#'  - In the modification methods (`_mod`/`_set`) one can set the argument
-#'  \link[=squarebrackets_indx_args]{inv}\code{ = TRUE} to invert indices. \cr \cr
-#' 
+#' In 'squarebrackets', inverting is consistently done through the `use` argument: \cr
+#' A positive sign for `use` means to select the specified indices,
+#' a negative sign for `use` means to select all indices **except** the specified indices. \cr
+#' \cr
 #' 
 #' \bold{EXAMPLES}
 #' 
@@ -177,12 +128,12 @@
 #' 
 #' ii_x(x, 1:5) # extract first 5 elements
 #' 
-#' ii_wo(x, 1:5) # return WITHOUT first 5 elements
+#' ii_x(x, 1:5, -1) # return WITHOUT first 5 elements
 #' 
 #' 
 #' ii_mod(x, 1:5, rp = "XXX") # copy, replace first 5 elements, return result
 #' 
-#' ii_mod(x, 1:5, inv = T, rp = "XXX") # same, but for all except first 5 elements
+#' ii_mod(x, 1:5, -1, rp = "XXX") # same, but for all except first 5 elements
 #' 
 #' ```
 #' 

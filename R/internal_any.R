@@ -55,3 +55,17 @@
   }
 
 }
+
+
+
+#' @keywords internal
+#' @noRd
+.any_empty_indices <- function(lst) {
+  if(!is.list(lst)) lst <- list(lst)
+  check <- vapply(lst, \(x)!.C_is_missing_idx(x) && length(x) == 0L, FUN.VALUE = logical(1L))
+  if(any(check)) {
+    return(TRUE)
+  } else {
+    return(FALSE)
+  }
+}

@@ -20,15 +20,7 @@ indx_general <- function(x, dim.i) {
     1,
     1:3,
     3:1,
-    c(2, 3, 1),
-    1 * -1i,
-    1:3 * -1i,
-    3:1 * -1i,
-    c(2, 3, 1) * -1i,
-    1 * 1i,
-    1:3 * 1i,
-    3:1 * 1i,
-    c(2, 3, 1) * 1i
+    c(2, 3, 1)
   )
   if(test_allow_duplicates) {
     out <- c(out, list(c(1, 1, 1)))

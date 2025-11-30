@@ -12,7 +12,6 @@ indices <- list(
   c(TRUE, rep(FALSE, 4), TRUE),
   c(1L, 6L),
   c(1.0, 6.0),
-  c(1, -1) * 1i,
   c("a", "f")
 )
 expected <- list(1:4, 1:5, c(1, 6))
@@ -36,21 +35,21 @@ expect_equal(
 )
 expect_error(
   ci_ss(x, n(1:3, 1:4, 1:5, 1:6), 1:4, FALSE, FALSE, .abortcall = sys.call()),
-  pattern = "`d` out of range",
+  pattern = "`use` out of range",
   fixed = TRUE
 )
 
 expect_equal(
-  ci_ss(x, n(1:3, 1:4, 1:5), 1:3, FALSE, inv = TRUE, .abortcall = sys.call()),
-  ci_ss(x, n(1:5, 1:4, 1:3), 3:1, FALSE, inv = TRUE, .abortcall = sys.call())
+  ci_ss(x, n(1:3, 1:4, 1:5), -1:-3, FALSE, .abortcall = sys.call()),
+  ci_ss(x, n(1:5, 1:4, 1:3), -3:-1, FALSE, .abortcall = sys.call())
 )
 expect_equal(
-  ci_ss(x, n(1:3, 1:4, 1:5), 1:3, FALSE, inv = TRUE, .abortcall = sys.call()),
-  ci_ss(x, n(1:4, 1:5, 1:3), c(2, 3, 1), FALSE, inv = TRUE, .abortcall = sys.call())
+  ci_ss(x, n(1:3, 1:4, 1:5), -1:-3, FALSE, .abortcall = sys.call()),
+  ci_ss(x, n(1:4, 1:5, 1:3), c(-2, -3, -1), FALSE, .abortcall = sys.call())
 )
 expect_error(
-  ci_ss(x, n(1:3, 1:4, 1:5, 1:6), 1:4, FALSE, inv = TRUE, .abortcall = sys.call()),
-  pattern = "`d` out of range",
+  ci_ss(x, n(1:3, 1:4, 1:5, 1:6), -1:-4, FALSE, .abortcall = sys.call()),
+  pattern = "`use` out of range",
   fixed = TRUE
 )
 
@@ -80,12 +79,12 @@ expect_equal(
   ci_ss(x, list(NULL, 1:3))
 ) |> errorfun()
 expect_equal(
-  ci_ss(x, list(1:3, 0), inv = TRUE),
-  ci_ss(x, list(1:3, NULL), inv = TRUE)
+  ci_ss(x, list(1:3, 0), -Inf),
+  ci_ss(x, list(1:3, NULL), -Inf)
 ) |> errorfun()
 expect_equal(
-  ci_ss(x, list(0, 1:3), inv = TRUE),
-  ci_ss(x, list(NULL, 1:3), inv = TRUE)
+  ci_ss(x, list(0, 1:3), -Inf),
+  ci_ss(x, list(NULL, 1:3), -Inf)
 ) |> errorfun()
 
 expect_equal(
@@ -93,8 +92,8 @@ expect_equal(
   ci_ss(x, list(NULL))
 ) |> errorfun()
 expect_equal(
-  ci_ss(x, list(0), inv = TRUE),
-  ci_ss(x, list(NULL), inv = TRUE)
+  ci_ss(x, list(0), -Inf),
+  ci_ss(x, list(NULL), -Inf)
 ) |> errorfun()
 
 expect_equal(
@@ -102,31 +101,59 @@ expect_equal(
   ci_ss(x, NULL)
 ) |> errorfun()
 expect_equal(
-  ci_ss(x, 0, inv = TRUE),
-  ci_ss(x, NULL, inv = TRUE)
+  ci_ss(x, 0, -Inf),
+  ci_ss(x, NULL, -Inf)
 ) |> errorfun()
 
 enumerate <- enumerate + 8L
 
 
+# check zero-length argument equivalence
+x <- matrix(1:20, ncol = 4)
+expect_equal(
+  ci_ss(x, list(1:3, integer(0L))),
+  ci_ss(x, list(1:3, logical(0L)))
+) |> errorfun()
+expect_equal(
+  ci_ss(x, list(integer(0L), 1:3)),
+  ci_ss(x, list(logical(0L), 1:3))
+) |> errorfun()
+expect_equal(
+  ci_ss(x, list(1:3, integer(0L)), -Inf),
+  ci_ss(x, list(1:3, logical(0L)), -Inf)
+) |> errorfun()
+
+expect_equal(
+  ci_ss(x, list(integer(0L))),
+  ci_ss(x, integer(0L))
+) |> errorfun()
+expect_equal(
+  ci_ss(x, list(integer(0L)), -Inf),
+  ci_ss(x, integer(0L), -Inf)
+) |> errorfun()
+
+
+enumerate <- enumerate + 8L
+
+
+
 
 # general error tests ====
 expect_error(
-  ci_ss(x, 1:3, "a"),
-  pattern = "`d` must be a integer vector"
+  ci_ss(x, 1:3, "a")
 )
 expect_error(
   ci_ss(x, n(1:3, 1:3, 1:3), 1:2),
-  pattern = "`length(s)` must equal `length(d)`",
+  pattern = "`length(s)` must equal `length(use)`",
   fixed = TRUE
 )
 expect_error(
   ci_ss(x, 1:3, 1:10),
-  pattern = "`d` out of range"
+  pattern = "`use` out of range"
 )
 expect_error(
   ci_ss(x, 1:3, integer(0L)),
-  pattern = "length(d) == 0L has not been captured",
+  pattern = "length(use) == 0L has not been captured",
   fixed = TRUE
 )
 

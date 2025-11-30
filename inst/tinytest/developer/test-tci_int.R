@@ -12,11 +12,11 @@ enumerate <- enumerate + 1
 # inverse ====
 indx <- 1:10
 expect_equal(
-  tci_int(indx, 15, inv = TRUE),
+  tci_int(indx, 15, -1),
   11:15
 )
 expect_equal(
-  tci_int(indx, 15, inv = TRUE, chkdup = TRUE),
+  tci_int(indx, 15, -1, chkdup = TRUE),
   11:15
 )
 enumerate <- enumerate + 2

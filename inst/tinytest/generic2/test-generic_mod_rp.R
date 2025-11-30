@@ -44,19 +44,11 @@ sys.source(file.path(getwd(), "source", "sourcetest-missingargs.R"), envir = env
 # test elements ====
 
 test_sb <- function(x, i, rp) {
-  if(!is.list(x)) {
-    i <- indx_x(i, x, names(x), length(x))
-    if(length(i) == 0) return(x)
-    x[i] <- rp
-    return(x)
-  }
-  if(is.list(x)) {
-    i <- indx_x(i, x, names(x), length(x))
-    if(length(i) == 0) return(x)
-    if(length(i) != 1)  x[i] <- as.list(rp)
-    if(length(i) == 1) x[[i]] <- rp
-    return(x)
-  }
+  i <- indx_x(i, x, names(x), length(x))
+  if(length(i) == 0) return(x)
+  if(length(i) != 1)  x[i] <- as.list(rp)
+  if(length(i) == 1) x[[i]] <- rp
+  return(x)
 }
 
 temp.fun <- function(x, elements) {
@@ -73,19 +65,32 @@ temp.fun <- function(x, elements) {
 }
 
 
-indx_general <- list(
-  integer(0),
-  1, 1:2, 2:1,
-  c(rep(TRUE, 24), rep(FALSE, 24)),
-  rep(TRUE, 48), rep(FALSE, 48),
-  c(TRUE, rep(FALSE, 47)), c(FALSE, rep(TRUE, 47)),
-  function(x) x>5
-)
-
-indx_named <- c(indx_general, c("ab", "ac"), c("ac", "ab"))
-
 sys.source(file.path(getwd(), "source", "sourcetest-elements.R"), envir = environment())
 
+
+test_sb <- function(x, i, rp) {
+  i <- indx_wo(i, x, names(x), length(x))
+  if(length(i) == 0) return(x)
+  if(length(i) != 1)  x[i] <- as.list(rp)
+  if(length(i) == 1) x[[i]] <- rp
+  return(x)
+}
+
+temp.fun <- function(x, elements) {
+  for (i in 1:length(elements)) {
+    rp1 <- rp2 <- rep(1, length(indx_wo(elements[[i]], x, names(x), length(x))))
+    if(is.list(x)) rp1 <- as.list(rp1)
+    if(is.list(x) && length(rep) != 1) rp2 <- as.list(rp)
+    expect_equal(
+      ii_mod(x, elements[[i]], -1, rp = rp1),
+      test_sb(x, elements[[i]], rp = rp2)
+    ) |> errorfun()
+    assign("enumerate", enumerate + 1, envir = parent.frame(n = 1))
+  }
+}
+
+
+sys.source(file.path(getwd(), "source", "sourcetest-elements.R"), envir = environment())
 
 
 # test matrix & array ====
@@ -215,10 +220,10 @@ f_expect.data.frame <- function(x, row = NULL, col = NULL) {
   return(x)
 }
 
-f_out.data.frame <- function(x, obs = NULL, vars = NULL) {
+f_out.data.frame <- function(x, row = NULL, col = NULL) {
   
   rp <- parent.frame()$rp
-  return(sbt_mod(x, obs, vars, rp = rp, inv = FALSE))
+  return(sbt_mod(x, row, col, rp = rp))
   
 }
 

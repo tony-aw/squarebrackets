@@ -1,28 +1,54 @@
-#' Get the Size of an Object Along a Margin
+#' Get Size Properties of an Object
 #'
 #' @description
+#' `ndim(x)` is short-hand for `length(dim(x))`. \cr
+#' \cr
 #' `s(x, m)` gets the size of an object `x` along margin `m`. \cr
 #' If `m == 0`, `s()` gets the length of an object. \cr
 #' If `m > 0`, `s()` gets `dim(x)[m]` of the object. \cr
+#' \cr
 #' 
-#' @param x an object
+#' 
+#' @param x a vector, array, or data.frame.
 #' @param m the margin.
 #' @param ... further arguments passed to or from methods.
 #'
 #' @returns
-#' A numeric scalar.
+#' For `ndim()`: \cr
+#' An integer, giving the number of dimensions `x` has. \cr
+#' For vectors, gives `0L`. \cr
+#' \cr
+#' For `rdim()`: \cr
+#' An integer vector, giving the range `1:ndim(x)`. \cr
+#' For vectors, gives `0L`. \cr
+#' \cr
+#' For `s()`: \cr
+#' A numeric vector giving the size(s) of the object at the given margin(s).
 #'
 #'
 #'
-#' @examples
-#' 
-#' x <- array(1:64, c(4,4,3))
-#' print(x)
-#' ss <- n(c(s(x, 1), 1), c(s(x, 3), 1))
-#' ss_x(x, ss, c(1,3))
+#' @example inst/examples/size.R
 #' 
 #' 
-#' 
+
+
+#' @rdname size
+#' @export
+ndim <- function(x) {
+  length(dim(x))
+}
+
+#' @rdname size
+#' @export
+rdim <- function(x) {
+  if(!is.null(dim(x))) {
+    return(1:length(dim(x)))
+  }
+  else {
+    return(0L)
+  }
+  
+}
 
 
 #' @rdname size
@@ -35,10 +61,16 @@ s <- function(x, m = 0L, ...) {
 #' @export
 s.default <- function(x, m, ...) {
   .internal_check_dots(list(...), sys.call())
-  if(!is.numeric(m) || length(m) != 1L) {
-    stop("`m` must be an integer scalar")
+  if(!is.numeric(m)) {
+    stop("`m` must be an integer")
   }
-  if(m == 0L) {
+  if(length(m) > 1L && any(m == 0L)) {
+    stop("multi-element `m` cannot contain 0")
+  }
+  if(any(m < 0)) {
+    stop("`m` cannot be negative")
+  }
+  if(m[1L] == 0L) {
     if(is.data.frame(x)) {
       stop("`m = 0` not applicable for data.frames")
     }
@@ -51,4 +83,5 @@ s.default <- function(x, m, ...) {
     stop("m cannot be negative")
   }
 }
+
 

@@ -27,63 +27,9 @@
 
 #' @keywords internal
 #' @noRd
-.indx_make_filter <- function(x, filter, inv, abortcall) {
+.check_args_array <- function(x, s, use, abortcall) {
   
-  if(length(filter) != 2L) {
-    stop(simpleError("improper formula given", call = abortcall))
-  }
-  
-  mm <- .with_internal(x, filter, abortcall)
-  environment(filter) <- NULL
-  
-  if(!is.logical(mm)) {
-    stop(simpleError("invalid formula given", call = abortcall))
-  }
-  if(!inv)return(which(mm))
-  if(inv)return(which(!mm))
-  
-}
-
-#' @keywords internal
-#' @noRd
-.indx_make_vars_range <- function(x, form, inv, abortcall) {
-  
-  if(length(form) != 3L) {
-    stop(simpleError("improper formula given", call = abortcall))
-  }
-  vars <- all.vars(form)
-  if(length(vars) != 2L) {
-    stop(simpleError("improper formula given", call = abortcall))
-  }
-  nms <- names(x)
-  pos1 <- .rcpp_dt_find_name(nms, vars[1L], 1L)
-  pos2 <- .rcpp_dt_find_name(nms, vars[2L], 1L)
-  
-  rng <- pos1:pos2
-  if(inv) {
-    rng <- seq_len(length(x))[-rng]
-  }
-  return(rng)
-}
-
-#' @keywords internal
-#' @noRd
-.indx_make_vars <- function(x, vars, inv, abortcall) {
-  if(!is.function(vars)) {
-    stop(simpleError("`vars` must be a function", call = abortcall))
-  }
-  out <- collapse::get_vars(x, vars, return = "logical")
-  if(!inv)return(which(out))
-  if(inv)return(which(!out))
-}
-
-
-
-#' @keywords internal
-#' @noRd
-.check_args_array <- function(x, s, d, abortcall) {
-  
-  if(!is.list(s) && !is.atomic(s) && !is.null(s)) {
+  if(!is.list(s) && !is.formula(s) && !is.atomic(s) && !is.null(s)) {
     stop(simpleError("improper `s` specified", call = abortcall))
   }
   
@@ -91,38 +37,27 @@
 
 
 
-#' @keywords internal
-#' @noRd
-.check_args_df <- function(x, s, d, obs, vars, abortcall) {
-  
-  used_sd <- !is.null(s)
-  used_obsvars <- !is.null(obs) || !is.null(vars)
-  
-  if(used_sd && used_obsvars) {
-    stop(simpleError(
-      "cannot specify the `s, d` arguments and `obs, vars` arguments simultaneously",
-      call = abortcall
-    ))
-  }
-  # if(collapse::any_duplicated(names(x))) {
-  #   stop(simpleError(
-  #     "`x` does not have unique variable names for all columns; \n fix this before subsetting",
-  #     call = abortcall
-  #   ))
-  # }
-}
+# 
+# .check_args_df <- function(x, s, d, obs, vars, abortcall) {
+#   
+#   used_sd <- !is.null(s)
+#   used_obsvars <- !is.null(obs) || !is.null(vars)
+#   
+#   if(used_sd && used_obsvars) {
+#     stop(simpleError(
+#       "cannot specify the `s, d` arguments and `obs, vars` arguments simultaneously",
+#       call = abortcall
+#     ))
+#   }
+#   # if(collapse::any_duplicated(names(x))) {
+#   #   stop(simpleError(
+#   #     "`x` does not have unique variable names for all columns; \n fix this before subsetting",
+#   #     call = abortcall
+#   #   ))
+#   # }
+# }
 
 
-#' @keywords internal
-#' @noRd
-.any_empty_indices <- function(lst) {
-  check <- vapply(lst, \(x)!is.null(x) && length(x) == 0L, FUN.VALUE = logical(1L))
-  if(any(check)) {
-    return(TRUE)
-  } else {
-    return(FALSE)
-  }
-}
 
 
 #' @keywords internal
@@ -180,6 +115,18 @@
   return(out)
 }
 
+#' @keywords internal
+#' @noRd
+.with_array <- function(x, keywords, form, abortcall) {
+  if(length(form) != 2L) {
+    stop(simpleError("invalid formula given", call = abortcall))
+  }
+  env <- environment(form)
+  txt <- as.character(form)[2L]
+  out <- eval(parse(text = txt), keywords, enclos = env)
+  environment(form) <- NULL
+  return(out)
+}
 
 #' @keywords internal
 #' @noRd
@@ -202,15 +149,6 @@
   }
 }
 
-
-#' @keywords internal
-#' @noRd
-.internal_is_formula <- function(form) {
-  check <- inherits(form, "formula") && is.call(form) && isTRUE(form[[1]] == "~")
-  return(check)
-}
-
-
 #' @keywords internal
 #' @noRd
 .internal_coerce_rp <- function(x, rp, abortcall) {
@@ -229,5 +167,45 @@
     }
   }
   return(rp)
+  
+}
+
+#' @keywords internal
+#' @noRd
+.internal_c_bilateral <- function(...) {
+  ellipsis <- list(...)
+  if(length(ellipsis) == 1L) {
+    out <- ellipsis[[1L]]
+  }
+  else {
+    out <- c(...)
+  }
+  if(!is.numeric(out)) {
+    stop("only numeric indices can be bilateral")
+  }
+  return(out)
+}
+
+#' @keywords internal
+#' @noRd
+.internal_make_use_tabular <- function(use, abortcall) {
+  
+  if(.C_any_baduse(use, 2L)) {
+    stop(simpleError("improper `use` specified", call = abortcall))
+  }
+  if(anyDuplicated(use)) {
+    stop(simpleError("`use` cannot have duplicate values", call = abortcall))
+  }
+  if(length(use) == 1L) {
+    if(abs(use) == 1L) {
+      return(c(use, 2L))
+    }
+    else if(abs(use) == 2L) {
+      return(c(1L, use))
+    }
+  }
+  else {
+    return(use[order(abs(use))])
+  }
   
 }

@@ -52,6 +52,23 @@ temp.fun <- function(x, elements) {
   }
 }
 
+sys.source(file.path(getwd(), "source", "sourcetest-elements.R"), envir = environment())
+
+
+test_sb <- function(x, i) {
+  i <- indx_wo(i, x, names(x), length(x))
+  return(x[i])
+}
+
+temp.fun <- function(x, elements) {
+  for (i in 1:length(elements)) {
+    expect_equal(
+      ii_x(x, i = elements[[i]], -1),
+      test_sb(x, i = elements[[i]])
+    ) |> errorfun()
+    assign("enumerate", enumerate + 1, envir = parent.frame(n = 1))
+  }
+}
 
 sys.source(file.path(getwd(), "source", "sourcetest-elements.R"), envir = environment())
 

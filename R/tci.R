@@ -13,7 +13,7 @@
 #' Examples:
 #'  * If the target is row indices, input nrow for `n`.
 #'  * If the target is flat indices, input the length for `n`.
-#' @param inv Boolean, indicating if the indices should be inverted. \cr
+#' @param use 1 or -1, indicating how to use the indices. \cr
 #' See \link{squarebrackets_indx_args}.
 #' @param chkdup see \link{squarebrackets_options}. \cr
 #' `r .mybadge_performance_set2("FALSE")` \cr
@@ -34,20 +34,38 @@
 #' @name developer_tci
 NULL
 
+
 #' @rdname developer_tci
 #' @export
-tci_bool <- function(indx, n, inv = FALSE, .abortcall = sys.call()) {
+tci_atomic <- function(
+    indx, n, nms, use = 1, chkdup = FALSE, uniquely_named = FALSE, .abortcall = sys.call()
+) {
+  
+  if(is.logical(indx)) {
+    return(tci_bool(indx, n, use, .abortcall))
+  }
+  else if(is.numeric(indx)) {
+    return(tci_int(indx, n, use, chkdup, .abortcall))
+  }
+  else if(is.character(indx)) {
+    return(tci_chr(indx, nms, use, chkdup, uniquely_named, .abortcall))
+  }
+}
+
+#' @rdname developer_tci
+#' @export
+tci_bool <- function(indx, n, use = 1L, .abortcall = sys.call()) {
   if(length(indx) != n) {
     stop(simpleError("incorrect length of logical indices", call = .abortcall))
   }
-  if(!inv) return(which(indx))
-  if(inv) return(collapse::whichv(indx, FALSE))
+  if(use > 0L) return(which(indx))
+  if(use < 0L) return(collapse::whichv(indx, FALSE))
 }
 
 
 #' @rdname developer_tci
 #' @export
-tci_int <- function(indx, n, inv = FALSE, chkdup = FALSE, .abortcall = sys.call()) {
+tci_int <- function(indx, n, use = 1L, chkdup = FALSE, .abortcall = sys.call()) {
   
   if(.any_badindx(indx, n)) {
     stop(simpleError("integers must be >= 1 and <= bounds", call = .abortcall))
@@ -59,21 +77,22 @@ tci_int <- function(indx, n, inv = FALSE, chkdup = FALSE, .abortcall = sys.call(
     }
   }
   
-  if(!inv) { return(indx) }
+  if(use > 0L) { return(indx) }
   
-  if(inv && length(indx) == 1L && n >= 2L) {
+  # the following is if use < 0L
+  if(length(indx) == 1L && n >= 2L) {
     if(indx == 1L) { return(2L:n) }
     else if(indx == n) { return(1:(n - 1L)) }
     else { return(seq_len(n)[-indx]) }
   }
-  if(inv && length(indx) == 2L && n >= 3L) {
+  if(length(indx) == 2L && n >= 3L) {
     if(all(sort(indx) == c(1L, n))) {
       return(2L:(n - 1L))
     }
     else { return(seq_len(n)[-indx]) }
   }
   
-  if(inv) { return(seq_len(n)[-indx]) }
+  return(seq_len(n)[-indx])
   
 }
 
@@ -81,7 +100,7 @@ tci_int <- function(indx, n, inv = FALSE, chkdup = FALSE, .abortcall = sys.call(
 #' @rdname developer_tci
 #' @export
 tci_chr <- function(
-    indx, nms, inv = FALSE, chkdup = FALSE, uniquely_named = FALSE, .abortcall = sys.call()
+    indx, nms, use = 1L, chkdup = FALSE, uniquely_named = FALSE, .abortcall = sys.call()
 ) {
   
   if(length(nms) == 0L) {
@@ -94,7 +113,7 @@ tci_chr <- function(
     }
   }
   
-  if(!inv) { 
+  if(use > 0L) { 
     if(uniquely_named) {
       return(collapse::fmatch(collapse::na_omit(indx), nms))
     }
@@ -102,33 +121,38 @@ tci_chr <- function(
       return(match_all(indx, nms))
     }
   }
-  if(inv){ return(collapse::`%!iin%`(nms, indx)) }
+  if(use < 0L){ return(collapse::`%!iin%`(nms, indx)) }
   
 }
+
+
 
 
 #' @rdname developer_tci
 #' @export
-tci_im <- function(indx, n, inv = FALSE, chkdup = FALSE, .abortcall = sys.call()) {
+tci_formula <- function(x, m, form, .abortcall) {
   
-  if(Re(indx[1L]) != 0 || Re(indx[length(1L)]) != 0L) {
-    txt <- paste0(
-      "non-zero real parts detected in complex indices.",
-      "\n",
-      "complex numbers are treated as imaginary numbers;",
-      "\n",
-      "the real part is ignored"
-    )
-    warning(simpleWarning(txt, call = .abortcall))
-  }
-  
-  indx <- .C_convert_cplx(indx, n)
-  
-  return(tci_int(indx, n, inv, chkdup, .abortcall = .abortcall))
+  keywords <- list(
+    .M = m,
+    .Nms = if(m == 0L) names(x) else dimnames(x)[[m]],
+    .N = s(x, m),
+    .I = 1: s(x, m),
+    .bi = \(...) .C_convert_bi(.internal_c_bilateral(...),  s(x, m)),
+    .x = x
+  )
+ 
+  return(.with_array(x, keywords, form, .abortcall))
 }
 
-
-tci_zerolen <- function(n, inv = FALSE) {
-  if(!inv) return(integer(0L))
-  if(inv) return(1:n)
+tci_zerolen <- function(n, use = 1L) {
+  if(use > 0L) return(integer(0L))
+  if(use < 0L){
+    if(n) {
+      return(1:n)
+    }
+    else {
+      return(integer(0L))
+    }
+  } 
 }
+

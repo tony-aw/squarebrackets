@@ -27,8 +27,7 @@ by \link[=squarebrackets_indx_fundamentals]{tabular indices}.
 
 For the \verb{<operation>} part, the following is available:
 \itemize{
-\item \verb{_x}: extract, exchange, or duplicate (if applicable) subsets.
-\item \verb{_wo}: returns the original object \bold{without} the provided subsets.
+\item \verb{_x}: extract, exchange, exclude, or duplicate (if applicable) subsets.
 \item \verb{_mod}: modify subsets and return copy.
 \item \verb{_set}: modify subsets using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr \cr
 }

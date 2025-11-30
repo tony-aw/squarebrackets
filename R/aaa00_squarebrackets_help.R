@@ -109,13 +109,12 @@
 #'  and short-hand for \link[base]{list}.
 #'  * \link{ndim}: Get the number of dimensions of an object.
 #'  * \link{ss2coord}, \link{coord2ii}: Convert subscripts
-#'  (array indices) to coordinates,
+#'  (dimensional array indices) to coordinates,
 #'  coordinates to flat indices,
 #'  and vice-versa.
 #'  * \link{match_all}: Find all matches, of one vector in another,
 #'  taking into account the order and any duplicate values of both vectors.
 #'  * Computing indices: \cr
-#'  \link{idx_r} to compute an integer index range. \cr
 #'  \link{idx_by} to compute grouped indices. \cr \cr
 #' 
 #' 
@@ -183,11 +182,7 @@
 #' @exportPattern "^idx"
 #' 
 #' @exportPattern "^ii_x"
-#' @exportPattern "^ii_wo"
 #' @exportPattern "^ii_set"
-#' @exportPattern "^ii_mod"
-#' @exportPattern "^ii_x"
-#' @exportPattern "^ii_wo"
 #' @exportPattern "^ii_mod"
 #' @exportPattern "^lst_rec"
 #' 
@@ -195,11 +190,10 @@
 #' @exportPattern "^ss_wo"
 #' @exportPattern "^ss_set"
 #' @exportPattern "^ss_mod"
-#' @exportPattern "^ss_x"
-#' @exportPattern "^ss_wo"
-#' @exportPattern "^ss_set"
-#' @exportPattern "^ss_mod"
 #' 
+#' @exportPattern "^sbt_x"
+#' @exportPattern "^sbt_set"
+#' @exportPattern "^sbt_mod"
 #' 
 NULL
 #> NULL

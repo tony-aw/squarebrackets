@@ -51,18 +51,26 @@ temp.fun <- function(x, elements) {
   }
 }
 
+sys.source(file.path(getwd(), "source", "sourcetest-elements.R"), envir = environment())
 
-indx_general <- list(
-  logical(0),
-  1, 1:2, 2:1, c(1, 1, 1), 
-  c(rep(TRUE, 24), rep(FALSE, 24)),
-  rep(TRUE, 48), rep(FALSE, 48),
-  function(x) x>5
-)
 
-indx_named <- c(indx_general, "ab", list(c("ab", "ab")))
+test_sb <- function(x, i) {
+  i <- indx_wo(i, x, names(x), length(x))
+  return(x[i])
+}
+
+temp.fun <- function(x, elements) {
+  for (i in 1:length(elements)) {
+    expect_equal(
+      ii_x(x, elements[[i]], -1),
+      test_sb(x, elements[[i]])
+    ) |> errorfun()
+    assign("enumerate", enumerate + 1, envir = parent.frame(n = 1))
+  }
+}
 
 sys.source(file.path(getwd(), "source", "sourcetest-elements.R"), envir = environment())
+
 
 
 

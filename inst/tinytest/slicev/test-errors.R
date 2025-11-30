@@ -8,10 +8,6 @@ errorfun <- function(tt) {
 enumerate <- 0L
 n <- 10
 rel <- c(TRUE, FALSE)
-from <- n(NULL, 1, 2, -1i, -2i)
-start <- c(1, 1, 2, n, n - 1)
-to <- n(NULL, -1i, -2i, 1, 2)
-end <- c(n, n, n-1, 1, 2)
 
 
 
@@ -137,7 +133,7 @@ enumerate <- enumerate + 2L
 
 
 # errors for complex y ====
-y <- 1:10 + 1:10 * -1i
+y <- (1:10 + 1:10 * -1i)
 expect_error(
   countv(y, v = 1L),
   pattern = "`typeof(v)` not compatible with `typeof(y)`",

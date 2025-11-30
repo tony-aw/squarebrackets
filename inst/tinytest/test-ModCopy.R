@@ -17,37 +17,24 @@ for(i in seq_along(convertfuns)) {
   colnames(charX) <- letters[11:20]
   x <- y <- convertfuns[[i]] (data.frame(numX, charX))
   
-  z <- sbt_mod(x, vars = cols, tf = \(x)x[1])
+  z <- sbt_mod(x, col = cols, tf = \(x)x[1])
   
-  az <- sapply(sbt_x(z, vars = cols), data.table::address)
-  ax <- sapply(sbt_x(x, vars = cols), data.table::address)
-  ay <- sapply(sbt_x(y, vars = cols), data.table::address)
+  az <- sapply(sbt_x(z, col = cols), data.table::address)
+  ax <- sapply(sbt_x(x, col = cols), data.table::address)
+  ay <- sapply(sbt_x(y, col = cols), data.table::address)
   expect_false(any(ax == az)) |> errorfun()
   expect_false(any(ay == az)) |> errorfun()
   expect_true(all(ax == ay)) |> errorfun()
   
-  az <- sbt_x(z, vars = cols)
-  ax <- sbt_x(x, vars = cols)
-  ay <- sbt_x(y, vars = cols)
+  az <- sbt_x(z, col = cols)
+  ax <- sbt_x(x, col = cols)
+  ay <- sbt_x(y, col = cols)
   expect_false(identical(ax, az)) |> errorfun()
   expect_false(identical(ay, az)) |> errorfun()
   expect_true(identical(ax, ay)) |> errorfun()
   
-  az <- sapply(sbt_wo(z, vars = cols), data.table::address)
-  ax <- sapply(sbt_wo(x, vars = cols), data.table::address)
-  ay <- sapply(sbt_wo(y, vars = cols), data.table::address)
-  expect_true(all(ax == az)) |> errorfun()
-  expect_true(all(ay == az)) |> errorfun()
-  expect_true(all(ax == ay)) |> errorfun()
   
-  az <- sbt_wo(z, vars = cols)
-  ax <- sbt_wo(x, vars = cols)
-  ay <- sbt_wo(y, vars = cols)
-  expect_true(identical(ax, az)) |> errorfun()
-  expect_true(identical(ay, az)) |> errorfun()
-  expect_true(identical(ax, ay)) |> errorfun()
-  
-  enumerate <- enumerate + 12
+  enumerate <- enumerate + 6
 }
 
 
@@ -67,42 +54,29 @@ for(i in seq_along(convertfuns)) {
   colnames(charX) <- letters[11:20]
   x <- y <- convertfuns[[i]] (data.frame(numX, charX))
 
-  z <- sbt_mod(x, obs = rows, vars = cols, tf = \(x)x[1])
+  z <- sbt_mod(x, row = rows, col = cols, tf = \(x)x[1])
   
   # note: selecting cols is like selecting list elements
   # (i.e. result is a list)
   # whereas selecting rows is like selecting recursive list elements
   # (i.e. result is the object pointed to)
   
-  az <- sapply(sbt_x(z, vars = cols), data.table::address)
-  ax <- sapply(sbt_x(x, vars = cols), data.table::address)
-  ay <- sapply(sbt_x(y, vars = cols), data.table::address)
+  az <- sapply(sbt_x(z, col = cols), data.table::address)
+  ax <- sapply(sbt_x(x, col = cols), data.table::address)
+  ay <- sapply(sbt_x(y, col = cols), data.table::address)
   expect_false(any(ax == az)) |> errorfun()
   expect_false(any(ay == az)) |> errorfun()
   expect_true(all(ax == ay)) |> errorfun()
   
-  az <- sbt_x(z, vars = cols)
-  ax <- sbt_x(x, vars = cols)
-  ay <- sbt_x(y, vars = cols)
+  az <- sbt_x(z, col = cols)
+  ax <- sbt_x(x, col = cols)
+  ay <- sbt_x(y, col = cols)
   expect_false(identical(ax, az)) |> errorfun()
   expect_false(identical(ay, az)) |> errorfun()
   expect_true(identical(ax, ay)) |> errorfun()
   
-  az <- sapply(sbt_wo(z, vars = cols), data.table::address)
-  ax <- sapply(sbt_wo(x, vars = cols), data.table::address)
-  ay <- sapply(sbt_wo(y, vars = cols), data.table::address)
-  expect_true(all(ax == az)) |> errorfun()
-  expect_true(all(ay == az)) |> errorfun()
-  expect_true(all(ax == ay)) |> errorfun()
   
-  az <- sbt_wo(z, vars = cols)
-  ax <- sbt_wo(x, vars = cols)
-  ay <- sbt_wo(y, vars = cols)
-  expect_true(identical(ax, az)) |> errorfun()
-  expect_true(identical(ay, az)) |> errorfun()
-  expect_true(identical(ax, ay)) |> errorfun()
-  
-  enumerate <- enumerate + 12
+  enumerate <- enumerate + 6
 }
 
 
@@ -132,19 +106,5 @@ expect_false(identical(ax, az))
 expect_false(identical(ay, az))
 expect_true(identical(ax, ay))
 
-az <- sapply(ii_wo(z, i = i), data.table::address)
-ax <- sapply(ii_wo(x, i = i), data.table::address)
-ay <- sapply(ii_wo(y, i = i), data.table::address)
-expect_true(all(ax == az))
-expect_true(all(ay == az))
-expect_true(all(ax == ay))
-
-az <- ii_wo(z, i = i)
-ax <- ii_wo(x, i = i)
-ay <- ii_wo(y, i = i)
-expect_true(identical(ax, az))
-expect_true(identical(ay, az))
-expect_true(identical(ax, ay))
-
-enumerate <- enumerate + 12
+enumerate <- enumerate + 6
 

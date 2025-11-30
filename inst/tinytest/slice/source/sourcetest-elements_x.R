@@ -1,7 +1,8 @@
 
 
+
 list_fromto <- list(
-  1, -1i, 2, -2i, 10, -10i, 100, -100i, 99, -99i, 98, -98i
+  1, 100, 2, 99, 10, 90, 100, 1, 99, 2, 98, 3
 )
 list_by <- list(
   1, 2, 3, 100, -1, -2, -3, -100
@@ -134,8 +135,8 @@ expected <- out <- list(8)
 for(i in seq_along(x.data)) {
   x <- data.table::copy(x.data[[i]])
   
-  expected[[i]] <- basetest(x, 3, -3i, -3)
-  out[[i]] <- slicetest(x, 3, -3i, -3)
+  expected[[i]] <- basetest(x, 3, 98, -3)
+  out[[i]] <- slicetest(x, 3, 98, -3)
   
 }
 expect_equal(

@@ -169,17 +169,8 @@ sb_setVarnames <- function(x, old, new, skip_absent = FALSE, ...) {
 #' @keywords internal
 #' @noRd
 .sb_setrename_indx <- function(i, nms, abortcall) {
-  if(is.logical(i)) {
-    return(tci_bool(i, length(nms), .abortcall = abortcall))
-  }
-  else if(is.numeric(i)) {
-    return(tci_int(i, length(nms), .abortcall = abortcall))
-  }
-  else if(is.character(i)) {
-    return(tci_chr(i, nms, .abortcall = abortcall))
-  }
-  else if(is.complex(i)) {
-    return(tci_im(i, length(nms), .abortcall = abortcall))
+  if(is.atomic(i)) {
+    return(tci_atomic(i, length(nms), NULL, 1, FALSE, abortcall))
   }
   else {
     .indx_stop(abortcall)

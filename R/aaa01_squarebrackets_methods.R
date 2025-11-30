@@ -22,8 +22,7 @@
 #' 
 #' For the `<operation>` part, the following is available:
 #' 
-#'  - `_x`: extract, exchange, or duplicate (if applicable) subsets.
-#'  - `_wo`: returns the original object \bold{without} the provided subsets.
+#'  - `_x`: extract, exchange, exclude, or duplicate (if applicable) subsets.
 #'  - `_mod`: modify subsets and return copy.
 #'  - `_set`: modify subsets using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr \cr
 #' 

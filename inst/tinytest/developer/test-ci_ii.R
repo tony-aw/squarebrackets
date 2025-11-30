@@ -11,7 +11,6 @@ indices <- list(
   c(TRUE, rep(FALSE, 4), TRUE),
   c(1L, 6L),
   c(1.0, 6.0),
-  c(1, -1) * 1i,
   c("a", "f")
 )
 expected <- c(1, 6)
@@ -35,7 +34,7 @@ i <- cbind(1:3, 2:4, 3:5)
 
 expect_error(
   ci_ii(x, i),
-  pattern = "`i` must be a simple vector or function"
+  pattern = "`i` must be a simple vector"
 )
 
 enumerate <- 1L

@@ -10,16 +10,16 @@
 \alias{sbt_set.data.table}
 \title{Methods to Modify Subsets of a Mutable Object By Reference}
 \usage{
-ii_set(x, ...)
+ii_set(x, i = NULL, use = 1, ..., rp, tf)
 
-ss_set(x, ...)
+ss_set(x, s = NULL, use = rdim(x), ..., rp, tf)
 
-sbt_set(x, ...)
+sbt_set(x, row = NULL, col = NULL, use = 1:2, ..., rp, tf)
 
 \method{ii_set}{default}(
   x,
   i = NULL,
-  inv = FALSE,
+  use = 1,
   ...,
   rp,
   tf,
@@ -29,8 +29,7 @@ sbt_set(x, ...)
 \method{ss_set}{default}(
   x,
   s = NULL,
-  d = 1:ndim(x),
-  inv = FALSE,
+  use = rdim(x),
   ...,
   rp,
   tf,
@@ -41,7 +40,7 @@ sbt_set(x, ...)
   x,
   row = NULL,
   col = NULL,
-  inv = FALSE,
+  use = 1:2,
   ...,
   rp,
   tf,
@@ -50,9 +49,9 @@ sbt_set(x, ...)
 
 \method{sbt_set}{data.table}(
   x,
-  obs = NULL,
-  vars = NULL,
-  inv = FALSE,
+  row = NULL,
+  col = NULL,
+  use = 1:2,
   ...,
   rp,
   tf,
@@ -63,10 +62,10 @@ sbt_set(x, ...)
 \item{x}{a \bold{variable} belonging to one of the
 \link[=squarebrackets_supported_structures]{supported mutable classes}. \cr}
 
-\item{...}{see \link{squarebrackets_method_dispatch}.}
-
-\item{i, s, d, row, col, obs, vars, inv}{See \link{squarebrackets_indx_args}. \cr
+\item{i, use, s, row, col}{See \link{squarebrackets_indx_args}. \cr
 An empty index selection leaves the original object unchanged. \cr}
+
+\item{...}{see \link{squarebrackets_method_dispatch}.}
 
 \item{rp, tf}{see \link{squarebrackets_modify}.}
 
@@ -171,25 +170,24 @@ print(obj2)
 obj <- data.table::data.table(a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10]))
 str(obj) # notice that columns "a" and "c" are INTEGER (`int`)
 sbt_set(
-  obj, ~ (a >= 2) & (c <= 17), is.numeric,
+  obj, idx_obs(obj, ~ (a >= 2) & (c <= 17)), is.numeric,
   tf = sqrt # WARNING: sqrt() results in `dbl`, but columns are `int`, so decimals lost
 )
 print(obj)
 
 obj <- data.table::data.table(a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10]))
-sbt_set(obj, vars = is.numeric, tf = as.numeric) # first coerce type by whole columns
+sbt_set(obj, col = is.numeric, tf = as.numeric) # first coerce type by whole columns
 str(obj)
-sbt_set(obj, ~ (a >= 2) & (c <= 17), is.numeric,
+sbt_set(obj, idx_obs(obj, ~ (a >= 2) & (c <= 17)), is.numeric,
   tf = sqrt # SAFE: coercion performed by column first
 ) 
 print(obj)
 
 obj <- data.table::data.table(a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10]))
 str(obj) # notice that columns "a" and "c" are INTEGER (`int`)
-sbt_set(
-  obj,
-  vars = is.numeric,
-  tf = sqrt # SAFE: obs = NULL, so coercion performed
+sbt_set(obj,
+        col = is.numeric,
+        tf = sqrt # SAFE: obs = NULL, so coercion performed
 )
 str(obj)
 

@@ -187,9 +187,6 @@ thus keeping the original object safe from modification by reference);
 
 \examples{
 
-
-
-
 # the following code demonstrates how locked bindings,
 # such as `base::letters`,
 # are being safe-guarded

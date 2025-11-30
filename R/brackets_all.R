@@ -2,6 +2,7 @@
 #' @keywords internal
 #' @noRd
 .all_missing_indices <- function(lst) {
+  if(!is.list(lst)) lst <- list(lst)
   check <- vapply(lst, .C_is_missing_idx, FUN.VALUE = logical(1L))
   if(all(check)) {
     return(TRUE)

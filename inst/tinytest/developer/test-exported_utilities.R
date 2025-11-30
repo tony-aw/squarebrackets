@@ -69,46 +69,6 @@ enumerate <- enumerate + 4L
 
 
 
-# complex ====
-
-expect_equal(
-  indx_x(1:2 * -1i, x, names(x), length(x)),
-  length(x) - 1:2 + 1L
-)
-expect_equal(
-  indx_x(2:3 * -1i, x, names(x), length(x)),
-  length(x) - 2:3 + 1L
-)
-
-expect_equal(
-  indx_x(1:2 * 1i, x, names(x), length(x)),
-  1:2
-)
-expect_equal(
-  indx_x(2:3 * 1i, x, names(x), length(x)),
-  2:3
-)
-
-expect_equal(
-  indx_wo(1:2 * -1i, x, names(x), length(x)),
-  1:(length(x) - 2)
-)
-expect_equal(
-  indx_wo(2:3 * -1i, x, names(x), length(x)),
-  c(1:(length(x) - 3), length(x))
-)
-
-expect_equal(
-  indx_wo(1:2 * 1i, x, names(x), length(x)),
-  seq_along(x)[-1:-2]
-)
-expect_equal(
-  indx_wo(2:3 * 1i, x, names(x), length(x)),
-  seq_along(x)[-2:-3]
-)
-enumerate <- enumerate + 8L
-
-
 # functions ====
 
 expect_equal(

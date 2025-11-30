@@ -76,14 +76,14 @@ x <- mutatomic(1:1e7)
 slice_x(x, 1, 10)
 
 # reverse:
-slice_x(x, -1i, 1) |> head()
+slice_x(x, length(x), 1) |> head()
 
 # remove:
-slice_wo(x, 1, -11i) # all elements except the last 10
+slice_wo(x, 1, length(x) - 10) # all elements except the last 10
 
 # replace every other element:
 x <- mutatomic(1:1e7)
-slice_set(x, 2, -1i, 2, rp = -1)
+slice_set(x, 2, length(x), 2, rp = -1)
 head(x)
 
 # replace all elements except the first element:

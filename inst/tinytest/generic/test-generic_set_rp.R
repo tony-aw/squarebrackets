@@ -87,6 +87,30 @@ temp.fun <- function(x, elements) {
 sys.source(file.path(getwd(), "source", "sourcetest-elements.R"), envir = environment())
 
 
+
+test_sb <- function(x, i, rp) {
+  if(is.atomic(x)) x <- as.mutatomic(x)
+  i <- indx_wo(i, x, names(x), length(x))
+  if(length(i) == 0) return(x)
+  x[i] <- rp
+  return(x)
+}
+
+temp.fun <- function(x, elements) {
+  for (i in 1:length(elements)) {
+    rp1 <- rp2 <- rep(1L, length(indx_wo(elements[[i]], x, names(x), length(x))))
+    expect_equal(
+      ii_set2(x, elements[[i]], -1, rp = rp1),
+      test_sb(x, elements[[i]], rp = rp2)
+    ) |> errorfun()
+    assign("enumerate", enumerate + 1, envir = parent.frame(n = 1))
+  }
+}
+
+
+sys.source(file.path(getwd(), "source", "sourcetest-elements.R"), envir = environment())
+
+
 # test array ====
 
 rep3.bind <- function(x, dim) {

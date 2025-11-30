@@ -5,15 +5,12 @@
 \alias{ci_ii}
 \alias{ci_margin}
 \alias{ci_ss}
-\alias{ci_df}
-\alias{ci_obs}
-\alias{ci_vars}
 \title{Construct Indices}
 \usage{
 ci_ii(
   x,
-  i,
-  inv = FALSE,
+  i = NULL,
+  use = 1L,
   chkdup = FALSE,
   uniquely_named = FALSE,
   .abortcall = sys.call()
@@ -21,9 +18,9 @@ ci_ii(
 
 ci_margin(
   x,
-  slice,
+  slice = NULL,
   margin,
-  inv = FALSE,
+  use = 1L,
   chkdup = FALSE,
   uniquely_named = FALSE,
   .abortcall = sys.call()
@@ -31,46 +28,17 @@ ci_margin(
 
 ci_ss(
   x,
-  s,
-  d = 1:ndim(x),
-  inv = FALSE,
+  s = NULL,
+  use = 1:ndim(x),
   chkdup = FALSE,
   uniquely_named = FALSE,
-  .abortcall = sys.call()
-)
-
-ci_df(
-  x,
-  slice,
-  margin,
-  inv = FALSE,
-  chkdup = FALSE,
-  uniquely_named = TRUE,
-  .abortcall = sys.call()
-)
-
-ci_obs(
-  x,
-  obs,
-  inv = FALSE,
-  chkdup = FALSE,
-  uniquely_named = TRUE,
-  .abortcall = sys.call()
-)
-
-ci_vars(
-  x,
-  vars,
-  inv = FALSE,
-  chkdup = FALSE,
-  uniquely_named = TRUE,
   .abortcall = sys.call()
 )
 }
 \arguments{
 \item{x}{the object for which the indices are meant.}
 
-\item{i, s, d, slice, margin, obs, vars, inv}{See \link{squarebrackets_indx_args}. \cr}
+\item{i, s, use, slice, margin}{See \link{squarebrackets_indx_args}. \cr}
 
 \item{chkdup}{see \link{squarebrackets_options}. \cr
 \ifelse{html}{\figure{for_performance-set_to_FALSE-red.svg}{options: alt='[for performance: set to FALSE]'}}{\link[=squarebrackets_help]{for performance: set to FALSE}} \cr}
@@ -110,14 +78,12 @@ print(x)
 bool <- sample(c(TRUE, FALSE), 5, TRUE)
 int <- 1:4
 chr <- c("a", "a")
-cplx <- 1:4 * -1i
 tci_bool(bool, nrow(x))
-tci_int(int, ncol(x), inv = TRUE)
+tci_int(int, ncol(x), -1)
 tci_chr(chr, colnames(x))
-tci_im(cplx, nrow(x))
 
-ci_ii(x, 1:10 * -1i)
+ci_ii(x, 1:10)
 ci_margin(x, 1:4, 2)
-ci_ss(x, n(1:5 * -1i, 1:4), 1:2)
+ci_ss(x, n(~ .bi(-1:-5), 1:4), 1:2)
 
 }

@@ -20,7 +20,7 @@ basefun <- function(x, rows, cols, tf) {
   return(x)
 }
 base_plus_idx <- function(x, rows, cols, tf) {
-  x[idx.array(x, n(rows, cols), 1:2)] <- tf(x[idx.array(x, n(rows, cols), 1:2)])
+  x[ss_icom(x, n(rows, cols), 1:2)] <- tf(x[ss_icom(x, n(rows, cols), 1:2)])
   return(x)
 }
 tf <- function(x) { return(-1 * x) }
@@ -48,7 +48,7 @@ basefun <- function(x, rows, lyrs, tf) {
   return(x)
 }
 base_plus_idx <- function(x, rows, lyrs, tf) {
-  x[idx.array(x, n(rows, lyrs), c(1, 3))] <- tf(x[idx.array(x, n(rows, lyrs), c(1, 3))])
+  x[ss_icom(x, n(rows, lyrs), c(1, 3))] <- tf(x[ss_icom(x, n(rows, lyrs), c(1, 3))])
   return(x)
 }
 tf <- function(x) { return(-1L * x) }
@@ -90,10 +90,10 @@ gc()
 bm.sb_tf.df <- bench::mark(
   "base [<-" = basefun(df, sel.rows, tf = \(x) -1 * x),
   "sbt_set" = sbt_set(
-    dt, obs = sel.rows, vars = is.numeric, tf = \(x) -1 * x
+    dt, obs = sel.rows, col = is.numeric, tf = \(x) -1 * x
   ),
   "sbt_mod" = sbt_mod(
-    df, obs = sel.rows, vars = is.numeric, tf = \(x) -1 * x
+    df, obs = sel.rows, col = is.numeric, tf = \(x) -1 * x
   ),
   check = FALSE,
   min_iterations = 500

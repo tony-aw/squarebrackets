@@ -21,6 +21,12 @@
 
 #' @keywords Internal
 #' @noRd
+.C_any_baduse <- function(x, val) {
+  .Call("C_any_baduse", x = x, val = val)
+}
+
+#' @keywords Internal
+#' @noRd
 .C_any_badmargin <- function(x, val) {
   .Call("C_any_badmargin", x = x, val = val)
 }
@@ -41,27 +47,27 @@
 
 #' @keywords Internal
 #' @noRd
-.C_convert_cplx_32 <- function(x, val) {
-  .Call("C_convert_cplx_32", x = x, val = as.integer(val))
+.C_convert_bi_32 <- function(x, val) {
+  .Call("C_convert_bi_32", x = x, val = as.integer(val))
 }
 
 
 #' @keywords Internal
 #' @noRd
-.C_convert_cplx_64 <- function(x, val) {
-  .Call("C_convert_cplx_64", x = x, val = as.double(val))
+.C_convert_bi_64 <- function(x, val) {
+  .Call("C_convert_bi_64", x = x, val = as.double(val))
 }
 
 
 #' @keywords Internal
 #' @noRd
-.C_convert_cplx <- function(x, val) {
+.C_convert_bi <- function(x, size) {
   
-  if(is.integer(val)) {
-    return(.C_convert_cplx_32(x, val))
+  if(is.integer(size)) {
+    return(.C_convert_bi_32(x, size))
   }
-  if(is.double(val)) {
-    return(.C_convert_cplx_64(x, val))
+  if(is.double(size)) {
+    return(.C_convert_bi_64(x, size))
   }
 }
 

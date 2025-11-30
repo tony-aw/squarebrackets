@@ -12,3 +12,4 @@ x[, 1]
 x[] <- as.double(x)
 print(x)
 is.mutatomic(x)
+

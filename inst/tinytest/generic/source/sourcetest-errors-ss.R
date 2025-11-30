@@ -3,17 +3,17 @@
 # dimensions ==== 
 x <- as.mutatomic(array(1:27, c(3,3,3)))
 expect_error(
-  sb_test(x, s = list(1:10, 2:5), d = c(1:3)),
-  pattern = "`length(s)` must equal `length(d)`",
+  sb_test(x, s = list(1:10, 2:5), use =c(1:3)),
+  pattern = "`length(s)` must equal `length(use)`",
   fixed = TRUE
 ) |> errorfun()
 expect_error(
-  sb_test(x, s = list(1:3, 1:3), d = c(1,6)),
-  pattern = "`d` out of range",
+  sb_test(x, s = list(1:3, 1:3), use =c(1,6)),
+  pattern = "`use` out of range",
   fixed = TRUE
 ) |> errorfun()
 expect_error(
-  sb_test(x, s = list(-1:-5), d = 1),
+  sb_test(x, s = list(-1:-5), use =1),
   pattern = "integers must be >= 1 and <= bounds",
   fixed = TRUE
 )|> errorfun()
@@ -22,7 +22,7 @@ enumerate <- enumerate + 1
 
 
 expect_error(
-  sb_test(x, s = list(c(0,0)), d = 1),
+  sb_test(x, s = list(c(0,0)), use =1),
   pattern = "integers must be >= 1 and <= bounds",
   fixed = TRUE
 )|> errorfun()
@@ -30,7 +30,7 @@ enumerate <- enumerate + 1
 
 
 expect_error(
-  sb_test(x, list(1000), d = 1),
+  sb_test(x, list(1000), use =1),
   pattern = "integers must be >= 1 and <= bounds",
   fixed = TRUE
 )|> errorfun()
@@ -39,7 +39,7 @@ enumerate <- enumerate + 1
 
 
 expect_error(
-  sb_test(x, list(sample(c(TRUE, FALSE), size = nrow(x) - 1, replace = TRUE)), d = 1),
+  sb_test(x, list(sample(c(TRUE, FALSE), size = nrow(x) - 1, replace = TRUE)), use =1),
   pattern = "incorrect length of logical indices",
   fixed = TRUE
 )|> errorfun()
@@ -48,7 +48,7 @@ enumerate <- enumerate + 1
 
 
 expect_error(
-  sb_test(x,list(sample(c(TRUE, FALSE), size = nrow(x) + 1, replace = TRUE)), d = 1),
+  sb_test(x,list(sample(c(TRUE, FALSE), size = nrow(x) + 1, replace = TRUE)), use =1),
   pattern = "incorrect length of logical indices",
   fixed = TRUE
 )|> errorfun()
@@ -56,7 +56,7 @@ enumerate <- enumerate + 1
 
 
 expect_error(
-  sb_test(x, list("a"), d = 1),
+  sb_test(x, list("a"), use =1),
   pattern = "no names present",
   fixed = TRUE
 )|> errorfun()
@@ -82,11 +82,11 @@ if(!test_allow_duplicates) {
   x <- as.mutatomic(array(1:27, c(3,3,3)))
   rownames(x) <- c("a", "a", "b")
   expect_error(
-    sb_test(x, list(c(1,1,1)), d = 1, chkdup = TRUE),
+    sb_test(x, list(c(1,1,1)), use =1, chkdup = TRUE),
     pattern = "duplicate integers or names not allowed"
   ) |> errorfun()
   expect_error(
-    sb_test(x, list(c("a", "a")), d = 1, chkdup = TRUE),
+    sb_test(x, list(c("a", "a")), use =1, chkdup = TRUE),
     pattern = "duplicate integers or names not allowed"
   ) |> errorfun()
   

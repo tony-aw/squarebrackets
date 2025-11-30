@@ -9,7 +9,7 @@
 #'
 #' @param x a \bold{variable} belonging to one of the
 #' \link[=squarebrackets_supported_structures]{supported mutable classes}. \cr
-#' @param i,s,d,row,col,obs,vars,inv See \link{squarebrackets_indx_args}. \cr
+#' @param i,use,s,row,col See \link{squarebrackets_indx_args}. \cr
 #' An empty index selection leaves the original object unchanged. \cr
 #' @param ... see \link{squarebrackets_method_dispatch}.
 #' @param rp,tf see \link{squarebrackets_modify}.
@@ -36,34 +36,43 @@
 
 #' @rdname sb_set
 #' @export
-ii_set <- function(x, ...) {
+ii_set <- function(x, i = NULL, use = 1, ..., rp, tf) {
   
-  .methodcheck.ii(x, sys.call())
+  .methodcheck.ii(x, i, use, sys.call())
+  .internal_check_rptf(rp, tf, sys.call())
   
   UseMethod("ii_set", x)
 }
 
+
 #' @rdname sb_set
 #' @export
-ss_set <- function(x, ...) {
+ss_set <- function(x, s = NULL, use = rdim(x), ..., rp, tf) {
   
-  .methodcheck.ss(x, sys.call())
+  .methodcheck.ss(x, s, use, sys.call())
+  .internal_check_rptf(rp, tf, sys.call())
+  
   UseMethod("ss_set", x)
 }
 
 
 #' @rdname sb_set
 #' @export
-sbt_set <- function(x, ...) {
-  .methodcheck.sbt(x, sys.call())
+sbt_set <- function(x, row = NULL, col = NULL, use = 1:2, ..., rp, tf) {
+  
+  .methodcheck.sbt(x, row, col, use, sys.call())
+  .internal_check_rptf(rp, tf, sys.call())
+  
   UseMethod("sbt_set", x)
 }
+
+
 
 
 #' @rdname sb_set
 #' @export
 ii_set.default <- function(
-    x, i = NULL, inv = FALSE, ...,  rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
+    x, i = NULL, use = 1, ...,  rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
   # error checks:
@@ -80,7 +89,10 @@ ii_set.default <- function(
     .all_set_atomic(x, rp, tf, abortcall = sys.call())
     return(invisible(NULL))
   }
-  .flat_set_atomic(x, i, inv, rp = rp, tf = tf, chkdup, abortcall = sys.call())
+  i <- ci_ii(
+    x, i, use, chkdup, .abortcall = sys.call()
+  )
+  .flat_set_atomic(x, i, use, rp = rp, tf = tf, chkdup, abortcall = sys.call())
   return(invisible(NULL))
 }
 
@@ -89,30 +101,31 @@ ii_set.default <- function(
 #' @rdname sb_set
 #' @export
 ss_set.default <- function(
-    x, s = NULL, d = 1:ndim(x), inv = FALSE, ...,  rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
+    x, s = NULL, use = rdim(x), ...,  rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
   stopifnot_ma_safe2mutate(substitute(x), parent.frame(n = 1), sys.call())
   .internal_check_dots(list(...), sys.call())
-  return(.sb_set_array(x, s, d, inv, chkdup, rp, tf, sys.call()))
+  return(.sb_set_array(x, s, use, chkdup, rp, tf, sys.call()))
 }
 
 #' @rdname sb_set
 #' @export
 sbt_set.default <- function(
-    x, row = NULL, col = NULL, inv = FALSE, ...,
+    x, row = NULL, col = NULL, use = 1:2, ...,
     rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   stopifnot_ma_safe2mutate(substitute(x), parent.frame(n = 1), sys.call())
   .internal_check_dots(list(...), sys.call())
-  return(.sb_set_array(x, n(row, col), 1:2, inv, chkdup, rp, tf, sys.call()))
+  use <- .internal_make_use_tabular(use, sys.call())
+  return(.sb_set_array(x, n(row, col), use, chkdup, rp, tf, sys.call()))
 }
 
 
 #' @rdname sb_set
 #' @export
 sbt_set.data.table <- function(
-    x, obs = NULL, vars = NULL, inv = FALSE, ...,
+    x, row = NULL, col = NULL, use = 1:2, ...,
     rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
@@ -126,15 +139,20 @@ sbt_set.data.table <- function(
   
   
   # make arguments:
-  row <- col <- NULL
-  if(!.C_is_missing_idx(obs)) {
-    row <- ci_obs(
-      x, obs, inv, chkdup, TRUE, sys.call()
+  use <- .internal_make_use_tabular(use, sys.call())
+  if(!.C_is_missing_idx(row)) {
+    row <- ci_margin(
+      x, row, 1L, use[1], chkdup = FALSE, uniquely_named = TRUE, sys.call()
     )
   }
-  if(!.C_is_missing_idx(vars)) {
-    col <- ci_vars(
-      x, vars, inv, chkdup, TRUE, sys.call()
+  if(is.function(col)) {
+    col <- collapse::get_vars(x, col, return = "logical")
+    if(use[2] > 0) col <- which(col)
+    if(use[2] < 0) col <- collapse::whichv(col, FALSE)
+  }
+  else if(!.C_is_missing_idx(col)) {
+    col <- ci_margin(
+      x, col, 2L, use[2], chkdup = FALSE, uniquely_named =  TRUE, sys.call()
     )
   }
   # don't use if(is.null(row or col)) row or col <- 1:... -> will mess up the rest of this function
@@ -179,35 +197,35 @@ sbt_set.data.table <- function(
 
 #' @keywords internal
 #' @noRd
-.sb_set_array <- function(x, s, d, inv, chkdup, rp, tf, abortcall) {
+.sb_set_array <- function(x, s, use, chkdup, rp, tf, abortcall) {
   .internal_check_rptf(rp, tf, sys.call())
-  .check_args_array(x, s, d, sys.call())
+  .check_args_array(x, s, use, sys.call())
   
   if(is.list(x) && !missing(tf)) {
     tf <- .funply(tf)
   }
   
   # all missing arguments:
-  if(.all_missing_indices(list(s))) {
+  if(.all_missing_indices(s)) {
     .all_set_atomic(x, rp, tf, abortcall = sys.call())
     return(invisible(NULL))
   }
   
   # zero-length subscripts:
-  if(length(d) == 0L || .C_is_missing_idx(d)) {
+  if(length(use) == 0L) {
     .all_set_atomic(x, rp, tf, abortcall = sys.call())
     return(invisible(NULL))
   }
   
   # 1d:
   if(ndim(x) == 1L) {
-    i <- .flat_s2i(x, s, d, sys.call())
-    .flat_set_atomic(x, i, inv, rp, tf, chkdup, sys.call())
+    i <- ci_ss(x, s, use)
+    if(is.list(i)) i <- i[[1L]]
+    .flat_set_atomic(x, i, sign(use), rp, tf, chkdup, sys.call())
     return(invisible(NULL))
   }
   
-  # s, d arguments:
-  .arr_set_atomic(x, s, d, chkdup, inv, rp, tf, abortcall = sys.call())
+  .arr_set_atomic(x, s, use, chkdup, rp, tf, abortcall = sys.call())
   return(invisible(NULL))
 }
 

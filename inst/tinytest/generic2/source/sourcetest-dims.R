@@ -20,15 +20,7 @@ indx_general <- function(x, dim.i) {
     1,
     1:3,
     3:1,
-    c(2, 3, 1),
-    1 * -1i,
-    1:3 * -1i,
-    3:1 * -1i,
-    c(2, 3, 1) * -1i,
-    1 * 1i,
-    1:3 * 1i,
-    3:1 * 1i,
-    c(2, 3, 1) * 1i
+    c(2, 3, 1)
   )
   if(test_allow_duplicates) {
     out <- c(out, list(c(1, 1, 1)))
@@ -214,17 +206,16 @@ expect_equal(
 
 # errors ====
 expect_error(
-  sb_test(x, n(1:3), "a"),
-  pattern = "`d` must be a integer vector"
+  sb_test(x, n(1:3), "a")
 )
 expect_error(
   sb_test(x, n(1:3, 1:3, 1:3), 1:2),
-  pattern = "`length(s)` must equal `length(d)`",
+  pattern = "`length(s)` must equal `length(use)`",
   fixed = TRUE
 )
 expect_error(
   sb_test(x, n(1:3), 1:10),
-  pattern = "`d` out of range"
+  pattern = "`use` out of range"
 )
 
 enumerate <- enumerate + 7L

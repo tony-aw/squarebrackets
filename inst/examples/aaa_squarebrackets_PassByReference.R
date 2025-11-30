@@ -1,7 +1,4 @@
 
-
-
-
 # the following code demonstrates how locked bindings,
 # such as `base::letters`,
 # are being safe-guarded

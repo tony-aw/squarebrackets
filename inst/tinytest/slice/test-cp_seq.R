@@ -1,10 +1,10 @@
 
-# note: majority of tests for cp_seq() are done through the tests for idx_r()
+# note: majority of tests for cp_seq() are done through the tests for the slice_ methods
 
 enumerate <- 0
 
 
-# basic checks ====
+# vector checks ====
 x <- 1:10
 expect_equal(
   cp_seq(x, 0L, 1L, 5L),
@@ -28,12 +28,12 @@ expect_equal(
 enumerate <- enumerate + 4
 
 
-# error checks - bad `m`:
+# error checks - bad `m` ====
 x <- 1:10
 
 expect_error(
   cp_seq(x, "q"),
-  pattern = "`m` must be (complex) numeric",
+  pattern = "`m` must be numeric",
   fixed = TRUE
 )
 
@@ -43,7 +43,7 @@ expect_error(
 )
 
 expect_error(
-  cp_seq(x, 100 * -1i),
+  cp_seq(x, 100 * -1),
   pattern = "index out of bounds"
 )
 
@@ -57,7 +57,7 @@ expect_error(
 enumerate <- enumerate + 4
 
 
-# error checks - bad by:
+# error checks - bad by ====
 x <- 1:10
 expect_error(
   cp_seq(x, by = NA_integer_),
@@ -76,7 +76,7 @@ enumerate <- enumerate + 3
 
 
 
-# error checks - bad lengths:
+# error checks - bad lengths ====
 x <- matrix(1:10, ncol = 2)
 
 expect_error(
@@ -99,7 +99,7 @@ expect_error(
 enumerate <- enumerate + 3
 
 
-# error checks - bas args:
+# error checks - bas args ====
 x <- matrix(1:10, ncol = 2)
 
 expect_error(
@@ -122,13 +122,13 @@ expect_error(
 
 expect_error(
   cp_seq(x, 0, from = "a", to = 3),
-  pattern = "`m`, `from`, `to` `by` must be (complex) numeric or `NULL`",
+  pattern = "`m`, `from`, `to` `by` must be numeric or `NULL`",
   fixed = TRUE
 )
 
 expect_error(
   cp_seq(x, 0, from = 1, to = "z"),
-  pattern = "`m`, `from`, `to` `by` must be (complex) numeric or `NULL`",
+  pattern = "`m`, `from`, `to` `by` must be numeric or `NULL`",
   fixed = TRUE
 )
 
@@ -140,7 +140,7 @@ expect_error(
 enumerate <- enumerate + 6
 
 
-# error checks - bad start/end:
+# error checks - bad start/end ====
 x <- matrix(1:10, ncol = 2)
 
 expect_error(
@@ -149,12 +149,7 @@ expect_error(
 )
 
 expect_error(
-  cp_seq(x, 1, from = -1, to = 5),
-  pattern = "index out of bounds"
-)
-
-expect_error(
-  cp_seq(x, 1, from = 6 * -1i, to = 6),
+  cp_seq(x, 1, from = 6 * -1, to = 6),
   pattern = "index out of bounds"
 )
 
@@ -169,7 +164,7 @@ expect_error(
 )
 
 expect_error(
-  cp_seq(x, 1, from = 1, to = 6 * -1i),
+  cp_seq(x, 1, from = 1, to = 6 * -1),
   pattern = "index out of bounds"
 )
 

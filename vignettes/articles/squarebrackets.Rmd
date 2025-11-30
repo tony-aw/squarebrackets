@@ -46,7 +46,6 @@ This vignette does not provide a complete and thorough explanation of all method
 'squarebrackets' provides a set of methods that work on both atomic and recursive vectors:
 
  - `ii_x` to extract subsets
- - `ii_wo` to return object without the selected subset
  - `ii_mod` to return a copy with modified subsets
  - `ii_set` to modify an object by reference.
 
@@ -87,7 +86,7 @@ See how much easier it is with 'squarebrackets'!:
 ii_x(x, c("a", "a", "b"))
 ```
 
-It's not just shorter by the way, 'squarebrackets' is **faster**, as it does not rely on `lapply()` (or friends) to do this, but uses compiled 'C' code.
+It's not just shorter by the way, 'squarebrackets' is **faster**, as it does not rely on `lapply()` (or friends) to do this, but uses compiled 'C' code (partly from the 'collapse' package).
 
 
 &nbsp;
@@ -97,12 +96,7 @@ It's not just shorter by the way, 'squarebrackets' is **faster**, as it does not
 Inverting indices in base 'R' is done in different ways.
 (negative numbers for numeric indexing, negation for logical indexing, manually un-matching for character vectors).
 
-'squarebrackets' provides a (somewhat) consistent syntax to invert indices:
-
- - The methods whose names end with `_x` (like the `ii_x()` shown before) perform extraction;  
- to invert extraction, i.e. return the object **without** the specified subset, use  the methods whose names end with `_wo`.
- - In the modification methods (those whose names end with `_mod` or `_set`) one can set the argument `inv = TRUE` to invert indices.  
- 
+'squarebrackets' provides a (somewhat) consistent syntax to invert indices, namely through the `use` argument. Setting `use` to a negative value will invert the indices.
 
 As a consequence, removing sub-sets has the same syntax as extracting indices.
 
@@ -116,7 +110,7 @@ x["a"] # extract element "a" in base R
 x[!names(x) %in% "a"] # but removing has different syntax
 
 ii_x(x, "a") # extract element "a" with 'squarebrackets'
-ii_wo(x, "a") # remove element "a" with 'squarebrackets'; same syntax
+ii_x(x, "a", -1) # extract all elements except "a", with 'squarebrackets'
 
 ```
 
@@ -165,28 +159,27 @@ The methods provided by 'squarebrackets' do not use position-based arguments, an
 'squarebrackets' provides a set of methods that work on arrays of any number of dimensions:
 
  - `ss_x` to extract subsets
- - `ss_wo` to return object without the selected subset
  - `ss_mod` to return a copy with modified subsets
  - `ss_set` to modify an object by reference.
 
-These methods use the `s, d` argument pair is to specify indices for subset operations. This argument form requires no prior knowledge on the number of dimensions an object has.
+These methods use the `s, use` argument pair is to specify indices for subset operations. This argument form requires no prior knowledge on the number of dimensions an object has.
 
-`s` and `d` must be specified as follows:
+`s` and `use` must be specified as follows:
 
  - The `s` argument must be a list, specifying the subscripts (i.e. dimensional indices).
- - The `d` argument must be an integer vector, specifying the dimensions for which `s` holds.
- - If the subscripts are the same for all dimensions specified in `d`, `s` can also be given as an atomic vector, or as a list of length 1.
+ - The `use` argument must be an integer vector, specifying the dimensions for which `s` holds. Negative integers will invert indices (i.e. select all indices for that dimension EXCEPT the specified ones).
+ - If the subscripts are the same for all dimensions specified in `use`, `s` can also be given as an atomic vector, or as a list of length 1.
 
 To minimize keystrokes, 'squarebrackets' provides the `n()` function, which is short-hand for `list()`; `n()` **nests** multiple objects together, just like `c()` concatenates multiple objects together.
 
 I.e. :
 
- - To specify rows `1:10`, use `s = 1:10`, and `d = 1`.
- - To specify layers (the third dimension)  `4:9`, use `s = 4:9` and `d = 3`.
- - To specify rows `1:10` **and** columns `2:5`, use `s = n(1:10, 2:5)` and `d = 1:2`.
- - To specify both rows and columns `1:5`, one can use `s = 1:5` and `d = 1:2`.  
+ - To specify rows `1:10`, specify `s = 1:10`, and `use = 1`.
+ - To specify layers (the third dimension)  `4:9`, specify `s = 4:9` and `use = 3`.
+ - To specify rows `1:10` **and remove** columns `2:5`, specify `s = n(1:10, 2:5)` and `use = c(1, -2)`.
+ - To specify both rows and columns `1:5`, one can specify `s = 1:5` and `use = 1:2`.  
 
-The `d` argument has the default specification `1:ndim(x)`, where `ndim(x) = length(dim(x))`.  
+The `use` argument has the default specification `1:ndim(x)`, where `ndim(x) = length(dim(x))`.  
 
 &nbsp;
 
@@ -204,14 +197,14 @@ lst <- list(
 
 for(i in seq_along(lst)) {
   x <- lst[[i]]
-  ss_x(x, s = 1:2, d = 1:ndim(x))
-  ss_x(x, 1:2) # the same (by default, d = 1:ndim(x))
+  ss_x(x, s = 1:2, use = 1:ndim(x))
+  ss_x(x, 1:2) # the same (by default, use = 1:ndim(x))
 }
 
 
 ```
 
-The `s` and `d` argument are used to perform sub-setting. Since this is not a position-based system, like base 'R', it works for matrices and arrays of any arbitrary dimension.
+The `s` and `use` argument are used to perform sub-setting. Since this is not a position-based system, like base 'R', it works for matrices and arrays of any arbitrary dimension.
 
 
 &nbsp;
@@ -229,7 +222,7 @@ lst <- list(
 for(i in seq_along(lst)) {
   x <- lst[[i]]
   ss_x(x, n(1:3, 1:2), c(1, ndim(x)))
-  ss_x(x, s = n(1:3, 1:2), d = c(1, ndim(x))) # the same
+  ss_x(x, s = n(1:3, 1:2), use = c(1, ndim(x))) # the same
 }
 
 
@@ -270,7 +263,6 @@ Note that the syntax is different for each type of data.frame.
 'squarebrackets' provides a set of methods that work consistently on all manner of tabular (data.frames and matrix) types, with the exact same syntax:
 
  - `sbt_x` to extract subsets
- - `sbt_wo` to return object without the selected subset
  - `sbt_mod` to return a copy with modified subsets
  - `sbt_set` to modify an object by reference.
 
@@ -283,9 +275,9 @@ x <- data.frame(a = month.abb, b = 1:12)
 y <- tibble::tibble(a = month.abb, b = 1:12)
 z <- data.table::data.table(a = month.abb, b = 1:12)
 
-sbt_mod(x, ~ b > 10, "a", rp = "XXX")
-sbt_mod(y, ~ b > 10, "a", rp = "XXX")
-sbt_mod(z, ~ b > 10, "a", rp = "XXX")
+sbt_mod(x, with(x, b > 10), "a", rp = "XXX")
+sbt_mod(y, with(x, b > 10), "a", rp = "XXX")
+sbt_mod(z, with(x, b > 10), "a", rp = "XXX")
 
 
 ```
@@ -299,7 +291,7 @@ For data.tables specifically, the user can also use `sbt_set()`, to perform pass
 ```{r}
 
 z <- data.table::data.table(a = month.abb, b = 1:12)
-sbt_set(z, ~ b > 10, "a", rp = "XXX")
+sbt_set(z, with(z, b > 10), "a", rp = "XXX")
 print(z)
 
 ```

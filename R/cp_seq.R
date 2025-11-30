@@ -2,15 +2,15 @@
 #' 
 #' @description
 #' `cp_seq()` returns a list of parameters to construct a sequence based on the margins of an object. \cr
-#' It is internally used by the \link{idx_r} function and \link{slice} method. \cr \cr
+#' It is internally used by the \link{slice} method. \cr \cr
 #' 
 #' @param x the object for which to compute margin-based sequence parameters.
-#' @param m integer or complex, giving the margin(s). \cr
+#' @param m integer, giving the margin(s). \cr
 #' For non-dimensional objects or for flat indices, specify `m = 0L`.
-#' @param from integer or complex, of the same length as `m` or of length 1,
-#' specifying the from point.
-#' @param to integer or complex, of the same length as `m` or of length 1,
-#' specifying the \bold{maximally allowed} end value.
+#' @param from integer, of the same length as `m` or of length 1,
+#' specifying the from point. Negative numbers count from the end.
+#' @param to integer, of the same length as `m` or of length 1,
+#' specifying the \bold{maximally allowed} end value. Negative numbers count from the end.
 #' @param by integer, of the same length as `m` or of length 1,
 #' specifying the step size. \cr
 #'  
@@ -60,7 +60,7 @@
 #' But the sequence doesn't actually end at `10`; it ends at `9`. \cr
 #' Therefore, `cp_seq(x, m, 1, 10, 2)` will return `end = 9`, not `end = 10`. \cr
 #' This allows the user to easily predict where an sequence given in
-#' \link{idx_r}/\link{slice} will actually end. \cr
+#' \link{slice} will actually end. \cr
 #' \cr
 #' \bold{`$by`}: \cr
 #' This will give `by`, but with it's sign adjusted, if needed. \cr
@@ -71,16 +71,27 @@
 #' 
 #' 
 #' 
-#' @example inst/examples/idx_r.R
+#' @example inst/examples/slice.R
 #
 
 #' @rdname cp_seq
 #' @export
 cp_seq <- function(x, m = 0L, from = NULL, to = NULL, by = 1L) {
   
+  # unclass & unlist input if necessary:
+  m <- unclass(m)
+  from <- unclass(from)
+  to <- unclass(to)
+  by <- unclass(by)
+  if(is.list(m)) m <- m[[1L]]
+  if(is.list(from)) from <- from[[1L]]
+  if(is.list(to)) to <- to[[1L]]
+  if(is.list(by)) by <- by[[1L]]
+  
+  
   # convert m:
-  if(!is.numeric(m) && !is.complex(m)) {
-    stop("`m` must be (complex) numeric")
+  if(!is.numeric(m)) {
+    stop("`m` must be numeric")
   }
   dimsizes <- ifelse(is.null(dim(x)), length(x), dim(x))
   m <- .cp_seq.convert_margin(m, dimsizes, abortcall = sys.call())
@@ -113,18 +124,7 @@ cp_seq <- function(x, m = 0L, from = NULL, to = NULL, by = 1L) {
 #' @keywords internal
 #' @noRd
 .cp_seq.convert_margin <- function(x, dimsizes, abortcall) {
-  if(is.complex(x)) {
-    if(length(x) == 1L && Im(x) == 0) {
-      x <- 0
-    }
-    else {
-      x <- .C_convert_cplx(x, dimsizes)
-      if(.any_badmargin(x, dimsizes)) {
-        stop(simpleError("index out of bounds", call = abortcall))
-      }
-    }
-  }
-  else if(is.numeric(x)) {
+  if(is.numeric(x)) {
     if(.any_badmargin(x, dimsizes)) {
       stop(simpleError("index out of bounds", call = abortcall))
     }
@@ -188,9 +188,9 @@ cp_seq <- function(x, m = 0L, from = NULL, to = NULL, by = 1L) {
   
   arg.list <- list(m, from, to, by)
   cls <- collapse::vclasses(arg.list, use.names = FALSE)
-  if(any(!cls %in% c("numeric", "integer", "complex", "NULL"))) {
+  if(any(!cls %in% c("numeric", "integer", "list", "NULL"))) {
     stop(simpleError(
-      "`m`, `from`, `to` `by` must be (complex) numeric or `NULL`",
+      "`m`, `from`, `to` `by` must be numeric or `NULL`",
       call = abortcall
     ))
   }
@@ -280,17 +280,10 @@ cp_seq <- function(x, m = 0L, from = NULL, to = NULL, by = 1L) {
     stop(simpleError("index out of bounds", call = abortcall))
   }
   
-  if(is.complex(x)) {
-    x <- .C_convert_cplx(x, dimsizes)
-    if(any(x > dimsizes | x < 1L)) {
-      stop(simpleError("index out of bounds", call = abortcall))
-    }
+  if(any(x > dimsizes | x < 1L)) {
+    stop(simpleError("index out of bounds", call = abortcall))
   }
-  else if(is.numeric(x)) {
-    if(any(x > dimsizes | x < 1L)) {
-      stop(simpleError("index out of bounds", call = abortcall))
-    }
-  }
+  
   return(x)
 }
 

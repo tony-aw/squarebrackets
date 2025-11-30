@@ -11,7 +11,7 @@ obj1 <- obj2 <- data.frame(
   a = sample(c(TRUE, FALSE, NA), 10, TRUE), # logical
   b = 1:10, # integer
   c = seq(1.5, 10.5, by = 1), # double
-  d = sample(1.5:10.5) + sample(1.5:10.5) * 1i
+  d = sample(1.5:10.5) + sample(1.5:10.5)
 )
 obj2[1:5, "a"] <- 1:5
 expect_equal(
@@ -23,7 +23,7 @@ obj1 <- obj2 <- data.frame(
   a = sample(c(TRUE, FALSE, NA), 10, TRUE), # logical
   b = 1:10, # integer
   c = seq(1.5, 10.5, by = 1), # double
-  d = sample(1.5:10.5) + sample(1.5:10.5) * 1i
+  d = sample(1.5:10.5) + sample(1.5:10.5)
 )
 obj2[1:5, "b"] <- sqrt(1:5)
 expect_equal(
@@ -35,7 +35,7 @@ obj1 <- obj2 <- data.frame(
   a = sample(c(TRUE, FALSE, NA), 10, TRUE), # logical
   b = 1:10, # integer
   c = seq(1.5, 10.5, by = 1), # double
-  d = sample(1.5:10.5) + sample(1.5:10.5) * 1i
+  d = sample(1.5:10.5) + sample(1.5:10.5)
 )
 obj2[1:5, "c"] <- obj2$d[5:1]
 expect_equal(

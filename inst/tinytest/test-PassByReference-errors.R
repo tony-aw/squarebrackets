@@ -66,7 +66,7 @@ expect_error(
   pattern = "only objects that exist as variables can be modified by reference"
 )
 expect_error(
-  sbt_set(data.table::data.table(a = letters, b = 1:26), vars = 2, rp = -1),
+  sbt_set(data.table::data.table(a = letters, b = 1:26), col = 2, rp = -1),
   pattern = "only objects that exist as variables can be modified by reference"
 )
 
@@ -113,7 +113,7 @@ enumerate <- enumerate + 6L
 
 x <- data.table::data.table(a = 1:10, b = letters[1:10])
 x2 <- x
-sbt_set(x, vars = "b", rp = list(letters[11:20]))
+sbt_set(x, col = "b", rp = list(letters[11:20]))
 expect_equal(
   x,
   x2

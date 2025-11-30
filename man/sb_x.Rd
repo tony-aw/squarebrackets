@@ -8,36 +8,36 @@
 \alias{ss_x.default}
 \alias{sbt_x.default}
 \alias{sbt_x.data.frame}
-\title{Methods to Extract, Exchange, or Duplicate Subsets of an Object}
+\title{Methods to Extract, Exchange, Exclude, or Duplicate Subsets of an Object}
 \usage{
-ii_x(x, ...)
+ii_x(x, i = NULL, use = 1, ...)
 
-ss_x(x, ...)
+ss_x(x, s = NULL, use = 1:ndim(x), ...)
 
-sbt_x(x, ...)
+sbt_x(x, row = NULL, col = NULL, use = 1:2, ...)
 
-\method{ii_x}{default}(x, i = NULL, ...)
+\method{ii_x}{default}(x, i = NULL, use = 1, ...)
 
-\method{ss_x}{default}(x, s = NULL, d = 1:ndim(x), ...)
+\method{ss_x}{default}(x, s = NULL, use = 1:ndim(x), ...)
 
-\method{sbt_x}{default}(x, row = NULL, col = NULL, ...)
+\method{sbt_x}{default}(x, row = NULL, col = NULL, use = 1:2, ...)
 
-\method{sbt_x}{data.frame}(x, obs = NULL, vars = NULL, ...)
+\method{sbt_x}{data.frame}(x, row = NULL, col = NULL, use = 1:2, ...)
 }
 \arguments{
 \item{x}{see \link{squarebrackets_supported_structures}.}
 
-\item{...}{see \link{squarebrackets_method_dispatch}.}
-
-\item{i, s, d, row, col, obs, vars}{See \link{squarebrackets_indx_args}. \cr
+\item{i, use, s, row, col}{See \link{squarebrackets_indx_args}. \cr
 Duplicates are allowed, resulting in duplicated indices. \cr
 An empty index selection results in an empty object of length 0. \cr}
+
+\item{...}{see \link{squarebrackets_method_dispatch}.}
 }
 \value{
 Returns a copy of the sub-setted object.
 }
 \description{
-Methods to extract, exchange,
+Methods to extract, exchange, exclude,
 or duplicate (i.e. repeat x times) subsets of an object. \cr \cr
 }
 \examples{
@@ -48,16 +48,16 @@ or duplicate (i.e. repeat x times) subsets of an object. \cr \cr
 obj <- matrix(1:16, ncol = 4)
 colnames(obj) <- c("a", "b", "c", "a")
 print(obj)
-ss_x(obj, s = n(1:3), d = 1:ndim(obj))
+ss_x(obj, n(1:3), 1:ndim(obj))
 # above is equivalent to obj[1:3, 1:3, drop = FALSE]
 ii_x(obj, i = \(x) x > 5)
 # above is equivalent to obj[obj > 5]
-ss_x(obj, s = n(c("a", "a")), d = 2L)
+ss_x(obj, n(c("a", "a")), 2L)
 # above is equivalent to obj[, lapply(c("a", "a"), \(i) which(colnames(obj) == i)) |> unlist()]
 
 obj <- array(1:64, c(4,4,3))
 print(obj)
-ss_x(obj, s = n(1:3, 1:2), d = c(1,3))
+ss_x(obj, n(1:3, 1:2), c(1,3))
 # above is equivalent to obj[1:3, , 1:2, drop = FALSE]
 ii_x(obj, i = \(x)x > 5)
 # above is equivalent to obj[obj > 5]
@@ -84,16 +84,16 @@ obj <- rbind(
 )
 colnames(obj) <- c("a", "b", "c", "a")
 print(obj)
-ss_x(obj, s = n(1:3), d = 1:ndim(obj))
+ss_x(obj, n(1:3), 1:ndim(obj))
 # above is equivalent to obj[1:3, 1:3, drop = FALSE]
 ii_x(obj, i = is.numeric)
 # above is equivalent to obj[sapply(obj, is.numeric)]
-ss_x(obj, s = n(c("a", "a")), d = 2L)
+ss_x(obj, n(c("a", "a")), 2L)
 # above is equivalent to obj[, lapply(c("a", "a"), \(i) which(colnames(obj) == i)) |> unlist()]
 
 obj <- array(as.list(1:64), c(4,4,3))
 print(obj)
-ss_x(obj, s = n(1:3, 1:2), d = c(1,3))
+ss_x(obj, n(1:3, 1:2), c(1,3))
 # above is equivalent to obj[1:3, , 1:2, drop = FALSE]
 ii_x(obj, i = \(x)x > 5)
 # above is equivalent to obj[sapply(obj, \(x) x > 5)]
@@ -105,7 +105,7 @@ ii_x(obj, i = \(x)x > 5)
 obj <- data.frame(a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10]))
 print(obj)
 sbt_x(obj, 1:3, 1:3)
-sbt_x(obj, ~ (a > 5) & (c < 19), is.numeric)
+sbt_x(obj, idx_obs(obj, ~ (a > 5) & (c < 19)), is.numeric)
 
 
 }

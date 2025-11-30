@@ -9,7 +9,7 @@ x <- data.table::data.table(a = 1:10, b = letters[1:10])
 pattern <- "Use the `sbt_` methods for data.frames"
 
 meths <- list(
-  ii_x, ii_wo, ii_mod, ii_set, ss_x, ss_wo, ss_mod, ss_set
+  ii_x, ii_mod, ii_set, ss_x, ss_mod, ss_set
 )
 for(i in seq_along(meths)) {
   expect_error(
@@ -27,7 +27,7 @@ x <- as.mutatomic(1:10)
 pattern <- "Use the `ii_` methods for non-dimensional objects"
 
 meths <- list(
-  ss_x, ss_wo, ss_mod, ss_set, sbt_x, sbt_wo, sbt_mod, sbt_set
+  ss_x, ss_mod, ss_set, sbt_x, sbt_mod, sbt_set
 )
 for(i in seq_along(meths)) {
   expect_error(
@@ -45,7 +45,7 @@ x <- mutatomic(1:27, dim = c(3,3,3))
 pattern <- "Use the `ss_` methods for dimensional objects with ndim(x) != 2L"
 
 meths <- list(
-  sbt_x, sbt_wo, sbt_mod, sbt_set
+  sbt_x, sbt_mod, sbt_set
 )
 for(i in seq_along(meths)) {
   expect_error(

@@ -10,16 +10,16 @@
 \alias{sbt_mod.data.frame}
 \title{Method to Return a Copy of an Object With Modified Subsets}
 \usage{
-ii_mod(x, ...)
+ii_mod(x, i = NULL, use = 1, ..., rp, tf)
 
-ss_mod(x, ...)
+ss_mod(x, s = NULL, use = rdim(x), ..., rp, tf)
 
-sbt_mod(x, ...)
+sbt_mod(x, row = NULL, col = NULL, use = 1:2, ..., rp, tf)
 
 \method{ii_mod}{default}(
   x,
   i = NULL,
-  inv = FALSE,
+  use = 1,
   ...,
   rp,
   tf,
@@ -29,8 +29,7 @@ sbt_mod(x, ...)
 \method{ss_mod}{default}(
   x,
   s = NULL,
-  d = 1:ndim(x),
-  inv = FALSE,
+  use = rdim(x),
   ...,
   rp,
   tf,
@@ -41,7 +40,7 @@ sbt_mod(x, ...)
   x,
   row = NULL,
   col = NULL,
-  inv = FALSE,
+  use = 1:2,
   ...,
   rp,
   tf,
@@ -50,9 +49,9 @@ sbt_mod(x, ...)
 
 \method{sbt_mod}{data.frame}(
   x,
-  obs = NULL,
-  vars = NULL,
-  inv = FALSE,
+  row = NULL,
+  col = NULL,
+  use = 1:2,
   ...,
   rp,
   tf,
@@ -62,10 +61,10 @@ sbt_mod(x, ...)
 \arguments{
 \item{x}{see \link{squarebrackets_supported_structures}.}
 
-\item{...}{see \link{squarebrackets_method_dispatch}.}
-
-\item{i, s, d, row, col, obs, vars, inv}{See \link{squarebrackets_indx_args}. \cr
+\item{i, use, s, row, col}{See \link{squarebrackets_indx_args}. \cr
 An empty index selection returns the original object unchanged. \cr}
+
+\item{...}{see \link{squarebrackets_method_dispatch}.}
 
 \item{rp, tf}{see \link{squarebrackets_modify}.}
 
@@ -156,7 +155,7 @@ ii_mod(obj, i = \(x) x <= 5, rp = as.list(-1:-5))
 obj <- data.frame(a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10]))
 str(obj) # notice that columns "a" and "c" are INTEGER (`int`)
 sbt_mod(
-  obj, vars = is.numeric,
+  obj, col = is.numeric,
   tf = sqrt
 )
 
@@ -168,15 +167,15 @@ obj <- data.frame(a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:1
 str(obj) # notice that columns "a" and "c" are INTEGER (`int`)
 
 sbt_mod(
-  obj, ~ (a >= 2) & (c <= 17), is.numeric,
+  obj, idx_obs(obj, ~ (a > 2) & (c < 17)), is.numeric,
   tf = sqrt
 ) 
 sbt_mod(
-  obj, ~ (a >= 2) & (c <= 17), is.numeric,
+  obj, idx_obs(obj, ~ (a > 2) & (c < 17)), is.numeric,
   tf = sqrt
 ) 
 sbt_mod(
-  obj, ~ (a >= 2) & (c <= 17), is.numeric,
+  obj, idx_obs(obj, ~ (a > 2) & (c < 17)), is.numeric,
   tf = sqrt
 ) 
 

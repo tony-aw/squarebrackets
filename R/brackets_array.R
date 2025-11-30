@@ -46,15 +46,14 @@
 
 #' @keywords internal
 #' @noRd
-.arr_set_atomic <- function(x, s, d, chkdup, inv, rp, tf, abortcall) {
+.arr_set_atomic <- function(x, s, use, chkdup, rp, tf, abortcall) {
   
   # Prep:
   x.dim <- dim(x)
   ndim <- length(x.dim)
-  .ci_ss_check(x, s, d, ndim, .abortcall = abortcall)
   
   lst <- ci_ss(
-    x, s, d, inv, chkdup, .abortcall = abortcall
+    x, s, use, chkdup, .abortcall = abortcall
   ) # Note: ci_ss will already ensure the subs are integers.
   
   if(!missing(tf)) {

@@ -5,11 +5,11 @@ sys.source(file.path(getwd(), "source", "functions4testing.R"), envir = environm
 enumerate <- 0
 tempfun2 <- function(x, s, d, tf) {
   x <- data.table::copy(x)
-  ss_set.default(x, s, d, inv = TRUE, tf = tf)
+  ss_set.default(x, s, -d, tf = tf)
   return(x)
 }
 tempfun1 <- function(x, s, tf) {
-  ind <- idx.array(x, s, d, inv = TRUE)
+  ind <- ss_icom(x, s, -d)
   x[ind] <- tf(x[ind])
   return(x)
 }
@@ -53,7 +53,7 @@ for(iSample in 1:10) {
       
       x <- data.table::copy(x)
       x2 <- x
-      ss_set.default(x, s, d, inv = TRUE, tf = tf.funs[[iType]])
+      ss_set.default(x, s, -d, tf = tf.funs[[iType]])
       expect_equal(x,x2) |> errorfun() # test indexing & pass-by-reference
       
       enumerate <- enumerate + 2

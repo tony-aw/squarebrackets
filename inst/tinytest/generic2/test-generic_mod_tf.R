@@ -43,19 +43,11 @@ sys.source(file.path(getwd(), "source", "sourcetest-missingargs.R"), envir = env
 # test elements ====
 
 test_sb <- function(x, i) {
-  if(!is.list(x)) {
-    i <- indx_x(i, x, names(x), length(x))
-    if(length(i) == 0) return(x)
-    x[i] <- min(x[i])
-    return(x)
-  }
-  if(is.list(x)) {
-    i <- indx_x(i, x, names(x), length(x))
-    if(length(i) == 0) return(x)
-    if(length(i) != 1)  x[i] <- lapply(x[i], min)
-    if(length(i) == 1) x[[i]] <- min(x[[i]])
-    return(x)
-  }
+  i <- indx_x(i, x, names(x), length(x))
+  if(length(i) == 0) return(x)
+  if(length(i) != 1)  x[i] <- lapply(x[i], min)
+  if(length(i) == 1) x[[i]] <- min(x[[i]])
+  return(x)
 }
 
 temp.fun <- function(x, elements) {
@@ -69,18 +61,31 @@ temp.fun <- function(x, elements) {
 }
 
 
-indx_general <- list(
-  integer(0),
-  1, 1:2, 2:1,
-  c(rep(TRUE, 24), rep(FALSE, 24)),
-  rep(TRUE, 48), rep(FALSE, 48),
-  c(TRUE, rep(FALSE, 47)), c(FALSE, rep(TRUE, 47)),
-  function(x) x>5
-)
+sys.source(file.path(getwd(), "source", "sourcetest-elements.R"), envir = environment())
 
-indx_named <- c(indx_general, "ab")
+
+test_sb <- function(x, i) {
+  i <- indx_wo(i, x, names(x), length(x))
+  if(length(i) == 0) return(x)
+  if(length(i) != 1)  x[i] <- lapply(x[i], min)
+  if(length(i) == 1) x[[i]] <- min(x[[i]])
+  return(x)
+}
+
+temp.fun <- function(x, elements) {
+  for (i in 1:length(elements)) {
+    expect_equal(
+      ii_mod(x, elements[[i]], -1, tf = min),
+      test_sb(x, i = elements[[i]])
+    ) |> errorfun()
+    assign("enumerate", enumerate + 1, envir = parent.frame(n = 1))
+  }
+}
+
+
 
 sys.source(file.path(getwd(), "source", "sourcetest-elements.R"), envir = environment())
+
 
 
 
@@ -201,9 +206,9 @@ f_expect.data.frame <- function(x, row = NULL, col = NULL) {
   return(x)
 }
 
-f_out.data.frame <- function(x, obs = NULL, vars = NULL) {
+f_out.data.frame <- function(x, row = NULL, col = NULL) {
   
-  return(sbt_mod(x, obs, vars, tf = \(x)x[1]))
+  return(sbt_mod(x, row, col, tf = \(x)x[1]))
   
 }
 

@@ -9,7 +9,7 @@ expect_equal(
 # inverse ====
 indx <- sample(c(TRUE, FALSE), 10, TRUE)
 expect_equal(
-  tci_bool(indx, length(indx), inv = TRUE),
+  tci_bool(indx, length(indx), -1),
   which(!indx)
 )
 

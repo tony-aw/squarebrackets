@@ -5,7 +5,7 @@
 #' For modifying subsets using R's default copy-on-modification semantics, see \link{idx}. \cr \cr
 #'
 #' @param x see \link{squarebrackets_supported_structures}.
-#' @param i,s,d,row,col,obs,vars,inv See \link{squarebrackets_indx_args}. \cr
+#' @param i,use,s,row,col See \link{squarebrackets_indx_args}. \cr
 #' An empty index selection returns the original object unchanged. \cr
 #' @param ... see \link{squarebrackets_method_dispatch}.
 #' @param rp,tf see \link{squarebrackets_modify}.
@@ -30,9 +30,10 @@
 
 #' @rdname sb_mod
 #' @export
-ii_mod <- function(x, ...) {
+ii_mod <- function(x, i = NULL, use = 1, ..., rp, tf) {
   
-  .methodcheck.ii(x, sys.call())
+  .methodcheck.ii(x, i, use, sys.call())
+  .internal_check_rptf(rp, tf, sys.call())
   
   UseMethod("ii_mod", x)
 }
@@ -40,55 +41,62 @@ ii_mod <- function(x, ...) {
 
 #' @rdname sb_mod
 #' @export
-ss_mod <- function(x, ...) {
+ss_mod <- function(x, s = NULL, use = rdim(x), ..., rp, tf) {
   
-  .methodcheck.ss(x, sys.call())
+  .methodcheck.ss(x, s, use, sys.call())
+  .internal_check_rptf(rp, tf, sys.call())
+  
   UseMethod("ss_mod", x)
 }
 
 
 #' @rdname sb_mod
 #' @export
-sbt_mod <- function(x, ...) {
-  .methodcheck.sbt(x, sys.call())
+sbt_mod <- function(x, row = NULL, col = NULL, use = 1:2, ..., rp, tf) {
+  
+  .methodcheck.sbt(x, row, col, use, sys.call())
+  .internal_check_rptf(rp, tf, sys.call())
+  
   UseMethod("sbt_mod", x)
 }
+
+
 
 
 
 #' @rdname sb_mod
 #' @export
 ii_mod.default <- function(
-    x, i = NULL, inv = FALSE, ...,
+    x, i = NULL, use = 1, ...,
     rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
   .internal_check_dots(list(...), sys.call())
   
-  .internal_check_rptf(rp, tf, sys.call())
+  
   
   if(is.list(x) && !missing(tf)) {
     tf <- .funply(tf)
   }
   
-  if(is.null(i)) {
+  if(.C_is_missing_idx(i)) {
     return(.all_mod(x, rp, tf, sys.call()))
   }
   
-  return(.flat_mod(x, i, inv, rp, tf, chkdup, sys.call()))
+  return(.flat_mod(x, i, use, rp, tf, chkdup, sys.call()))
 }
 
 
 #' @rdname sb_mod
 #' @export
 ss_mod.default <- function(
-    x, s = NULL, d = 1:ndim(x), inv = FALSE, ...,
+    x, s = NULL, use = rdim(x), ...,
     rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
   # checks:
   .internal_check_dots(list(...), sys.call())
-  return(.sb_mod_array(x, s, d, inv, chkdup, rp, tf, sys.call()))
+  return(.sb_mod_array(x, s, use, chkdup, rp, tf, sys.call()))
 }
 
 
@@ -96,34 +104,40 @@ ss_mod.default <- function(
 #' @rdname sb_mod
 #' @export
 sbt_mod.default <- function(
-    x, row = NULL, col = NULL, inv = FALSE, ...,
+    x, row = NULL, col = NULL, use = 1:2, ...,
     rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
-  return(.sb_mod_array(x, n(row, col), 1:2, inv, chkdup, rp, tf, sys.call()))
+  use <- .internal_make_use_tabular(use, sys.call())
+  return(.sb_mod_array(x, n(row, col), use, chkdup, rp, tf, sys.call()))
 }
 
 
 #' @rdname sb_mod
 #' @export
 sbt_mod.data.frame <- function(
-    x, obs = NULL, vars = NULL, inv = FALSE, ...,
+    x, row = NULL, col = NULL, use = 1:2, ...,
     rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
   
   # checks:
   .internal_check_dots(list(...), sys.call())
-  .internal_check_rptf(rp, tf, sys.call())
+  
   
   # make arguments:
-  row <- col <- NULL
-  if(!.C_is_missing_idx(obs)) {
-    row <- ci_obs(
-      x, obs, inv, chkdup, TRUE, sys.call()
+  use <- .internal_make_use_tabular(use, sys.call())
+  if(!.C_is_missing_idx(row)) {
+    row <- ci_margin(
+      x, row, 1L, use[1], chkdup = FALSE, uniquely_named = TRUE, sys.call()
     )
   }
-  if(!.C_is_missing_idx(vars)) {
-    col <- ci_vars(
-      x, vars, inv, chkdup, TRUE, sys.call()
+  if(is.function(col)) {
+    col <- collapse::get_vars(x, col, return = "logical")
+    if(use[2] > 0) col <- which(col)
+    if(use[2] < 0) col <- collapse::whichv(col, FALSE)
+  }
+  else if(!.C_is_missing_idx(col)) {
+    col <- ci_margin(
+      x, col, 2L, use[2], chkdup = FALSE, uniquely_named =  TRUE, sys.call()
     )
   }
   
@@ -133,7 +147,7 @@ sbt_mod.data.frame <- function(
   }
   
   # prep col:
-  if(is.null(col)) {
+  if(.C_is_missing_idx(col)) {
     message("copying all columns")
     col <- as.integer(1:ncol(x))
   }
@@ -153,7 +167,7 @@ sbt_mod.data.frame <- function(
   }
   
   # modify:
-  if(is.null(row)) {
+  if(.C_is_missing_idx(row)) {
     return(.dt_mod_whole(x, col, rp, abortcall = sys.call()))
   }
   needcoe <- .dt_check_needcoe(x, col, rp)
@@ -170,34 +184,27 @@ sbt_mod.data.frame <- function(
 
 #' @keywords internal
 #' @noRd
-.sb_mod_array <- function(x, s, d, inv, chkdup, rp, tf, abortcall) {
+.sb_mod_array <- function(x, s, use, chkdup, rp, tf, abortcall) {
   
-  .internal_check_rptf(rp, tf, sys.call())
-  .check_args_array(x, s, d, sys.call())
+  
+  .check_args_array(x, s, use, sys.call())
   
   if(is.list(x) && !missing(tf)) {
     tf <- .funply(tf)
   }
   
   # all empty indices:
-  if(.all_missing_indices(list(s))) {
+  if(.all_missing_indices(s)) {
     return(.all_mod(x, rp, tf,sys.call()))
   }
   
   # zero-length subscripts:
-  if(length(d) == 0L || .C_is_missing_idx(d)) {
+  if(length(use) == 0L || .C_is_missing_idx(use)) {
     return(.all_mod(x, rp, tf, sys.call()))
   }
   
-  # 1d:
-  if(ndim(x) == 1L) {
-    i <- .flat_s2i(x, s, d)
-    return(.flat_mod(x, i, inv, rp, tf, chkdup, sys.call()))
-  }
-  
-  
   # s, d arguments:
-  lst <- ci_ss(x, s, d, inv, chkdup, .abortcall = sys.call())
+  lst <- ci_ss(x, s, use, chkdup, .abortcall = sys.call())
   
   if(!missing(rp)) {
     return(.arr_repl(x, lst, rp, abortcall = sys.call()))

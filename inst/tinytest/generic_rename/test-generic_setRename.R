@@ -67,7 +67,7 @@ expect_error(
 iList <- list(
   c(rep(TRUE, 10), rep(FALSE, 16)),
   1:10,
-  26:17 * -1i,
+  26:17,
   letters[1:10]
 )
 

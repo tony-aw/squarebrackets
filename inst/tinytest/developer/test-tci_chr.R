@@ -103,38 +103,38 @@ indx <- c("b", "c")
 nms <- letters
 expect <- c(1, 4:26)
 expect_equal(
-  tci_chr(indx, nms, inv = TRUE),
+  tci_chr(indx, nms, -1),
   expect
 )
 expect_equal(
-  tci_chr(indx, nms, inv = TRUE, uniquely_named = TRUE),
+  tci_chr(indx, nms, -1, uniquely_named = TRUE),
   expect
 )
 expect_equal(
-  tci_chr(indx, nms, inv = TRUE, chkdup = TRUE),
+  tci_chr(indx, nms, -1, chkdup = TRUE),
   expect
 )
 expect_equal(
-  tci_chr(indx, nms, inv = TRUE, chkdup = TRUE, uniquely_named = TRUE),
+  tci_chr(indx, nms, -1, chkdup = TRUE, uniquely_named = TRUE),
   expect
 )
 indx <- c("c", "b")
 nms <- letters
 expect <- c(1, 4:26)
 expect_equal(
-  tci_chr(indx, nms, inv = TRUE),
+  tci_chr(indx, nms, -1),
   expect
 )
 expect_equal(
-  tci_chr(indx, nms, inv = TRUE, uniquely_named = TRUE),
+  tci_chr(indx, nms, -1, uniquely_named = TRUE),
   expect
 )
 expect_equal(
-  tci_chr(indx, nms, inv = TRUE, chkdup = TRUE),
+  tci_chr(indx, nms, -1, chkdup = TRUE),
   expect
 )
 expect_equal(
-  tci_chr(indx, nms, inv = TRUE, chkdup = TRUE, uniquely_named = TRUE),
+  tci_chr(indx, nms, -1, chkdup = TRUE, uniquely_named = TRUE),
   expect
 )
 enumerate <- enumerate + 8
@@ -145,22 +145,22 @@ indx <- c("b", "c")
 nms <- c("b", letters)
 expect <- c(2, 5:27)
 expect_equal(
-  tci_chr(indx, nms, inv = TRUE),
+  tci_chr(indx, nms, -1),
   expect
 )
 expect_equal(
-  tci_chr(indx, nms, inv = TRUE, chkdup = TRUE),
+  tci_chr(indx, nms, -1, chkdup = TRUE),
   expect
 )
 indx <- c("c", "b")
 nms <- c("b", letters)
 expect <- c(2, 5:27)
 expect_equal(
-  tci_chr(indx, nms, inv = TRUE),
+  tci_chr(indx, nms, -1),
   expect
 )
 expect_equal(
-  tci_chr(indx, nms, inv = TRUE, chkdup = TRUE),
+  tci_chr(indx, nms, -1, chkdup = TRUE),
   expect
 )
 

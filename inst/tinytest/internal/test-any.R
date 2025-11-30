@@ -109,22 +109,3 @@ for(i in 2:8) {
 }
 
 
-
-# C_convert_cplx ====
-expect_equal(
-  squarebrackets:::.C_convert_cplx(20 * -1i, 20L),
-  1L
-)
-expect_equal(
-  squarebrackets:::.C_convert_cplx(1i, 20L),
-  1L
-)
-expect_equal(
-  squarebrackets:::.C_convert_cplx(20 * 1i, 20L),
-  20L
-)
-expect_equal(
-  squarebrackets:::.C_convert_cplx(-1i, 20L),
-  20L
-)
-enumerate <- enumerate + 4

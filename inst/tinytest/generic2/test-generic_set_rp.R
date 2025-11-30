@@ -47,10 +47,10 @@ f_expect.data.frame <- function(x, row = NULL, col = NULL) {
   return(x)
 }
 
-f_out.data.frame <- function(x, obs = NULL, vars = NULL) {
+f_out.data.frame <- function(x, row = NULL, col = NULL) {
   
   rp <- parent.frame()$rp
-  return(sbt_set2(x, obs, vars, rp = rp))
+  return(sbt_set2(x, row, col, rp = rp))
   
 }
 

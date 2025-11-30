@@ -36,7 +36,7 @@ for(i in seq_along(xlist)) {
     pattern = "incorrect index type"
   )
   expect_error(
-    sb_test(x, vars = list(1:10)),
+    sb_test(x, col = list(1:10)),
     pattern = "incorrect index type"
   )
   enumerate <- enumerate + 2L

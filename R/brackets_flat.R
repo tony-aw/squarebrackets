@@ -1,41 +1,18 @@
 
-#' @keywords internal
-#' @noRd
-.flat_s2i <- function(x, s, d, abortcall) {
-  .ci_ss_check(x, s, d, ndim(x), abortcall)
-  if(is.list(s)) {
-    s <- s[[1L]]
-  }
-  return(s)
-}
 
 #' @keywords internal
 #' @noRd
-.flat_x <- function(x, i, inv, red, chkdup, abortcall) {
-  elements <- ci_ii(x, i, inv, chkdup, FALSE, .abortcall = sys.call())
-  n.i <- length(elements)
-  if(n.i == 1 && red) {
-    return(x[[elements]])
-  }
+.flat_x <- function(x, i, use, chkdup, abortcall) {
+  elements <- ci_ii(x, i, use, chkdup, FALSE, .abortcall = abortcall)
   return(x[elements])
 }
 
-#' @keywords internal
-#' @noRd
-.flat_a1d_x <- function(x, i, inv, red, chkdup, abortcall) {
-  elements <- ci_ii(x, i, inv, chkdup, FALSE, .abortcall = sys.call())
-  n.i <- length(elements)
-  if(n.i == 1 && red) {
-    return(x[[elements]])
-  }
-  return(x[elements, drop = FALSE])
-}
 
 #' @keywords internal
 #' @noRd
-.flat_mod <- function(x, i, inv, rp, tf, chkdup, abortcall) {
+.flat_mod <- function(x, i, use, rp, tf, chkdup, abortcall) {
   elements <- ci_ii(
-    x, i, inv, chkdup, .abortcall = abortcall
+    x, i, use, chkdup, .abortcall = abortcall
   )
   n.i <- length(elements)
   if(n.i == 0) return(x)
@@ -55,11 +32,7 @@
 
 #' @keywords internal
 #' @noRd
-.flat_set_atomic <- function(x, i, inv, rp, tf, chkdup, abortcall) {
-  
-  elements <- ci_ii(
-    x, i, inv, chkdup, .abortcall = abortcall
-  )
+.flat_set_atomic <- function(x, elements, use, rp, tf, chkdup, abortcall) {
   
   .internal_check_rptf(rp, tf, abortcall)
   
