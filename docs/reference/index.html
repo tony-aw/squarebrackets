@@ -114,6 +114,12 @@
 
         </dt>
         <dd>Auto-Coercion Rules for Mutable Objects</dd>
+      </dl><dl><dt>
+
+          <code><a href="aaa11_squarebrackets_keywords.html">aaa11_squarebrackets_keywords</a></code> <code><a href="aaa11_squarebrackets_keywords.html">squarebrackets_keywords</a></code> <code><a href="aaa11_squarebrackets_keywords.html">keywords</a></code>
+
+        </dt>
+        <dd>Formula with Keywords</dd>
       </dl></div><div class="section level2">
       <h2 id="main-methods">Main Methods<a class="anchor" aria-label="anchor" href="#main-methods"></a></h2>
 
@@ -130,13 +136,7 @@
           <code><a href="sb_x.html">ii_x()</a></code> <code><a href="sb_x.html">ss_x()</a></code> <code><a href="sb_x.html">sbt_x()</a></code>
 
         </dt>
-        <dd>Methods to Extract, Exchange, or Duplicate Subsets of an Object</dd>
-      </dl><dl><dt>
-
-          <code><a href="sb_wo.html">ii_wo()</a></code> <code><a href="sb_wo.html">ss_wo()</a></code> <code><a href="sb_wo.html">sbt_wo()</a></code>
-
-        </dt>
-        <dd>Methods to Return Object Without Specified Subset</dd>
+        <dd>Methods to Extract, Exchange, Exclude, or Duplicate Subsets of an Object</dd>
       </dl><dl><dt>
 
           <code><a href="sb_mod.html">ii_mod()</a></code> <code><a href="sb_mod.html">ss_mod()</a></code> <code><a href="sb_mod.html">sbt_mod()</a></code>
@@ -151,7 +151,13 @@
         <dd>Methods to Modify Subsets of a Mutable Object By Reference</dd>
       </dl><dl><dt>
 
-          <code><a href="slice.html">slice_x()</a></code> <code><a href="slice.html">slice_wo()</a></code> <code><a href="slice.html">slice_set()</a></code>
+          <code><a href="sb_icom.html">ii_icom()</a></code> <code><a href="sb_icom.html">ss_icom()</a></code> <code><a href="sb_icom.html">sbt_icom()</a></code>
+
+        </dt>
+        <dd>Compute Indices for Copy-On-Modify Substitution</dd>
+      </dl><dl><dt>
+
+          <code><a href="slice.html">slice_x()</a></code> <code><a href="slice.html">slice_set()</a></code>
 
         </dt>
         <dd>Efficient Sequence-based Subset Methods on (Long) Vectors</dd>
@@ -173,12 +179,6 @@
 
 
       <dl><dt>
-
-          <code><a href="idx1.html">idx()</a></code>
-
-        </dt>
-        <dd>Convert/Translate Indices (for Copy-On-Modify Substitution)</dd>
-      </dl><dl><dt>
 
           <code><a href="lst_rec.html">lst_rec()</a></code> <code><a href="lst_rec.html">lst_recin()</a></code>
 
@@ -232,16 +232,10 @@
         <dd>Nest</dd>
       </dl><dl><dt>
 
-          <code><a href="size.html">s()</a></code>
+          <code><a href="size.html">ndim()</a></code> <code><a href="size.html">rdim()</a></code> <code><a href="size.html">s()</a></code>
 
         </dt>
-        <dd>Get the Size of an Object Along a Margin</dd>
-      </dl><dl><dt>
-
-          <code><a href="ndim.html">ndim()</a></code>
-
-        </dt>
-        <dd>Get Number of Dimensions</dd>
+        <dd>Get Size Properties of an Object</dd>
       </dl><dl><dt>
 
           <code><a href="ss2ii.html">ss2coord()</a></code> <code><a href="ss2ii.html">coord2ss()</a></code> <code><a href="ss2ii.html">coord2ii()</a></code> <code><a href="ss2ii.html">ii2coord()</a></code> <code><a href="ss2ii.html">ss2ii()</a></code>
@@ -256,12 +250,6 @@
         <dd>Match All, Order-Sensitive and Duplicates-Sensitive</dd>
       </dl><dl><dt>
 
-          <code><a href="idx_r.html">idx_r()</a></code>
-
-        </dt>
-        <dd>Compute Integer Index Range</dd>
-      </dl><dl><dt>
-
           <code><a href="idx_by.html">idx_by()</a></code>
 
         </dt>
@@ -274,10 +262,10 @@
         <dd>Helper Functions for Sub-Set Operations on Recursive Objects</dd>
       </dl><dl><dt>
 
-          <code><a href="developer_ci.html">ci_ii()</a></code> <code><a href="developer_ci.html">ci_margin()</a></code> <code><a href="developer_ci.html">ci_ss()</a></code> <code><a href="developer_ci.html">ci_df()</a></code> <code><a href="developer_ci.html">ci_obs()</a></code> <code><a href="developer_ci.html">ci_vars()</a></code>
+          <code><a href="is.formula.html">is.formula()</a></code>
 
         </dt>
-        <dd>Construct Indices</dd>
+        <dd>Check if an Object is a Formula</dd>
       </dl></div><div class="section level2">
       <h2 id="developer-functions">Developer Functions<a class="anchor" aria-label="anchor" href="#developer-functions"></a></h2>
 
@@ -297,10 +285,16 @@
         <dd>Developer Functions for the mutatomic Class</dd>
       </dl><dl><dt>
 
-          <code><a href="developer_tci.html">tci_bool()</a></code> <code><a href="developer_tci.html">tci_int()</a></code> <code><a href="developer_tci.html">tci_chr()</a></code> <code><a href="developer_tci.html">tci_im()</a></code>
+          <code><a href="developer_tci.html">tci_atomic()</a></code> <code><a href="developer_tci.html">tci_bool()</a></code> <code><a href="developer_tci.html">tci_int()</a></code> <code><a href="developer_tci.html">tci_chr()</a></code> <code><a href="developer_tci.html">tci_formula()</a></code>
 
         </dt>
         <dd>Type Cast Indices</dd>
+      </dl><dl><dt>
+
+          <code><a href="developer_ci.html">ci_ii()</a></code> <code><a href="developer_ci.html">ci_margin()</a></code> <code><a href="developer_ci.html">ci_ss()</a></code>
+
+        </dt>
+        <dd>Construct Indices</dd>
       </dl><dl><dt>
 
           <code><a href="exported_uilities.html">indx_x()</a></code> <code><a href="exported_uilities.html">indx_wo()</a></code> <code><a href="exported_uilities.html">.is.0()</a></code>

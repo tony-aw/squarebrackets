@@ -1,14 +1,6 @@
 
 
 
-#' @keywords internal
-#' @noRd
-.dt_check_needcoe <- function(x, col, rp) {
-  check <- .rcpp_dt_needcoe(x, col, rp)
-  return(check)
-}
-
-
 
 #' @keywords internal
 #' @noRd
@@ -44,17 +36,6 @@
 .dt_mod_whole <- function(x, col, rp, abortcall) {
   
   data.table::set(x, j = col, value = rp)
-  
-  return(x)
-}
-
-
-#' @keywords internal
-#' @noRd
-.dt_mod_partialset <- function(x, row, col, rp, abortcall) {
-  
-  row <- as.integer(row)
-  data.table::set(x, i = row, j = col, value = rp)
   
   return(x)
 }

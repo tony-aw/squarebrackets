@@ -159,7 +159,7 @@ obj <- data.table::data.table(
 str(obj) # notice that columns "a" and "c" are INTEGER (`int`)
 
 sbt_mod(
-  obj, idx_obs(obj, ~ (a >= 2) & (c <= 17)), is.numeric,
+  obj, with(obj,  (a >= 2) & (c <= 17)), is.numeric,
   tf = sqrt # SAFE: coercion performed
 )
 
@@ -169,7 +169,7 @@ obj <- data.table::data.table(
 )
 str(obj) # notice that columns "a" and "c" are INTEGER (`int`)
 sbt_set(
-  obj, idx_obs(obj, ~ (a >= 2) & (c <= 17)), is.numeric,
+  obj, with(obj,  (a >= 2) & (c <= 17)), is.numeric,
   tf = sqrt
   # WARNING: sqrt() results in `dbl`, but columns are `int`, so decimals lost
 )
@@ -183,7 +183,7 @@ sbt_set(obj, col = is.numeric, tf = as.numeric) # first coerce type by whole col
 str(obj)
 sbt_set(
   obj,
-  idx_obs(obj, ~ (a >= 2) & (c <= 17)), is.numeric,
+  with(obj,  (a >= 2) & (c <= 17)), is.numeric,
   tf = sqrt # SAFE: coercion performed by dt_setcoe(); so no warnings
 ) 
 print(obj)

@@ -210,7 +210,7 @@ expect_error(
 )
 expect_error(
   sb_test(x, n(1:3, 1:3, 1:3), 1:2),
-  pattern = "`length(s)` must equal `length(use)`",
+  pattern = "`length(s)` must be 1 or equal to `length(use)`",
   fixed = TRUE
 )
 expect_error(

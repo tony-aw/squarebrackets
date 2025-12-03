@@ -54,17 +54,17 @@ using
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ii_set</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ii_set</span><span class="op">(</span><span class="va">x</span>, i <span class="op">=</span> <span class="cn">NULL</span>, use <span class="op">=</span> <span class="fl">1</span>, <span class="va">...</span>, <span class="va">rp</span>, <span class="va">tf</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">ss_set</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">ss_set</span><span class="op">(</span><span class="va">x</span>, s <span class="op">=</span> <span class="cn">NULL</span>, use <span class="op">=</span> <span class="fu"><a href="size.html">rdim</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="va">...</span>, <span class="va">rp</span>, <span class="va">tf</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">sbt_set</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">sbt_set</span><span class="op">(</span><span class="va">x</span>, row <span class="op">=</span> <span class="cn">NULL</span>, col <span class="op">=</span> <span class="cn">NULL</span>, use <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="va">...</span>, <span class="va">rp</span>, <span class="va">tf</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Default S3 method</span></span>
 <span><span class="fu">ii_set</span><span class="op">(</span></span>
 <span>  <span class="va">x</span>,</span>
 <span>  i <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  inv <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  use <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  <span class="va">...</span>,</span>
 <span>  <span class="va">rp</span>,</span>
 <span>  <span class="va">tf</span>,</span>
@@ -75,8 +75,7 @@ using
 <span><span class="fu">ss_set</span><span class="op">(</span></span>
 <span>  <span class="va">x</span>,</span>
 <span>  s <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  d <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="ndim.html">ndim</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span>
-<span>  inv <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  use <span class="op">=</span> <span class="fu"><a href="size.html">rdim</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span>
 <span>  <span class="va">...</span>,</span>
 <span>  <span class="va">rp</span>,</span>
 <span>  <span class="va">tf</span>,</span>
@@ -88,7 +87,7 @@ using
 <span>  <span class="va">x</span>,</span>
 <span>  row <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  col <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  inv <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  use <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
 <span>  <span class="va">...</span>,</span>
 <span>  <span class="va">rp</span>,</span>
 <span>  <span class="va">tf</span>,</span>
@@ -98,9 +97,9 @@ using
 <span><span class="co"># S3 method for class 'data.table'</span></span>
 <span><span class="fu">sbt_set</span><span class="op">(</span></span>
 <span>  <span class="va">x</span>,</span>
-<span>  obs <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  vars <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  inv <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  row <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  col <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  use <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
 <span>  <span class="va">...</span>,</span>
 <span>  <span class="va">rp</span>,</span>
 <span>  <span class="va">tf</span>,</span>
@@ -117,13 +116,13 @@ using
 <a href="aaa03_squarebrackets_supported_structures.html">supported mutable classes</a>. <br></p></dd>
 
 
-<dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>see <a href="aaa07_squarebrackets_method_dispatch.html">squarebrackets_method_dispatch</a>.</p></dd>
-
-
-<dt id="arg-i-s-d-row-col-obs-vars-inv">i, s, d, row, col, obs, vars, inv<a class="anchor" aria-label="anchor" href="#arg-i-s-d-row-col-obs-vars-inv"></a></dt>
+<dt id="arg-i-use-s-row-col">i, use, s, row, col<a class="anchor" aria-label="anchor" href="#arg-i-use-s-row-col"></a></dt>
 <dd><p>See <a href="aaa04_squarebrackets_indx_args.html">squarebrackets_indx_args</a>. <br>
 An empty index selection leaves the original object unchanged. <br></p></dd>
+
+
+<dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
+<dd><p>see <a href="aaa07_squarebrackets_method_dispatch.html">squarebrackets_method_dispatch</a>.</p></dd>
 
 
 <dt id="arg-rp-tf">rp, tf<a class="anchor" aria-label="anchor" href="#arg-rp-tf"></a></dt>
@@ -170,7 +169,7 @@ One cannot specify both <code>tf</code> and <code>rp</code>. It's either one set
 <span class="r-out co"><span class="r-pr">#&gt;</span> mutatomic </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  integer </span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">ss_set</span><span class="op">(</span><span class="va">obj</span>, <span class="fu"><a href="nest.html">n</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span>, <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="ndim.html">ndim</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span>, rp <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">:</span><span class="op">-</span><span class="fl">9</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">ss_set</span><span class="op">(</span><span class="va">obj</span>, <span class="fu"><a href="nest.html">n</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span>, <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="size.html">ndim</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span>, rp <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">:</span><span class="op">-</span><span class="fl">9</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">obj2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       a  b  c  a</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -1 -4 -7 13</span>
@@ -233,7 +232,7 @@ One cannot specify both <code>tf</code> and <code>rp</code>. It's either one set
 <span class="r-out co"><span class="r-pr">#&gt;</span> mutatomic </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  integer </span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">ss_set</span><span class="op">(</span><span class="va">obj</span>, <span class="fu"><a href="nest.html">n</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span>, <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="ndim.html">ndim</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span>, tf <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">-</span><span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">ss_set</span><span class="op">(</span><span class="va">obj</span>, <span class="fu"><a href="nest.html">n</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span>, <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="size.html">ndim</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span>, tf <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">-</span><span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">obj2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       a  b   c  a</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -1 -5  -9 13</span>
@@ -423,7 +422,7 @@ One cannot specify both <code>tf</code> and <code>rp</code>. It's either one set
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ d: Factor w/ 10 levels "a","b","c","d",..: 1 2 3 4 5 6 7 8 9 10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, ".internal.selfref")=&lt;externalptr&gt; </span>
 <span class="r-in"><span><span class="fu">sbt_set</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="va">obj</span>, <span class="op">~</span> <span class="op">(</span><span class="va">a</span> <span class="op">&gt;=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">(</span><span class="va">c</span> <span class="op">&lt;=</span> <span class="fl">17</span><span class="op">)</span>, <span class="va">is.numeric</span>,</span></span>
+<span class="r-in"><span>  <span class="va">obj</span>, <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">obj</span>,  <span class="op">(</span><span class="va">a</span> <span class="op">&gt;=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">(</span><span class="va">c</span> <span class="op">&lt;=</span> <span class="fl">17</span><span class="op">)</span><span class="op">)</span>, <span class="va">is.numeric</span>,</span></span>
 <span class="r-in"><span>  tf <span class="op">=</span> <span class="va">sqrt</span> <span class="co"># WARNING: sqrt() results in `dbl`, but columns are `int`, so decimals lost</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>1.414214 (type 'double') at RHS position 1 out-of-range(NA) or truncated (precision lost) when assigning to type 'integer' (column 1 named 'a')</span>
@@ -443,7 +442,7 @@ One cannot specify both <code>tf</code> and <code>rp</code>. It's either one set
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10:    10      j    20      j</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">obj</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://rdatatable.gitlab.io/data.table/reference/data.table.html" class="external-link">data.table</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, b <span class="op">=</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>, c <span class="op">=</span> <span class="fl">11</span><span class="op">:</span><span class="fl">20</span>, d <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">sbt_set</span><span class="op">(</span><span class="va">obj</span>, vars <span class="op">=</span> <span class="va">is.numeric</span>, tf <span class="op">=</span> <span class="va">as.numeric</span><span class="op">)</span> <span class="co"># first coerce type by whole columns</span></span></span>
+<span class="r-in"><span><span class="fu">sbt_set</span><span class="op">(</span><span class="va">obj</span>, col <span class="op">=</span> <span class="va">is.numeric</span>, tf <span class="op">=</span> <span class="va">as.numeric</span><span class="op">)</span> <span class="co"># first coerce type by whole columns</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Classes 'data.table' and 'data.frame':	10 obs. of  4 variables:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ a: num  1 2 3 4 5 6 7 8 9 10</span>
@@ -451,7 +450,7 @@ One cannot specify both <code>tf</code> and <code>rp</code>. It's either one set
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ c: num  11 12 13 14 15 16 17 18 19 20</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ d: Factor w/ 10 levels "a","b","c","d",..: 1 2 3 4 5 6 7 8 9 10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, ".internal.selfref")=&lt;externalptr&gt; </span>
-<span class="r-in"><span><span class="fu">sbt_set</span><span class="op">(</span><span class="va">obj</span>, <span class="op">~</span> <span class="op">(</span><span class="va">a</span> <span class="op">&gt;=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">(</span><span class="va">c</span> <span class="op">&lt;=</span> <span class="fl">17</span><span class="op">)</span>, <span class="va">is.numeric</span>,</span></span>
+<span class="r-in"><span><span class="fu">sbt_set</span><span class="op">(</span><span class="va">obj</span>, <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">obj</span>,  <span class="op">(</span><span class="va">a</span> <span class="op">&gt;=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">(</span><span class="va">c</span> <span class="op">&lt;=</span> <span class="fl">17</span><span class="op">)</span><span class="op">)</span>, <span class="va">is.numeric</span>,</span></span>
 <span class="r-in"><span>  tf <span class="op">=</span> <span class="va">sqrt</span> <span class="co"># SAFE: coercion performed by column first</span></span></span>
 <span class="r-in"><span><span class="op">)</span> </span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span></span></span>
@@ -476,10 +475,9 @@ One cannot specify both <code>tf</code> and <code>rp</code>. It's either one set
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ c: int  11 12 13 14 15 16 17 18 19 20</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ d: Factor w/ 10 levels "a","b","c","d",..: 1 2 3 4 5 6 7 8 9 10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, ".internal.selfref")=&lt;externalptr&gt; </span>
-<span class="r-in"><span><span class="fu">sbt_set</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="va">obj</span>,</span></span>
-<span class="r-in"><span>  vars <span class="op">=</span> <span class="va">is.numeric</span>,</span></span>
-<span class="r-in"><span>  tf <span class="op">=</span> <span class="va">sqrt</span> <span class="co"># SAFE: obs = NULL, so coercion performed</span></span></span>
+<span class="r-in"><span><span class="fu">sbt_set</span><span class="op">(</span><span class="va">obj</span>,</span></span>
+<span class="r-in"><span>        col <span class="op">=</span> <span class="va">is.numeric</span>,</span></span>
+<span class="r-in"><span>        tf <span class="op">=</span> <span class="va">sqrt</span> <span class="co"># SAFE: obs = NULL, so coercion performed</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Classes 'data.table' and 'data.frame':	10 obs. of  4 variables:</span>

@@ -177,7 +177,8 @@
 #' @section Inverting: 
 #' `countv()` and `slicev_set()` do not have an "invert" argument,
 #' and likewise there is no `slicev_wo()` function. \cr
-#' One can only invert the sub-set condition, by specifying \code{r = FALSE}. \cr
+#' Inverting the sub-set operation comes down to inverting the sub-set condion,
+#' which is done by specifying \code{r = FALSE}. \cr
 #' \cr
 #' \cr
 #' 

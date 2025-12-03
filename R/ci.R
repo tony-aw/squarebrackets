@@ -133,7 +133,7 @@ ci_ss <- function(
   use <- sign(use)
   
   if(.all_missing_indices(s)) {
-    lst <- lapply(dim(x), \(n)1:n) # ALTREP sequences
+    lst <- lapply(dim(x), \(n)seq_len(n)) # ALTREP sequences
     return(lst)
   }
   
@@ -154,7 +154,7 @@ ci_ss <- function(
     return(.ci_ss.atomic(x, s, d, use, chkdup, uniquely_named, .abortcall))
   }
   else if(length(s) == 1L) {
-    return(.ci_ss1(x, s, d, use, chkdup, uniquely_named, .abortcall))
+    return(.ci_ss.atomic(x, s[[1L]], d, use, chkdup, uniquely_named, .abortcall))
   }
   else {
     return(.ci_ss0(x, s, d, use, chkdup, uniquely_named, .abortcall))

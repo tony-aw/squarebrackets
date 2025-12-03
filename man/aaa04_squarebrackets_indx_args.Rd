@@ -99,9 +99,8 @@ Specifically, the \code{use} argument can be any of the following:
 
 \code{use} is not allowed to have any duplicate values,
 nor is it allowed to include zero (\code{0})\code{.} \cr
-The default value for \code{use} is \bold{lazy evaluated} \code{1:}\link{ndim}\code{(x)}.
+The default value for \code{use} is \bold{lazy evaluated} \code{1:}\link{ndim}\code{(x)}. \cr
 
-\cr
 \code{s} must be an atomic vector, a list of length 1, or a list of the same length as \code{use}. \cr
 If \code{s} is a list of length 1,
 it is internally recycled to become the same length as \code{use}. \cr

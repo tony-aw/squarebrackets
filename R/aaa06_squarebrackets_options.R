@@ -34,7 +34,7 @@
 #' @section Sticky:
 #' `r .mybadge_option("argument", "sticky")` \cr
 #' `r .mybadge_option("option", "sticky")` \cr
-#' The \link{slice_x}, \link{slice_wo}, and \link{slicev_x} methods
+#' The \link{slice_x},  and \link{slicev_x} methods
 #' can already handle names
 #' (through the `use.names` argument),
 #' attributes specific to the \link{mutatomic} class,
@@ -45,12 +45,12 @@
 #' and not specific to the \link{factor} class - 
 #' henceforth referred to as "other attributes" -
 #' are treated differently. \cr
-#' How the \link{slice_x}, \link{slice_wo}, and \link{slicev_x} methods
+#' How the \link{slice_x},  and \link{slicev_x} methods
 #' handle these "other" attributes,
 #' is determined by the `sticky` option and argument. \cr
 #' \cr
 #' When `sticky = FALSE`,
-#' the \link{slice_x}, \link{slice_wo}, and \link{slicev_x} methods
+#' the \link{slice_x},  and \link{slicev_x} methods
 #' will drop all \bold{other} attributes. \cr
 #' \cr
 #' By setting `sticky = TRUE`,
@@ -60,7 +60,7 @@
 #' (i.e. classes that use attributes that do not change when sub-setting),
 #' are automatically supported if `sticky = TRUE`,
 #' and no separate methods have to written for
-#' the \link{slice_x}, \link{slice_wo}, and \link{slicev_x} methods. \cr
+#' the \link{slice_x},  and \link{slicev_x} methods. \cr
 #' Attributes specific to classes like
 #' `difftime`, `Date`, `POSIXct`, `roman`, `hexmode`, `octmode`,
 #' and more,
@@ -87,22 +87,22 @@
 #' `sticky = FALSE` for other classes. \cr
 #' \cr
 #' The reason
-#' the \link{slice_x}, \link{slice_wo}, and \link{slicev_x} methods
+#' the \link{slice_x} and \link{slicev_x} methods
 #' need the `sticky` option,
 #' is because of the following. \cr
 #' Unlike the `ii_`, `ii_`, `ss_`, and `ss_` methods,
-#' the \link{slice_x}, \link{slice_wo}, and \link{slicev_x} methods
+#' the \link{slice_x},  and \link{slicev_x} methods
 #' are not wrappers around the `[` and `[<-` operators. \cr
 #' Therefore,
 #' most `[` - S3 methods for highly specialized classes are not readily available for 
-#' the \link{slice_x}, \link{slice_wo}, and \link{slicev_x} methods. \cr
+#' the \link{slice_x},  and \link{slicev_x} methods. \cr
 #' Which in turn means important class-specific attributes are not automatically preserved. \cr
 #' The `sticky` option is a convenient way to support a large number of classes,
 #' without having to write specific methods for them. \cr
 #' \cr
 #' For specialized classes that use attributes that \bold{do} change when sub-setting,
 #' separate dispatches for
-#' the \link{slice_x}, \link{slice_wo}, and \link{slicev_x} methods
+#' the \link{slice_x},  and \link{slicev_x} methods
 #' need to be written. \cr
 #' Package authors are welcome to create method dispatches for their own classes for these methods. \cr
 #' \cr

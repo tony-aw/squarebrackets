@@ -23,12 +23,12 @@ slicetest <- function(x, from = NULL, to = NULL, by = 1L, tf) {
   
   rp <- parent.frame()$rp
   
-  slice_set(x, from, to, by, inv = TRUE, rp = rp)
+  slice_set(x, from, to, by, use = -1, rp = rp)
   if(!identical(x, x2)) { stop("PassByReference fail")}
   return(x)
 }
 
-subset_fun <- slice_wo
+subset_fun <- \(...) slice_x(..., use = -1)
 
 sys.source(file.path(getwd(), "source", "sourcetest-elements_rp.R"), envir = environment())
 

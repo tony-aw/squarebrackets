@@ -80,10 +80,10 @@ Regarding which kind of object supports which kind of indexing form:</p><ul><li>
 <li><p>Data.frames only support tabular indices. <br><br></p></li>
 </ul><p>Regarding which set of <a href="aaa01_squarebrackets_methods.html">methods</a> support which kind of indexing form:</p><ul><li><p>One can operate on flat/interior indices (often simply referred to as "indices")
 using the <a href="aaa01_squarebrackets_methods.html">ii_</a> methods; <br>
-These primarily use the <a href="aaa04_squarebrackets_indx_args.html">i</a> argument.</p></li>
+These primarily use the <a href="aaa04_squarebrackets_indx_args.html">i, use</a> argument pair.</p></li>
 <li><p>One can operate on general subscripts (= dimensional indices)
 using the <a href="aaa01_squarebrackets_methods.html">ss_</a> methods; <br>
-These primarily use the the <a href="aaa04_squarebrackets_indx_args.html">s, d</a> argument pair.</p></li>
+These primarily use the the <a href="aaa04_squarebrackets_indx_args.html">s, use</a> argument pair.</p></li>
 <li><p>One can operate on tabular indices
 using the  <a href="aaa01_squarebrackets_methods.html">sbt_</a> methods; <br>
 These primarily use the the
@@ -127,41 +127,7 @@ base 'R' only selects the first matches in the names. <br>
 <span><span class="co">#&gt; a a a a a a</span></span>
 <span><span class="co">#&gt; 1 5 6 1 5 6</span></span></code></pre><p></p></div>
 <p>Character indices are internally translated to integer indices using
-<a href="match_all.html">match_all</a>. <br><br><br><b>Imaginary Numbers (For advanced users)</b> <br>
-A <a href="https://rdrr.io/r/base/complex.html" class="external-link">complex</a> vector <code>y</code> is structured as <br><code>y = a + b * i</code> <br>
-where <code>Re(y)</code> returns the real numbers <code>a</code>, and <code>Im(y)</code> returns the imaginary numbers <code>b</code>. <br>
-'squarebrackets' includes support for indexing through <b>imaginary numbers</b> (<code>Im(y)</code>). <br>
-Indexing with imaginary numbers is a generalization of indexing with regular integers. <br><br>
-It works as follows: <br>
-Imaginary numbers that are positive integers,
-like <code>1:10 * 1i</code>, work the same as regular integers. <br>
-Imaginary numbers that are negative integers,
-like <code>1:10 * -1i</code>,
-index by counting backwards (i.e. from the end). <br>
-Positive and negative numbers can be combined,
-like <code>c(-10:-1, 1:10) * 1i</code>. <br>
-Note that <b>only</b> the <code>Imaginary</code> part of a complex vector is used (<code>Im(y)</code>); <br>
-the <code>Real</code> part (<code>Re(y)</code>) is <b>ignored</b>. <br><br>
-See the results of the following code as an example:</p>
-<p></p><div class="sourceCode r"><pre><code><span></span>
-<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">30</span> <span class="co"># vector of 30 elements</span></span>
-<span></span>
-<span><span class="fu"><a href="../reference/sb_x.html">ii_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">10</span> <span class="op">*</span> <span class="fl">1i</span><span class="op">)</span> <span class="co"># extract first 10 elements</span></span>
-<span><span class="co">#&gt;  [1]  1  2  3  4  5  6  7  8  9 10</span></span>
-<span></span>
-<span><span class="fu"><a href="../reference/sb_x.html">ii_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">10</span> <span class="op">*</span> <span class="op">-</span><span class="fl">1i</span><span class="op">)</span> <span class="co"># extract last 10 elements</span></span>
-<span><span class="co">#&gt;  [1] 30 29 28 27 26 25 24 23 22 21</span></span>
-<span></span>
-<span><span class="fu"><a href="../reference/sb_x.html">ii_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">10</span><span class="op">:</span><span class="fl">1</span> <span class="op">*</span> <span class="op">-</span><span class="fl">1i</span><span class="op">)</span> <span class="co"># last 10 elements, in tail()-like order</span></span>
-<span><span class="co">#&gt;  [1] 21 22 23 24 25 26 27 28 29 30</span></span>
-<span></span>
-<span><span class="fu"><a href="../reference/sb_x.html">ii_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span> <span class="op">*</span> <span class="fl">1i</span><span class="op">)</span> <span class="co"># extract first and last element</span></span>
-<span><span class="co">#&gt; [1]  1 30</span></span></code></pre><p></p></div>
-<p>Thus complex vectors allow the user to choose between counting from the beginning,
-like regular integers,
-or backwards counting from the end, or a combination of both. <br><br><br><b>Missing Index Argument</b> <br>
-Both <code>NULL</code> and the numeric scalar <code>0L</code> can be used to specify an missing index argument. <br>
-For example, given a matrix <code>x</code>, <code>ss_x(x, n(0, 1:10))</code> is equivalent to <code>x[ , 1:10]</code>. <br><br><br></p>
+<a href="match_all.html">match_all</a>. <br><br></p>
     </div>
     <div class="section level2">
     <h2 id="inverting">Inverting<a class="anchor" aria-label="anchor" href="#inverting"></a></h2>
@@ -174,13 +140,10 @@ Inverting those same indices will give <code>c("Jun" "Jul" "Aug" "Sep" "Oct" "No
 In base 'R', inverting an index is done in different ways. <br>
 (negative numbers for numeric indexing, negation for logical indexing,
 manually un-matching for character vectors). <br><br>
-'squarebrackets' provides a (somewhat) consistent syntax to invert indices: <br></p><ul><li><p>The methods that end with <code>_x</code> perform extraction; <br>
-to invert extraction,
-i.e. return the object <b>without</b> the specified subset,
-use the methods that end with <code>_wo</code>. <br></p></li>
-<li><p>In the modification methods (<code>_mod</code>/<code>_set</code>) one can set the argument
-<a href="aaa04_squarebrackets_indx_args.html">inv</a><code> = TRUE</code> to invert indices. <br><br></p></li>
-</ul><p><b>EXAMPLES</b></p>
+In 'squarebrackets', inverting is consistently done through the <code>use</code> argument: <br>
+A positive sign for <code>use</code> means to select the specified indices,
+a negative sign for <code>use</code> means to select all indices <strong>except</strong> the specified indices. <br><br></p>
+<p><b>EXAMPLES</b></p>
 <p></p><div class="sourceCode r"><pre><code><span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">month.abb</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
@@ -190,14 +153,14 @@ use the methods that end with <code>_wo</code>. <br></p></li>
 <span><span class="fu"><a href="../reference/sb_x.html">ii_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span> <span class="co"># extract first 5 elements</span></span>
 <span><span class="co">#&gt; [1] "Jan" "Feb" "Mar" "Apr" "May"</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/sb_wo.html">ii_wo</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span> <span class="co"># return WITHOUT first 5 elements</span></span>
+<span><span class="fu"><a href="../reference/sb_x.html">ii_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span> <span class="co"># return WITHOUT first 5 elements</span></span>
 <span><span class="co">#&gt; [1] "Jun" "Jul" "Aug" "Sep" "Oct" "Nov" "Dec"</span></span>
 <span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/sb_mod.html">ii_mod</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, rp <span class="op">=</span> <span class="st">"XXX"</span><span class="op">)</span> <span class="co"># copy, replace first 5 elements, return result</span></span>
 <span><span class="co">#&gt;  [1] "XXX" "XXX" "XXX" "XXX" "XXX" "Jun" "Jul" "Aug" "Sep" "Oct" "Nov" "Dec"</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/sb_mod.html">ii_mod</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, inv <span class="op">=</span> <span class="cn">T</span>, rp <span class="op">=</span> <span class="st">"XXX"</span><span class="op">)</span> <span class="co"># same, but for all except first 5 elements</span></span>
+<span><span class="fu"><a href="../reference/sb_mod.html">ii_mod</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="op">-</span><span class="fl">1</span>, rp <span class="op">=</span> <span class="st">"XXX"</span><span class="op">)</span> <span class="co"># same, but for all except first 5 elements</span></span>
 <span><span class="co">#&gt;  [1] "Jan" "Feb" "Mar" "Apr" "May" "XXX" "XXX" "XXX" "XXX" "XXX" "XXX" "XXX"</span></span></code></pre><p></p></div>
 <p><b>ABOUT ORDERING</b> <br>
 The order in which the user gives indices when inverting indices generally does not matter. <br>

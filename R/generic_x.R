@@ -126,6 +126,9 @@ sbt_x.data.frame <- function(x, row = NULL, col = NULL, use = 1:2, ...) {
 #' @noRd
 .sb_x_data.frame <- function(x, row, col, use, abortcall) {
  
+  if(length(x) == 0L) {
+    return(x)
+  }
   
   # all missing arguments:
   if(.all_missing_indices(list(row, col))) {

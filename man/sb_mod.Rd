@@ -76,7 +76,8 @@ A copy of the object with replaced/transformed values. \cr \cr
 }
 \description{
 Methods to return a copy of an object with modified subsets. \cr
-For modifying subsets using R's default copy-on-modification semantics, see \link{idx}. \cr \cr
+For modifying subsets using R's default copy-on-modification semantics,
+see the \verb{_icom} methods. \cr \cr
 }
 \details{
 \bold{Transform or Replace} \cr
@@ -167,15 +168,15 @@ obj <- data.frame(a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:1
 str(obj) # notice that columns "a" and "c" are INTEGER (`int`)
 
 sbt_mod(
-  obj, idx_obs(obj, ~ (a > 2) & (c < 17)), is.numeric,
+  obj, with(obj,  (a > 2) & (c < 17)), is.numeric,
   tf = sqrt
 ) 
 sbt_mod(
-  obj, idx_obs(obj, ~ (a > 2) & (c < 17)), is.numeric,
+  obj, with(obj,  (a > 2) & (c < 17)), is.numeric,
   tf = sqrt
 ) 
 sbt_mod(
-  obj, idx_obs(obj, ~ (a > 2) & (c < 17)), is.numeric,
+  obj, with(obj,  (a > 2) & (c < 17)), is.numeric,
   tf = sqrt
 ) 
 

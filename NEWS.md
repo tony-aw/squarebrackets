@@ -1,13 +1,13 @@
 
-# squarebrackets 0.0.0.9007 (UNDER DEVELOPMENT; NOT FULLY TESTED YET)
+# squarebrackets 0.0.0.9007
 * Completely overhauled the arguments regarding inverting indices in almost all methods.
-* Removed imaginary numbers as a form of indices in favour of the much more flexible formula form.
+* Removed imaginary numbers as a form of indices in favour of the **much** more flexible formula (`~...`) based indices.
 * Simplified the input for the `slicev_` methods.
 * Restructured the unit tests for the `slice_` and `slicev_` methods.
 * Replaced `idx` method with the `_icom` methods.
 * Removed `idx_r`.
 * Replaced the `obs, vars` arguments with the `row, col` arguments in the `sbt_` methods;
-In relation to this change, added the `idx_obs()` and `idx_vars()` functions.
+* Fixed a few relatively small bugs
 
 
 

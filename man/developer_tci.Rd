@@ -63,6 +63,12 @@ If set to \code{TRUE}, speed may increase. \cr
 But specifying \code{TRUE} when the relevant names are not unique will result in incorrect output.}
 
 \item{.abortcall}{environment where the error message is passed to.}
+
+\item{x}{the input variable}
+
+\item{m}{a number giving the margin; set to \code{0} for dimensionless vectors.}
+
+\item{form}{a formula; see \link{keywords}.}
 }
 \value{
 An integer vector of type-cast indices.

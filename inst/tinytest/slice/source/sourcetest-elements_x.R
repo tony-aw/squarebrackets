@@ -24,6 +24,12 @@ for(iF in seq_along(list_fromto)) {
       by = list_by[[iB]]
       expected[[counter]] <- basetest(x, from, to, by)
       out[[counter]] <- slicetest(x, from, to, by)
+      
+      # expect_equal(
+      #   expected[[counter]],
+      #   out[[counter]]
+      # ) |> errorfun()
+      
       counter <- counter + 1L
       enumerate <- enumerate + 1L
     }

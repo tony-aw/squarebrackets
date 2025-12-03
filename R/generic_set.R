@@ -80,12 +80,16 @@ ii_set.default <- function(
   .internal_check_dots(list(...), sys.call())
   .internal_check_rptf(rp, tf, sys.call())
   
+  if(length(x) == 0L) {
+    return(invisible(NULL))
+  }
+  
   if(is.list(x) && !missing(tf)) {
     tf <- .funply(tf)
   }
   
-  # function:
-  if(is.null(i)) {
+  # MAIN:
+  if(.C_is_missing_idx(i)) {
     .all_set_atomic(x, rp, tf, abortcall = sys.call())
     return(invisible(NULL))
   }
@@ -137,6 +141,9 @@ sbt_set.data.table <- function(
   .internal_check_rptf(rp, tf, sys.call())
   .check_bindingIsLocked(substitute(x), parent.frame(n = 1), abortcall = sys.call())
   
+  if(length(x) == 0L) {
+    return(invisible(NULL))
+  }
   
   # make arguments:
   use <- .internal_make_use_tabular(use, sys.call())
@@ -165,7 +172,7 @@ sbt_set.data.table <- function(
   
   # prep col:
   if(is.null(col)) {
-    col <- as.integer(1:ncol(x))
+    col <- seq_len(ncol(x))
   }
   
   # prep replacement just in case:

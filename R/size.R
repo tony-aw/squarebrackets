@@ -53,13 +53,13 @@ rdim <- function(x) {
 
 #' @rdname size
 #' @export
-s <- function(x, m = 0L, ...) {
-  UseMethod("s", m)
+s <- function(x, ...) {
+  UseMethod("s", x)
 }
 
 #' @rdname size
 #' @export
-s.default <- function(x, m, ...) {
+s.default <- function(x, m = if(is.null(dim(x))) 0L else dim(x), ...) {
   .internal_check_dots(list(...), sys.call())
   if(!is.numeric(m)) {
     stop("`m` must be an integer")

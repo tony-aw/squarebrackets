@@ -11,16 +11,16 @@ ndim(x)
 
 rdim(x)
 
-s(x, m = 0L, ...)
+s(x, ...)
 
-\method{s}{default}(x, m, ...)
+\method{s}{default}(x, m = if (is.null(dim(x))) 0L else dim(x), ...)
 }
 \arguments{
 \item{x}{a vector, array, or data.frame.}
 
-\item{m}{the margin.}
-
 \item{...}{further arguments passed to or from methods.}
+
+\item{m}{the margin.}
 }
 \value{
 For \code{ndim()}: \cr

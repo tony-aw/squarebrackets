@@ -109,7 +109,6 @@
 #' @example inst/examples/aaa_squarebrackets_coercion.R
 #' 
 #' 
-
 #' @rdname aaa10_squarebrackets_coercion
 #' @name aaa10_squarebrackets_coercion
 #' @aliases squarebrackets_coercion

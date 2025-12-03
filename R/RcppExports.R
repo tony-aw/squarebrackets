@@ -123,18 +123,6 @@
 
 #' @keywords internal
 #' @noRd
-.rcpp_dt_needcoe <- function(x, col, rp) {
-    .Call(`_squarebrackets_rcpp_dt_needcoe`, x, col, rp)
-}
-
-#' @keywords internal
-#' @noRd
-.rcpp_dt_find_name <- function(x, v, dir) {
-    .Call(`_squarebrackets_rcpp_dt_find_name`, x, v, dir)
-}
-
-#' @keywords internal
-#' @noRd
 .rcpp_serial <- function(x) {
     .Call(`_squarebrackets_rcpp_serial`, x)
 }

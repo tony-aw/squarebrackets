@@ -122,7 +122,7 @@ for(f in funlist) {
   ) |> errorfun()
   expect_error(
     f(x, n(1:3, 1:3, 1:3), 1:2),
-    pattern = "`length(s)` must equal `length(use)`",
+    pattern = "`length(s)` must be 1 or equal to `length(use)`",
     fixed = TRUE
   ) |> errorfun()
   expect_error(
@@ -187,7 +187,7 @@ for(f in funlist) {
   ) |> errorfun()
   expect_error(
     f(x, n(1:3, 1:3), 1),
-    pattern = "`length(s)` must equal `length(use)`",
+    pattern = "`length(s)` must be 1 or equal to `length(use)`",
     fixed = TRUE
   ) |> errorfun()
   expect_error(

@@ -15,6 +15,12 @@
   if(abs(use) > 1) {
     message(simpleMessage("only the sign of `use` will be used", call = abortcall))
   }
+  if(length(x) == 0) {
+    stop(simpleError(
+      "cannot operate on vector with zero length",
+      call = abortcall
+    ))
+  }
 }
 
 
@@ -40,6 +46,13 @@
   if(.C_is_missing_idx(use)) {
     stop(simpleError("`use` cannot be specified as `NULL` or `0L`", call = abortcall))
   }
+  if(.C_any_nonpos(dim(x))) {
+    stop(simpleError(
+      "cannot operate on array with all zero dimensions",
+      call = abortcall
+    ))
+  }
+  
 }
 
 
@@ -65,6 +78,12 @@
   
   if(!is.numeric(use) || anyNA(use)) {
     stop(simpleError("`use` must be a numeric vector without missing values", call = abortcall))
+  }
+  if(.C_any_nonpos(dim(x))) {
+    stop(simpleError(
+      "cannot operate on object with all zero dimensions",
+      call = abortcall
+    ))
   }
 }
 

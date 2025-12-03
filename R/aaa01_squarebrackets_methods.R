@@ -24,8 +24,8 @@
 #' 
 #'  - `_x`: extract, exchange, exclude, or duplicate (if applicable) subsets.
 #'  - `_mod`: modify subsets and return copy.
-#'  - `_set`: modify subsets using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr \cr
-#' 
+#'  - `_set`: modify subsets using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
+#'  - `icom`: create indices to be used in `[<-` to modify objects using the default Copy-On-Modify semantics. \cr \cr
 #' 
 #' To illustrate, let's take the methods used for extracting subsets
 #' (`_x`): 
@@ -45,11 +45,7 @@
 #' which deal with sub-set operations that are only relevant for (nested) lists,
 #' but not for the other types of supported objects. \cr
 #' \cr
-#' Second, there is \link{idx} method,
-#' which works on both recursive and non-recursive objects,
-#' and transforms/translates indices to be used in R's default copy-on-modify semantics. \cr
-#' \cr
-#' Finally, there are the `sb_` sets of methods,
+#' Second, there are the `sb_` sets of methods,
 #' which cover miscellaneous operations for atomic/recursive objects. \cr \cr
 #' 
 #' 

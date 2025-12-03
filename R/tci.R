@@ -4,6 +4,7 @@
 #' These functions typecast indices to proper integer indices. \cr
 #'
 #'
+#' @param x the input variable
 #' @param indx the indices to typecast
 #' @param nms the relevant names, when typecasting character indices. \cr
 #' Examples:
@@ -15,6 +16,8 @@
 #'  * If the target is flat indices, input the length for `n`.
 #' @param use 1 or -1, indicating how to use the indices. \cr
 #' See \link{squarebrackets_indx_args}.
+#' @param m a number giving the margin; set to `0` for dimensionless vectors.
+#' @param form a formula; see \link{keywords}.
 #' @param chkdup see \link{squarebrackets_options}. \cr
 #' `r .mybadge_performance_set2("FALSE")` \cr
 #' @param uniquely_named Boolean,
@@ -136,7 +139,7 @@ tci_formula <- function(x, m, form, .abortcall) {
     .M = m,
     .Nms = if(m == 0L) names(x) else dimnames(x)[[m]],
     .N = s(x, m),
-    .I = 1: s(x, m),
+    .I = seq_len(s(x, m)),
     .bi = \(...) .C_convert_bi(.internal_c_bilateral(...),  s(x, m)),
     .x = x
   )
@@ -146,13 +149,6 @@ tci_formula <- function(x, m, form, .abortcall) {
 
 tci_zerolen <- function(n, use = 1L) {
   if(use > 0L) return(integer(0L))
-  if(use < 0L){
-    if(n) {
-      return(1:n)
-    }
-    else {
-      return(integer(0L))
-    }
-  } 
+  if(use < 0L) return(seq_len(n))
 }
 

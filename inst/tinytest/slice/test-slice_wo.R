@@ -13,7 +13,9 @@ basetest <- function(x, from = NULL, to = NULL, by = 1L) {
   return(x[ind])
 }
 
-slicetest <- slice_wo
+slicetest <- function(...) {
+  slice_x(..., use = -1)
+}
 
 sys.source(file.path(getwd(), "source", "sourcetest-elements_x.R"), envir = environment())
 

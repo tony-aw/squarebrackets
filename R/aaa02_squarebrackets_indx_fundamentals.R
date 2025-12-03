@@ -215,6 +215,7 @@
 #' )
 #' 
 #' ```
+#' 
 #' Regular subsets, AKA surface-level subset operations (`[`, `[<-` in base 'R'),
 #' operate on the recursive object itself. \cr
 #' I.e. \link{ii_x}`(x, 1)`, or equivalently `x[1]`,
@@ -225,8 +226,6 @@
 #' ii_x(x, 1) # equivalent to x[1]; returns list(A = 1:10)
 #' 
 #' ```
-#' 
-#' 
 #' 
 #' Recursive subset operations (`[[`, `[[<-`, and `$` in base 'R'), on the other hand,
 #' operate on an object a subset of the recursive object references to. \cr

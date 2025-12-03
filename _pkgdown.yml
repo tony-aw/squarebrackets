@@ -29,17 +29,17 @@ reference:
   - '`aaa08_squarebrackets_slicev`'
   - '`aaa09_squarebrackets_PassByReference`'
   - '`aaa10_squarebrackets_coercion`'
+  - '`aaa11_squarebrackets_keywords`'
 - title: Main Methods
   contents:
   - '`ii_x`'
-  - '`ii_wo`'
   - '`ii_mod`'
   - '`ii_set`'
+  - '`ii_icom`'
   - '`slice_x`'
   - '`slicev_x`'
 - title: Other Methods
   contents:
-  - '`idx`'
   - '`lst_rec`'
   - '`sb_setRename`'
   - '`cp_seq`'
@@ -53,13 +53,13 @@ reference:
   - '`ndim`'
   - '`ss2ii`'
   - '`match_all`'
-  - '`idx_r`'
   - '`idx_by`'
   - '`dropl`'
-  - '`ci_ii`'
+  - '`is.formula`'
 - title: Developer Functions
   contents:
   - '`stopifnot_ma_safe2mutate`'
   - '`tci_chr`'
+  - '`ci_ii`'
   - '`indx_x`'
   

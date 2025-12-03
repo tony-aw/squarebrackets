@@ -2,7 +2,8 @@
 #'
 #' @description
 #' Methods to return a copy of an object with modified subsets. \cr
-#' For modifying subsets using R's default copy-on-modification semantics, see \link{idx}. \cr \cr
+#' For modifying subsets using R's default copy-on-modification semantics, 
+#' see the `_icom` methods. \cr \cr
 #'
 #' @param x see \link{squarebrackets_supported_structures}.
 #' @param i,use,s,row,col See \link{squarebrackets_indx_args}. \cr
@@ -122,6 +123,9 @@ sbt_mod.data.frame <- function(
   # checks:
   .internal_check_dots(list(...), sys.call())
   
+  if(length(x) == 0L) {
+    return(x)
+  }
   
   # make arguments:
   use <- .internal_make_use_tabular(use, sys.call())
@@ -149,11 +153,11 @@ sbt_mod.data.frame <- function(
   # prep col:
   if(.C_is_missing_idx(col)) {
     message("copying all columns")
-    col <- as.integer(1:ncol(x))
+    col <- seq_len(ncol(x))
   }
   
   # copy specified columns, but not the rest of the data.frame:
-  x <- collapse::ftransformv(x, vars = col, FUN = data.table::copy, apply = TRUE)
+  x <- collapse::ftransformv(x, col, data.table::copy, apply = TRUE)
   
   # prep replacement just in case:
   if(!missing(rp)) {
@@ -170,12 +174,8 @@ sbt_mod.data.frame <- function(
   if(.C_is_missing_idx(row)) {
     return(.dt_mod_whole(x, col, rp, abortcall = sys.call()))
   }
-  needcoe <- .dt_check_needcoe(x, col, rp)
-  if(needcoe) {
+  else{
     return(.dt_mod_partialcoe(x, row, col, rp, sys.call()))
-  }
-  else {
-    return(.dt_mod_partialset(x, row, col, rp, sys.call()))
   }
   
 }

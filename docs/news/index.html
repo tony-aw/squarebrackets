@@ -40,8 +40,14 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9007" id="squarebrackets-0009007">squarebrackets 0.0.0.9007<a class="anchor" aria-label="anchor" href="#squarebrackets-0009007"></a></h2>
-<ul><li>Simplified the input for <code><a href="../reference/slicev.html">slicev()</a></code>.</li>
-<li>Restructured the unit tests for the <code><a href="../reference/slice.html">slice()</a></code> and <code><a href="../reference/slicev.html">slicev()</a></code> methods.</li>
+<ul><li>Completely overhauled the arguments regarding inverting indices in almost all methods.</li>
+<li>Removed imaginary numbers as a form of indices in favour of the <strong>much</strong> more flexible formula (<code>~...</code>) based indices.</li>
+<li>Simplified the input for the <code>slicev_</code> methods.</li>
+<li>Restructured the unit tests for the <code>slice_</code> and <code>slicev_</code> methods.</li>
+<li>Replaced <code>idx</code> method with the <code>_icom</code> methods.</li>
+<li>Removed <code>idx_r</code>.</li>
+<li>Replaced the <code>obs, vars</code> arguments with the <code>row, col</code> arguments in the <code>sbt_</code> methods;</li>
+<li>Fixed a few relatively small bugs</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9006" id="squarebrackets-0009006">squarebrackets 0.0.0.9006<a class="anchor" aria-label="anchor" href="#squarebrackets-0009006"></a></h2>

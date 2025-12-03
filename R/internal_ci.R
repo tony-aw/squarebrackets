@@ -15,7 +15,7 @@
     )))
   }
   else {
-    lst <- lapply(dim(x), \(y) 1:y ) # create list of ALTREP compact integers
+    lst <- lapply(dim(x), \(y) seq_len(y) ) # create list of ALTREP compact integers
     for(i in seq_along(d)) {
       iD <- d[i]
       lst[[iD]] <- as.integer(ci_margin(
@@ -43,7 +43,7 @@
     )
   }
   else {
-    lst <- lapply(dim(x), \(y) 1:y ) # create list of ALTREP compact integers
+    lst <- lapply(dim(x), \(y) seq_len(y) ) # create list of ALTREP compact integers
     for(i in seq_along(d)) {
       iD <- d[i]
       lst[[iD]] <- as.integer(ci_margin(
@@ -64,7 +64,7 @@
   
   s <- .ci_ss_make_sub(s, d)
   
-  lst <- lapply(dim(x), \(y) 1:y ) # create list of ALTREP compact integers
+  lst <- lapply(dim(x), \(y) seq_len(y) ) # create list of ALTREP compact integers
   for(i in seq_along(d)) {
     iD <- d[i]
     lst[[iD]] <- as.integer(ci_margin(
@@ -111,7 +111,7 @@
   if(is.list(s)) {
     badlen <- length(s) != 1L && length(s) != length(d)
     if(badlen) {
-      stop(simpleError("if `s` is a list, `length(s)` must equal `length(use)`", call = .abortcall))
+      stop(simpleError("if `s` is a list, `length(s)` must be 1 or equal to `length(use)`", call = .abortcall))
     }
   }
   

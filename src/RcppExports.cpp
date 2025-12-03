@@ -281,32 +281,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// rcpp_dt_needcoe
-bool rcpp_dt_needcoe(List x, IntegerVector col, List rp);
-RcppExport SEXP _squarebrackets_rcpp_dt_needcoe(SEXP xSEXP, SEXP colSEXP, SEXP rpSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< List >::type x(xSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type col(colSEXP);
-    Rcpp::traits::input_parameter< List >::type rp(rpSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_dt_needcoe(x, col, rp));
-    return rcpp_result_gen;
-END_RCPP
-}
-// rcpp_dt_find_name
-R_xlen_t rcpp_dt_find_name(SEXP x, SEXP v, int dir);
-RcppExport SEXP _squarebrackets_rcpp_dt_find_name(SEXP xSEXP, SEXP vSEXP, SEXP dirSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
-    Rcpp::traits::input_parameter< SEXP >::type v(vSEXP);
-    Rcpp::traits::input_parameter< int >::type dir(dirSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_dt_find_name(x, v, dir));
-    return rcpp_result_gen;
-END_RCPP
-}
 // rcpp_serial
 SEXP rcpp_serial(SEXP x);
 RcppExport SEXP _squarebrackets_rcpp_serial(SEXP xSEXP) {
@@ -478,8 +452,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_squarebrackets_C_prod_int", (DL_FUNC) &_squarebrackets_C_prod_int, 3},
     {"_squarebrackets_C_pre_coord2ind", (DL_FUNC) &_squarebrackets_C_pre_coord2ind, 3},
     {"_squarebrackets_rcpp_coord2ind", (DL_FUNC) &_squarebrackets_rcpp_coord2ind, 3},
-    {"_squarebrackets_rcpp_dt_needcoe", (DL_FUNC) &_squarebrackets_rcpp_dt_needcoe, 3},
-    {"_squarebrackets_rcpp_dt_find_name", (DL_FUNC) &_squarebrackets_rcpp_dt_find_name, 3},
     {"_squarebrackets_rcpp_serial", (DL_FUNC) &_squarebrackets_rcpp_serial, 1},
     {"_squarebrackets_rcpp_is_ma", (DL_FUNC) &_squarebrackets_rcpp_is_ma, 1},
     {"_squarebrackets_rcpp_set_ma", (DL_FUNC) &_squarebrackets_rcpp_set_ma, 2},

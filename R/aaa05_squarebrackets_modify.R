@@ -10,19 +10,19 @@
 #' For most average users, R's default copy-on-modify semantics are fine. \cr
 #' The benefits of the indexing arguments from 'squarebrackets'
 #' can be combined the `[<-` operator,
-#' through the \link{idx} method. \cr
-#' The result of the `idx()` method
+#' through the `_icom` methods. \cr
+#' The result of the `idcom` methods
 #' can be used inside the regular square-brackets operators. \cr
 #' For example like so:
 #' 
 #' ```{r eval = FALSE, echo = TRUE}
 #' x <- array(...)
-#' my_indices <- idx(x, s, d)
+#' my_indices <- ss_icom(x, s, d)
 #' x[my_indices] <- value
 #' 
 #' y <- data.frame(...)
-#' rows <- idx(y, 1:10, 1, inv = TRUE)
-#' cols <- idx(y, c("a", "b"), 2)
+#' rows <- sbt_icom(y, 1:10, 1, inv = TRUE)
+#' cols <- sbt_icom(y, c("a", "b"), 2)
 #' y[rows, cols] <- value
 #' ```
 #' 

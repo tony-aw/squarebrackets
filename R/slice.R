@@ -9,8 +9,7 @@
 #' For `slice_set` it must be a \link{mutatomic} \bold{variable}.
 #' @param from,to,by see \link{cp_seq}.
 #' @param rp,tf see \link{squarebrackets_modify}.
-#' @param inv Boolean, indicating whether to invert the sequence. \cr
-#' If `TRUE`,
+#' @param use  either `1` for normal slicing, or `-1` for inverted slicing.
 #' `slice_set()` will apply replacement/transformation on all elements of the vector,
 #' \bold{except} for the elements of the specified sequence.
 #' @param use.names Boolean, indicating if flat names should be preserved. \cr
@@ -40,9 +39,28 @@ slice_x <- function(x, ...) {
 #' @rdname slice
 #' @export
 slice_x.default <- function(
-    x, from = NULL, to = NULL, by = 1L, ...,
+    x, from = NULL, to = NULL, by = 1L, use = 1,...,
     use.names = TRUE, sticky = getOption("squarebrackets.sticky", FALSE)
 ) {
+  
+  
+  if(!.slice_use_OK(use)) {
+    stop("improper `use` given")
+  }
+  .internal_check_dots(list(...), sys.call())
+  
+  if(use < 0) {
+    return(.slice_wo(x, from, to, by, use.names, sticky))
+  }
+  else if(use > 0) {
+    return(.slice_x(x, from, to, by, use.names, sticky))
+  }
+  
+}
+
+#' @keywords internal
+#' @noRd
+.slice_x <-function(x, from, to, by, use.names, sticky) {
   myslice <- cp_seq(x, 0L, from, to, by)
   start <- myslice$start
   end <- myslice$end
@@ -60,7 +78,7 @@ slice_x.default <- function(
   }
   
   if(!is.null(names(x)) && use.names && len != 0L) {
-    nms <- slice_x.default(names(x), from, to, by, use.names = FALSE)
+    nms <- .slice_x(names(x), from, to, by, use.names = FALSE, sticky = FALSE)
     data.table::setattr(out, "names", nms)
   }
   if(is.factor(x)) {
@@ -80,24 +98,14 @@ slice_x.default <- function(
     .internal_set_stickyattr(out, x)
   }
   
-  
-  
   return(out)
 }
 
-#' @rdname slice
-#' @export
-slice_wo <- function(x, ...) {
-  
-  UseMethod("slice_wo", x)
-}
 
-
-#' @rdname slice
-#' @export
-slice_wo.default <- function(
-    x, from = NULL, to = NULL, by = 1L, ...,
-    use.names = TRUE, sticky = getOption("squarebrackets.sticky", FALSE)
+#' @keywords internal
+#' @noRd
+.slice_wo <- function(
+    x, from, to, by, use.names, sticky
 ) {
   myslice <- cp_seq(x, 0L, from, to, by)
   by <- myslice$by
@@ -127,7 +135,7 @@ slice_wo.default <- function(
   
   
   if(!is.null(names(x)) && use.names) {
-    nms <- slice_wo(names(x), from, to, by, use.names = FALSE)
+    nms <- .slice_wo(names(x), from, to, by, use.names = FALSE, sticky = FALSE)
     data.table::setattr(out, "names", nms)
   }
   if(is.factor(x)) {
@@ -161,13 +169,17 @@ slice_set <- function(x, ...) {
 #' @rdname slice
 #' @export
 slice_set.default <- function(
-    x, from = NULL, to = NULL, by = 1L, inv = FALSE,
+    x, from = NULL, to = NULL, by = 1L, use = 1,
     ...,
     rp, tf
 ) {
   
   stopifnot_ma_safe2mutate(substitute(x), parent.frame(n = 1), sys.call())
   .internal_check_rptf(rp, tf, sys.call())
+  if(!.slice_use_OK(use)) {
+    stop("improper `use` given")
+  }
+  .internal_check_dots(list(...), sys.call())
   
   myslice <- cp_seq(x, 0L, from, to, by)
   start <- myslice$start
@@ -176,15 +188,15 @@ slice_set.default <- function(
   len <- myslice$length
   
   # call correct internal function
-  if(!inv && start <= end) {
+  if(use > 0 && start <= end) {
     .slice_set(x, start, end, by, len, rp, tf, abortcall = sys.call())
     return(invisible(NULL))
   }
-  else if(!inv && start > end) {
+  else if(use > 0 && start > end) {
     .slice_setrev(x, start, end, by, len, rp, tf, abortcall = sys.call())
     return(invisible(NULL))
   }
-  else if(inv) {
+  else if(use < 0) {
     .slice_setinv(x, start, end, by, len, rp, tf, abortcall = sys.call())
     return(invisible(NULL))
   }
@@ -258,7 +270,7 @@ slice_set.default <- function(
   }
   
   if(!missing(tf)) {
-    rp <- tf(slice_wo(x, start, end, by))
+    rp <- tf(.slice_wo(x, start, end, by, use.names = FALSE, sticky = FALSE))
   }
   
   rp <- .internal_coerce_rp(x, rp, abortcall)
@@ -269,4 +281,16 @@ slice_set.default <- function(
   return(invisible(NULL))
   
   
+}
+
+
+.slice_use_OK <- function(use) {
+  if(!is.numeric(use)) return(FALSE)
+  if(length(use) != 1) return(FALSE)
+  use <- as.integer(use)
+  if(is.na(use)) return(FALSE)
+  if(use == 0L) return(FALSE)
+  if(abs(use) != 1L) return(FALSE)
+  
+  return(TRUE)
 }

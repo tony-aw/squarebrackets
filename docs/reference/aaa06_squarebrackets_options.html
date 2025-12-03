@@ -74,7 +74,7 @@ The default can be changed in the <code>squarebrackets.chkdup</code> option. <br
 
 
 <p><img src="figures/argument-sticky-blue.svg" alt="[argument: sticky]"><br><img src="figures/option-squarebrackets_dot_sticky-blue.svg" alt="[option: squarebrackets.sticky]"><br>
-The <a href="slice.html">slice_x</a>, <a href="slice.html">slice_wo</a>, and <a href="slicev.html">slicev_x</a> methods
+The <a href="slice.html">slice_x</a>,  and <a href="slicev.html">slicev_x</a> methods
 can already handle names
 (through the <code>use.names</code> argument),
 attributes specific to the <a href="mutatomic_class.html">mutatomic</a> class,
@@ -84,11 +84,11 @@ and not specific to <a href="mutatomic_class.html">mutatomic</a> class,
 and not specific to the <a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a> class -
 henceforth referred to as "other attributes" -
 are treated differently. <br>
-How the <a href="slice.html">slice_x</a>, <a href="slice.html">slice_wo</a>, and <a href="slicev.html">slicev_x</a> methods
+How the <a href="slice.html">slice_x</a>,  and <a href="slicev.html">slicev_x</a> methods
 handle these "other" attributes,
 is determined by the <code>sticky</code> option and argument. <br><br>
 When <code>sticky = FALSE</code>,
-the <a href="slice.html">slice_x</a>, <a href="slice.html">slice_wo</a>, and <a href="slicev.html">slicev_x</a> methods
+the <a href="slice.html">slice_x</a>,  and <a href="slicev.html">slicev_x</a> methods
 will drop all <b>other</b> attributes. <br><br>
 By setting <code>sticky = TRUE</code>,
 all these <b>other</b> attributes, except <code>comment</code> and <code>tsp</code>,
@@ -97,7 +97,7 @@ The key advantage for this, is that classes that use <code>static</code> attribu
 (i.e. classes that use attributes that do not change when sub-setting),
 are automatically supported if <code>sticky = TRUE</code>,
 and no separate methods have to written for
-the <a href="slice.html">slice_x</a>, <a href="slice.html">slice_wo</a>, and <a href="slicev.html">slicev_x</a> methods. <br>
+the <a href="slice.html">slice_x</a>,  and <a href="slicev.html">slicev_x</a> methods. <br>
 Attributes specific to classes like
 <code>difftime</code>, <code>Date</code>, <code>POSIXct</code>, <code>roman</code>, <code>hexmode</code>, <code>octmode</code>,
 and more,
@@ -118,21 +118,21 @@ the <code>squarebrackets.sticky</code> option is set as follows:</p>
 Also in the above default setting,
 <code>sticky = FALSE</code> for other classes. <br><br>
 The reason
-the <a href="slice.html">slice_x</a>, <a href="slice.html">slice_wo</a>, and <a href="slicev.html">slicev_x</a> methods
+the <a href="slice.html">slice_x</a> and <a href="slicev.html">slicev_x</a> methods
 need the <code>sticky</code> option,
 is because of the following. <br>
 Unlike the <code>ii_</code>, <code>ii_</code>, <code>ss_</code>, and <code>ss_</code> methods,
-the <a href="slice.html">slice_x</a>, <a href="slice.html">slice_wo</a>, and <a href="slicev.html">slicev_x</a> methods
+the <a href="slice.html">slice_x</a>,  and <a href="slicev.html">slicev_x</a> methods
 are not wrappers around the <code>[</code> and <code>[&lt;-</code> operators. <br>
 Therefore,
 most <code>[</code> - S3 methods for highly specialized classes are not readily available for
-the <a href="slice.html">slice_x</a>, <a href="slice.html">slice_wo</a>, and <a href="slicev.html">slicev_x</a> methods. <br>
+the <a href="slice.html">slice_x</a>,  and <a href="slicev.html">slicev_x</a> methods. <br>
 Which in turn means important class-specific attributes are not automatically preserved. <br>
 The <code>sticky</code> option is a convenient way to support a large number of classes,
 without having to write specific methods for them. <br><br>
 For specialized classes that use attributes that <b>do</b> change when sub-setting,
 separate dispatches for
-the <a href="slice.html">slice_x</a>, <a href="slice.html">slice_wo</a>, and <a href="slicev.html">slicev_x</a> methods
+the <a href="slice.html">slice_x</a>,  and <a href="slicev.html">slicev_x</a> methods
 need to be written. <br>
 Package authors are welcome to create method dispatches for their own classes for these methods. <br><br><br></p>
     </div>

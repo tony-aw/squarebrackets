@@ -340,46 +340,13 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <h1 class="title toc-ignore">Introduction to squarebrackets</h1>
 
 
-<div id="TOC">
-<ul>
-<li><a href="#introduction" id="toc-introduction"><span class="toc-section-number">1</span> Introduction</a></li>
-<li><a href="#vectors-improved-index-specification" id="toc-vectors-improved-index-specification"><span class="toc-section-number">2</span> Vectors: Improved Index
-Specification</a>
-<ul>
-<li><a href="#specify-indices-by-names" id="toc-specify-indices-by-names"><span class="toc-section-number">2.1</span> Specify Indices by Names</a></li>
-<li><a href="#inverting-index-specification" id="toc-inverting-index-specification"><span class="toc-section-number">2.2</span> Inverting Index
-Specification</a></li>
-<li><a href="#not-just-vectors" id="toc-not-just-vectors"><span class="toc-section-number">2.3</span> Not Just Vectors</a></li>
-</ul></li>
-<li><a href="#arrays-sub-setting-unknown-number-of-dimensions" id="toc-arrays-sub-setting-unknown-number-of-dimensions"><span class="toc-section-number">3</span> Arrays: sub-setting unknown number
-of dimensions</a>
-<ul>
-<li><a href="#introduction-1" id="toc-introduction-1"><span class="toc-section-number">3.1</span> Introduction</a></li>
-<li><a href="#the-s-d-argument-pair" id="toc-the-s-d-argument-pair"><span class="toc-section-number">3.2</span> The s, d argument pair</a></li>
-<li><a href="#examples" id="toc-examples"><span class="toc-section-number">3.3</span> Examples</a></li>
-</ul></li>
-<li><a href="#data.frame-different-types-different-rules" id="toc-data.frame-different-types-different-rules"><span class="toc-section-number">4</span> Data.frame: different types,
-different rules</a></li>
-<li><a href="#pass-by-reference-or-pass-by-value" id="toc-pass-by-reference-or-pass-by-value"><span class="toc-section-number">5</span> Pass by Reference or Pass By
-Value?</a></li>
-<li><a href="#long-vectors-so-much-memory-usage" id="toc-long-vectors-so-much-memory-usage"><span class="toc-section-number">6</span> Long Vectors: So much memory
-usage</a>
-<ul>
-<li><a href="#sub-set-operations-without-indices" id="toc-sub-set-operations-without-indices"><span class="toc-section-number">6.1</span> Sub-set operations without
-indices</a></li>
-<li><a href="#sub-set-modifications-without-copies" id="toc-sub-set-modifications-without-copies"><span class="toc-section-number">6.2</span> Sub-set Modifications without
-Copies</a></li>
-</ul></li>
-<li><a href="#closing-remarks" id="toc-closing-remarks"><span class="toc-section-number">7</span> Closing Remarks</a></li>
-</ul>
-</div>
 
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(squarebrackets)</span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="co">#&gt; Run `?squarebrackets::squarebrackets_help` to open the introduction help page of &#39;squarebrackets&#39;.</span></span>
 <span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span><span class="dt">L</span>)</span></code></pre></div>
 <p> </p>
-<div id="introduction" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> Introduction</h1>
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
 <p>‘squarebrackets’ provides subset methods that may be more convenient
 alternatives to the <code>[</code> and <code>[&lt;-</code> operators,
 whilst maintaining similar performance.</p>
@@ -403,14 +370,12 @@ immediately. A more complete explanation of all the available
 functionality can be found in the package documentation itself.</p>
 <p> </p>
 </div>
-<div id="vectors-improved-index-specification" class="section level1" number="2">
-<h1><span class="header-section-number">2</span> Vectors: Improved Index
-Specification</h1>
+<div id="vectors-improved-index-specification" class="section level1">
+<h1>Vectors: Improved Index Specification</h1>
 <p>‘squarebrackets’ provides a set of methods that work on both atomic
 and recursive vectors:</p>
 <ul>
 <li><code>ii_x</code> to extract subsets</li>
-<li><code>ii_wo</code> to return object without the selected subset</li>
 <li><code>ii_mod</code> to return a copy with modified subsets</li>
 <li><code>ii_set</code> to modify an object by reference.</li>
 </ul>
@@ -422,9 +387,8 @@ The following sub-sections show <em>some</em> of these capabilities; a
 more exhaustive list of the possibilities can be found in the package
 documentation.</p>
 <p> </p>
-<div id="specify-indices-by-names" class="section level2" number="2.1">
-<h2><span class="header-section-number">2.1</span> Specify Indices by
-Names</h2>
+<div id="specify-indices-by-names" class="section level2">
+<h2>Specify Indices by Names</h2>
 <p>Base ‘R’ only selects the first matching names when selecting indices
 through a character vector. ‘squarebrackets’ selects all matching
 names.</p>
@@ -461,27 +425,18 @@ do the following in base ‘R’:</p>
 <span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="co">#&gt;  2  3  7  6  2  3  7  6 10  8</span></span></code></pre></div>
 <p>It’s not just shorter by the way, ‘squarebrackets’ is
 <strong>faster</strong>, as it does not rely on <code>lapply()</code>
-(or friends) to do this, but uses compiled ‘C’ code.</p>
+(or friends) to do this, but uses compiled ‘C’ code (partly from the
+‘collapse’ package).</p>
 <p> </p>
 </div>
-<div id="inverting-index-specification" class="section level2" number="2.2">
-<h2><span class="header-section-number">2.2</span> Inverting Index
-Specification</h2>
+<div id="inverting-index-specification" class="section level2">
+<h2>Inverting Index Specification</h2>
 <p>Inverting indices in base ‘R’ is done in different ways. (negative
 numbers for numeric indexing, negation for logical indexing, manually
 un-matching for character vectors).</p>
 <p>‘squarebrackets’ provides a (somewhat) consistent syntax to invert
-indices:</p>
-<ul>
-<li>The methods whose names end with <code>_x</code> (like the
-<code>ii_x()</code> shown before) perform extraction;<br />
-to invert extraction, i.e. return the object <strong>without</strong>
-the specified subset, use the methods whose names end with
-<code>_wo</code>.</li>
-<li>In the modification methods (those whose names end with
-<code>_mod</code> or <code>_set</code>) one can set the argument
-<code>inv = TRUE</code> to invert indices.</li>
-</ul>
+indices, namely through the <code>use</code> argument. Setting
+<code>use</code> to a negative value will invert the indices.</p>
 <p>As a consequence, removing sub-sets has the same syntax as extracting
 indices.</p>
 <p>For example:</p>
@@ -498,23 +453,22 @@ indices.</p>
 <span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="fu">ii_x</span>(x, <span class="st">&quot;a&quot;</span>) <span class="co"># extract element &quot;a&quot; with &#39;squarebrackets&#39;</span></span>
 <span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a><span class="co">#&gt; a </span></span>
 <span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a><span class="co">#&gt; 9</span></span>
-<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a><span class="fu">ii_wo</span>(x, <span class="st">&quot;a&quot;</span>) <span class="co"># remove element &quot;a&quot; with &#39;squarebrackets&#39;; same syntax</span></span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a><span class="fu">ii_x</span>(x, <span class="st">&quot;a&quot;</span>, <span class="sc">-</span><span class="dv">1</span>) <span class="co"># extract all elements except &quot;a&quot;, with &#39;squarebrackets&#39;</span></span>
 <span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a><span class="co">#&gt;  b  c  d  e  f  g  h  i  j </span></span>
 <span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a><span class="co">#&gt;  5 10  1  7  8  6  2  3  4</span></span></code></pre></div>
 <p> </p>
 </div>
-<div id="not-just-vectors" class="section level2" number="2.3">
-<h2><span class="header-section-number">2.3</span> Not Just Vectors</h2>
+<div id="not-just-vectors" class="section level2">
+<h2>Not Just Vectors</h2>
 <p>The given enhanced indexing is not just available for regular
 vectors, but for all types supported by ‘squarebrackets’.</p>
 <p> </p>
 </div>
 </div>
-<div id="arrays-sub-setting-unknown-number-of-dimensions" class="section level1" number="3">
-<h1><span class="header-section-number">3</span> Arrays: sub-setting
-unknown number of dimensions</h1>
-<div id="introduction-1" class="section level2" number="3.1">
-<h2><span class="header-section-number">3.1</span> Introduction</h2>
+<div id="arrays-sub-setting-unknown-number-of-dimensions" class="section level1">
+<h1>Arrays: sub-setting unknown number of dimensions</h1>
+<div id="introduction-1" class="section level2">
+<h2>Introduction</h2>
 <p>In order to perform subset operations on some array <code>x</code>
 with the square brackets operator (<code>[</code>, <code>[&lt;-</code>),
 one needs to know how many dimensions it has.</p>
@@ -539,29 +493,29 @@ arguments, and as such work on any arbitrary dimensions without
 requiring prior knowledge.</p>
 <p> </p>
 </div>
-<div id="the-s-d-argument-pair" class="section level2" number="3.2">
-<h2><span class="header-section-number">3.2</span> The s, d argument
-pair</h2>
+<div id="the-s-d-argument-pair" class="section level2">
+<h2>The s, d argument pair</h2>
 <p>‘squarebrackets’ provides a set of methods that work on arrays of any
 number of dimensions:</p>
 <ul>
 <li><code>ss_x</code> to extract subsets</li>
-<li><code>ss_wo</code> to return object without the selected subset</li>
 <li><code>ss_mod</code> to return a copy with modified subsets</li>
 <li><code>ss_set</code> to modify an object by reference.</li>
 </ul>
-<p>These methods use the <code>s, d</code> argument pair is to specify
+<p>These methods use the <code>s, use</code> argument pair is to specify
 indices for subset operations. This argument form requires no prior
 knowledge on the number of dimensions an object has.</p>
-<p><code>s</code> and <code>d</code> must be specified as follows:</p>
+<p><code>s</code> and <code>use</code> must be specified as follows:</p>
 <ul>
 <li>The <code>s</code> argument must be a list, specifying the
 subscripts (i.e. dimensional indices).</li>
-<li>The <code>d</code> argument must be an integer vector, specifying
-the dimensions for which <code>s</code> holds.</li>
+<li>The <code>use</code> argument must be an integer vector, specifying
+the dimensions for which <code>s</code> holds. Negative integers will
+invert indices (i.e. select all indices for that dimension EXCEPT the
+specified ones).</li>
 <li>If the subscripts are the same for all dimensions specified in
-<code>d</code>, <code>s</code> can also be given as an atomic vector, or
-as a list of length 1.</li>
+<code>use</code>, <code>s</code> can also be given as an atomic vector,
+or as a list of length 1.</li>
 </ul>
 <p>To minimize keystrokes, ‘squarebrackets’ provides the
 <code>n()</code> function, which is short-hand for <code>list()</code>;
@@ -569,22 +523,22 @@ as a list of length 1.</li>
 like <code>c()</code> concatenates multiple objects together.</p>
 <p>I.e. :</p>
 <ul>
-<li>To specify rows <code>1:10</code>, use <code>s = 1:10</code>, and
-<code>d = 1</code>.</li>
-<li>To specify layers (the third dimension) <code>4:9</code>, use
-<code>s = 4:9</code> and <code>d = 3</code>.</li>
-<li>To specify rows <code>1:10</code> <strong>and</strong> columns
-<code>2:5</code>, use <code>s = n(1:10, 2:5)</code> and
-<code>d = 1:2</code>.</li>
-<li>To specify both rows and columns <code>1:5</code>, one can use
-<code>s = 1:5</code> and <code>d = 1:2</code>.</li>
+<li>To specify rows <code>1:10</code>, specify <code>s = 1:10</code>,
+and <code>use = 1</code>.</li>
+<li>To specify layers (the third dimension) <code>4:9</code>, specify
+<code>s = 4:9</code> and <code>use = 3</code>.</li>
+<li>To specify rows <code>1:10</code> <strong>and remove</strong>
+columns <code>2:5</code>, specify <code>s = n(1:10, 2:5)</code> and
+<code>use = c(1, -2)</code>.</li>
+<li>To specify both rows and columns <code>1:5</code>, one can specify
+<code>s = 1:5</code> and <code>use = 1:2</code>.</li>
 </ul>
-<p>The <code>d</code> argument has the default specification
+<p>The <code>use</code> argument has the default specification
 <code>1:ndim(x)</code>, where <code>ndim(x) = length(dim(x))</code>.</p>
 <p> </p>
 </div>
-<div id="examples" class="section level2" number="3.3">
-<h2><span class="header-section-number">3.3</span> Examples</h2>
+<div id="examples" class="section level2">
+<h2>Examples</h2>
 <p>Consider the following example - Given a set of atomic arrays with
 different dimensions, select the first 2 indices of every available
 dimension:</p>
@@ -597,10 +551,10 @@ dimension:</p>
 <span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a></span>
 <span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="fu">seq_along</span>(lst)) {</span>
 <span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a>  x <span class="ot">&lt;-</span> lst[[i]]</span>
-<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a>  <span class="fu">ss_x</span>(x, <span class="at">s =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">d =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">ndim</span>(x))</span>
-<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a>  <span class="fu">ss_x</span>(x, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>) <span class="co"># the same (by default, d = 1:ndim(x))</span></span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a>  <span class="fu">ss_x</span>(x, <span class="at">s =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">use =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">ndim</span>(x))</span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a>  <span class="fu">ss_x</span>(x, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>) <span class="co"># the same (by default, use = 1:ndim(x))</span></span>
 <span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a>}</span></code></pre></div>
-<p>The <code>s</code> and <code>d</code> argument are used to perform
+<p>The <code>s</code> and <code>use</code> argument are used to perform
 sub-setting. Since this is not a position-based system, like base ‘R’,
 it works for matrices and arrays of any arbitrary dimension.</p>
 <p> </p>
@@ -617,7 +571,7 @@ indices for the other dimensions.</p>
 <span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="fu">seq_along</span>(lst)) {</span>
 <span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a>  x <span class="ot">&lt;-</span> lst[[i]]</span>
 <span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a>  <span class="fu">ss_x</span>(x, <span class="fu">n</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>), <span class="fu">c</span>(<span class="dv">1</span>, <span class="fu">ndim</span>(x)))</span>
-<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a>  <span class="fu">ss_x</span>(x, <span class="at">s =</span> <span class="fu">n</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>), <span class="at">d =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="fu">ndim</span>(x))) <span class="co"># the same</span></span>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a>  <span class="fu">ss_x</span>(x, <span class="at">s =</span> <span class="fu">n</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>), <span class="at">use =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="fu">ndim</span>(x))) <span class="co"># the same</span></span>
 <span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a>}</span></code></pre></div>
 <p>So ‘squarebrackets’ allows the user to perform easy sub-set
 operations on arrays, even if the dimensions are not known a-priori,
@@ -627,9 +581,8 @@ works.</p>
 <p> </p>
 </div>
 </div>
-<div id="data.frame-different-types-different-rules" class="section level1" number="4">
-<h1><span class="header-section-number">4</span> Data.frame: different
-types, different rules</h1>
+<div id="data.frame-different-types-different-rules" class="section level1">
+<h1>Data.frame: different types, different rules</h1>
 <p>There are several types of data.frame-like objects available in ‘R’:
 data.frames, data.tables, tibbles, tidytables; and they all have their
 own rules regarding sub-set operations.</p>
@@ -651,8 +604,6 @@ manner of tabular (data.frames and matrix) types, with the exact same
 syntax:</p>
 <ul>
 <li><code>sbt_x</code> to extract subsets</li>
-<li><code>sbt_wo</code> to return object without the selected
-subset</li>
 <li><code>sbt_mod</code> to return a copy with modified subsets</li>
 <li><code>sbt_set</code> to modify an object by reference.</li>
 </ul>
@@ -663,9 +614,9 @@ subset</li>
 <span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>y <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tibble</span>(<span class="at">a =</span> month.abb, <span class="at">b =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>)</span>
 <span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a>z <span class="ot">&lt;-</span> data.table<span class="sc">::</span><span class="fu">data.table</span>(<span class="at">a =</span> month.abb, <span class="at">b =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>)</span>
 <span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a></span>
-<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a><span class="fu">sbt_mod</span>(x, <span class="sc">~</span> b <span class="sc">&gt;</span> <span class="dv">10</span>, <span class="st">&quot;a&quot;</span>, <span class="at">rp =</span> <span class="st">&quot;XXX&quot;</span>)</span>
-<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a><span class="fu">sbt_mod</span>(y, <span class="sc">~</span> b <span class="sc">&gt;</span> <span class="dv">10</span>, <span class="st">&quot;a&quot;</span>, <span class="at">rp =</span> <span class="st">&quot;XXX&quot;</span>)</span>
-<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a><span class="fu">sbt_mod</span>(z, <span class="sc">~</span> b <span class="sc">&gt;</span> <span class="dv">10</span>, <span class="st">&quot;a&quot;</span>, <span class="at">rp =</span> <span class="st">&quot;XXX&quot;</span>)</span></code></pre></div>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a><span class="fu">sbt_mod</span>(x, <span class="fu">with</span>(x, b <span class="sc">&gt;</span> <span class="dv">10</span>), <span class="st">&quot;a&quot;</span>, <span class="at">rp =</span> <span class="st">&quot;XXX&quot;</span>)</span>
+<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a><span class="fu">sbt_mod</span>(y, <span class="fu">with</span>(x, b <span class="sc">&gt;</span> <span class="dv">10</span>), <span class="st">&quot;a&quot;</span>, <span class="at">rp =</span> <span class="st">&quot;XXX&quot;</span>)</span>
+<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a><span class="fu">sbt_mod</span>(z, <span class="fu">with</span>(x, b <span class="sc">&gt;</span> <span class="dv">10</span>), <span class="st">&quot;a&quot;</span>, <span class="at">rp =</span> <span class="st">&quot;XXX&quot;</span>)</span></code></pre></div>
 <p>Notice that the syntax is exactly the same for all classes.</p>
 <p>The original attributes are also preserved when using
 <code>sbt_mod()</code>; i.e. nothing is forced to become a tibble,
@@ -675,7 +626,7 @@ data.table, or something else. Input class = output class.</p>
 considerably faster and more memory efficient:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a></span>
 <span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>z <span class="ot">&lt;-</span> data.table<span class="sc">::</span><span class="fu">data.table</span>(<span class="at">a =</span> month.abb, <span class="at">b =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>)</span>
-<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a><span class="fu">sbt_set</span>(z, <span class="sc">~</span> b <span class="sc">&gt;</span> <span class="dv">10</span>, <span class="st">&quot;a&quot;</span>, <span class="at">rp =</span> <span class="st">&quot;XXX&quot;</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a><span class="fu">sbt_set</span>(z, <span class="fu">with</span>(z, b <span class="sc">&gt;</span> <span class="dv">10</span>), <span class="st">&quot;a&quot;</span>, <span class="at">rp =</span> <span class="st">&quot;XXX&quot;</span>)</span>
 <span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="fu">print</span>(z)</span>
 <span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a><span class="co">#&gt;          a     b</span></span>
 <span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a><span class="co">#&gt;     &lt;char&gt; &lt;int&gt;</span></span>
@@ -695,9 +646,8 @@ considerably faster and more memory efficient:</p>
 ‘collapse’ and ‘data.table’ packages.</p>
 <p> </p>
 </div>
-<div id="pass-by-reference-or-pass-by-value" class="section level1" number="5">
-<h1><span class="header-section-number">5</span> Pass by Reference or
-Pass By Value?</h1>
+<div id="pass-by-reference-or-pass-by-value" class="section level1">
+<h1>Pass by Reference or Pass By Value?</h1>
 <p>R’s <code>[&lt;-</code> and <code>[[&lt;-</code> sometimes make a
 copy of an object, and sometimes they perhaps don’t. This brings 2
 issues:</p>
@@ -721,12 +671,10 @@ data.table), or to return an explicit <strong>copy</strong>. The
 objects by reference, and doing so <strong>safely</strong>.</p>
 <p> </p>
 </div>
-<div id="long-vectors-so-much-memory-usage" class="section level1" number="6">
-<h1><span class="header-section-number">6</span> Long Vectors: So much
-memory usage</h1>
-<div id="sub-set-operations-without-indices" class="section level2" number="6.1">
-<h2><span class="header-section-number">6.1</span> Sub-set operations
-without indices</h2>
+<div id="long-vectors-so-much-memory-usage" class="section level1">
+<h1>Long Vectors: So much memory usage</h1>
+<div id="sub-set-operations-without-indices" class="section level2">
+<h2>Sub-set operations without indices</h2>
 <p>Long Vectors take in quite a bit of memory. Performing a sub-set
 operation in base ‘R’ on a vector requires an indexing vector, which -
 for a long vector - may itself also be a long vector. This is a lot of
@@ -750,9 +698,8 @@ To perform value-based sub-set operations. For example:</p>
 sub-sets, is available for both methods.</p>
 <p> </p>
 </div>
-<div id="sub-set-modifications-without-copies" class="section level2" number="6.2">
-<h2><span class="header-section-number">6.2</span> Sub-set Modifications
-without Copies</h2>
+<div id="sub-set-modifications-without-copies" class="section level2">
+<h2>Sub-set Modifications without Copies</h2>
 <p>R’s <code>[&lt;-</code> operator (sometimes) makes copies of objects;
 making copies of long vectors, however, is an enormous waste of
 memory.</p>
@@ -784,8 +731,8 @@ end with <code>_set</code>.</p>
 <p> </p>
 </div>
 </div>
-<div id="closing-remarks" class="section level1" number="7">
-<h1><span class="header-section-number">7</span> Closing Remarks</h1>
+<div id="closing-remarks" class="section level1">
+<h1>Closing Remarks</h1>
 <p>If this introductory article has piqued your interest, I kindly
 invite you to read the rest of the (admittedly rather extensive)
 documentation, and perhaps try out the package for yourself.</p>

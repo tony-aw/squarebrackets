@@ -20,7 +20,7 @@ print(x)
 row <- idx_by(x, 1, first, x$group)
 sbt_x(x, row)
 # get the first row for each group for which a > 10:
-x2 <- sbt_x(x, idx_obs(x, ~ a > 10))
+x2 <- sbt_x(x, with(x,  a > 10))
 row <- na.omit(idx_by(x2, 1, first, x2$group))
 sbt_x(x2, row)
  

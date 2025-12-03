@@ -5,7 +5,7 @@ if(!test_PassByReference) {
   x <- array(as.list(1:27), c(3,3,3))
   expect_error(
     sb_test(x, s = list(1:10, 2:5), use = c(1:3)),
-    pattern = "`length(s)` must equal `length(use)`",
+    pattern = "`length(s)` must be 1 or equal to `length(use)`",
     fixed = TRUE
   ) |> errorfun()
   expect_error(

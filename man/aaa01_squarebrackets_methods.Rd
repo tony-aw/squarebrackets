@@ -29,7 +29,8 @@ For the \verb{<operation>} part, the following is available:
 \itemize{
 \item \verb{_x}: extract, exchange, exclude, or duplicate (if applicable) subsets.
 \item \verb{_mod}: modify subsets and return copy.
-\item \verb{_set}: modify subsets using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr \cr
+\item \verb{_set}: modify subsets using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
+\item \code{icom}: create indices to be used in \verb{[<-} to modify objects using the default Copy-On-Modify semantics. \cr \cr
 }
 
 To illustrate, let's take the methods used for extracting subsets
@@ -52,11 +53,7 @@ First, there is the \link[=lst_rec]{lst_} set of methods,
 which deal with sub-set operations that are only relevant for (nested) lists,
 but not for the other types of supported objects. \cr
 \cr
-Second, there is \link{idx} method,
-which works on both recursive and non-recursive objects,
-and transforms/translates indices to be used in R's default copy-on-modify semantics. \cr
-\cr
-Finally, there are the \code{sb_} sets of methods,
+Second, there are the \code{sb_} sets of methods,
 which cover miscellaneous operations for atomic/recursive objects. \cr \cr
 }
 
