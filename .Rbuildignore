@@ -1,0 +1,25 @@
+^squarebrackets\.Rproj$
+^\.Rproj\.user$
+^special tests
+^vignettes
+^docs
+^_pkgdown
+^backups
+^linguist
+^Readme
+^sourcetest
+^cran-comments\.md$
+pdf$
+^\.github
+fake_packages
+README.Rmd
+README.md
+README.html
+^LICENSE\.md$
+inst/tinytest/count_tests
+usethis
+^Dynamic
+^docs$
+^altdoc$
+^_quarto$
+^skeletons
