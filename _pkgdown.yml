@@ -1,0 +1,65 @@
+template:
+  bootstrap: 5
+  bslib:
+    base_font: {google: "Roboto Serif"}
+    bg: "#F5F5F5"
+    fg: "black"
+    font_scale: 1.25
+navbar:
+  structure:
+    left:  [intro, reference, articles, tutorials, news]
+    right: [search, github, lightswitch]
+home:
+  sidebar:
+    structure: [links, license, community, citation, authors, dev, toc]
+search:
+  exclude: ['vignettes/*']
+url: https://tony-aw.github.io/squarebrackets
+reference:
+- title: Overview Help Pages
+  contents:
+  - '`aaa00_squarebrackets_help`'
+  - '`aaa01_squarebrackets_methods`'
+  - '`aaa02_squarebrackets_indx_fundamentals`'
+  - '`aaa03_squarebrackets_supported_structures`'
+  - '`aaa04_squarebrackets_indx_args`'
+  - '`aaa05_squarebrackets_modify`'
+  - '`aaa06_squarebrackets_options`'
+  - '`aaa07_squarebrackets_method_dispatch`'
+  - '`aaa08_squarebrackets_slicev`'
+  - '`aaa09_squarebrackets_PassByReference`'
+  - '`aaa10_squarebrackets_coercion`'
+- title: Main Methods
+  contents:
+  - '`ii_x`'
+  - '`ii_wo`'
+  - '`ii_mod`'
+  - '`ii_set`'
+  - '`slice_x`'
+  - '`slicev_x`'
+- title: Other Methods
+  contents:
+  - '`idx`'
+  - '`lst_rec`'
+  - '`sb_setRename`'
+  - '`cp_seq`'
+- title: mutatomic class
+  contents:
+  - '`mutatomic`'
+- title: Helper Functions
+  contents:
+  - '`n`'
+  - '`s`'
+  - '`ndim`'
+  - '`ss2ii`'
+  - '`match_all`'
+  - '`idx_r`'
+  - '`idx_by`'
+  - '`dropl`'
+  - '`ci_ii`'
+- title: Developer Functions
+  contents:
+  - '`stopifnot_ma_safe2mutate`'
+  - '`tci_chr`'
+  - '`indx_x`'
+  
