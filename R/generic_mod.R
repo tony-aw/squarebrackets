@@ -157,6 +157,7 @@ sbt_mod.data.frame <- function(
   
   # modify:
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   if(is.null(row)) {
     return(.dt_mod_whole(x, col, rp, abortcall = sys.call()))
   }
@@ -167,6 +168,9 @@ sbt_mod.data.frame <- function(
   else {
     return(.dt_mod_partialset(x, row, col, rp, sys.call()))
   }
+=======
+  return(.dt_mod(x, row, col, rp, sys.call()))
+>>>>>>> Stashed changes
 =======
   return(.dt_mod(x, row, col, rp, sys.call()))
 >>>>>>> Stashed changes

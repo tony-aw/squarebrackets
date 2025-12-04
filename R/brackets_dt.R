@@ -63,6 +63,7 @@
 #' @keywords internal
 #' @noRd
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 .dt_mod_whole <- function(x, col, rp, abortcall) {
   
   data.table::set(x, j = col, value = rp)
@@ -85,6 +86,9 @@
 #' @keywords internal
 #' @noRd
 .dt_mod_partialcoe <- function(x, row, col, rp, abortcall) {
+=======
+.dt_mod <- function(x, row, col, rp, abortcall) {
+>>>>>>> Stashed changes
 =======
 .dt_mod <- function(x, row, col, rp, abortcall) {
 >>>>>>> Stashed changes
