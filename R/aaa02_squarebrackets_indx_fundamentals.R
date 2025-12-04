@@ -233,8 +233,6 @@
 #' Integer vectors created through the `:` operator are "compact ALTREP" integer vectors,
 #' and provide the fastest way to specify indices. \cr
 #' Indexing through names (i.e. character vectors) is the slowest. \cr
-#' Complex vectors of imaginary numbers are somewhat in the middle
-#' in terms of speed. \cr
 #' \cr
 #' Index-less sub-set operations are usually faster and more memory efficient
 #' than any index-based sub-set operation. \cr

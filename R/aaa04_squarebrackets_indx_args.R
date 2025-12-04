@@ -186,8 +186,8 @@
 #' `r .mybadge_class("atomic matrix")` \cr
 #' `r .mybadge_class("recursive matrix")` \cr
 #' 
-#' Specifies rows and columns in a matrix.
-#'  The argument `row` and `col` can each be any of the following:
+#' Specifies rows and columns in a matrix or data.frame in the `sbt_` methods. \cr
+#' The argument `row` and `col` can each be any of the following:
 #' 
 #'  * `NULL` or `0L`, which corresponds to a missing index argument.
 #'  * a vector of length 0,
@@ -201,6 +201,21 @@
 #'  If a dimension has multiple indices with the given name,
 #'  ALL the corresponding indices will be selected for the operation. \cr \cr
 #'  
+<<<<<<< Updated upstream
+=======
+#' For data.frames, `col` can also be a function. \cr
+#' \cr
+#' `use` is set to `1:2` by default. \cr
+#' If `use` is `c(-1, 2)` or `-1`, the row indices will be inverted
+#' (i.e. select all rows **except** those specified in `row`). \cr
+#' If `use` is `c(1, -2)` or `-2`, the column indices will be inverted
+#' (i.e. select all columns **except** those specified in `col`). \cr
+#' If `use` is `-1:-2`, both the row- and column- indices will be inverted. \cr
+#' Unlike the case for `ss_` methods,
+#' the order of `use` in the `sbt_` methods is irrelevant: \cr
+#' i.e. `use = c(-1, 2)` is the same as `use = c(2, -1)`. \cr
+#' \cr
+>>>>>>> Stashed changes
 #' 
 #' 
 #' 

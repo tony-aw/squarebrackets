@@ -216,7 +216,7 @@ Thus the effect of a zero-length index specification depends on the rule-set of
 
 
 <p><img src="figures/class-atomic_matrix-blue.svg" alt="[class: atomic matrix]"><br><img src="figures/class-recursive_matrix-blue.svg" alt="[class: recursive matrix]"><br></p>
-<p>Specifies rows and columns in a matrix.
+<p>Specifies rows and columns in a matrix or data.frame in the <code>sbt_</code> methods. <br>
 The argument <code>row</code> and <code>col</code> can each be any of the following:</p><ul><li><p><code>NULL</code> or <code>0L</code>, which corresponds to a missing index argument.</p></li>
 <li><p>a vector of length 0,
 in which case no indices are selected for the operation (i.e. empty selection).</p></li>
@@ -227,6 +227,7 @@ with dimension indices to select for the operation.</p></li>
 giving the dimension indices to select for the operation.</p></li>
 <li><p>a <b>character</b> vector of index names. <br>
 If a dimension has multiple indices with the given name,
+<<<<<<< Updated upstream
 ALL the corresponding indices will be selected for the operation. <br><br></p></li>
 </ul></div>
     <div class="section level2">
@@ -283,6 +284,19 @@ specify the following: <br><code>vars =  heigth ~ weight</code>. <br><br></p></l
 <p>So using the <code>obs, vars</code> arguments corresponds to doing something like the following:</p>
 <p></p><div class="sourceCode r"><pre><code><span> <span class="fu"><a href="../reference/sb_x.html">sbt_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">obs</span>, <span class="va">vars</span><span class="op">)</span> <span class="co"># ==&gt; subset(x, ...obs..., ...vars...)</span></span>
 <span></span></code></pre><p></p></div>
+=======
+ALL the corresponding indices will be selected for the operation.</p></li>
+<li><p>a formula; see <a href="aaa11_squarebrackets_keywords.html">keywords</a>. <br></p></li>
+</ul><p>For data.frames, <code>col</code> can also be a function. <br><br><code>use</code> is set to <code>1:2</code> by default. <br>
+If <code>use</code> is <code>c(-1, 2)</code> or <code>-1</code>, the row indices will be inverted
+(i.e. select all rows <strong>except</strong> those specified in <code>row</code>). <br>
+If <code>use</code> is <code>c(1, -2)</code> or <code>-2</code>, the column indices will be inverted
+(i.e. select all columns <strong>except</strong> those specified in <code>col</code>). <br>
+If <code>use</code> is <code>-1:-2</code>, both the row- and column- indices will be inverted. <br>
+Unlike the case for <code>ss_</code> methods,
+the order of <code>use</code> in the <code>sbt_</code> methods is irrelevant: <br>
+i.e. <code>use = c(-1, 2)</code> is the same as <code>use = c(2, -1)</code>. <br><br></p>
+>>>>>>> Stashed changes
     </div>
     <div class="section level2">
     <h2 id="argument-inv">Argument inv<a class="anchor" aria-label="anchor" href="#argument-inv"></a></h2>

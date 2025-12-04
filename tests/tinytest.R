@@ -50,6 +50,9 @@ if ( requireNamespace("tinytest", quietly = TRUE) ){
   tinytest::test_package(
     "squarebrackets", testdir = "tinytest/mutatomic", set_env=list(LC_COLLATE="C")
   )
+  tinytest::test_package(
+    "squarebrackets", testdir = "tinytest/zerolen", set_env=list(LC_COLLATE="C")
+  )
   
 }
 

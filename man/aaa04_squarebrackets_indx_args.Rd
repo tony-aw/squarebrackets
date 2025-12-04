@@ -195,7 +195,7 @@ Thus the effect of a zero-length index specification depends on the rule-set of
 \ifelse{html}{\figure{class-atomic_matrix-blue.svg}{options: alt='[class: atomic matrix]'}}{\link[=squarebrackets_indx_args]{class: atomic matrix}} \cr
 \ifelse{html}{\figure{class-recursive_matrix-blue.svg}{options: alt='[class: recursive matrix]'}}{\link[=squarebrackets_indx_args]{class: recursive matrix}} \cr
 
-Specifies rows and columns in a matrix.
+Specifies rows and columns in a matrix or data.frame in the \code{sbt_} methods. \cr
 The argument \code{row} and \code{col} can each be any of the following:
 \itemize{
 \item \code{NULL} or \code{0L}, which corresponds to a missing index argument.
@@ -212,7 +212,23 @@ ALL the corresponding indices will be selected for the operation. \cr \cr
 }
 }
 
+<<<<<<< Updated upstream
 \section{Arguments obs, vars}{
+=======
+For data.frames, \code{col} can also be a function. \cr
+\cr
+\code{use} is set to \code{1:2} by default. \cr
+If \code{use} is \code{c(-1, 2)} or \code{-1}, the row indices will be inverted
+(i.e. select all rows \strong{except} those specified in \code{row}). \cr
+If \code{use} is \code{c(1, -2)} or \code{-2}, the column indices will be inverted
+(i.e. select all columns \strong{except} those specified in \code{col}). \cr
+If \code{use} is \code{-1:-2}, both the row- and column- indices will be inverted. \cr
+Unlike the case for \code{ss_} methods,
+the order of \code{use} in the \code{sbt_} methods is irrelevant: \cr
+i.e. \code{use = c(-1, 2)} is the same as \code{use = c(2, -1)}. \cr
+\cr
+}
+>>>>>>> Stashed changes
 
 \ifelse{html}{\figure{class-data.frame-like-blue.svg}{options: alt='[class: data.frame-like]'}}{\link[=squarebrackets_indx_args]{class: data.frame-like}} \cr
 The \code{obs} argument specifies indices for observations (i.e. rows)

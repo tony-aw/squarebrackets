@@ -443,6 +443,7 @@ BEGIN_RCPP
 END_RCPP
 }
 
+RcppExport SEXP C_all_dim_zero(SEXP);
 RcppExport SEXP C_any_address(SEXP, SEXP);
 RcppExport SEXP C_any_badindx(SEXP, SEXP);
 RcppExport SEXP C_any_badmargin(SEXP, SEXP);
@@ -489,6 +490,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_squarebrackets_rcpp_sub2ind_general64", (DL_FUNC) &_squarebrackets_rcpp_sub2ind_general64, 6},
     {"_squarebrackets_C_sub2ind_setrange32", (DL_FUNC) &_squarebrackets_C_sub2ind_setrange32, 6},
     {"_squarebrackets_rcpp_sub2ind_general32", (DL_FUNC) &_squarebrackets_rcpp_sub2ind_general32, 6},
+<<<<<<< Updated upstream
     {"C_any_address",     (DL_FUNC) &C_any_address,     2},
     {"C_any_badindx",     (DL_FUNC) &C_any_badindx,     2},
     {"C_any_badmargin",   (DL_FUNC) &C_any_badmargin,   2},
@@ -501,6 +503,22 @@ static const R_CallMethodDef CallEntries[] = {
     {"C_is_missing_idx",  (DL_FUNC) &C_is_missing_idx,  1},
     {"C_match_range",     (DL_FUNC) &C_match_range,     2},
     {"C_serial",          (DL_FUNC) &C_serial,          1},
+=======
+    {"C_all_dim_zero",   (DL_FUNC) &C_all_dim_zero,   1},
+    {"C_any_address",    (DL_FUNC) &C_any_address,    2},
+    {"C_any_badindx",    (DL_FUNC) &C_any_badindx,    2},
+    {"C_any_badmargin",  (DL_FUNC) &C_any_badmargin,  2},
+    {"C_any_baduse",     (DL_FUNC) &C_any_baduse,     2},
+    {"C_any_neg",        (DL_FUNC) &C_any_neg,        1},
+    {"C_any_nonpos",     (DL_FUNC) &C_any_nonpos,     1},
+    {"C_convert_bi_32",  (DL_FUNC) &C_convert_bi_32,  2},
+    {"C_convert_bi_64",  (DL_FUNC) &C_convert_bi_64,  2},
+    {"C_copy",           (DL_FUNC) &C_copy,           1},
+    {"C_is_altrep",      (DL_FUNC) &C_is_altrep,      1},
+    {"C_is_missing_idx", (DL_FUNC) &C_is_missing_idx, 1},
+    {"C_match_range",    (DL_FUNC) &C_match_range,    2},
+    {"C_serial",         (DL_FUNC) &C_serial,         1},
+>>>>>>> Stashed changes
     {NULL, NULL, 0}
 };
 

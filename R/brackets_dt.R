@@ -62,6 +62,7 @@
 
 #' @keywords internal
 #' @noRd
+<<<<<<< Updated upstream
 .dt_mod_whole <- function(x, col, rp, abortcall) {
   
   data.table::set(x, j = col, value = rp)
@@ -84,6 +85,9 @@
 #' @keywords internal
 #' @noRd
 .dt_mod_partialcoe <- function(x, row, col, rp, abortcall) {
+=======
+.dt_mod <- function(x, row, col, rp, abortcall) {
+>>>>>>> Stashed changes
   
   row <- as.integer(row)
   extraction <- collapse::qDF(collapse::ss(x, j = col, check = FALSE))

@@ -152,7 +152,11 @@ sbt_mod.data.frame <- function(
     rp <- .dt_transform(x, row, col, tf)
   }
   
+  if(.C_is_missing_idx(row)) row <- seq_len(nrow(x))
+  if(.C_is_missing_idx(col)) col <- seq_len(ncol(x))
+  
   # modify:
+<<<<<<< Updated upstream
   if(is.null(row)) {
     return(.dt_mod_whole(x, col, rp, abortcall = sys.call()))
   }
@@ -163,6 +167,9 @@ sbt_mod.data.frame <- function(
   else {
     return(.dt_mod_partialset(x, row, col, rp, sys.call()))
   }
+=======
+  return(.dt_mod(x, row, col, rp, sys.call()))
+>>>>>>> Stashed changes
   
 }
 

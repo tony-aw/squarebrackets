@@ -7,6 +7,7 @@
 \alias{ii_set.default}
 \alias{ss_set.default}
 \alias{sbt_set.default}
+\alias{sbt_set.data.frame}
 \alias{sbt_set.data.table}
 \title{Methods to Modify Subsets of a Mutable Object By Reference}
 \usage{
@@ -42,6 +43,17 @@ sbt_set(x, ...)
   row = NULL,
   col = NULL,
   inv = FALSE,
+  ...,
+  rp,
+  tf,
+  chkdup = getOption("squarebrackets.chkdup", FALSE)
+)
+
+\method{sbt_set}{data.frame}(
+  x,
+  row = NULL,
+  col = NULL,
+  use = 1:2,
   ...,
   rp,
   tf,

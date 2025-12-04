@@ -31,6 +31,18 @@
   if(!is.atomic(x) && !is.list(x)) {
     stop(simpleError("unsupported object", call = abortcall))
   }
+<<<<<<< Updated upstream
+=======
+  if(.C_is_missing_idx(use)) {
+    stop(simpleError("`use` cannot be specified as `NULL` or `0L`", call = abortcall))
+  }
+  if(.C_all_dim_zero(dim(x))) {
+    stop(simpleError(
+      "cannot operate on array with all zero dimensions",
+      call = abortcall
+    ))
+  }
+>>>>>>> Stashed changes
   
 }
 
@@ -55,6 +67,18 @@
     stop(simpleError("unsupported object", call = abortcall))
   }
   
+<<<<<<< Updated upstream
+=======
+  if(!is.numeric(use) || anyNA(use)) {
+    stop(simpleError("`use` must be a numeric vector without missing values", call = abortcall))
+  }
+  if(.C_all_dim_zero(dim(x))) {
+    stop(simpleError(
+      "cannot operate on object with all zero dimensions",
+      call = abortcall
+    ))
+  }
+>>>>>>> Stashed changes
 }
 
 

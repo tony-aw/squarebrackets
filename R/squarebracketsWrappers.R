@@ -38,6 +38,11 @@
   .Call("C_any_neg", x = x)
 }
 
+#' @keywords Internal
+#' @noRd
+.C_all_dim_zero <- function(x) {
+  .Call("C_all_dim_zero", x = x)
+}
 
 #' @keywords Internal
 #' @noRd

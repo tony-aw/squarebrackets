@@ -111,6 +111,16 @@ sbt_set.default <- function(
 
 #' @rdname sb_set
 #' @export
+sbt_set.data.frame <- function(
+    x, row = NULL, col = NULL, use = 1:2, ...,
+    rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
+) {
+ 
+  stop("data.frames are not mutable objects (but data.tables are)") 
+}
+
+#' @rdname sb_set
+#' @export
 sbt_set.data.table <- function(
     x, obs = NULL, vars = NULL, inv = FALSE, ...,
     rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
@@ -146,8 +156,13 @@ sbt_set.data.table <- function(
   }
   
   # prep col:
+<<<<<<< Updated upstream
   if(is.null(col)) {
     col <- as.integer(1:ncol(x))
+=======
+  if(.C_is_missing_idx(col)) {
+    col <- seq_len(ncol(x))
+>>>>>>> Stashed changes
   }
   
   # prep replacement just in case:
@@ -163,7 +178,7 @@ sbt_set.data.table <- function(
   
   
   # SET:
-  if(is.null(row)) {
+  if(.C_is_missing_idx(row)) {
     data.table::set(x, j = col, value = rp)
     return(invisible(NULL))
   }
