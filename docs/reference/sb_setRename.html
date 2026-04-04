@@ -23,7 +23,7 @@ sb_setVarnames() renames the variable names of a data.table object.
 
     <a class="navbar-brand me-2" href="../index.html">squarebrackets</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9007</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9008</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -203,7 +203,7 @@ Since this function returns void, you'll just get <code>NULL</code>. <br><br></p
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># data.table ====</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://rdatatable.gitlab.io/data.table/reference/data.table.html" class="external-link">data.table</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/data.table/man/data.table.html" class="external-link">data.table</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  a <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">20</span>,</span></span>
 <span class="r-in"><span>  b <span class="op">=</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">20</span><span class="op">]</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
@@ -231,6 +231,7 @@ Since this function returns void, you'll just get <code>NULL</code>. <br><br></p
 <span class="r-out co"><span class="r-pr">#&gt;</span> 19:    19      s</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 20:    20      t</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         a      b</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;int&gt; &lt;char&gt;</span>
 <span class="r-in"><span><span class="fu">sb_setVarnames</span><span class="op">(</span><span class="va">x</span>, old <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, new <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rev.html" class="external-link">rev</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         b      a</span>
@@ -256,6 +257,7 @@ Since this function returns void, you'll just get <code>NULL</code>. <br><br></p
 <span class="r-out co"><span class="r-pr">#&gt;</span> 19:    19      s</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 20:    20      t</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         b      a</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;int&gt; &lt;char&gt;</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

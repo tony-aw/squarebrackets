@@ -2,7 +2,7 @@ template:
   bootstrap: 5
   bslib:
     base_font: {google: "Roboto Serif"}
-    bg: "#F5F5F5"
+    bg: "#F5FFFA"
     fg: "black"
     font_scale: 1.25
 navbar:
@@ -21,12 +21,16 @@ reference:
   - '`aaa00_squarebrackets_help`'
   - '`aaa01_squarebrackets_methods`'
   - '`aaa02_squarebrackets_indx_fundamentals`'
+- title: Arguments Help Pages
+  contents:
   - '`aaa03_squarebrackets_supported_structures`'
   - '`aaa04_squarebrackets_indx_args`'
   - '`aaa05_squarebrackets_modify`'
   - '`aaa06_squarebrackets_options`'
   - '`aaa07_squarebrackets_method_dispatch`'
-  - '`aaa08_squarebrackets_slicev`'
+  - '`aaa08_squarebrackets_stride`'
+- title: Additional Help Pages
+  contents:
   - '`aaa09_squarebrackets_PassByReference`'
   - '`aaa10_squarebrackets_coercion`'
   - '`aaa11_squarebrackets_keywords`'
@@ -36,13 +40,17 @@ reference:
   - '`ii_mod`'
   - '`ii_set`'
   - '`ii_icom`'
-  - '`slice_x`'
-  - '`slicev_x`'
+- title: Specialized Methods
+  contents:
+  - '`long`'
+  - '`stride_eval`'
+  - '`stride_pv`'
+  - '`stride_seq`'
+  - '`stride_ptrn`'
+  - '`lst_rec`'
 - title: Other Methods
   contents:
-  - '`lst_rec`'
   - '`sb_setRename`'
-  - '`cp_seq`'
 - title: mutatomic class
   contents:
   - '`mutatomic`'

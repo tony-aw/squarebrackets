@@ -18,6 +18,45 @@ using namespace Rcpp;
 
 "
 
+extraction_funs <- "
+//' @keywords internal
+//' @noRd
+// [[Rcpp::export(.rcpp_stride_get_Rxlent)]]
+  R_xlen_t rcpp_stride_get_Rxlent(
+    List stride, int arg
+  ) {
+    RObject extraction = stride[arg];
+    if(Rf_xlength(extraction) > 1) {
+      stop(\"attempting to extract non-scalar R_xlen_t\");
+    }
+    if (is<IntegerVector>(extraction)) {
+      return as<IntegerVector>(extraction)[0];
+    } 
+    else if (is<NumericVector>(extraction)) {
+      return as<NumericVector>(extraction)[0];
+    } 
+    else {
+      stop(\"attempting to extract non-numeric R_xlen_t\");
+    }
+}
+
+//' @keywords internal
+//' @noRd
+// [[Rcpp::export(.rcpp_stride_get_pattern)]]
+SEXP rcpp_stride_get_pattern(
+  List stride
+) {
+  RObject extraction = stride[3];
+  return extraction;
+}
+
+
+"
+
+
+macro_slice <- readr::read_file("macros_slice.txt")
+
+
 
 header_for_package <- "
 
@@ -37,240 +76,104 @@ using namespace Rcpp;
 
 templatecode <- "
 
-inline SEXP rcpp_slice_x_<RCPP_TYPE>(
-    const SEXP x, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len
+inline SEXP rcpp_slice_seq_x_<RCPP_TYPE>(
+    const SEXP x, const SEXP stride, int use
   ) {
   
-  SEXP out = PROTECT(Rf_allocVector(<SXP_TYPE>, len));
+  SEXP out = PROTECT(Rf_allocVector(<SXP_TYPE>, rcpp_stride_get_Rxlent(stride, 4)));
   <COMMENT> <scalar_type> *pout = <FUN_TYPE>(out);
+  
   const <scalar_type> *px = <FUN_TYPE>_RO(x);
   
-  if(len == 1) {
-    <SET_FUN>out, 0, px[start]);
-    UNPROTECT(1);
-    return out;
-  }
-  else {
-    R_xlen_t counter = 0;
-    for(R_xlen_t i = start; i <= end; i += by) {
-      <SET_FUN>out, counter, px[i]);
-      counter++;
-    }
-  }
+  // get indexing args:
+  R_xlen_t index = 0;
+  
+  MACRO_SLICE_SEQ(
+    <SET_FUN>out, index, px[i]); index++
+  );
   
   UNPROTECT(1);
   return out;
+  
 }
   
 
 
-inline void rcpp_slice_set_<RCPP_TYPE>(
-    SEXP x, const SEXP rp, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len
+inline void rcpp_slice_seq_set_<RCPP_TYPE>(
+    SEXP x, const SEXP rp, SEXP stride, int use
   ) {
   
   <COMMENT> <scalar_type> *px = <FUN_TYPE>(x);
   const <scalar_type> *prp = <FUN_TYPE>_RO(rp);
+  R_xlen_t index = 0;
   
-  if(len == 1) {
-    <SET_FUN>x, start, prp[0]);
-  }
-  else if(Rf_xlength(rp) == len) {
-    R_xlen_t counter = 0;
-    for(R_xlen_t i = start; i <= end; i += by) {
-      <SET_FUN>x, i, prp[counter]);
-      counter++;
-    }
+  int add;
+  
+  if(Rf_xlength(rp) == rcpp_stride_get_Rxlent(stride, 4)) {
+    add = 1;
   }
   else if(Rf_xlength(rp) == 1) {
-    // Comment
-    for(R_xlen_t i = start; i <= end; i += by) {
-      <SET_FUN>x, i, prp[0]);
-    }
+    add = 0;
   }
   else {
     stop(\"recycling not allowed\");
   }
+  
+  MACRO_SLICE_SEQ(
+    <SET_FUN>x, i, prp[index]); index += add
+  );
 }
 
 
-inline SEXP rcpp_slice_xrev_<RCPP_TYPE>(
-    const SEXP x, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len
+
+inline SEXP rcpp_slice_ptrn_x_<RCPP_TYPE>(
+    const SEXP x, const SEXP stride, int use
   ) {
   
-  SEXP out = PROTECT(Rf_allocVector(<SXP_TYPE>, len));
+  SEXP out = PROTECT(Rf_allocVector(<SXP_TYPE>, rcpp_stride_get_Rxlent(stride, 4)));
   <COMMENT> <scalar_type> *pout = <FUN_TYPE>(out);
+  
   const <scalar_type> *px = <FUN_TYPE>_RO(x);
   
-  if(len == 1) {
-    <SET_FUN>out, 0, px[start]);
-    UNPROTECT(1);
-    return out;
-  }
-  else {
-    R_xlen_t counter = 0;
-    for(R_xlen_t i = start; i >= end; i -= by) {
-      <SET_FUN>out, counter, px[i]);
-      counter++;
-    }
-  }
+  // get indexing args:
+  R_xlen_t index = 0;
+  
+  MACRO_SLICE_PTRN(
+    <SET_FUN>out, index, px[i]); index++
+  );
   
   UNPROTECT(1);
   return out;
+  
 }
+  
 
 
-inline void rcpp_slice_setrev_<RCPP_TYPE>(
-    SEXP x, const SEXP rp, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len
+inline void rcpp_slice_ptrn_set_<RCPP_TYPE>(
+    SEXP x, const SEXP rp, SEXP stride, int use
   ) {
   
   <COMMENT> <scalar_type> *px = <FUN_TYPE>(x);
   const <scalar_type> *prp = <FUN_TYPE>_RO(rp);
+  R_xlen_t index = 0;
   
-  if(len == 1) {
-    <SET_FUN>x, start, prp[0]);
-  }
-  else if(Rf_xlength(rp) == len) {
-    R_xlen_t counter = 0;
-    for(R_xlen_t i = start; i >= end; i -= by) {
-      <SET_FUN>x, i, prp[counter]);
-      counter++;
-    }
+  int add;
+  
+  if(Rf_xlength(rp) == rcpp_stride_get_Rxlent(stride, 4)) {
+    add = 1;
   }
   else if(Rf_xlength(rp) == 1) {
-    // Comment
-    for(R_xlen_t i = start; i >= end; i -= by) {
-      <SET_FUN>x, i, prp[0]);
-    }
-  }
-  else {
-    stop(\"recylcing not allowed\");
-  }
-}
-
-
-inline SEXP rcpp_slice_wo_<RCPP_TYPE>(
-    const SEXP x, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len
-  ) {
-  SEXP out = PROTECT(Rf_allocVector(<SXP_TYPE>, len));
-  <COMMENT> <scalar_type> *pout = <FUN_TYPE>(out);
-  const <scalar_type> *px = <FUN_TYPE>_RO(x);
-  
-  R_xlen_t counter = 0;
-  if(start > 0) {
-    // Comment
-    for(R_xlen_t i = 0; i < start; ++i) {
-      <SET_FUN>out, i, px[i]);
-    }
-    counter = start;
-  }
-  
-  if(by == 2) {
-    for(R_xlen_t i = start; i < end; i+=2) {
-      <SET_FUN>out, counter, px[i+1]);
-      counter++;
-    }
-  }
-  
-  if(by > 2) {
-    for(R_xlen_t i = start; i < end; i += by) {
-      R_xlen_t startx = i + 1;
-      for(R_xlen_t j = startx; j < (startx + by - 1); ++j) {
-        <SET_FUN>out, counter, px[j]);
-        counter++;
-      }
-    }
-  }
-  
-  if(end < (Rf_xlength(x) - 1)) {
-    // Comment
-    for(R_xlen_t i = end + 1; i < Rf_xlength(x); ++i) {
-      <SET_FUN>out, i - (end + 1) + counter, px[i]);
-    }
-  }
-  
-  UNPROTECT(1);
-  return out;
-}
-
-
-
-inline void rcpp_slice_setinv_<RCPP_TYPE>(
-    SEXP x, const SEXP rp, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len
-  ) {
-  
-  <COMMENT> <scalar_type> *px = <FUN_TYPE>(x);
-  const <scalar_type> *prp = <FUN_TYPE>_RO(rp);
-  
-  if(Rf_xlength(rp) == len) {
-    R_xlen_t counter = 0;
-    if(start > 0) {
-      // Comment
-      for(R_xlen_t i = 0; i < start; ++i) {
-        <SET_FUN>x, i, prp[i]);
-      }
-      counter = start;
-    }
-    
-    if(by == 2) {
-      for(R_xlen_t i = start; i < end; i+=2) {
-        <SET_FUN>x, i+1, prp[counter]);
-        counter++;
-      }
-    }
-    
-    if(by > 2) {
-      for(R_xlen_t i = start; i < end; i += by) {
-        R_xlen_t startx = i + 1;
-        for(R_xlen_t j = startx; j < (startx + by - 1); ++j) {
-          <SET_FUN>x, j, prp[counter]);
-          counter++;
-        }
-      }
-    }
-    
-    if(end < (Rf_xlength(x) - 1)) {
-      // Comment
-      for(R_xlen_t i = end + 1; i < Rf_xlength(x); ++i) {
-        <SET_FUN>x, i, prp[i - (end + 1) + counter]);
-      }
-    }
-  }
-  else if(Rf_xlength(rp) == 1) {
-    if(start > 0) {
-      // Comment
-      for(R_xlen_t i = 0; i < start; ++i) {
-        <SET_FUN>x, i, prp[0]);
-      }
-    }
-    
-    if(by == 2) {
-      // Comment
-      for(R_xlen_t i = start; i < end; i+=2) {
-        <SET_FUN>x, i+1, prp[0]);
-      }
-    }
-    
-    if(by > 2) {
-      // Comment
-      for(R_xlen_t i = start; i < end; i += by) {
-        R_xlen_t startx = i + 1;
-        for(R_xlen_t j = startx; j < (startx + by - 1); ++j) {
-          <SET_FUN>x, j, prp[0]);
-        }
-      }
-    }
-    
-    if(end < (Rf_xlength(x) - 1)) {
-      // Comment
-      for(R_xlen_t i = end + 1; i < Rf_xlength(x); ++i) {
-        <SET_FUN>x, i, prp[0]);
-      }
-    }
+    add = 0;
   }
   else {
     stop(\"recycling not allowed\");
   }
+  
+  MACRO_SLICE_PTRN(
+    <SET_FUN>x, i, prp[index]); index += add
+  );
 }
+
 
 "
 cat(templatecode)
@@ -293,6 +196,8 @@ cat(templatecodes)
 
 code <- stri_c(
   header_for_source,
+  macro_slice,
+  extraction_funs,
   stri_c(templatecodes, collapse = "\n"),
   collapse = "\n\n"
 )
@@ -308,45 +213,43 @@ Rcpp::sourceCpp(
 
 
 template_names <- c(
-  "rcpp_slice_x",
-  "rcpp_slice_set",
-  "rcpp_slice_xrev",
-  "rcpp_slice_setrev",
-  "rcpp_slice_wo",
-  "rcpp_slice_setinv"
+  "rcpp_slice_seq_x",
+  "rcpp_slice_seq_set",
+  "rcpp_slice_ptrn_x",
+  "rcpp_slice_ptrn_set"
 )
 
 
-template_inputs <- rep(c(
-  "x, start, end, by, len",
-  "x, rp, start, end, by, len"
-), 3L)
+template_inputs <- c(
+  "x, stride, use",
+  "x, rp, stride, use"
+) |> rep(2)
 
 template_returns <- rep(c(
   "return", ""
-), 3L)
+), 2L)
 
-atomic_fun_args <- rep(c(
-  "const SEXP x, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len",
-  "SEXP x, const SEXP rp, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len"
-), 3L)
+atomic_fun_args <- c(
+  "const SEXP x, const SEXP stride, int use",
+  "SEXP x, const SEXP rp, const SEXP stride, int use"
+) |> rep(2L)
 
 
 atomic_fun_names <- stri_c(
   template_names, "_atomic"
 )
 
-atomic_fun_returntypes <- rep(c(
+atomic_fun_returntypes <- c(
   "SEXP", "void"
-), 3L)
+) |> rep(2L)
 
-atomic_fun_returnoutes <- rep(c(
+atomic_fun_returnoutes <- c(
   "return R_NilValue;", ""
-), 3L)
+) |> rep(2L)
 
-atomic_codes <- character(6)
+atomic_codes <- character(4)
 
-for(i in 1:6) {
+for(i in seq_along(atomic_codes)) {
   
   temp <- stri_c(
     
@@ -385,7 +288,7 @@ for(i in 1:6) {
 
 atomic_code <- stri_paste(atomic_codes, collapse = "\n \n")
 
-cat(atomic_code)
+cat(atomic_codes)
 
 
 ################################################################################
@@ -396,14 +299,14 @@ final_code <- atomic_code
 
 
 
-rcpp_code <- paste(c(header_for_source, templatecodes, final_code), collapse = "\n\n\n")
+rcpp_code <- paste(c(header_for_source, macro_slice, extraction_funs, templatecodes, final_code), collapse = "\n\n\n")
 cat(rcpp_code)
 
 Rcpp::sourceCpp(
   code = rcpp_code # no errors, good
 )
 
-code <-  paste(c(header_for_package, templatecodes, final_code), collapse = "\n\n\n")
+code <-  paste(c(header_for_package, extraction_funs, templatecodes, final_code), collapse = "\n\n\n")
 
 setwd("..")
 fileConn <- file("src/dynamic_rcpp_slice.cpp")

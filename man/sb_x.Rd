@@ -3,26 +3,26 @@
 \name{ii_x}
 \alias{ii_x}
 \alias{ss_x}
-\alias{sbt_x}
+\alias{tt_x}
 \alias{ii_x.default}
 \alias{ss_x.default}
-\alias{sbt_x.default}
-\alias{sbt_x.data.frame}
+\alias{tt_x.default}
+\alias{tt_x.data.frame}
 \title{Methods to Extract, Exchange, Exclude, or Duplicate Subsets of an Object}
 \usage{
 ii_x(x, i = NULL, use = 1, ...)
 
 ss_x(x, s = NULL, use = 1:ndim(x), ...)
 
-sbt_x(x, row = NULL, col = NULL, use = 1:2, ...)
+tt_x(x, row = NULL, col = NULL, use = 1:2, ...)
 
 \method{ii_x}{default}(x, i = NULL, use = 1, ...)
 
 \method{ss_x}{default}(x, s = NULL, use = 1:ndim(x), ...)
 
-\method{sbt_x}{default}(x, row = NULL, col = NULL, use = 1:2, ...)
+\method{tt_x}{default}(x, row = NULL, col = NULL, use = 1:2, ...)
 
-\method{sbt_x}{data.frame}(x, row = NULL, col = NULL, use = 1:2, ...)
+\method{tt_x}{data.frame}(x, row = NULL, col = NULL, use = 1:2, ...)
 }
 \arguments{
 \item{x}{see \link{squarebrackets_supported_structures}.}
@@ -104,8 +104,8 @@ ii_x(obj, i = \(x)x > 5)
 
 obj <- data.frame(a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10]))
 print(obj)
-sbt_x(obj, 1:3, 1:3)
-sbt_x(obj, with(obj,  (a > 5) & (c < 19)), is.numeric)
+tt_x(obj, 1:3, 1:3)
+tt_x(obj, with(obj,  (a > 5) & (c < 19)), is.numeric)
 
 
 }

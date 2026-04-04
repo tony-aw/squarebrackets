@@ -5,6 +5,7 @@ library(stringi)
 
 macros_arrays <- readr::read_file("macros_arrays.txt")
 macros_slicev <- readr::read_file("macros_slicev.txt")
+macros_slice <- readr::read_file("macros_slice.txt")
 
 macro_set_atomic <- "
 
@@ -18,6 +19,7 @@ macros <- stri_c(
   macro_set_atomic,
   macros_arrays,
   macros_slicev,
+  macros_slice,
   collapse = "\n\n"
 )
 cat(macros)

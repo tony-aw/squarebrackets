@@ -41,9 +41,9 @@ ss_x <- function(x, s = NULL, use = 1:ndim(x), ...) {
 
 #' @rdname sb_x
 #' @export
-sbt_x <- function(x, row = NULL, col = NULL, use = 1:2, ...) {
+tt_x <- function(x, row = NULL, col = NULL, use = 1:2, ...) {
   .methodcheck.sbt(x, row, col, use, sys.call())
-  UseMethod("sbt_x", x)
+  UseMethod("tt_x", x)
 }
 
 
@@ -78,7 +78,7 @@ ss_x.default <- function(
 
 #' @rdname sb_x
 #' @export
-sbt_x.default <- function(x, row = NULL, col = NULL, use = 1:2, ...) {
+tt_x.default <- function(x, row = NULL, col = NULL, use = 1:2, ...) {
   .internal_check_dots(list(...), sys.call())
   use <- .internal_make_use_tabular(use, sys.call())
   return(.sb_x_array(x, n(row, col), use, sys.call()))
@@ -87,7 +87,7 @@ sbt_x.default <- function(x, row = NULL, col = NULL, use = 1:2, ...) {
 
 #' @rdname sb_x
 #' @export
-sbt_x.data.frame <- function(x, row = NULL, col = NULL, use = 1:2, ...) {
+tt_x.data.frame <- function(x, row = NULL, col = NULL, use = 1:2, ...) {
   .internal_check_dots(list(...), sys.call())
   use <- .internal_make_use_tabular(use, sys.call())
   return(.sb_x_data.frame(x, row, col, use, sys.call()))

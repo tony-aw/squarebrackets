@@ -136,7 +136,7 @@ sys.source(file.path(getwd(), "source", "sourcetest-dims.R"), envir = environmen
 # test datasets ====
 
 
-pre_subset_df <- sbt_x
+pre_subset_df <- tt_x
 
 f_expect.data.frame <- function(x, row = NULL, col = NULL) {
   if(!is.null(row)) row <- indx_x(row, x, rownames(x), nrow(x))
@@ -148,7 +148,7 @@ f_expect.data.frame <- function(x, row = NULL, col = NULL) {
   return(out)
 }
 
-f_out.data.frame <- sbt_x
+f_out.data.frame <- tt_x
 
 
 # rl. <- loadNamespace("rlang")

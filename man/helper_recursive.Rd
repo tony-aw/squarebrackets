@@ -20,7 +20,7 @@ otherwise it returns the original \code{x} unchanged. \cr
 (lists and data.frames). \cr
 \cr
 \code{dropl(x)} returns \code{x[[1L]]} if \code{length(x) == 1}, and returns \code{x} otherwise. \cr
-This can be used for the \verb{*_x} and \verb{*_wo} methods on recursive objects,
+This can be used for the \verb{_x} methods on recursive objects,
 where one would like to extract the contents of the singular selection. \cr
 \cr
 }

@@ -4,7 +4,7 @@
 #' @noRd
 .methodcheck.ii <- function(x, i, use, abortcall) {
   if(is.data.frame(x)) {
-    stop(simpleError("Use the `sbt_` methods for data.frames", call = abortcall))
+    stop(simpleError("Use the `tt_` methods for data.frames", call = abortcall))
   }
   if(!is.atomic(x) && !is.list(x)) {
     stop(simpleError("unsupported object", call = abortcall))
@@ -36,7 +36,7 @@
   }
   if(is.data.frame(x)) {
     stop(simpleError(
-      "Use the `sbt_` methods for data.frames",
+      "Use the `tt_` methods for data.frames",
       call = abortcall
     ))
   }

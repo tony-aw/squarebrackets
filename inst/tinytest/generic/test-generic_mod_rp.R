@@ -157,14 +157,14 @@ f_expect.matrix <- f_expect.2d <- function(x, row = NULL, col = NULL) {
 
 pre_subset_mat <- function(x, row = NULL, col = NULL) {
   
-  sbt_x(x, row, col)
+  tt_x(x, row, col)
 }
 
 f_out.matrix <-  f_out.2d <- function(x, row, col) {
   
   rp <- parent.frame()$rp
   
-  return(sbt_mod(x, row, col, rp = rp))
+  return(tt_mod(x, row, col, rp = rp))
 }
 
 

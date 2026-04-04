@@ -71,127 +71,112 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
-// rcpp_slice_x_atomic
-SEXP rcpp_slice_x_atomic(const SEXP x, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
-RcppExport SEXP _squarebrackets_rcpp_slice_x_atomic(SEXP xSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+// rcpp_stride_get_Rxlent
+R_xlen_t rcpp_stride_get_Rxlent(List stride, int arg);
+RcppExport SEXP _squarebrackets_rcpp_stride_get_Rxlent(SEXP strideSEXP, SEXP argSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< List >::type stride(strideSEXP);
+    Rcpp::traits::input_parameter< int >::type arg(argSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_stride_get_Rxlent(stride, arg));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_stride_get_pattern
+SEXP rcpp_stride_get_pattern(List stride);
+RcppExport SEXP _squarebrackets_rcpp_stride_get_pattern(SEXP strideSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< List >::type stride(strideSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_stride_get_pattern(stride));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_slice_seq_x_atomic
+SEXP rcpp_slice_seq_x_atomic(const SEXP x, const SEXP stride, int use);
+RcppExport SEXP _squarebrackets_rcpp_slice_seq_x_atomic(SEXP xSEXP, SEXP strideSEXP, SEXP useSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const SEXP >::type x(xSEXP);
-    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
-    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
-    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
-    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_slice_x_atomic(x, start, end, by, len));
+    Rcpp::traits::input_parameter< const SEXP >::type stride(strideSEXP);
+    Rcpp::traits::input_parameter< int >::type use(useSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_slice_seq_x_atomic(x, stride, use));
     return rcpp_result_gen;
 END_RCPP
 }
-// rcpp_slice_set_atomic
-void rcpp_slice_set_atomic(SEXP x, const SEXP rp, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
-RcppExport SEXP _squarebrackets_rcpp_slice_set_atomic(SEXP xSEXP, SEXP rpSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+// rcpp_slice_seq_set_atomic
+void rcpp_slice_seq_set_atomic(SEXP x, const SEXP rp, const SEXP stride, int use);
+RcppExport SEXP _squarebrackets_rcpp_slice_seq_set_atomic(SEXP xSEXP, SEXP rpSEXP, SEXP strideSEXP, SEXP useSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
     Rcpp::traits::input_parameter< const SEXP >::type rp(rpSEXP);
-    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
-    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
-    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
-    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
-    rcpp_slice_set_atomic(x, rp, start, end, by, len);
+    Rcpp::traits::input_parameter< const SEXP >::type stride(strideSEXP);
+    Rcpp::traits::input_parameter< int >::type use(useSEXP);
+    rcpp_slice_seq_set_atomic(x, rp, stride, use);
     return R_NilValue;
 END_RCPP
 }
-// rcpp_slice_xrev_atomic
-SEXP rcpp_slice_xrev_atomic(const SEXP x, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
-RcppExport SEXP _squarebrackets_rcpp_slice_xrev_atomic(SEXP xSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+// rcpp_slice_ptrn_x_atomic
+SEXP rcpp_slice_ptrn_x_atomic(const SEXP x, const SEXP stride, int use);
+RcppExport SEXP _squarebrackets_rcpp_slice_ptrn_x_atomic(SEXP xSEXP, SEXP strideSEXP, SEXP useSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const SEXP >::type x(xSEXP);
-    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
-    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
-    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
-    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_slice_xrev_atomic(x, start, end, by, len));
+    Rcpp::traits::input_parameter< const SEXP >::type stride(strideSEXP);
+    Rcpp::traits::input_parameter< int >::type use(useSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_slice_ptrn_x_atomic(x, stride, use));
     return rcpp_result_gen;
 END_RCPP
 }
-// rcpp_slice_setrev_atomic
-void rcpp_slice_setrev_atomic(SEXP x, const SEXP rp, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
-RcppExport SEXP _squarebrackets_rcpp_slice_setrev_atomic(SEXP xSEXP, SEXP rpSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
+// rcpp_slice_ptrn_set_atomic
+void rcpp_slice_ptrn_set_atomic(SEXP x, const SEXP rp, const SEXP stride, int use);
+RcppExport SEXP _squarebrackets_rcpp_slice_ptrn_set_atomic(SEXP xSEXP, SEXP rpSEXP, SEXP strideSEXP, SEXP useSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
     Rcpp::traits::input_parameter< const SEXP >::type rp(rpSEXP);
-    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
-    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
-    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
-    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
-    rcpp_slice_setrev_atomic(x, rp, start, end, by, len);
-    return R_NilValue;
-END_RCPP
-}
-// rcpp_slice_wo_atomic
-SEXP rcpp_slice_wo_atomic(const SEXP x, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
-RcppExport SEXP _squarebrackets_rcpp_slice_wo_atomic(SEXP xSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const SEXP >::type x(xSEXP);
-    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
-    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
-    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
-    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_slice_wo_atomic(x, start, end, by, len));
-    return rcpp_result_gen;
-END_RCPP
-}
-// rcpp_slice_setinv_atomic
-void rcpp_slice_setinv_atomic(SEXP x, const SEXP rp, const R_xlen_t start, const R_xlen_t end, const R_xlen_t by, const R_xlen_t len);
-RcppExport SEXP _squarebrackets_rcpp_slice_setinv_atomic(SEXP xSEXP, SEXP rpSEXP, SEXP startSEXP, SEXP endSEXP, SEXP bySEXP, SEXP lenSEXP) {
-BEGIN_RCPP
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
-    Rcpp::traits::input_parameter< const SEXP >::type rp(rpSEXP);
-    Rcpp::traits::input_parameter< const R_xlen_t >::type start(startSEXP);
-    Rcpp::traits::input_parameter< const R_xlen_t >::type end(endSEXP);
-    Rcpp::traits::input_parameter< const R_xlen_t >::type by(bySEXP);
-    Rcpp::traits::input_parameter< const R_xlen_t >::type len(lenSEXP);
-    rcpp_slice_setinv_atomic(x, rp, start, end, by, len);
+    Rcpp::traits::input_parameter< const SEXP >::type stride(strideSEXP);
+    Rcpp::traits::input_parameter< int >::type use(useSEXP);
+    rcpp_slice_ptrn_set_atomic(x, rp, stride, use);
     return R_NilValue;
 END_RCPP
 }
 // rcpp_countv
-R_xlen_t rcpp_countv(SEXP y, SEXP v, LogicalVector na, LogicalVector invert);
-RcppExport SEXP _squarebrackets_rcpp_countv(SEXP ySEXP, SEXP vSEXP, SEXP naSEXP, SEXP invertSEXP) {
+R_xlen_t rcpp_countv(SEXP y, SEXP v, LogicalVector na, IntegerVector use);
+RcppExport SEXP _squarebrackets_rcpp_countv(SEXP ySEXP, SEXP vSEXP, SEXP naSEXP, SEXP useSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type y(ySEXP);
     Rcpp::traits::input_parameter< SEXP >::type v(vSEXP);
     Rcpp::traits::input_parameter< LogicalVector >::type na(naSEXP);
-    Rcpp::traits::input_parameter< LogicalVector >::type invert(invertSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_countv(y, v, na, invert));
+    Rcpp::traits::input_parameter< IntegerVector >::type use(useSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_countv(y, v, na, use));
     return rcpp_result_gen;
 END_RCPP
 }
 // rcpp_whichv_32
-IntegerVector rcpp_whichv_32(SEXP y, SEXP v, LogicalVector na, LogicalVector invert);
-RcppExport SEXP _squarebrackets_rcpp_whichv_32(SEXP ySEXP, SEXP vSEXP, SEXP naSEXP, SEXP invertSEXP) {
+IntegerVector rcpp_whichv_32(SEXP y, SEXP v, LogicalVector na, IntegerVector use);
+RcppExport SEXP _squarebrackets_rcpp_whichv_32(SEXP ySEXP, SEXP vSEXP, SEXP naSEXP, SEXP useSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type y(ySEXP);
     Rcpp::traits::input_parameter< SEXP >::type v(vSEXP);
     Rcpp::traits::input_parameter< LogicalVector >::type na(naSEXP);
-    Rcpp::traits::input_parameter< LogicalVector >::type invert(invertSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_whichv_32(y, v, na, invert));
+    Rcpp::traits::input_parameter< IntegerVector >::type use(useSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_whichv_32(y, v, na, use));
     return rcpp_result_gen;
 END_RCPP
 }
 // rcpp_slicev_x_atomic
-SEXP rcpp_slicev_x_atomic(SEXP x, SEXP y, SEXP v, LogicalVector na, LogicalVector invert);
-RcppExport SEXP _squarebrackets_rcpp_slicev_x_atomic(SEXP xSEXP, SEXP ySEXP, SEXP vSEXP, SEXP naSEXP, SEXP invertSEXP) {
+SEXP rcpp_slicev_x_atomic(SEXP x, SEXP y, SEXP v, LogicalVector na, IntegerVector use);
+RcppExport SEXP _squarebrackets_rcpp_slicev_x_atomic(SEXP xSEXP, SEXP ySEXP, SEXP vSEXP, SEXP naSEXP, SEXP useSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -199,23 +184,23 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< SEXP >::type y(ySEXP);
     Rcpp::traits::input_parameter< SEXP >::type v(vSEXP);
     Rcpp::traits::input_parameter< LogicalVector >::type na(naSEXP);
-    Rcpp::traits::input_parameter< LogicalVector >::type invert(invertSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_slicev_x_atomic(x, y, v, na, invert));
+    Rcpp::traits::input_parameter< IntegerVector >::type use(useSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_slicev_x_atomic(x, y, v, na, use));
     return rcpp_result_gen;
 END_RCPP
 }
 // rcpp_slicev_set_atomic
-void rcpp_slicev_set_atomic(SEXP x, SEXP y, SEXP v, LogicalVector na, LogicalVector invert, SEXP rp);
-RcppExport SEXP _squarebrackets_rcpp_slicev_set_atomic(SEXP xSEXP, SEXP ySEXP, SEXP vSEXP, SEXP naSEXP, SEXP invertSEXP, SEXP rpSEXP) {
+void rcpp_slicev_set_atomic(SEXP x, SEXP y, SEXP v, LogicalVector na, IntegerVector use, SEXP rp);
+RcppExport SEXP _squarebrackets_rcpp_slicev_set_atomic(SEXP xSEXP, SEXP ySEXP, SEXP vSEXP, SEXP naSEXP, SEXP useSEXP, SEXP rpSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
     Rcpp::traits::input_parameter< SEXP >::type y(ySEXP);
     Rcpp::traits::input_parameter< SEXP >::type v(vSEXP);
     Rcpp::traits::input_parameter< LogicalVector >::type na(naSEXP);
-    Rcpp::traits::input_parameter< LogicalVector >::type invert(invertSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type use(useSEXP);
     Rcpp::traits::input_parameter< SEXP >::type rp(rpSEXP);
-    rcpp_slicev_set_atomic(x, y, v, na, invert, rp);
+    rcpp_slicev_set_atomic(x, y, v, na, use, rp);
     return R_NilValue;
 END_RCPP
 }
@@ -278,6 +263,19 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< IntegerMatrix >::type coord(coordSEXP);
     Rcpp::traits::input_parameter< IntegerVector >::type xdim(xdimSEXP);
     rcpp_result_gen = Rcpp::wrap(rcpp_coord2ind(ind, coord, xdim));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_ptrn_shift
+SEXP rcpp_ptrn_shift(SEXP ptrn, R_xlen_t start, R_xlen_t end);
+RcppExport SEXP _squarebrackets_rcpp_ptrn_shift(SEXP ptrnSEXP, SEXP startSEXP, SEXP endSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type ptrn(ptrnSEXP);
+    Rcpp::traits::input_parameter< R_xlen_t >::type start(startSEXP);
+    Rcpp::traits::input_parameter< R_xlen_t >::type end(endSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_ptrn_shift(ptrn, start, end));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -418,6 +416,7 @@ END_RCPP
 }
 
 RcppExport SEXP C_all_dim_zero(SEXP);
+RcppExport SEXP C_altrep_attr(SEXP);
 RcppExport SEXP C_any_address(SEXP, SEXP);
 RcppExport SEXP C_any_badindx(SEXP, SEXP);
 RcppExport SEXP C_any_badmargin(SEXP, SEXP);
@@ -430,6 +429,7 @@ RcppExport SEXP C_copy(SEXP);
 RcppExport SEXP C_is_altrep(SEXP);
 RcppExport SEXP C_is_missing_idx(SEXP);
 RcppExport SEXP C_match_range(SEXP, SEXP);
+RcppExport SEXP C_n_elements(SEXP);
 RcppExport SEXP C_serial(SEXP);
 
 static const R_CallMethodDef CallEntries[] = {
@@ -438,12 +438,12 @@ static const R_CallMethodDef CallEntries[] = {
     {"_squarebrackets_rcpp_set_array_general_atomic", (DL_FUNC) &_squarebrackets_rcpp_set_array_general_atomic, 4},
     {"_squarebrackets_rcpp_set_vind_32_atomic", (DL_FUNC) &_squarebrackets_rcpp_set_vind_32_atomic, 3},
     {"_squarebrackets_rcpp_set_vind_64_atomic", (DL_FUNC) &_squarebrackets_rcpp_set_vind_64_atomic, 3},
-    {"_squarebrackets_rcpp_slice_x_atomic", (DL_FUNC) &_squarebrackets_rcpp_slice_x_atomic, 5},
-    {"_squarebrackets_rcpp_slice_set_atomic", (DL_FUNC) &_squarebrackets_rcpp_slice_set_atomic, 6},
-    {"_squarebrackets_rcpp_slice_xrev_atomic", (DL_FUNC) &_squarebrackets_rcpp_slice_xrev_atomic, 5},
-    {"_squarebrackets_rcpp_slice_setrev_atomic", (DL_FUNC) &_squarebrackets_rcpp_slice_setrev_atomic, 6},
-    {"_squarebrackets_rcpp_slice_wo_atomic", (DL_FUNC) &_squarebrackets_rcpp_slice_wo_atomic, 5},
-    {"_squarebrackets_rcpp_slice_setinv_atomic", (DL_FUNC) &_squarebrackets_rcpp_slice_setinv_atomic, 6},
+    {"_squarebrackets_rcpp_stride_get_Rxlent", (DL_FUNC) &_squarebrackets_rcpp_stride_get_Rxlent, 2},
+    {"_squarebrackets_rcpp_stride_get_pattern", (DL_FUNC) &_squarebrackets_rcpp_stride_get_pattern, 1},
+    {"_squarebrackets_rcpp_slice_seq_x_atomic", (DL_FUNC) &_squarebrackets_rcpp_slice_seq_x_atomic, 3},
+    {"_squarebrackets_rcpp_slice_seq_set_atomic", (DL_FUNC) &_squarebrackets_rcpp_slice_seq_set_atomic, 4},
+    {"_squarebrackets_rcpp_slice_ptrn_x_atomic", (DL_FUNC) &_squarebrackets_rcpp_slice_ptrn_x_atomic, 3},
+    {"_squarebrackets_rcpp_slice_ptrn_set_atomic", (DL_FUNC) &_squarebrackets_rcpp_slice_ptrn_set_atomic, 4},
     {"_squarebrackets_rcpp_countv", (DL_FUNC) &_squarebrackets_rcpp_countv, 4},
     {"_squarebrackets_rcpp_whichv_32", (DL_FUNC) &_squarebrackets_rcpp_whichv_32, 4},
     {"_squarebrackets_rcpp_slicev_x_atomic", (DL_FUNC) &_squarebrackets_rcpp_slicev_x_atomic, 5},
@@ -453,6 +453,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_squarebrackets_C_prod_int", (DL_FUNC) &_squarebrackets_C_prod_int, 3},
     {"_squarebrackets_C_pre_coord2ind", (DL_FUNC) &_squarebrackets_C_pre_coord2ind, 3},
     {"_squarebrackets_rcpp_coord2ind", (DL_FUNC) &_squarebrackets_rcpp_coord2ind, 3},
+    {"_squarebrackets_rcpp_ptrn_shift", (DL_FUNC) &_squarebrackets_rcpp_ptrn_shift, 3},
     {"_squarebrackets_rcpp_serial", (DL_FUNC) &_squarebrackets_rcpp_serial, 1},
     {"_squarebrackets_rcpp_is_ma", (DL_FUNC) &_squarebrackets_rcpp_is_ma, 1},
     {"_squarebrackets_rcpp_set_ma", (DL_FUNC) &_squarebrackets_rcpp_set_ma, 2},
@@ -464,6 +465,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_squarebrackets_C_sub2ind_setrange32", (DL_FUNC) &_squarebrackets_C_sub2ind_setrange32, 6},
     {"_squarebrackets_rcpp_sub2ind_general32", (DL_FUNC) &_squarebrackets_rcpp_sub2ind_general32, 6},
     {"C_all_dim_zero",   (DL_FUNC) &C_all_dim_zero,   1},
+    {"C_altrep_attr",    (DL_FUNC) &C_altrep_attr,    1},
     {"C_any_address",    (DL_FUNC) &C_any_address,    2},
     {"C_any_badindx",    (DL_FUNC) &C_any_badindx,    2},
     {"C_any_badmargin",  (DL_FUNC) &C_any_badmargin,  2},
@@ -476,6 +478,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"C_is_altrep",      (DL_FUNC) &C_is_altrep,      1},
     {"C_is_missing_idx", (DL_FUNC) &C_is_missing_idx, 1},
     {"C_match_range",    (DL_FUNC) &C_match_range,    2},
+    {"C_n_elements",     (DL_FUNC) &C_n_elements,     1},
     {"C_serial",         (DL_FUNC) &C_serial,         1},
     {NULL, NULL, 0}
 };

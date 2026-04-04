@@ -22,32 +22,33 @@
 #' are referred to in this documentation as "subscripts"
 #' (abbreviated as "ss"),
 #' also known as "dimensional indices". \cr
-#' Indexing by rows and columns, referred to as tabular indices,
+#' Indexing by rows and columns, referred to as tabular tiles
+#' (abbrevated as "tt"),
 #' is a commonly used special subset of using subscripts,
 #' available only for data.frames and matrices. \cr
 #' \cr
 #' Thus 'squarebracets' supports these 3 forms of indexing: \cr
-#' Indexing by interior indices, indexing by subscripts, and tabular indices. \cr
+#' Indexing by interior indices, indexing by subscripts, and tabular tiles. \cr
 #' \cr
 #' Regarding which kind of object supports which kind of indexing form:
 #' 
 #'  - Matrices, which are simply 2-dimensional arrays, support all 3 of the above given indexing forms.
 #'  - Arrays in general can always support both interior indices and subscripts.
 #'  - Dimensionless vectors (i.e. objects for which `dim()` returns `NULL`) only support interior indices.
-#'  - Data.frames only support tabular indices. \cr \cr
+#'  - Data.frames only support tabular tiles. \cr \cr
 #'  
 #' Regarding which set of \link[=squarebrackets_methods]{methods} support which kind of indexing form:
 #' 
 #'  - One can operate on flat/interior indices (often simply referred to as "indices")
-#'  using the \link[=squarebrackets_methods]{ii_} methods; \cr
+#'  using the \link[=squarebrackets_methods]{ii_} methods and \link[=long_x]{long} methods; \cr
 #'  These primarily use the \link[=squarebrackets_indx_args]{i, use} argument pair.
 #'  - One can operate on general subscripts (= dimensional indices)
 #'  using the \link[=squarebrackets_methods]{ss_} methods; \cr
 #'  These primarily use the the \link[=squarebrackets_indx_args]{s, use} argument pair.
-#'  - One can operate on tabular indices
-#'  using the  \link[=squarebrackets_methods]{sbt_} methods; \cr
+#'  - One can operate on tabular tiles
+#'  using the  \link[=squarebrackets_methods]{tt_} methods; \cr
 #'  These primarily use the the
-#'  \link[=squarebrackets_indx_args]{obs, vars} or \link[=squarebrackets_indx_args]{row, col}
+#'  \link[=squarebrackets_indx_args]{row, col, use}
 #'  argument pair. \cr \cr
 #' 
 #' For the relationship between flat/interior indices and subscripts for arrays,
@@ -163,19 +164,9 @@
 #' (which may itself also be a long vector)
 #' is not very memory-efficient. \cr
 #' 'squarebrackets' therefore introduces index-less sub-set operations,
-#' through the \link{slice}\code{_} and \link{slicev}\code{_} methods. \cr
+#' through the \link{long}\code{_} methods. \cr
 #' These methods are much more memory and computationally efficient than index-based sub-set methods
 #' (and so also a bit better for the environment!). \cr
-#' \cr
-#' The \link{slice}\code{_} methods perform sequence based sub-set operations. \cr
-#' \cr
-#' The \link{slicev}\code{_} methods
-#' (notice the "v" at the end)
-#' perform value-based sub-set operations. \cr
-#' Though this method is intentionally kept relatively simple,
-#' it is still involved enough to warrant its own help page; \cr
-#' for the details on value-based index-less sub-set operations,
-#' please see \link{squarebrackets_slicev}. \cr
 #' \cr
 #' \cr
 #' 
@@ -262,7 +253,7 @@
 #'  - Recursive subset operations
 #'  using \link{lst_rec}/\link{lst_recin}
 #'  only support positive integer vectors and character vectors.
-#'  - Imaginary numbers (using complex vectors) and logical vectors are not supported.
+#'  - Logical vectors are not supported.
 #'  - Since a recursive subset operation only operates on a single element,
 #'  specifying the index with a character vector only selects the first matching element
 #' (just like base 'R'), not all matches.

@@ -76,8 +76,8 @@
 #'  and other essential information regarding modification.
 #'  - \link{squarebrackets_options}: \cr
 #'  Lists and explains the options the user can specify in 'squarebrackets'.
-#'  - \link{squarebrackets_slicev}: \cr
-#'  Explains the special argument structure used in the `slicev_` methods. \cr \cr
+#'  - \link{squarebrackets_stride}: \cr
+#'  Gives an overview of the `stride` argument in the \link[=long_x]{long_} methods. \cr \cr
 #'  
 #' 
 #' \bold{Pass-By-Reference} \cr
@@ -191,9 +191,9 @@
 #' @exportPattern "^ss_set"
 #' @exportPattern "^ss_mod"
 #' 
-#' @exportPattern "^sbt_x"
-#' @exportPattern "^sbt_set"
-#' @exportPattern "^sbt_mod"
+#' @exportPattern "^tt_x"
+#' @exportPattern "^tt_set"
+#' @exportPattern "^tt_mod"
 #' 
 NULL
 #> NULL

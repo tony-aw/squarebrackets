@@ -139,7 +139,7 @@ sys.source(file.path(getwd(), "source", "sourcetest-dims.R"), envir = environmen
 
 pre_subset_mat <- function(x, row = NULL, col = NULL) {
   
-  sbt_x(x, row, col)
+  tt_x(x, row, col)
 }
 
 
@@ -154,7 +154,7 @@ f_expect.matrix <- f_expect.2d <- function(x, row = NULL, col = NULL) {
 
 f_out.2d <- f_out.matrix <- function(x, row, col) {
   
-  return(sbt_mod(x, row = row, col = col, tf = mean))
+  return(tt_mod(x, row = row, col = col, tf = mean))
 }
 
 

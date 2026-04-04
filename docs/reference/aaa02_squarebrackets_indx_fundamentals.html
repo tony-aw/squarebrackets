@@ -11,7 +11,7 @@ Some familiarity with base R's [ and [&amp;lt;- operators is required to follow 
 
     <a class="navbar-brand me-2" href="../index.html">squarebrackets</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9007</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9008</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -69,25 +69,26 @@ The numbers on the edges of this representations,
 are referred to in this documentation as "subscripts"
 (abbreviated as "ss"),
 also known as "dimensional indices". <br>
-Indexing by rows and columns, referred to as tabular indices,
+Indexing by rows and columns, referred to as tabular tiles
+(abbrevated as "tt"),
 is a commonly used special subset of using subscripts,
 available only for data.frames and matrices. <br><br>
 Thus 'squarebracets' supports these 3 forms of indexing: <br>
-Indexing by interior indices, indexing by subscripts, and tabular indices. <br><br>
+Indexing by interior indices, indexing by subscripts, and tabular tiles. <br><br>
 Regarding which kind of object supports which kind of indexing form:</p><ul><li><p>Matrices, which are simply 2-dimensional arrays, support all 3 of the above given indexing forms.</p></li>
 <li><p>Arrays in general can always support both interior indices and subscripts.</p></li>
 <li><p>Dimensionless vectors (i.e. objects for which <code><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim()</a></code> returns <code>NULL</code>) only support interior indices.</p></li>
-<li><p>Data.frames only support tabular indices. <br><br></p></li>
+<li><p>Data.frames only support tabular tiles. <br><br></p></li>
 </ul><p>Regarding which set of <a href="aaa01_squarebrackets_methods.html">methods</a> support which kind of indexing form:</p><ul><li><p>One can operate on flat/interior indices (often simply referred to as "indices")
-using the <a href="aaa01_squarebrackets_methods.html">ii_</a> methods; <br>
+using the <a href="aaa01_squarebrackets_methods.html">ii_</a> methods and <a href="long.html">long</a> methods; <br>
 These primarily use the <a href="aaa04_squarebrackets_indx_args.html">i, use</a> argument pair.</p></li>
 <li><p>One can operate on general subscripts (= dimensional indices)
 using the <a href="aaa01_squarebrackets_methods.html">ss_</a> methods; <br>
 These primarily use the the <a href="aaa04_squarebrackets_indx_args.html">s, use</a> argument pair.</p></li>
-<li><p>One can operate on tabular indices
-using the  <a href="aaa01_squarebrackets_methods.html">sbt_</a> methods; <br>
+<li><p>One can operate on tabular tiles
+using the  <a href="aaa01_squarebrackets_methods.html">tt_</a> methods; <br>
 These primarily use the the
-<a href="aaa04_squarebrackets_indx_args.html">obs, vars</a> or <a href="aaa04_squarebrackets_indx_args.html">row, col</a>
+<a href="aaa04_squarebrackets_indx_args.html">row, col, use</a>
 argument pair. <br><br></p></li>
 </ul><p>For the relationship between flat/interior indices and subscripts for arrays,
 see the <a href="ss2ii.html">ss2ii</a> help page. <br><br><br></p>
@@ -187,17 +188,9 @@ Performing sub-set operations on a long vector using a index vector
 (which may itself also be a long vector)
 is not very memory-efficient. <br>
 'squarebrackets' therefore introduces index-less sub-set operations,
-through the <a href="slice.html">slice</a><code>_</code> and <a href="slicev.html">slicev</a><code>_</code> methods. <br>
+through the <a href="long.html">long</a><code>_</code> methods. <br>
 These methods are much more memory and computationally efficient than index-based sub-set methods
-(and so also a bit better for the environment!). <br><br>
-The <a href="slice.html">slice</a><code>_</code> methods perform sequence based sub-set operations. <br><br>
-The <a href="slicev.html">slicev</a><code>_</code> methods
-(notice the "v" at the end)
-perform value-based sub-set operations. <br>
-Though this method is intentionally kept relatively simple,
-it is still involved enough to warrant its own help page; <br>
-for the details on value-based index-less sub-set operations,
-please see <a href="aaa08_squarebrackets_slicev.html">squarebrackets_slicev</a>. <br><br><br></p>
+(and so also a bit better for the environment!). <br><br><br></p>
     </div>
     <div class="section level2">
     <h2 id="regarding-performance">Regarding Performance<a class="anchor" aria-label="anchor" href="#regarding-performance"></a></h2>
@@ -262,7 +255,7 @@ Indexing in recursive subsets is significantly more limited than in regular
 (or "shallow") subsets:</p><ul><li><p>Recursive subset operations
 using <a href="lst_rec.html">lst_rec</a>/<a href="lst_rec.html">lst_recin</a>
 only support positive integer vectors and character vectors.</p></li>
-<li><p>Imaginary numbers (using complex vectors) and logical vectors are not supported.</p></li>
+<li><p>Logical vectors are not supported.</p></li>
 <li><p>Since a recursive subset operation only operates on a single element,
 specifying the index with a character vector only selects the first matching element
 (just like base 'R'), not all matches.</p></li>

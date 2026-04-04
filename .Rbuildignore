@@ -23,3 +23,5 @@ usethis
 ^altdoc$
 ^_quarto$
 ^skeletons
+^develop
+^special_tests

@@ -65,8 +65,8 @@ The \code{.bi(...)} function is used to specify bilateral indices. \cr
 One can specify both positive and negative numbers. \cr
 Positive numbers (for example \code{~ .bi(1:10)}) specify indices work like normally. \cr
 Negative numbers specify indices from the end; \cr
-i.e. \code{~ .bi(-2)} would be equivalent to \code{length(x) - 1} if \code{x} is a vector,
-or \code{dim(x)[.M] - 1} if \code{x} is an array. \cr
+i.e. \code{~ .bi(-2)} would be equivalent to \code{length(x) - 1} if using an \code{ii_} method,
+or \code{dim(x)[.M] - 1} if using a \code{ss_} or \code{tt_} method. \cr
 \cr
 The usage of \code{.bi(...)} is similar to the \code{c(...)} function,
 in that multiple vectors can be concatenated to one. \cr

@@ -19,10 +19,8 @@ For the \verb{<indexform>} part, the following is available:
 by \link[=squarebrackets_indx_fundamentals]{interior indices}.
 \item \code{ss_}: operates on subsets of atomic/recursive arrays of any dimensionality
 by \link[=squarebrackets_indx_fundamentals]{subscripts}.
-\item \code{sbt_}: operates on subsets of data.frames and atomic/recursive matrices
+\item \code{tt_}: operates on subsets of data.frames and atomic/recursive matrices
 by \link[=squarebrackets_indx_fundamentals]{tabular indices}.
-\item \code{slice_}: uses \bold{index-less}, \bold{sequence-based}, and efficient operations on (\link{mutatomic}) long vectors.
-\item \code{slicev_}: uses \link[=squarebrackets_slicev]{index-less & value-based} and efficient operations on (\link{mutatomic}) long vectors. \cr \cr
 }
 
 For the \verb{<operation>} part, the following is available:
@@ -41,19 +39,30 @@ To illustrate, let's take the methods used for extracting subsets
 \item If \code{y} is a 3d array, \cr
 \code{ss_x(y, n(i, k), c(1, 3))} corresponds to \code{y[i, , k, drop = FALSE]}.
 \item If \code{y} is a matrix or data.frame-like object, \cr
-\code{sbt_x(y, i, j)} corresponds to \code{y[i, j, drop = FALSE]}. \cr \cr
+\code{tt_x(y, i, j)} corresponds to \code{y[i, j, drop = FALSE]}. \cr \cr
+}
+}
+
+\section{Specialized Methods}{
+
+The main methods of 'squarebrackets' are applicable for all supported types and classes
+(provided the correct method for the correct dimensionality is used). \cr
+'squarebrackets' also provides specialized methods specific to certain structures:
+\itemize{
+\item the \link[=lst_rec]{lst_} set of methods,
+which deal with sub-set operations that are only relevant for (nested) lists,
+but not for the other types of supported objects. \cr
+\item the \link[=long]{long_} set of methods,
+which deal with index-less sub-set operations,
+that are only relevant for long atomic vectors. \cr \cr
 }
 }
 
 \section{Other Methods}{
 
-Besides the main methods, 'squarebrackets' provides some additional methods that do not neatly fit into the above methods. \cr
-\cr
-First, there is the \link[=lst_rec]{lst_} set of methods,
-which deal with sub-set operations that are only relevant for (nested) lists,
-but not for the other types of supported objects. \cr
-\cr
-Second, there are the \code{sb_} sets of methods,
+Besides the previously mentioned methods,
+'squarebrackets' provides some additional methods that do not neatly fit into the above methods. \cr
+These are the set of \code{sb_} methods,
 which cover miscellaneous operations for atomic/recursive objects. \cr \cr
 }
 

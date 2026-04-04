@@ -58,12 +58,12 @@ ss_set <- function(x, s = NULL, use = rdim(x), ..., rp, tf) {
 
 #' @rdname sb_set
 #' @export
-sbt_set <- function(x, row = NULL, col = NULL, use = 1:2, ..., rp, tf) {
+tt_set <- function(x, row = NULL, col = NULL, use = 1:2, ..., rp, tf) {
   
   .methodcheck.sbt(x, row, col, use, sys.call())
   .internal_check_rptf(rp, tf, sys.call())
   
-  UseMethod("sbt_set", x)
+  UseMethod("tt_set", x)
 }
 
 
@@ -115,7 +115,7 @@ ss_set.default <- function(
 
 #' @rdname sb_set
 #' @export
-sbt_set.default <- function(
+tt_set.default <- function(
     x, row = NULL, col = NULL, use = 1:2, ...,
     rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
@@ -128,7 +128,7 @@ sbt_set.default <- function(
 
 #' @rdname sb_set
 #' @export
-sbt_set.data.table <- function(
+tt_set.data.table <- function(
     x, row = NULL, col = NULL, use = 1:2, ...,
     rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {

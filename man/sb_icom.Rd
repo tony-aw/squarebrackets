@@ -3,17 +3,17 @@
 \name{ii_icom}
 \alias{ii_icom}
 \alias{ss_icom}
-\alias{sbt_icom}
+\alias{tt_icom}
 \alias{ii_icom.default}
 \alias{ss_icom.default}
-\alias{sbt_icom.default}
+\alias{tt_icom.default}
 \title{Compute Indices for Copy-On-Modify Substitution}
 \usage{
 ii_icom(x, i = NULL, use = 1, ...)
 
 ss_icom(x, s = NULL, use = 1:ndim(x), ...)
 
-sbt_icom(x, slice, use, ...)
+tt_icom(x, slice, use, ...)
 
 \method{ii_icom}{default}(
   x,
@@ -31,7 +31,7 @@ sbt_icom(x, slice, use, ...)
   chkdup = getOption("squarebrackets.chkdup", FALSE)
 )
 
-\method{sbt_icom}{default}(
+\method{tt_icom}{default}(
   x,
   slice = NULL,
   use = NULL,
@@ -61,8 +61,8 @@ my_ss2ii <- ss_icom(x, s, use)
 x[my_ss2ii] <- value
 
 y <- data.frame(...)
-rows <- sbt_icom(y, 1:10, 1, inv = TRUE)
-cols <- sbt_icom(y, c("a", "b"), 2)
+rows <- tt_icom(y, 1:10, 1, inv = TRUE)
+cols <- tt_icom(y, c("a", "b"), 2)
 y[rows, cols] <- value
 }\if{html}{\out{</div>}}
 
@@ -105,8 +105,8 @@ x <- data.frame(
   d = letters[1:10],
   e = factor(letters[11:20])
 )
-rows <- sbt_icom(x, 1:5, -1)
-cols <- sbt_icom(x, c("b", "a"), 2)
+rows <- tt_icom(x, 1:5, -1)
+cols <- tt_icom(x, c("b", "a"), 2)
 x[rows, cols] <- NA
 print(x)
 

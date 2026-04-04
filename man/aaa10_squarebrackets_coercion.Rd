@@ -130,18 +130,18 @@ print(x)
 
 # Coercion examples - data.table - whole columns ====
 
-# sbt_mod():
+# tt_mod():
 obj <- data.table::data.table(
   a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10])
 )
 str(obj) # notice that columns "a" and "c" are INTEGER (`int`)
-sbt_mod(
+tt_mod(
   obj, col = is.numeric,
   tf = sqrt # SAFE: obs = NULL, so coercion performed
 )
 
-# sbt_set():
-sbt_set(
+# tt_set():
+tt_set(
   obj, col = is.numeric,
   tf = sqrt # SAFE: obs = NULL, so coercion performed
 )
@@ -152,23 +152,23 @@ str(obj)
 
 # Coercion examples - data.table - partial columns ====
 
-# sbt_mod():
+# tt_mod():
 obj <- data.table::data.table(
   a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10])
 )
 str(obj) # notice that columns "a" and "c" are INTEGER (`int`)
 
-sbt_mod(
+tt_mod(
   obj, with(obj,  (a >= 2) & (c <= 17)), is.numeric,
   tf = sqrt # SAFE: coercion performed
 )
 
-# sbt_set():
+# tt_set():
 obj <- data.table::data.table(
   a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10])
 )
 str(obj) # notice that columns "a" and "c" are INTEGER (`int`)
-sbt_set(
+tt_set(
   obj, with(obj,  (a >= 2) & (c <= 17)), is.numeric,
   tf = sqrt
   # WARNING: sqrt() results in `dbl`, but columns are `int`, so decimals lost
@@ -179,9 +179,9 @@ obj <- data.table::data.table(
   a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10])
 )
 str(obj)
-sbt_set(obj, col = is.numeric, tf = as.numeric) # first coerce type by whole columns
+tt_set(obj, col = is.numeric, tf = as.numeric) # first coerce type by whole columns
 str(obj)
-sbt_set(
+tt_set(
   obj,
   with(obj,  (a >= 2) & (c <= 17)), is.numeric,
   tf = sqrt # SAFE: coercion performed by dt_setcoe(); so no warnings
@@ -200,7 +200,7 @@ x <- list(
 print(x)
 myref <- x$a
 address(myref) == address(x$a) # they are the same
-sbt_set(myref, col = "cola", tf = \(x)x^2)
+tt_set(myref, col = "cola", tf = \(x)x^2)
 print(x) # notice x has been changed
 
 }

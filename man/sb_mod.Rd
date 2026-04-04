@@ -3,18 +3,18 @@
 \name{ii_mod}
 \alias{ii_mod}
 \alias{ss_mod}
-\alias{sbt_mod}
+\alias{tt_mod}
 \alias{ii_mod.default}
 \alias{ss_mod.default}
-\alias{sbt_mod.default}
-\alias{sbt_mod.data.frame}
+\alias{tt_mod.default}
+\alias{tt_mod.data.frame}
 \title{Method to Return a Copy of an Object With Modified Subsets}
 \usage{
 ii_mod(x, i = NULL, use = 1, ..., rp, tf)
 
 ss_mod(x, s = NULL, use = rdim(x), ..., rp, tf)
 
-sbt_mod(x, row = NULL, col = NULL, use = 1:2, ..., rp, tf)
+tt_mod(x, row = NULL, col = NULL, use = 1:2, ..., rp, tf)
 
 \method{ii_mod}{default}(
   x,
@@ -36,7 +36,7 @@ sbt_mod(x, row = NULL, col = NULL, use = 1:2, ..., rp, tf)
   chkdup = getOption("squarebrackets.chkdup", FALSE)
 )
 
-\method{sbt_mod}{default}(
+\method{tt_mod}{default}(
   x,
   row = NULL,
   col = NULL,
@@ -47,7 +47,7 @@ sbt_mod(x, row = NULL, col = NULL, use = 1:2, ..., rp, tf)
   chkdup = getOption("squarebrackets.chkdup", FALSE)
 )
 
-\method{sbt_mod}{data.frame}(
+\method{tt_mod}{data.frame}(
   x,
   row = NULL,
   col = NULL,
@@ -155,7 +155,7 @@ ii_mod(obj, i = \(x) x <= 5, rp = as.list(-1:-5))
 
 obj <- data.frame(a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10]))
 str(obj) # notice that columns "a" and "c" are INTEGER (`int`)
-sbt_mod(
+tt_mod(
   obj, col = is.numeric,
   tf = sqrt
 )
@@ -167,15 +167,15 @@ sbt_mod(
 obj <- data.frame(a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10]))
 str(obj) # notice that columns "a" and "c" are INTEGER (`int`)
 
-sbt_mod(
+tt_mod(
   obj, with(obj,  (a > 2) & (c < 17)), is.numeric,
   tf = sqrt
 ) 
-sbt_mod(
+tt_mod(
   obj, with(obj,  (a > 2) & (c < 17)), is.numeric,
   tf = sqrt
 ) 
-sbt_mod(
+tt_mod(
   obj, with(obj,  (a > 2) & (c < 17)), is.numeric,
   tf = sqrt
 ) 

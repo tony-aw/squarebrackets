@@ -21,7 +21,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">squarebrackets</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9007</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9008</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -100,6 +100,7 @@ approximately <code>1e7</code> elements.</p>
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://bench.r-lib.org/" class="external-link">bench</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com" class="external-link">patchwork</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: package 'patchwork' was built under R version 4.5.3</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tony-aw/tinycodet/" class="external-link">tinycodet</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; Run `?tinycodet::tinycodet` to open the introduction help page of 'tinycodet'.</span></span></code></pre></div>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
@@ -208,12 +209,7 @@ approximately <code>1e7</code> elements.</p>
 <div class="section level3">
 <h3 id="plot">Plot<a class="anchor" aria-label="anchor" href="#plot"></a>
 </h3>
-<pre><code><span><span class="co">#&gt; Warning: The `trans` argument of `continuous_scale()` is deprecated as of ggplot2 3.5.0.</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Please use the `transform` argument instead.</span></span>
-<span><span class="co">#&gt; <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span></span>
-<span><span class="co">#&gt; <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span></span>
-<span><span class="co">#&gt; <span style="color: #555555;">generated.</span></span></span>
-<span><span class="co">#&gt; Orientation inferred to be along y-axis; override with</span></span>
+<pre><code><span><span class="co">#&gt; Orientation inferred to be along y-axis; override with</span></span>
 <span><span class="co">#&gt; `position_quasirandom(orientation = 'x')`</span></span>
 <span><span class="co">#&gt; Orientation inferred to be along y-axis; override with</span></span>
 <span><span class="co">#&gt; `position_quasirandom(orientation = 'x')`</span></span></code></pre>
@@ -235,7 +231,7 @@ approximately <code>1e7</code> elements.</p>
 <span><span class="op">)</span></span>
 <span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">chrmat</span>, <span class="va">intmat</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/make.names.html" class="external-link">make.names</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span>, unique <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="va">dt</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://rdatatable.gitlab.io/data.table/reference/as.data.table.html" class="external-link">as.data.table</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
+<span><span class="va">dt</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/data.table/man/as.data.table.html" class="external-link">as.data.table</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span>list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"chrmat"</span>, <span class="st">"intmat"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">sel.rows</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">1000</span></span>
@@ -246,10 +242,10 @@ approximately <code>1e7</code> elements.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/gc.html" class="external-link">gc</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">bm.sb_tf.df</span> <span class="op">&lt;-</span> <span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="https://bench.r-lib.org/reference/mark.html" class="external-link">mark</a></span><span class="op">(</span></span>
 <span>  <span class="st">"base [&lt;-"</span> <span class="op">=</span> <span class="fu">basefun</span><span class="op">(</span><span class="va">df</span>, <span class="va">sel.rows</span>, tf <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">-</span><span class="fl">1</span> <span class="op">*</span> <span class="va">x</span><span class="op">)</span>,</span>
-<span>  <span class="st">"sbt_set"</span> <span class="op">=</span> <span class="fu"><a href="../reference/sb_set.html">sbt_set</a></span><span class="op">(</span></span>
+<span>  <span class="st">"sbt_set"</span> <span class="op">=</span> <span class="fu">sbt_set</span><span class="op">(</span></span>
 <span>    <span class="va">dt</span>, obs <span class="op">=</span> <span class="va">sel.rows</span>, vars <span class="op">=</span> <span class="va">is.numeric</span>, tf <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">-</span><span class="fl">1</span> <span class="op">*</span> <span class="va">x</span></span>
 <span>  <span class="op">)</span>,</span>
-<span>  <span class="st">"sbt_mod"</span> <span class="op">=</span> <span class="fu"><a href="../reference/sb_mod.html">sbt_mod</a></span><span class="op">(</span></span>
+<span>  <span class="st">"sbt_mod"</span> <span class="op">=</span> <span class="fu">sbt_mod</span><span class="op">(</span></span>
 <span>    <span class="va">df</span>, obs <span class="op">=</span> <span class="va">sel.rows</span>, vars <span class="op">=</span> <span class="va">is.numeric</span>, tf <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">-</span><span class="fl">1</span> <span class="op">*</span> <span class="va">x</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  check <span class="op">=</span> <span class="cn">FALSE</span>,</span>

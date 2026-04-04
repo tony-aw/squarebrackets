@@ -131,8 +131,8 @@ sys.source(file.path(getwd(), "source", "sourcetest-dims.R"), envir = environmen
 
 
 # row,col ===
-f_out.matrix <- sbt_x
-f_out.2d <- sbt_x
+f_out.matrix <- tt_x
+f_out.2d <- tt_x
 sys.source(file.path(getwd(), "source", "sourcetest-rowcol.R"), envir = environment())
 
 

@@ -76,7 +76,7 @@ converts an integer matrix of coordinates to an integer vector of interior indic
 converts an integer vector of interior indices to an integer matrix of coordinates.
 \item \code{coord2ss()}
 converts an integer matrix of coordinates to a list of integer subscripts; \cr
-it performs a very simple (one might even say naive) conversion. \cr
+it performs a \bold{very naive} conversion. \cr
 \item \code{ss2ii()}
 is a faster and more memory efficient version of \cr
 \code{ss2coord(sub, x.dims) |> coord2ii(x.dims)} \cr \cr

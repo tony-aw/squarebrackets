@@ -31,7 +31,7 @@ inline int rcpp_count_stringmatches(SEXP y, SEXP v) {
 //' @noRd
 // [[Rcpp::export(.rcpp_countv)]]
 R_xlen_t rcpp_countv(
-    SEXP y, SEXP v, LogicalVector na, LogicalVector invert
+    SEXP y, SEXP v, LogicalVector na, IntegerVector use
   ) {
     R_xlen_t count = 0;
     
@@ -48,11 +48,11 @@ R_xlen_t rcpp_countv(
 //' @noRd
 // [[Rcpp::export(.rcpp_whichv_32)]]
 IntegerVector rcpp_whichv_32(
-    SEXP y, SEXP v, LogicalVector na, LogicalVector invert
+    SEXP y, SEXP v, LogicalVector na, IntegerVector use
   ) {
     R_xlen_t count = 0;
    
-    R_xlen_t amount = rcpp_countv(y, v, na, invert);
+    R_xlen_t amount = rcpp_countv(y, v, na, use);
     int *pout;
     SEXP out = PROTECT(Rf_allocVector(INTSXP, amount));
     pout = INTEGER(out);
@@ -72,7 +72,7 @@ IntegerVector rcpp_whichv_32(
 
 
 SEXP rcpp_slicev_x_Logical(
-    SEXP x, SEXP y, SEXP v, LogicalVector na, LogicalVector invert
+    SEXP x, SEXP y, SEXP v, LogicalVector na, IntegerVector use
   ) {
     R_xlen_t count = 0;
     
@@ -81,7 +81,7 @@ SEXP rcpp_slicev_x_Logical(
     }
     const int *px = LOGICAL_RO(x);
     
-    R_xlen_t size = rcpp_countv(y, v, na, invert);
+    R_xlen_t size = rcpp_countv(y, v, na, use);
     SEXP out = PROTECT(Rf_allocVector(LGLSXP, size));
      int *pout = LOGICAL(out);
     
@@ -101,7 +101,7 @@ SEXP rcpp_slicev_x_Logical(
 
 
 SEXP rcpp_slicev_x_Integer(
-    SEXP x, SEXP y, SEXP v, LogicalVector na, LogicalVector invert
+    SEXP x, SEXP y, SEXP v, LogicalVector na, IntegerVector use
   ) {
     R_xlen_t count = 0;
     
@@ -110,7 +110,7 @@ SEXP rcpp_slicev_x_Integer(
     }
     const int *px = INTEGER_RO(x);
     
-    R_xlen_t size = rcpp_countv(y, v, na, invert);
+    R_xlen_t size = rcpp_countv(y, v, na, use);
     SEXP out = PROTECT(Rf_allocVector(INTSXP, size));
      int *pout = INTEGER(out);
     
@@ -130,7 +130,7 @@ SEXP rcpp_slicev_x_Integer(
 
 
 SEXP rcpp_slicev_x_Numeric(
-    SEXP x, SEXP y, SEXP v, LogicalVector na, LogicalVector invert
+    SEXP x, SEXP y, SEXP v, LogicalVector na, IntegerVector use
   ) {
     R_xlen_t count = 0;
     
@@ -139,7 +139,7 @@ SEXP rcpp_slicev_x_Numeric(
     }
     const double *px = REAL_RO(x);
     
-    R_xlen_t size = rcpp_countv(y, v, na, invert);
+    R_xlen_t size = rcpp_countv(y, v, na, use);
     SEXP out = PROTECT(Rf_allocVector(REALSXP, size));
      double *pout = REAL(out);
     
@@ -159,7 +159,7 @@ SEXP rcpp_slicev_x_Numeric(
 
 
 SEXP rcpp_slicev_x_Complex(
-    SEXP x, SEXP y, SEXP v, LogicalVector na, LogicalVector invert
+    SEXP x, SEXP y, SEXP v, LogicalVector na, IntegerVector use
   ) {
     R_xlen_t count = 0;
     
@@ -168,7 +168,7 @@ SEXP rcpp_slicev_x_Complex(
     }
     const Rcomplex *px = COMPLEX_RO(x);
     
-    R_xlen_t size = rcpp_countv(y, v, na, invert);
+    R_xlen_t size = rcpp_countv(y, v, na, use);
     SEXP out = PROTECT(Rf_allocVector(CPLXSXP, size));
      Rcomplex *pout = COMPLEX(out);
     
@@ -188,7 +188,7 @@ SEXP rcpp_slicev_x_Complex(
 
 
 SEXP rcpp_slicev_x_Raw(
-    SEXP x, SEXP y, SEXP v, LogicalVector na, LogicalVector invert
+    SEXP x, SEXP y, SEXP v, LogicalVector na, IntegerVector use
   ) {
     R_xlen_t count = 0;
     
@@ -197,7 +197,7 @@ SEXP rcpp_slicev_x_Raw(
     }
     const Rbyte *px = RAW_RO(x);
     
-    R_xlen_t size = rcpp_countv(y, v, na, invert);
+    R_xlen_t size = rcpp_countv(y, v, na, use);
     SEXP out = PROTECT(Rf_allocVector(RAWSXP, size));
      Rbyte *pout = RAW(out);
     
@@ -217,7 +217,7 @@ SEXP rcpp_slicev_x_Raw(
 
 
 SEXP rcpp_slicev_x_Character(
-    SEXP x, SEXP y, SEXP v, LogicalVector na, LogicalVector invert
+    SEXP x, SEXP y, SEXP v, LogicalVector na, IntegerVector use
   ) {
     R_xlen_t count = 0;
     
@@ -226,7 +226,7 @@ SEXP rcpp_slicev_x_Character(
     }
     const SEXP *px = STRING_PTR_RO(x);
     
-    R_xlen_t size = rcpp_countv(y, v, na, invert);
+    R_xlen_t size = rcpp_countv(y, v, na, use);
     SEXP out = PROTECT(Rf_allocVector(STRSXP, size));
     // SEXP *pout = STRING_PTR(out);
     
@@ -246,39 +246,39 @@ SEXP rcpp_slicev_x_Character(
 //' @noRd
 // [[Rcpp::export(.rcpp_slicev_x_atomic)]]
 SEXP rcpp_slicev_x_atomic(
-  SEXP x, SEXP y, SEXP v, LogicalVector na, LogicalVector invert
+  SEXP x, SEXP y, SEXP v, LogicalVector na, IntegerVector use
 ) {
 
     switch(TYPEOF(x)){
     
       case LGLSXP:
       {
-        return rcpp_slicev_x_Logical(x, y, v, na, invert);
+        return rcpp_slicev_x_Logical(x, y, v, na, use);
         break;
       }
       case INTSXP:
       {
-        return rcpp_slicev_x_Integer(x, y, v, na, invert);
+        return rcpp_slicev_x_Integer(x, y, v, na, use);
         break;
       }
       case REALSXP:
       {
-        return rcpp_slicev_x_Numeric(x, y, v, na, invert);
+        return rcpp_slicev_x_Numeric(x, y, v, na, use);
         break;
       }
       case CPLXSXP:
       {
-        return rcpp_slicev_x_Complex(x, y, v, na, invert);
+        return rcpp_slicev_x_Complex(x, y, v, na, use);
         break;
       }
       case RAWSXP:
       {
-        return rcpp_slicev_x_Raw(x, y, v, na, invert);
+        return rcpp_slicev_x_Raw(x, y, v, na, use);
         break;
       }
       case STRSXP:
       {
-        return rcpp_slicev_x_Character(x, y, v, na, invert);
+        return rcpp_slicev_x_Character(x, y, v, na, use);
         break;
       }
       default: stop("unsupported type given");
@@ -290,7 +290,7 @@ SEXP rcpp_slicev_x_atomic(
 
 
 void rcpp_slicev_set_Logical(
-    SEXP x, SEXP y, SEXP v, LogicalVector na, LogicalVector invert, SEXP rp
+    SEXP x, SEXP y, SEXP v, LogicalVector na, IntegerVector use, SEXP rp
   ) {
   
   if(Rf_xlength(x) != Rf_xlength(y)) {
@@ -318,7 +318,7 @@ void rcpp_slicev_set_Logical(
 
 
 void rcpp_slicev_set_Integer(
-    SEXP x, SEXP y, SEXP v, LogicalVector na, LogicalVector invert, SEXP rp
+    SEXP x, SEXP y, SEXP v, LogicalVector na, IntegerVector use, SEXP rp
   ) {
   
   if(Rf_xlength(x) != Rf_xlength(y)) {
@@ -346,7 +346,7 @@ void rcpp_slicev_set_Integer(
 
 
 void rcpp_slicev_set_Numeric(
-    SEXP x, SEXP y, SEXP v, LogicalVector na, LogicalVector invert, SEXP rp
+    SEXP x, SEXP y, SEXP v, LogicalVector na, IntegerVector use, SEXP rp
   ) {
   
   if(Rf_xlength(x) != Rf_xlength(y)) {
@@ -374,7 +374,7 @@ void rcpp_slicev_set_Numeric(
 
 
 void rcpp_slicev_set_Complex(
-    SEXP x, SEXP y, SEXP v, LogicalVector na, LogicalVector invert, SEXP rp
+    SEXP x, SEXP y, SEXP v, LogicalVector na, IntegerVector use, SEXP rp
   ) {
   
   if(Rf_xlength(x) != Rf_xlength(y)) {
@@ -402,7 +402,7 @@ void rcpp_slicev_set_Complex(
 
 
 void rcpp_slicev_set_Raw(
-    SEXP x, SEXP y, SEXP v, LogicalVector na, LogicalVector invert, SEXP rp
+    SEXP x, SEXP y, SEXP v, LogicalVector na, IntegerVector use, SEXP rp
   ) {
   
   if(Rf_xlength(x) != Rf_xlength(y)) {
@@ -430,7 +430,7 @@ void rcpp_slicev_set_Raw(
 
 
 void rcpp_slicev_set_Character(
-    SEXP x, SEXP y, SEXP v, LogicalVector na, LogicalVector invert, SEXP rp
+    SEXP x, SEXP y, SEXP v, LogicalVector na, IntegerVector use, SEXP rp
   ) {
   
   if(Rf_xlength(x) != Rf_xlength(y)) {
@@ -458,39 +458,39 @@ void rcpp_slicev_set_Character(
 //' @noRd
 // [[Rcpp::export(.rcpp_slicev_set_atomic)]]
 void rcpp_slicev_set_atomic(
-  SEXP x, SEXP y, SEXP v, LogicalVector na, LogicalVector invert, SEXP rp
+  SEXP x, SEXP y, SEXP v, LogicalVector na, IntegerVector use, SEXP rp
 ) {
 
     switch(TYPEOF(x)){
     
       case LGLSXP:
       {
-         rcpp_slicev_set_Logical(x, y, v, na, invert, rp);
+         rcpp_slicev_set_Logical(x, y, v, na, use, rp);
         break;
       }
       case INTSXP:
       {
-         rcpp_slicev_set_Integer(x, y, v, na, invert, rp);
+         rcpp_slicev_set_Integer(x, y, v, na, use, rp);
         break;
       }
       case REALSXP:
       {
-         rcpp_slicev_set_Numeric(x, y, v, na, invert, rp);
+         rcpp_slicev_set_Numeric(x, y, v, na, use, rp);
         break;
       }
       case CPLXSXP:
       {
-         rcpp_slicev_set_Complex(x, y, v, na, invert, rp);
+         rcpp_slicev_set_Complex(x, y, v, na, use, rp);
         break;
       }
       case RAWSXP:
       {
-         rcpp_slicev_set_Raw(x, y, v, na, invert, rp);
+         rcpp_slicev_set_Raw(x, y, v, na, use, rp);
         break;
       }
       case STRSXP:
       {
-         rcpp_slicev_set_Character(x, y, v, na, invert, rp);
+         rcpp_slicev_set_Character(x, y, v, na, use, rp);
         break;
       }
       default: stop("unsupported type given");

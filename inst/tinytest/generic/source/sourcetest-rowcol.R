@@ -108,7 +108,7 @@ temp.fun.2d(x, row, col, f_expect.2d, f_out.2d)
 
 if(isTRUE(test_allow_duplicates)) {
   expect_equal(
-    sbt_x(x, c("a", "a", "a"), 0L),
+    tt_x(x, c("a", "a", "a"), 0L),
     rep3.bind(x[which(rownames(x) %in% "a"), , drop = FALSE], 1)
   ) |> errorfun()
 }

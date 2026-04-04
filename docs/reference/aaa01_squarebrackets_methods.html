@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">squarebrackets</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9007</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9008</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,10 +53,8 @@ For the <code>&lt;indexform&gt;</code> part, the following is available:</p><ul>
 by <a href="aaa02_squarebrackets_indx_fundamentals.html">interior indices</a>.</p></li>
 <li><p><code>ss_</code>: operates on subsets of atomic/recursive arrays of any dimensionality
 by <a href="aaa02_squarebrackets_indx_fundamentals.html">subscripts</a>.</p></li>
-<li><p><code>sbt_</code>: operates on subsets of data.frames and atomic/recursive matrices
+<li><p><code>tt_</code>: operates on subsets of data.frames and atomic/recursive matrices
 by <a href="aaa02_squarebrackets_indx_fundamentals.html">tabular indices</a>.</p></li>
-<li><p><code>slice_</code>: uses <b>index-less</b>, <b>sequence-based</b>, and efficient operations on (<a href="mutatomic_class.html">mutatomic</a>) long vectors.</p></li>
-<li><p><code>slicev_</code>: uses <a href="aaa08_squarebrackets_slicev.html">index-less &amp; value-based</a> and efficient operations on (<a href="mutatomic_class.html">mutatomic</a>) long vectors. <br><br></p></li>
 </ul><p>For the <code>&lt;operation&gt;</code> part, the following is available:</p><ul><li><p><code>_x</code>: extract, exchange, exclude, or duplicate (if applicable) subsets.</p></li>
 <li><p><code>_mod</code>: modify subsets and return copy.</p></li>
 <li><p><code>_set</code>: modify subsets using <a href="aaa09_squarebrackets_PassByReference.html">pass-by-reference semantics</a>.</p></li>
@@ -64,17 +62,28 @@ by <a href="aaa02_squarebrackets_indx_fundamentals.html">tabular indices</a>.</p
 </ul><p>To illustrate, let's take the methods used for extracting subsets
 (<code>_x</code>):</p><ul><li><p>If <code>y</code> is a vector or array (of any dimension), <br><code>ii_x(y, i)</code> corresponds to <code>y[i]</code>.</p></li>
 <li><p>If <code>y</code> is a 3d array, <br><code>ss_x(y, n(i, k), c(1, 3))</code> corresponds to <code>y[i, , k, drop = FALSE]</code>.</p></li>
-<li><p>If <code>y</code> is a matrix or data.frame-like object, <br><code>sbt_x(y, i, j)</code> corresponds to <code>y[i, j, drop = FALSE]</code>. <br><br></p></li>
+<li><p>If <code>y</code> is a matrix or data.frame-like object, <br><code>tt_x(y, i, j)</code> corresponds to <code>y[i, j, drop = FALSE]</code>. <br><br></p></li>
+</ul></div>
+    <div class="section level2">
+    <h2 id="specialized-methods">Specialized Methods<a class="anchor" aria-label="anchor" href="#specialized-methods"></a></h2>
+
+
+<p>The main methods of 'squarebrackets' are applicable for all supported types and classes
+(provided the correct method for the correct dimensionality is used). <br>
+'squarebrackets' also provides specialized methods specific to certain structures:</p><ul><li><p>the <a href="lst_rec.html">lst_</a> set of methods,
+which deal with sub-set operations that are only relevant for (nested) lists,
+but not for the other types of supported objects. <br></p></li>
+<li><p>the <a href="long.html">long_</a> set of methods,
+which deal with index-less sub-set operations,
+that are only relevant for long atomic vectors. <br><br></p></li>
 </ul></div>
     <div class="section level2">
     <h2 id="other-methods">Other Methods<a class="anchor" aria-label="anchor" href="#other-methods"></a></h2>
 
 
-<p>Besides the main methods, 'squarebrackets' provides some additional methods that do not neatly fit into the above methods. <br><br>
-First, there is the <a href="lst_rec.html">lst_</a> set of methods,
-which deal with sub-set operations that are only relevant for (nested) lists,
-but not for the other types of supported objects. <br><br>
-Second, there are the <code>sb_</code> sets of methods,
+<p>Besides the previously mentioned methods,
+'squarebrackets' provides some additional methods that do not neatly fit into the above methods. <br>
+These are the set of <code>sb_</code> methods,
 which cover miscellaneous operations for atomic/recursive objects. <br><br></p>
     </div>
     <div class="section level2">

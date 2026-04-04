@@ -6,9 +6,9 @@
 \alias{as.mutatomic}
 \alias{is.mutatomic}
 \alias{couldb.mutatomic}
-\title{A Class of Mutable Atomic Objects}
+\title{A Class of Mutable Atomic Array-Like Objects}
 \usage{
-mutatomic(data, names = NULL, dim = NULL, dimnames = NULL)
+mutatomic(data, names = NULL, dim = NULL, dimnames = NULL, comment = NULL)
 
 as.mutatomic(x, ...)
 
@@ -19,7 +19,7 @@ couldb.mutatomic(x)
 \arguments{
 \item{data}{atomic vector giving data to fill the \code{mutatomic} object.}
 
-\item{names, dim, dimnames}{see \link[stats]{setNames} and \link[base]{array}.}
+\item{names, dim, dimnames, comment}{see their respective help pages.}
 
 \item{x}{an atomic object.}
 
@@ -34,13 +34,12 @@ Returns \code{TRUE} if the object is \code{mutatomic},
 and returns \code{FALSE} otherwise. \cr
 \cr
 For \code{couldb.mutatomic()}: \cr
-Returns \code{TRUE} if the object is one of the following types: \cr
-\link{logical}, \link{integer}, \link{double}, \link{character}, \link{complex}, \link{raw}. \cr
+Returns \code{TRUE} if the object can be converted to \code{mutatomic}. \cr
 Returns \code{FALSE} otherwise. \cr \cr
 }
 \description{
-The \code{mutatomic} class is a mutable version of atomic classes. \cr
-It works exactly the same in all aspects as regular atomic classes. \cr
+The \code{mutatomic} class is a class of mutable atomic array-like objects. \cr
+It works exactly the same in all aspects as regular atomic vectors and arrays. \cr
 There is only one real difference: \cr
 Pass-by-reference functions in 'squarebrackets'
 only accept atomic objects when they are of class \code{mutatomic},
@@ -52,18 +51,59 @@ Exposed functions (beside the S3 methods):
 \itemize{
 \item \code{mutatomic()}: create a \code{mutatomic} object from given data.
 \item \code{couldb.mutatomic()}: checks if an object could become \code{mutatomic}. \cr
-An objects can become \code{mutatomic} if it is one of the following types: \cr
-\link{logical}, \link{integer}, \link{double}, \link{character}, \link{complex}, \link{raw}. \cr
-Factors can never be \code{mutatomic}. \cr \cr
 }
 }
-\note{
-Always use
-the exported functions given by 'squarebrackets'
-to create a \code{mutatomic} object,
-as they make necessary safety checks. \cr
+\details{
+\bold{\code{couldb.mutatomic()}}: \cr
+The \code{couldb.mutatomic()} function checks if an object can become a \code{mutatomic} object. \cr
+Only objects with the following properties can become \code{mutatomic}: \cr
+\itemize{
+\item \bold{\code{atomic} data type}: \cr
+The data type of the object is \code{atomic}. \cr
+I.e. \link{raw}, \link{logical}, \link{integer}, \link{double}, \link{complex}, or \link{character}. \cr
+Thus recursive objects, like lists, and S4 objects, and so on cannot become \code{mutatomic}. \cr
+\code{ALTREP} objects will be materialized when coerced to \code{mutatomic}.
+\item \bold{length equals number of elements}: \cr
+The length of the object equals the number of elements. \cr
+This is the case for the vast majority of objects. \cr
+But some objects, like the various classes of the 'bit' package,
+break this principle and are thus not compatible with \code{mutatomic}. \cr
+\item \bold{array-like}: \cr
+The object is "array-like",
+meaning that the object is a vector where one can \emph{meaningfully} set, remove, or modify the dimensions,
+without breaking its functionality. \cr
+Thus a factor
+(which already represents a dummy matrix),
+and most data-time objects (which are often complex classes with temporal dimensions)
+cannot be \code{mutatomic}. \cr
+\item \bold{consistent with base 'R'}: \cr
+For example, \code{integer64} has a different definition of \code{NA} than base 'R',
+which is not supported by the \code{mutatomic} class. \cr
 \cr
 }
+}
+\section{Footnotes}{
+
+\itemize{
+\item Always use
+the exported functions given by 'squarebrackets'
+to create a \code{mutatomic} object,
+as they make necessary safety checks.
+\item Mutable objects that can only exist as vectors can be modified via functions from the 'data.table' or 'collapse' packages.
+\item Mutable date-time objects already exist in the form of S4 classes, and need no coverage from the 'mutatomic' class.
+\item While one can force dimension attributes upon factors and base R's date-time objects,
+this may break or corrupt it's interactions with methods
+(like the \code{[} and \code{print()} methods),
+coercions (like \code{as.data.frame()}), and array manipulators (like \code{aperm()}). \cr
+'squarebrackets' does not allow such sloppiness,
+and thus strictly consider factors and date-time objects to be vectors but not 'array-like'. \cr
+\item It would not make much sense to make factors dimensional,
+since they are primarily used to represent a dummy matrix for statistical modelling. \cr
+A dimensional array of categorical values that's not used for modelling
+is better off being represented as either character array or integer array. \cr \cr
+}
+}
+
 \examples{
 
 x <- mutatomic(

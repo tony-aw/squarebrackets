@@ -66,7 +66,7 @@ ii_mod(obj, i = \(x) x <= 5, rp = as.list(-1:-5))
 
 obj <- data.frame(a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10]))
 str(obj) # notice that columns "a" and "c" are INTEGER (`int`)
-sbt_mod(
+tt_mod(
   obj, col = is.numeric,
   tf = sqrt
 )
@@ -78,15 +78,15 @@ sbt_mod(
 obj <- data.frame(a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10]))
 str(obj) # notice that columns "a" and "c" are INTEGER (`int`)
 
-sbt_mod(
+tt_mod(
   obj, with(obj,  (a > 2) & (c < 17)), is.numeric,
   tf = sqrt
 ) 
-sbt_mod(
+tt_mod(
   obj, with(obj,  (a > 2) & (c < 17)), is.numeric,
   tf = sqrt
 ) 
-sbt_mod(
+tt_mod(
   obj, with(obj,  (a > 2) & (c < 17)), is.numeric,
   tf = sqrt
 ) 

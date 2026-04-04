@@ -262,9 +262,9 @@ z[b > 10, a:= "XXX"] # data.table with fastverse/tinyverse
 Note that the syntax is different for each type of data.frame.  
 'squarebrackets' provides a set of methods that work consistently on all manner of tabular (data.frames and matrix) types, with the exact same syntax:
 
- - `sbt_x` to extract subsets
- - `sbt_mod` to return a copy with modified subsets
- - `sbt_set` to modify an object by reference.
+ - `tt_x` to extract subsets
+ - `tt_mod` to return a copy with modified subsets
+ - `tt_set` to modify an object by reference.
 
 
 So let's do the same operation as above, but now using 'squarebrackets':
@@ -275,28 +275,100 @@ x <- data.frame(a = month.abb, b = 1:12)
 y <- tibble::tibble(a = month.abb, b = 1:12)
 z <- data.table::data.table(a = month.abb, b = 1:12)
 
-sbt_mod(x, with(x, b > 10), "a", rp = "XXX")
-sbt_mod(y, with(x, b > 10), "a", rp = "XXX")
-sbt_mod(z, with(x, b > 10), "a", rp = "XXX")
+tt_mod(x, with(x, b > 10), "a", rp = "XXX")
+tt_mod(y, with(x, b > 10), "a", rp = "XXX")
+tt_mod(z, with(x, b > 10), "a", rp = "XXX")
 
 
 ```
 
 Notice that the syntax is exactly the same for all classes.
 
-The original attributes are also preserved when using `sbt_mod()`; i.e. nothing is forced to become a tibble, data.table, or something else. Input class = output class.
+The original attributes are also preserved when using `tt_mod()`; i.e. nothing is forced to become a tibble, data.table, or something else. Input class = output class.
 
-For data.tables specifically, the user can also use `sbt_set()`, to perform pass-by-reference semantics, which is considerably faster and more memory efficient:
+For data.tables specifically, the user can also use `tt_set()`, to perform pass-by-reference semantics, which is considerably faster and more memory efficient:
 
 ```{r}
 
 z <- data.table::data.table(a = month.abb, b = 1:12)
-sbt_set(z, with(z, b > 10), "a", rp = "XXX")
+tt_set(z, with(z, b > 10), "a", rp = "XXX")
 print(z)
 
 ```
 
 This is all powered by the class-agnostic 'C' code from the fantastic 'collapse' and 'data.table' packages.
+
+&nbsp;
+
+# Complex Indexing with Keywords
+
+Consider the following array:
+
+```{r}
+x <- array(1:(prod(5:3)), 5:3, list(letters[1:5], LETTERS[1:4], month.abb[1:3]))
+print(x)
+```
+
+Extracting the first 2 elements of each dimension of this array is relatively easy in base 'R':
+
+```{r}
+x[1:2, 1:2, 1:2]
+```
+
+But suppose you wish to extract the **last** elements of each dimension.
+In base 'R', you would have to do something like this:
+
+```{r}
+x[c(dim(x)[1] - 1, dim(x)[1]), c(dim(x)[2] - 1, dim(x)[2]), c(dim(x)[3] - 1, dim(x)[3])]
+```
+
+Horrible. Can't we do any better?
+
+'squarebrackets' allows indexing by **keywords** via a formula, which allows one to do more complex sub-setting operations. We can do the above operations using keywords in several ways:
+
+```{r}
+ss_x(x, ~ (.N-1):.N)
+
+ss_x(x, ~ .bi(-2:-1))
+```
+
+Isn't that better?
+
+&nbsp;
+
+'squarebrackets' allows users to specify indices by using keywords in a formula, like just shown; the following keywords are available:
+
+
+ - `.M`: the given margin/dimension; 0 if not relevant.
+ - `.Nms`: the (dim)names at the given margin.
+ - `.N`: the size of a given dimension (if `.M` is not 0) or else the length of `x`.
+ - `.I`: equal to `1:.N`.
+ - `.bi(...)`: a function to specify bilateral indices.
+ - `.x`: the input variable `x` itself.
+
+&nbsp;
+
+Let's use keywords to select all sub-sets whose dimnames contains a "a", "A", "e" or "E", and compare it to how to do it in base 'R':
+
+```{r}
+library(stringi)
+
+p <- "a|A|e|E"
+# in base R:
+x[
+  stri_detect(dimnames(x)[[1]], regex = p),
+  stri_detect(dimnames(x)[[2]], regex = p),
+  stri_detect(dimnames(x)[[3]], regex = p),
+  drop = FALSE
+]
+
+# using 'squarebrackets':
+ss_x(x, ~ stri_detect(.Nms, regex = p))
+
+```
+
+Keywords are available for vectors, arrays, and also data.frame-like objects.
+
 
 &nbsp;
 
@@ -321,30 +393,57 @@ Data.tables from the 'data.table' package natively uses pass-by-reference semant
 
 Long Vectors take in quite a bit of memory. Performing a sub-set operation in base 'R' on a vector requires an indexing vector, which - for a long vector - may itself also be a long vector. This is a lot of memory usage. We can do better.
 
-'squarebrackets' provides 2 sets of methods to perform sub-set operations without any indexing vector at all:
+'squarebrackets' provides the `long_x()` and `long_set()` methods to perform sub-set operations on the interior of a vector, without any indexing vector at all. Instead of an indexing vector, they use a `stride` object. There are 3 types of `stride` objects that can be used:
 
-The `slice_` - methods:  
-To perform sequence-based sub-set operations.  
-For example:
+ - `stride_pv()`: Use this `stride` type to specify subsets base on property values, like `p == v`, where `p` is an atomic vector of properties (for example `names(x)`), and `v` is a value (or range of values) `p` might contain.
+ - `stride_seq()`: Use this `stride` type to specify a sequence in the form of `seq(from, to, by)`, without actually allocating a sequence indexing vector.
+ - `stride_ptrn()`: Use this `stride` type to specify a patterned sequence in the form of `(start:end)[pattern]`, where `start` and `end` are natural scalars and `pattern` is a logical vector. `stride_ptrn()` specifies this sequence without actually allocating an indexing vector.
+ 
+
+
+An example using `stride_pv()`:
+
+```{r}
+
+nms <- c(letters, LETTERS, month.abb, month.name) |> rep_len(1e6)
+x <- mutatomic(1:1e6, names = nms)
+head(x)
+
+# extract all elements of x with the name "a":
+stride <-  stride_pv(names(x), v = "a")
+long_x(x, stride) |> head()
+
+
+```
+
+
+An example using `stride_seq()`:
 
 
 ```{r}
 x <- 1:50
-slice_x(x, 1, 10, 2) # equivalent to x[seq(1, 10, 2)]
+long_x(x, stride_seq(1, 10, 2)) # equivalent to x[seq(1, 10, 2)]
+
+# the above can also be specified as a formula:
+long_x(x, ~ 1:10:2)
 
 ```
 
   
-The `slicev_` - methods:  
-To perform value-based sub-set operations.
-For example:
+
+An example using `stride_ptrn()`:
+
 
 ```{r}
-
 x <- 1:50
-slicev_x(x, v = 1L, r = FALSE) # equivalent to x[x != 1L]
+ptrn <- c(TRUE, FALSE, FALSE, TRUE)
+long_x(x, stride_ptrn(1, 20, ptrn)) # equivalent to x[(1:20)[ptrn]]
+
+# the above can also be specified as a formula:
+long_x(x, ~ 1:20:ptrn)
 
 ```
+
 
 Both extracting sub-sets and pass-by-reference modification of sub-sets, is available for both methods.
 
@@ -366,7 +465,7 @@ We can modify this vector by reference using the various methods that end with `
 For example like so:
 
 ```{r}
-slice_set(x, 2, 4, rp = -1L)
+long_set(x, ~ 2:4:1, rp = -1L)
 head(x)
 ```
 

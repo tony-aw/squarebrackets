@@ -110,8 +110,6 @@
 #'  * `NULL` or `0L`, which corresponds to a missing index argument.
 #'  * a vector of length 0,
 #'  in which case no indices are selected for the operation (i.e. empty selection).
-#'  * A formula, with optional keywords, giving an expression to evaluate. \cr
-#'  See \link{keywords}. \cr
 #'  * a numeric vector of \bold{strictly positive whole numbers}
 #'  with indices of the specified dimension to select for the operation.
 #'  * a \bold{logical} vector of the same length as the corresponding dimension size,
@@ -129,14 +127,15 @@
 #' Here are some examples for clarity,
 #' using an atomic array `x` of 3 dimensions:
 #' 
-#'  * `ss_x(x, n(1:10, 1:5), c(1, -3))`,
+#'  * `ss_x(x, n(1:10, 1:5), c(1, -3))` \cr
 #'  extracts the first 10 rows, extracts all columns, and **removes** the first 5 layers,
-#'  of array `x`. \cr
-#'  `ss_x(x, n(1:10, 0L, 1:5))` is the same.
+#'  of array `x`.
 #'  * `ss_x(x, n(1:10), 2)` \cr
 #'  extracts the first 10 columns of array `x`.
 #'  * `ss_x(x, 1:10)`, \cr
 #'  extracts the first 10 rows, columns, and layers of array `x`.
+#'  * `ss_x(x, 1:10, -Inf)`, \cr
+#'  removes (i.e. extracts without) the first 10 rows, columns, and layers of array `x`.
 #'  * `ss_x(x, 1:10, c(1, 3))`, \cr
 #'  extracts the first 10 rows, all columns, and the first 10 layers,
 #'  of array `x`. \cr
@@ -145,15 +144,17 @@
 #' 
 #' ```{r eval = FALSE, echo = TRUE}
 #' 
-#' ss_x(x, n(1:10, 1:5), c(1, -3)) # ==> x[1:10, , -1:-5, drop = FALSE]
+#' ss_x(x, n(1:10, 1:5), c(1, -3))  # ==> x[1:10, , -1:-5, drop = FALSE]
 #' 
-#' ss_x(x, n(1:10, 0L, 1:5))      # ==> x[1:10, , 1:5, drop = FALSE]
+#' ss_x(x, n(1:10, 0L, 1:5))        # ==> x[1:10, , 1:5, drop = FALSE]
 #' 
-#' ss_x(x, 1:10, 2)               # ==> x[ , 1:10, , drop = FALSE]
+#' ss_x(x, 1:10, 2)                 # ==> x[ , 1:10, , drop = FALSE]
 #' 
-#' ss_x(x, 1:10)                  # ==> x[1:10, 1:10, 1:10, drop = FALSE]
+#' ss_x(x, 1:10)                    # ==> x[1:10, 1:10, 1:10, drop = FALSE]
 #' 
-#' ss_x(x, 1:10, c(1, 3))         # ==> x[1:10, , 1:10, drop = FALSE]
+#' ss_x(x, 1:10, -Inf)              # ==> x[-1:-10, -1:-10, -1:-10, drop = FALSE]
+#' 
+#' ss_x(x, 1:10, c(1, 3))           # ==> x[1:10, , 1:10, drop = FALSE]
 #' 
 #' ```
 #' 
@@ -167,7 +168,7 @@
 #' `r .mybadge_class("atomic matrix")` \cr
 #' `r .mybadge_class("recursive matrix")` \cr
 #' 
-#' Specifies rows and columns in a matrix.
+#' Specifies rows and columns in a matrix or data.frame.
 #'  The argument `row` and `col` can each be any of the following:
 #' 
 #'  * `NULL` or `0L`, which corresponds to a missing index argument.
@@ -249,7 +250,7 @@
 #' 
 #' ```
 #' 
-#' The above is true \bold{even if} `sign(use) < 0`. \cr \cr
+#' The above is true even when using negative values for `use`. \cr \cr
 #' 
 #' 
 #' 

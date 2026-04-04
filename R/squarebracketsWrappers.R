@@ -7,6 +7,25 @@
 
 #' @keywords Internal
 #' @noRd
+.C_altrep_attr <- function(x) {
+  if(.C_is_altrep(x)) {
+    return(.Call("C_altrep_attr", x = x))
+  }
+  else {
+    return(NULL)
+  }
+}
+
+
+#' @keywords Internal
+#' @noRd
+.C_n_elements <- function(x) {
+  .Call("C_n_elements", x = x)
+}
+
+
+#' @keywords Internal
+#' @noRd
 .C_is_missing_idx <- function(x) {
   .Call("C_is_missing_idx", x = x)
 }

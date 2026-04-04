@@ -5,7 +5,7 @@
 #' (lists and data.frames). \cr
 #' \cr
 #' `dropl(x)` returns `x[[1L]]` if `length(x) == 1`, and returns `x` otherwise. \cr
-#' This can be used for the `*_x` and `*_wo` methods on recursive objects,
+#' This can be used for the `_x` methods on recursive objects,
 #' where one would like to extract the contents of the singular selection. \cr
 #' \cr
 #' 

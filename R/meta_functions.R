@@ -508,3 +508,32 @@
   return(unlist(lst))
 }
 
+#' @keywords internal
+#' @noRd
+.test_v2ind <- function(type, p, v, na, use) {
+  
+  if(is.na(na)) {
+    cond <- is.na(p)
+  }
+  else if(type == 1L) {
+    cond <- ifelse(is.na(p), na, p == v)
+  }
+  else if(type == 2L) {
+    cond <- ifelse(is.na(p), na, p >= v[1] & p <= v[2])
+  }
+  else if(type == 3L) {
+    cond <- ifelse(is.na(p), na, p %in% v)
+  }
+  else {
+    stop("error in `.test_v2ind`")
+  }
+  
+  if(use < 0) cond <- !cond
+  return(which(cond))
+}
+
+#' @keywords internal
+#' @noRd
+.test_errorfun <- function(tt) {
+  if(isFALSE(tt)) stop(print(tt))
+}

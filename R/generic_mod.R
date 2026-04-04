@@ -53,12 +53,12 @@ ss_mod <- function(x, s = NULL, use = rdim(x), ..., rp, tf) {
 
 #' @rdname sb_mod
 #' @export
-sbt_mod <- function(x, row = NULL, col = NULL, use = 1:2, ..., rp, tf) {
+tt_mod <- function(x, row = NULL, col = NULL, use = 1:2, ..., rp, tf) {
   
   .methodcheck.sbt(x, row, col, use, sys.call())
   .internal_check_rptf(rp, tf, sys.call())
   
-  UseMethod("sbt_mod", x)
+  UseMethod("tt_mod", x)
 }
 
 
@@ -104,7 +104,7 @@ ss_mod.default <- function(
 
 #' @rdname sb_mod
 #' @export
-sbt_mod.default <- function(
+tt_mod.default <- function(
     x, row = NULL, col = NULL, use = 1:2, ...,
     rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {
@@ -115,7 +115,7 @@ sbt_mod.default <- function(
 
 #' @rdname sb_mod
 #' @export
-sbt_mod.data.frame <- function(
+tt_mod.data.frame <- function(
     x, row = NULL, col = NULL, use = 1:2, ...,
     rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
 ) {

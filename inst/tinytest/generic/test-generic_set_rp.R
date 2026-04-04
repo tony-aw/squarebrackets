@@ -191,14 +191,14 @@ f_expect.matrix <- f_expect.2d <- function(x, row = NULL, col = NULL) {
 
 pre_subset_mat <- function(x, row = NULL, col = NULL) {
   
-  sbt_x(x, row, col)
+  tt_x(x, row, col)
 }
 
 f_out.matrix <- f_out.2d <- function(x, row, col) {
   
   x <- as.mutatomic(x)
   rp <- parent.frame()$rp
-  sbt_set(x, row, col, rp = rp)
+  tt_set(x, row, col, rp = rp)
   return(x)
 }
 

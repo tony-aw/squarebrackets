@@ -118,6 +118,9 @@
 #' @keywords internal
 #' @noRd
 .with_array <- function(x, keywords, form, abortcall) {
+  if(!is.formula(form)) {
+    stop(simpleError("invalid formula given"))
+  }
   if(length(form) != 2L) {
     stop(simpleError("invalid formula given", call = abortcall))
   }
@@ -172,17 +175,29 @@
 
 #' @keywords internal
 #' @noRd
-.internal_c_bilateral <- function(...) {
-  ellipsis <- list(...)
+.internal_bi <- function(ellipsis, size) {
+  
+  # concatenate:
   if(length(ellipsis) == 1L) {
     out <- ellipsis[[1L]]
   }
   else {
-    out <- c(...)
+    out <- do.call(c, ellipsis)
   }
+  
+  # check type:
   if(!is.numeric(out)) {
     stop("only numeric indices can be bilateral")
   }
+  
+  # conversion:
+  if(.C_is_altrep(out) && length(out) > 2L) {
+    out <- .C_convert_bi(out[1], size):.C_convert_bi(out[length(out)], size)
+  }
+  else {
+    out <- .C_convert_bi(out, size)
+  }
+  
   return(out)
 }
 

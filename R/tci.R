@@ -140,7 +140,7 @@ tci_formula <- function(x, m, form, .abortcall) {
     .Nms = if(m == 0L) names(x) else dimnames(x)[[m]],
     .N = s(x, m),
     .I = seq_len(s(x, m)),
-    .bi = \(...) .C_convert_bi(.internal_c_bilateral(...),  s(x, m)),
+    .bi = \(...) .internal_bi(list(...),  s(x, m)),
     .x = x
   )
  

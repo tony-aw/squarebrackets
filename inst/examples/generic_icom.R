@@ -31,8 +31,8 @@ x <- data.frame(
   d = letters[1:10],
   e = factor(letters[11:20])
 )
-rows <- sbt_icom(x, 1:5, -1)
-cols <- sbt_icom(x, c("b", "a"), 2)
+rows <- tt_icom(x, 1:5, -1)
+cols <- tt_icom(x, c("b", "a"), 2)
 x[rows, cols] <- NA
 print(x)
 

@@ -85,8 +85,8 @@ Explains the modification-related arguments,
 and other essential information regarding modification.
 \item \link{squarebrackets_options}: \cr
 Lists and explains the options the user can specify in 'squarebrackets'.
-\item \link{squarebrackets_slicev}: \cr
-Explains the special argument structure used in the \code{slicev_} methods. \cr \cr
+\item \link{squarebrackets_stride}: \cr
+Gives an overview of the \code{stride} argument in the \link[=long_x]{long_} methods. \cr \cr
 }
 
 \bold{Pass-By-Reference} \cr

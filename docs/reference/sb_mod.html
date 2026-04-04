@@ -11,7 +11,7 @@ see the _icom methods.  "></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">squarebrackets</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9007</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9008</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -55,7 +55,7 @@ see the <code>_icom</code> methods. <br><br></p>
 <span></span>
 <span><span class="fu">ss_mod</span><span class="op">(</span><span class="va">x</span>, s <span class="op">=</span> <span class="cn">NULL</span>, use <span class="op">=</span> <span class="fu"><a href="size.html">rdim</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="va">...</span>, <span class="va">rp</span>, <span class="va">tf</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">sbt_mod</span><span class="op">(</span><span class="va">x</span>, row <span class="op">=</span> <span class="cn">NULL</span>, col <span class="op">=</span> <span class="cn">NULL</span>, use <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="va">...</span>, <span class="va">rp</span>, <span class="va">tf</span><span class="op">)</span></span>
+<span><span class="fu">tt_mod</span><span class="op">(</span><span class="va">x</span>, row <span class="op">=</span> <span class="cn">NULL</span>, col <span class="op">=</span> <span class="cn">NULL</span>, use <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="va">...</span>, <span class="va">rp</span>, <span class="va">tf</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Default S3 method</span></span>
 <span><span class="fu">ii_mod</span><span class="op">(</span></span>
@@ -80,7 +80,7 @@ see the <code>_icom</code> methods. <br><br></p>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Default S3 method</span></span>
-<span><span class="fu">sbt_mod</span><span class="op">(</span></span>
+<span><span class="fu">tt_mod</span><span class="op">(</span></span>
 <span>  <span class="va">x</span>,</span>
 <span>  row <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  col <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -92,7 +92,7 @@ see the <code>_icom</code> methods. <br><br></p>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'data.frame'</span></span>
-<span><span class="fu">sbt_mod</span><span class="op">(</span></span>
+<span><span class="fu">tt_mod</span><span class="op">(</span></span>
 <span>  <span class="va">x</span>,</span>
 <span>  row <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  col <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -437,7 +437,7 @@ One cannot specify both <code>tf</code> and <code>rp</code>. It's either one set
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ b: chr  "a" "b" "c" "d" ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ c: int  11 12 13 14 15 16 17 18 19 20</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ d: Factor w/ 10 levels "a","b","c","d",..: 1 2 3 4 5 6 7 8 9 10</span>
-<span class="r-in"><span><span class="fu">sbt_mod</span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="fu">tt_mod</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">obj</span>, col <span class="op">=</span> <span class="va">is.numeric</span>,</span></span>
 <span class="r-in"><span>  tf <span class="op">=</span> <span class="va">sqrt</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
@@ -465,7 +465,7 @@ One cannot specify both <code>tf</code> and <code>rp</code>. It's either one set
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ c: int  11 12 13 14 15 16 17 18 19 20</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ d: Factor w/ 10 levels "a","b","c","d",..: 1 2 3 4 5 6 7 8 9 10</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">sbt_mod</span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="fu">tt_mod</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">obj</span>, <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">obj</span>,  <span class="op">(</span><span class="va">a</span> <span class="op">&gt;</span> <span class="fl">2</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">(</span><span class="va">c</span> <span class="op">&lt;</span> <span class="fl">17</span><span class="op">)</span><span class="op">)</span>, <span class="va">is.numeric</span>,</span></span>
 <span class="r-in"><span>  tf <span class="op">=</span> <span class="va">sqrt</span></span></span>
 <span class="r-in"><span><span class="op">)</span> </span></span>
@@ -480,7 +480,7 @@ One cannot specify both <code>tf</code> and <code>rp</code>. It's either one set
 <span class="r-out co"><span class="r-pr">#&gt;</span> 8   8.000000 h 18.000000 h</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 9   9.000000 i 19.000000 i</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10 10.000000 j 20.000000 j</span>
-<span class="r-in"><span><span class="fu">sbt_mod</span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="fu">tt_mod</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">obj</span>, <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">obj</span>,  <span class="op">(</span><span class="va">a</span> <span class="op">&gt;</span> <span class="fl">2</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">(</span><span class="va">c</span> <span class="op">&lt;</span> <span class="fl">17</span><span class="op">)</span><span class="op">)</span>, <span class="va">is.numeric</span>,</span></span>
 <span class="r-in"><span>  tf <span class="op">=</span> <span class="va">sqrt</span></span></span>
 <span class="r-in"><span><span class="op">)</span> </span></span>
@@ -495,7 +495,7 @@ One cannot specify both <code>tf</code> and <code>rp</code>. It's either one set
 <span class="r-out co"><span class="r-pr">#&gt;</span> 8   8.000000 h 18.000000 h</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 9   9.000000 i 19.000000 i</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10 10.000000 j 20.000000 j</span>
-<span class="r-in"><span><span class="fu">sbt_mod</span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="fu">tt_mod</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">obj</span>, <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">obj</span>,  <span class="op">(</span><span class="va">a</span> <span class="op">&gt;</span> <span class="fl">2</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">(</span><span class="va">c</span> <span class="op">&lt;</span> <span class="fl">17</span><span class="op">)</span><span class="op">)</span>, <span class="va">is.numeric</span>,</span></span>
 <span class="r-in"><span>  tf <span class="op">=</span> <span class="va">sqrt</span></span></span>
 <span class="r-in"><span><span class="op">)</span> </span></span>

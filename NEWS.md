@@ -1,4 +1,10 @@
 
+# squarebrackets 0.0.0.9008
+* Completely overhauled the methods for index-less sub-set operations on long vectors;
+They are now the `long_` methods, and use `stride` objects to perform index-less sub-set operations.
+* Replaced the `sbt_` methods with the `tt_` methods (same methods, different names)
+
+
 # squarebrackets 0.0.0.9007
 * Completely overhauled the arguments regarding inverting indices in almost all methods.
 * Removed imaginary numbers as a form of indices in favour of the **much** more flexible formula (`~...`) based indices.
@@ -8,8 +14,6 @@
 * Removed `idx_r`.
 * Replaced the `obs, vars` arguments with the `row, col` arguments in the `sbt_` methods;
 * Fixed a few relatively small bugs
-
-
 
 
 # squarebrackets 0.0.0.9006

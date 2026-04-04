@@ -3,18 +3,18 @@
 \name{ii_set}
 \alias{ii_set}
 \alias{ss_set}
-\alias{sbt_set}
+\alias{tt_set}
 \alias{ii_set.default}
 \alias{ss_set.default}
-\alias{sbt_set.default}
-\alias{sbt_set.data.table}
+\alias{tt_set.default}
+\alias{tt_set.data.table}
 \title{Methods to Modify Subsets of a Mutable Object By Reference}
 \usage{
 ii_set(x, i = NULL, use = 1, ..., rp, tf)
 
 ss_set(x, s = NULL, use = rdim(x), ..., rp, tf)
 
-sbt_set(x, row = NULL, col = NULL, use = 1:2, ..., rp, tf)
+tt_set(x, row = NULL, col = NULL, use = 1:2, ..., rp, tf)
 
 \method{ii_set}{default}(
   x,
@@ -36,7 +36,7 @@ sbt_set(x, row = NULL, col = NULL, use = 1:2, ..., rp, tf)
   chkdup = getOption("squarebrackets.chkdup", FALSE)
 )
 
-\method{sbt_set}{default}(
+\method{tt_set}{default}(
   x,
   row = NULL,
   col = NULL,
@@ -47,7 +47,7 @@ sbt_set(x, row = NULL, col = NULL, use = 1:2, ..., rp, tf)
   chkdup = getOption("squarebrackets.chkdup", FALSE)
 )
 
-\method{sbt_set}{data.table}(
+\method{tt_set}{data.table}(
   x,
   row = NULL,
   col = NULL,
@@ -169,23 +169,23 @@ print(obj2)
 
 obj <- data.table::data.table(a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10]))
 str(obj) # notice that columns "a" and "c" are INTEGER (`int`)
-sbt_set(
+tt_set(
   obj, with(obj,  (a >= 2) & (c <= 17)), is.numeric,
   tf = sqrt # WARNING: sqrt() results in `dbl`, but columns are `int`, so decimals lost
 )
 print(obj)
 
 obj <- data.table::data.table(a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10]))
-sbt_set(obj, col = is.numeric, tf = as.numeric) # first coerce type by whole columns
+tt_set(obj, col = is.numeric, tf = as.numeric) # first coerce type by whole columns
 str(obj)
-sbt_set(obj, with(obj,  (a >= 2) & (c <= 17)), is.numeric,
+tt_set(obj, with(obj,  (a >= 2) & (c <= 17)), is.numeric,
   tf = sqrt # SAFE: coercion performed by column first
 ) 
 print(obj)
 
 obj <- data.table::data.table(a = 1:10, b = letters[1:10], c = 11:20, d = factor(letters[1:10]))
 str(obj) # notice that columns "a" and "c" are INTEGER (`int`)
-sbt_set(obj,
+tt_set(obj,
         col = is.numeric,
         tf = sqrt # SAFE: obs = NULL, so coercion performed
 )

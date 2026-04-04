@@ -114,8 +114,6 @@ can be any of the following:
 \item \code{NULL} or \code{0L}, which corresponds to a missing index argument.
 \item a vector of length 0,
 in which case no indices are selected for the operation (i.e. empty selection).
-\item A formula, with optional keywords, giving an expression to evaluate. \cr
-See \link{keywords}. \cr
 \item a numeric vector of \bold{strictly positive whole numbers}
 with indices of the specified dimension to select for the operation.
 \item a \bold{logical} vector of the same length as the corresponding dimension size,
@@ -133,14 +131,15 @@ the user can use the \link{n} function instead of \code{list()} to specify \code
 Here are some examples for clarity,
 using an atomic array \code{x} of 3 dimensions:
 \itemize{
-\item \code{ss_x(x, n(1:10, 1:5), c(1, -3))},
+\item \code{ss_x(x, n(1:10, 1:5), c(1, -3))} \cr
 extracts the first 10 rows, extracts all columns, and \strong{removes} the first 5 layers,
-of array \code{x}. \cr
-\code{ss_x(x, n(1:10, 0L, 1:5))} is the same.
+of array \code{x}.
 \item \code{ss_x(x, n(1:10), 2)} \cr
 extracts the first 10 columns of array \code{x}.
 \item \code{ss_x(x, 1:10)}, \cr
 extracts the first 10 rows, columns, and layers of array \code{x}.
+\item \code{ss_x(x, 1:10, -Inf)}, \cr
+removes (i.e. extracts without) the first 10 rows, columns, and layers of array \code{x}.
 \item \code{ss_x(x, 1:10, c(1, 3))}, \cr
 extracts the first 10 rows, all columns, and the first 10 layers,
 of array \code{x}. \cr
@@ -149,15 +148,17 @@ of array \code{x}. \cr
 I.e.:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{
-ss_x(x, n(1:10, 1:5), c(1, -3)) # ==> x[1:10, , -1:-5, drop = FALSE]
+ss_x(x, n(1:10, 1:5), c(1, -3))  # ==> x[1:10, , -1:-5, drop = FALSE]
 
-ss_x(x, n(1:10, 0L, 1:5))      # ==> x[1:10, , 1:5, drop = FALSE]
+ss_x(x, n(1:10, 0L, 1:5))        # ==> x[1:10, , 1:5, drop = FALSE]
 
-ss_x(x, 1:10, 2)               # ==> x[ , 1:10, , drop = FALSE]
+ss_x(x, 1:10, 2)                 # ==> x[ , 1:10, , drop = FALSE]
 
-ss_x(x, 1:10)                  # ==> x[1:10, 1:10, 1:10, drop = FALSE]
+ss_x(x, 1:10)                    # ==> x[1:10, 1:10, 1:10, drop = FALSE]
 
-ss_x(x, 1:10, c(1, 3))         # ==> x[1:10, , 1:10, drop = FALSE]
+ss_x(x, 1:10, -Inf)              # ==> x[-1:-10, -1:-10, -1:-10, drop = FALSE]
+
+ss_x(x, 1:10, c(1, 3))           # ==> x[1:10, , 1:10, drop = FALSE]
 
 }\if{html}{\out{</div>}}
 
@@ -172,7 +173,7 @@ see \link{ss2ii}. \cr
 \ifelse{html}{\figure{class-atomic_matrix-blue.svg}{options: alt='[class: atomic matrix]'}}{\link[=squarebrackets_indx_args]{class: atomic matrix}} \cr
 \ifelse{html}{\figure{class-recursive_matrix-blue.svg}{options: alt='[class: recursive matrix]'}}{\link[=squarebrackets_indx_args]{class: recursive matrix}} \cr
 
-Specifies rows and columns in a matrix.
+Specifies rows and columns in a matrix or data.frame.
 The argument \code{row} and \code{col} can each be any of the following:
 \itemize{
 \item \code{NULL} or \code{0L}, which corresponds to a missing index argument.
@@ -254,7 +255,7 @@ x[] <- tf(x) # for transformation
 
 }\if{html}{\out{</div>}}
 
-The above is true \bold{even if} \code{sign(use) < 0}. \cr \cr
+The above is true even when using negative values for \code{use}. \cr \cr
 }
 
 \section{Drop}{

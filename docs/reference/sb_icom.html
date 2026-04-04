@@ -5,8 +5,8 @@ my_ss2ii &amp;lt;- ss_icom(x, s, use)
 x[my_ss2ii] &amp;lt;- value
 
 y &amp;lt;- data.frame(...)
-rows &amp;lt;- sbt_icom(y, 1:10, 1, inv = TRUE)
-cols &amp;lt;- sbt_icom(y, c(&quot;a&quot;, &quot;b&quot;), 2)
+rows &amp;lt;- tt_icom(y, 1:10, 1, inv = TRUE)
+cols &amp;lt;- tt_icom(y, c(&quot;a&quot;, &quot;b&quot;), 2)
 y[rows, cols] &amp;lt;- value
 
 thus allowing the user to benefit from the convenient index translations from 'squarebrackets',
@@ -18,8 +18,8 @@ my_ss2ii &amp;lt;- ss_icom(x, s, use)
 x[my_ss2ii] &amp;lt;- value
 
 y &amp;lt;- data.frame(...)
-rows &amp;lt;- sbt_icom(y, 1:10, 1, inv = TRUE)
-cols &amp;lt;- sbt_icom(y, c(&quot;a&quot;, &quot;b&quot;), 2)
+rows &amp;lt;- tt_icom(y, 1:10, 1, inv = TRUE)
+cols &amp;lt;- tt_icom(y, c(&quot;a&quot;, &quot;b&quot;), 2)
 y[rows, cols] &amp;lt;- value
 
 thus allowing the user to benefit from the convenient index translations from 'squarebrackets',
@@ -33,7 +33,7 @@ whilst still using R's default copy-on-modification semantics
 
     <a class="navbar-brand me-2" href="../index.html">squarebrackets</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9007</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9008</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -72,8 +72,8 @@ whilst still using R's default copy-on-modification semantics
 <span><span class="va">x</span><span class="op">[</span><span class="va">my_ss2ii</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
 <span></span>
 <span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span>
-<span><span class="va">rows</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sb_icom.html">sbt_icom</a></span><span class="op">(</span><span class="va">y</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">1</span>, inv <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sb_icom.html">sbt_icom</a></span><span class="op">(</span><span class="va">y</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="va">rows</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sb_icom.html">tt_icom</a></span><span class="op">(</span><span class="va">y</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">1</span>, inv <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sb_icom.html">tt_icom</a></span><span class="op">(</span><span class="va">y</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="va">y</span><span class="op">[</span><span class="va">rows</span>, <span class="va">cols</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">value</span></span></code></pre><p></p></div>
 <p>thus allowing the user to benefit from the convenient index translations from 'squarebrackets',
 whilst still using R's default copy-on-modification semantics
@@ -86,7 +86,7 @@ whilst still using R's default copy-on-modification semantics
 <span></span>
 <span><span class="fu">ss_icom</span><span class="op">(</span><span class="va">x</span>, s <span class="op">=</span> <span class="cn">NULL</span>, use <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="size.html">ndim</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">sbt_icom</span><span class="op">(</span><span class="va">x</span>, <span class="va">slice</span>, <span class="va">use</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">tt_icom</span><span class="op">(</span><span class="va">x</span>, <span class="va">slice</span>, <span class="va">use</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Default S3 method</span></span>
 <span><span class="fu">ii_icom</span><span class="op">(</span></span>
@@ -107,7 +107,7 @@ whilst still using R's default copy-on-modification semantics
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Default S3 method</span></span>
-<span><span class="fu">sbt_icom</span><span class="op">(</span></span>
+<span><span class="fu">tt_icom</span><span class="op">(</span></span>
 <span>  <span class="va">x</span>,</span>
 <span>  slice <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  use <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -250,21 +250,21 @@ Duplicates are not allowed.</p></dd>
 <span class="r-in"><span>  d <span class="op">=</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>,</span></span>
 <span class="r-in"><span>  e <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">11</span><span class="op">:</span><span class="fl">20</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">rows</span> <span class="op">&lt;-</span> <span class="fu">sbt_icom</span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu">sbt_icom</span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"b"</span>, <span class="st">"a"</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">rows</span> <span class="op">&lt;-</span> <span class="fu">tt_icom</span><span class="op">(</span><span class="va">x</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu">tt_icom</span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"b"</span>, <span class="st">"a"</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">x</span><span class="op">[</span><span class="va">rows</span>, <span class="va">cols</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        a  b          c d e</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1     NA  1 -0.1429676 a k</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  FALSE  2  0.2893076 b l</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3     NA  3  0.3112620 c m</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  FALSE  4 -0.6559543 d n</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5   TRUE  5  0.6253999 e o</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6     NA NA  0.2826962 f p</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7     NA NA  1.5976853 g q</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8     NA NA -1.1136539 h r</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9     NA NA -1.2694875 i s</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10    NA NA -0.3214222 j t</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  FALSE  1 -0.3406379 a k</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   TRUE  2  0.7863626 b l</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   TRUE  3 -1.2705131 c m</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4     NA  4  0.5421415 d n</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   TRUE  5  0.0751059 e o</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6     NA NA  0.5585144 f p</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7     NA NA  0.4154064 g q</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8     NA NA -1.4522998 h r</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9     NA NA  0.9412061 i s</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10    NA NA -0.3389359 j t</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

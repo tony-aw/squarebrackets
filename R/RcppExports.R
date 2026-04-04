@@ -33,62 +33,62 @@
 
 #' @keywords internal
 #' @noRd
-.rcpp_slice_x_atomic <- function(x, start, end, by, len) {
-    .Call(`_squarebrackets_rcpp_slice_x_atomic`, x, start, end, by, len)
+.rcpp_stride_get_Rxlent <- function(stride, arg) {
+    .Call(`_squarebrackets_rcpp_stride_get_Rxlent`, stride, arg)
 }
 
 #' @keywords internal
 #' @noRd
-.rcpp_slice_set_atomic <- function(x, rp, start, end, by, len) {
-    invisible(.Call(`_squarebrackets_rcpp_slice_set_atomic`, x, rp, start, end, by, len))
+.rcpp_stride_get_pattern <- function(stride) {
+    .Call(`_squarebrackets_rcpp_stride_get_pattern`, stride)
 }
 
 #' @keywords internal
 #' @noRd
-.rcpp_slice_xrev_atomic <- function(x, start, end, by, len) {
-    .Call(`_squarebrackets_rcpp_slice_xrev_atomic`, x, start, end, by, len)
+.rcpp_slice_seq_x_atomic <- function(x, stride, use) {
+    .Call(`_squarebrackets_rcpp_slice_seq_x_atomic`, x, stride, use)
 }
 
 #' @keywords internal
 #' @noRd
-.rcpp_slice_setrev_atomic <- function(x, rp, start, end, by, len) {
-    invisible(.Call(`_squarebrackets_rcpp_slice_setrev_atomic`, x, rp, start, end, by, len))
+.rcpp_slice_seq_set_atomic <- function(x, rp, stride, use) {
+    invisible(.Call(`_squarebrackets_rcpp_slice_seq_set_atomic`, x, rp, stride, use))
 }
 
 #' @keywords internal
 #' @noRd
-.rcpp_slice_wo_atomic <- function(x, start, end, by, len) {
-    .Call(`_squarebrackets_rcpp_slice_wo_atomic`, x, start, end, by, len)
+.rcpp_slice_ptrn_x_atomic <- function(x, stride, use) {
+    .Call(`_squarebrackets_rcpp_slice_ptrn_x_atomic`, x, stride, use)
 }
 
 #' @keywords internal
 #' @noRd
-.rcpp_slice_setinv_atomic <- function(x, rp, start, end, by, len) {
-    invisible(.Call(`_squarebrackets_rcpp_slice_setinv_atomic`, x, rp, start, end, by, len))
+.rcpp_slice_ptrn_set_atomic <- function(x, rp, stride, use) {
+    invisible(.Call(`_squarebrackets_rcpp_slice_ptrn_set_atomic`, x, rp, stride, use))
 }
 
 #' @keywords internal
 #' @noRd
-.rcpp_countv <- function(y, v, na, invert) {
-    .Call(`_squarebrackets_rcpp_countv`, y, v, na, invert)
+.rcpp_countv <- function(y, v, na, use) {
+    .Call(`_squarebrackets_rcpp_countv`, y, v, na, use)
 }
 
 #' @keywords internal
 #' @noRd
-.rcpp_whichv_32 <- function(y, v, na, invert) {
-    .Call(`_squarebrackets_rcpp_whichv_32`, y, v, na, invert)
+.rcpp_whichv_32 <- function(y, v, na, use) {
+    .Call(`_squarebrackets_rcpp_whichv_32`, y, v, na, use)
 }
 
 #' @keywords internal
 #' @noRd
-.rcpp_slicev_x_atomic <- function(x, y, v, na, invert) {
-    .Call(`_squarebrackets_rcpp_slicev_x_atomic`, x, y, v, na, invert)
+.rcpp_slicev_x_atomic <- function(x, y, v, na, use) {
+    .Call(`_squarebrackets_rcpp_slicev_x_atomic`, x, y, v, na, use)
 }
 
 #' @keywords internal
 #' @noRd
-.rcpp_slicev_set_atomic <- function(x, y, v, na, invert, rp) {
-    invisible(.Call(`_squarebrackets_rcpp_slicev_set_atomic`, x, y, v, na, invert, rp))
+.rcpp_slicev_set_atomic <- function(x, y, v, na, use, rp) {
+    invisible(.Call(`_squarebrackets_rcpp_slicev_set_atomic`, x, y, v, na, use, rp))
 }
 
 #' @keywords internal
@@ -119,6 +119,13 @@
 #' @noRd
 .rcpp_coord2ind <- function(ind, coord, xdim) {
     .Call(`_squarebrackets_rcpp_coord2ind`, ind, coord, xdim)
+}
+
+#' @keywords internal
+NULL
+
+.rcpp_ptrn_shift <- function(ptrn, start, end) {
+    .Call(`_squarebrackets_rcpp_ptrn_shift`, ptrn, start, end)
 }
 
 #' @keywords internal

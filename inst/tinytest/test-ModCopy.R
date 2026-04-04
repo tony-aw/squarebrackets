@@ -17,18 +17,18 @@ for(i in seq_along(convertfuns)) {
   colnames(charX) <- letters[11:20]
   x <- y <- convertfuns[[i]] (data.frame(numX, charX))
   
-  z <- sbt_mod(x, col = cols, tf = \(x)x[1])
+  z <- tt_mod(x, col = cols, tf = \(x)x[1])
   
-  az <- sapply(sbt_x(z, col = cols), data.table::address)
-  ax <- sapply(sbt_x(x, col = cols), data.table::address)
-  ay <- sapply(sbt_x(y, col = cols), data.table::address)
+  az <- sapply(tt_x(z, col = cols), data.table::address)
+  ax <- sapply(tt_x(x, col = cols), data.table::address)
+  ay <- sapply(tt_x(y, col = cols), data.table::address)
   expect_false(any(ax == az)) |> errorfun()
   expect_false(any(ay == az)) |> errorfun()
   expect_true(all(ax == ay)) |> errorfun()
   
-  az <- sbt_x(z, col = cols)
-  ax <- sbt_x(x, col = cols)
-  ay <- sbt_x(y, col = cols)
+  az <- tt_x(z, col = cols)
+  ax <- tt_x(x, col = cols)
+  ay <- tt_x(y, col = cols)
   expect_false(identical(ax, az)) |> errorfun()
   expect_false(identical(ay, az)) |> errorfun()
   expect_true(identical(ax, ay)) |> errorfun()
@@ -54,23 +54,23 @@ for(i in seq_along(convertfuns)) {
   colnames(charX) <- letters[11:20]
   x <- y <- convertfuns[[i]] (data.frame(numX, charX))
 
-  z <- sbt_mod(x, row = rows, col = cols, tf = \(x)x[1])
+  z <- tt_mod(x, row = rows, col = cols, tf = \(x)x[1])
   
   # note: selecting cols is like selecting list elements
   # (i.e. result is a list)
   # whereas selecting rows is like selecting recursive list elements
   # (i.e. result is the object pointed to)
   
-  az <- sapply(sbt_x(z, col = cols), data.table::address)
-  ax <- sapply(sbt_x(x, col = cols), data.table::address)
-  ay <- sapply(sbt_x(y, col = cols), data.table::address)
+  az <- sapply(tt_x(z, col = cols), data.table::address)
+  ax <- sapply(tt_x(x, col = cols), data.table::address)
+  ay <- sapply(tt_x(y, col = cols), data.table::address)
   expect_false(any(ax == az)) |> errorfun()
   expect_false(any(ay == az)) |> errorfun()
   expect_true(all(ax == ay)) |> errorfun()
   
-  az <- sbt_x(z, col = cols)
-  ax <- sbt_x(x, col = cols)
-  ay <- sbt_x(y, col = cols)
+  az <- tt_x(z, col = cols)
+  ax <- tt_x(x, col = cols)
+  ay <- tt_x(y, col = cols)
   expect_false(identical(ax, az)) |> errorfun()
   expect_false(identical(ay, az)) |> errorfun()
   expect_true(identical(ax, ay)) |> errorfun()

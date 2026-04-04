@@ -44,8 +44,8 @@
 #' One can specify both positive and negative numbers. \cr
 #' Positive numbers (for example `~ .bi(1:10)`) specify indices work like normally. \cr
 #' Negative numbers specify indices from the end; \cr
-#' i.e. `~ .bi(-2)` would be equivalent to `length(x) - 1` if `x` is a vector,
-#' or `dim(x)[.M] - 1` if `x` is an array. \cr
+#' i.e. `~ .bi(-2)` would be equivalent to `length(x) - 1` if using an `ii_` method,
+#' or `dim(x)[.M] - 1` if using a `ss_` or `tt_` method. \cr
 #' \cr
 #' The usage of `.bi(...)` is similar to the `c(...)` function,
 #' in that multiple vectors can be concatenated to one. \cr

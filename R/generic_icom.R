@@ -10,8 +10,8 @@
 #' x[my_ss2ii] <- value
 #' 
 #' y <- data.frame(...)
-#' rows <- sbt_icom(y, 1:10, 1, inv = TRUE)
-#' cols <- sbt_icom(y, c("a", "b"), 2)
+#' rows <- tt_icom(y, 1:10, 1, inv = TRUE)
+#' cols <- tt_icom(y, c("a", "b"), 2)
 #' y[rows, cols] <- value
 #' ```
 #' 
@@ -57,8 +57,8 @@ ss_icom <- function(x, s = NULL, use = 1:ndim(x), ...) {
 
 #' @rdname sb_icom
 #' @export
-sbt_icom <- function(x, slice, use, ...) {
-  UseMethod("sbt_icom", x)
+tt_icom <- function(x, slice, use, ...) {
+  UseMethod("tt_icom", x)
 }
 
 #' @rdname sb_icom
@@ -102,7 +102,7 @@ ss_icom.default <- function(
 
 #' @rdname sb_icom
 #' @export
-sbt_icom.default <- function(
+tt_icom.default <- function(
     x, slice = NULL, use = NULL,
     ...,
     chkdup = getOption("squarebrackets.chkdup", FALSE)

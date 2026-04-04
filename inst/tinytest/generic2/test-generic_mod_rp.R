@@ -194,7 +194,7 @@ sys.source(file.path(getwd(), "source", "sourcetest-dims.R"), envir = environmen
 # test datasets ====
 
 
-pre_subset_df <- sbt_x
+pre_subset_df <- tt_x
 
 f_expect.data.frame <- function(x, row = NULL, col = NULL) {
   
@@ -223,7 +223,7 @@ f_expect.data.frame <- function(x, row = NULL, col = NULL) {
 f_out.data.frame <- function(x, row = NULL, col = NULL) {
   
   rp <- parent.frame()$rp
-  return(sbt_mod(x, row, col, rp = rp))
+  return(tt_mod(x, row, col, rp = rp))
   
 }
 

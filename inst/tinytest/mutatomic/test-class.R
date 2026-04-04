@@ -3,7 +3,7 @@
 
 enumerate <- 0 # to count number of tests in loops
 errorfun <- function(tt) {
-  if(isTRUE(tt)) print(tt)
+  
   if(isFALSE(tt)) stop(print(tt))
 }
 
@@ -39,6 +39,20 @@ class(x) <- "mutatomic"
 attr(x, 'typeof') <- typeof(x)
 expect_false(
   is.mutatomic(x)
+)
+
+enumerate <- enumerate + 1L
+
+
+
+# is.mutatomic, ALTREP ====
+y <- 1:10
+expect_false(
+  is.mutatomic(y)
+)
+y <- 1:(2^52 - 1)
+expect_false(
+  is.mutatomic(y)
 )
 
 enumerate <- enumerate + 1L

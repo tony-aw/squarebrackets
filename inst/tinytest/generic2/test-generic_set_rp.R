@@ -9,11 +9,11 @@ test_use_factors <- FALSE
 test_PassByReference <- TRUE
 
 
-sbt_set2 <- function(x, ...) {
+tt_set2 <- function(x, ...) {
   x <- data.table::copy(x)
   if(is.atomic(x)) x <- as.mutatomic(x)
   x2 <- x
-  sbt_set(x, ...)
+  tt_set(x, ...)
   if(!identical(x, x2)) { stop("PassByReference fail")}
   return(x)
 }
@@ -21,7 +21,7 @@ sbt_set2 <- function(x, ...) {
 
 # test row, col ====
 
-pre_subset_df <- sbt_x
+pre_subset_df <- tt_x
 
 f_expect.data.frame <- function(x, row = NULL, col = NULL) {
   
@@ -50,7 +50,7 @@ f_expect.data.frame <- function(x, row = NULL, col = NULL) {
 f_out.data.frame <- function(x, row = NULL, col = NULL) {
   
   rp <- parent.frame()$rp
-  return(sbt_set2(x, row, col, rp = rp))
+  return(tt_set2(x, row, col, rp = rp))
   
 }
 
@@ -69,7 +69,7 @@ sb_test <- function(x, ...) {
   x <- data.table::copy(x)
   if(is.atomic(x)) x <- as.mutatomic(x)
   x2 <- x
-  sbt_set(x, ..., rp = x[1])
+  tt_set(x, ..., rp = x[1])
   expect_equal(x, x2) |> errorfun()
   return(x)
 }

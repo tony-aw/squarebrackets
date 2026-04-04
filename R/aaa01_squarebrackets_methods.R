@@ -14,11 +14,8 @@
 #'  by \link[=squarebrackets_indx_fundamentals]{interior indices}.
 #'  - `ss_`: operates on subsets of atomic/recursive arrays of any dimensionality
 #'  by \link[=squarebrackets_indx_fundamentals]{subscripts}.
-#'  - `sbt_`: operates on subsets of data.frames and atomic/recursive matrices
+#'  - `tt_`: operates on subsets of data.frames and atomic/recursive matrices
 #'  by \link[=squarebrackets_indx_fundamentals]{tabular indices}.
-#'  - `slice_`: uses \bold{index-less}, \bold{sequence-based}, and efficient operations on (\link{mutatomic}) long vectors.
-#'  - `slicev_`: uses \link[=squarebrackets_slicev]{index-less & value-based} and efficient operations on (\link{mutatomic}) long vectors. \cr \cr
-#' 
 #' 
 #' For the `<operation>` part, the following is available:
 #' 
@@ -35,17 +32,25 @@
 #'  - If `y` is a 3d array, \cr
 #'  `ss_x(y, n(i, k), c(1, 3))` corresponds to `y[i, , k, drop = FALSE]`.
 #'  - If `y` is a matrix or data.frame-like object, \cr
-#'  `sbt_x(y, i, j)` corresponds to `y[i, j, drop = FALSE]`. \cr \cr
+#'  `tt_x(y, i, j)` corresponds to `y[i, j, drop = FALSE]`. \cr \cr
 #'
 #' 
-#' @section Other Methods:
-#' Besides the main methods, 'squarebrackets' provides some additional methods that do not neatly fit into the above methods. \cr
-#' \cr
-#' First, there is the \link[=lst_rec]{lst_} set of methods,
+#' @section Specialized Methods:
+#' The main methods of 'squarebrackets' are applicable for all supported types and classes
+#' (provided the correct method for the correct dimensionality is used). \cr
+#' 'squarebrackets' also provides specialized methods specific to certain structures:
+#' 
+#'  - the \link[=lst_rec]{lst_} set of methods,
 #' which deal with sub-set operations that are only relevant for (nested) lists,
 #' but not for the other types of supported objects. \cr
-#' \cr
-#' Second, there are the `sb_` sets of methods,
+#' - the \link[=long]{long_} set of methods,
+#' which deal with index-less sub-set operations,
+#' that are only relevant for long atomic vectors. \cr \cr
+#' 
+#' @section Other Methods:
+#' Besides the previously mentioned methods,
+#' 'squarebrackets' provides some additional methods that do not neatly fit into the above methods. \cr
+#' These are the set of `sb_` methods,
 #' which cover miscellaneous operations for atomic/recursive objects. \cr \cr
 #' 
 #' 

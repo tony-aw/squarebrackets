@@ -3,7 +3,7 @@
 
 enumerate <- 0L
 errorfun <- function(tt) {
-  if(isTRUE(tt)) print(tt)
+  
   if(isFALSE(tt)) stop(print(tt))
 }
 
@@ -139,17 +139,17 @@ expect_equal(
 )
 
 funlist <- list(
-  sbt_x,
-  \(x, row = NULL, col = NULL, use = 1:2) sbt_mod(x, row, col, use, chkdup = FALSE, rp = -1),
-  \(x, row = NULL, col = NULL, use = 1:2) sbt_mod(x, row, col, use, chkdup = FALSE, tf = mean),
+  tt_x,
+  \(x, row = NULL, col = NULL, use = 1:2) tt_mod(x, row, col, use, chkdup = FALSE, rp = -1),
+  \(x, row = NULL, col = NULL, use = 1:2) tt_mod(x, row, col, use, chkdup = FALSE, tf = mean),
   \(x, row = NULL, col = NULL, use = 1:2) {
     x <- data.table::copy(x)
-    sbt_set(x, row, col, use, rp = -1)
+    tt_set(x, row, col, use, rp = -1)
     return(x)
   },
   \(x, row = NULL, col = NULL, use = 1:2) {
     x <- data.table::copy(x)
-    sbt_set(x, row, col, use, tf = mean)
+    tt_set(x, row, col, use, tf = mean)
     return(x)
   }
 )
@@ -199,21 +199,21 @@ expect_equal(
 )
 
 funlist <- list(
-  sbt_x,
+  tt_x,
   \(x, row = NULL, col = NULL, use = 1:2) {
-    sbt_mod(x, row, col, use, chkdup = FALSE, rp = -1L)
+    tt_mod(x, row, col, use, chkdup = FALSE, rp = -1L)
   },
   \(x, row = NULL, col = NULL, use = 1:2) {
-    sbt_mod(x, row, col, use, chkdup = FALSE, tf = mean)
+    tt_mod(x, row, col, use, chkdup = FALSE, tf = mean)
   },
   \(x, row = NULL, col = NULL, use = 1:2) {
     x <- data.table::copy(x)
-    sbt_set(x, row, col, use, rp = -1L)
+    tt_set(x, row, col, use, rp = -1L)
     return(x)
   },
   \(x, row = NULL, col = NULL, use = 1:2) {
     x <- data.table::copy(x)
-    sbt_set(x, row, col, use, tf = mean)
+    tt_set(x, row, col, use, tf = mean)
     return(x)
   }
 )

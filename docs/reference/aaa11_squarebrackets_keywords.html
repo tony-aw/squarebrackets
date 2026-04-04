@@ -103,7 +103,7 @@ ss_x(x, ~ .bi(-.I))
 
     <a class="navbar-brand me-2" href="../index.html">squarebrackets</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9007</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9008</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -190,8 +190,8 @@ The <code>.bi(...)</code> function is used to specify bilateral indices. <br>
 One can specify both positive and negative numbers. <br>
 Positive numbers (for example <code>~ .bi(1:10)</code>) specify indices work like normally. <br>
 Negative numbers specify indices from the end; <br>
-i.e. <code>~ .bi(-2)</code> would be equivalent to <code>length(x) - 1</code> if <code>x</code> is a vector,
-or <code>dim(x)[.M] - 1</code> if <code>x</code> is an array. <br><br>
+i.e. <code>~ .bi(-2)</code> would be equivalent to <code>length(x) - 1</code> if using an <code>ii_</code> method,
+or <code>dim(x)[.M] - 1</code> if using a <code>ss_</code> or <code>tt_</code> method. <br><br>
 The usage of <code>.bi(...)</code> is similar to the <code>c(...)</code> function,
 in that multiple vectors can be concatenated to one. <br>
 And one can specify both negative and positive numbers together. <br>

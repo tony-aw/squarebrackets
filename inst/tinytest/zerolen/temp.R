@@ -3,7 +3,7 @@
 
 enumerate <- 0L
 errorfun <- function(tt) {
-  if(isTRUE(tt)) print(tt)
+  
   if(isFALSE(tt)) stop(print(tt))
 }
 
@@ -230,23 +230,23 @@ expect_equal(
 )
 
 funlist <- list(
-  \(x, row, col, d = 1:ndim(x)) sbt_x(x, row, col, d),
-  \(x, row, col, d = 1:ndim(x)) sbt_mod(x, row, col, d, chkdup = FALSE, rp = -1),
-  \(x, row, col, d = 1:ndim(x)) sbt_mod(x, row, col, d, chkdup = FALSE, rp = integer(0L)),
-  \(x, row, col, d = 1:ndim(x)) sbt_mod(x, row, col, d, chkdup = FALSE, tf = mean),
+  \(x, row, col, d = 1:ndim(x)) tt_x(x, row, col, d),
+  \(x, row, col, d = 1:ndim(x)) tt_mod(x, row, col, d, chkdup = FALSE, rp = -1),
+  \(x, row, col, d = 1:ndim(x)) tt_mod(x, row, col, d, chkdup = FALSE, rp = integer(0L)),
+  \(x, row, col, d = 1:ndim(x)) tt_mod(x, row, col, d, chkdup = FALSE, tf = mean),
   \(x, row, col, d = 1:ndim(x)) {
     x <- data.table::copy(x)
-    sbt_set(x, row, col, d, rp = -1)
+    tt_set(x, row, col, d, rp = -1)
     return(x)
   },
   \(x, row, col, d = 1:ndim(x)) {
     x <- data.table::copy(x)
-    sbt_set(x, row, col, d, rp = integer(0L))
+    tt_set(x, row, col, d, rp = integer(0L))
     return(x)
   },
   \(x, row, col, d = 1:ndim(x)) {
     x <- data.table::copy(x)
-    sbt_set(x, row, col, d, tf = mean)
+    tt_set(x, row, col, d, tf = mean)
     return(x)
   }
 )
@@ -292,23 +292,23 @@ expect_equal(
 )
 
 funlist <- list(
-  \(x, row, col, d = 1:ndim(x)) sbt_x(x, row, col, d),
-  \(x, row, col, d = 1:ndim(x)) sbt_mod(x, row, col, d, chkdup = FALSE, rp = -1),
-  \(x, row, col, d = 1:ndim(x)) sbt_mod(x, row, col, d, chkdup = FALSE, rp = integer(0L)),
-  \(x, row, col, d = 1:ndim(x)) sbt_mod(x, row, col, d, chkdup = FALSE, tf = mean),
+  \(x, row, col, d = 1:ndim(x)) tt_x(x, row, col, d),
+  \(x, row, col, d = 1:ndim(x)) tt_mod(x, row, col, d, chkdup = FALSE, rp = -1),
+  \(x, row, col, d = 1:ndim(x)) tt_mod(x, row, col, d, chkdup = FALSE, rp = integer(0L)),
+  \(x, row, col, d = 1:ndim(x)) tt_mod(x, row, col, d, chkdup = FALSE, tf = mean),
   \(x, row, col, d = 1:ndim(x)) {
     x <- data.table::copy(x)
-    sbt_set(x, row, col, d, rp = -1)
+    tt_set(x, row, col, d, rp = -1)
     return(x)
   },
   \(x, row, col, d = 1:ndim(x)) {
     x <- data.table::copy(x)
-    sbt_set(x, row, col, d, rp = integer(0L))
+    tt_set(x, row, col, d, rp = integer(0L))
     return(x)
   },
   \(x, row, col, d = 1:ndim(x)) {
     x <- data.table::copy(x)
-    sbt_set(x, row, col, d, tf = mean)
+    tt_set(x, row, col, d, tf = mean)
     return(x)
   }
 )

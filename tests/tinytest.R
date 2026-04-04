@@ -21,12 +21,14 @@ if ( requireNamespace("tinytest", quietly = TRUE) ){
   )
   
   tinytest::test_package(
-    "squarebrackets", testdir = "tinytest/slice", set_env=list(LC_COLLATE="C")
+    "squarebrackets", testdir = "tinytest/slice_pv", set_env=list(LC_COLLATE="C")
   )
   tinytest::test_package(
-    "squarebrackets", testdir = "tinytest/slicev", set_env=list(LC_COLLATE="C")
+    "squarebrackets", testdir = "tinytest/slice_seq", set_env=list(LC_COLLATE="C")
   )
-  
+  tinytest::test_package(
+    "squarebrackets", testdir = "tinytest/slice_ptrn", set_env=list(LC_COLLATE="C")
+  )
   
   tinytest::test_package(
     "squarebrackets", testdir = "tinytest/generic", set_env=list(LC_COLLATE="C")

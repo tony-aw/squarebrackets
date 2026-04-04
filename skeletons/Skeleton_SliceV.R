@@ -79,7 +79,7 @@ code_countv <- "
 //' @noRd
 // [[Rcpp::export(.rcpp_countv)]]
 R_xlen_t rcpp_countv(
-    SEXP y, SEXP v, LogicalVector na, LogicalVector invert
+    SEXP y, SEXP v, LogicalVector na, IntegerVector use
   ) {
     R_xlen_t count = 0;
     
@@ -105,11 +105,11 @@ code_whichv <-
 //' @noRd
 // [[Rcpp::export(.rcpp_whichv_32)]]
 IntegerVector rcpp_whichv_32(
-    SEXP y, SEXP v, LogicalVector na, LogicalVector invert
+    SEXP y, SEXP v, LogicalVector na, IntegerVector use
   ) {
     R_xlen_t count = 0;
    
-    R_xlen_t amount = rcpp_countv(y, v, na, invert);
+    R_xlen_t amount = rcpp_countv(y, v, na, use);
     int *pout;
     SEXP out = PROTECT(Rf_allocVector(INTSXP, amount));
     pout = INTEGER(out);
@@ -143,7 +143,7 @@ Rcpp::sourceCpp(code = code)
 templatecode <- "
 
 SEXP rcpp_slicev_x_<Rcpp_Type>(
-    SEXP x, SEXP y, SEXP v, LogicalVector na, LogicalVector invert
+    SEXP x, SEXP y, SEXP v, LogicalVector na, IntegerVector use
   ) {
     R_xlen_t count = 0;
     
@@ -152,7 +152,7 @@ SEXP rcpp_slicev_x_<Rcpp_Type>(
     }
     const <scalar_type> *px = <FUN_TYPE>_RO(x);
     
-    R_xlen_t size = rcpp_countv(y, v, na, invert);
+    R_xlen_t size = rcpp_countv(y, v, na, use);
     SEXP out = PROTECT(Rf_allocVector(<SXP_TYPE>, size));
     <COMMENT> <scalar_type> *pout = <FUN_TYPE>(out);
     
@@ -184,7 +184,7 @@ cat(templatecodes)
 
 
 switches <- make_atomic_switches(
-  "x", "return", "rcpp_slicev_x", "x, y, v, na, invert", SXP_TYPES, RCPP_TYPES
+  "x", "return", "rcpp_slicev_x", "x, y, v, na, use", SXP_TYPES, RCPP_TYPES
 )
 cat(switches)
 
@@ -198,7 +198,7 @@ code_slicev_x <- stri_c(
 //' @noRd
 // [[Rcpp::export(.rcpp_slicev_x_atomic)]]
 SEXP rcpp_slicev_x_atomic(
-  SEXP x, SEXP y, SEXP v, LogicalVector na, LogicalVector invert
+  SEXP x, SEXP y, SEXP v, LogicalVector na, IntegerVector use
 ) {
 ",
   switches,
@@ -226,7 +226,7 @@ templatecode <-
   "
 
 void rcpp_slicev_set_<Rcpp_Type>(
-    SEXP x, SEXP y, SEXP v, LogicalVector na, LogicalVector invert, SEXP rp
+    SEXP x, SEXP y, SEXP v, LogicalVector na, IntegerVector use, SEXP rp
   ) {
   
   if(Rf_xlength(x) != Rf_xlength(y)) {
@@ -270,7 +270,7 @@ cat(templatecodes)
 
 
 switches <- make_atomic_switches(
-  "x", "", "rcpp_slicev_set", "x, y, v, na, invert, rp", SXP_TYPES, RCPP_TYPES
+  "x", "", "rcpp_slicev_set", "x, y, v, na, use, rp", SXP_TYPES, RCPP_TYPES
 )
 cat(switches)
 
@@ -284,7 +284,7 @@ code_slicev_set <- stri_c(
 //' @noRd
 // [[Rcpp::export(.rcpp_slicev_set_atomic)]]
 void rcpp_slicev_set_atomic(
-  SEXP x, SEXP y, SEXP v, LogicalVector na, LogicalVector invert, SEXP rp
+  SEXP x, SEXP y, SEXP v, LogicalVector na, IntegerVector use, SEXP rp
 ) {
 ",
   switches,

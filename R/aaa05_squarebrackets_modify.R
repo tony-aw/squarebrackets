@@ -21,8 +21,8 @@
 #' x[my_indices] <- value
 #' 
 #' y <- data.frame(...)
-#' rows <- sbt_icom(y, 1:10, 1, inv = TRUE)
-#' cols <- sbt_icom(y, c("a", "b"), 2)
+#' rows <- tt_icom(y, 1:10, 1, inv = TRUE)
+#' cols <- tt_icom(y, c("a", "b"), 2)
 #' y[rows, cols] <- value
 #' ```
 #' 
