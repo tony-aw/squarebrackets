@@ -8,15 +8,17 @@
 ‘squarebrackets’ provides the \link{long_x} and \link{long_set} methods
 to perform sub-set operations on the interior of a vector,
 without any indexing vector at all. \cr
+The advantage of not using an indexing vector for sub-set operations on a long vector,
+is that it may safe the user a large amount of memory.
 Instead of an indexing vector, they use the \code{stride} argument. \cr
 The following can be used in the \code{stride} argument: \cr
 \itemize{
 \item a \link{stride_pv} object: \cr
-Use this \code{stride} type to specify subsets base on property values,
+Use this \code{stride} type to specify subsets based on property values,
 like \code{p == v}, where \code{p} is an atomic vector of properties
-(for example names(x)),
+(like \code{names(x)}),
 and \code{v} is a value (or range of values) \code{p} might contain. \cr
-This function does not actually allocate an indexing vector.
+\link{stride_pv} does not actually allocate an indexing vector.
 \item a \link{stride_seq} object: \cr
 Use this \code{stride} type to specify a sequence in the form of \code{seq(from, to, by)},
 without actually allocating a sequence indexing vector.
@@ -28,9 +30,9 @@ where \code{start} and \code{end} are natural scalars and \code{pattern} is a lo
 \item A formula in the form of \code{ ~ from:to:by},
 where \code{from}, \code{to} and \code{by} are natural scalars. \cr
 This will be interpreted as \code{stride_seq(from, to, by)}. \cr
-\item A formula in the form of \code{ ~ from:to:ptrn},
-where \code{from} and \code{to} are natural scalars, and \code{ptrn} is a logical vector. \cr
-This will be interpreted as \code{stride_ptrn(from, to, ptrn)}. \cr \cr
+\item A formula in the form of \code{ ~ start:end:ptrn},
+where \code{start} and \code{end} are natural scalars, and \code{ptrn} is a logical vector. \cr
+This will be interpreted as \code{stride_ptrn(start, end, ptrn)}. \cr \cr
 }
 
 In both formula forms, the \code{.N} keyword is available,
@@ -43,6 +45,21 @@ and will be interpreted as \code{stride_ptrn(2, length(x) - 1, c(TRUE, FALSE, FA
 \cr
 }
 \examples{
+
+# extract all elements of x with the name "a":
+nms <- c(letters, LETTERS, month.abb, month.name) |> rep_len(1e6)
+x <- mutatomic(1:1e6, names = nms)
+head(x)
+stride <-  stride_pv(names(x), v = "a")
+long_x(x, stride) |> head()
+
+
+# find all x smaller than or equal to 5, and replace with `-1000`:
+stride <- stride_pv(x, v = c(-Inf, 5))
+long_set(x, stride, rp = -1000L)
+head(x, n = 10)
+
+
 
 
 x <- mutatomic(1:1e7)
@@ -66,24 +83,9 @@ x <- mutatomic(1:1e7)
 long_set(x, ~1:1:1, use = -1, rp = -1)
 head(x)
 
-# extract pattern c(TRUE, FALSE, FALSE, TRUE) from first 10 elements:
+
+# extract pattern c(TRUE, FALSE, FALSE, TRUE) from first 20 elements:
 x <- mutatomic(1:1e7)
-long_x(x, ~ 1:10:c(TRUE, FALSE, FALSE, TRUE)) |> head()
-
-
-
-# extract all elements of x with the name "a":
-nms <- c(letters, LETTERS, month.abb, month.name) |> rep_len(1e6)
-x <- mutatomic(1:1e6, names = nms)
-head(x)
-stride <-  stride_pv(names(x), v = "a")
-long_x(x, stride) |> head()
-
-
-# find all x smaller than or equal to 5, and replace with `-1000`:
-stride <- stride_pv(x, v = c(-Inf, 5))
-long_set(x, stride, rp = -1000L)
-head(x, n = 10)
-
+long_x(x, ~ 1:20:c(TRUE, FALSE, FALSE, TRUE))
 
 }

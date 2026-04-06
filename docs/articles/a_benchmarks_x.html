@@ -156,11 +156,12 @@ factors.</p>
 </h3>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">1e5</span></span>
+<span><span class="va">ncol</span> <span class="op">&lt;-</span> <span class="fl">200</span></span>
 <span><span class="va">chrmat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="va">letters</span>, <span class="va">n</span><span class="op">*</span><span class="fl">400</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">400</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="va">letters</span>, <span class="va">n</span><span class="op">*</span><span class="va">ncol</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="va">ncol</span></span>
 <span><span class="op">)</span></span>
 <span><span class="va">intmat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq.int</a></span><span class="op">(</span><span class="va">n</span><span class="op">*</span><span class="fl">400</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">400</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq.int</a></span><span class="op">(</span><span class="va">n</span><span class="op">*</span><span class="va">ncol</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="va">ncol</span></span>
 <span><span class="op">)</span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">chrmat</span>, <span class="va">intmat</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span>list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"chrmat"</span>, <span class="st">"intmat"</span><span class="op">)</span><span class="op">)</span></span>
@@ -168,7 +169,7 @@ factors.</p>
 <span><span class="va">sel.cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="fl">10</span><span class="op">)</span>, <span class="fl">4</span><span class="op">)</span></span>
 <span><span class="va">sel.rows</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">1000</span></span>
 <span><span class="va">bm.sb_x.df</span> <span class="op">&lt;-</span> <span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="https://bench.r-lib.org/reference/mark.html" class="external-link">mark</a></span><span class="op">(</span></span>
-<span>  <span class="st">"squarebrackets"</span> <span class="op">=</span> <span class="fu">sbt_x</span><span class="op">(</span><span class="va">x</span>, <span class="va">sel.rows</span>,  <span class="va">sel.cols</span><span class="op">)</span>,</span>
+<span>  <span class="st">"squarebrackets"</span> <span class="op">=</span> <span class="fu"><a href="../reference/sb_x.html">tt_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">sel.rows</span>,  <span class="va">sel.cols</span><span class="op">)</span>,</span>
 <span>  <span class="st">"base R"</span> <span class="op">=</span> <span class="va">x</span><span class="op">[</span><span class="va">sel.rows</span>, <span class="va">sel.cols</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>,</span>
 <span>  min_iterations <span class="op">=</span> <span class="fl">500</span></span>
 <span><span class="op">)</span></span>
@@ -176,8 +177,8 @@ factors.</p>
 <pre><code><span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 6</span></span></span>
 <span><span class="co">#&gt;   expression          min   median `itr/sec` mem_alloc `gc/sec`</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:byt&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> squarebrackets   99.8µs    112µs     <span style="text-decoration: underline;">7</span>360.     318KB     2.34</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> base R          282.5µs    306µs     <span style="text-decoration: underline;">3</span>097.     377KB     0</span></span></code></pre>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> squarebrackets    136µs    333µs     <span style="text-decoration: underline;">2</span>752.    1.46MB     5.51</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> base R            329µs    553µs     <span style="text-decoration: underline;">1</span>626.  377.41KB     3.26</span></span></code></pre>
 <p> </p>
 </div>
 <div class="section level3">
@@ -191,7 +192,7 @@ factors.</p>
 <span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span><span class="va">bm.sb_x.dt</span> <span class="op">&lt;-</span> <span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="https://bench.r-lib.org/reference/mark.html" class="external-link">mark</a></span><span class="op">(</span></span>
-<span>  <span class="st">"squarebrackets"</span> <span class="op">=</span> <span class="fu">sbt_x</span><span class="op">(</span><span class="va">x</span>, obs <span class="op">=</span> <span class="va">sel.rows</span>, vars <span class="op">=</span> <span class="va">sel.cols</span><span class="op">)</span>,</span>
+<span>  <span class="st">"squarebrackets"</span> <span class="op">=</span> <span class="fu"><a href="../reference/sb_x.html">tt_x</a></span><span class="op">(</span><span class="va">x</span>, obs <span class="op">=</span> <span class="va">sel.rows</span>, vars <span class="op">=</span> <span class="va">sel.cols</span><span class="op">)</span>,</span>
 <span>  <span class="st">"data.table + collapse"</span> <span class="op">=</span> <span class="fu">tempfun</span><span class="op">(</span><span class="va">x</span>, <span class="va">sel.rows</span>, <span class="va">sel.cols</span><span class="op">)</span>,</span>
 <span>  min_iterations <span class="op">=</span> <span class="fl">1e4</span></span>
 <span><span class="op">)</span></span>
@@ -199,8 +200,8 @@ factors.</p>
 <pre><code><span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 6</span></span></span>
 <span><span class="co">#&gt;   expression                 min   median `itr/sec` mem_alloc `gc/sec`</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:byt&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> squarebrackets           134µs    147µs     <span style="text-decoration: underline;">6</span>156.     342KB     1.23</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> data.table + collapse    110µs    122µs     <span style="text-decoration: underline;">7</span>255.     341KB     1.45</span></span></code></pre>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> squarebrackets           181µs    405µs     <span style="text-decoration: underline;">2</span>174.     559KB    0.652</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> data.table + collapse    109µs    208µs     <span style="text-decoration: underline;">4</span>418.     351KB    1.77</span></span></code></pre>
 <p> </p>
 </div>
 <div class="section level3">
@@ -209,6 +210,37 @@ factors.</p>
 <p><img src="a_benchmarks_x_files/figure-html/unnamed-chunk-13-1.png" width="768"></p>
 <p> </p>
 </div>
+</div>
+<div class="section level2">
+<h2 id="long-vectors">Long vectors<a class="anchor" aria-label="anchor" href="#long-vectors"></a>
+</h2>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">2e6</span>, <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">ptrn</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">bm.long_x</span> <span class="op">&lt;-</span> <span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="https://bench.r-lib.org/reference/mark.html" class="external-link">mark</a></span><span class="op">(</span></span>
+<span>  <span class="st">"pv in squarebrackets"</span> <span class="op">=</span> <span class="fu"><a href="../reference/long.html">long_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="../reference/stride_pv.html">stride_pv</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="cn">Inf</span>, <span class="fl">5e5</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="st">"pv in base R"</span> <span class="op">=</span> <span class="va">x</span><span class="op">[</span><span class="va">x</span> <span class="op">&lt;=</span> <span class="fl">5e5</span><span class="op">]</span>,</span>
+<span>  <span class="st">"seq in squarebrackets"</span> <span class="op">=</span> <span class="fu"><a href="../reference/long.html">long_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="op">~</span> <span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="va">.N</span> <span class="op">-</span> <span class="fl">10</span><span class="op">)</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span>,</span>
+<span>  <span class="st">"seq in base R"</span> <span class="op">=</span> <span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">-</span> <span class="fl">10</span>, <span class="fl">2</span><span class="op">)</span><span class="op">]</span>,</span>
+<span>  <span class="st">"ptrn in squarebrackets"</span> <span class="op">=</span> <span class="fu"><a href="../reference/long.html">long_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="op">~</span> <span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="va">.N</span> <span class="op">-</span> <span class="fl">10</span><span class="op">)</span><span class="op">:</span><span class="va">ptrn</span><span class="op">)</span>,</span>
+<span>  <span class="st">"ptrn in base R"</span> <span class="op">=</span> <span class="va">x</span><span class="op">[</span> <span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">-</span> <span class="fl">10</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="va">ptrn</span><span class="op">]</span> <span class="op">]</span>,</span>
+<span>  check <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  min_iterations <span class="op">=</span> <span class="fl">100</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">bm.long_x</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 6</span></span></span>
+<span><span class="co">#&gt;   expression                  min   median `itr/sec` mem_alloc `gc/sec`</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:byt&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> pv in squarebrackets     4.11ms   5.76ms     162.   779.39KB     1.64</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> pv in base R             7.06ms  14.56ms      70.2   16.78MB    23.4 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> seq in squarebrackets   918.9µs   1.56ms     592.     3.82MB    28.7 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> seq in base R           10.82ms  17.38ms      57.2    26.7MB    35.0 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> ptrn in squarebrackets   1.06ms   1.99ms     514.     3.82MB    21.1 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> ptrn in base R           5.06ms   8.63ms     123.    11.44MB    23.4</span></span></code></pre>
+<p>Notice that the <code>long_x</code> method from ‘squarebrackets’ uses
+approximately 4 to 20 times (!) less memory than the equivalent base ‘R’
+approaches, and is also 2 to 4 times faster.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

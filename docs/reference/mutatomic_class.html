@@ -61,7 +61,7 @@ couldb.mutatomic(): checks if an object could become mutatomic.
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>A Class of Mutable Atomic Array-Like Objects</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tony-aw/squarebrackets/blob/HEAD/R/mutatomic_class.R" class="external-link"><code>R/mutatomic_class.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tony-aw/squarebrackets/blob/HEAD/R/aaa_mutatomic.R" class="external-link"><code>R/aaa_mutatomic.R</code></a>, <a href="https://github.com/tony-aw/squarebrackets/blob/HEAD/R/mutatomic_class.R" class="external-link"><code>R/mutatomic_class.R</code></a>, <a href="https://github.com/tony-aw/squarebrackets/blob/HEAD/R/mutatomic_couldb.R" class="external-link"><code>R/mutatomic_couldb.R</code></a></small>
       <div class="d-none name"><code>mutatomic_class.Rd</code></div>
     </div>
 
@@ -123,8 +123,8 @@ Returns <code>FALSE</code> otherwise. <br><br></p>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p><b><code>couldb.mutatomic()</code></b>: <br>
-The <code>couldb.mutatomic()</code> function checks if an object can become a <code>mutatomic</code> object. <br>
-Only objects with the following properties can become <code>mutatomic</code>: <br></p><ul><li><p><b><code>atomic</code> data type</b>: <br>
+The <code>couldb.mutatomic()</code> function checks if an object can be converted to a <code>mutatomic</code> object. <br>
+Only objects with the following properties can be converted to <code>mutatomic</code>: <br></p><ul><li><p><b><code>atomic</code> data type</b>: <br>
 The data type of the object is <code>atomic</code>. <br>
 I.e. <a href="https://rdrr.io/r/base/raw.html" class="external-link">raw</a>, <a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a>, <a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a>, <a href="https://rdrr.io/r/base/double.html" class="external-link">double</a>, <a href="https://rdrr.io/r/base/complex.html" class="external-link">complex</a>, or <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a>. <br>
 Thus recursive objects, like lists, and S4 objects, and so on cannot become <code>mutatomic</code>. <br><code>ALTREP</code> objects will be materialized when coerced to <code>mutatomic</code>.</p></li>
@@ -132,18 +132,25 @@ Thus recursive objects, like lists, and S4 objects, and so on cannot become <cod
 The length of the object equals the number of elements. <br>
 This is the case for the vast majority of objects. <br>
 But some objects, like the various classes of the 'bit' package,
-break this principle and are thus not compatible with <code>mutatomic</code>. <br></p></li>
+break this principle and are thus not compatible with <code>mutatomic</code>.</p></li>
+<li><p><b>product of dimensions equals number of elements</b>: <br>
+If the object has dimensions,
+the product of the dimension sizes must equal the number of elements.</p></li>
 <li><p><b>array-like</b>: <br>
 The object is "array-like",
 meaning that the object is a vector where one can <em>meaningfully</em> set, remove, or modify the dimensions,
 without breaking its functionality. <br>
 Thus a factor
 (which already represents a dummy matrix),
-and most data-time objects (which are often complex classes with temporal dimensions)
-cannot be <code>mutatomic</code>. <br></p></li>
-<li><p><b>consistent with base 'R'</b>: <br>
-For example, <code>integer64</code> has a different definition of <code>NA</code> than base 'R',
-which is not supported by the <code>mutatomic</code> class. <br><br></p></li>
+and most data-time objects (which generally do not support dimensions)
+cannot be <code>mutatomic</code>.</p></li>
+<li><p><b>missing values consistent with base 'R'</b>: <br>
+The meaning of <code>NA</code> in the vector is consistent with that of base 'R'. <br>
+This is the case for the vast majority of objects. <br>
+But some classes, like <code>integer64</code> has a different definition of <code>NA</code> than base 'R',
+which is not supported by the <code>mutatomic</code> class.</p></li>
+<li><p><b>not an S4 class</b>: <br>
+The object is not an S4 class. <br><br></p></li>
 </ul></div>
     <div class="section level2">
     <h2 id="footnotes">Footnotes<a class="anchor" aria-label="anchor" href="#footnotes"></a></h2>

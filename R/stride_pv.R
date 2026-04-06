@@ -72,9 +72,11 @@ countv <- function(p, v = NULL, na = FALSE, use = 1) {
 #' @keywords internal
 #' @noRd
 .stride_pv_checkargs <- function(p, v, na, abortcall) {
-  if(!is.atomic(p)) {
-    stop(simpleError("`p` must be atomic", call = abortcall))
+  
+  if(!couldb.mutatomic(p)) {
+    stop(simpleError("couldb.mutatomic(p) is not TRUE"))
   }
+  stopifnot(couldb.mutatomic(p))
   
   if(length(p) == 0L) {
     stop(simpleError("zero-length `p` not allowed", call = abortcall))

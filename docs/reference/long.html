@@ -75,8 +75,8 @@ and are designed for memory efficiency. <br><br></p>
 
 <dl><dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
 <dd><p>an atomic object. <br>
-For <code>long_x</code>, <code>couldb.mutatomic(x)</code> must be <code>TRUE</code>.
-For <code>long_set</code> it must be a <a href="mutatomic_class.html">mutatomic</a> <b>variable</b>.</p></dd>
+For <code>long_x()</code>, <code>couldb.mutatomic(x)</code> must be <code>TRUE</code>. <br>
+For <code>long_set()</code> it must be a <a href="mutatomic_class.html">mutatomic</a> <b>variable</b>.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
@@ -93,8 +93,10 @@ For <code>long_set</code> it must be a <a href="mutatomic_class.html">mutatomic<
 
 <dt id="arg-use-names">use.names<a class="anchor" aria-label="anchor" href="#arg-use-names"></a></dt>
 <dd><p>Boolean, indicating if flat names should be preserved. <br>
-Note that, since the <code>long_</code> methods operates on flat indices only,
-dimensions and <code>dimnames</code> are always dropped.</p></dd>
+Note that, since the <code>long_</code> methods operates on
+<b>virtual</b> <a href="aaa02_squarebrackets_indx_fundamentals.html">interior indices</a>
+of an array/vector only,
+dimensions and <code>dimnames</code> are always dropped. <br><img src="figures/for_performance-set_to_FALSE-red.svg" alt="[for performance: set to FALSE]"></p></dd>
 
 
 <dt id="arg-sticky">sticky<a class="anchor" aria-label="anchor" href="#arg-sticky"></a></dt>
@@ -113,6 +115,33 @@ dimensions and <code>dimnames</code> are always dropped.</p></dd>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># extract all elements of x with the name "a":</span></span></span>
+<span class="r-in"><span><span class="va">nms</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">letters</span>, <span class="va">LETTERS</span>, <span class="va">month.abb</span>, <span class="va">month.name</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep_len</a></span><span class="op">(</span><span class="fl">1e6</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="mutatomic_class.html">mutatomic</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">1e6</span>, names <span class="op">=</span> <span class="va">nms</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a b c d e f </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 2 3 4 5 6 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mutatomic </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  integer </span>
+<span class="r-in"><span><span class="va">stride</span> <span class="op">&lt;-</span>  <span class="fu"><a href="stride_pv.html">stride_pv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, v <span class="op">=</span> <span class="st">"a"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">long_x</span><span class="op">(</span><span class="va">x</span>, <span class="va">stride</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   a   a   a   a   a   a </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1  77 153 229 305 381 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mutatomic </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  integer </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># find all x smaller than or equal to 5, and replace with `-1000`:</span></span></span>
+<span class="r-in"><span><span class="va">stride</span> <span class="op">&lt;-</span> <span class="fu"><a href="stride_pv.html">stride_pv</a></span><span class="op">(</span><span class="va">x</span>, v <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="cn">Inf</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">long_set</span><span class="op">(</span><span class="va">x</span>, <span class="va">stride</span>, rp <span class="op">=</span> <span class="op">-</span><span class="fl">1000L</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">x</span>, n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     a     b     c     d     e     f     g     h     i     j </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -1000 -1000 -1000 -1000 -1000     6     7     8     9    10 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mutatomic </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  integer </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="mutatomic_class.html">mutatomic</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">1e7</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
@@ -153,40 +182,13 @@ dimensions and <code>dimnames</code> are always dropped.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> mutatomic </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  integer </span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># extract pattern c(TRUE, FALSE, FALSE, TRUE) from first 10 elements:</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># extract pattern c(TRUE, FALSE, FALSE, TRUE) from first 20 elements:</span></span></span>
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="mutatomic_class.html">mutatomic</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">1e7</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">long_x</span><span class="op">(</span><span class="va">x</span>, <span class="op">~</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1 4 5 8 9</span>
+<span class="r-in"><span><span class="fu">long_x</span><span class="op">(</span><span class="va">x</span>, <span class="op">~</span> <span class="fl">1</span><span class="op">:</span><span class="fl">20</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  1  4  5  8  9 12 13 16 17 20</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> mutatomic </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  integer </span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># extract all elements of x with the name "a":</span></span></span>
-<span class="r-in"><span><span class="va">nms</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">letters</span>, <span class="va">LETTERS</span>, <span class="va">month.abb</span>, <span class="va">month.name</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep_len</a></span><span class="op">(</span><span class="fl">1e6</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="mutatomic_class.html">mutatomic</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">1e6</span>, names <span class="op">=</span> <span class="va">nms</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a b c d e f </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 2 3 4 5 6 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> mutatomic </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  integer </span>
-<span class="r-in"><span><span class="va">stride</span> <span class="op">&lt;-</span>  <span class="fu"><a href="stride_pv.html">stride_pv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, v <span class="op">=</span> <span class="st">"a"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">long_x</span><span class="op">(</span><span class="va">x</span>, <span class="va">stride</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   a   a   a   a   a   a </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   1  77 153 229 305 381 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> mutatomic </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  integer </span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># find all x smaller than or equal to 5, and replace with `-1000`:</span></span></span>
-<span class="r-in"><span><span class="va">stride</span> <span class="op">&lt;-</span> <span class="fu"><a href="stride_pv.html">stride_pv</a></span><span class="op">(</span><span class="va">x</span>, v <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="cn">Inf</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">long_set</span><span class="op">(</span><span class="va">x</span>, <span class="va">stride</span>, rp <span class="op">=</span> <span class="op">-</span><span class="fl">1000L</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">x</span>, n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     a     b     c     d     e     f     g     h     i     j </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -1000 -1000 -1000 -1000 -1000     6     7     8     9    10 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> mutatomic </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  integer </span>
-<span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

@@ -26,6 +26,12 @@
 
 #' @keywords Internal
 #' @noRd
+.C_make_NA <- function(x) {
+  .Call("C_make_NA", x = x)
+}
+
+#' @keywords Internal
+#' @noRd
 .C_is_missing_idx <- function(x) {
   .Call("C_is_missing_idx", x = x)
 }

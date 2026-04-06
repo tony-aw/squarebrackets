@@ -66,6 +66,21 @@ This can be handy to check exactly what parameters will be fed to the \code{long
 }
 \examples{
 
+# extract all elements of x with the name "a":
+nms <- c(letters, LETTERS, month.abb, month.name) |> rep_len(1e6)
+x <- mutatomic(1:1e6, names = nms)
+head(x)
+stride <-  stride_pv(names(x), v = "a")
+long_x(x, stride) |> head()
+
+
+# find all x smaller than or equal to 5, and replace with `-1000`:
+stride <- stride_pv(x, v = c(-Inf, 5))
+long_set(x, stride, rp = -1000L)
+head(x, n = 10)
+
+
+
 
 x <- mutatomic(1:1e7)
 
@@ -88,24 +103,9 @@ x <- mutatomic(1:1e7)
 long_set(x, ~1:1:1, use = -1, rp = -1)
 head(x)
 
-# extract pattern c(TRUE, FALSE, FALSE, TRUE) from first 10 elements:
+
+# extract pattern c(TRUE, FALSE, FALSE, TRUE) from first 20 elements:
 x <- mutatomic(1:1e7)
-long_x(x, ~ 1:10:c(TRUE, FALSE, FALSE, TRUE)) |> head()
-
-
-
-# extract all elements of x with the name "a":
-nms <- c(letters, LETTERS, month.abb, month.name) |> rep_len(1e6)
-x <- mutatomic(1:1e6, names = nms)
-head(x)
-stride <-  stride_pv(names(x), v = "a")
-long_x(x, stride) |> head()
-
-
-# find all x smaller than or equal to 5, and replace with `-1000`:
-stride <- stride_pv(x, v = c(-Inf, 5))
-long_set(x, stride, rp = -1000L)
-head(x, n = 10)
-
+long_x(x, ~ 1:20:c(TRUE, FALSE, FALSE, TRUE))
 
 }

@@ -104,7 +104,8 @@ The sections further below give more details. <br></p>
 with the same length as <code>x</code>, and ideally related to <code>x</code> <br>
 For example, <code>p</code> may be the character vector <code>names(x)</code>,
 the raw vector <code>broadcast::checkNA(x, "raw")</code>, the classless (i.e. raw data) values of <code>x</code>,
-or even the raw data values of another long vector with the same length as <code>x</code>.</p></dd>
+or even the raw data values of another long vector with the same length as <code>x</code>. <br>
+Note that <code>couldb.mutatomic(p)</code> must be <code>TRUE</code>, otherwise an error is returned.</p></dd>
 
 
 <dt id="arg-v">v<a class="anchor" aria-label="anchor" href="#arg-v"></a></dt>

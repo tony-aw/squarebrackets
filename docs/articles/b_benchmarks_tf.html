@@ -242,11 +242,11 @@ approximately <code>1e7</code> elements.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/gc.html" class="external-link">gc</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">bm.sb_tf.df</span> <span class="op">&lt;-</span> <span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="https://bench.r-lib.org/reference/mark.html" class="external-link">mark</a></span><span class="op">(</span></span>
 <span>  <span class="st">"base [&lt;-"</span> <span class="op">=</span> <span class="fu">basefun</span><span class="op">(</span><span class="va">df</span>, <span class="va">sel.rows</span>, tf <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">-</span><span class="fl">1</span> <span class="op">*</span> <span class="va">x</span><span class="op">)</span>,</span>
-<span>  <span class="st">"sbt_set"</span> <span class="op">=</span> <span class="fu">sbt_set</span><span class="op">(</span></span>
-<span>    <span class="va">dt</span>, obs <span class="op">=</span> <span class="va">sel.rows</span>, vars <span class="op">=</span> <span class="va">is.numeric</span>, tf <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">-</span><span class="fl">1</span> <span class="op">*</span> <span class="va">x</span></span>
+<span>  <span class="st">"tt_set"</span> <span class="op">=</span> <span class="fu"><a href="../reference/sb_set.html">tt_set</a></span><span class="op">(</span></span>
+<span>    <span class="va">dt</span>, row <span class="op">=</span> <span class="va">sel.rows</span>, vars <span class="op">=</span> <span class="va">is.numeric</span>, tf <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">-</span><span class="fl">1</span> <span class="op">*</span> <span class="va">x</span></span>
 <span>  <span class="op">)</span>,</span>
-<span>  <span class="st">"sbt_mod"</span> <span class="op">=</span> <span class="fu">sbt_mod</span><span class="op">(</span></span>
-<span>    <span class="va">df</span>, obs <span class="op">=</span> <span class="va">sel.rows</span>, vars <span class="op">=</span> <span class="va">is.numeric</span>, tf <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">-</span><span class="fl">1</span> <span class="op">*</span> <span class="va">x</span></span>
+<span>  <span class="st">"tt_mod"</span> <span class="op">=</span> <span class="fu"><a href="../reference/sb_mod.html">tt_mod</a></span><span class="op">(</span></span>
+<span>    <span class="va">df</span>, row <span class="op">=</span> <span class="va">sel.rows</span>, vars <span class="op">=</span> <span class="va">is.numeric</span>, tf <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">-</span><span class="fl">1</span> <span class="op">*</span> <span class="va">x</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  check <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  min_iterations <span class="op">=</span> <span class="fl">500</span></span>
@@ -254,9 +254,9 @@ approximately <code>1e7</code> elements.</p>
 <pre><code><span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 6</span></span></span>
 <span><span class="co">#&gt;   expression      min   median `itr/sec` mem_alloc `gc/sec`</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:byt&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> base [&lt;-      226µs    288µs     <span style="text-decoration: underline;">3</span>229.    62.3KB        0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> sbt_set       112µs    149µs     <span style="text-decoration: underline;">6</span>239.   120.8KB        0</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> sbt_mod       113µs    171µs     <span style="text-decoration: underline;">5</span>517.    41.3KB        0</span></span></code></pre>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> base [&lt;-      241µs    519µs     <span style="text-decoration: underline;">1</span>948.    77.1KB        0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> tt_set        129µs    171µs     <span style="text-decoration: underline;">4</span>181.      77KB        0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> tt_mod        120µs    192µs     <span style="text-decoration: underline;">4</span>412.    44.7KB        0</span></span></code></pre>
 <p> </p>
 <pre><code><span><span class="co">#&gt; Orientation inferred to be along y-axis; override with</span></span>
 <span><span class="co">#&gt; `position_quasirandom(orientation = 'x')`</span></span></code></pre>

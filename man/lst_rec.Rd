@@ -91,6 +91,15 @@ Since recursive objects are references to other objects,
 extending a list or deleting an element of a list does not copy the entire list,
 in contrast to atomic vectors. \cr
 \cr
+\bold{Tip}: \cr
+Dimensional sub-set operations on dimensional lists
+are much faster and more flexible
+than Recursive sub-set operations on nested lists. \cr
+So, whenever it makes sense, consider turning your nested list into a dimensional list. \cr
+One can turn a hierarchical list into a dimensional list using,
+for example,
+the \href{https://tony-aw.github.io/broadcast/man/cast_hier2dim.html}{broadcast::cast_hier2dim} method from the 'broadcast' 'R' package. \cr
+\cr
 }
 \examples{
 

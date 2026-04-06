@@ -80,8 +80,10 @@ Regarding which kind of object supports which kind of indexing form:</p><ul><li>
 <li><p>Dimensionless vectors (i.e. objects for which <code><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim()</a></code> returns <code>NULL</code>) only support interior indices.</p></li>
 <li><p>Data.frames only support tabular tiles. <br><br></p></li>
 </ul><p>Regarding which set of <a href="aaa01_squarebrackets_methods.html">methods</a> support which kind of indexing form:</p><ul><li><p>One can operate on flat/interior indices (often simply referred to as "indices")
-using the <a href="aaa01_squarebrackets_methods.html">ii_</a> methods and <a href="long.html">long</a> methods; <br>
-These primarily use the <a href="aaa04_squarebrackets_indx_args.html">i, use</a> argument pair.</p></li>
+using the <a href="aaa01_squarebrackets_methods.html">ii_</a> methods. <br>
+These primarily use the <a href="aaa04_squarebrackets_indx_args.html">i, use</a> argument pair. <br>
+One can also use the <a href="long.html">long_</a> methods,
+though these operate on <b>virtual</b> interior indices called a <a href="aaa08_squarebrackets_stride.html">stride</a>.</p></li>
 <li><p>One can operate on general subscripts (= dimensional indices)
 using the <a href="aaa01_squarebrackets_methods.html">ss_</a> methods; <br>
 These primarily use the the <a href="aaa04_squarebrackets_indx_args.html">s, use</a> argument pair.</p></li>

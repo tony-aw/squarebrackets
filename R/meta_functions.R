@@ -537,3 +537,16 @@
 .test_errorfun <- function(tt) {
   if(isFALSE(tt)) stop(print(tt))
 }
+
+
+
+#' .ptrn_shift <- function(ptrn, start, end) {
+#'   rng_len  <- abs(start - end) + 1L
+#'   ptr_len  <- length(ptrn)
+#'   offset   <- rng_len %% ptr_len
+#'   
+#'   indices  <- (seq_len(ptr_len) + (ptr_len - offset - 1)) %% ptr_len + 1L
+#'   newptrn  <- rev(ptrn)[indices]
+#'   return(newptrn)
+#' }
+

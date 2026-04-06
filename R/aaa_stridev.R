@@ -27,7 +27,8 @@
 #' with the same length as `x`, and ideally related to `x` \cr
 #' For example, `p` may be the character vector `names(x)`,
 #' the raw vector `broadcast::checkNA(x, "raw")`, the classless (i.e. raw data) values of `x`,
-#' or even the raw data values of another long vector with the same length as `x`.
+#' or even the raw data values of another long vector with the same length as `x`. \cr
+#' Note that `couldb.mutatomic(p)` must be `TRUE`, otherwise an error is returned.
 #' @param v a scalar or vector, depending on the type of `p`,
 #' indicating what values in `p` to look for. \cr
 #' Details are given in the sections below. \cr

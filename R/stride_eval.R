@@ -230,14 +230,3 @@ formula2stride <- function(form, x) {
     stop("`use` must be `1` or `-1`")
   }
 }
-
-
-#' .ptrn_shift <- function(ptrn, start, end) {
-#'   rng_len  <- abs(start - end) + 1L
-#'   ptr_len  <- length(ptrn)
-#'   offset   <- rng_len %% ptr_len
-#'   
-#'   indices  <- (seq_len(ptr_len) + (ptr_len - offset - 1)) %% ptr_len + 1L
-#'   newptrn  <- rev(ptrn)[indices]
-#'   return(newptrn)
-#' }

@@ -6,14 +6,17 @@
 #' and are designed for memory efficiency. \cr \cr
 #' 
 #' @param x an atomic object. \cr
-#' For `long_x`, `couldb.mutatomic(x)` must be `TRUE`.
-#' For `long_set` it must be a \link{mutatomic} \bold{variable}.
+#' For `long_x()`, `couldb.mutatomic(x)` must be `TRUE`. \cr
+#' For `long_set()` it must be a \link{mutatomic} \bold{variable}.
 #' @param stride see \link{squarebrackets_stride}.
 #' @param rp,tf see \link{squarebrackets_modify}.
 #' @param use  either `1` for normal slicing, or `-1` for inverted slicing.
 #' @param use.names Boolean, indicating if flat names should be preserved. \cr
-#' Note that, since the `long_` methods operates on flat indices only,
-#' dimensions and `dimnames` are always dropped.
+#' Note that, since the `long_` methods operates on
+#' \bold{virtual} \link[=squarebrackets_indx_fundamentals]{interior indices}
+#' of an array/vector only,
+#' dimensions and `dimnames` are always dropped. \cr
+#' `r .mybadge_performance_set2("FALSE")`
 #' @param sticky see \link{squarebrackets_options}.
 #' @param ... see \link{squarebrackets_method_dispatch}.
 #' 

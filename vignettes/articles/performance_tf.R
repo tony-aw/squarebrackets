@@ -90,10 +90,10 @@ gc()
 bm.sb_tf.df <- bench::mark(
   "base [<-" = basefun(df, sel.rows, tf = \(x) -1 * x),
   "tt_set" = tt_set(
-    dt, obs = sel.rows, col = is.numeric, tf = \(x) -1 * x
+    dt, row = sel.rows, col = is.numeric, tf = \(x) -1 * x
   ),
   "tt_mod" = tt_mod(
-    df, obs = sel.rows, col = is.numeric, tf = \(x) -1 * x
+    df, row = sel.rows, col = is.numeric, tf = \(x) -1 * x
   ),
   check = FALSE,
   min_iterations = 500

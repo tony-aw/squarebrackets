@@ -428,6 +428,7 @@ RcppExport SEXP C_convert_bi_64(SEXP, SEXP);
 RcppExport SEXP C_copy(SEXP);
 RcppExport SEXP C_is_altrep(SEXP);
 RcppExport SEXP C_is_missing_idx(SEXP);
+RcppExport SEXP C_make_NA(SEXP);
 RcppExport SEXP C_match_range(SEXP, SEXP);
 RcppExport SEXP C_n_elements(SEXP);
 RcppExport SEXP C_serial(SEXP);
@@ -477,6 +478,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"C_copy",           (DL_FUNC) &C_copy,           1},
     {"C_is_altrep",      (DL_FUNC) &C_is_altrep,      1},
     {"C_is_missing_idx", (DL_FUNC) &C_is_missing_idx, 1},
+    {"C_make_NA",        (DL_FUNC) &C_make_NA,        1},
     {"C_match_range",    (DL_FUNC) &C_match_range,    2},
     {"C_n_elements",     (DL_FUNC) &C_n_elements,     1},
     {"C_serial",         (DL_FUNC) &C_serial,         1},

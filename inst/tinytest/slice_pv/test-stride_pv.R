@@ -14,7 +14,8 @@ rel <- c(TRUE, FALSE)
 # general errors ====
 expect_error(
   stride_pv(~ form, v = 1L),
-  pattern = "`p` must be atomic"
+  pattern = "couldb.mutatomic(p) is not TRUE",
+  fixed = TRUE
 )
 expect_error(
   stride_pv(integer(0L), v= 1L),

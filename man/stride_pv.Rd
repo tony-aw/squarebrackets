@@ -14,7 +14,8 @@ countv(p, v = NULL, na = FALSE, use = 1)
 with the same length as \code{x}, and ideally related to \code{x} \cr
 For example, \code{p} may be the character vector \code{names(x)},
 the raw vector \code{broadcast::checkNA(x, "raw")}, the classless (i.e. raw data) values of \code{x},
-or even the raw data values of another long vector with the same length as \code{x}.}
+or even the raw data values of another long vector with the same length as \code{x}. \cr
+Note that \code{couldb.mutatomic(p)} must be \code{TRUE}, otherwise an error is returned.}
 
 \item{v}{a scalar or vector, depending on the type of \code{p},
 indicating what values in \code{p} to look for. \cr

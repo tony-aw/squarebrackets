@@ -25,8 +25,8 @@ long_set(x, ...)
 }
 \arguments{
 \item{x}{an atomic object. \cr
-For \code{long_x}, \code{couldb.mutatomic(x)} must be \code{TRUE}.
-For \code{long_set} it must be a \link{mutatomic} \bold{variable}.}
+For \code{long_x()}, \code{couldb.mutatomic(x)} must be \code{TRUE}. \cr
+For \code{long_set()} it must be a \link{mutatomic} \bold{variable}.}
 
 \item{...}{see \link{squarebrackets_method_dispatch}.}
 
@@ -35,8 +35,11 @@ For \code{long_set} it must be a \link{mutatomic} \bold{variable}.}
 \item{use}{either \code{1} for normal slicing, or \code{-1} for inverted slicing.}
 
 \item{use.names}{Boolean, indicating if flat names should be preserved. \cr
-Note that, since the \code{long_} methods operates on flat indices only,
-dimensions and \code{dimnames} are always dropped.}
+Note that, since the \code{long_} methods operates on
+\bold{virtual} \link[=squarebrackets_indx_fundamentals]{interior indices}
+of an array/vector only,
+dimensions and \code{dimnames} are always dropped. \cr
+\ifelse{html}{\figure{for_performance-set_to_FALSE-red.svg}{options: alt='[for performance: set to FALSE]'}}{\link[=squarebrackets_help]{for performance: set to FALSE}}}
 
 \item{sticky}{see \link{squarebrackets_options}.}
 
@@ -51,6 +54,21 @@ except they don't require an indexing vector,
 and are designed for memory efficiency. \cr \cr
 }
 \examples{
+
+# extract all elements of x with the name "a":
+nms <- c(letters, LETTERS, month.abb, month.name) |> rep_len(1e6)
+x <- mutatomic(1:1e6, names = nms)
+head(x)
+stride <-  stride_pv(names(x), v = "a")
+long_x(x, stride) |> head()
+
+
+# find all x smaller than or equal to 5, and replace with `-1000`:
+stride <- stride_pv(x, v = c(-Inf, 5))
+long_set(x, stride, rp = -1000L)
+head(x, n = 10)
+
+
 
 
 x <- mutatomic(1:1e7)
@@ -74,24 +92,9 @@ x <- mutatomic(1:1e7)
 long_set(x, ~1:1:1, use = -1, rp = -1)
 head(x)
 
-# extract pattern c(TRUE, FALSE, FALSE, TRUE) from first 10 elements:
+
+# extract pattern c(TRUE, FALSE, FALSE, TRUE) from first 20 elements:
 x <- mutatomic(1:1e7)
-long_x(x, ~ 1:10:c(TRUE, FALSE, FALSE, TRUE)) |> head()
-
-
-
-# extract all elements of x with the name "a":
-nms <- c(letters, LETTERS, month.abb, month.name) |> rep_len(1e6)
-x <- mutatomic(1:1e6, names = nms)
-head(x)
-stride <-  stride_pv(names(x), v = "a")
-long_x(x, stride) |> head()
-
-
-# find all x smaller than or equal to 5, and replace with `-1000`:
-stride <- stride_pv(x, v = c(-Inf, 5))
-long_set(x, stride, rp = -1000L)
-head(x, n = 10)
-
+long_x(x, ~ 1:20:c(TRUE, FALSE, FALSE, TRUE))
 
 }

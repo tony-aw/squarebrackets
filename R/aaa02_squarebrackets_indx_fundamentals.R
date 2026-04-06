@@ -40,16 +40,21 @@
 #' Regarding which set of \link[=squarebrackets_methods]{methods} support which kind of indexing form:
 #' 
 #'  - One can operate on flat/interior indices (often simply referred to as "indices")
-#'  using the \link[=squarebrackets_methods]{ii_} methods and \link[=long_x]{long} methods; \cr
-#'  These primarily use the \link[=squarebrackets_indx_args]{i, use} argument pair.
+#'  using the \link[=squarebrackets_methods]{ii_} methods. \cr
+#'  These primarily use the \link[=squarebrackets_indx_args]{i, use} argument pair. \cr
+#'  One can also use the \link[=long_x]{long_} methods,
+#'  though these operate on \bold{virtual} interior indices called a \link[=squarebrackets_stride]{stride}.
+#'  
 #'  - One can operate on general subscripts (= dimensional indices)
 #'  using the \link[=squarebrackets_methods]{ss_} methods; \cr
 #'  These primarily use the the \link[=squarebrackets_indx_args]{s, use} argument pair.
+#'  
 #'  - One can operate on tabular tiles
 #'  using the  \link[=squarebrackets_methods]{tt_} methods; \cr
 #'  These primarily use the the
 #'  \link[=squarebrackets_indx_args]{row, col, use}
 #'  argument pair. \cr \cr
+#' 
 #' 
 #' For the relationship between flat/interior indices and subscripts for arrays,
 #' see the \link{ss2ii} help page. \cr

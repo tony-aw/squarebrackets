@@ -83,5 +83,3 @@ s.default <- function(x, m = if(is.null(dim(x))) 0L else dim(x), ...) {
     stop("m cannot be negative")
   }
 }
-
-
