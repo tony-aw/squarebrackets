@@ -57,7 +57,8 @@
 #' The essential documentation is split into the following help pages:
 #'  
 #'  - \link{squarebrackets_methods}: \cr
-#'  Lists the main methods provided by 'squarebrackets'.
+#'  Lists the main methods provided by 'squarebrackets'. \cr
+#'  Also explains the method dispatch system in 'squarebrackets'.
 #'  - \link{squarebrackets_indx_fundamentals}: \cr
 #'  Explains the essential fundamentals of the indexing forms in 'squarebrackets'. \cr \cr
 #' 
@@ -91,12 +92,6 @@
 #'  modification through Pass-by-Reference semantics and
 #'  modification through copy (i.e. pass-by-value). \cr \cr
 #'  
-#' \bold{Other} \cr
-#' And finally,
-#' there is the \link{squarebrackets_method_dispatch} help page,
-#' which gives some small additional details regarding
-#' the S3 method dispatch used in 'squarebrackets'. \cr \cr
-#' 
 #' 
 #' 
 #' @section Helper Functions: 

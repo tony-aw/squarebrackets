@@ -8,7 +8,7 @@
 #' @param i,use,s,row,col See \link{squarebrackets_indx_args}. \cr
 #' Duplicates are allowed, resulting in duplicated indices. \cr
 #' An empty index selection results in an empty object of length 0. \cr
-#' @param ... see \link{squarebrackets_method_dispatch}.
+#' @param ... see \link{squarebrackets_ellipsis}.
 #'
 #'
 #'

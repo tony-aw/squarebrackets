@@ -59,7 +59,7 @@ save(bm.sb_x.3d, file = "bm.sb_x.3d.RData")
 # data.frame-like ====
 
 n <- 1e5
-ncol <- 200
+ncol <- 300
 chrmat <- matrix(
   sample(letters, n*ncol, replace = TRUE), ncol = ncol
 )

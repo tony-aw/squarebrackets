@@ -26,7 +26,7 @@
 #' Duplicates are not allowed.
 #' @param chkdup see \link{squarebrackets_options}. \cr
 #' `r .mybadge_performance_set2("FALSE")` \cr
-#' @param ... see \link{squarebrackets_method_dispatch}.
+#' @param ... see \link{squarebrackets_ellipsis}.
 #'
 #'
 #' @returns

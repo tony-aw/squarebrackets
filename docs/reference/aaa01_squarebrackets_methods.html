@@ -54,7 +54,7 @@ by <a href="aaa02_squarebrackets_indx_fundamentals.html">interior indices</a>.</
 <li><p><code>ss_</code>: operates on subsets of atomic/recursive arrays of any dimensionality
 by <a href="aaa02_squarebrackets_indx_fundamentals.html">subscripts</a>.</p></li>
 <li><p><code>tt_</code>: operates on subsets of data.frames and atomic/recursive matrices
-by <a href="aaa02_squarebrackets_indx_fundamentals.html">tabular indices</a>.</p></li>
+by <a href="aaa02_squarebrackets_indx_fundamentals.html">tabular indices</a> (also known as tabulat tiles).</p></li>
 </ul><p>For the <code>&lt;operation&gt;</code> part, the following is available:</p><ul><li><p><code>_x</code>: extract, exchange, exclude, or duplicate (if applicable) subsets.</p></li>
 <li><p><code>_mod</code>: modify subsets and return copy.</p></li>
 <li><p><code>_set</code>: modify subsets using <a href="aaa09_squarebrackets_PassByReference.html">pass-by-reference semantics</a>.</p></li>
@@ -95,6 +95,46 @@ which cover miscellaneous operations for atomic/recursive objects. <br><br></p>
 one can easily find out information about a particular method by usign the <code>?</code> operator. <br>
 So to find out about modifying objects by subscripts using Pass-by-Reference semantics,
 type in: <br><code><a href="sb_set.html">?ss_set</a></code> <br><br></p>
+    </div>
+    <div class="section level2">
+    <h2 id="-squarebrackets-methods-that-do-not-require-explicit-dispatches">'squarebrackets' Methods that do not require explicit Dispatches<a class="anchor" aria-label="anchor" href="#-squarebrackets-methods-that-do-not-require-explicit-dispatches"></a></h2>
+
+
+<p>The <code>ii_</code>/<code>ss_</code>/<code>tt_</code> - <code>_x</code> methods
+are essentially wrappers around
+the <code>[</code> operator. <br>
+Similarly,
+the <code>ii_</code>/<code>ss_</code>/<code>tt_</code> - <code>_mod</code> methods
+are essentially wrappers around
+the <code>[&lt;-</code> operator. <br>
+And the <a href="lst_rec.html">lst_rec</a> and <a href="lst_rec.html">lst_recin</a> methods
+are essentially wrappers around
+the <code>[[</code> and <code>[[&lt;-</code> operators. <br>
+Therefore, any custom class that has method dispatches defined for
+the <code>[</code>, <code>[&lt;-</code>, <code>[[</code>, and <code>[[&lt;-</code> methods,
+have their dispatches automatically handled by the above named methods. <br><br></p>
+    </div>
+    <div class="section level2">
+    <h2 id="-squarebrackets-methods-that-do-require-explicit-dispatches">'squarebrackets' Methods that DO require explicit Dispatches<a class="anchor" aria-label="anchor" href="#-squarebrackets-methods-that-do-require-explicit-dispatches"></a></h2>
+
+
+<p>Unlike the <code>ii_</code>/<code>ss_</code>/<code>tt_</code> - <code>_x</code> methods,
+the <a href="long.html">long_x</a> method is <b>not</b> a wrapper around the <code>[</code> operator,
+and thus does not detect custom method dispatches defined for <code>[</code>. <br><a href="long.html">long_x</a> can support classes that have static attributes
+(attributes that do not depend on the type, length, or data of the vector),
+by adding the class names to
+the <a href="aaa06_squarebrackets_options.html">squarebrackets.sticky</a> option. <br>
+Classes with non-static attributes will explicitly require a <code>long_x</code> method. <br><br></p>
+    </div>
+    <div class="section level2">
+    <h2 id="class-support-for-the-pass-by-reference-methods">Class support for the Pass-By-Reference Methods<a class="anchor" aria-label="anchor" href="#class-support-for-the-pass-by-reference-methods"></a></h2>
+
+
+<p>The <code>_set</code> methods only support the <code>data.table</code> and <code>mutatomic</code> classes. <br>
+Other mutable classes are not supported by the 'squarebrackets' package. <br>
+However,
+other 'R' package authors are welcome to add additional method dispatches
+for the <code>_set</code> methods. <br><br></p>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

@@ -28,7 +28,7 @@ long_set(x, ...)
 For \code{long_x()}, \code{couldb.mutatomic(x)} must be \code{TRUE}. \cr
 For \code{long_set()} it must be a \link{mutatomic} \bold{variable}.}
 
-\item{...}{see \link{squarebrackets_method_dispatch}.}
+\item{...}{see \link{squarebrackets_ellipsis}.}
 
 \item{stride}{see \link{squarebrackets_stride}.}
 

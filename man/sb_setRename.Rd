@@ -23,7 +23,7 @@ If \code{i = NULL}, the names will be completely replaced.}
 \item{newnames}{Atomic character vector giving the new names. \cr
 Specifying \code{NULL} will remove the names. \cr}
 
-\item{...}{see \link{squarebrackets_method_dispatch}. \cr \cr}
+\item{...}{see \link{squarebrackets_ellipsis}. \cr \cr}
 
 \item{m}{integer vector giving the margin(s) for which to change the names
 (\code{m = 1L} for rows, \code{m = 2L} for columns, etc.).}

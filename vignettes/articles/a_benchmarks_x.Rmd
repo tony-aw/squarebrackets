@@ -43,7 +43,6 @@ library(patchwork)
 ```{r echo = FALSE}
 plotfun <- function(p1, p2) {
   combined <- p1 + p2  
-  combined <- combined + plot_layout(guides = "collect") + theme(legend.position = "bottom")
   combined
 }
 ```

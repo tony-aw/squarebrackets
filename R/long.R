@@ -18,7 +18,7 @@
 #' dimensions and `dimnames` are always dropped. \cr
 #' `r .mybadge_performance_set2("FALSE")`
 #' @param sticky see \link{squarebrackets_options}.
-#' @param ... see \link{squarebrackets_method_dispatch}.
+#' @param ... see \link{squarebrackets_ellipsis}.
 #' 
 #'
 #' @returns

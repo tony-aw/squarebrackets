@@ -18,7 +18,7 @@ lst_recin(x, ...)
 \arguments{
 \item{x}{a list, or list-like object.}
 
-\item{...}{see \link{squarebrackets_method_dispatch}.}
+\item{...}{see \link{squarebrackets_ellipsis}.}
 
 \item{rec}{a strictly positive integer vector or character vector, of length \code{p},
 such that \code{lst_rec(x, rec)} is equivalent to \verb{x[[ rec[1] ]]...[[ rec[p] ]]},

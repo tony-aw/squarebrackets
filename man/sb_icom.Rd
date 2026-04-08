@@ -45,7 +45,7 @@ tt_icom(x, slice, use, ...)
 \item{i, s, slice, use}{See \link{squarebrackets_indx_args}. \cr
 Duplicates are not allowed.}
 
-\item{...}{see \link{squarebrackets_method_dispatch}.}
+\item{...}{see \link{squarebrackets_ellipsis}.}
 
 \item{chkdup}{see \link{squarebrackets_options}. \cr
 \ifelse{html}{\figure{for_performance-set_to_FALSE-red.svg}{options: alt='[for performance: set to FALSE]'}}{\link[=squarebrackets_help]{for performance: set to FALSE}} \cr}

@@ -27,7 +27,7 @@ reference:
   - '`aaa04_squarebrackets_indx_args`'
   - '`aaa05_squarebrackets_modify`'
   - '`aaa06_squarebrackets_options`'
-  - '`aaa07_squarebrackets_method_dispatch`'
+  - '`aaa07_squarebrackets_ellipsis`'
   - '`aaa08_squarebrackets_stride`'
 - title: Additional Help Pages
   contents:

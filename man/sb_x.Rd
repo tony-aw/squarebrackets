@@ -31,7 +31,7 @@ tt_x(x, row = NULL, col = NULL, use = 1:2, ...)
 Duplicates are allowed, resulting in duplicated indices. \cr
 An empty index selection results in an empty object of length 0. \cr}
 
-\item{...}{see \link{squarebrackets_method_dispatch}.}
+\item{...}{see \link{squarebrackets_ellipsis}.}
 }
 \value{
 Returns a copy of the sub-setted object.

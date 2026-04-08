@@ -11,7 +11,7 @@
 #' \link[=squarebrackets_supported_structures]{supported mutable classes}. \cr
 #' @param i,use,s,row,col See \link{squarebrackets_indx_args}. \cr
 #' An empty index selection leaves the original object unchanged. \cr
-#' @param ... see \link{squarebrackets_method_dispatch}.
+#' @param ... see \link{squarebrackets_ellipsis}.
 #' @param rp,tf see \link{squarebrackets_modify}.
 #' @param chkdup see \link{squarebrackets_options}. \cr
 #' `r .mybadge_performance_set2("FALSE")` \cr
