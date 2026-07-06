@@ -79,14 +79,14 @@ the \code{squarebrackets.sticky} option is set as follows:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{
 squarebrackets.sticky = c(
-   "difftime", "Date", "POSIXct", "roman", "hexmode", "octmode", "broadcaster"
+   "difftime", "broadcaster"
 )
 
 }\if{html}{\out{</div>}}
 
 So in the above default setting,
 \code{sticky = TRUE} for \cr
-"difftime", "Date", "POSIXct", "roman", "hexmode", "octmode", "broadcaster". \cr
+"difftime", "broadcaster". \cr
 Also in the above default setting,
 \code{sticky = FALSE} for other classes. \cr
 \cr

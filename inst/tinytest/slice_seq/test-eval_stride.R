@@ -15,9 +15,9 @@ for(iFrom in 1:10) {
         to <- iTo
         by <- ifelse(from > to, -iBy, iBy)
         
-        stride <- stride_seq(from, to, by)
+        stride <- stride_seq(from, to, by, iUse)
         ind <- seq(from, to, by)
-        es <- eval_stride(stride, x, iUse)
+        es <- eval_stride(stride, x)
         
         if(iUse < 0) {
           expect_equal(
@@ -50,13 +50,13 @@ x <- 1:10
 for(iUse in c(1, -1)) {
   
   expect_error(
-    eval_stride(stride_seq(1, 20, 1), x, iUse),
+    eval_stride(stride_seq(1, 20, 1, iUse), x),
     pattern = '`stride` out of bounds'
   ) |> errorfun()
   
   
   expect_error(
-    eval_stride(stride_seq(20, 1, 1), x, iUse),
+    eval_stride(stride_seq(20, 1, 1, iUse), x),
     pattern = '`stride` out of bounds'
   ) |> errorfun()
   

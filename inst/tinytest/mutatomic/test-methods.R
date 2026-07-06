@@ -110,3 +110,17 @@ for(i in seq_along(x.data)) {
 
 }
 
+
+# length()<- ====
+
+x <- mutatomic(1:10)
+y <- mutatomic(c(1:10, rep(NA, 9)))
+length(x) <- 19L
+expect_true(
+  is.mutatomic(x)
+)
+expect_equal(
+  x, y
+)
+enumerate <- enumerate + 2L
+

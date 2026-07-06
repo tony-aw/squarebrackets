@@ -12,7 +12,35 @@ Exposed functions (beside the S3 methods):
 mutatomic(): create a mutatomic object from given data.
 couldb.mutatomic(): checks if an object could become mutatomic.
 
+
+The mutatomic class is a class of mutable atomic array-like objects.
+It works exactly the same in all aspects as regular atomic vectors and arrays.
+There is only one real difference:
+Pass-by-reference functions in 'squarebrackets'
+only accept atomic objects when they are of class mutatomic,
+for greater safety.
+In all other aspects, mutatomic objects are the same as R's regular atomic objects,
+including the behaviour of the [&amp;lt;- operator .
+
+Exposed functions (beside the S3 methods):
+mutatomic(): create a mutatomic object from given data.
+couldb.mutatomic(): checks if an object could become mutatomic.
+
 "><meta property="og:description" content="The mutatomic class is a class of mutable atomic array-like objects.
+It works exactly the same in all aspects as regular atomic vectors and arrays.
+There is only one real difference:
+Pass-by-reference functions in 'squarebrackets'
+only accept atomic objects when they are of class mutatomic,
+for greater safety.
+In all other aspects, mutatomic objects are the same as R's regular atomic objects,
+including the behaviour of the [&amp;lt;- operator .
+
+Exposed functions (beside the S3 methods):
+mutatomic(): create a mutatomic object from given data.
+couldb.mutatomic(): checks if an object could become mutatomic.
+
+
+The mutatomic class is a class of mutable atomic array-like objects.
 It works exactly the same in all aspects as regular atomic vectors and arrays.
 There is only one real difference:
 Pass-by-reference functions in 'squarebrackets'
@@ -33,7 +61,7 @@ couldb.mutatomic(): checks if an object could become mutatomic.
 
     <a class="navbar-brand me-2" href="../index.html">squarebrackets</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9008</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9009</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,12 +89,22 @@ couldb.mutatomic(): checks if an object could become mutatomic.
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>A Class of Mutable Atomic Array-Like Objects</h1>
-      <small class="dont-index">Source: <a href="https://github.com/tony-aw/squarebrackets/blob/HEAD/R/aaa_mutatomic.R" class="external-link"><code>R/aaa_mutatomic.R</code></a>, <a href="https://github.com/tony-aw/squarebrackets/blob/HEAD/R/mutatomic_class.R" class="external-link"><code>R/mutatomic_class.R</code></a>, <a href="https://github.com/tony-aw/squarebrackets/blob/HEAD/R/mutatomic_couldb.R" class="external-link"><code>R/mutatomic_couldb.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/tony-aw/squarebrackets/blob/HEAD/R/aaa_mutatomic.R" class="external-link"><code>R/aaa_mutatomic.R</code></a>, <a href="https://github.com/tony-aw/squarebrackets/blob/HEAD/R/is_arraylike.R" class="external-link"><code>R/is_arraylike.R</code></a>, <a href="https://github.com/tony-aw/squarebrackets/blob/HEAD/R/mutatomic_class.R" class="external-link"><code>R/mutatomic_class.R</code></a>, and 1 more</small>
       <div class="d-none name"><code>mutatomic_class.Rd</code></div>
     </div>
 
     <div class="ref-description section level2">
     <p>The <code>mutatomic</code> class is a class of mutable atomic array-like objects. <br>
+It works exactly the same in all aspects as regular atomic vectors and arrays. <br>
+There is only one real difference: <br>
+Pass-by-reference functions in 'squarebrackets'
+only accept atomic objects when they are of class <code>mutatomic</code>,
+for greater safety. <br>
+In all other aspects, <code>mutatomic</code> objects are the same as R's regular atomic objects,
+including the behaviour of the <code>[&lt;-</code> operator . <br><br>
+Exposed functions (beside the S3 methods):</p><ul><li><p><code>mutatomic()</code>: create a <code>mutatomic</code> object from given data.</p></li>
+<li><p><code>couldb.mutatomic()</code>: checks if an object could become <code>mutatomic</code>. <br></p></li>
+</ul><p>The <code>mutatomic</code> class is a class of mutable atomic array-like objects. <br>
 It works exactly the same in all aspects as regular atomic vectors and arrays. <br>
 There is only one real difference: <br>
 Pass-by-reference functions in 'squarebrackets'
@@ -119,6 +157,14 @@ and returns <code>FALSE</code> otherwise. <br><br>
 For <code>couldb.mutatomic()</code>: <br>
 Returns <code>TRUE</code> if the object can be converted to <code>mutatomic</code>. <br>
 Returns <code>FALSE</code> otherwise. <br><br></p>
+<p>For <code>mutatomic()</code>, <code>as.mutatomic()</code>: <br>
+Returns a <code>mutatomic</code> object. <br><br>
+For <code>is.mutatomic()</code>: <br>
+Returns <code>TRUE</code> if the object is <code>mutatomic</code>,
+and returns <code>FALSE</code> otherwise. <br><br>
+For <code>couldb.mutatomic()</code>: <br>
+Returns <code>TRUE</code> if the object can be converted to <code>mutatomic</code>. <br>
+Returns <code>FALSE</code> otherwise. <br><br></p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -142,7 +188,38 @@ meaning that the object is a vector where one can <em>meaningfully</em> set, rem
 without breaking its functionality. <br>
 Thus a factor
 (which already represents a dummy matrix),
-and most data-time objects (which generally do not support dimensions)
+most data-time objects (which generally do not support dimensions),
+and special printed vectors (hexmode, octmode, romans),
+cannot be <code>mutatomic</code>.</p></li>
+<li><p><b>missing values consistent with base 'R'</b>: <br>
+The meaning of <code>NA</code> in the vector is consistent with that of base 'R'. <br>
+This is the case for the vast majority of objects. <br>
+But some classes, like <code>integer64</code> has a different definition of <code>NA</code> than base 'R',
+which is not supported by the <code>mutatomic</code> class.</p></li>
+<li><p><b>not an S4 class</b>: <br>
+The object is not an S4 class. <br><br></p></li>
+</ul><p><b><code>couldb.mutatomic()</code></b>: <br>
+The <code>couldb.mutatomic()</code> function checks if an object can be converted to a <code>mutatomic</code> object. <br>
+Only objects with the following properties can be converted to <code>mutatomic</code>: <br></p><ul><li><p><b><code>atomic</code> data type</b>: <br>
+The data type of the object is <code>atomic</code>. <br>
+I.e. <a href="https://rdrr.io/r/base/raw.html" class="external-link">raw</a>, <a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a>, <a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a>, <a href="https://rdrr.io/r/base/double.html" class="external-link">double</a>, <a href="https://rdrr.io/r/base/complex.html" class="external-link">complex</a>, or <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a>. <br>
+Thus recursive objects, like lists, and S4 objects, and so on cannot become <code>mutatomic</code>. <br><code>ALTREP</code> objects will be materialized when coerced to <code>mutatomic</code>.</p></li>
+<li><p><b>length equals number of elements</b>: <br>
+The length of the object equals the number of elements. <br>
+This is the case for the vast majority of objects. <br>
+But some objects, like the various classes of the 'bit' package,
+break this principle and are thus not compatible with <code>mutatomic</code>.</p></li>
+<li><p><b>product of dimensions equals number of elements</b>: <br>
+If the object has dimensions,
+the product of the dimension sizes must equal the number of elements.</p></li>
+<li><p><b>array-like</b>: <br>
+The object is "array-like",
+meaning that the object is a vector where one can <em>meaningfully</em> set, remove, or modify the dimensions,
+without breaking its functionality. <br>
+Thus a factor
+(which already represents a dummy matrix),
+most data-time objects (which generally do not support dimensions),
+and special printed vectors (hexmode, octmode, romans),
 cannot be <code>mutatomic</code>.</p></li>
 <li><p><b>missing values consistent with base 'R'</b>: <br>
 The meaning of <code>NA</code> in the vector is consistent with that of base 'R'. <br>
@@ -172,11 +249,72 @@ and thus strictly consider factors and date-time objects to be vectors but not '
 since they are primarily used to represent a dummy matrix for statistical modelling. <br>
 A dimensional array of categorical values that's not used for modelling
 is better off being represented as either character array or integer array. <br><br></p></li>
+</ul><ul><li><p>Always use
+the exported functions given by 'squarebrackets'
+to create a <code>mutatomic</code> object,
+as they make necessary safety checks.</p></li>
+<li><p>Mutable objects that can only exist as vectors can be modified via functions from the 'data.table' or 'collapse' packages.</p></li>
+<li><p>Mutable date-time objects already exist in the form of S4 classes, and need no coverage from the 'mutatomic' class.</p></li>
+<li><p>While one can force dimension attributes upon factors and base R's date-time objects,
+this may break or corrupt it's interactions with methods
+(like the <code>[</code> and <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> methods),
+coercions (like <code><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame()</a></code>), and array manipulators (like <code><a href="https://rdrr.io/r/base/aperm.html" class="external-link">aperm()</a></code>). <br>
+'squarebrackets' does not allow such sloppiness,
+and thus strictly consider factors and date-time objects to be vectors but not 'array-like'. <br></p></li>
+<li><p>It would not make much sense to make factors dimensional,
+since they are primarily used to represent a dummy matrix for statistical modelling. <br>
+A dimensional array of categorical values that's not used for modelling
+is better off being represented as either character array or integer array. <br><br></p></li>
 </ul></div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">mutatomic</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fl">1</span><span class="op">:</span><span class="fl">20</span>, dim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">4</span><span class="op">)</span>, dimnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>, <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   a  b  c  d</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a 1  6 11 16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> b 2  7 12 17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> c 3  8 13 18</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> d 4  9 14 19</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> e 5 10 15 20</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mutatomic </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  integer </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">as.mutatomic</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">is.mutatomic</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    1    6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    2    7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]    3    8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4,]    4    9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [5,]    5   10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mutatomic </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  integer </span>
+<span class="r-in"><span><span class="va">x</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1 2 3 4 5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mutatomic </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  integer </span>
+<span class="r-in"><span><span class="va">x</span><span class="op">[</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/double.html" class="external-link">as.double</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> coercing type from `integer` to `double`</span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    1    6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    2    7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]    3    8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4,]    4    9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [5,]    5   10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mutatomic </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  double </span>
+<span class="r-in"><span><span class="fu">is.mutatomic</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">mutatomic</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="fl">1</span><span class="op">:</span><span class="fl">20</span>, dim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">4</span><span class="op">)</span>, dimnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>, <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>

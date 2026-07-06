@@ -52,7 +52,7 @@
   const R_xlen_t start = rcpp_stride_get_Rxlent(stride, 0) - 1; \
   const R_xlen_t end = rcpp_stride_get_Rxlent(stride, 1) - 1; \
   const R_xlen_t by = rcpp_stride_get_Rxlent(stride, 2);  \
-  const R_xlen_t len = rcpp_stride_get_Rxlent(stride, 4); \
+  const R_xlen_t len = rcpp_stride_get_Rxlent(stride, 5); \
   \
   if(len == 0) {  \
     break;  \
@@ -151,7 +151,7 @@
   const R_xlen_t start = rcpp_stride_get_Rxlent(stride, 0) - 1; \
   const R_xlen_t end = rcpp_stride_get_Rxlent(stride, 1) - 1; \
   const R_xlen_t by = rcpp_stride_get_Rxlent(stride, 2);  \
-  const R_xlen_t len = rcpp_stride_get_Rxlent(stride, 4);  \
+  const R_xlen_t len = rcpp_stride_get_Rxlent(stride, 5);  \
   const SEXP pattern = rcpp_stride_get_pattern(stride);  \
   const int *ppattern = INTEGER_RO(pattern);  \
   const R_xlen_t pattern_len = Rf_xlength(pattern); \

@@ -4,7 +4,7 @@
 \alias{stride_seq}
 \title{Regular Sequence-based stride}
 \usage{
-stride_seq(from, to, by)
+stride_seq(from, to, by, use = 1L)
 }
 \arguments{
 \item{from}{natural scalar giving the starting point of the sequence.}
@@ -12,6 +12,9 @@ stride_seq(from, to, by)
 \item{to}{natural scalar giving the maximalle allowed end value.}
 
 \item{by}{natural scalar giving the step-size.}
+
+\item{use}{\code{1} to select indices \code{seq(from, to, end)}; \cr
+\code{-1} to select all indices \bold{except} \code{seq(from, to, end)}}
 }
 \value{
 An object of class "stride".
@@ -35,7 +38,7 @@ long_x(x, stride_seq(2, 9, 1))
 long_x(x, stride_seq(9, 2, 1))
 
 # remove elements 1 to length(x) - 10:
-long_x(x, stride_seq(1, length(x) - 10, 1), -1)
+long_x(x, stride_seq(1, length(x) - 10, 1, -1))
 
 # replace every other element:
 x <- mutatomic(1:1e7)
@@ -44,7 +47,7 @@ head(x)
 
 # replace all elements except the first element:
 x <- mutatomic(1:1e7)
-long_set(x, stride_seq(1, 1, 1), use = -1, rp = -1)
+long_set(x, stride_seq(1, 1, 1, -1), rp = -10)
 head(x)
 
 }

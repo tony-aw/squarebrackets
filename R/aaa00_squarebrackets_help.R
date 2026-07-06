@@ -4,30 +4,18 @@
 #' squarebrackets: \cr
 #' Subset Methods as Alternatives to the Square Brackets Operators for Programming. \cr
 #' \cr
-#' 'squarebrackets' provides subset methods
-#' (supporting both atomic and recursive S3 classes)
-#' that may be more convenient alternatives to the `[` and `[<-` operators,
-#' whilst maintaining similar performance. \cr
-#' Some nice properties of these methods include, but are not limited to, the following.
-#'  
-#'  1) The `[` and `[<-` operators use different rule-sets for different data.frame-like types
-#'  (data.frames, data.tables, tibbles, tidytables, etc.). \cr
-#'  The 'squarebrackets' methods use the same rule-sets for the different data.frame-like types.
-#'  2) Performing dimensional subset operations on an array using `[` and `[<-`,
-#'  requires a-priori knowledge on the number of dimensions the array has. \cr
-#'  The 'squarebrackets' methods work on any arbitrary dimensions without requiring such prior knowledge.
-#'  3) When selecting names with the `[` and `[<-` operators,
-#'  only the first occurrence of the names are selected in case of duplicate names. \cr
-#'  The 'squarebrackets' methods always perform on all names in case of duplicates,
-#'  not just the first.
-#'  4) The `[<-` operator only supports copy-on-modify semantics for most classes. \cr
-#'  The 'squarebrackets' methods provides explicit pass-by-reference and pass-by-value semantics,
-#'  whilst still respecting things like binding-locks and mutability rules.
-#'  5) 'squarebrackets' supports index-less sub-set operations,
-#'  which is more memory efficient
-#'  (and better for the environment)
-#'  for `long vectors` than sub-set operations using the `[` and `[<-` operators. \cr \cr
 #' 
+#' ```{r echo = FALSE, eval = TRUE, results = 'asis'}
+#' 
+#' txt <- packageDescription("squarebrackets", fields = "Description")
+#' p <- c("\t", ",\n", ".\n", ";\n",  "\n(", "following.")
+#' rp <- c("", ", ", ".\n\n", "; \\cr ", " (", "following:")
+#' for(i in 1:length(rp)) {
+#'  txt <- gsub(p[i], rp[i], txt, fixed = TRUE)
+#' }
+#' txt <- paste0(txt, "\\cr \\cr")
+#' cat(txt)
+#' ```
 #' 
 #' @section Goal:
 #' 

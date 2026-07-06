@@ -5,7 +5,7 @@ sys.source(file.path(getwd(), "source", "functions4testing.R"), envir = environm
 
 
 basetest <- function(x, from = NULL, to = NULL, by = 1L) {
-  myslice <- eval_stride(stride_seq(from, to, by), x, 1)
+  myslice <- eval_stride(stride_seq(from, to, by), x)
   start <- myslice$start
   end <- myslice$end
   sign <- ifelse(start > end, -1, 1)

@@ -16,7 +16,14 @@ public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostat
 squarebrackets: Subset Methods as Alternatives to the Square Brackets
 Operators for Programming
 
-## Description
+## What is the ‘squarebrackets’ R package?
+
+‘squarebrackets’ is a light-weight extension of the base ‘R’ `[`, `[<-`,
+`[[`, and `[[<-` operators.
+
+ 
+
+## Why use ‘squarebrackets’?
 
 Provides subset methods (supporting both atomic and recursive S3
 classes) that may be more convenient alternatives to the `[` and `[<-`
@@ -27,22 +34,26 @@ the following:
 
 1)  The `[` and `[<-` operators use different rule-sets for different
     data.frame-like types (data.frames, data.tables, tibbles,
-    tidytables, etc.). The ‘squarebrackets’ methods use the same
+    tidytables, etc.); The ‘squarebrackets’ methods use the same
     rule-sets for the different data.frame-like types.
+
 2)  Performing dimensional subset operations on an array using `[` and
     `[<-`, requires a-priori knowledge on the number of dimensions the
-    array has. The ‘squarebrackets’ methods work on any arbitrary
+    array has; The ‘squarebrackets’ methods work on any arbitrary
     dimensions without requiring such prior knowledge.
-3)  When selecting names with the `[` and `[<-` operators, only the
-    first occurrence of the names are selected in case of duplicate
-    names. The ‘squarebrackets’ methods always perform on all names in
-    case of duplicates, not just the first.
+
+3)  Unlike the `[` and `[<-` operators, the ‘squarebrackets’ methods
+    will operate on duplicate names (not just the first match), use
+    consistent syntax for inverting indices, and support the use of
+    keywords through formulas.
+
 4)  The `[<-` operator only supports copy-on-modify semantics for most
-    classes. The ‘squarebrackets’ methods provides explicit
+    classes; The ‘squarebrackets’ methods provides explicit
     pass-by-reference and pass-by-value semantics, whilst still
     respecting things like binding-locks and mutability rules.
+
 5)  ‘squarebrackets’ supports index-less sub-set operations, which is
-    more memory efficient (and better for the environment) for
+    more memory efficient (and better for the environment), for
     `long vectors` than sub-set operations using the `[` and `[<-`
     operators.
 

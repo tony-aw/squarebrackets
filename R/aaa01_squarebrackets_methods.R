@@ -92,7 +92,7 @@
 #' \cr
 #' 
 #' @section Class support for the Pass-By-Reference Methods:
-#' The `_set` methods only support the `data.table` and `mutatomic` classes. \cr
+#' The `_set` methods only support the mutable classes `data.table` and `mutatomic`. \cr
 #' Other mutable classes are not supported by the 'squarebrackets' package. \cr
 #' However,
 #' other 'R' package authors are welcome to add additional method dispatches

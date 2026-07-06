@@ -14,7 +14,7 @@ The following keywords are available:
 \item \code{.M}: the given margin/dimension; \code{0} if not relevant.
 \item \code{.Nms}: the (dim)names at the given margin.
 \item \code{.N}: the size of a given dimension (if \code{.M} is not \code{0}) or else the length of \code{x}.
-\item \code{.I}: equal to \code{1:.N}.
+\item \code{.I}: equal to \code{seq_len(.N)}.
 \item \code{.bi(...)}: a \bold{function} to specify bilateral indices. See the \code{Details} section below.
 \item \code{.x}: the input variable \code{x} itself.
 }

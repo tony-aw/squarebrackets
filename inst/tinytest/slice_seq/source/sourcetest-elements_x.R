@@ -101,7 +101,8 @@ expect_equal(
 
 
 # check sticky ====
-x <- as.roman(1:100)
+x <- 1:100
+class(x) <- "sticky"
 
 expected <- out <- vector("list", n)
 counter <- 1L

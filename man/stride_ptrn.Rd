@@ -5,7 +5,7 @@
 \alias{ptrn_len}
 \title{Pattern Sequence-based stride}
 \usage{
-stride_ptrn(start, end, ptrn)
+stride_ptrn(start, end, ptrn, use = 1L)
 
 ptrn_len(start, end, ptrn)
 }
@@ -21,8 +21,11 @@ to avoid ambiguity. \cr
 \itemize{
 \item it is \verb{>= 2}
 \item it is \verb{<= length(start:end)}
-\item it is \verb{<= 2^31 - 1} \cr
+\item it is \verb{<= 2^31 - 1}
 }}
+
+\item{use}{\code{1} to select indices \code{(start:end)[ptrn]}; \cr
+\code{-1} to select all indices \bold{except} \code{(start:end)[ptrn]} \cr}
 }
 \value{
 An object of class "stride".
@@ -50,9 +53,10 @@ long_x(x, stride_ptrn(2, 20, c(TRUE, FALSE, FALSE, TRUE)))
 
 long_x(x, stride_ptrn(20, 2, c(TRUE, FALSE, FALSE, TRUE)))
 
-long_x(x, stride_ptrn(2, 20, c(TRUE, FALSE, FALSE, TRUE)), -1) |> head()
+long_x(x, stride_ptrn(2, 20, c(TRUE, FALSE, FALSE, TRUE), -1)) |> head()
 
-long_x(x, stride_ptrn(20, 2, c(TRUE, FALSE, FALSE, TRUE)), -1) |> head()
+long_x(x, stride_ptrn(20, 2, c(TRUE, FALSE, FALSE, TRUE), -1)) |> head()
+
 }
 \seealso{
 \link{squarebrackets_stride} \cr

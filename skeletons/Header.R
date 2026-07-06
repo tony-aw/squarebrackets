@@ -3,8 +3,21 @@
 library(stringi)
 
 
+
+header <- "
+
+
+#include <Rcpp.h>
+
+using namespace Rcpp;
+
+
+"
+
+
+
 macros_arrays <- readr::read_file("macros_arrays.txt")
-macros_slicev <- readr::read_file("macros_slicev.txt")
+macros_stridev <- readr::read_file("macros_stridev.txt")
 macros_slice <- readr::read_file("macros_slice.txt")
 
 macro_set_atomic <- "
@@ -18,7 +31,7 @@ macro_set_atomic <- "
 macros <- stri_c(
   macro_set_atomic,
   macros_arrays,
-  macros_slicev,
+  macros_stridev,
   macros_slice,
   collapse = "\n\n"
 )
@@ -35,7 +48,7 @@ int test(int x, int y) {
 
 "
 
-Rcpp::sourceCpp(code = stri_c(macros, testfun, collapse = "\n"))
+Rcpp::sourceCpp(code = stri_c(header, macros, testfun, collapse = "\n"))
 
 
 header_macro <- stri_c("
@@ -56,7 +69,7 @@ macros,
 
 
 cat(header_macro)
-Rcpp::sourceCpp(code = header_macro)
+Rcpp::sourceCpp(code = stri_c(header, header_macro))
 
 setwd("..")
 readr::write_file(header_macro, "src/squarebrackets.h")

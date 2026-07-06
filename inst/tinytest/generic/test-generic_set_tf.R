@@ -161,7 +161,7 @@ sys.source(file.path(getwd(), "source", "sourcetest-dims.R"), envir = environmen
 
 
 
-# row,col ===
+# row,col ====
 
 pre_subset_mat <- function(x, row = NULL, col = NULL) {
   

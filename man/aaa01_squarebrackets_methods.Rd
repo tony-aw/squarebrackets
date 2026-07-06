@@ -110,7 +110,7 @@ Classes with non-static attributes will explicitly require a \code{long_x} metho
 
 \section{Class support for the Pass-By-Reference Methods}{
 
-The \verb{_set} methods only support the \code{data.table} and \code{mutatomic} classes. \cr
+The \verb{_set} methods only support the mutable classes \code{data.table} and \code{mutatomic}. \cr
 Other mutable classes are not supported by the 'squarebrackets' package. \cr
 However,
 other 'R' package authors are welcome to add additional method dispatches

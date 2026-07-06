@@ -1,4 +1,10 @@
 
+# squarebrackets 0.0.0.9009
+* Replaced the `strid_pv()` stride function with the more generic `stride_v()` S3 method;
+Users can now create custom methods for it.
+* Moved the `use` argument from the `long_` methods into the `strid_` functions/methods.
+* Streamlined the internal code here and there.
+
 # squarebrackets 0.0.0.9008
 * Completely overhauled the methods for index-less sub-set operations on long vectors;
 They are now the `long_` methods, and use `stride` objects to perform index-less sub-set operations.

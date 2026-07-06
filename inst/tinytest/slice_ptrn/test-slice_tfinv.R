@@ -15,15 +15,15 @@ basetest <- function(x, from, to, pattern, tf) {
 slicetest <- function(x, from, to, pattern, tf) {
   x <- data.table::copy(x)
   x2 <- x
-  stride <- stride_ptrn(from, to, pattern)
-  long_set(x, stride, use = -1, tf = tf)
+  stride <- stride_ptrn(from, to, pattern, -1)
+  long_set(x, stride, tf = tf)
   if(!identical(x, x2)) { stop("PassByReference fail")}
   return(x)
 }
 
 subset_fun <- function(x, from, to, pattern, ...) {
-  stride <- stride_ptrn(from, to, pattern)
-  return(long_x(x, stride, use = -1, ...))
+  stride <- stride_ptrn(from, to, pattern, -1)
+  return(long_x(x, stride, ...))
 }
 
 sys.source(file.path(getwd(), "source", "sourcetest-elements_rp.R"), envir = environment())

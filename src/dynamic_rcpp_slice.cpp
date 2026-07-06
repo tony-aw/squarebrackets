@@ -52,7 +52,7 @@ inline SEXP rcpp_slice_seq_x_Logical(
     const SEXP x, const SEXP stride, int use
   ) {
   
-  SEXP out = PROTECT(Rf_allocVector(LGLSXP, rcpp_stride_get_Rxlent(stride, 4)));
+  SEXP out = PROTECT(Rf_allocVector(LGLSXP, rcpp_stride_get_Rxlent(stride, 5)));
    int *pout = LOGICAL(out);
   
   const int *px = LOGICAL_RO(x);
@@ -81,7 +81,7 @@ inline void rcpp_slice_seq_set_Logical(
   
   int add;
   
-  if(Rf_xlength(rp) == rcpp_stride_get_Rxlent(stride, 4)) {
+  if(Rf_xlength(rp) == rcpp_stride_get_Rxlent(stride, 5)) {
     add = 1;
   }
   else if(Rf_xlength(rp) == 1) {
@@ -102,7 +102,7 @@ inline SEXP rcpp_slice_ptrn_x_Logical(
     const SEXP x, const SEXP stride, int use
   ) {
   
-  SEXP out = PROTECT(Rf_allocVector(LGLSXP, rcpp_stride_get_Rxlent(stride, 4)));
+  SEXP out = PROTECT(Rf_allocVector(LGLSXP, rcpp_stride_get_Rxlent(stride, 5)));
    int *pout = LOGICAL(out);
   
   const int *px = LOGICAL_RO(x);
@@ -131,7 +131,7 @@ inline void rcpp_slice_ptrn_set_Logical(
   
   int add;
   
-  if(Rf_xlength(rp) == rcpp_stride_get_Rxlent(stride, 4)) {
+  if(Rf_xlength(rp) == rcpp_stride_get_Rxlent(stride, 5)) {
     add = 1;
   }
   else if(Rf_xlength(rp) == 1) {
@@ -156,7 +156,7 @@ inline SEXP rcpp_slice_seq_x_Integer(
     const SEXP x, const SEXP stride, int use
   ) {
   
-  SEXP out = PROTECT(Rf_allocVector(INTSXP, rcpp_stride_get_Rxlent(stride, 4)));
+  SEXP out = PROTECT(Rf_allocVector(INTSXP, rcpp_stride_get_Rxlent(stride, 5)));
    int *pout = INTEGER(out);
   
   const int *px = INTEGER_RO(x);
@@ -185,7 +185,7 @@ inline void rcpp_slice_seq_set_Integer(
   
   int add;
   
-  if(Rf_xlength(rp) == rcpp_stride_get_Rxlent(stride, 4)) {
+  if(Rf_xlength(rp) == rcpp_stride_get_Rxlent(stride, 5)) {
     add = 1;
   }
   else if(Rf_xlength(rp) == 1) {
@@ -206,7 +206,7 @@ inline SEXP rcpp_slice_ptrn_x_Integer(
     const SEXP x, const SEXP stride, int use
   ) {
   
-  SEXP out = PROTECT(Rf_allocVector(INTSXP, rcpp_stride_get_Rxlent(stride, 4)));
+  SEXP out = PROTECT(Rf_allocVector(INTSXP, rcpp_stride_get_Rxlent(stride, 5)));
    int *pout = INTEGER(out);
   
   const int *px = INTEGER_RO(x);
@@ -235,7 +235,7 @@ inline void rcpp_slice_ptrn_set_Integer(
   
   int add;
   
-  if(Rf_xlength(rp) == rcpp_stride_get_Rxlent(stride, 4)) {
+  if(Rf_xlength(rp) == rcpp_stride_get_Rxlent(stride, 5)) {
     add = 1;
   }
   else if(Rf_xlength(rp) == 1) {
@@ -260,7 +260,7 @@ inline SEXP rcpp_slice_seq_x_Numeric(
     const SEXP x, const SEXP stride, int use
   ) {
   
-  SEXP out = PROTECT(Rf_allocVector(REALSXP, rcpp_stride_get_Rxlent(stride, 4)));
+  SEXP out = PROTECT(Rf_allocVector(REALSXP, rcpp_stride_get_Rxlent(stride, 5)));
    double *pout = REAL(out);
   
   const double *px = REAL_RO(x);
@@ -289,7 +289,7 @@ inline void rcpp_slice_seq_set_Numeric(
   
   int add;
   
-  if(Rf_xlength(rp) == rcpp_stride_get_Rxlent(stride, 4)) {
+  if(Rf_xlength(rp) == rcpp_stride_get_Rxlent(stride, 5)) {
     add = 1;
   }
   else if(Rf_xlength(rp) == 1) {
@@ -310,7 +310,7 @@ inline SEXP rcpp_slice_ptrn_x_Numeric(
     const SEXP x, const SEXP stride, int use
   ) {
   
-  SEXP out = PROTECT(Rf_allocVector(REALSXP, rcpp_stride_get_Rxlent(stride, 4)));
+  SEXP out = PROTECT(Rf_allocVector(REALSXP, rcpp_stride_get_Rxlent(stride, 5)));
    double *pout = REAL(out);
   
   const double *px = REAL_RO(x);
@@ -339,7 +339,7 @@ inline void rcpp_slice_ptrn_set_Numeric(
   
   int add;
   
-  if(Rf_xlength(rp) == rcpp_stride_get_Rxlent(stride, 4)) {
+  if(Rf_xlength(rp) == rcpp_stride_get_Rxlent(stride, 5)) {
     add = 1;
   }
   else if(Rf_xlength(rp) == 1) {
@@ -364,7 +364,7 @@ inline SEXP rcpp_slice_seq_x_Complex(
     const SEXP x, const SEXP stride, int use
   ) {
   
-  SEXP out = PROTECT(Rf_allocVector(CPLXSXP, rcpp_stride_get_Rxlent(stride, 4)));
+  SEXP out = PROTECT(Rf_allocVector(CPLXSXP, rcpp_stride_get_Rxlent(stride, 5)));
    Rcomplex *pout = COMPLEX(out);
   
   const Rcomplex *px = COMPLEX_RO(x);
@@ -393,7 +393,7 @@ inline void rcpp_slice_seq_set_Complex(
   
   int add;
   
-  if(Rf_xlength(rp) == rcpp_stride_get_Rxlent(stride, 4)) {
+  if(Rf_xlength(rp) == rcpp_stride_get_Rxlent(stride, 5)) {
     add = 1;
   }
   else if(Rf_xlength(rp) == 1) {
@@ -414,7 +414,7 @@ inline SEXP rcpp_slice_ptrn_x_Complex(
     const SEXP x, const SEXP stride, int use
   ) {
   
-  SEXP out = PROTECT(Rf_allocVector(CPLXSXP, rcpp_stride_get_Rxlent(stride, 4)));
+  SEXP out = PROTECT(Rf_allocVector(CPLXSXP, rcpp_stride_get_Rxlent(stride, 5)));
    Rcomplex *pout = COMPLEX(out);
   
   const Rcomplex *px = COMPLEX_RO(x);
@@ -443,7 +443,7 @@ inline void rcpp_slice_ptrn_set_Complex(
   
   int add;
   
-  if(Rf_xlength(rp) == rcpp_stride_get_Rxlent(stride, 4)) {
+  if(Rf_xlength(rp) == rcpp_stride_get_Rxlent(stride, 5)) {
     add = 1;
   }
   else if(Rf_xlength(rp) == 1) {
@@ -468,7 +468,7 @@ inline SEXP rcpp_slice_seq_x_Raw(
     const SEXP x, const SEXP stride, int use
   ) {
   
-  SEXP out = PROTECT(Rf_allocVector(RAWSXP, rcpp_stride_get_Rxlent(stride, 4)));
+  SEXP out = PROTECT(Rf_allocVector(RAWSXP, rcpp_stride_get_Rxlent(stride, 5)));
    Rbyte *pout = RAW(out);
   
   const Rbyte *px = RAW_RO(x);
@@ -497,7 +497,7 @@ inline void rcpp_slice_seq_set_Raw(
   
   int add;
   
-  if(Rf_xlength(rp) == rcpp_stride_get_Rxlent(stride, 4)) {
+  if(Rf_xlength(rp) == rcpp_stride_get_Rxlent(stride, 5)) {
     add = 1;
   }
   else if(Rf_xlength(rp) == 1) {
@@ -518,7 +518,7 @@ inline SEXP rcpp_slice_ptrn_x_Raw(
     const SEXP x, const SEXP stride, int use
   ) {
   
-  SEXP out = PROTECT(Rf_allocVector(RAWSXP, rcpp_stride_get_Rxlent(stride, 4)));
+  SEXP out = PROTECT(Rf_allocVector(RAWSXP, rcpp_stride_get_Rxlent(stride, 5)));
    Rbyte *pout = RAW(out);
   
   const Rbyte *px = RAW_RO(x);
@@ -547,7 +547,7 @@ inline void rcpp_slice_ptrn_set_Raw(
   
   int add;
   
-  if(Rf_xlength(rp) == rcpp_stride_get_Rxlent(stride, 4)) {
+  if(Rf_xlength(rp) == rcpp_stride_get_Rxlent(stride, 5)) {
     add = 1;
   }
   else if(Rf_xlength(rp) == 1) {
@@ -572,7 +572,7 @@ inline SEXP rcpp_slice_seq_x_Character(
     const SEXP x, const SEXP stride, int use
   ) {
   
-  SEXP out = PROTECT(Rf_allocVector(STRSXP, rcpp_stride_get_Rxlent(stride, 4)));
+  SEXP out = PROTECT(Rf_allocVector(STRSXP, rcpp_stride_get_Rxlent(stride, 5)));
   // SEXP *pout = STRING_PTR(out);
   
   const SEXP *px = STRING_PTR_RO(x);
@@ -601,7 +601,7 @@ inline void rcpp_slice_seq_set_Character(
   
   int add;
   
-  if(Rf_xlength(rp) == rcpp_stride_get_Rxlent(stride, 4)) {
+  if(Rf_xlength(rp) == rcpp_stride_get_Rxlent(stride, 5)) {
     add = 1;
   }
   else if(Rf_xlength(rp) == 1) {
@@ -622,7 +622,7 @@ inline SEXP rcpp_slice_ptrn_x_Character(
     const SEXP x, const SEXP stride, int use
   ) {
   
-  SEXP out = PROTECT(Rf_allocVector(STRSXP, rcpp_stride_get_Rxlent(stride, 4)));
+  SEXP out = PROTECT(Rf_allocVector(STRSXP, rcpp_stride_get_Rxlent(stride, 5)));
   // SEXP *pout = STRING_PTR(out);
   
   const SEXP *px = STRING_PTR_RO(x);
@@ -651,7 +651,7 @@ inline void rcpp_slice_ptrn_set_Character(
   
   int add;
   
-  if(Rf_xlength(rp) == rcpp_stride_get_Rxlent(stride, 4)) {
+  if(Rf_xlength(rp) == rcpp_stride_get_Rxlent(stride, 5)) {
     add = 1;
   }
   else if(Rf_xlength(rp) == 1) {

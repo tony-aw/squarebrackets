@@ -80,7 +80,7 @@ inline SEXP rcpp_slice_seq_x_<RCPP_TYPE>(
     const SEXP x, const SEXP stride, int use
   ) {
   
-  SEXP out = PROTECT(Rf_allocVector(<SXP_TYPE>, rcpp_stride_get_Rxlent(stride, 4)));
+  SEXP out = PROTECT(Rf_allocVector(<SXP_TYPE>, rcpp_stride_get_Rxlent(stride, 5)));
   <COMMENT> <scalar_type> *pout = <FUN_TYPE>(out);
   
   const <scalar_type> *px = <FUN_TYPE>_RO(x);
@@ -109,7 +109,7 @@ inline void rcpp_slice_seq_set_<RCPP_TYPE>(
   
   int add;
   
-  if(Rf_xlength(rp) == rcpp_stride_get_Rxlent(stride, 4)) {
+  if(Rf_xlength(rp) == rcpp_stride_get_Rxlent(stride, 5)) {
     add = 1;
   }
   else if(Rf_xlength(rp) == 1) {
@@ -130,7 +130,7 @@ inline SEXP rcpp_slice_ptrn_x_<RCPP_TYPE>(
     const SEXP x, const SEXP stride, int use
   ) {
   
-  SEXP out = PROTECT(Rf_allocVector(<SXP_TYPE>, rcpp_stride_get_Rxlent(stride, 4)));
+  SEXP out = PROTECT(Rf_allocVector(<SXP_TYPE>, rcpp_stride_get_Rxlent(stride, 5)));
   <COMMENT> <scalar_type> *pout = <FUN_TYPE>(out);
   
   const <scalar_type> *px = <FUN_TYPE>_RO(x);
@@ -159,7 +159,7 @@ inline void rcpp_slice_ptrn_set_<RCPP_TYPE>(
   
   int add;
   
-  if(Rf_xlength(rp) == rcpp_stride_get_Rxlent(stride, 4)) {
+  if(Rf_xlength(rp) == rcpp_stride_get_Rxlent(stride, 5)) {
     add = 1;
   }
   else if(Rf_xlength(rp) == 1) {

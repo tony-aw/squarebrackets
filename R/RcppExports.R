@@ -69,26 +69,14 @@
 
 #' @keywords internal
 #' @noRd
-.rcpp_countv <- function(y, v, na, use) {
-    .Call(`_squarebrackets_rcpp_countv`, y, v, na, use)
+.rcpp_slicev_x_atomic <- function(x, preplist, prepvector, pool) {
+    .Call(`_squarebrackets_rcpp_slicev_x_atomic`, x, preplist, prepvector, pool)
 }
 
 #' @keywords internal
 #' @noRd
-.rcpp_whichv_32 <- function(y, v, na, use) {
-    .Call(`_squarebrackets_rcpp_whichv_32`, y, v, na, use)
-}
-
-#' @keywords internal
-#' @noRd
-.rcpp_slicev_x_atomic <- function(x, y, v, na, use) {
-    .Call(`_squarebrackets_rcpp_slicev_x_atomic`, x, y, v, na, use)
-}
-
-#' @keywords internal
-#' @noRd
-.rcpp_slicev_set_atomic <- function(x, y, v, na, use, rp) {
-    invisible(.Call(`_squarebrackets_rcpp_slicev_set_atomic`, x, y, v, na, use, rp))
+.rcpp_slicev_set_atomic <- function(x, rp, preplist, prepvector, pool) {
+    invisible(.Call(`_squarebrackets_rcpp_slicev_set_atomic`, x, rp, preplist, prepvector, pool))
 }
 
 #' @keywords internal
@@ -144,6 +132,34 @@ NULL
 #' @noRd
 .rcpp_set_ma <- function(x, newclass) {
     invisible(.Call(`_squarebrackets_rcpp_set_ma`, x, newclass))
+}
+
+#' @keywords internal
+NULL
+
+#' @keywords internal
+NULL
+
+#' @keywords internal
+NULL
+
+#' @keywords internal
+NULL
+
+.rcpp_stridev_chunks <- function(y) {
+    .Call(`_squarebrackets_rcpp_stridev_chunks`, y)
+}
+
+.rcpp_stridev_preplist <- function(y, v, chunks, condition, na) {
+    .Call(`_squarebrackets_rcpp_stridev_preplist`, y, v, chunks, condition, na)
+}
+
+.rcpp_stridev_prepvector <- function(y, prep) {
+    .Call(`_squarebrackets_rcpp_stridev_prepvector`, y, prep)
+}
+
+.rcpp_stridev_pool <- function(y, v, preplist, prepvector, condition, na) {
+    .Call(`_squarebrackets_rcpp_pool`, y, v, preplist, prepvector, condition, na)
 }
 
 #' @keywords internal

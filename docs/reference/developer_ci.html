@@ -3,27 +3,11 @@
 ci_ii() constructs an integer vector flat/interior indices.
 ci_margin() constructs an integer vector of indices for one particular dimension margin.
 ci_ss() constructs a list of integer subscripts.
-ci_df() is the same as ci_margin(),
-except it is specifically designed for data.frame-like objects.
-It is a separate function,
-because things like dimnames(x)[1] and rownames(x)
-do not always return the same output for certain data.frame-like objects.
-ci_obs() and ci_vars() construct row and column indices,
-respectively,
-for data.frame-like objects.
 
 "><meta property="og:description" content="These functions construct indices.
 ci_ii() constructs an integer vector flat/interior indices.
 ci_margin() constructs an integer vector of indices for one particular dimension margin.
 ci_ss() constructs a list of integer subscripts.
-ci_df() is the same as ci_margin(),
-except it is specifically designed for data.frame-like objects.
-It is a separate function,
-because things like dimnames(x)[1] and rownames(x)
-do not always return the same output for certain data.frame-like objects.
-ci_obs() and ci_vars() construct row and column indices,
-respectively,
-for data.frame-like objects.
 
 "></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -33,7 +17,7 @@ for data.frame-like objects.
 
     <a class="navbar-brand me-2" href="../index.html">squarebrackets</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9008</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9009</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -69,14 +53,6 @@ for data.frame-like objects.
     <p>These functions construct indices. <br></p><ul><li><p><code>ci_ii()</code> constructs an integer vector flat/interior indices.</p></li>
 <li><p><code>ci_margin()</code> constructs an integer vector of indices for one particular dimension margin.</p></li>
 <li><p><code>ci_ss()</code> constructs a list of integer subscripts.</p></li>
-<li><p><code>ci_df()</code> is the same as <code>ci_margin()</code>,
-except it is specifically designed for data.frame-like objects. <br>
-It is a separate function,
-because things like <code>dimnames(x)[1]</code> and <code>rownames(x)</code>
-do not always return the same output for certain data.frame-like objects.</p></li>
-<li><p><code>ci_obs()</code> and <code>ci_vars()</code> construct row and column indices,
-respectively,
-for data.frame-like objects. <br></p></li>
 </ul></div>
 
     <div class="section level2">

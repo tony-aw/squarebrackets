@@ -452,58 +452,54 @@
 
 
 
-#' @keywords internal
-#' @noRd
-.internal_get_protected_addresses_base <- function() {
-  env <- baseenv()
-  nms <- setdiff(
-    ls(env, all.names = TRUE),
-    invisible(utils::lsf.str(envir = env, all.names = TRUE))
-  )
-  protected_binds <- vapply(
-    nms,
-    \(x) bindingIsLocked(x, env = env) || bindingIsActive(x, env = env),
-    logical(1L)
-  )
-  nms <- setdiff(
-    nms[protected_binds],
-    c(".Last.value", "Last.value")
-  )
-  lst <- as.list(env, all.names = TRUE)[nms]
-  lst <- rapply(lst, .rcpp_address)
-  return(lst)
+
+.internal_protected_addresses <- function(env, visited = character(), exclude = c(".Last.value", "Random.seed")) {
+  env_addr <- .rcpp_address(env)
+  if (env_addr %in% visited) return(character())
+  visited <- c(visited, env_addr)
+  
+  blacklist_addresses <- character()
+  
+  # 1. Snapshot the environment to break internal lookup/promise resolution behaviors
+  env_list <- as.list(env, all.names = TRUE, sorted = FALSE)
+  obj_names <- setdiff(names(env_list), exclude)
+  
+  # Contiguous raw memory vector arrays you explicitly want to shield
+  target_sexp_types <- c("logical", "integer", "double", "complex", "character", "raw")
+  
+  for (name in obj_names) {
+    # Skip active bindings to protect evaluation paths (.Last.value)
+    if (bindingIsActive(name, env)) next
+    
+    obj <- env_list[[name]]
+    if (is.null(obj)) next
+    
+    # 2. If it's a nested tracking structure or environment, dive in
+    if (is.environment(obj)) {
+      nested_addrs <- .internal_protected_addresses(obj, visited)
+      blacklist_addresses <- c(blacklist_addresses, nested_addrs)
+      next
+    }
+    
+    # 3. STRICT CHECK: Must be locked, a true vector type, and definitely NOT a function/closure
+    if (bindingIsLocked(name, env) && 
+        (typeof(obj) %in% target_sexp_types) && 
+        !is.function(obj)) {
+      
+      addr <- .rcpp_address(obj)
+      blacklist_addresses[paste0(env_addr, "$", name)] <- addr
+    }
+  }
+  
+  return(blacklist_addresses)
 }
 
-#' @keywords internal
-#' @noRd
-.internal_get_protected_addresses <- function(env) {
-  nms <- setdiff(
-    ls(env, all.names = TRUE),
-    invisible(utils::lsf.str(envir = env, all.names = TRUE))
-  )
-  protected_binds <- vapply(
-    nms,
-    \(x) bindingIsLocked(x, env = env) || bindingIsActive(x, env = env),
-    logical(1L)
-  )
-  nms <- setdiff(
-    nms[protected_binds],
-    c(".Last.value", "Last.value")
-  )
-  lst <- as.list(env, all.names = TRUE)[nms]
-  subenvs <- vapply(
-    lst, is.environment, logical(1L)
-  )
-  lst[subenvs] <- lapply(lst[subenvs], as.list)
-  lst <- rapply(lst, .rcpp_address)
-  return(lst)
-}
 
 #' @keywords internal
 #' @noRd
 .protected_addresses <- function() {
-  lst1 <- .internal_get_protected_addresses_base()
-  lst2 <- .internal_get_protected_addresses(loadNamespace("utils"))
+  lst1 <- .internal_protected_addresses(baseenv())
+  lst2 <- .internal_protected_addresses(loadNamespace("utils"))
   lst <- c(unlist(lst1), unlist(lst2))
   return(unlist(lst))
 }

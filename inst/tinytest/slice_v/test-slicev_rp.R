@@ -11,11 +11,11 @@ errorfun <- function(tt) {
 
 
 
-basetest_single <- function(x, ..., p, v, na, use) {
+basetest_single <- function(x, ..., y, v, na, use) {
   
   rp <- parent.frame()$rp
   
-  ind <- .test_v2ind(1L, p, v, na, use)
+  ind <- .test_v2ind(1L, y, v, na, use)
   
   x[ind] <- rp
   return(x)
@@ -23,11 +23,11 @@ basetest_single <- function(x, ..., p, v, na, use) {
 
 
 
-basetest_numrng <- function(x, ..., p, v, na, use) {
+basetest_numrng <- function(x, ..., y, v, na, use) {
   
   rp <- parent.frame()$rp
   
-  ind <- .test_v2ind(2L, p, v, na, use)
+  ind <- .test_v2ind(2L, y, v, na, use)
   
   x[ind] <- rp
   return(x)
@@ -38,22 +38,22 @@ basetest_str <- function(x, ..., y, v, na, use) {
   
   rp <- parent.frame()$rp
   
-  ind <- .test_v2ind(3L, p, v, na, use)
+  ind <- .test_v2ind(3L, y, v, na, use)
   
   x[ind] <- rp
   return(x)
 }
 
 
-slicetest <- function(x, ..., p, v, na, use) {
+slicetest <- function(x, ..., y, v, na, use) {
   
   x <- data.table::copy(x)
   x2 <- x
   
   rp <- parent.frame()$rp
   
-  stride <- stride_pv(p, v, na)
-  long_set(x, stride, use, rp = rp)
+  stride <- stride_v(y, v = v, na = na, use = use)
+  long_set(x, stride, rp = rp)
   if(!identical(x, x2)) { stop("PassByReference fail")}
   return(x)
 }

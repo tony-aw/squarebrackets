@@ -10,6 +10,8 @@
 #' @param from natural scalar giving the starting point of the sequence.
 #' @param to natural scalar giving the maximalle allowed end value.
 #' @param by natural scalar giving the step-size.
+#' @param use `1` to select indices `seq(from, to, end)`; \cr
+#' `-1` to select all indices \bold{except} `seq(from, to, end)`
 #' 
 #' @returns
 #' An object of class "stride".
@@ -22,10 +24,10 @@
 
 #' @rdname stride_seq
 #' @export
-stride_seq <- function(from, to, by) {
+stride_seq <- function(from, to, by, use = 1L) {
   
   # check args:
-  .stride_seq_checkargs(from, to, by, sys.call())
+  .stride_seq_checkargs(from, to, by, use, sys.call())
   
   # MAIN FUNCTION:
   step_size <- abs(by)
@@ -39,7 +41,8 @@ stride_seq <- function(from, to, by) {
     start = start,
     end = end,
     step_size = abs(by),
-    n_tiles = n_tiles
+    n_tiles = n_tiles,
+    use = use
   )
   class(out) <- c("stride_seq", "stride")
   return(out)
@@ -48,7 +51,10 @@ stride_seq <- function(from, to, by) {
 
 #' @keywords internal
 #' @noRd
-.stride_seq_checkargs <- function(from, to, by, abortcall) {
+.stride_seq_checkargs <- function(from, to, by, use, abortcall) {
+  if(!.stride_use_OK(use)) {
+    stop(simpleError("improper `use` given", call = abortcall))
+  }
   if(!.is.natural_scalar(from) || !.is.natural_scalar(to) || !.is.natural_scalar(abs(by))) {
     stop(simpleError("`from`, `to`, and `by` must be natural scalars", call = abortcall))
   }

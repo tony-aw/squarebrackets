@@ -135,7 +135,7 @@ f_expect.arbitrary <- function(x, i, j, l) {
 sys.source(file.path(getwd(), "source", "sourcetest-dims.R"), envir = environment())
 
 
-# row,col ===
+# row,col ====
 
 f_expect.matrix <- f_expect.2d <- function(x, row = NULL, col = NULL) {
   

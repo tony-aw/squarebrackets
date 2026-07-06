@@ -14,5 +14,6 @@ slicetest <- function(x, from, to, ptrn, ...) {
   long_x(x, stride, ...)
 }
 
+
 sys.source(file.path(getwd(), "source", "sourcetest-elements_x.R"), envir = environment())
 

@@ -12,7 +12,7 @@ n <- length(list_fromto) * length(list_fromto) * length(list_patternlen)
 # without names ====
 x <- mutatomic(1:100)
 
-expected <- out <- vector("list", n)
+expected <- out1 <- out2 <- vector("list", n)
 counter <- 1L
 
 for(iF in seq_along(list_fromto)) {
@@ -27,18 +27,19 @@ for(iF in seq_along(list_fromto)) {
         
         
         expected[[counter]] <- basetest(x, from, to, pattern)
-        out[[counter]] <- slicetest(x, from, to, pattern)
-        
+        out1[[counter]] <- slicetest(x, from, to, pattern)
+
         counter <- counter + 1L
-        enumerate <- enumerate + 1L
+        enumerate <- enumerate + 2L
       }
     }
   }
 }
 
 expect_equal(
-  expected, out
-) |> errorfun()
+  expected, out1
+)
+
 
 
 # with names, use.names = TRUE ====
@@ -48,7 +49,7 @@ x <- mutatomic(
   dimnames = n(letters[1:10], letters[10:1])
 )
 
-expected <- out <- vector("list", n)
+expected <- out1 <- out2 <- vector("list", n)
 counter <- 1L
 
 for(iF in seq_along(list_fromto)) {
@@ -60,18 +61,17 @@ for(iF in seq_along(list_fromto)) {
       if(length(pattern) <= length(from:to)) {
         
         expected[[counter]] <- basetest(x, from, to, pattern)
-        out[[counter]] <- slicetest(x, from, to, pattern)
+        out1[[counter]] <- slicetest(x, from, to, pattern)
         counter <- counter + 1L
-        enumerate <- enumerate + 1L
+        enumerate <- enumerate + 2L
       }
     }
   }
 }
 
 expect_equal(
-  expected, out
-) |> errorfun()
-
+  expected, out1
+)
 
 # with names, use.names = FALSE ====
 x <- mutatomic(
@@ -80,7 +80,7 @@ x <- mutatomic(
   dimnames = n(letters[1:10], letters[10:1])
 )
 
-expected <- out <- vector("list", n)
+expected <- out1 <- out2 <- vector("list", n)
 counter <- 1L
 
 for(iF in seq_along(list_fromto)) {
@@ -91,23 +91,24 @@ for(iF in seq_along(list_fromto)) {
       pattern = rep(c(TRUE, FALSE), ceiling(by/2)) |> sample(by)
       if(length(pattern) <= length(from:to)) {
         expected[[counter]] <- basetest(x, from, to, pattern) |> unname()
-        out[[counter]] <- slicetest(x, from, to, pattern, use.names = FALSE)
+        out1[[counter]] <- slicetest(x, from, to, pattern, use.names = FALSE)
         counter <- counter + 1L
-        enumerate <- enumerate + 1L
+        enumerate <- enumerate + 2L
       }
     }
   }
 }
 
 expect_equal(
-  expected, out
-) |> errorfun()
+  expected, out1
+)
 
 
 # check sticky ====
-x <- as.roman(1:100)
+x <- 1:100
+class(x) <- "sticky"
 
-expected <- out <- vector("list", n)
+expected <- out1 <- out2 <- vector("list", n)
 counter <- 1L
 
 for(iF in seq_along(list_fromto)) {
@@ -116,19 +117,23 @@ for(iF in seq_along(list_fromto)) {
       from = list_fromto[[iF]]
       to = list_fromto[[iT]]
       pattern = rep(c(TRUE, FALSE), ceiling(by/2)) |> sample(by)
+      
       if(length(pattern) <= length(from:to)) {
+        
         expected[[counter]] <- basetest(x, from, to, pattern) |> unname()
-        out[[counter]] <- slicetest(x, from, to, pattern, use.names = FALSE)
+        out1[[counter]] <- slicetest(x, from, to, pattern, use.names = FALSE)
         counter <- counter + 1L
-        enumerate <- enumerate + 1L
+        enumerate <- enumerate + 2L
+        
       }
+      
     }
   }
 }
 
 expect_equal(
-  expected, out
-) |> errorfun()
+  expected, out1
+)
 
 
 # atomic types checks ====
@@ -144,17 +149,19 @@ x.data <- list(
 )
 x.data <- lapply(x.data, as.mutatomic)
 
-expected <- out <- list(8)
+expected <- out1 <- out2 <- list(8)
 for(i in seq_along(x.data)) {
   x <- data.table::copy(x.data[[i]])
   
-  expected[[i]] <- basetest(x, 3, 98, c(TRUE, FALSE, FALSE, TRUE))
-  out[[i]] <- slicetest(x, 3, 98,  c(TRUE, FALSE, FALSE, TRUE))
-  
+  ptrn <- c(TRUE, FALSE, FALSE, TRUE)
+  expected[[i]] <- basetest(x, 3, 98, ptrn)
+  out1[[i]] <- slicetest(x, 3, 98, ptrn)
+
 }
 expect_equal(
-  expected, out
-) |> errorfun()
+  expected, out1
+)
 
-enumerate <- enumerate + length(x.data)
+
+enumerate <- enumerate + length(x.data) * 2L
 

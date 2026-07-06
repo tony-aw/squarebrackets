@@ -9,17 +9,11 @@
 #' @param stride see \link{squarebrackets_stride}.
 #' @param form a formula, as described in \link{squarebrackets_stride}.
 #' @param x a (long) atomic vector.
-#' @param use `1` or `-1`. \cr
-#' Use `1` when you to wish evaluate on the elements of `x` specified by the stride. \cr
-#' Use `-1` when you wish tor evaluate on all elements of `x` except those specified by the stride. \cr
-#'
+#' 
 #'
 #' @returns
-#' \bold{Using `stride_pv()`} \cr
+#' \bold{Using `stride_v()`} \cr
 #' The original stride object, but as a list. \cr
-#' This list will also contain an additional element: \cr
-#' `$len`, which containts the actual vector length the sequence would be,
-#' given the translated parameters. \cr
 #' \cr
 #' \cr
 #' \bold{Using `stride_seq()` or `stride_ptr()`} \cr
@@ -58,21 +52,27 @@ NULL
 
 #' @rdname stride_eval
 #' @export
-eval_stride <- function(stride, x, use) {
-  .eval_stride_checkargs(stride, x, use, sys.call())
+eval_stride <- function(stride, x) {
+  UseMethod("eval_stride", x)
+}
+
+#' @rdname stride_eval
+#' @export
+eval_stride.default <- function(stride, x) {
+  .eval_stride_checkargs(stride, x, sys.call())
   
   if(is.formula(stride)) {
     stride <- formula2stride(stride, x)
   }
   
-  if(class(stride)[1] == "stride_pv") {
-    return(.eval_stride_pv(stride, x, use, sys.call()))
+  if(class(stride)[1] == "stride_v") {
+    return(.eval_stride_v(stride, x, sys.call()))
   }
   else if(class(stride)[1] == "stride_seq") {
-    return(.eval_stride_seq(stride, x, use, sys.call()))
+    return(.eval_stride_seq(stride, x, sys.call()))
   }
   else if(class(stride)[1] == "stride_ptrn") {
-    return(.eval_stride_ptrn(stride, x, use, sys.call()))
+    return(.eval_stride_ptrn(stride, x, sys.call()))
   }
   else {
     stop("unknown type of `stride` given")
@@ -86,7 +86,7 @@ is.stride <- function(x) {
   if(!is.pairlist(x)) return(FALSE)
   if(length(class(x)) != 2L) return(FALSE)
   if(!class(x)[2] == "stride") return(FALSE)
-  if(!class(x)[1] %in% c("stride_seq", "stride_ptrn", "stride_pv")) return(FALSE)
+  if(!class(x)[1] %in% c("stride_seq", "stride_ptrn", "stride_v")) return(FALSE)
   
   return(TRUE)
 }
@@ -102,18 +102,23 @@ formula2stride <- function(form, x) {
   if(!is.list(obj)) {
     stop("improper formula given")
   }
-  if(length(obj) != 3L) {
+  if(length(obj) != 4L) {
     stop("improper formula given")
   }
   
-  is_seq <- all(sapply(obj, .is.natural_scalar))
+  has_use <- .stride_use_OK(obj[[4L]])
+  if(!has_use) {
+    stop("improper formula given")
+  }
+  
+  is_seq <- all(sapply(obj[1:3], .is.natural_scalar))
   is_ptrn <- all(sapply(obj[1:2], .is.natural_scalar)) && is.logical(obj[[3L]])
   
   if(is_seq) {
-    stride <- stride_seq(obj[[1L]], obj[[2L]], obj[[3L]])
+    stride <- stride_seq(obj[[1L]], obj[[2L]], obj[[3L]], obj[[4L]])
   }
   else if(is_ptrn) {
-    stride <- stride_ptrn(obj[[1L]], obj[[2L]], obj[[3L]])
+    stride <- stride_ptrn(obj[[1L]], obj[[2L]], obj[[3L]], obj[[4L]])
   }
   else {
     stop("improper formula given")
@@ -124,33 +129,27 @@ formula2stride <- function(form, x) {
 
 #' @keywords internal
 #' @noRd
-.eval_stride_checkargs <- function(stride, x, use, abortcall) {
+.eval_stride_checkargs <- function(stride, x, abortcall) {
   
   if(!is.stride(stride) && !is.formula(stride)) {
     txt <- "`stride` must be an object inheriting from class \"stride\", or a formula"
     stop(simpleError(txt, call = abortcall))
   }
   stopifnot(couldb.mutatomic(x))
-  if(!is.numeric(use) || length(use) != 1L) {
-    stop(simpleError("`use` must be a numeric scalar", call = abortcall))
-  }
-  if(use == 0) {
-    stop(simpleError("`use` cannot be zero", call = abortcall))
-  }
   
 }
 
 
 #' @keywords internal
 #' @noRd
-.eval_stride_pv <- function(stride, x, use, abortcall) {
+.eval_stride_v <- function(stride, x, abortcall) {
   
-  if(length(x) != length(stride$p)) {
+  if(length(x) != length(stride$y)) {
     stop(simpleError("`p` must be of same length as `x`"))
   }
   
   out <- as.list(stride)
-  out$len <- .rcpp_countv(stride$p, stride$v, stride$na, use)
+  out$len <- out$prepvector[3L]
   
   return(out)
 }
@@ -159,10 +158,11 @@ formula2stride <- function(form, x) {
 
 #' @keywords internal
 #' @noRd
-.eval_stride_seq <- function(stride, x, use, abortcall) {
+.eval_stride_seq <- function(stride, x, abortcall) {
   
   x.len <- length(x)
   out <- as.list(stride)
+  use <- out$use
   if(use > 0) {
     out$len <- stride$n_tiles
   }
@@ -184,10 +184,11 @@ formula2stride <- function(form, x) {
 
 #' @keywords internal
 #' @noRd
-.eval_stride_ptrn <- function(stride, x, use, abortcall) {
+.eval_stride_ptrn <- function(stride, x, abortcall) {
   
   x.len <- length(x)
   out <- as.list(stride)
+  use <- out$use
   out$len <- .ptrn_len(stride$start, stride$end, stride$ptrn, x.len, use)
   
   if(use > 0) {

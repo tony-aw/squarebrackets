@@ -34,8 +34,8 @@ couldb.mutatomic <- function(x) {
 #' @keywords internal
 #' @noRd
 .is.array_like <- function(x) {
+  if(is.factor(x) || .is.datetime(x) || .is.onlyvector(x)) return(FALSE)
   if(is.array(x)) return(TRUE)
-  if(is.factor(x) || .is.datetime(x)) return(FALSE)
   return(TRUE)
 }
 
@@ -43,9 +43,19 @@ couldb.mutatomic <- function(x) {
 #' @keywords internal
 #' @noRd
 .is.datetime <- function(x) {
-  x.classes <- tolower(class(x))
-  datetime.classes <- c("Date", "datetime", "POSIXct", "POSIXlt", "difftime", "ts")
-  out <- any(x.classes %in% tolower(datetime.classes))
+  x.classes <- class(x)
+  datetime.classes <- c("Date", "datetime", "POSIXct", "POSIXlt", "ts")
+  out <- any(x.classes %in% datetime.classes)
+  return(out)
+}
+
+
+#' @keywords internal
+#' @noRd
+.is.onlyvector <- function(x) {
+  x.classes <- class(x)
+  onlyvector.classes <- c("roman", "octmode", "hexmode")
+  out <- any(x.classes %in% onlyvector.classes)
   return(out)
 }
 

@@ -6,14 +6,6 @@
 #'  * `ci_ii()` constructs an integer vector flat/interior indices.
 #'  * `ci_margin()` constructs an integer vector of indices for one particular dimension margin.
 #'  * `ci_ss()` constructs a list of integer subscripts.
-#'  * `ci_df()` is the same as `ci_margin()`,
-#'  except it is specifically designed for data.frame-like objects. \cr
-#'  It is a separate function,
-#'  because things like `dimnames(x)[1]` and `rownames(x)`
-#'  do not always return the same output for certain data.frame-like objects.
-#'  * `ci_obs()` and `ci_vars()` construct row and column indices,
-#'  respectively,
-#'  for data.frame-like objects. \cr
 #'
 #'
 #' @param x the object for which the indices are meant.

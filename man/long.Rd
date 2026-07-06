@@ -13,7 +13,6 @@ long_x(x, ...)
 \method{long_x}{default}(
   x,
   stride,
-  use = 1,
   ...,
   use.names = TRUE,
   sticky = getOption("squarebrackets.sticky", FALSE)
@@ -21,7 +20,7 @@ long_x(x, ...)
 
 long_set(x, ...)
 
-\method{long_set}{default}(x, stride, use = 1, ..., rp, tf)
+\method{long_set}{default}(x, stride, ..., rp, tf)
 }
 \arguments{
 \item{x}{an atomic object. \cr
@@ -31,8 +30,6 @@ For \code{long_set()} it must be a \link{mutatomic} \bold{variable}.}
 \item{...}{see \link{squarebrackets_ellipsis}.}
 
 \item{stride}{see \link{squarebrackets_stride}.}
-
-\item{use}{either \code{1} for normal slicing, or \code{-1} for inverted slicing.}
 
 \item{use.names}{Boolean, indicating if flat names should be preserved. \cr
 Note that, since the \code{long_} methods operates on
@@ -59,12 +56,12 @@ and are designed for memory efficiency. \cr \cr
 nms <- c(letters, LETTERS, month.abb, month.name) |> rep_len(1e6)
 x <- mutatomic(1:1e6, names = nms)
 head(x)
-stride <-  stride_pv(names(x), v = "a")
+stride <-  stride_v(names(x), v = "a")
 long_x(x, stride) |> head()
 
 
 # find all x smaller than or equal to 5, and replace with `-1000`:
-stride <- stride_pv(x, v = c(-Inf, 5))
+stride <- stride_v(x, v = c(-Inf, 5))
 long_set(x, stride, rp = -1000L)
 head(x, n = 10)
 
@@ -74,27 +71,27 @@ head(x, n = 10)
 x <- mutatomic(1:1e7)
 
 # extract elements 2 to 9
-long_x(x, ~ 2:9:1)
+long_x(x, ~ 2:9:1:1)
 
 # reverse:
-long_x(x, ~ 9:2:1)
+long_x(x, ~ 9:2:1:1)
 
-# remove:
-long_x(x, ~ 1:(.N - 10):1, -1) # all elements except the last 10
+# remove ll elements except the last 10:
+long_x(x, ~ 1:(.N - 10):1:-1)
 
 # replace every other element:
 x <- mutatomic(1:1e7)
-long_set(x, ~ 2:.N:2, rp = -1)
+long_set(x, ~ 2:.N:2:1, rp = -1)
 head(x)
 
 # replace all elements except the first element:
 x <- mutatomic(1:1e7)
-long_set(x, ~1:1:1, use = -1, rp = -1)
+long_set(x, ~1:1:1:-1, rp = -1)
 head(x)
 
 
 # extract pattern c(TRUE, FALSE, FALSE, TRUE) from first 20 elements:
 x <- mutatomic(1:1e7)
-long_x(x, ~ 1:20:c(TRUE, FALSE, FALSE, TRUE))
+long_x(x, ~ 1:20:c(TRUE, FALSE, FALSE, TRUE):1)
 
 }

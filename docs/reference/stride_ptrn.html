@@ -29,7 +29,7 @@ without actually allocating said vector.
 
     <a class="navbar-brand me-2" href="../index.html">squarebrackets</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9008</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9009</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -73,7 +73,7 @@ without actually allocating said vector. <br><br></p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">stride_ptrn</span><span class="op">(</span><span class="va">start</span>, <span class="va">end</span>, <span class="va">ptrn</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">stride_ptrn</span><span class="op">(</span><span class="va">start</span>, <span class="va">end</span>, <span class="va">ptrn</span>, use <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">ptrn_len</span><span class="op">(</span><span class="va">start</span>, <span class="va">end</span>, <span class="va">ptrn</span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -94,8 +94,12 @@ without actually allocating said vector. <br><br></p>
 <dd><p>a logical vector, giving the pattern. <br><code>ptrn</code> must contain at least 1 <code>TRUE</code> and 1 <code>FALSE</code> element,
 to avoid ambiguity. <br><code>ptrn</code> must have length that fulfils all of the following conditions:</p><ul><li><p>it is <code>&gt;= 2</code></p></li>
 <li><p>it is <code>&lt;= length(start:end)</code></p></li>
-<li><p>it is <code>&lt;= 2^31 - 1</code> <br></p></li>
+<li><p>it is <code>&lt;= 2^31 - 1</code></p></li>
 </ul></dd>
+
+
+<dt id="arg-use">use<a class="anchor" aria-label="anchor" href="#arg-use"></a></dt>
+<dd><p><code>1</code> to select indices <code>(start:end)[ptrn]</code>; <br><code>-1</code> to select all indices <b>except</b> <code>(start:end)[ptrn]</code> <br></p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -123,15 +127,16 @@ to avoid ambiguity. <br><code>ptrn</code> must have length that fulfils all of t
 <span class="r-out co"><span class="r-pr">#&gt;</span> mutatomic </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  integer </span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu"><a href="long.html">long_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu">stride_ptrn</span><span class="op">(</span><span class="fl">2</span>, <span class="fl">20</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="long.html">long_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu">stride_ptrn</span><span class="op">(</span><span class="fl">2</span>, <span class="fl">20</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span><span class="op">)</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1]  1  3  4  7  8 11</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> mutatomic </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  integer </span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu"><a href="long.html">long_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu">stride_ptrn</span><span class="op">(</span><span class="fl">20</span>, <span class="fl">2</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="long.html">long_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu">stride_ptrn</span><span class="op">(</span><span class="fl">20</span>, <span class="fl">2</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span><span class="op">)</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1]  1  2  3  6  7 10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> mutatomic </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  integer </span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

@@ -9,12 +9,11 @@
 #' Instead of an indexing vector, they use the `stride` argument. \cr
 #' The following can be used in the `stride` argument: \cr
 #' 
-#'  - a \link{stride_pv} object: \cr
-#'  Use this `stride` type to specify subsets based on property values,
-#'  like `p == v`, where `p` is an atomic vector of properties
-#'  (like `names(x)`),
-#'  and `v` is a value (or range of values) `p` might contain. \cr
-#'  \link{stride_pv} does not actually allocate an indexing vector.
+#'  - a \link{stride_v} object: \cr
+#'  Use this `stride` type to specify value-based subsets,
+#'  like `y == v`,
+#'  where `y` is a vector of the same length as `x`,
+#'  and `v` is a value (or range of values) `y` might contain. \cr
 #'  - a \link{stride_seq} object: \cr
 #'  Use this `stride` type to specify a sequence in the form of `seq(from, to, by)`,
 #'  without actually allocating a sequence indexing vector.
@@ -23,20 +22,23 @@
 #'  `(start:end)[pattern]`, \cr
 #'  where `start` and `end` are natural scalars and `pattern` is a logical vector. \cr
 #'  \link{stride_ptrn} specifies this sequence without actually allocating an indexing vector.
-#'  - A formula in the form of ` ~ from:to:by`,
-#'  where `from`, `to` and `by` are natural scalars. \cr
-#'  This will be interpreted as `stride_seq(from, to, by)`. \cr
-#'  - A formula in the form of ` ~ start:end:ptrn`,
-#'  where `start` and `end` are natural scalars, and `ptrn` is a logical vector. \cr
-#'  This will be interpreted as `stride_ptrn(start, end, ptrn)`. \cr \cr
+#'  - A formula in the form of ` ~ from:to:by:use`,
+#'  where `from`, `to` and `by` are natural scalars,
+#'  and `use` is `1` or `-1`. \cr
+#'  This will be interpreted as `stride_seq(from, to, by, use)`. \cr
+#'  - A formula in the form of ` ~ start:end:ptrn:use`,
+#'  where `start` and `end` are natural scalars,
+#'  `use` is `1` or `-1`,
+#'  and `ptrn` is a logical vector. \cr
+#'  This will be interpreted as `stride_ptrn(start, end, ptrn, use)`. \cr \cr
 #'  
 #' In both formula forms, the `.N` keyword is available,
 #' which equals `length(x)`
 #' (where `x` is the input vector). \cr
 #' For example, \cr
-#' ` ~ 2:(.N - 1):c(TRUE, FALSE, FALSE, TRUE)` \cr
-#' is equivalent to ` ~ 2:(length(x) - 1):c(TRUE, FALSE, FALSE, TRUE)`, \cr
-#' and will be interpreted as `stride_ptrn(2, length(x) - 1, c(TRUE, FALSE, FALSE, TRUE))`. \cr
+#' ` ~ 2:(.N - 1):c(TRUE, FALSE, FALSE, TRUE):1` \cr
+#' is equivalent to ` ~ 2:(length(x) - 1):c(TRUE, FALSE, FALSE, TRUE):1`, \cr
+#' and will be interpreted as `stride_ptrn(2, length(x) - 1, c(TRUE, FALSE, FALSE, TRUE), 1)`. \cr
 #' \cr
 #' 
 #' @example inst/examples/long.R

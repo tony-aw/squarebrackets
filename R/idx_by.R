@@ -39,7 +39,7 @@ idx_by <- function(x, m, f, grp, parallel = FALSE, mc.cores = 1L) {
   if(length(m) != 1L || !is.numeric(m) || m < 0L) {
     stop("`m` must be a single non-negative integer")
   }
-  
+  f <- match.fun(f)
   if(!is.function(f)) stop("`f` must be a subset function")
   if(!is.factor(grp)) stop("`grp` must be a factor")
   

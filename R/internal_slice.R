@@ -2,22 +2,28 @@
 
 #' @keywords internal
 #' @noRd
-.long_pv_x <- function(
-    x, stride, use, use.names, sticky, abortcall
+.long_v_x <- function(
+    x, stride, use.names, sticky, abortcall
 ) {
   
-  args <- eval_stride(stride, x, use)
+  args <- eval_stride(stride, x)
+  preplist <- args$preplist
+  prepvector <- args$prepvector
+  pool <- args$pool
+  len <- args$len
   
   # run function:
-  out <- .rcpp_slicev_x_atomic(
-    x, args$p, args$v, args$na, use
-  )
+  if(len == 0L) {
+    out <- vector(typeof(x), 0L)
+  }
+  else {
+    out <- .rcpp_slicev_x_atomic(x, preplist, prepvector, pool)
+  }
+  
   
   # attributes handling:
-  if(!is.null(names(x)) && use.names && length(args$p) != 0L) {
-    nms <- .rcpp_slicev_x_atomic(
-      names(x), args$p, args$v, args$na, use
-    )
+  if(!is.null(names(x)) && use.names && len != 0L) {
+    nms <- .rcpp_slicev_x_atomic(names(x), preplist, prepvector, pool)
     data.table::setattr(out, "names", nms)
   }
   if(is.mutatomic(x)) {
@@ -39,13 +45,17 @@
 
 #' @keywords internal
 #' @noRd
-.long_pv_set <- function(
-    x, stride, use,
+.long_v_set <- function(
+    x, stride,
     rp, tf, abortcall
 ) {
   
   
-  args <- eval_stride(stride, x, use)
+  args <- eval_stride(stride, x)
+  preplist <- args$preplist
+  prepvector <- args$prepvector
+  pool <- args$pool
+  len <- args$len
   
   # replacement checks:
   if(!missing(rp)) {
@@ -63,20 +73,26 @@
     if(!is.function(tf)) {
       stop("`tf` must be a function")
     }
-    extr <- .rcpp_slicev_x_atomic(
-      x, args$p, args$v, args$na, use
-    )
-    value <- tf(extr)
-    if(length(value) != length(extr) && length(value) != 1L) {
-      stop("recycling not allowed")
+    if(len != 0L) {
+      extr <- .rcpp_slicev_x_atomic(x, preplist, prepvector, pool)
+      value <- tf(extr)
+      if(length(value) != length(extr) && length(value) != 1L) {
+        stop("recycling not allowed")
+      }
     }
+    else {
+      value <- vector(typeof(x), 0L)
+    }
+    
   }
   
   # general value check:
   value <- .internal_coerce_rp(x, value, abortcall)
   
   # run function:
-  .rcpp_slicev_set_atomic(x, args$p, args$v, args$na, use, value)
+  if(len != 0L) {
+    .rcpp_slicev_set_atomic(x, value, preplist, prepvector, pool)
+  }
   return(invisible(NULL))
 }
 
@@ -84,17 +100,17 @@
 #' @keywords internal
 #' @noRd
 .long_seq_x <- function(
-    x, stride, use, use.names, sticky, abortcall
+    x, stride, use.names, sticky, abortcall
 ) {
   
-  args <- eval_stride(stride, x, use)
+  args <- eval_stride(stride, x)
   
   # run function:
-  out <- .rcpp_slice_seq_x_atomic(x, args, use)
+  out <- .rcpp_slice_seq_x_atomic(x, args, args$use)
   
   # attributes handling:
   if(!is.null(names(x)) && use.names) {
-    nms <- .rcpp_slice_seq_x_atomic(names(x), args, use)
+    nms <- .rcpp_slice_seq_x_atomic(names(x), args, args$use)
     data.table::setattr(out, "names", nms)
   }
   if(is.mutatomic(x)) {
@@ -118,12 +134,12 @@
 #' @keywords internal
 #' @noRd
 .long_seq_set <- function(
-    x, stride, use,
+    x, stride,
     rp, tf, abortcall
 ) {
   
   
-  args <- eval_stride(stride, x, use)
+  args <- eval_stride(stride, x)
   
   # replacement checks:
   if(!missing(rp)) {
@@ -142,7 +158,7 @@
       stop("`tf` must be a function")
     }
     extr <- .rcpp_slice_seq_x_atomic(
-      x, args, use
+      x, args, args$use
     )
     value <- tf(extr)
     if(length(value) != length(extr) && length(value) != 1L) {
@@ -154,7 +170,7 @@
   value <- .internal_coerce_rp(x, value, abortcall)
   
   # run function:
-  .rcpp_slice_seq_set_atomic(x, value, args, use)
+  .rcpp_slice_seq_set_atomic(x, value, args, args$use)
   return(invisible(NULL))
 }
 
@@ -162,17 +178,17 @@
 #' @keywords internal
 #' @noRd
 .long_ptrn_x <- function(
-    x, stride, use, use.names, sticky, abortcall
+    x, stride, use.names, sticky, abortcall
 ) {
   
-  args <- eval_stride(stride, x, use)
+  args <- eval_stride(stride, x)
   
   # run function:
-  out <- .rcpp_slice_ptrn_x_atomic(x, args, use)
+  out <- .rcpp_slice_ptrn_x_atomic(x, args, args$use)
   
   # attributes handling:
   if(!is.null(names(x)) && use.names) {
-    nms <- .rcpp_slice_ptrn_x_atomic(names(x), args, use)
+    nms <- .rcpp_slice_ptrn_x_atomic(names(x), args, args$use)
     data.table::setattr(out, "names", nms)
   }
   if(is.mutatomic(x)) {
@@ -196,12 +212,12 @@
 #' @keywords internal
 #' @noRd
 .long_ptrn_set <- function(
-    x, stride, use,
+    x, stride,
     rp, tf, abortcall
 ) {
   
   
-  args <- eval_stride(stride, x, use)
+  args <- eval_stride(stride, x)
   
   # replacement checks:
   if(!missing(rp)) {
@@ -220,7 +236,7 @@
       stop("`tf` must be a function")
     }
     extr <- .rcpp_slice_ptrn_x_atomic(
-      x, args, use
+      x, args, args$use
     )
     value <- tf(extr)
     if(length(value) != length(extr) && length(value) != 1L) {
@@ -232,7 +248,7 @@
   value <- .internal_coerce_rp(x, value, abortcall)
   
   # run function:
-  .rcpp_slice_ptrn_set_atomic(x, value, args, use)
+  .rcpp_slice_ptrn_set_atomic(x, value, args, args$use)
   return(invisible(NULL))
 }
 
@@ -270,3 +286,16 @@
   return(TRUE)
 }
 
+
+#' @keywords internal
+#' @noRd
+.stride_use_OK <- function(use) {
+  if(!is.numeric(use)) return(FALSE)
+  if(length(use) != 1) return(FALSE)
+  use <- as.integer(use)
+  if(is.na(use)) return(FALSE)
+  if(use == 0L) return(FALSE)
+  if(abs(use) != 1L) return(FALSE)
+  
+  return(TRUE)
+}

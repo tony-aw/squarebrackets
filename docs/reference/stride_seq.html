@@ -15,7 +15,7 @@ x[seq(from, to, by)] "></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">squarebrackets</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9008</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9009</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -55,7 +55,7 @@ is conceptually equivalent to <br><code>x[seq(from, to, by)]</code> <br></p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">stride_seq</span><span class="op">(</span><span class="va">from</span>, <span class="va">to</span>, <span class="va">by</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">stride_seq</span><span class="op">(</span><span class="va">from</span>, <span class="va">to</span>, <span class="va">by</span>, use <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -72,6 +72,10 @@ is conceptually equivalent to <br><code>x[seq(from, to, by)]</code> <br></p>
 
 <dt id="arg-by">by<a class="anchor" aria-label="anchor" href="#arg-by"></a></dt>
 <dd><p>natural scalar giving the step-size.</p></dd>
+
+
+<dt id="arg-use">use<a class="anchor" aria-label="anchor" href="#arg-use"></a></dt>
+<dd><p><code>1</code> to select indices <code>seq(from, to, end)</code>; <br><code>-1</code> to select all indices <b>except</b> <code>seq(from, to, end)</code></p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -102,7 +106,7 @@ is conceptually equivalent to <br><code>x[seq(from, to, by)]</code> <br></p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  integer </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># remove elements 1 to length(x) - 10:</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="long.html">long_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu">stride_seq</span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">-</span> <span class="fl">10</span>, <span class="fl">1</span><span class="op">)</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="long.html">long_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu">stride_seq</span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">-</span> <span class="fl">10</span>, <span class="fl">1</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  9999991  9999992  9999993  9999994  9999995  9999996  9999997  9999998</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [9]  9999999 10000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> mutatomic </span>
@@ -119,10 +123,10 @@ is conceptually equivalent to <br><code>x[seq(from, to, by)]</code> <br></p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># replace all elements except the first element:</span></span></span>
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="mutatomic_class.html">mutatomic</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">1e7</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="long.html">long_set</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu">stride_seq</span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, use <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, rp <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="long.html">long_set</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu">stride_seq</span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span>, rp <span class="op">=</span> <span class="op">-</span><span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> coercing replacement to integer</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  1 -1 -1 -1 -1 -1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]   1 -10 -10 -10 -10 -10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> mutatomic </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  integer </span>
 <span class="r-in"><span></span></span>

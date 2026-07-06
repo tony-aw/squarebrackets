@@ -75,14 +75,14 @@
 #' ```{r eval = FALSE, echo = TRUE}
 #' 
 #' squarebrackets.sticky = c(
-#'    "difftime", "Date", "POSIXct", "roman", "hexmode", "octmode", "broadcaster"
+#'    "difftime", "broadcaster"
 #' )
 #' 
 #' ```
 #' 
 #' So in the above default setting,
 #' `sticky = TRUE` for \cr
-#' "difftime", "Date", "POSIXct", "roman", "hexmode", "octmode", "broadcaster". \cr
+#' "difftime", "broadcaster". \cr
 #' Also in the above default setting,
 #' `sticky = FALSE` for other classes. \cr
 #' \cr

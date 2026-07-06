@@ -19,9 +19,9 @@ for(iFrom in 1:10) {
           from <- iFrom
           to <- iTo
           
-          stride <- stride_ptrn(from, to, pattern)
+          stride <- stride_ptrn(from, to, pattern, iUse)
           ind <- (from:to)[pattern]
-          es <- eval_stride(stride, x, iUse)
+          es <- eval_stride(stride, x)
           
           expect_equal(
             length(x[iUse * ind]),
@@ -42,13 +42,13 @@ x <- 1:10
 for(iUse in c(1, -1)) {
   
   expect_error(
-    eval_stride(stride_ptrn(1, 20, c(TRUE, FALSE, FALSE, TRUE)), x, iUse),
+    eval_stride(stride_ptrn(1, 20, c(TRUE, FALSE, FALSE, TRUE), iUse), x),
     pattern = '`stride` out of bounds'
   ) |> errorfun()
   
   
   expect_error(
-    eval_stride(stride_ptrn(20, 1, c(TRUE, FALSE, FALSE, TRUE)), x, iUse),
+    eval_stride(stride_ptrn(20, 1, c(TRUE, FALSE, FALSE, TRUE), iUse), x),
     pattern = '`stride` out of bounds'
   ) |> errorfun()
   

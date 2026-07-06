@@ -13,12 +13,11 @@ is that it may safe the user a large amount of memory.
 Instead of an indexing vector, they use the \code{stride} argument. \cr
 The following can be used in the \code{stride} argument: \cr
 \itemize{
-\item a \link{stride_pv} object: \cr
-Use this \code{stride} type to specify subsets based on property values,
-like \code{p == v}, where \code{p} is an atomic vector of properties
-(like \code{names(x)}),
-and \code{v} is a value (or range of values) \code{p} might contain. \cr
-\link{stride_pv} does not actually allocate an indexing vector.
+\item a \link{stride_v} object: \cr
+Use this \code{stride} type to specify value-based subsets,
+like \code{y == v},
+where \code{y} is a vector of the same length as \code{x},
+and \code{v} is a value (or range of values) \code{y} might contain. \cr
 \item a \link{stride_seq} object: \cr
 Use this \code{stride} type to specify a sequence in the form of \code{seq(from, to, by)},
 without actually allocating a sequence indexing vector.
@@ -27,21 +26,24 @@ Use this \code{stride} type to specify a patterned sequence in the form of \cr
 \code{(start:end)[pattern]}, \cr
 where \code{start} and \code{end} are natural scalars and \code{pattern} is a logical vector. \cr
 \link{stride_ptrn} specifies this sequence without actually allocating an indexing vector.
-\item A formula in the form of \code{ ~ from:to:by},
-where \code{from}, \code{to} and \code{by} are natural scalars. \cr
-This will be interpreted as \code{stride_seq(from, to, by)}. \cr
-\item A formula in the form of \code{ ~ start:end:ptrn},
-where \code{start} and \code{end} are natural scalars, and \code{ptrn} is a logical vector. \cr
-This will be interpreted as \code{stride_ptrn(start, end, ptrn)}. \cr \cr
+\item A formula in the form of \code{ ~ from:to:by:use},
+where \code{from}, \code{to} and \code{by} are natural scalars,
+and \code{use} is \code{1} or \code{-1}. \cr
+This will be interpreted as \code{stride_seq(from, to, by, use)}. \cr
+\item A formula in the form of \code{ ~ start:end:ptrn:use},
+where \code{start} and \code{end} are natural scalars,
+\code{use} is \code{1} or \code{-1},
+and \code{ptrn} is a logical vector. \cr
+This will be interpreted as \code{stride_ptrn(start, end, ptrn, use)}. \cr \cr
 }
 
 In both formula forms, the \code{.N} keyword is available,
 which equals \code{length(x)}
 (where \code{x} is the input vector). \cr
 For example, \cr
-\code{ ~ 2:(.N - 1):c(TRUE, FALSE, FALSE, TRUE)} \cr
-is equivalent to \code{ ~ 2:(length(x) - 1):c(TRUE, FALSE, FALSE, TRUE)}, \cr
-and will be interpreted as \code{stride_ptrn(2, length(x) - 1, c(TRUE, FALSE, FALSE, TRUE))}. \cr
+\code{ ~ 2:(.N - 1):c(TRUE, FALSE, FALSE, TRUE):1} \cr
+is equivalent to \code{ ~ 2:(length(x) - 1):c(TRUE, FALSE, FALSE, TRUE):1}, \cr
+and will be interpreted as \code{stride_ptrn(2, length(x) - 1, c(TRUE, FALSE, FALSE, TRUE), 1)}. \cr
 \cr
 }
 \examples{
@@ -50,12 +52,12 @@ and will be interpreted as \code{stride_ptrn(2, length(x) - 1, c(TRUE, FALSE, FA
 nms <- c(letters, LETTERS, month.abb, month.name) |> rep_len(1e6)
 x <- mutatomic(1:1e6, names = nms)
 head(x)
-stride <-  stride_pv(names(x), v = "a")
+stride <-  stride_v(names(x), v = "a")
 long_x(x, stride) |> head()
 
 
 # find all x smaller than or equal to 5, and replace with `-1000`:
-stride <- stride_pv(x, v = c(-Inf, 5))
+stride <- stride_v(x, v = c(-Inf, 5))
 long_set(x, stride, rp = -1000L)
 head(x, n = 10)
 
@@ -65,27 +67,27 @@ head(x, n = 10)
 x <- mutatomic(1:1e7)
 
 # extract elements 2 to 9
-long_x(x, ~ 2:9:1)
+long_x(x, ~ 2:9:1:1)
 
 # reverse:
-long_x(x, ~ 9:2:1)
+long_x(x, ~ 9:2:1:1)
 
-# remove:
-long_x(x, ~ 1:(.N - 10):1, -1) # all elements except the last 10
+# remove ll elements except the last 10:
+long_x(x, ~ 1:(.N - 10):1:-1)
 
 # replace every other element:
 x <- mutatomic(1:1e7)
-long_set(x, ~ 2:.N:2, rp = -1)
+long_set(x, ~ 2:.N:2:1, rp = -1)
 head(x)
 
 # replace all elements except the first element:
 x <- mutatomic(1:1e7)
-long_set(x, ~1:1:1, use = -1, rp = -1)
+long_set(x, ~1:1:1:-1, rp = -1)
 head(x)
 
 
 # extract pattern c(TRUE, FALSE, FALSE, TRUE) from first 20 elements:
 x <- mutatomic(1:1e7)
-long_x(x, ~ 1:20:c(TRUE, FALSE, FALSE, TRUE))
+long_x(x, ~ 1:20:c(TRUE, FALSE, FALSE, TRUE):1)
 
 }

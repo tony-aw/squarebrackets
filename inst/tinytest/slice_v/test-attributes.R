@@ -10,15 +10,15 @@ enumerate <- 0L
 x <- sample(1:10)
 y <- sample(1:10)
 expect_equal(
-  long_x(x, stride_pv(p = y, v = c(2, 9))),
+  long_x(x, stride_v(y, v = c(2, 9))),
   x[y >= 2 & y <= 9]
 )
 expect_equal(
-  long_x(x, stride_pv(p = y, v = c(2, 9)), sticky = FALSE),
+  long_x(x, stride_v(y, v = c(2, 9)), sticky = FALSE),
   x[y >= 2 & y <= 9]
 )
 expect_equal(
-  long_x(x, stride_pv(p = y, v = c(2, 9)), sticky = TRUE),
+  long_x(x, stride_v(y, v = c(2, 9)), sticky = TRUE),
   x[y >= 2 & y <= 9]
 )
 
@@ -28,30 +28,31 @@ x <- mutatomic(sample(1:10), names = letters[1:10])
 y <- sample(1:10)
 
 expect_equal(
-  long_x(x, stride_pv(p = y, v = c(2, 9))),
+  long_x(x, stride_v(y, v = c(2, 9))),
   x[y >= 2 & y <= 9]
 )
 
 expect_equal(
-  long_x(x, stride_pv(p = y, v = c(2, 9)), use.names = FALSE),
+  long_x(x, stride_v(y, v = c(2, 9)), use.names = FALSE),
   unname(x[y >= 2 & y <= 9])
 )
 
 
-# roman ====
-x <- as.roman(1:10)
+# sticky ====
+x <- 1:10
+class(x) <- "sticky"
 expect_equal(
-  long_x(x, stride_pv(p = y, v = c(2, 9))),
+  long_x(x, stride_v(y, v = c(2, 9))),
   x[y >= 2 & y <= 9]
 )
 expect_equal(
-  long_x(x, stride_pv(p = y, v = c(2, 9)), sticky = TRUE),
-  x[y >= 2 & y <= 9]
+  long_x(x, stride_v(y, v = c(2, 9)), sticky = TRUE),
+  structure(x[y >= 2 & y <= 9], class = "sticky")
 )
 expected <- x[y >= 2 & y <= 9]
 attributes(expected) <- NULL
 expect_equal(
-  long_x(x, stride_pv(p = y, v = c(2, 9)), sticky = FALSE),
+  long_x(x, stride_v(y, v = c(2, 9)), sticky = FALSE),
   expected
 )
 

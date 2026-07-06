@@ -3,11 +3,14 @@
 \name{stride_eval}
 \alias{stride_eval}
 \alias{eval_stride}
+\alias{eval_stride.default}
 \alias{is.stride}
 \alias{formula2stride}
 \title{Evaluate Stride Object}
 \usage{
-eval_stride(stride, x, use)
+eval_stride(stride, x)
+
+\method{eval_stride}{default}(stride, x)
 
 is.stride(x)
 
@@ -18,18 +21,11 @@ formula2stride(form, x)
 
 \item{x}{a (long) atomic vector.}
 
-\item{use}{\code{1} or \code{-1}. \cr
-Use \code{1} when you to wish evaluate on the elements of \code{x} specified by the stride. \cr
-Use \code{-1} when you wish tor evaluate on all elements of \code{x} except those specified by the stride. \cr}
-
 \item{form}{a formula, as described in \link{squarebrackets_stride}.}
 }
 \value{
-\bold{Using \code{stride_pv()}} \cr
+\bold{Using \code{stride_v()}} \cr
 The original stride object, but as a list. \cr
-This list will also contain an additional element: \cr
-\verb{$len}, which containts the actual vector length the sequence would be,
-given the translated parameters. \cr
 \cr
 \cr
 \bold{Using \code{stride_seq()} or \code{stride_ptr()}} \cr
@@ -70,12 +66,12 @@ This can be handy to check exactly what parameters will be fed to the \code{long
 nms <- c(letters, LETTERS, month.abb, month.name) |> rep_len(1e6)
 x <- mutatomic(1:1e6, names = nms)
 head(x)
-stride <-  stride_pv(names(x), v = "a")
+stride <-  stride_v(names(x), v = "a")
 long_x(x, stride) |> head()
 
 
 # find all x smaller than or equal to 5, and replace with `-1000`:
-stride <- stride_pv(x, v = c(-Inf, 5))
+stride <- stride_v(x, v = c(-Inf, 5))
 long_set(x, stride, rp = -1000L)
 head(x, n = 10)
 
@@ -85,27 +81,27 @@ head(x, n = 10)
 x <- mutatomic(1:1e7)
 
 # extract elements 2 to 9
-long_x(x, ~ 2:9:1)
+long_x(x, ~ 2:9:1:1)
 
 # reverse:
-long_x(x, ~ 9:2:1)
+long_x(x, ~ 9:2:1:1)
 
-# remove:
-long_x(x, ~ 1:(.N - 10):1, -1) # all elements except the last 10
+# remove ll elements except the last 10:
+long_x(x, ~ 1:(.N - 10):1:-1)
 
 # replace every other element:
 x <- mutatomic(1:1e7)
-long_set(x, ~ 2:.N:2, rp = -1)
+long_set(x, ~ 2:.N:2:1, rp = -1)
 head(x)
 
 # replace all elements except the first element:
 x <- mutatomic(1:1e7)
-long_set(x, ~1:1:1, use = -1, rp = -1)
+long_set(x, ~1:1:1:-1, rp = -1)
 head(x)
 
 
 # extract pattern c(TRUE, FALSE, FALSE, TRUE) from first 20 elements:
 x <- mutatomic(1:1e7)
-long_x(x, ~ 1:20:c(TRUE, FALSE, FALSE, TRUE))
+long_x(x, ~ 1:20:c(TRUE, FALSE, FALSE, TRUE):1)
 
 }

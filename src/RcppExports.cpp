@@ -146,61 +146,31 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
-// rcpp_countv
-R_xlen_t rcpp_countv(SEXP y, SEXP v, LogicalVector na, IntegerVector use);
-RcppExport SEXP _squarebrackets_rcpp_countv(SEXP ySEXP, SEXP vSEXP, SEXP naSEXP, SEXP useSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< SEXP >::type y(ySEXP);
-    Rcpp::traits::input_parameter< SEXP >::type v(vSEXP);
-    Rcpp::traits::input_parameter< LogicalVector >::type na(naSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type use(useSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_countv(y, v, na, use));
-    return rcpp_result_gen;
-END_RCPP
-}
-// rcpp_whichv_32
-IntegerVector rcpp_whichv_32(SEXP y, SEXP v, LogicalVector na, IntegerVector use);
-RcppExport SEXP _squarebrackets_rcpp_whichv_32(SEXP ySEXP, SEXP vSEXP, SEXP naSEXP, SEXP useSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< SEXP >::type y(ySEXP);
-    Rcpp::traits::input_parameter< SEXP >::type v(vSEXP);
-    Rcpp::traits::input_parameter< LogicalVector >::type na(naSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type use(useSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_whichv_32(y, v, na, use));
-    return rcpp_result_gen;
-END_RCPP
-}
 // rcpp_slicev_x_atomic
-SEXP rcpp_slicev_x_atomic(SEXP x, SEXP y, SEXP v, LogicalVector na, IntegerVector use);
-RcppExport SEXP _squarebrackets_rcpp_slicev_x_atomic(SEXP xSEXP, SEXP ySEXP, SEXP vSEXP, SEXP naSEXP, SEXP useSEXP) {
+SEXP rcpp_slicev_x_atomic(SEXP x, List preplist, NumericVector prepvector, SEXP pool);
+RcppExport SEXP _squarebrackets_rcpp_slicev_x_atomic(SEXP xSEXP, SEXP preplistSEXP, SEXP prepvectorSEXP, SEXP poolSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
-    Rcpp::traits::input_parameter< SEXP >::type y(ySEXP);
-    Rcpp::traits::input_parameter< SEXP >::type v(vSEXP);
-    Rcpp::traits::input_parameter< LogicalVector >::type na(naSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type use(useSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_slicev_x_atomic(x, y, v, na, use));
+    Rcpp::traits::input_parameter< List >::type preplist(preplistSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type prepvector(prepvectorSEXP);
+    Rcpp::traits::input_parameter< SEXP >::type pool(poolSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_slicev_x_atomic(x, preplist, prepvector, pool));
     return rcpp_result_gen;
 END_RCPP
 }
 // rcpp_slicev_set_atomic
-void rcpp_slicev_set_atomic(SEXP x, SEXP y, SEXP v, LogicalVector na, IntegerVector use, SEXP rp);
-RcppExport SEXP _squarebrackets_rcpp_slicev_set_atomic(SEXP xSEXP, SEXP ySEXP, SEXP vSEXP, SEXP naSEXP, SEXP useSEXP, SEXP rpSEXP) {
+void rcpp_slicev_set_atomic(SEXP x, SEXP rp, List preplist, NumericVector prepvector, SEXP pool);
+RcppExport SEXP _squarebrackets_rcpp_slicev_set_atomic(SEXP xSEXP, SEXP rpSEXP, SEXP preplistSEXP, SEXP prepvectorSEXP, SEXP poolSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
-    Rcpp::traits::input_parameter< SEXP >::type y(ySEXP);
-    Rcpp::traits::input_parameter< SEXP >::type v(vSEXP);
-    Rcpp::traits::input_parameter< LogicalVector >::type na(naSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type use(useSEXP);
     Rcpp::traits::input_parameter< SEXP >::type rp(rpSEXP);
-    rcpp_slicev_set_atomic(x, y, v, na, use, rp);
+    Rcpp::traits::input_parameter< List >::type preplist(preplistSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type prepvector(prepvectorSEXP);
+    Rcpp::traits::input_parameter< SEXP >::type pool(poolSEXP);
+    rcpp_slicev_set_atomic(x, rp, preplist, prepvector, pool);
     return R_NilValue;
 END_RCPP
 }
@@ -310,6 +280,60 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< CharacterVector >::type newclass(newclassSEXP);
     rcpp_set_ma(x, newclass);
     return R_NilValue;
+END_RCPP
+}
+// rcpp_stridev_chunks
+List rcpp_stridev_chunks(SEXP y);
+RcppExport SEXP _squarebrackets_rcpp_stridev_chunks(SEXP ySEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type y(ySEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_stridev_chunks(y));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_stridev_preplist
+List rcpp_stridev_preplist(SEXP y, SEXP v, List chunks, bool condition, LogicalVector na);
+RcppExport SEXP _squarebrackets_rcpp_stridev_preplist(SEXP ySEXP, SEXP vSEXP, SEXP chunksSEXP, SEXP conditionSEXP, SEXP naSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type y(ySEXP);
+    Rcpp::traits::input_parameter< SEXP >::type v(vSEXP);
+    Rcpp::traits::input_parameter< List >::type chunks(chunksSEXP);
+    Rcpp::traits::input_parameter< bool >::type condition(conditionSEXP);
+    Rcpp::traits::input_parameter< LogicalVector >::type na(naSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_stridev_preplist(y, v, chunks, condition, na));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_stridev_prepvector
+NumericVector rcpp_stridev_prepvector(SEXP y, List prep);
+RcppExport SEXP _squarebrackets_rcpp_stridev_prepvector(SEXP ySEXP, SEXP prepSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type y(ySEXP);
+    Rcpp::traits::input_parameter< List >::type prep(prepSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_stridev_prepvector(y, prep));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_pool
+SEXP rcpp_pool(SEXP y, SEXP v, List preplist, NumericVector prepvector, bool condition, LogicalVector na);
+RcppExport SEXP _squarebrackets_rcpp_pool(SEXP ySEXP, SEXP vSEXP, SEXP preplistSEXP, SEXP prepvectorSEXP, SEXP conditionSEXP, SEXP naSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type y(ySEXP);
+    Rcpp::traits::input_parameter< SEXP >::type v(vSEXP);
+    Rcpp::traits::input_parameter< List >::type preplist(preplistSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type prepvector(prepvectorSEXP);
+    Rcpp::traits::input_parameter< bool >::type condition(conditionSEXP);
+    Rcpp::traits::input_parameter< LogicalVector >::type na(naSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_pool(y, v, preplist, prepvector, condition, na));
+    return rcpp_result_gen;
 END_RCPP
 }
 // rcpp_sub2coord
@@ -445,10 +469,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_squarebrackets_rcpp_slice_seq_set_atomic", (DL_FUNC) &_squarebrackets_rcpp_slice_seq_set_atomic, 4},
     {"_squarebrackets_rcpp_slice_ptrn_x_atomic", (DL_FUNC) &_squarebrackets_rcpp_slice_ptrn_x_atomic, 3},
     {"_squarebrackets_rcpp_slice_ptrn_set_atomic", (DL_FUNC) &_squarebrackets_rcpp_slice_ptrn_set_atomic, 4},
-    {"_squarebrackets_rcpp_countv", (DL_FUNC) &_squarebrackets_rcpp_countv, 4},
-    {"_squarebrackets_rcpp_whichv_32", (DL_FUNC) &_squarebrackets_rcpp_whichv_32, 4},
-    {"_squarebrackets_rcpp_slicev_x_atomic", (DL_FUNC) &_squarebrackets_rcpp_slicev_x_atomic, 5},
-    {"_squarebrackets_rcpp_slicev_set_atomic", (DL_FUNC) &_squarebrackets_rcpp_slicev_set_atomic, 6},
+    {"_squarebrackets_rcpp_slicev_x_atomic", (DL_FUNC) &_squarebrackets_rcpp_slicev_x_atomic, 4},
+    {"_squarebrackets_rcpp_slicev_set_atomic", (DL_FUNC) &_squarebrackets_rcpp_slicev_set_atomic, 5},
     {"_squarebrackets_rcpp_address", (DL_FUNC) &_squarebrackets_rcpp_address, 1},
     {"_squarebrackets_rcpp_list_bindings", (DL_FUNC) &_squarebrackets_rcpp_list_bindings, 3},
     {"_squarebrackets_C_prod_int", (DL_FUNC) &_squarebrackets_C_prod_int, 3},
@@ -458,6 +480,10 @@ static const R_CallMethodDef CallEntries[] = {
     {"_squarebrackets_rcpp_serial", (DL_FUNC) &_squarebrackets_rcpp_serial, 1},
     {"_squarebrackets_rcpp_is_ma", (DL_FUNC) &_squarebrackets_rcpp_is_ma, 1},
     {"_squarebrackets_rcpp_set_ma", (DL_FUNC) &_squarebrackets_rcpp_set_ma, 2},
+    {"_squarebrackets_rcpp_stridev_chunks", (DL_FUNC) &_squarebrackets_rcpp_stridev_chunks, 1},
+    {"_squarebrackets_rcpp_stridev_preplist", (DL_FUNC) &_squarebrackets_rcpp_stridev_preplist, 5},
+    {"_squarebrackets_rcpp_stridev_prepvector", (DL_FUNC) &_squarebrackets_rcpp_stridev_prepvector, 2},
+    {"_squarebrackets_rcpp_pool", (DL_FUNC) &_squarebrackets_rcpp_pool, 6},
     {"_squarebrackets_rcpp_sub2coord", (DL_FUNC) &_squarebrackets_rcpp_sub2coord, 6},
     {"_squarebrackets_rcpp_sub2ind_d_32", (DL_FUNC) &_squarebrackets_rcpp_sub2ind_d_32, 2},
     {"_squarebrackets_rcpp_sub2ind_d_64", (DL_FUNC) &_squarebrackets_rcpp_sub2ind_d_64, 2},

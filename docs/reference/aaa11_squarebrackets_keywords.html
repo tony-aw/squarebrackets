@@ -6,7 +6,7 @@ The following keywords are available:
 .M: the given margin/dimension; 0 if not relevant.
 .Nms: the (dim)names at the given margin.
 .N: the size of a given dimension (if .M is not 0) or else the length of x.
-.I: equal to 1:.N.
+.I: equal to seq_len(.N).
 .bi(...): a function to specify bilateral indices. See the Details section below.
 .x: the input variable x itself.
 
@@ -54,7 +54,7 @@ The following keywords are available:
 .M: the given margin/dimension; 0 if not relevant.
 .Nms: the (dim)names at the given margin.
 .N: the size of a given dimension (if .M is not 0) or else the length of x.
-.I: equal to 1:.N.
+.I: equal to seq_len(.N).
 .bi(...): a function to specify bilateral indices. See the Details section below.
 .x: the input variable x itself.
 
@@ -103,7 +103,7 @@ ss_x(x, ~ .bi(-.I))
 
     <a class="navbar-brand me-2" href="../index.html">squarebrackets</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9008</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9009</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -141,7 +141,7 @@ formulas can be used to specify indices in vectors, arrays, or data.frames that 
 The following keywords are available:</p><ul><li><p><code>.M</code>: the given margin/dimension; <code>0</code> if not relevant.</p></li>
 <li><p><code>.Nms</code>: the (dim)names at the given margin.</p></li>
 <li><p><code>.N</code>: the size of a given dimension (if <code>.M</code> is not <code>0</code>) or else the length of <code>x</code>.</p></li>
-<li><p><code>.I</code>: equal to <code>1:.N</code>.</p></li>
+<li><p><code>.I</code>: equal to <code>seq_len(.N)</code>.</p></li>
 <li><p><code>.bi(...)</code>: a <b>function</b> to specify bilateral indices. See the <code>Details</code> section below.</p></li>
 <li><p><code>.x</code>: the input variable <code>x</code> itself.</p></li>
 </ul><p>These keywords can be used inside formulas to specify more advanced indices. <br></p>

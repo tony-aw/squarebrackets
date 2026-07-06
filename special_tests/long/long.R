@@ -6,7 +6,7 @@ x <- rep_len(x, 2^31 + 10L)
 
 # pv ====
 expected <- x[.test_v2ind(1L, x, as.raw(128), 1L)]
-out <- long_x(x, stride_pv(x, as.raw(128)))
+out <- long_x(x, stride_v(x, as.raw(128)))
 expect_equal(
   expected, out
 )

@@ -23,7 +23,9 @@
 #' `ptrn` must have length that fulfils all of the following conditions:
 #'  - it is `>= 2`
 #'  - it is `<= length(start:end)`
-#'  - it is `<= 2^31 - 1` \cr
+#'  - it is `<= 2^31 - 1`
+#' @param use `1` to select indices `(start:end)[ptrn]`; \cr
+#' `-1` to select all indices \bold{except} `(start:end)[ptrn]` \cr
 #' 
 #' @example inst/examples/stride_ptrn.R
 #' 
@@ -37,10 +39,10 @@
 
 #' @rdname stride_ptrn
 #' @export
-stride_ptrn <- function(start, end, ptrn) {
+stride_ptrn <- function(start, end, ptrn, use = 1L) {
   
   # check args:
-  .stride_ptrn_checkargs(start, end, ptrn, sys.call())
+  .stride_ptrn_checkargs(start, end, ptrn, use, sys.call())
   
   # MAIN FUNCTION:
   tile_size <- length(ptrn)
@@ -52,7 +54,8 @@ stride_ptrn <- function(start, end, ptrn) {
     start = data.table::copy(start),
     end = data.table::copy(end),
     tile_size = tile_size,
-    ptrn = ptrn
+    ptrn = ptrn,
+    use = use
   )
   class(out) <- c("stride_ptrn", "stride")
   return(out)
@@ -64,7 +67,7 @@ stride_ptrn <- function(start, end, ptrn) {
 ptrn_len <- function(start, end, ptrn) {
   
   # check args:
-  .stride_ptrn_checkargs(start, end, ptrn, sys.call())
+  .stride_ptrn_checkargs(start, end, ptrn, 1L, sys.call())
   
   n <- abs(end - start) + 1
   l <- length(ptrn)
@@ -83,7 +86,10 @@ ptrn_len <- function(start, end, ptrn) {
 
 #' @keywords internal
 #' @noRd
-.stride_ptrn_checkargs <- function(start, end, ptrn, abortcall) {
+.stride_ptrn_checkargs <- function(start, end, ptrn, use, abortcall) {
+  if(!.stride_use_OK(use)) {
+    stop(simpleError("improper `use` given", call = abortcall))
+  }
   if(!.is.natural_scalar(start) || !.is.natural_scalar(end)) {
     stop(simpleError("`start` and `end` must be natural scalars", call = abortcall))
   }

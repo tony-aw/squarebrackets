@@ -11,8 +11,8 @@ basetest <- function(x, from, to, pattern) {
 }
 
 slicetest <- function(x, from, to, pattern, ...) {
-  stride <- stride_ptrn(from, to, pattern)
-  long_x(x, stride, ..., use = -1)
+  stride <- stride_ptrn(from, to, pattern, -1)
+  long_x(x, stride, ...)
 }
 
 sys.source(file.path(getwd(), "source", "sourcetest-elements_x.R"), envir = environment())

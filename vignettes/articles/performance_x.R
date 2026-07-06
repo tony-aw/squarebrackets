@@ -103,7 +103,7 @@ x <- sample(1:10, 2e6, TRUE)
 ptrn <- c(TRUE, FALSE, FALSE, TRUE)
 
 bm.long_x <- bench::mark(
-  "pv in squarebrackets" = long_x(x, stride_pv(x, 5)),
+  "pv in squarebrackets" = long_x(x, stride_v(x, 5)),
   "pv in base R" = x[x == 5],
   "seq in squarebrackets" = long_x(x, ~ 1:(.N - 10):2),
   "seq in base R" = x[seq(1, length(x) - 10, 2)],

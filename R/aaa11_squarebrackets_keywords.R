@@ -9,7 +9,7 @@
 #'  - `.M`: the given margin/dimension; `0` if not relevant.
 #'  - `.Nms`: the (dim)names at the given margin.
 #'  - `.N`: the size of a given dimension (if `.M` is not `0`) or else the length of `x`.
-#'  - `.I`: equal to `1:.N`.
+#'  - `.I`: equal to `seq_len(.N)`.
 #'  - `.bi(...)`: a \bold{function} to specify bilateral indices. See the `Details` section below.
 #'  - `.x`: the input variable `x` itself.
 #'  
