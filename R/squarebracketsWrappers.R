@@ -5,16 +5,6 @@
   .Call("C_is_altrep", x = x)
 }
 
-#' @keywords Internal
-#' @noRd
-.C_altrep_attr <- function(x) {
-  if(.C_is_altrep(x)) {
-    return(.Call("C_altrep_attr", x = x))
-  }
-  else {
-    return(NULL)
-  }
-}
 
 
 #' @keywords Internal

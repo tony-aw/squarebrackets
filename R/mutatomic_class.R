@@ -79,13 +79,6 @@ is.mutatomic <- function(x) {
   if(check_protected) return(FALSE)
   
   
-  if(.C_is_altrep(x)) {
-    altrep_class <- as.character(.C_altrep_attr(x)[[1]])
-    if(altrep_class %in% c("compact_intseq", "compact_realseq")) {
-      return(FALSE)
-    }
-  }
-  
   check <- .rcpp_is_ma(x)
   return(check)
   

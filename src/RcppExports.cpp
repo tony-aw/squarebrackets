@@ -440,7 +440,6 @@ END_RCPP
 }
 
 RcppExport SEXP C_all_dim_zero(SEXP);
-RcppExport SEXP C_altrep_attr(SEXP);
 RcppExport SEXP C_any_address(SEXP, SEXP);
 RcppExport SEXP C_any_badindx(SEXP, SEXP);
 RcppExport SEXP C_any_badmargin(SEXP, SEXP);
@@ -492,7 +491,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_squarebrackets_C_sub2ind_setrange32", (DL_FUNC) &_squarebrackets_C_sub2ind_setrange32, 6},
     {"_squarebrackets_rcpp_sub2ind_general32", (DL_FUNC) &_squarebrackets_rcpp_sub2ind_general32, 6},
     {"C_all_dim_zero",   (DL_FUNC) &C_all_dim_zero,   1},
-    {"C_altrep_attr",    (DL_FUNC) &C_altrep_attr,    1},
     {"C_any_address",    (DL_FUNC) &C_any_address,    2},
     {"C_any_badindx",    (DL_FUNC) &C_any_badindx,    2},
     {"C_any_badmargin",  (DL_FUNC) &C_any_badmargin,  2},
