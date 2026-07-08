@@ -39,7 +39,6 @@ SEXP rcpp_slicev_x_Logical(
   const R_xlen_t last_total = prepvector[1];
   const R_xlen_t count_total = prepvector[2];
   const R_xlen_t rnglen_total = prepvector[3];
-  const R_xlen_t indexform = prepvector[4];
   
   if(count_total == 0) {
     stop("no matches");
@@ -47,116 +46,64 @@ SEXP rcpp_slicev_x_Logical(
   
   SEXP out = PROTECT(Rf_allocVector(LGLSXP, count_total));
    int *pout = LOGICAL(out);
+
   
-  if(indexform == 0) {
+  NumericVector first = preplist[0];
+  NumericVector last = preplist[1];
+  NumericVector count = preplist[2];
+  NumericVector rnglen = preplist[3];
+  const int n_chunks = Rf_length(first);
+  
+  R_xlen_t outcount = 0;
+  
+  for(int j = 0; j < n_chunks; ++j) {
+    SEXP b32 = VECTOR_ELT(pool, j);
     
-    NumericVector first = preplist[0];
-    NumericVector last = preplist[1];
-    NumericVector count = preplist[2];
-    NumericVector rnglen = preplist[3];
-    const int n_chunks = Rf_length(first);
+    const R_xlen_t current_count = count[j];
+    const R_xlen_t current_rnglen = rnglen[j];
     
-    R_xlen_t outcount = 0;
-    
-    for(int j = 0; j < n_chunks; ++j) {
-      SEXP temp = VECTOR_ELT(pool, j);
+    if(current_count == 0) {
+      continue;
+    }
+    else if(current_count == 1) {
+      const R_xlen_t first0 = first[j];
+      MACRO_SET_ATOMIC(pout, outcount, px[first0]);
+      outcount++;
+    }
+    else if(current_count == 2) {
+      const R_xlen_t first0 = first[j];
+      const R_xlen_t last0 = last[j];
       
-      const R_xlen_t current_count = count[j];
-      const R_xlen_t current_rnglen = rnglen[j];
+      MACRO_SET_ATOMIC(pout, outcount, px[first0]);
+      outcount++;
       
-      if(current_count == 0) {
-        continue;
-      }
-      else if(current_count == 1) {
-        const R_xlen_t first0 = first[j];
-        MACRO_SET_ATOMIC(pout, outcount, px[first0]);
+      MACRO_SET_ATOMIC(pout, outcount, px[last0]);
+      outcount++;
+    }
+    else if(current_count == current_rnglen) {
+      const R_xlen_t first0 = first[j];
+      const R_xlen_t last0 = last[j];
+      
+      for(R_xlen_t i = first0; i <= last0; ++i) {
+        MACRO_SET_ATOMIC(pout, outcount, px[i]);
         outcount++;
       }
-      else if(current_count == 2) {
-        const R_xlen_t first0 = first[j];
-        const R_xlen_t last0 = last[j];
-        
-        MACRO_SET_ATOMIC(pout, outcount, px[first0]);
-        outcount++;
-        
-        MACRO_SET_ATOMIC(pout, outcount, px[last0]);
-        outcount++;
-      }
-      else if(current_count == current_rnglen) {
-        const R_xlen_t first0 = first[j];
-        const R_xlen_t last0 = last[j];
-        
-        for(R_xlen_t i = first0; i <= last0; ++i) {
-          MACRO_SET_ATOMIC(pout, outcount, px[i]);
-          outcount++;
-        }
-      }
-      else if(TYPEOF(temp) == RAWSXP) {
-        const Rbyte *ptemp = RAW_RO(temp);
-        R_xlen_t boolcount = 0;
-        const R_xlen_t first0 = first[j];
-        const R_xlen_t last0 = last[j];
-        
-        for(R_xlen_t i = first0; i <= last0; ++i) {
-          if(ptemp[boolcount]) {
-            MACRO_SET_ATOMIC(pout, outcount, px[i]);
-            outcount++;
-          }
-          
-          boolcount++;
-        }
-      }
     }
-    
-    
-    
-    UNPROTECT(1);
-    return out;
-    
-  }
-  else if(indexform == 1) {
-  
-    const double *ppool = REAL_RO(pool);
-    const R_xlen_t n = Rf_xlength(pool);
-    for(R_xlen_t i = 0; i < n; ++i) {
-      MACRO_SET_ATOMIC(pout, i, px[(R_xlen_t)ppool[i]]);
+    else {
+      const R_xlen_t first0 = first[j];
+      const R_xlen_t last0 = last[j];
+      R_xlen_t i = first0;
+      MACRO_STRIDEV_BITS_TRANSFER(
+        MACRO_SET_ATOMIC(pout, outcount++, px[i]),
+        first0,
+        last0
+      );
     }
-    
-    UNPROTECT(1);
-    return out;
-    
   }
-  else if(indexform == -1) {
-    const R_xlen_t pool_len = Rf_xlength(pool);
-    const R_xlen_t n = Rf_xlength(x);
-    double* ppool = REAL(pool);
-  
-    R_xlen_t last_idx = 0;
-    R_xlen_t counter = 0;
     
-    for (R_xlen_t i = 0; i < pool_len; ++i) {
-        
-      R_xlen_t skip = ppool[i];
-      
-      for (R_xlen_t j = last_idx; j < skip; ++j) {
-        MACRO_SET_ATOMIC(pout, counter, px[j]);
-        counter++;
-      }
-      
-      last_idx = skip + 1;
-    }
+  UNPROTECT(1);
+  return out;
     
-    for (R_xlen_t j = last_idx; j < n; ++j) {
-        MACRO_SET_ATOMIC(pout, counter, px[j]);
-        counter++;
-    }
-    
-    UNPROTECT(1);
-    return out;
-  }
-  else {
-    stop("unknown type of pool given");
-  }
 }
 
 
@@ -172,7 +119,6 @@ SEXP rcpp_slicev_x_Integer(
   const R_xlen_t last_total = prepvector[1];
   const R_xlen_t count_total = prepvector[2];
   const R_xlen_t rnglen_total = prepvector[3];
-  const R_xlen_t indexform = prepvector[4];
   
   if(count_total == 0) {
     stop("no matches");
@@ -180,116 +126,64 @@ SEXP rcpp_slicev_x_Integer(
   
   SEXP out = PROTECT(Rf_allocVector(INTSXP, count_total));
    int *pout = INTEGER(out);
+
   
-  if(indexform == 0) {
+  NumericVector first = preplist[0];
+  NumericVector last = preplist[1];
+  NumericVector count = preplist[2];
+  NumericVector rnglen = preplist[3];
+  const int n_chunks = Rf_length(first);
+  
+  R_xlen_t outcount = 0;
+  
+  for(int j = 0; j < n_chunks; ++j) {
+    SEXP b32 = VECTOR_ELT(pool, j);
     
-    NumericVector first = preplist[0];
-    NumericVector last = preplist[1];
-    NumericVector count = preplist[2];
-    NumericVector rnglen = preplist[3];
-    const int n_chunks = Rf_length(first);
+    const R_xlen_t current_count = count[j];
+    const R_xlen_t current_rnglen = rnglen[j];
     
-    R_xlen_t outcount = 0;
-    
-    for(int j = 0; j < n_chunks; ++j) {
-      SEXP temp = VECTOR_ELT(pool, j);
+    if(current_count == 0) {
+      continue;
+    }
+    else if(current_count == 1) {
+      const R_xlen_t first0 = first[j];
+      MACRO_SET_ATOMIC(pout, outcount, px[first0]);
+      outcount++;
+    }
+    else if(current_count == 2) {
+      const R_xlen_t first0 = first[j];
+      const R_xlen_t last0 = last[j];
       
-      const R_xlen_t current_count = count[j];
-      const R_xlen_t current_rnglen = rnglen[j];
+      MACRO_SET_ATOMIC(pout, outcount, px[first0]);
+      outcount++;
       
-      if(current_count == 0) {
-        continue;
-      }
-      else if(current_count == 1) {
-        const R_xlen_t first0 = first[j];
-        MACRO_SET_ATOMIC(pout, outcount, px[first0]);
+      MACRO_SET_ATOMIC(pout, outcount, px[last0]);
+      outcount++;
+    }
+    else if(current_count == current_rnglen) {
+      const R_xlen_t first0 = first[j];
+      const R_xlen_t last0 = last[j];
+      
+      for(R_xlen_t i = first0; i <= last0; ++i) {
+        MACRO_SET_ATOMIC(pout, outcount, px[i]);
         outcount++;
       }
-      else if(current_count == 2) {
-        const R_xlen_t first0 = first[j];
-        const R_xlen_t last0 = last[j];
-        
-        MACRO_SET_ATOMIC(pout, outcount, px[first0]);
-        outcount++;
-        
-        MACRO_SET_ATOMIC(pout, outcount, px[last0]);
-        outcount++;
-      }
-      else if(current_count == current_rnglen) {
-        const R_xlen_t first0 = first[j];
-        const R_xlen_t last0 = last[j];
-        
-        for(R_xlen_t i = first0; i <= last0; ++i) {
-          MACRO_SET_ATOMIC(pout, outcount, px[i]);
-          outcount++;
-        }
-      }
-      else if(TYPEOF(temp) == RAWSXP) {
-        const Rbyte *ptemp = RAW_RO(temp);
-        R_xlen_t boolcount = 0;
-        const R_xlen_t first0 = first[j];
-        const R_xlen_t last0 = last[j];
-        
-        for(R_xlen_t i = first0; i <= last0; ++i) {
-          if(ptemp[boolcount]) {
-            MACRO_SET_ATOMIC(pout, outcount, px[i]);
-            outcount++;
-          }
-          
-          boolcount++;
-        }
-      }
     }
-    
-    
-    
-    UNPROTECT(1);
-    return out;
-    
-  }
-  else if(indexform == 1) {
-  
-    const double *ppool = REAL_RO(pool);
-    const R_xlen_t n = Rf_xlength(pool);
-    for(R_xlen_t i = 0; i < n; ++i) {
-      MACRO_SET_ATOMIC(pout, i, px[(R_xlen_t)ppool[i]]);
+    else {
+      const R_xlen_t first0 = first[j];
+      const R_xlen_t last0 = last[j];
+      R_xlen_t i = first0;
+      MACRO_STRIDEV_BITS_TRANSFER(
+        MACRO_SET_ATOMIC(pout, outcount++, px[i]),
+        first0,
+        last0
+      );
     }
-    
-    UNPROTECT(1);
-    return out;
-    
   }
-  else if(indexform == -1) {
-    const R_xlen_t pool_len = Rf_xlength(pool);
-    const R_xlen_t n = Rf_xlength(x);
-    double* ppool = REAL(pool);
-  
-    R_xlen_t last_idx = 0;
-    R_xlen_t counter = 0;
     
-    for (R_xlen_t i = 0; i < pool_len; ++i) {
-        
-      R_xlen_t skip = ppool[i];
-      
-      for (R_xlen_t j = last_idx; j < skip; ++j) {
-        MACRO_SET_ATOMIC(pout, counter, px[j]);
-        counter++;
-      }
-      
-      last_idx = skip + 1;
-    }
+  UNPROTECT(1);
+  return out;
     
-    for (R_xlen_t j = last_idx; j < n; ++j) {
-        MACRO_SET_ATOMIC(pout, counter, px[j]);
-        counter++;
-    }
-    
-    UNPROTECT(1);
-    return out;
-  }
-  else {
-    stop("unknown type of pool given");
-  }
 }
 
 
@@ -305,7 +199,6 @@ SEXP rcpp_slicev_x_Numeric(
   const R_xlen_t last_total = prepvector[1];
   const R_xlen_t count_total = prepvector[2];
   const R_xlen_t rnglen_total = prepvector[3];
-  const R_xlen_t indexform = prepvector[4];
   
   if(count_total == 0) {
     stop("no matches");
@@ -313,116 +206,64 @@ SEXP rcpp_slicev_x_Numeric(
   
   SEXP out = PROTECT(Rf_allocVector(REALSXP, count_total));
    double *pout = REAL(out);
+
   
-  if(indexform == 0) {
+  NumericVector first = preplist[0];
+  NumericVector last = preplist[1];
+  NumericVector count = preplist[2];
+  NumericVector rnglen = preplist[3];
+  const int n_chunks = Rf_length(first);
+  
+  R_xlen_t outcount = 0;
+  
+  for(int j = 0; j < n_chunks; ++j) {
+    SEXP b32 = VECTOR_ELT(pool, j);
     
-    NumericVector first = preplist[0];
-    NumericVector last = preplist[1];
-    NumericVector count = preplist[2];
-    NumericVector rnglen = preplist[3];
-    const int n_chunks = Rf_length(first);
+    const R_xlen_t current_count = count[j];
+    const R_xlen_t current_rnglen = rnglen[j];
     
-    R_xlen_t outcount = 0;
-    
-    for(int j = 0; j < n_chunks; ++j) {
-      SEXP temp = VECTOR_ELT(pool, j);
+    if(current_count == 0) {
+      continue;
+    }
+    else if(current_count == 1) {
+      const R_xlen_t first0 = first[j];
+      MACRO_SET_ATOMIC(pout, outcount, px[first0]);
+      outcount++;
+    }
+    else if(current_count == 2) {
+      const R_xlen_t first0 = first[j];
+      const R_xlen_t last0 = last[j];
       
-      const R_xlen_t current_count = count[j];
-      const R_xlen_t current_rnglen = rnglen[j];
+      MACRO_SET_ATOMIC(pout, outcount, px[first0]);
+      outcount++;
       
-      if(current_count == 0) {
-        continue;
-      }
-      else if(current_count == 1) {
-        const R_xlen_t first0 = first[j];
-        MACRO_SET_ATOMIC(pout, outcount, px[first0]);
+      MACRO_SET_ATOMIC(pout, outcount, px[last0]);
+      outcount++;
+    }
+    else if(current_count == current_rnglen) {
+      const R_xlen_t first0 = first[j];
+      const R_xlen_t last0 = last[j];
+      
+      for(R_xlen_t i = first0; i <= last0; ++i) {
+        MACRO_SET_ATOMIC(pout, outcount, px[i]);
         outcount++;
       }
-      else if(current_count == 2) {
-        const R_xlen_t first0 = first[j];
-        const R_xlen_t last0 = last[j];
-        
-        MACRO_SET_ATOMIC(pout, outcount, px[first0]);
-        outcount++;
-        
-        MACRO_SET_ATOMIC(pout, outcount, px[last0]);
-        outcount++;
-      }
-      else if(current_count == current_rnglen) {
-        const R_xlen_t first0 = first[j];
-        const R_xlen_t last0 = last[j];
-        
-        for(R_xlen_t i = first0; i <= last0; ++i) {
-          MACRO_SET_ATOMIC(pout, outcount, px[i]);
-          outcount++;
-        }
-      }
-      else if(TYPEOF(temp) == RAWSXP) {
-        const Rbyte *ptemp = RAW_RO(temp);
-        R_xlen_t boolcount = 0;
-        const R_xlen_t first0 = first[j];
-        const R_xlen_t last0 = last[j];
-        
-        for(R_xlen_t i = first0; i <= last0; ++i) {
-          if(ptemp[boolcount]) {
-            MACRO_SET_ATOMIC(pout, outcount, px[i]);
-            outcount++;
-          }
-          
-          boolcount++;
-        }
-      }
     }
-    
-    
-    
-    UNPROTECT(1);
-    return out;
-    
-  }
-  else if(indexform == 1) {
-  
-    const double *ppool = REAL_RO(pool);
-    const R_xlen_t n = Rf_xlength(pool);
-    for(R_xlen_t i = 0; i < n; ++i) {
-      MACRO_SET_ATOMIC(pout, i, px[(R_xlen_t)ppool[i]]);
+    else {
+      const R_xlen_t first0 = first[j];
+      const R_xlen_t last0 = last[j];
+      R_xlen_t i = first0;
+      MACRO_STRIDEV_BITS_TRANSFER(
+        MACRO_SET_ATOMIC(pout, outcount++, px[i]),
+        first0,
+        last0
+      );
     }
-    
-    UNPROTECT(1);
-    return out;
-    
   }
-  else if(indexform == -1) {
-    const R_xlen_t pool_len = Rf_xlength(pool);
-    const R_xlen_t n = Rf_xlength(x);
-    double* ppool = REAL(pool);
-  
-    R_xlen_t last_idx = 0;
-    R_xlen_t counter = 0;
     
-    for (R_xlen_t i = 0; i < pool_len; ++i) {
-        
-      R_xlen_t skip = ppool[i];
-      
-      for (R_xlen_t j = last_idx; j < skip; ++j) {
-        MACRO_SET_ATOMIC(pout, counter, px[j]);
-        counter++;
-      }
-      
-      last_idx = skip + 1;
-    }
+  UNPROTECT(1);
+  return out;
     
-    for (R_xlen_t j = last_idx; j < n; ++j) {
-        MACRO_SET_ATOMIC(pout, counter, px[j]);
-        counter++;
-    }
-    
-    UNPROTECT(1);
-    return out;
-  }
-  else {
-    stop("unknown type of pool given");
-  }
 }
 
 
@@ -438,7 +279,6 @@ SEXP rcpp_slicev_x_Complex(
   const R_xlen_t last_total = prepvector[1];
   const R_xlen_t count_total = prepvector[2];
   const R_xlen_t rnglen_total = prepvector[3];
-  const R_xlen_t indexform = prepvector[4];
   
   if(count_total == 0) {
     stop("no matches");
@@ -446,116 +286,64 @@ SEXP rcpp_slicev_x_Complex(
   
   SEXP out = PROTECT(Rf_allocVector(CPLXSXP, count_total));
    Rcomplex *pout = COMPLEX(out);
+
   
-  if(indexform == 0) {
+  NumericVector first = preplist[0];
+  NumericVector last = preplist[1];
+  NumericVector count = preplist[2];
+  NumericVector rnglen = preplist[3];
+  const int n_chunks = Rf_length(first);
+  
+  R_xlen_t outcount = 0;
+  
+  for(int j = 0; j < n_chunks; ++j) {
+    SEXP b32 = VECTOR_ELT(pool, j);
     
-    NumericVector first = preplist[0];
-    NumericVector last = preplist[1];
-    NumericVector count = preplist[2];
-    NumericVector rnglen = preplist[3];
-    const int n_chunks = Rf_length(first);
+    const R_xlen_t current_count = count[j];
+    const R_xlen_t current_rnglen = rnglen[j];
     
-    R_xlen_t outcount = 0;
-    
-    for(int j = 0; j < n_chunks; ++j) {
-      SEXP temp = VECTOR_ELT(pool, j);
+    if(current_count == 0) {
+      continue;
+    }
+    else if(current_count == 1) {
+      const R_xlen_t first0 = first[j];
+      MACRO_SET_ATOMIC(pout, outcount, px[first0]);
+      outcount++;
+    }
+    else if(current_count == 2) {
+      const R_xlen_t first0 = first[j];
+      const R_xlen_t last0 = last[j];
       
-      const R_xlen_t current_count = count[j];
-      const R_xlen_t current_rnglen = rnglen[j];
+      MACRO_SET_ATOMIC(pout, outcount, px[first0]);
+      outcount++;
       
-      if(current_count == 0) {
-        continue;
-      }
-      else if(current_count == 1) {
-        const R_xlen_t first0 = first[j];
-        MACRO_SET_ATOMIC(pout, outcount, px[first0]);
+      MACRO_SET_ATOMIC(pout, outcount, px[last0]);
+      outcount++;
+    }
+    else if(current_count == current_rnglen) {
+      const R_xlen_t first0 = first[j];
+      const R_xlen_t last0 = last[j];
+      
+      for(R_xlen_t i = first0; i <= last0; ++i) {
+        MACRO_SET_ATOMIC(pout, outcount, px[i]);
         outcount++;
       }
-      else if(current_count == 2) {
-        const R_xlen_t first0 = first[j];
-        const R_xlen_t last0 = last[j];
-        
-        MACRO_SET_ATOMIC(pout, outcount, px[first0]);
-        outcount++;
-        
-        MACRO_SET_ATOMIC(pout, outcount, px[last0]);
-        outcount++;
-      }
-      else if(current_count == current_rnglen) {
-        const R_xlen_t first0 = first[j];
-        const R_xlen_t last0 = last[j];
-        
-        for(R_xlen_t i = first0; i <= last0; ++i) {
-          MACRO_SET_ATOMIC(pout, outcount, px[i]);
-          outcount++;
-        }
-      }
-      else if(TYPEOF(temp) == RAWSXP) {
-        const Rbyte *ptemp = RAW_RO(temp);
-        R_xlen_t boolcount = 0;
-        const R_xlen_t first0 = first[j];
-        const R_xlen_t last0 = last[j];
-        
-        for(R_xlen_t i = first0; i <= last0; ++i) {
-          if(ptemp[boolcount]) {
-            MACRO_SET_ATOMIC(pout, outcount, px[i]);
-            outcount++;
-          }
-          
-          boolcount++;
-        }
-      }
     }
-    
-    
-    
-    UNPROTECT(1);
-    return out;
-    
-  }
-  else if(indexform == 1) {
-  
-    const double *ppool = REAL_RO(pool);
-    const R_xlen_t n = Rf_xlength(pool);
-    for(R_xlen_t i = 0; i < n; ++i) {
-      MACRO_SET_ATOMIC(pout, i, px[(R_xlen_t)ppool[i]]);
+    else {
+      const R_xlen_t first0 = first[j];
+      const R_xlen_t last0 = last[j];
+      R_xlen_t i = first0;
+      MACRO_STRIDEV_BITS_TRANSFER(
+        MACRO_SET_ATOMIC(pout, outcount++, px[i]),
+        first0,
+        last0
+      );
     }
-    
-    UNPROTECT(1);
-    return out;
-    
   }
-  else if(indexform == -1) {
-    const R_xlen_t pool_len = Rf_xlength(pool);
-    const R_xlen_t n = Rf_xlength(x);
-    double* ppool = REAL(pool);
-  
-    R_xlen_t last_idx = 0;
-    R_xlen_t counter = 0;
     
-    for (R_xlen_t i = 0; i < pool_len; ++i) {
-        
-      R_xlen_t skip = ppool[i];
-      
-      for (R_xlen_t j = last_idx; j < skip; ++j) {
-        MACRO_SET_ATOMIC(pout, counter, px[j]);
-        counter++;
-      }
-      
-      last_idx = skip + 1;
-    }
+  UNPROTECT(1);
+  return out;
     
-    for (R_xlen_t j = last_idx; j < n; ++j) {
-        MACRO_SET_ATOMIC(pout, counter, px[j]);
-        counter++;
-    }
-    
-    UNPROTECT(1);
-    return out;
-  }
-  else {
-    stop("unknown type of pool given");
-  }
 }
 
 
@@ -571,7 +359,6 @@ SEXP rcpp_slicev_x_Raw(
   const R_xlen_t last_total = prepvector[1];
   const R_xlen_t count_total = prepvector[2];
   const R_xlen_t rnglen_total = prepvector[3];
-  const R_xlen_t indexform = prepvector[4];
   
   if(count_total == 0) {
     stop("no matches");
@@ -579,116 +366,64 @@ SEXP rcpp_slicev_x_Raw(
   
   SEXP out = PROTECT(Rf_allocVector(RAWSXP, count_total));
    Rbyte *pout = RAW(out);
+
   
-  if(indexform == 0) {
+  NumericVector first = preplist[0];
+  NumericVector last = preplist[1];
+  NumericVector count = preplist[2];
+  NumericVector rnglen = preplist[3];
+  const int n_chunks = Rf_length(first);
+  
+  R_xlen_t outcount = 0;
+  
+  for(int j = 0; j < n_chunks; ++j) {
+    SEXP b32 = VECTOR_ELT(pool, j);
     
-    NumericVector first = preplist[0];
-    NumericVector last = preplist[1];
-    NumericVector count = preplist[2];
-    NumericVector rnglen = preplist[3];
-    const int n_chunks = Rf_length(first);
+    const R_xlen_t current_count = count[j];
+    const R_xlen_t current_rnglen = rnglen[j];
     
-    R_xlen_t outcount = 0;
-    
-    for(int j = 0; j < n_chunks; ++j) {
-      SEXP temp = VECTOR_ELT(pool, j);
+    if(current_count == 0) {
+      continue;
+    }
+    else if(current_count == 1) {
+      const R_xlen_t first0 = first[j];
+      MACRO_SET_ATOMIC(pout, outcount, px[first0]);
+      outcount++;
+    }
+    else if(current_count == 2) {
+      const R_xlen_t first0 = first[j];
+      const R_xlen_t last0 = last[j];
       
-      const R_xlen_t current_count = count[j];
-      const R_xlen_t current_rnglen = rnglen[j];
+      MACRO_SET_ATOMIC(pout, outcount, px[first0]);
+      outcount++;
       
-      if(current_count == 0) {
-        continue;
-      }
-      else if(current_count == 1) {
-        const R_xlen_t first0 = first[j];
-        MACRO_SET_ATOMIC(pout, outcount, px[first0]);
+      MACRO_SET_ATOMIC(pout, outcount, px[last0]);
+      outcount++;
+    }
+    else if(current_count == current_rnglen) {
+      const R_xlen_t first0 = first[j];
+      const R_xlen_t last0 = last[j];
+      
+      for(R_xlen_t i = first0; i <= last0; ++i) {
+        MACRO_SET_ATOMIC(pout, outcount, px[i]);
         outcount++;
       }
-      else if(current_count == 2) {
-        const R_xlen_t first0 = first[j];
-        const R_xlen_t last0 = last[j];
-        
-        MACRO_SET_ATOMIC(pout, outcount, px[first0]);
-        outcount++;
-        
-        MACRO_SET_ATOMIC(pout, outcount, px[last0]);
-        outcount++;
-      }
-      else if(current_count == current_rnglen) {
-        const R_xlen_t first0 = first[j];
-        const R_xlen_t last0 = last[j];
-        
-        for(R_xlen_t i = first0; i <= last0; ++i) {
-          MACRO_SET_ATOMIC(pout, outcount, px[i]);
-          outcount++;
-        }
-      }
-      else if(TYPEOF(temp) == RAWSXP) {
-        const Rbyte *ptemp = RAW_RO(temp);
-        R_xlen_t boolcount = 0;
-        const R_xlen_t first0 = first[j];
-        const R_xlen_t last0 = last[j];
-        
-        for(R_xlen_t i = first0; i <= last0; ++i) {
-          if(ptemp[boolcount]) {
-            MACRO_SET_ATOMIC(pout, outcount, px[i]);
-            outcount++;
-          }
-          
-          boolcount++;
-        }
-      }
     }
-    
-    
-    
-    UNPROTECT(1);
-    return out;
-    
-  }
-  else if(indexform == 1) {
-  
-    const double *ppool = REAL_RO(pool);
-    const R_xlen_t n = Rf_xlength(pool);
-    for(R_xlen_t i = 0; i < n; ++i) {
-      MACRO_SET_ATOMIC(pout, i, px[(R_xlen_t)ppool[i]]);
+    else {
+      const R_xlen_t first0 = first[j];
+      const R_xlen_t last0 = last[j];
+      R_xlen_t i = first0;
+      MACRO_STRIDEV_BITS_TRANSFER(
+        MACRO_SET_ATOMIC(pout, outcount++, px[i]),
+        first0,
+        last0
+      );
     }
-    
-    UNPROTECT(1);
-    return out;
-    
   }
-  else if(indexform == -1) {
-    const R_xlen_t pool_len = Rf_xlength(pool);
-    const R_xlen_t n = Rf_xlength(x);
-    double* ppool = REAL(pool);
-  
-    R_xlen_t last_idx = 0;
-    R_xlen_t counter = 0;
     
-    for (R_xlen_t i = 0; i < pool_len; ++i) {
-        
-      R_xlen_t skip = ppool[i];
-      
-      for (R_xlen_t j = last_idx; j < skip; ++j) {
-        MACRO_SET_ATOMIC(pout, counter, px[j]);
-        counter++;
-      }
-      
-      last_idx = skip + 1;
-    }
+  UNPROTECT(1);
+  return out;
     
-    for (R_xlen_t j = last_idx; j < n; ++j) {
-        MACRO_SET_ATOMIC(pout, counter, px[j]);
-        counter++;
-    }
-    
-    UNPROTECT(1);
-    return out;
-  }
-  else {
-    stop("unknown type of pool given");
-  }
 }
 
 
@@ -704,7 +439,6 @@ SEXP rcpp_slicev_x_Character(
   const R_xlen_t last_total = prepvector[1];
   const R_xlen_t count_total = prepvector[2];
   const R_xlen_t rnglen_total = prepvector[3];
-  const R_xlen_t indexform = prepvector[4];
   
   if(count_total == 0) {
     stop("no matches");
@@ -712,116 +446,64 @@ SEXP rcpp_slicev_x_Character(
   
   SEXP out = PROTECT(Rf_allocVector(STRSXP, count_total));
   // SEXP *pout = STRING_PTR(out);
+
   
-  if(indexform == 0) {
+  NumericVector first = preplist[0];
+  NumericVector last = preplist[1];
+  NumericVector count = preplist[2];
+  NumericVector rnglen = preplist[3];
+  const int n_chunks = Rf_length(first);
+  
+  R_xlen_t outcount = 0;
+  
+  for(int j = 0; j < n_chunks; ++j) {
+    SEXP b32 = VECTOR_ELT(pool, j);
     
-    NumericVector first = preplist[0];
-    NumericVector last = preplist[1];
-    NumericVector count = preplist[2];
-    NumericVector rnglen = preplist[3];
-    const int n_chunks = Rf_length(first);
+    const R_xlen_t current_count = count[j];
+    const R_xlen_t current_rnglen = rnglen[j];
     
-    R_xlen_t outcount = 0;
-    
-    for(int j = 0; j < n_chunks; ++j) {
-      SEXP temp = VECTOR_ELT(pool, j);
+    if(current_count == 0) {
+      continue;
+    }
+    else if(current_count == 1) {
+      const R_xlen_t first0 = first[j];
+      SET_STRING_ELT(out, outcount, px[first0]);
+      outcount++;
+    }
+    else if(current_count == 2) {
+      const R_xlen_t first0 = first[j];
+      const R_xlen_t last0 = last[j];
       
-      const R_xlen_t current_count = count[j];
-      const R_xlen_t current_rnglen = rnglen[j];
+      SET_STRING_ELT(out, outcount, px[first0]);
+      outcount++;
       
-      if(current_count == 0) {
-        continue;
-      }
-      else if(current_count == 1) {
-        const R_xlen_t first0 = first[j];
-        SET_STRING_ELT(out, outcount, px[first0]);
+      SET_STRING_ELT(out, outcount, px[last0]);
+      outcount++;
+    }
+    else if(current_count == current_rnglen) {
+      const R_xlen_t first0 = first[j];
+      const R_xlen_t last0 = last[j];
+      
+      for(R_xlen_t i = first0; i <= last0; ++i) {
+        SET_STRING_ELT(out, outcount, px[i]);
         outcount++;
       }
-      else if(current_count == 2) {
-        const R_xlen_t first0 = first[j];
-        const R_xlen_t last0 = last[j];
-        
-        SET_STRING_ELT(out, outcount, px[first0]);
-        outcount++;
-        
-        SET_STRING_ELT(out, outcount, px[last0]);
-        outcount++;
-      }
-      else if(current_count == current_rnglen) {
-        const R_xlen_t first0 = first[j];
-        const R_xlen_t last0 = last[j];
-        
-        for(R_xlen_t i = first0; i <= last0; ++i) {
-          SET_STRING_ELT(out, outcount, px[i]);
-          outcount++;
-        }
-      }
-      else if(TYPEOF(temp) == RAWSXP) {
-        const Rbyte *ptemp = RAW_RO(temp);
-        R_xlen_t boolcount = 0;
-        const R_xlen_t first0 = first[j];
-        const R_xlen_t last0 = last[j];
-        
-        for(R_xlen_t i = first0; i <= last0; ++i) {
-          if(ptemp[boolcount]) {
-            SET_STRING_ELT(out, outcount, px[i]);
-            outcount++;
-          }
-          
-          boolcount++;
-        }
-      }
     }
-    
-    
-    
-    UNPROTECT(1);
-    return out;
-    
-  }
-  else if(indexform == 1) {
-  
-    const double *ppool = REAL_RO(pool);
-    const R_xlen_t n = Rf_xlength(pool);
-    for(R_xlen_t i = 0; i < n; ++i) {
-      SET_STRING_ELT(out, i, px[(R_xlen_t)ppool[i]]);
+    else {
+      const R_xlen_t first0 = first[j];
+      const R_xlen_t last0 = last[j];
+      R_xlen_t i = first0;
+      MACRO_STRIDEV_BITS_TRANSFER(
+        SET_STRING_ELT(out, outcount++, px[i]),
+        first0,
+        last0
+      );
     }
-    
-    UNPROTECT(1);
-    return out;
-    
   }
-  else if(indexform == -1) {
-    const R_xlen_t pool_len = Rf_xlength(pool);
-    const R_xlen_t n = Rf_xlength(x);
-    double* ppool = REAL(pool);
-  
-    R_xlen_t last_idx = 0;
-    R_xlen_t counter = 0;
     
-    for (R_xlen_t i = 0; i < pool_len; ++i) {
-        
-      R_xlen_t skip = ppool[i];
-      
-      for (R_xlen_t j = last_idx; j < skip; ++j) {
-        SET_STRING_ELT(out, counter, px[j]);
-        counter++;
-      }
-      
-      last_idx = skip + 1;
-    }
+  UNPROTECT(1);
+  return out;
     
-    for (R_xlen_t j = last_idx; j < n; ++j) {
-        SET_STRING_ELT(out, counter, px[j]);
-        counter++;
-    }
-    
-    UNPROTECT(1);
-    return out;
-  }
-  else {
-    stop("unknown type of pool given");
-  }
 }
 
 
@@ -886,7 +568,6 @@ void rcpp_slicev_set_Logical(
   const R_xlen_t last_total = prepvector[1];
   const R_xlen_t count_total = prepvector[2];
   const R_xlen_t rnglen_total = prepvector[3];
-  const R_xlen_t indexform = prepvector[4];
   
   R_xlen_t rpcount = 0;
   
@@ -905,103 +586,58 @@ void rcpp_slicev_set_Logical(
     stop("no matches");
   }
   
-  if(indexform == 0) {
+  
+  NumericVector first = preplist[0];
+  NumericVector last = preplist[1];
+  NumericVector count = preplist[2];
+  NumericVector rnglen = preplist[3];
+  const int n_chunks = Rf_length(first);
+  
+  
+  for(int j = 0; j < n_chunks; ++j) {
+    SEXP b32 = VECTOR_ELT(pool, j);
     
-    NumericVector first = preplist[0];
-    NumericVector last = preplist[1];
-    NumericVector count = preplist[2];
-    NumericVector rnglen = preplist[3];
-    const int n_chunks = Rf_length(first);
+    const R_xlen_t current_count = count[j];
+    const R_xlen_t current_rnglen = rnglen[j];
     
-    R_xlen_t rpcount = 0;
     
-    for(int j = 0; j < n_chunks; ++j) {
-      SEXP temp = VECTOR_ELT(pool, j);
-      
-      const R_xlen_t current_count = count[j];
-      const R_xlen_t current_rnglen = rnglen[j];
-      
-      
-      if(current_count == 0) {
-        continue;
-      }
-      else if(current_count == 1) {
-        const R_xlen_t first0 = first[j];
-        MACRO_SET_ATOMIC(px, first0, prp[rpcount]);
-        rpcount += by_rp;
-      }
-      else if(current_count == 2) {
-        const R_xlen_t first0 = first[j];
-        const R_xlen_t last0 = last[j];
-        
-        MACRO_SET_ATOMIC(px, first0, prp[rpcount]);
-        rpcount += by_rp;
-        
-        MACRO_SET_ATOMIC(px, last0, prp[rpcount]);
-        rpcount += by_rp;
-      }
-      else if(current_count == current_rnglen) {
-        const R_xlen_t first0 = first[j];
-        const R_xlen_t last0 = last[j];
-        
-        for(R_xlen_t i = first0; i <= last0; ++i) {
-          MACRO_SET_ATOMIC(px, i, prp[rpcount]);
-          rpcount += by_rp;
-        }
-      }
-      else if(TYPEOF(temp) == RAWSXP) {
-        const Rbyte *ptemp = RAW_RO(temp);
-        R_xlen_t boolcount = 0;
-        const R_xlen_t first0 = first[j];
-        const R_xlen_t last0 = last[j];
-        
-        for(R_xlen_t i = first0; i <= last0; ++i) {
-          if(ptemp[boolcount]) {
-            MACRO_SET_ATOMIC(px, i, prp[rpcount]);
-            rpcount += by_rp;
-          }
-          
-          boolcount++;
-        }
-      }
+    if(current_count == 0) {
+      continue;
     }
-  }
-  else if(indexform == 1) {
-    
-    const double *ppool = REAL_RO(pool);
-    const R_xlen_t n = Rf_xlength(pool);
-    for(R_xlen_t i = 0; i < n; ++i) {
-      rpcount = i * by_rp;
-      MACRO_SET_ATOMIC(px, (R_xlen_t)ppool[i], prp[rpcount]);
-    }
-    
-  }
-  else if(indexform == -1) {
-    const R_xlen_t count = Rf_xlength(pool);
-    const R_xlen_t n = Rf_xlength(x);
-    
-    double* ppool = REAL(pool);
-    
-    R_xlen_t last_idx = 0;
-    
-    for (R_xlen_t i = 0; i < count; ++i) {
-      R_xlen_t skip = ppool[i];
-      
-      for (R_xlen_t j = last_idx; j < skip; ++j) {
-        MACRO_SET_ATOMIC(px, j, prp[rpcount]);
-        rpcount += by_rp;
-      }
-      
-      last_idx = skip + 1;
-    }
-    
-    for (R_xlen_t j = last_idx; j < n; ++j) {
-      MACRO_SET_ATOMIC(px, j, prp[rpcount]);
+    else if(current_count == 1) {
+      const R_xlen_t first0 = first[j];
+      MACRO_SET_ATOMIC(px, first0, prp[rpcount]);
       rpcount += by_rp;
     }
-  }
-  else {
-    stop("unknown type of pool given");
+    else if(current_count == 2) {
+      const R_xlen_t first0 = first[j];
+      const R_xlen_t last0 = last[j];
+      
+      MACRO_SET_ATOMIC(px, first0, prp[rpcount]);
+      rpcount += by_rp;
+      
+      MACRO_SET_ATOMIC(px, last0, prp[rpcount]);
+      rpcount += by_rp;
+    }
+    else if(current_count == current_rnglen) {
+      const R_xlen_t first0 = first[j];
+      const R_xlen_t last0 = last[j];
+      
+      for(R_xlen_t i = first0; i <= last0; ++i) {
+        MACRO_SET_ATOMIC(px, i, prp[rpcount]);
+        rpcount += by_rp;
+      }
+    }
+    else {
+      const R_xlen_t first0 = first[j];
+      const R_xlen_t last0 = last[j];
+      R_xlen_t i = first0;
+      MACRO_STRIDEV_BITS_TRANSFER(
+        MACRO_SET_ATOMIC(px, i, prp[rpcount]); rpcount += by_rp,
+        first0,
+        last0
+      );
+    }
   }
 }
 
@@ -1021,7 +657,6 @@ void rcpp_slicev_set_Integer(
   const R_xlen_t last_total = prepvector[1];
   const R_xlen_t count_total = prepvector[2];
   const R_xlen_t rnglen_total = prepvector[3];
-  const R_xlen_t indexform = prepvector[4];
   
   R_xlen_t rpcount = 0;
   
@@ -1040,103 +675,58 @@ void rcpp_slicev_set_Integer(
     stop("no matches");
   }
   
-  if(indexform == 0) {
+  
+  NumericVector first = preplist[0];
+  NumericVector last = preplist[1];
+  NumericVector count = preplist[2];
+  NumericVector rnglen = preplist[3];
+  const int n_chunks = Rf_length(first);
+  
+  
+  for(int j = 0; j < n_chunks; ++j) {
+    SEXP b32 = VECTOR_ELT(pool, j);
     
-    NumericVector first = preplist[0];
-    NumericVector last = preplist[1];
-    NumericVector count = preplist[2];
-    NumericVector rnglen = preplist[3];
-    const int n_chunks = Rf_length(first);
+    const R_xlen_t current_count = count[j];
+    const R_xlen_t current_rnglen = rnglen[j];
     
-    R_xlen_t rpcount = 0;
     
-    for(int j = 0; j < n_chunks; ++j) {
-      SEXP temp = VECTOR_ELT(pool, j);
-      
-      const R_xlen_t current_count = count[j];
-      const R_xlen_t current_rnglen = rnglen[j];
-      
-      
-      if(current_count == 0) {
-        continue;
-      }
-      else if(current_count == 1) {
-        const R_xlen_t first0 = first[j];
-        MACRO_SET_ATOMIC(px, first0, prp[rpcount]);
-        rpcount += by_rp;
-      }
-      else if(current_count == 2) {
-        const R_xlen_t first0 = first[j];
-        const R_xlen_t last0 = last[j];
-        
-        MACRO_SET_ATOMIC(px, first0, prp[rpcount]);
-        rpcount += by_rp;
-        
-        MACRO_SET_ATOMIC(px, last0, prp[rpcount]);
-        rpcount += by_rp;
-      }
-      else if(current_count == current_rnglen) {
-        const R_xlen_t first0 = first[j];
-        const R_xlen_t last0 = last[j];
-        
-        for(R_xlen_t i = first0; i <= last0; ++i) {
-          MACRO_SET_ATOMIC(px, i, prp[rpcount]);
-          rpcount += by_rp;
-        }
-      }
-      else if(TYPEOF(temp) == RAWSXP) {
-        const Rbyte *ptemp = RAW_RO(temp);
-        R_xlen_t boolcount = 0;
-        const R_xlen_t first0 = first[j];
-        const R_xlen_t last0 = last[j];
-        
-        for(R_xlen_t i = first0; i <= last0; ++i) {
-          if(ptemp[boolcount]) {
-            MACRO_SET_ATOMIC(px, i, prp[rpcount]);
-            rpcount += by_rp;
-          }
-          
-          boolcount++;
-        }
-      }
+    if(current_count == 0) {
+      continue;
     }
-  }
-  else if(indexform == 1) {
-    
-    const double *ppool = REAL_RO(pool);
-    const R_xlen_t n = Rf_xlength(pool);
-    for(R_xlen_t i = 0; i < n; ++i) {
-      rpcount = i * by_rp;
-      MACRO_SET_ATOMIC(px, (R_xlen_t)ppool[i], prp[rpcount]);
-    }
-    
-  }
-  else if(indexform == -1) {
-    const R_xlen_t count = Rf_xlength(pool);
-    const R_xlen_t n = Rf_xlength(x);
-    
-    double* ppool = REAL(pool);
-    
-    R_xlen_t last_idx = 0;
-    
-    for (R_xlen_t i = 0; i < count; ++i) {
-      R_xlen_t skip = ppool[i];
-      
-      for (R_xlen_t j = last_idx; j < skip; ++j) {
-        MACRO_SET_ATOMIC(px, j, prp[rpcount]);
-        rpcount += by_rp;
-      }
-      
-      last_idx = skip + 1;
-    }
-    
-    for (R_xlen_t j = last_idx; j < n; ++j) {
-      MACRO_SET_ATOMIC(px, j, prp[rpcount]);
+    else if(current_count == 1) {
+      const R_xlen_t first0 = first[j];
+      MACRO_SET_ATOMIC(px, first0, prp[rpcount]);
       rpcount += by_rp;
     }
-  }
-  else {
-    stop("unknown type of pool given");
+    else if(current_count == 2) {
+      const R_xlen_t first0 = first[j];
+      const R_xlen_t last0 = last[j];
+      
+      MACRO_SET_ATOMIC(px, first0, prp[rpcount]);
+      rpcount += by_rp;
+      
+      MACRO_SET_ATOMIC(px, last0, prp[rpcount]);
+      rpcount += by_rp;
+    }
+    else if(current_count == current_rnglen) {
+      const R_xlen_t first0 = first[j];
+      const R_xlen_t last0 = last[j];
+      
+      for(R_xlen_t i = first0; i <= last0; ++i) {
+        MACRO_SET_ATOMIC(px, i, prp[rpcount]);
+        rpcount += by_rp;
+      }
+    }
+    else {
+      const R_xlen_t first0 = first[j];
+      const R_xlen_t last0 = last[j];
+      R_xlen_t i = first0;
+      MACRO_STRIDEV_BITS_TRANSFER(
+        MACRO_SET_ATOMIC(px, i, prp[rpcount]); rpcount += by_rp,
+        first0,
+        last0
+      );
+    }
   }
 }
 
@@ -1156,7 +746,6 @@ void rcpp_slicev_set_Numeric(
   const R_xlen_t last_total = prepvector[1];
   const R_xlen_t count_total = prepvector[2];
   const R_xlen_t rnglen_total = prepvector[3];
-  const R_xlen_t indexform = prepvector[4];
   
   R_xlen_t rpcount = 0;
   
@@ -1175,103 +764,58 @@ void rcpp_slicev_set_Numeric(
     stop("no matches");
   }
   
-  if(indexform == 0) {
+  
+  NumericVector first = preplist[0];
+  NumericVector last = preplist[1];
+  NumericVector count = preplist[2];
+  NumericVector rnglen = preplist[3];
+  const int n_chunks = Rf_length(first);
+  
+  
+  for(int j = 0; j < n_chunks; ++j) {
+    SEXP b32 = VECTOR_ELT(pool, j);
     
-    NumericVector first = preplist[0];
-    NumericVector last = preplist[1];
-    NumericVector count = preplist[2];
-    NumericVector rnglen = preplist[3];
-    const int n_chunks = Rf_length(first);
+    const R_xlen_t current_count = count[j];
+    const R_xlen_t current_rnglen = rnglen[j];
     
-    R_xlen_t rpcount = 0;
     
-    for(int j = 0; j < n_chunks; ++j) {
-      SEXP temp = VECTOR_ELT(pool, j);
-      
-      const R_xlen_t current_count = count[j];
-      const R_xlen_t current_rnglen = rnglen[j];
-      
-      
-      if(current_count == 0) {
-        continue;
-      }
-      else if(current_count == 1) {
-        const R_xlen_t first0 = first[j];
-        MACRO_SET_ATOMIC(px, first0, prp[rpcount]);
-        rpcount += by_rp;
-      }
-      else if(current_count == 2) {
-        const R_xlen_t first0 = first[j];
-        const R_xlen_t last0 = last[j];
-        
-        MACRO_SET_ATOMIC(px, first0, prp[rpcount]);
-        rpcount += by_rp;
-        
-        MACRO_SET_ATOMIC(px, last0, prp[rpcount]);
-        rpcount += by_rp;
-      }
-      else if(current_count == current_rnglen) {
-        const R_xlen_t first0 = first[j];
-        const R_xlen_t last0 = last[j];
-        
-        for(R_xlen_t i = first0; i <= last0; ++i) {
-          MACRO_SET_ATOMIC(px, i, prp[rpcount]);
-          rpcount += by_rp;
-        }
-      }
-      else if(TYPEOF(temp) == RAWSXP) {
-        const Rbyte *ptemp = RAW_RO(temp);
-        R_xlen_t boolcount = 0;
-        const R_xlen_t first0 = first[j];
-        const R_xlen_t last0 = last[j];
-        
-        for(R_xlen_t i = first0; i <= last0; ++i) {
-          if(ptemp[boolcount]) {
-            MACRO_SET_ATOMIC(px, i, prp[rpcount]);
-            rpcount += by_rp;
-          }
-          
-          boolcount++;
-        }
-      }
+    if(current_count == 0) {
+      continue;
     }
-  }
-  else if(indexform == 1) {
-    
-    const double *ppool = REAL_RO(pool);
-    const R_xlen_t n = Rf_xlength(pool);
-    for(R_xlen_t i = 0; i < n; ++i) {
-      rpcount = i * by_rp;
-      MACRO_SET_ATOMIC(px, (R_xlen_t)ppool[i], prp[rpcount]);
-    }
-    
-  }
-  else if(indexform == -1) {
-    const R_xlen_t count = Rf_xlength(pool);
-    const R_xlen_t n = Rf_xlength(x);
-    
-    double* ppool = REAL(pool);
-    
-    R_xlen_t last_idx = 0;
-    
-    for (R_xlen_t i = 0; i < count; ++i) {
-      R_xlen_t skip = ppool[i];
-      
-      for (R_xlen_t j = last_idx; j < skip; ++j) {
-        MACRO_SET_ATOMIC(px, j, prp[rpcount]);
-        rpcount += by_rp;
-      }
-      
-      last_idx = skip + 1;
-    }
-    
-    for (R_xlen_t j = last_idx; j < n; ++j) {
-      MACRO_SET_ATOMIC(px, j, prp[rpcount]);
+    else if(current_count == 1) {
+      const R_xlen_t first0 = first[j];
+      MACRO_SET_ATOMIC(px, first0, prp[rpcount]);
       rpcount += by_rp;
     }
-  }
-  else {
-    stop("unknown type of pool given");
+    else if(current_count == 2) {
+      const R_xlen_t first0 = first[j];
+      const R_xlen_t last0 = last[j];
+      
+      MACRO_SET_ATOMIC(px, first0, prp[rpcount]);
+      rpcount += by_rp;
+      
+      MACRO_SET_ATOMIC(px, last0, prp[rpcount]);
+      rpcount += by_rp;
+    }
+    else if(current_count == current_rnglen) {
+      const R_xlen_t first0 = first[j];
+      const R_xlen_t last0 = last[j];
+      
+      for(R_xlen_t i = first0; i <= last0; ++i) {
+        MACRO_SET_ATOMIC(px, i, prp[rpcount]);
+        rpcount += by_rp;
+      }
+    }
+    else {
+      const R_xlen_t first0 = first[j];
+      const R_xlen_t last0 = last[j];
+      R_xlen_t i = first0;
+      MACRO_STRIDEV_BITS_TRANSFER(
+        MACRO_SET_ATOMIC(px, i, prp[rpcount]); rpcount += by_rp,
+        first0,
+        last0
+      );
+    }
   }
 }
 
@@ -1291,7 +835,6 @@ void rcpp_slicev_set_Complex(
   const R_xlen_t last_total = prepvector[1];
   const R_xlen_t count_total = prepvector[2];
   const R_xlen_t rnglen_total = prepvector[3];
-  const R_xlen_t indexform = prepvector[4];
   
   R_xlen_t rpcount = 0;
   
@@ -1310,103 +853,58 @@ void rcpp_slicev_set_Complex(
     stop("no matches");
   }
   
-  if(indexform == 0) {
+  
+  NumericVector first = preplist[0];
+  NumericVector last = preplist[1];
+  NumericVector count = preplist[2];
+  NumericVector rnglen = preplist[3];
+  const int n_chunks = Rf_length(first);
+  
+  
+  for(int j = 0; j < n_chunks; ++j) {
+    SEXP b32 = VECTOR_ELT(pool, j);
     
-    NumericVector first = preplist[0];
-    NumericVector last = preplist[1];
-    NumericVector count = preplist[2];
-    NumericVector rnglen = preplist[3];
-    const int n_chunks = Rf_length(first);
+    const R_xlen_t current_count = count[j];
+    const R_xlen_t current_rnglen = rnglen[j];
     
-    R_xlen_t rpcount = 0;
     
-    for(int j = 0; j < n_chunks; ++j) {
-      SEXP temp = VECTOR_ELT(pool, j);
-      
-      const R_xlen_t current_count = count[j];
-      const R_xlen_t current_rnglen = rnglen[j];
-      
-      
-      if(current_count == 0) {
-        continue;
-      }
-      else if(current_count == 1) {
-        const R_xlen_t first0 = first[j];
-        MACRO_SET_ATOMIC(px, first0, prp[rpcount]);
-        rpcount += by_rp;
-      }
-      else if(current_count == 2) {
-        const R_xlen_t first0 = first[j];
-        const R_xlen_t last0 = last[j];
-        
-        MACRO_SET_ATOMIC(px, first0, prp[rpcount]);
-        rpcount += by_rp;
-        
-        MACRO_SET_ATOMIC(px, last0, prp[rpcount]);
-        rpcount += by_rp;
-      }
-      else if(current_count == current_rnglen) {
-        const R_xlen_t first0 = first[j];
-        const R_xlen_t last0 = last[j];
-        
-        for(R_xlen_t i = first0; i <= last0; ++i) {
-          MACRO_SET_ATOMIC(px, i, prp[rpcount]);
-          rpcount += by_rp;
-        }
-      }
-      else if(TYPEOF(temp) == RAWSXP) {
-        const Rbyte *ptemp = RAW_RO(temp);
-        R_xlen_t boolcount = 0;
-        const R_xlen_t first0 = first[j];
-        const R_xlen_t last0 = last[j];
-        
-        for(R_xlen_t i = first0; i <= last0; ++i) {
-          if(ptemp[boolcount]) {
-            MACRO_SET_ATOMIC(px, i, prp[rpcount]);
-            rpcount += by_rp;
-          }
-          
-          boolcount++;
-        }
-      }
+    if(current_count == 0) {
+      continue;
     }
-  }
-  else if(indexform == 1) {
-    
-    const double *ppool = REAL_RO(pool);
-    const R_xlen_t n = Rf_xlength(pool);
-    for(R_xlen_t i = 0; i < n; ++i) {
-      rpcount = i * by_rp;
-      MACRO_SET_ATOMIC(px, (R_xlen_t)ppool[i], prp[rpcount]);
-    }
-    
-  }
-  else if(indexform == -1) {
-    const R_xlen_t count = Rf_xlength(pool);
-    const R_xlen_t n = Rf_xlength(x);
-    
-    double* ppool = REAL(pool);
-    
-    R_xlen_t last_idx = 0;
-    
-    for (R_xlen_t i = 0; i < count; ++i) {
-      R_xlen_t skip = ppool[i];
-      
-      for (R_xlen_t j = last_idx; j < skip; ++j) {
-        MACRO_SET_ATOMIC(px, j, prp[rpcount]);
-        rpcount += by_rp;
-      }
-      
-      last_idx = skip + 1;
-    }
-    
-    for (R_xlen_t j = last_idx; j < n; ++j) {
-      MACRO_SET_ATOMIC(px, j, prp[rpcount]);
+    else if(current_count == 1) {
+      const R_xlen_t first0 = first[j];
+      MACRO_SET_ATOMIC(px, first0, prp[rpcount]);
       rpcount += by_rp;
     }
-  }
-  else {
-    stop("unknown type of pool given");
+    else if(current_count == 2) {
+      const R_xlen_t first0 = first[j];
+      const R_xlen_t last0 = last[j];
+      
+      MACRO_SET_ATOMIC(px, first0, prp[rpcount]);
+      rpcount += by_rp;
+      
+      MACRO_SET_ATOMIC(px, last0, prp[rpcount]);
+      rpcount += by_rp;
+    }
+    else if(current_count == current_rnglen) {
+      const R_xlen_t first0 = first[j];
+      const R_xlen_t last0 = last[j];
+      
+      for(R_xlen_t i = first0; i <= last0; ++i) {
+        MACRO_SET_ATOMIC(px, i, prp[rpcount]);
+        rpcount += by_rp;
+      }
+    }
+    else {
+      const R_xlen_t first0 = first[j];
+      const R_xlen_t last0 = last[j];
+      R_xlen_t i = first0;
+      MACRO_STRIDEV_BITS_TRANSFER(
+        MACRO_SET_ATOMIC(px, i, prp[rpcount]); rpcount += by_rp,
+        first0,
+        last0
+      );
+    }
   }
 }
 
@@ -1426,7 +924,6 @@ void rcpp_slicev_set_Raw(
   const R_xlen_t last_total = prepvector[1];
   const R_xlen_t count_total = prepvector[2];
   const R_xlen_t rnglen_total = prepvector[3];
-  const R_xlen_t indexform = prepvector[4];
   
   R_xlen_t rpcount = 0;
   
@@ -1445,103 +942,58 @@ void rcpp_slicev_set_Raw(
     stop("no matches");
   }
   
-  if(indexform == 0) {
+  
+  NumericVector first = preplist[0];
+  NumericVector last = preplist[1];
+  NumericVector count = preplist[2];
+  NumericVector rnglen = preplist[3];
+  const int n_chunks = Rf_length(first);
+  
+  
+  for(int j = 0; j < n_chunks; ++j) {
+    SEXP b32 = VECTOR_ELT(pool, j);
     
-    NumericVector first = preplist[0];
-    NumericVector last = preplist[1];
-    NumericVector count = preplist[2];
-    NumericVector rnglen = preplist[3];
-    const int n_chunks = Rf_length(first);
+    const R_xlen_t current_count = count[j];
+    const R_xlen_t current_rnglen = rnglen[j];
     
-    R_xlen_t rpcount = 0;
     
-    for(int j = 0; j < n_chunks; ++j) {
-      SEXP temp = VECTOR_ELT(pool, j);
-      
-      const R_xlen_t current_count = count[j];
-      const R_xlen_t current_rnglen = rnglen[j];
-      
-      
-      if(current_count == 0) {
-        continue;
-      }
-      else if(current_count == 1) {
-        const R_xlen_t first0 = first[j];
-        MACRO_SET_ATOMIC(px, first0, prp[rpcount]);
-        rpcount += by_rp;
-      }
-      else if(current_count == 2) {
-        const R_xlen_t first0 = first[j];
-        const R_xlen_t last0 = last[j];
-        
-        MACRO_SET_ATOMIC(px, first0, prp[rpcount]);
-        rpcount += by_rp;
-        
-        MACRO_SET_ATOMIC(px, last0, prp[rpcount]);
-        rpcount += by_rp;
-      }
-      else if(current_count == current_rnglen) {
-        const R_xlen_t first0 = first[j];
-        const R_xlen_t last0 = last[j];
-        
-        for(R_xlen_t i = first0; i <= last0; ++i) {
-          MACRO_SET_ATOMIC(px, i, prp[rpcount]);
-          rpcount += by_rp;
-        }
-      }
-      else if(TYPEOF(temp) == RAWSXP) {
-        const Rbyte *ptemp = RAW_RO(temp);
-        R_xlen_t boolcount = 0;
-        const R_xlen_t first0 = first[j];
-        const R_xlen_t last0 = last[j];
-        
-        for(R_xlen_t i = first0; i <= last0; ++i) {
-          if(ptemp[boolcount]) {
-            MACRO_SET_ATOMIC(px, i, prp[rpcount]);
-            rpcount += by_rp;
-          }
-          
-          boolcount++;
-        }
-      }
+    if(current_count == 0) {
+      continue;
     }
-  }
-  else if(indexform == 1) {
-    
-    const double *ppool = REAL_RO(pool);
-    const R_xlen_t n = Rf_xlength(pool);
-    for(R_xlen_t i = 0; i < n; ++i) {
-      rpcount = i * by_rp;
-      MACRO_SET_ATOMIC(px, (R_xlen_t)ppool[i], prp[rpcount]);
-    }
-    
-  }
-  else if(indexform == -1) {
-    const R_xlen_t count = Rf_xlength(pool);
-    const R_xlen_t n = Rf_xlength(x);
-    
-    double* ppool = REAL(pool);
-    
-    R_xlen_t last_idx = 0;
-    
-    for (R_xlen_t i = 0; i < count; ++i) {
-      R_xlen_t skip = ppool[i];
-      
-      for (R_xlen_t j = last_idx; j < skip; ++j) {
-        MACRO_SET_ATOMIC(px, j, prp[rpcount]);
-        rpcount += by_rp;
-      }
-      
-      last_idx = skip + 1;
-    }
-    
-    for (R_xlen_t j = last_idx; j < n; ++j) {
-      MACRO_SET_ATOMIC(px, j, prp[rpcount]);
+    else if(current_count == 1) {
+      const R_xlen_t first0 = first[j];
+      MACRO_SET_ATOMIC(px, first0, prp[rpcount]);
       rpcount += by_rp;
     }
-  }
-  else {
-    stop("unknown type of pool given");
+    else if(current_count == 2) {
+      const R_xlen_t first0 = first[j];
+      const R_xlen_t last0 = last[j];
+      
+      MACRO_SET_ATOMIC(px, first0, prp[rpcount]);
+      rpcount += by_rp;
+      
+      MACRO_SET_ATOMIC(px, last0, prp[rpcount]);
+      rpcount += by_rp;
+    }
+    else if(current_count == current_rnglen) {
+      const R_xlen_t first0 = first[j];
+      const R_xlen_t last0 = last[j];
+      
+      for(R_xlen_t i = first0; i <= last0; ++i) {
+        MACRO_SET_ATOMIC(px, i, prp[rpcount]);
+        rpcount += by_rp;
+      }
+    }
+    else {
+      const R_xlen_t first0 = first[j];
+      const R_xlen_t last0 = last[j];
+      R_xlen_t i = first0;
+      MACRO_STRIDEV_BITS_TRANSFER(
+        MACRO_SET_ATOMIC(px, i, prp[rpcount]); rpcount += by_rp,
+        first0,
+        last0
+      );
+    }
   }
 }
 
@@ -1561,7 +1013,6 @@ void rcpp_slicev_set_Character(
   const R_xlen_t last_total = prepvector[1];
   const R_xlen_t count_total = prepvector[2];
   const R_xlen_t rnglen_total = prepvector[3];
-  const R_xlen_t indexform = prepvector[4];
   
   R_xlen_t rpcount = 0;
   
@@ -1580,103 +1031,58 @@ void rcpp_slicev_set_Character(
     stop("no matches");
   }
   
-  if(indexform == 0) {
+  
+  NumericVector first = preplist[0];
+  NumericVector last = preplist[1];
+  NumericVector count = preplist[2];
+  NumericVector rnglen = preplist[3];
+  const int n_chunks = Rf_length(first);
+  
+  
+  for(int j = 0; j < n_chunks; ++j) {
+    SEXP b32 = VECTOR_ELT(pool, j);
     
-    NumericVector first = preplist[0];
-    NumericVector last = preplist[1];
-    NumericVector count = preplist[2];
-    NumericVector rnglen = preplist[3];
-    const int n_chunks = Rf_length(first);
+    const R_xlen_t current_count = count[j];
+    const R_xlen_t current_rnglen = rnglen[j];
     
-    R_xlen_t rpcount = 0;
     
-    for(int j = 0; j < n_chunks; ++j) {
-      SEXP temp = VECTOR_ELT(pool, j);
-      
-      const R_xlen_t current_count = count[j];
-      const R_xlen_t current_rnglen = rnglen[j];
-      
-      
-      if(current_count == 0) {
-        continue;
-      }
-      else if(current_count == 1) {
-        const R_xlen_t first0 = first[j];
-        SET_STRING_ELT(x, first0, prp[rpcount]);
-        rpcount += by_rp;
-      }
-      else if(current_count == 2) {
-        const R_xlen_t first0 = first[j];
-        const R_xlen_t last0 = last[j];
-        
-        SET_STRING_ELT(x, first0, prp[rpcount]);
-        rpcount += by_rp;
-        
-        SET_STRING_ELT(x, last0, prp[rpcount]);
-        rpcount += by_rp;
-      }
-      else if(current_count == current_rnglen) {
-        const R_xlen_t first0 = first[j];
-        const R_xlen_t last0 = last[j];
-        
-        for(R_xlen_t i = first0; i <= last0; ++i) {
-          SET_STRING_ELT(x, i, prp[rpcount]);
-          rpcount += by_rp;
-        }
-      }
-      else if(TYPEOF(temp) == RAWSXP) {
-        const Rbyte *ptemp = RAW_RO(temp);
-        R_xlen_t boolcount = 0;
-        const R_xlen_t first0 = first[j];
-        const R_xlen_t last0 = last[j];
-        
-        for(R_xlen_t i = first0; i <= last0; ++i) {
-          if(ptemp[boolcount]) {
-            SET_STRING_ELT(x, i, prp[rpcount]);
-            rpcount += by_rp;
-          }
-          
-          boolcount++;
-        }
-      }
+    if(current_count == 0) {
+      continue;
     }
-  }
-  else if(indexform == 1) {
-    
-    const double *ppool = REAL_RO(pool);
-    const R_xlen_t n = Rf_xlength(pool);
-    for(R_xlen_t i = 0; i < n; ++i) {
-      rpcount = i * by_rp;
-      SET_STRING_ELT(x, (R_xlen_t)ppool[i], prp[rpcount]);
-    }
-    
-  }
-  else if(indexform == -1) {
-    const R_xlen_t count = Rf_xlength(pool);
-    const R_xlen_t n = Rf_xlength(x);
-    
-    double* ppool = REAL(pool);
-    
-    R_xlen_t last_idx = 0;
-    
-    for (R_xlen_t i = 0; i < count; ++i) {
-      R_xlen_t skip = ppool[i];
-      
-      for (R_xlen_t j = last_idx; j < skip; ++j) {
-        SET_STRING_ELT(x, j, prp[rpcount]);
-        rpcount += by_rp;
-      }
-      
-      last_idx = skip + 1;
-    }
-    
-    for (R_xlen_t j = last_idx; j < n; ++j) {
-      SET_STRING_ELT(x, j, prp[rpcount]);
+    else if(current_count == 1) {
+      const R_xlen_t first0 = first[j];
+      SET_STRING_ELT(x, first0, prp[rpcount]);
       rpcount += by_rp;
     }
-  }
-  else {
-    stop("unknown type of pool given");
+    else if(current_count == 2) {
+      const R_xlen_t first0 = first[j];
+      const R_xlen_t last0 = last[j];
+      
+      SET_STRING_ELT(x, first0, prp[rpcount]);
+      rpcount += by_rp;
+      
+      SET_STRING_ELT(x, last0, prp[rpcount]);
+      rpcount += by_rp;
+    }
+    else if(current_count == current_rnglen) {
+      const R_xlen_t first0 = first[j];
+      const R_xlen_t last0 = last[j];
+      
+      for(R_xlen_t i = first0; i <= last0; ++i) {
+        SET_STRING_ELT(x, i, prp[rpcount]);
+        rpcount += by_rp;
+      }
+    }
+    else {
+      const R_xlen_t first0 = first[j];
+      const R_xlen_t last0 = last[j];
+      R_xlen_t i = first0;
+      MACRO_STRIDEV_BITS_TRANSFER(
+        SET_STRING_ELT(x, i, prp[rpcount]); rpcount += by_rp,
+        first0,
+        last0
+      );
+    }
   }
 }
 

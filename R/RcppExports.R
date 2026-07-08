@@ -146,6 +146,12 @@ NULL
 #' @keywords internal
 NULL
 
+#' @keywords internal
+NULL
+
+#' @keywords internal
+NULL
+
 .rcpp_stridev_chunks <- function(y) {
     .Call(`_squarebrackets_rcpp_stridev_chunks`, y)
 }
@@ -156,6 +162,14 @@ NULL
 
 .rcpp_stridev_prepvector <- function(y, prep) {
     .Call(`_squarebrackets_rcpp_stridev_prepvector`, y, prep)
+}
+
+.rcpp_stridev_transfer_bits <- function(b32, out, startpos, endpos) {
+    invisible(.Call(`_squarebrackets_rcpp_stridev_transfer_bits`, b32, out, startpos, endpos))
+}
+
+.rcpp_stridev_write_bits <- function(y, v, condition, na, startpos, endpos) {
+    .Call(`_squarebrackets_rcpp_stridev_write_bits`, y, v, condition, na, startpos, endpos)
 }
 
 .rcpp_stridev_pool <- function(y, v, preplist, prepvector, condition, na) {

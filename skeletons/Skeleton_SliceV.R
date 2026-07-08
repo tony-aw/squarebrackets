@@ -1,3 +1,4 @@
+
 source("source.R")
 
 
@@ -86,7 +87,6 @@ SEXP rcpp_slicev_x_<Rcpp_Type>(
   const R_xlen_t last_total = prepvector[1];
   const R_xlen_t count_total = prepvector[2];
   const R_xlen_t rnglen_total = prepvector[3];
-  const R_xlen_t indexform = prepvector[4];
   
   if(count_total == 0) {
     stop(\"no matches\");
@@ -94,116 +94,64 @@ SEXP rcpp_slicev_x_<Rcpp_Type>(
   
   SEXP out = PROTECT(Rf_allocVector(<SXP_TYPE>, count_total));
   <COMMENT> <scalar_type> *pout = <FUN_TYPE>(out);
+
   
-  if(indexform == 0) {
+  NumericVector first = preplist[0];
+  NumericVector last = preplist[1];
+  NumericVector count = preplist[2];
+  NumericVector rnglen = preplist[3];
+  const int n_chunks = Rf_length(first);
+  
+  R_xlen_t outcount = 0;
+  
+  for(int j = 0; j < n_chunks; ++j) {
+    SEXP b32 = VECTOR_ELT(pool, j);
     
-    NumericVector first = preplist[0];
-    NumericVector last = preplist[1];
-    NumericVector count = preplist[2];
-    NumericVector rnglen = preplist[3];
-    const int n_chunks = Rf_length(first);
+    const R_xlen_t current_count = count[j];
+    const R_xlen_t current_rnglen = rnglen[j];
     
-    R_xlen_t outcount = 0;
-    
-    for(int j = 0; j < n_chunks; ++j) {
-      SEXP temp = VECTOR_ELT(pool, j);
+    if(current_count == 0) {
+      continue;
+    }
+    else if(current_count == 1) {
+      const R_xlen_t first0 = first[j];
+      <SET_FUN>out, outcount, px[first0]);
+      outcount++;
+    }
+    else if(current_count == 2) {
+      const R_xlen_t first0 = first[j];
+      const R_xlen_t last0 = last[j];
       
-      const R_xlen_t current_count = count[j];
-      const R_xlen_t current_rnglen = rnglen[j];
+      <SET_FUN>out, outcount, px[first0]);
+      outcount++;
       
-      if(current_count == 0) {
-        continue;
-      }
-      else if(current_count == 1) {
-        const R_xlen_t first0 = first[j];
-        <SET_FUN>out, outcount, px[first0]);
+      <SET_FUN>out, outcount, px[last0]);
+      outcount++;
+    }
+    else if(current_count == current_rnglen) {
+      const R_xlen_t first0 = first[j];
+      const R_xlen_t last0 = last[j];
+      
+      for(R_xlen_t i = first0; i <= last0; ++i) {
+        <SET_FUN>out, outcount, px[i]);
         outcount++;
       }
-      else if(current_count == 2) {
-        const R_xlen_t first0 = first[j];
-        const R_xlen_t last0 = last[j];
-        
-        <SET_FUN>out, outcount, px[first0]);
-        outcount++;
-        
-        <SET_FUN>out, outcount, px[last0]);
-        outcount++;
-      }
-      else if(current_count == current_rnglen) {
-        const R_xlen_t first0 = first[j];
-        const R_xlen_t last0 = last[j];
-        
-        for(R_xlen_t i = first0; i <= last0; ++i) {
-          <SET_FUN>out, outcount, px[i]);
-          outcount++;
-        }
-      }
-      else if(TYPEOF(temp) == RAWSXP) {
-        const Rbyte *ptemp = RAW_RO(temp);
-        R_xlen_t boolcount = 0;
-        const R_xlen_t first0 = first[j];
-        const R_xlen_t last0 = last[j];
-        
-        for(R_xlen_t i = first0; i <= last0; ++i) {
-          if(ptemp[boolcount]) {
-            <SET_FUN>out, outcount, px[i]);
-            outcount++;
-          }
-          
-          boolcount++;
-        }
-      }
     }
-    
-    
-    
-    UNPROTECT(1);
-    return out;
-    
-  }
-  else if(indexform == 1) {
-  
-    const double *ppool = REAL_RO(pool);
-    const R_xlen_t n = Rf_xlength(pool);
-    for(R_xlen_t i = 0; i < n; ++i) {
-      <SET_FUN>out, i, px[(R_xlen_t)ppool[i]]);
+    else {
+      const R_xlen_t first0 = first[j];
+      const R_xlen_t last0 = last[j];
+      R_xlen_t i = first0;
+      MACRO_STRIDEV_BITS_TRANSFER(
+        <SET_FUN>out, outcount++, px[i]),
+        first0,
+        last0
+      );
     }
-    
-    UNPROTECT(1);
-    return out;
-    
   }
-  else if(indexform == -1) {
-    const R_xlen_t pool_len = Rf_xlength(pool);
-    const R_xlen_t n = Rf_xlength(x);
-    double* ppool = REAL(pool);
-  
-    R_xlen_t last_idx = 0;
-    R_xlen_t counter = 0;
     
-    for (R_xlen_t i = 0; i < pool_len; ++i) {
-        
-      R_xlen_t skip = ppool[i];
-      
-      for (R_xlen_t j = last_idx; j < skip; ++j) {
-        <SET_FUN>out, counter, px[j]);
-        counter++;
-      }
-      
-      last_idx = skip + 1;
-    }
+  UNPROTECT(1);
+  return out;
     
-    for (R_xlen_t j = last_idx; j < n; ++j) {
-        <SET_FUN>out, counter, px[j]);
-        counter++;
-    }
-    
-    UNPROTECT(1);
-    return out;
-  }
-  else {
-    stop(\"unknown type of pool given\");
-  }
 }
 
 "
@@ -251,7 +199,7 @@ SEXP rcpp_slicev_x_atomic(
 cat(code_slicev_x)
 
 
-code <- stri_paste(header_for_source, code_slicev_x)
+code <- stri_paste(header_for_source, macros, code_slicev_x)
 cat(code)
 Rcpp::sourceCpp(code = code) # no errors, good!
 
@@ -275,7 +223,6 @@ void rcpp_slicev_set_<Rcpp_Type>(
   const R_xlen_t last_total = prepvector[1];
   const R_xlen_t count_total = prepvector[2];
   const R_xlen_t rnglen_total = prepvector[3];
-  const R_xlen_t indexform = prepvector[4];
   
   R_xlen_t rpcount = 0;
   
@@ -294,103 +241,58 @@ void rcpp_slicev_set_<Rcpp_Type>(
     stop(\"no matches\");
   }
   
-  if(indexform == 0) {
+  
+  NumericVector first = preplist[0];
+  NumericVector last = preplist[1];
+  NumericVector count = preplist[2];
+  NumericVector rnglen = preplist[3];
+  const int n_chunks = Rf_length(first);
+  
+  
+  for(int j = 0; j < n_chunks; ++j) {
+    SEXP b32 = VECTOR_ELT(pool, j);
     
-    NumericVector first = preplist[0];
-    NumericVector last = preplist[1];
-    NumericVector count = preplist[2];
-    NumericVector rnglen = preplist[3];
-    const int n_chunks = Rf_length(first);
+    const R_xlen_t current_count = count[j];
+    const R_xlen_t current_rnglen = rnglen[j];
     
-    R_xlen_t rpcount = 0;
     
-    for(int j = 0; j < n_chunks; ++j) {
-      SEXP temp = VECTOR_ELT(pool, j);
-      
-      const R_xlen_t current_count = count[j];
-      const R_xlen_t current_rnglen = rnglen[j];
-      
-      
-      if(current_count == 0) {
-        continue;
-      }
-      else if(current_count == 1) {
-        const R_xlen_t first0 = first[j];
-        <SET_FUN>x, first0, prp[rpcount]);
-        rpcount += by_rp;
-      }
-      else if(current_count == 2) {
-        const R_xlen_t first0 = first[j];
-        const R_xlen_t last0 = last[j];
-        
-        <SET_FUN>x, first0, prp[rpcount]);
-        rpcount += by_rp;
-        
-        <SET_FUN>x, last0, prp[rpcount]);
-        rpcount += by_rp;
-      }
-      else if(current_count == current_rnglen) {
-        const R_xlen_t first0 = first[j];
-        const R_xlen_t last0 = last[j];
-        
-        for(R_xlen_t i = first0; i <= last0; ++i) {
-          <SET_FUN>x, i, prp[rpcount]);
-          rpcount += by_rp;
-        }
-      }
-      else if(TYPEOF(temp) == RAWSXP) {
-        const Rbyte *ptemp = RAW_RO(temp);
-        R_xlen_t boolcount = 0;
-        const R_xlen_t first0 = first[j];
-        const R_xlen_t last0 = last[j];
-        
-        for(R_xlen_t i = first0; i <= last0; ++i) {
-          if(ptemp[boolcount]) {
-            <SET_FUN>x, i, prp[rpcount]);
-            rpcount += by_rp;
-          }
-          
-          boolcount++;
-        }
-      }
+    if(current_count == 0) {
+      continue;
     }
-  }
-  else if(indexform == 1) {
-    
-    const double *ppool = REAL_RO(pool);
-    const R_xlen_t n = Rf_xlength(pool);
-    for(R_xlen_t i = 0; i < n; ++i) {
-      rpcount = i * by_rp;
-      <SET_FUN>x, (R_xlen_t)ppool[i], prp[rpcount]);
-    }
-    
-  }
-  else if(indexform == -1) {
-    const R_xlen_t count = Rf_xlength(pool);
-    const R_xlen_t n = Rf_xlength(x);
-    
-    double* ppool = REAL(pool);
-    
-    R_xlen_t last_idx = 0;
-    
-    for (R_xlen_t i = 0; i < count; ++i) {
-      R_xlen_t skip = ppool[i];
-      
-      for (R_xlen_t j = last_idx; j < skip; ++j) {
-        <SET_FUN>x, j, prp[rpcount]);
-        rpcount += by_rp;
-      }
-      
-      last_idx = skip + 1;
-    }
-    
-    for (R_xlen_t j = last_idx; j < n; ++j) {
-      <SET_FUN>x, j, prp[rpcount]);
+    else if(current_count == 1) {
+      const R_xlen_t first0 = first[j];
+      <SET_FUN>x, first0, prp[rpcount]);
       rpcount += by_rp;
     }
-  }
-  else {
-    stop(\"unknown type of pool given\");
+    else if(current_count == 2) {
+      const R_xlen_t first0 = first[j];
+      const R_xlen_t last0 = last[j];
+      
+      <SET_FUN>x, first0, prp[rpcount]);
+      rpcount += by_rp;
+      
+      <SET_FUN>x, last0, prp[rpcount]);
+      rpcount += by_rp;
+    }
+    else if(current_count == current_rnglen) {
+      const R_xlen_t first0 = first[j];
+      const R_xlen_t last0 = last[j];
+      
+      for(R_xlen_t i = first0; i <= last0; ++i) {
+        <SET_FUN>x, i, prp[rpcount]);
+        rpcount += by_rp;
+      }
+    }
+    else {
+      const R_xlen_t first0 = first[j];
+      const R_xlen_t last0 = last[j];
+      R_xlen_t i = first0;
+      MACRO_STRIDEV_BITS_TRANSFER(
+        <SET_FUN>x, i, prp[rpcount]); rpcount += by_rp,
+        first0,
+        last0
+      );
+    }
   }
 }
 
@@ -440,7 +342,7 @@ void rcpp_slicev_set_atomic(
 cat(code_slicev_set)
 
 
-code <- stri_paste(header_for_source, code_slicev_set)
+code <- stri_paste(header_for_source, macros, code_slicev_set)
 cat(code)
 Rcpp::sourceCpp(code = code) # no errors, good!
 
@@ -449,7 +351,7 @@ Rcpp::sourceCpp(code = code) # no errors, good!
 # combining code ====
 #
 
-rcpp_code <- paste(c(header_for_source, code_slicev_x, code_slicev_set), collapse = "\n\n\n")
+rcpp_code <- paste(c(header_for_source, macros, code_slicev_x, code_slicev_set), collapse = "\n\n\n")
 cat(rcpp_code)
 
 Rcpp::sourceCpp(
@@ -462,4 +364,3 @@ setwd("..")
 fileConn <- file("src/dynamic_rcpp_slicev.cpp")
 writeLines(code, fileConn)
 close(fileConn)
-

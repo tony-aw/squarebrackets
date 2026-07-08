@@ -7,8 +7,6 @@
 using namespace Rcpp;
 
 
-
-
 //' @keywords internal
  //' @noRd
  // [[Rcpp::export(.rcpp_stridev_chunks)]]
@@ -104,30 +102,14 @@ using namespace Rcpp;
      }
    }
    
-   R_xlen_t rnglen_total;
-   if(count_total == 0) {
-     rnglen_total = 0;
-   }
-   else {
-     rnglen_total = last_total - first_total + 1;
-   }
+   R_xlen_t rnglen_total = last_total - first_total + 1;
    
-   int indexform = 0;
    
-   if(allocsize > 8 && count_total < std::floor((double)allocsize / 8)) {
-     indexform = 1;
-   }
-   
-   if(allocsize > 24 && (n - count_total) < std::floor((double)allocsize / 24)) {
-     indexform = -1;
-   }
-   
-   NumericVector out(5);
+   NumericVector out(4);
    out[0] = first_total;
    out[1] = last_total;
    out[2] = count_total;
    out[3] = rnglen_total;
-   out[4] = indexform;
    
    return(out);
    
@@ -136,10 +118,72 @@ using namespace Rcpp;
 
 //' @keywords internal
  //' @noRd
+ // [[Rcpp::export(.rcpp_stridev_transfer_bits)]]
+ void rcpp_stridev_transfer_bits(IntegerVector b32, LogicalVector out, R_xlen_t startpos, R_xlen_t endpos) {
+   
+   int *pout = LOGICAL(out);
+   R_xlen_t n = Rf_xlength(out);
+   for(R_xlen_t i = 0; i < n; ++i ) {
+     pout[i] = 0;
+   }
+   
+   R_xlen_t i = startpos;
+   MACRO_STRIDEV_BITS_TRANSFER(
+     pout[i++] = 1,
+     startpos,
+     endpos
+   );
+ }
+
+//' @keywords internal
+ //' @noRd
+ // [[Rcpp::export(.rcpp_stridev_write_bits)]]
+ IntegerVector rcpp_stridev_write_bits(SEXP y, SEXP v, bool condition, LogicalVector na, R_xlen_t startpos, R_xlen_t endpos) {
+   
+   MACRO_STRIDEV_TYPESWITCH(MACRO_STRIDEV_BITS_WRITE);
+   
+ }
+
+
+//' @keywords internal
+ //' @noRd
  // [[Rcpp::export(.rcpp_stridev_pool)]]
- SEXP rcpp_pool(
+ List rcpp_pool(
      SEXP y, SEXP v, List preplist, NumericVector prepvector, bool condition, LogicalVector na
  ) {
    
-   MACRO_STRIDEV_TYPESWITCH(MACRO_STRIDEV_POOL);
+   const R_xlen_t first_total = prepvector[0];
+   const R_xlen_t last_total = prepvector[1];
+   const R_xlen_t count_total = prepvector[2];
+   const R_xlen_t rnglen_total = prepvector[3];
+   
+   const R_xlen_t n = Rf_xlength(y);
+   
+   NumericVector first = preplist[0];
+   NumericVector last = preplist[1];
+   NumericVector count = preplist[2];
+   NumericVector rnglen = preplist[3];
+   const int n_chunks = Rf_length(first);
+   List out(n_chunks);
+   
+   for(int j = 0; j < n_chunks; ++j) {
+     const R_xlen_t current_count = count[j];
+     const R_xlen_t current_rnglen = rnglen[j];
+     const R_xlen_t startpos = first[j];
+     const R_xlen_t endpos = last[j];
+     
+     if(current_count == current_rnglen) {
+       out[j] = R_NilValue;
+     }
+     else if(current_count <= 2) {
+       out[j] = R_NilValue;
+     }
+     else {
+       IntegerVector temp = rcpp_stridev_write_bits(y, v, condition, na, startpos, endpos);
+       out[j] = temp;
+     }
+   }
+   
+   return out;
+   
  }

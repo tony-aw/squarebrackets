@@ -10,6 +10,13 @@ convert_macro <- function(x) {
 }
 
 
+n <- 1e8
+count <- ceiling(n/16)
+rawsize <- n
+count <- n - count
+numsize <- (n - count) * 8
+rawsize; numsize
+
 
 header <- "
 
@@ -37,6 +44,144 @@ inline int inline_count_stringmatches(SEXP y, SEXP v) {
 }
 
 "
+
+# bits ====
+
+macro_write_bits <- "
+#define MACRO_STRIDEV_BITS_WRITE(CONDITIONCODE) do {
+    R_xlen_t _strv_n = endpos - startpos + 1; 
+    R_len_t _strv_num_ints = _strv_n / 32;
+    
+    IntegerVector b32(_strv_num_ints + 1); 
+    unsigned int* _strv_pb32 = (unsigned int*)INTEGER(b32); 
+    
+    R_xlen_t i = startpos; 
+    
+    /* MAIN LOOP */ 
+    for (R_xlen_t _strv_int_idx = 0; _strv_int_idx < _strv_num_ints; ++_strv_int_idx) { 
+        
+        
+        unsigned int _strv_reg = 0; 
+        _strv_reg |= ((unsigned int)((CONDITIONCODE)==condition) << 0);  i++; 
+        _strv_reg |= ((unsigned int)((CONDITIONCODE)==condition) << 1);  i++; 
+        _strv_reg |= ((unsigned int)((CONDITIONCODE)==condition) << 2);  i++; 
+        _strv_reg |= ((unsigned int)((CONDITIONCODE)==condition) << 3);  i++; 
+        _strv_reg |= ((unsigned int)((CONDITIONCODE)==condition) << 4);  i++; 
+        _strv_reg |= ((unsigned int)((CONDITIONCODE)==condition) << 5);  i++; 
+        _strv_reg |= ((unsigned int)((CONDITIONCODE)==condition) << 6);  i++; 
+        _strv_reg |= ((unsigned int)((CONDITIONCODE)==condition) << 7);  i++; 
+        _strv_reg |= ((unsigned int)((CONDITIONCODE)==condition) << 8);  i++; 
+        _strv_reg |= ((unsigned int)((CONDITIONCODE)==condition) << 9);  i++; 
+        _strv_reg |= ((unsigned int)((CONDITIONCODE)==condition) << 10); i++; 
+        _strv_reg |= ((unsigned int)((CONDITIONCODE)==condition) << 11); i++; 
+        _strv_reg |= ((unsigned int)((CONDITIONCODE)==condition) << 12); i++; 
+        _strv_reg |= ((unsigned int)((CONDITIONCODE)==condition) << 13); i++; 
+        _strv_reg |= ((unsigned int)((CONDITIONCODE)==condition) << 14); i++; 
+        _strv_reg |= ((unsigned int)((CONDITIONCODE)==condition) << 15); i++; 
+        _strv_reg |= ((unsigned int)((CONDITIONCODE)==condition) << 16); i++; 
+        _strv_reg |= ((unsigned int)((CONDITIONCODE)==condition) << 17); i++; 
+        _strv_reg |= ((unsigned int)((CONDITIONCODE)==condition) << 18); i++; 
+        _strv_reg |= ((unsigned int)((CONDITIONCODE)==condition) << 19); i++; 
+        _strv_reg |= ((unsigned int)((CONDITIONCODE)==condition) << 20); i++; 
+        _strv_reg |= ((unsigned int)((CONDITIONCODE)==condition) << 21); i++; 
+        _strv_reg |= ((unsigned int)((CONDITIONCODE)==condition) << 22); i++; 
+        _strv_reg |= ((unsigned int)((CONDITIONCODE)==condition) << 23); i++; 
+        _strv_reg |= ((unsigned int)((CONDITIONCODE)==condition) << 24); i++; 
+        _strv_reg |= ((unsigned int)((CONDITIONCODE)==condition) << 25); i++; 
+        _strv_reg |= ((unsigned int)((CONDITIONCODE)==condition) << 26); i++; 
+        _strv_reg |= ((unsigned int)((CONDITIONCODE)==condition) << 27); i++; 
+        _strv_reg |= ((unsigned int)((CONDITIONCODE)==condition) << 28); i++; 
+        _strv_reg |= ((unsigned int)((CONDITIONCODE)==condition) << 29); i++; 
+        _strv_reg |= ((unsigned int)((CONDITIONCODE)==condition) << 30); i++; 
+        _strv_reg |= ((unsigned int)((CONDITIONCODE)==condition) << 31); i++; 
+        
+        
+        _strv_pb32[_strv_int_idx] = _strv_reg; 
+    } 
+    
+    /* TAIL HANDLER */ 
+    R_xlen_t _strv_rem = _strv_n % 32; 
+    if (_strv_rem > 0) { 
+        unsigned int _strv_reg = 0; 
+        for (int _strv_b = 0; _strv_b < _strv_rem; ++_strv_b) { 
+            if (((CONDITIONCODE)==condition) == 1) { 
+                _strv_reg |= ((unsigned int)1 << _strv_b); 
+            } 
+            i++; 
+        } 
+        _strv_pb32[_strv_num_ints] = _strv_reg; 
+    } 
+    return b32; 
+} while(0)
+"
+macro_write_bits <- convert_macro(macro_write_bits)
+
+macro_read_bits <- "
+#define MACRO_STRIDEV_BITS_TRANSFER(DOCODE, STARTPOS, ENDPOS) do { 
+    R_xlen_t _strv_n = (ENDPOS) - (STARTPOS) + 1; 
+    int* _strv_native_ptr = INTEGER(b32); 
+    unsigned int* _strv_pb32 = (unsigned int*)_strv_native_ptr; 
+    
+    R_xlen_t _strv_num_ints = _strv_n / 32; 
+    R_xlen_t i = (STARTPOS); 
+    
+    /* MAIN LOOP */ 
+    for (R_xlen_t _strv_int_idx = 0; _strv_int_idx < _strv_num_ints; ++_strv_int_idx) { 
+        unsigned int _strv_current_int = _strv_pb32[_strv_int_idx]; 
+        int _strv_bval; 
+        
+        _strv_bval = (_strv_current_int >> 0)  & 1; if (_strv_bval) { DOCODE; } i++; 
+        _strv_bval = (_strv_current_int >> 1)  & 1; if (_strv_bval) { DOCODE; } i++; 
+        _strv_bval = (_strv_current_int >> 2)  & 1; if (_strv_bval) { DOCODE; } i++; 
+        _strv_bval = (_strv_current_int >> 3)  & 1; if (_strv_bval) { DOCODE; } i++; 
+        _strv_bval = (_strv_current_int >> 4)  & 1; if (_strv_bval) { DOCODE; } i++; 
+        _strv_bval = (_strv_current_int >> 5)  & 1; if (_strv_bval) { DOCODE; } i++; 
+        _strv_bval = (_strv_current_int >> 6)  & 1; if (_strv_bval) { DOCODE; } i++; 
+        _strv_bval = (_strv_current_int >> 7)  & 1; if (_strv_bval) { DOCODE; } i++; 
+        _strv_bval = (_strv_current_int >> 8)  & 1; if (_strv_bval) { DOCODE; } i++; 
+        _strv_bval = (_strv_current_int >> 9)  & 1; if (_strv_bval) { DOCODE; } i++; 
+        _strv_bval = (_strv_current_int >> 10) & 1; if (_strv_bval) { DOCODE; } i++; 
+        _strv_bval = (_strv_current_int >> 11) & 1; if (_strv_bval) { DOCODE; } i++; 
+        _strv_bval = (_strv_current_int >> 12) & 1; if (_strv_bval) { DOCODE; } i++; 
+        _strv_bval = (_strv_current_int >> 13) & 1; if (_strv_bval) { DOCODE; } i++; 
+        _strv_bval = (_strv_current_int >> 14) & 1; if (_strv_bval) { DOCODE; } i++; 
+        _strv_bval = (_strv_current_int >> 15) & 1; if (_strv_bval) { DOCODE; } i++; 
+        _strv_bval = (_strv_current_int >> 16) & 1; if (_strv_bval) { DOCODE; } i++; 
+        _strv_bval = (_strv_current_int >> 17) & 1; if (_strv_bval) { DOCODE; } i++; 
+        _strv_bval = (_strv_current_int >> 18) & 1; if (_strv_bval) { DOCODE; } i++; 
+        _strv_bval = (_strv_current_int >> 19) & 1; if (_strv_bval) { DOCODE; } i++; 
+        _strv_bval = (_strv_current_int >> 20) & 1; if (_strv_bval) { DOCODE; } i++; 
+        _strv_bval = (_strv_current_int >> 21) & 1; if (_strv_bval) { DOCODE; } i++; 
+        _strv_bval = (_strv_current_int >> 22) & 1; if (_strv_bval) { DOCODE; } i++; 
+        _strv_bval = (_strv_current_int >> 23) & 1; if (_strv_bval) { DOCODE; } i++; 
+        _strv_bval = (_strv_current_int >> 24) & 1; if (_strv_bval) { DOCODE; } i++; 
+        _strv_bval = (_strv_current_int >> 25) & 1; if (_strv_bval) { DOCODE; } i++; 
+        _strv_bval = (_strv_current_int >> 26) & 1; if (_strv_bval) { DOCODE; } i++; 
+        _strv_bval = (_strv_current_int >> 27) & 1; if (_strv_bval) { DOCODE; } i++; 
+        _strv_bval = (_strv_current_int >> 28) & 1; if (_strv_bval) { DOCODE; } i++; 
+        _strv_bval = (_strv_current_int >> 29) & 1; if (_strv_bval) { DOCODE; } i++; 
+        _strv_bval = (_strv_current_int >> 30) & 1; if (_strv_bval) { DOCODE; } i++; 
+        _strv_bval = (_strv_current_int >> 31) & 1; if (_strv_bval) { DOCODE; } i++; 
+    } 
+    
+    /* TAIL HANDLER */ 
+    R_xlen_t _strv_rem = _strv_n % 32; 
+    if (_strv_rem > 0) { 
+        unsigned int _strv_current_int = _strv_pb32[_strv_num_ints]; 
+        int _strv_bval; 
+        for (int _strv_b = 0; _strv_b < _strv_rem; ++_strv_b) { 
+            _strv_bval = (_strv_current_int >> _strv_b) & 1; 
+            if (_strv_bval) { 
+                { DOCODE; } 
+            } 
+            i++;
+        } 
+    } 
+} while(0)
+"
+
+macro_read_bits <- convert_macro(macro_read_bits)
+
 
 # prep ====
 
@@ -119,84 +264,34 @@ macro_stridev_pool <- "
   const int indexform = prepvector[4];
   
   const R_xlen_t n = Rf_xlength(y);
-  
-  
-  if(indexform == 0) {
-    
-    NumericVector first = preplist[0];
-    NumericVector last = preplist[1];
-    NumericVector count = preplist[2];
-    NumericVector rnglen = preplist[3];
-    const int n_chunks = Rf_length(first);
-    List out(n_chunks);
-    
-    for(int j = 0; j < n_chunks; ++j) {
-      const R_xlen_t current_count = count[j];
-      const R_xlen_t current_rnglen = rnglen[j];
-      
-      if(current_count == current_rnglen) {
-        out[j] = R_NilValue;
-      }
-      else if(current_count <= 2) {
-        out[j] = R_NilValue;
-      }
-      else {
-        RawVector temp(current_rnglen);
-        Rbyte *ptemp = RAW(temp);
-        R_xlen_t counter = 0;
-        
-        const R_xlen_t first0 = first[j];
-        const R_xlen_t last0 = last[j];
-        
-        for(R_xlen_t i = first0; i <= last0; ++i) {
-          ptemp[counter] = (CONDITIONCODE) == condition;
-          counter++;
-        }
-        
-        out[j] = temp;
-        
-      }
-    }
-    return out;
-  }
-  else if(indexform == 1) {
-    SEXP out = PROTECT(Rf_allocVector(REALSXP, count_total));
-    double *pout = REAL(out);
-    R_xlen_t counter = 0;
-    
-    for(R_xlen_t i = first_total; i <= last_total; ++i) {
-      if((CONDITIONCODE) == condition) {
-        pout[counter] = i;
-        counter++;
-      }
-    }
-    
-    UNPROTECT(1);
-    return out;
-  }
-  else if(indexform == -1) {
-    SEXP out = PROTECT(Rf_allocVector(REALSXP, n - count_total));
-    double *pout = REAL(out);
-    R_xlen_t counter = 0;
-    
-    for(R_xlen_t i = 0; i < n; ++i) {
-      if((CONDITIONCODE) != condition) {
-        pout[counter] = i;
-        counter++;
-      }
-    }
-    
-    UNPROTECT(1);
-    return out;
-  }
-  else {
-    stop(\"unknown indexform given\");
-  }
 
+  NumericVector first = preplist[0];
+  NumericVector last = preplist[1];
+  NumericVector count = preplist[2];
+  NumericVector rnglen = preplist[3];
+  const int n_chunks = Rf_length(first);
+  List out(n_chunks);
+  
+  for(int j = 0; j < n_chunks; ++j) {
+    const R_xlen_t current_count = count[j];
+    const R_xlen_t current_rnglen = rnglen[j];
+    
+    if(current_count == current_rnglen) {
+      out[j] = R_NilValue;
+    }
+    else if(current_count <= 2) {
+      out[j] = R_NilValue;
+    }
+    else {
+      out[j] = rcpp_stridev_bits_write(y, v, condition, na, startpos, endpos);
+    }
+  }
+  
 } while(0)
 "
 
 macro_stridev_pool <- convert_macro(macro_stridev_pool)
+
 
 
 
@@ -389,6 +484,7 @@ macro_stridev_string <- "
 } while(0)
 "
 
+
 # typeswitch ====
 
 macro_stridev_typeswitch <- "
@@ -439,6 +535,8 @@ macro_stridev_typeswitch <- convert_macro(macro_stridev_typeswitch)
 
 macros <- stringi::stri_c(
   inlines,
+  macro_write_bits,
+  macro_read_bits,
   macro_stridev_prep,
   macro_stridev_pool,
   macro_stridev_raw,
@@ -454,6 +552,4 @@ macros <- stringi::stri_c(
 
 Rcpp::sourceCpp(code = stri_c(header, macros))
 
-
 readr::write_file(macros, "macros_stridev.txt")
-

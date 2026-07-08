@@ -320,8 +320,37 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// rcpp_stridev_transfer_bits
+void rcpp_stridev_transfer_bits(IntegerVector b32, LogicalVector out, R_xlen_t startpos, R_xlen_t endpos);
+RcppExport SEXP _squarebrackets_rcpp_stridev_transfer_bits(SEXP b32SEXP, SEXP outSEXP, SEXP startposSEXP, SEXP endposSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type b32(b32SEXP);
+    Rcpp::traits::input_parameter< LogicalVector >::type out(outSEXP);
+    Rcpp::traits::input_parameter< R_xlen_t >::type startpos(startposSEXP);
+    Rcpp::traits::input_parameter< R_xlen_t >::type endpos(endposSEXP);
+    rcpp_stridev_transfer_bits(b32, out, startpos, endpos);
+    return R_NilValue;
+END_RCPP
+}
+// rcpp_stridev_write_bits
+IntegerVector rcpp_stridev_write_bits(SEXP y, SEXP v, bool condition, LogicalVector na, R_xlen_t startpos, R_xlen_t endpos);
+RcppExport SEXP _squarebrackets_rcpp_stridev_write_bits(SEXP ySEXP, SEXP vSEXP, SEXP conditionSEXP, SEXP naSEXP, SEXP startposSEXP, SEXP endposSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type y(ySEXP);
+    Rcpp::traits::input_parameter< SEXP >::type v(vSEXP);
+    Rcpp::traits::input_parameter< bool >::type condition(conditionSEXP);
+    Rcpp::traits::input_parameter< LogicalVector >::type na(naSEXP);
+    Rcpp::traits::input_parameter< R_xlen_t >::type startpos(startposSEXP);
+    Rcpp::traits::input_parameter< R_xlen_t >::type endpos(endposSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_stridev_write_bits(y, v, condition, na, startpos, endpos));
+    return rcpp_result_gen;
+END_RCPP
+}
 // rcpp_pool
-SEXP rcpp_pool(SEXP y, SEXP v, List preplist, NumericVector prepvector, bool condition, LogicalVector na);
+List rcpp_pool(SEXP y, SEXP v, List preplist, NumericVector prepvector, bool condition, LogicalVector na);
 RcppExport SEXP _squarebrackets_rcpp_pool(SEXP ySEXP, SEXP vSEXP, SEXP preplistSEXP, SEXP prepvectorSEXP, SEXP conditionSEXP, SEXP naSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -482,6 +511,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_squarebrackets_rcpp_stridev_chunks", (DL_FUNC) &_squarebrackets_rcpp_stridev_chunks, 1},
     {"_squarebrackets_rcpp_stridev_preplist", (DL_FUNC) &_squarebrackets_rcpp_stridev_preplist, 5},
     {"_squarebrackets_rcpp_stridev_prepvector", (DL_FUNC) &_squarebrackets_rcpp_stridev_prepvector, 2},
+    {"_squarebrackets_rcpp_stridev_transfer_bits", (DL_FUNC) &_squarebrackets_rcpp_stridev_transfer_bits, 4},
+    {"_squarebrackets_rcpp_stridev_write_bits", (DL_FUNC) &_squarebrackets_rcpp_stridev_write_bits, 6},
     {"_squarebrackets_rcpp_pool", (DL_FUNC) &_squarebrackets_rcpp_pool, 6},
     {"_squarebrackets_rcpp_sub2coord", (DL_FUNC) &_squarebrackets_rcpp_sub2coord, 6},
     {"_squarebrackets_rcpp_sub2ind_d_32", (DL_FUNC) &_squarebrackets_rcpp_sub2ind_d_32, 2},

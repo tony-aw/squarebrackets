@@ -2,7 +2,7 @@
 # squarebrackets 0.0.0.9009
 * Replaced the `strid_pv()` stride function with the more generic `stride_v()` S3 method;
 Users can now create custom methods for it.
-* Moved the `use` argument from the `long_` methods into the `strid_` functions/methods.
+* Moved the `use` argument from the `long_` methods into the `stride_` functions/methods.
 * Streamlined the internal code here and there.
 
 # squarebrackets 0.0.0.9008

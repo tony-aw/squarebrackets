@@ -3,13 +3,15 @@
 
 enumerate <- 0L
 
-x.list <- list(
-  sample(c(TRUE, FALSE, NA), 100, TRUE),
-  sample(c(1:10, NA_integer_), 100, TRUE),
-  sample(c(1.5:10.5, Inf, -Inf, NA, NaN), 100, TRUE),
-  sample(c(1.5:10.5, Inf, -Inf, NA, NaN), 100, TRUE) + -1i * sample(c(1.5:10.5, Inf, -Inf, NA, NaN), 100, TRUE),
-  sample(c(letters, NA), 100, TRUE),
-  sample(as.raw(0:255), 100, TRUE)
+Lens <- c(1, 10, 32, 100, 2^16, 2^16+1)
+
+x.gendata <- list(
+  function(n) sample(c(TRUE, FALSE, NA), n, TRUE),
+  function(n) sample(c(1:10, NA_integer_), n, TRUE),
+  function(n) sample(c(1.5:10.5, Inf, -Inf, NA, NaN), n, TRUE),
+  function(n) sample(c(1.5:10.5, Inf, -Inf, NA, NaN), n, TRUE) + -1i * sample(c(1.5:10.5, Inf, -Inf, NA, NaN), n, TRUE),
+  function(n) sample(c(letters, NA), n, TRUE),
+  function(n) sample(as.raw(0:255), n, TRUE)
 )
 tf.list <- list(
   \(x) !x,
@@ -19,23 +21,23 @@ tf.list <- list(
   toupper,
   \(x) !x
 )
-rp.list <- list(
-  sample(c(TRUE, FALSE, NA), 100, TRUE),
-  sample(c(1:10, NA_integer_), 100, TRUE),
-  sample(c(1.5:10.5, Inf, -Inf, NA, NaN), 100, TRUE),
-  sample(c(1.5:10.5, Inf, -Inf, NA, NaN), 100, TRUE) + -1i * sample(c(1.5:10.5, Inf, -Inf, NA, NaN), 100, TRUE),
-  sample(c(letters, NA), 100, TRUE),
-  sample(as.raw(0:255), 100, TRUE)
+rp.gendata <- list(
+  function(n) sample(c(TRUE, FALSE, NA), n, TRUE),
+  function(n) sample(c(1:10, NA_integer_), n, TRUE),
+  function(n) sample(c(1.5:10.5, Inf, -Inf, NA, NaN), n, TRUE),
+  function(n) sample(c(1.5:10.5, Inf, -Inf, NA, NaN), n, TRUE) + -1i * sample(c(1.5:10.5, Inf, -Inf, NA, NaN), n, TRUE),
+  function(n) sample(c(letters, NA), n, TRUE),
+  function(n) sample(as.raw(0:255), n, TRUE)
 )
 
 
 # single ====
 
-y.list <- list(
-  sample(c(TRUE, FALSE, NA), 100, TRUE),
-  sample(c(1:10, NA_integer_), 100, TRUE),
-  sample(c(1.5:10.5, Inf, -Inf, NA, NaN), 100, TRUE),
-  sample(c(letters, NA), 100, TRUE)
+y.gendata <- list(
+  function(n) sample(c(TRUE, FALSE, NA), n, TRUE),
+  function(n) sample(c(1:10, NA_integer_), n, TRUE),
+  function(n) sample(c(1.5:10.5, Inf, -Inf, NA, NaN), n, TRUE),
+  function(n) sample(c(letters, NA), n, TRUE)
 )
 v.list <- list(
   FALSE,
@@ -44,73 +46,33 @@ v.list <- list(
   "a"
 )
 
+expected <- out <- vector("list", length(Lens) * length(x.gendata) * length(y.gendata) * 3 * 2)
+counter <- 1L
 
-for(iX in seq_along(x.list)) {
-  for(iY in seq_along(y.list)) {
-    for(iNA in c(TRUE, FALSE, NA)) {
-      for(iUse in c(1, -1)) {
-        
-        x <- as.mutatomic(x.list[[iX]])
-        x2 <- data.table::copy(x)
-        
-        y <- y.list[[iY]]
-        v <- v.list[[iY]]
-        len <- eval_stride(stride_v(y, v = v, na = iNA, use = iUse), x)$len
-        rp <- rp.list[[iX]][1:sample(c(1L, len), 1L)]
-        tf <- tf.list[[iX]]
-        
-        expect_equal(
-          basetest_single(x2, y = y, v = v, na = iNA, use = iUse),
-          slicetest(x, y = y, v = v, na = iNA, use = iUse)
-        ) |> errorfun()
-        
-        enumerate <- enumerate + 1L
-        
-      }
-    }
-  }
-}
-
-
-# numeric range ===
-y.list <- list(
-  sample(c(1:10, NA_integer_), 100, TRUE),
-  sample(c(1.5:10.5, Inf, -Inf, NA, NaN), 100, TRUE)
-)
-min.list <- list(
-  -Inf,
-  2.1,
-  -Inf,
-  2.1
-)
-max.list <- list(
-  Inf,
-  10,
-  10,
-  Inf
-)
-for(iX in seq_along(x.list)) {
-  for(iY in seq_along(y.list)) {
-    for(j in seq_along(min.list)) {
+for(iLen in Lens) {
+  for(iX in seq_along(x.gendata)) {
+    for(iY in seq_along(y.gendata)) {
       for(iNA in c(TRUE, FALSE, NA)) {
         for(iUse in c(1, -1)) {
           
-          x <- as.mutatomic(x.list[[iX]])
+          x <- as.mutatomic(x.gendata[[iX]](iLen))
           x2 <- data.table::copy(x)
           
-          y <- y.list[[iY]]
-          v <- c(min.list[[j]], max.list[[j]])
-          
-          tf <- tf.list[[iX]]
+          y <- y.gendata[[iY]](iLen)
+          v <- v.list[[iY]]
           len <- eval_stride(stride_v(y, v = v, na = iNA, use = iUse), x)$len
-          rp <- rp.list[[iX]][1:sample(c(1L, len), 1L)]
+          rp <- rp.gendata[[iX]](len)
+          tf <- tf.list[[iX]]
           
-          expect_equal(
-            basetest_numrng(x2, y = y, v = v, na = iNA, use = iUse),
-            slicetest(x, y = y, v = v, na = iNA, use = iUse)
-          ) |> errorfun()
+          # expect_equal(
+          #   basetest_single(x2, y = y, v = v, na = iNA, use = iUse),
+          #   slicetest(x, y = y, v = v, na = iNA, use = iUse)
+          # ) |> errorfun()
           
-          enumerate <- enumerate + 1L
+          expected[[counter]] <- basetest_single(x2, y = y, v = v, na = iNA, use = iUse)
+          out[[counter]] <- slicetest(x, y = y, v = v, na = iNA, use = iUse)
+          
+          counter <- counter + 1L
           
         }
       }
@@ -118,33 +80,118 @@ for(iX in seq_along(x.list)) {
   }
 }
 
+print("slicev single")
 
-# string, multiple ====
-for(iX in seq_along(x.list)) {
-  for(iNA in c(TRUE, FALSE, NA)) {
-    for(iUse in c(1, -1)) {
-      
-      
-      x <- as.mutatomic(x.list[[iX]])
-      x2 <- data.table::copy(x)
-      
-      y <- sample(c(month.abb, NA), 100, TRUE)
-      v <- sample(month.abb, 6L)
-      
-      tf <- tf.list[[iX]]
-      len <- eval_stride(stride_v(y, v = v, na = iNA, use = iUse), x)$len
-      rp <- rp.list[[iX]][1:sample(c(1L, len), 1L)]
-      
-      expect_equal(
-        basetest_str(x2, y = y, v = v, na = iNA, use = iUse),
-        slicetest(x, y = y, v = v, na = iNA, use = iUse)
-      ) |> errorfun()
-      
-      enumerate <- enumerate + 1L
-      
+expect_equal(
+  expected, out
+)
+enumerate <- enumerate + counter
+
+
+# numeric range ===
+y.gendata <- list(
+  function(n) sample(c(1:10, NA_integer_), n, TRUE),
+  function(n) sample(c(1.5:10.5, Inf, -Inf, NA, NaN), n, TRUE)
+)
+min.list <- list(
+  -Inf,
+  2.1,
+  -Inf,
+  2.1
+)
+max.gendata <- list(
+  Inf,
+  10,
+  10,
+  Inf
+)
+
+expected <- out <- vector("list", length(Lens) * length(x.gendata) * length(y.gendata) * 3 * 2)
+counter <- 1L
+
+for(iLen in Lens) {
+  for(iX in seq_along(x.gendata)) {
+    for(iY in seq_along(y.gendata)) {
+      for(j in seq_along(min.list)) {
+        for(iNA in c(TRUE, FALSE, NA)) {
+          for(iUse in c(1, -1)) {
+            
+            x <- as.mutatomic(x.gendata[[iX]](iLen))
+            x2 <- data.table::copy(x)
+            
+            y <- y.gendata[[iY]](iLen)
+            v <- c(min.list[[j]], max.gendata[[j]])
+            
+            tf <- tf.list[[iX]]
+            len <- eval_stride(stride_v(y, v = v, na = iNA, use = iUse), x)$len
+            rp <- rp.gendata[[iX]](len)
+            
+            # expect_equal(
+            #   basetest_numrng(x2, y = y, v = v, na = iNA, use = iUse),
+            #   slicetest(x, y = y, v = v, na = iNA, use = iUse)
+            # ) |> errorfun()
+            
+            expected[[counter]] <- basetest_numrng(x2, y = y, v = v, na = iNA, use = iUse)
+            out[[counter]] <- slicetest(x, y = y, v = v, na = iNA, use = iUse)
+            counter <- counter + 1L
+            
+          }
+        }
+      }
     }
   }
-  
 }
 
+print("slicev numeric range")
+
+expect_equal(
+  expected, out
+)
+enumerate <- enumerate + counter
+
+
+
+# string, multiple ====
+
+expected <- out <- vector("list", length(Lens) * length(x.gendata) * length(y.gendata) * 3 * 2)
+counter <- 1L
+
+for(iLen in Lens) {
+  for(iX in seq_along(x.gendata)) {
+    for(iNA in c(TRUE, FALSE, NA)) {
+      for(iUse in c(1, -1)) {
+        
+        
+        x <- as.mutatomic(x.gendata[[iX]](iLen))
+        x2 <- data.table::copy(x)
+        
+        y <- sample(c(month.abb, NA), iLen, TRUE)
+        v <- sample(month.abb, 6L)
+        
+        tf <- tf.list[[iX]]
+        len <- eval_stride(stride_v(y, v = v, na = iNA, use = iUse), x)$len
+        rp <- rp.gendata[[iX]](len)
+        
+        # expect_equal(
+        #   basetest_str(x2, y = y, v = v, na = iNA, use = iUse),
+        #   slicetest(x, y = y, v = v, na = iNA, use = iUse)
+        # ) |> errorfun()
+        
+        expected[[counter]] <- basetest_str(x2, y = y, v = v, na = iNA, use = iUse)
+        out[[counter]] <- slicetest(x, y = y, v = v, na = iNA, use = iUse)
+        
+        counter <- counter + 1L
+        
+      }
+    }
+    
+  }
+}
+
+print("slicev multiple strings")
+
+expect_equal(
+  expected, out
+)
+enumerate <- enumerate + counter
 
