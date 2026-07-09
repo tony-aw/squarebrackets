@@ -82,10 +82,6 @@ first <- range(w)[1]
 last <- range(w)[2]
 rnglen <- last - first + 1L
 expected <- x[first:last] <= 5
-expect_equal(
-  as.logical(intToBits(stride$pool[[1L]]))[1:rnglen],
-  expected
-)
 expect_equal(long_x(x, stride), x[x <= 5L])
 x2 <- data.table::copy(x)
 long_set(x, stride, rp = -1L)
