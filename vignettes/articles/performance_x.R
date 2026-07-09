@@ -99,15 +99,15 @@ save(bm.sb_x.dt, file = "bm.sb_x.dt.RData")
 
 
 # long ====
-x <- sample(1:10, 2e6, TRUE)
+x <- sample(1:10, 1e7, TRUE)
 ptrn <- c(TRUE, FALSE, FALSE, TRUE)
 
 bm.long_x <- bench::mark(
-  "pv in squarebrackets" = long_x(x, stride_v(x, 5)),
-  "pv in base R" = x[x == 5],
-  "seq in squarebrackets" = long_x(x, ~ 1:(.N - 10):2),
+  "value in squarebrackets" = long_x(x, stride_v(x, v = 5)),
+  "value in base R" = x[x == 5],
+  "seq in squarebrackets" = long_x(x, ~ 1:(.N - 10):2:1),
   "seq in base R" = x[seq(1, length(x) - 10, 2)],
-  "ptrn in squarebrackets" = long_x(x, ~ 1:(.N - 10):ptrn),
+  "ptrn in squarebrackets" = long_x(x, ~ 1:(.N - 10):ptrn:1),
   "ptrn in base R" = x[ (1:(length(x) - 10))[ptrn] ],
   check = FALSE,
   min_iterations = 100

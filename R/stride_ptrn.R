@@ -119,5 +119,6 @@ ptrn_len <- function(start, end, ptrn) {
   
 }
 
-
+#' @importFrom methods setOldClass
+setOldClass(c("stride_ptrn", 'stride'))
 

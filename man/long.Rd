@@ -33,7 +33,7 @@ For \code{long_set()} it must be a \link{mutatomic} \bold{variable}.}
 
 \item{use.names}{Boolean, indicating if flat names should be preserved. \cr
 Note that, since the \code{long_} methods operates on
-\bold{virtual} \link[=squarebrackets_indx_fundamentals]{interior indices}
+\bold{virtual} \link[=squarebrackets_index_fundamentals]{interior indices}
 of an array/vector only,
 dimensions and \code{dimnames} are always dropped. \cr
 \ifelse{html}{\figure{for_performance-set_to_FALSE-red.svg}{options: alt='[for performance: set to FALSE]'}}{\link[=squarebrackets_help]{for performance: set to FALSE}}}
@@ -43,7 +43,8 @@ dimensions and \code{dimnames} are always dropped. \cr
 \item{rp, tf}{see \link{squarebrackets_modify}.}
 }
 \value{
-Similar to the \code{ii_} methods.
+For \code{long_x()}: returns the sub-setted object. \cr
+Fr \code{long_set()}: returns nothing, but modifies the object by reference. \cr
 }
 \description{
 The \code{long_} - methods are similar to the \code{ii_} - methods,
@@ -76,7 +77,7 @@ long_x(x, ~ 2:9:1:1)
 # reverse:
 long_x(x, ~ 9:2:1:1)
 
-# remove ll elements except the last 10:
+# remove all elements except the last 10:
 long_x(x, ~ 1:(.N - 10):1:-1)
 
 # replace every other element:

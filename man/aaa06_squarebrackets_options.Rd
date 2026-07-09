@@ -12,7 +12,7 @@ and how it affects the functionality. \cr \cr
 
 \ifelse{html}{\figure{argument-chkdup-blue.svg}{options: alt='[argument: chkdup]'}}{\link[=squarebrackets_options]{argument: chkdup}} \cr
 \ifelse{html}{\figure{option-squarebrackets_dot_chkdup-blue.svg}{options: alt='[option: squarebrackets.chkdup]'}}{\link[=squarebrackets_options]{option: squarebrackets.chkdup}} \cr
-The \eqn{\ast}\verb{_x} methods are the only methods
+The \verb{_x} methods are the only methods
 where providing duplicate indices actually make sense. \cr
 For the other methods, it doesn't make sense. \cr
 Giving duplicate indices usually won't break anything;
@@ -42,12 +42,10 @@ The default can be changed in the \code{squarebrackets.chkdup} option. \cr
 The \link{long_x} methods
 can already handle names
 (through the \code{use.names} argument),
-attributes specific to the \link{mutatomic} class,
-and attributes specific to the \link{factor} class. \cr
+as well as attributes specific to the \link{mutatomic} class. \cr
 \cr
 Attributes which are not names,
-and not specific to \link{mutatomic} class,
-and not specific to the \link{factor} class -
+and not specific to \link{mutatomic} class -
 henceforth referred to as "other attributes" -
 are treated differently. \cr
 How the \link{long_x} methods
@@ -67,7 +65,7 @@ are automatically supported if \code{sticky = TRUE},
 and no separate methods have to written for
 the \link{long_x} methods. \cr
 Attributes specific to classes like
-\code{difftime}, \code{Date}, \code{POSIXct}, \code{roman}, \code{hexmode}, \code{octmode},
+\code{difftime}, \code{broadcaster},
 and more,
 use static attributes. \cr
 \cr

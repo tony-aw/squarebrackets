@@ -12,7 +12,7 @@
 #' @param rp,tf see \link{squarebrackets_modify}.
 #' @param use.names Boolean, indicating if flat names should be preserved. \cr
 #' Note that, since the `long_` methods operates on
-#' \bold{virtual} \link[=squarebrackets_indx_fundamentals]{interior indices}
+#' \bold{virtual} \link[=squarebrackets_index_fundamentals]{interior indices}
 #' of an array/vector only,
 #' dimensions and `dimnames` are always dropped. \cr
 #' `r .mybadge_performance_set2("FALSE")`
@@ -21,7 +21,8 @@
 #' 
 #'
 #' @returns
-#' Similar to the `ii_` methods.
+#' For `long_x()`: returns the sub-setted object. \cr
+#' Fr `long_set()`: returns nothing, but modifies the object by reference. \cr
 #' 
 #' @example inst/examples/long.R
 #
@@ -105,6 +106,3 @@ long_set.default <- function(
     stop("unknown type of `stride` given")
   }
 }
-
-
-

@@ -130,3 +130,6 @@ stride_v.default <- function(y, ..., v = NULL, na = FALSE, use = 1) {
   }
   
 }
+
+
+

@@ -65,4 +65,5 @@ stride_seq <- function(from, to, by, use = 1L) {
 }
 
 
-
+#' @importFrom methods setOldClass
+setOldClass(c("stride_seq", "stride"))

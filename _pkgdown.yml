@@ -20,11 +20,12 @@ reference:
   contents:
   - '`aaa00_squarebrackets_help`'
   - '`aaa01_squarebrackets_methods`'
-  - '`aaa02_squarebrackets_indx_fundamentals`'
+  - '`aaa02_squarebrackets_index_fundamentals`'
+  - '`aaa11_squarebrackets_keywords`'
 - title: Arguments Help Pages
   contents:
   - '`aaa03_squarebrackets_supported_structures`'
-  - '`aaa04_squarebrackets_indx_args`'
+  - '`aaa04_squarebrackets_index_args`'
   - '`aaa05_squarebrackets_modify`'
   - '`aaa06_squarebrackets_options`'
   - '`aaa07_squarebrackets_ellipsis`'
@@ -33,7 +34,6 @@ reference:
   contents:
   - '`aaa09_squarebrackets_PassByReference`'
   - '`aaa10_squarebrackets_coercion`'
-  - '`aaa11_squarebrackets_keywords`'
 - title: Main Methods
   contents:
   - '`ii_x`'

@@ -12,7 +12,15 @@
 #' @keywords internal
 #' @noRd
 .arr_x <- function(x, lst, abortcall) {
-  return(do.call(function(...)x[..., drop = FALSE], lst))
+  
+  mycall <- as.call(c(
+    list(quote(`[`)),
+    list(quote(x)),
+    lst,
+    drop = FALSE
+  ))
+  x <- eval(mycall)
+  return(x)
 }
 
 
@@ -26,8 +34,13 @@
     x[...] <- rp
     return(x)
   }
-  out <- do.call(temp.fun, lst)
-  return(out)
+  
+  mycall <- as.call(c(
+    list(quote(temp.fun)),
+    lst
+  ))
+  x <- eval(mycall)
+  return(x)
 }
 
 
@@ -35,12 +48,15 @@
 #' @noRd
 .arr_repl <- function(x, lst, rp, abortcall) {
   
-  temp.fun <- function(...) {
-    .check_rp(x, rp, prod(collapse::vlengths(lst)), abortcall) # used to be.arr_length(x, lst, d)
-    x[...] <- rp
-    return(x)
-  }
-  x <- do.call(temp.fun, lst)
+  .check_rp(x, rp, prod(collapse::vlengths(lst)), abortcall)
+  
+  mycall <- as.call(c(
+    list(quote(`[<-`)),
+    list(quote(x)),
+    lst,
+    value = list(rp)
+  ))
+  x <- eval(mycall)
   return(x)
 }
 
@@ -58,7 +74,7 @@
   
   if(!missing(tf)) {
     if(!is.function(tf)) stop(simpleError("`tf` must be a function", call = abortcall))
-    rp <- tf(do.call(\(...)x[...], lst))
+    rp <- tf(.arr_x(x, lst, abortcall))
   }
   rp <- .internal_coerce_rp(x, rp, abortcall)
   

@@ -15,7 +15,7 @@
 #'  * If the target is row indices, input nrow for `n`.
 #'  * If the target is flat indices, input the length for `n`.
 #' @param use 1 or -1, indicating how to use the indices. \cr
-#' See \link{squarebrackets_indx_args}.
+#' See \link{squarebrackets_index_args}.
 #' @param m a number giving the margin; set to `0` for dimensionless vectors.
 #' @param form a formula; see \link{keywords}.
 #' @param chkdup see \link{squarebrackets_options}. \cr

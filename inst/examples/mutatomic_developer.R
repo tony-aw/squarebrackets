@@ -5,12 +5,6 @@ testfun1 <- function(x) {
 }
 
 
-x <- 1:10
-is.mutatomic(x)
-
-testfun1(x)
-is.mutatomic(x) # FALSE, because it's ALTREP
-
 x <- sample(1:10)
 is.mutatomic(x)
 

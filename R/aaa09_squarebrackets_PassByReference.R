@@ -89,47 +89,6 @@
 #' \cr
 #' 
 #' 
-#' @section Mutability Rules With Respect To Recursive Objects:
-#' Lists are difficult objects in that they do not contain elements,
-#' they simply point to  other objects,
-#' that one can access via a list. \cr
-#' When a recursive object is of a mutable class,
-#' all its subsets are treated as mutable,
-#' as long as they are part of the object. \cr
-#' On the other hand,
-#' When a recursive object is of an immutable class,
-#' its recursive subsets retain their original mutability. \cr
-#' \cr
-#' \bold{Example 1: Mutable data.tables} \cr
-#' A `data.table` is a mutable class. \cr
-#' So all columns of the `data.table` are treated as mutable; \cr
-#' There is no requirement to, for instance,
-#' first change all columns into the class of \link{mutatomic}
-#' to modify these columns by reference. \cr
-#' \cr
-#' \bold{Example 2: Immutable lists} \cr
-#' A regular `list` is an immutable class. \cr
-#' So the list itself is immutable,
-#' but the recursive subsets of the list retain their mutability. \cr
-#' If you have a list of `mutatomic` objects, for example,
-#' the mutatomic objects themselves remain mutable. \cr
-#' Therefore, the following pass-by-reference modification will work without issue: \cr
-#' 
-#' ```{r}
-#' 
-#' x <- list(
-#'  a = mutatomic(letters[1:10]),
-#'  b = mutatomic(letters[11:20])
-#' )
-#' myref <- x$a
-#' ii_set(myref, 1, rp = "xxx")
-#' 
-#' ```
-#' Notice in the above code that `myref` has the same address as `x$a`,
-#' and is therefore not a copy of `x$a`. \cr
-#' Thus changing `myref` also changes `x$a`. \cr
-#' In other words: `myref` is what could be called a "\bold{View}" of `x$a`. \cr \cr
-#' 
 #' 
 #' @section Input Variable:
 #' Methods/functions that perform in-place modification by reference

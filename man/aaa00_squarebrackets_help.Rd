@@ -18,8 +18,8 @@ Some nice properties of these methods include, but are not limited to, the follo
 \item The \code{[} and \verb{[<-} operators use different rule-sets for different data.frame-like types (data.frames, data.tables, tibbles, tidytables, etc.); \cr The 'squarebrackets' methods use the same rule-sets for the different data.frame-like types.
 \item Performing dimensional subset operations on an array using \code{[} and \verb{[<-}, requires a-priori knowledge on the number of dimensions the array has; \cr The 'squarebrackets' methods work on any arbitrary dimensions without requiring such prior knowledge.
 \item Unlike the \code{[} and \verb{[<-} operators, the 'squarebrackets' methods will operate on duplicate names (not just the first match), use consistent syntax for inverting indices, and support the use of keywords through formulas.
-\item The \verb{[<-} operator only supports copy-on-modify semantics for most classes; \cr The 'squarebrackets' methods provides explicit pass-by-reference and pass-by-value semantics, whilst still respecting things like binding-locks and mutability rules.
-\item 'squarebrackets' supports index-less sub-set operations, which is more memory efficient (and better for the environment), for \verb{long vectors} than sub-set operations using the \code{[} and \verb{[<-} operators.\cr \cr
+\item The \verb{[<-} operator only supports copy-on-modify semantics for most classes; \cr The 'squarebrackets' methods provide explicit pass-by-reference and pass-by-value semantics, and do so safely.
+\item 'squarebrackets' supports index-less sub-set operations for \verb{long vectors}, which is more memory efficient than sub-set operations using the \code{[} and \verb{[<-} operators.\cr \cr
 }
 }
 \section{Goal}{
@@ -55,8 +55,10 @@ The essential documentation is split into the following help pages:
 \item \link{squarebrackets_methods}: \cr
 Lists the main methods provided by 'squarebrackets'. \cr
 Also explains the method dispatch system in 'squarebrackets'.
-\item \link{squarebrackets_indx_fundamentals}: \cr
-Explains the essential fundamentals of the indexing forms in 'squarebrackets'. \cr \cr
+\item \link{squarebrackets_index_fundamentals}: \cr
+Explains the essential fundamentals of the indexing forms in 'squarebrackets'.
+\item \link{squarebrackets_keywords}: \cr
+Explains the usage of keywords in the main methods of 'squarebrackets'. \cr \cr
 }
 
 \bold{Arguments} \cr
@@ -66,7 +68,7 @@ The explanations for these common arguments are given in the following help page
 \item \link{squarebrackets_supported_structures}: \cr
 Lists the structures that are supported by 'squarebrackets',
 and explains some related terminology.
-\item \link{squarebrackets_indx_args}: \cr
+\item \link{squarebrackets_index_args}: \cr
 Explains the common indexing arguments used in the main S3 methods.
 \item \link{squarebrackets_modify}: \cr
 Explains the modification-related arguments,

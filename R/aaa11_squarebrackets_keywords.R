@@ -1,4 +1,4 @@
-#' Formula with Keywords
+#' Advanced Index Specification with Keywords
 #'
 #' @description
 #' Instead of the usual indexing types,

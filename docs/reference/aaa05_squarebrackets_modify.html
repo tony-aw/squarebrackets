@@ -55,7 +55,7 @@ available in 'squarebrackets'. <br><br></p>
 The benefits of the indexing arguments from 'squarebrackets'
 can be combined the <code>[&lt;-</code> operator,
 through the <code>_icom</code> methods. <br>
-The result of the <code>idcom</code> methods
+The result of the <code>_icom</code> methods
 can be used inside the regular square-brackets operators. <br>
 For example like so:</p>
 <p></p><div class="sourceCode r"><pre><code><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/array.html" class="external-link">array</a></span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span>
@@ -75,10 +75,12 @@ whilst still using R's default copy-on-modification semantics
 
 
 <p>'squarebrackets' provides
-the <code>_mod</code> method
-to modify through a (shallow) copy. <br>
+the <code>_mod</code> methods
+to return a modified copy. <br>
+For atomic objects, the copy is a deep copy (the entire object is copied). <br>
 This method returns the modified object. <br>
-For recursive objects, <a href="sb_mod.html">ii_mod</a>/<a href="sb_mod.html">ss_mod</a> returns the original object,
+For recursive objects, the copy is a shallow copy: <br>
+the <code>_mod</code> methods returns the original object,
 where only the modified subsets are copied,
 thus preventing unnecessary usage of memory. <br><br><br></p>
     </div>
@@ -87,7 +89,7 @@ thus preventing unnecessary usage of memory. <br><br><br></p>
 
 
 <p>'squarebrackets' provides
-the <code>*_set</code> methods
+the <code>_set</code> methods
 to modify by reference,
 meaning no copy is made at all. <br>
 Pass-by-Reference is fastest and the most memory efficient. <br>
@@ -96,17 +98,19 @@ and requires more thought. <br>
 See <a href="aaa09_squarebrackets_PassByReference.html">squarebrackets_PassByReference</a> for more information. <br><br><br></p>
     </div>
     <div class="section level2">
-    <h2 id="replacement-and-transformation-in-atomic-objects">Replacement and Transformation in Atomic Objects<a class="anchor" aria-label="anchor" href="#replacement-and-transformation-in-atomic-objects"></a></h2>
+    <h2 id="arguments-rp-and-tf-for-atomic-objects">Arguments <code>rp</code> and <code>tf</code> for Atomic Objects<a class="anchor" aria-label="anchor" href="#arguments-rp-and-tf-for-atomic-objects"></a></h2>
 
 
-<p>The <code>rp</code> argument is used to replace the values at the specified indices
+<p><b>Argument <code>rp</code></b> <br>
+The <code>rp</code> argument is used to replace the values at the specified indices
 with the values specified in <code>rp</code>.
 Using the <code>rp</code> argument in the modification methods,
 corresponds to something like the following: <br></p>
 <p></p><div class="sourceCode r"><pre><code><span></span>
 <span><span class="va">x</span><span class="op">[</span><span class="va">...</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">rp</span></span>
 <span></span></code></pre><p></p></div>
-<p>The <code>tf</code> argument is used to transform the values at the specified indices
+<p><b>Argument <code>tf</code></b> <br>
+The <code>tf</code> argument is used to transform the values at the specified indices
 through transformation function <code>tf</code>.
 Using the <code>tf</code> argument
 corresponds to something like the following: <br></p>
@@ -117,7 +121,7 @@ corresponds to something like the following: <br></p>
 (so <code>tf</code> should not be a pass-by-reference function). <br><br></p>
     </div>
     <div class="section level2">
-    <h2 id="replacement-and-transformation-in-lists">Replacement and Transformation in Lists<a class="anchor" aria-label="anchor" href="#replacement-and-transformation-in-lists"></a></h2>
+    <h2 id="arguments-rp-and-tf-for-recursive-objects">Arguments <code>rp</code> and <code>tf</code> for Recursive Objects<a class="anchor" aria-label="anchor" href="#arguments-rp-and-tf-for-recursive-objects"></a></h2>
 
 
 <p>The <code>rp</code> and <code>tf</code> arguments work mostly in the same way for recursive objects. <br>
@@ -136,15 +140,16 @@ like so: <br></p>
 <span></span></code></pre><p></p></div>
     </div>
     <div class="section level2">
-    <h2 id="replacement-and-transformation-in-data-frame-like-objects">Replacement and Transformation in data.frame-like Objects<a class="anchor" aria-label="anchor" href="#replacement-and-transformation-in-data-frame-like-objects"></a></h2>
+    <h2 id="arguments-rp-and-tf-for-data-frame-like-objects">Arguments <code>rp</code> and <code>tf</code> for data.frame-like Objects<a class="anchor" aria-label="anchor" href="#arguments-rp-and-tf-for-data-frame-like-objects"></a></h2>
 
 
 <p>Replacement and transformations
-in data.frame-like objects are a bit more flexible than in Lists. <br><br><code>rp</code> is not always demanded to be a list for data.frame-like objects,
+in data.frame-like objects are a bit more flexible than in Lists. <br><br><b>Argument <code>rp</code></b> <br><code>rp</code> is not always demanded to be a list for data.frame-like objects,
 only when appropriate
-(for example, when replacing multiple columns, or when the column itself is a list.) <br>
-Bear in mind that every column in a data.frame is like an element in a list; <br>
-so <code>.lapply</code> is used for transformations across multiple columns. <br><br><br></p>
+(for example, when replacing multiple columns, or when the column itself is a list.) <br><br><b>Argument <code>tf</code></b> <br>
+Every column in a data.frame is like an element in a list. <br>
+Therefore, when transforming parts of a data.frame with the <code>tf</code> argument,
+lapply` is used for transformations across multiple columns. <br><br><br></p>
     </div>
     <div class="section level2">
     <h2 id="recycling-and-coercion">Recycling and Coercion<a class="anchor" aria-label="anchor" href="#recycling-and-coercion"></a></h2>

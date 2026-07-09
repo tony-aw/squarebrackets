@@ -42,7 +42,7 @@ tt_icom(x, slice, use, ...)
 \arguments{
 \item{x}{vector, matrix, array, or data.frame; both atomic and recursive objects are supported.}
 
-\item{i, s, slice, use}{See \link{squarebrackets_indx_args}. \cr
+\item{i, s, slice, use}{See \link{squarebrackets_index_args}. \cr
 Duplicates are not allowed.}
 
 \item{...}{see \link{squarebrackets_ellipsis}.}

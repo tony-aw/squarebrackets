@@ -48,14 +48,12 @@ the following:
     keywords through formulas.
 
 4)  The `[<-` operator only supports copy-on-modify semantics for most
-    classes; The ‘squarebrackets’ methods provides explicit
-    pass-by-reference and pass-by-value semantics, whilst still
-    respecting things like binding-locks and mutability rules.
+    classes; The ‘squarebrackets’ methods provide explicit
+    pass-by-reference and pass-by-value semantics, and do so safely.
 
-5)  ‘squarebrackets’ supports index-less sub-set operations, which is
-    more memory efficient (and better for the environment), for
-    `long vectors` than sub-set operations using the `[` and `[<-`
-    operators.
+5)  ‘squarebrackets’ supports index-less sub-set operations for
+    `long vectors`, which is more memory efficient than sub-set
+    operations using the `[` and `[<-` operators.
 
  
 

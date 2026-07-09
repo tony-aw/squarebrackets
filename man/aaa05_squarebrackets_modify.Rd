@@ -14,7 +14,7 @@ For most average users, R's default copy-on-modify semantics are fine. \cr
 The benefits of the indexing arguments from 'squarebrackets'
 can be combined the \verb{[<-} operator,
 through the \verb{_icom} methods. \cr
-The result of the \code{idcom} methods
+The result of the \verb{_icom} methods
 can be used inside the regular square-brackets operators. \cr
 For example like so:
 
@@ -38,10 +38,12 @@ whilst still using R's default copy-on-modification semantics
 \section{Explicit Copy}{
 
 'squarebrackets' provides
-the \verb{_mod} method
-to modify through a (shallow) copy. \cr
+the \verb{_mod} methods
+to return a modified copy. \cr
+For atomic objects, the copy is a deep copy (the entire object is copied). \cr
 This method returns the modified object. \cr
-For recursive objects, \link{ii_mod}/\link{ss_mod} returns the original object,
+For recursive objects, the copy is a shallow copy: \cr
+the \verb{_mod} methods returns the original object,
 where only the modified subsets are copied,
 thus preventing unnecessary usage of memory. \cr
 \cr
@@ -51,7 +53,7 @@ thus preventing unnecessary usage of memory. \cr
 \section{Pass-by-Reference}{
 
 'squarebrackets' provides
-the \verb{*_set} methods
+the \verb{_set} methods
 to modify by reference,
 meaning no copy is made at all. \cr
 Pass-by-Reference is fastest and the most memory efficient. \cr
@@ -62,8 +64,9 @@ See \link{squarebrackets_PassByReference} for more information. \cr
 \cr
 }
 
-\section{Replacement and Transformation in Atomic Objects}{
+\section{Arguments \code{rp} and \code{tf} for Atomic Objects}{
 
+\bold{Argument \code{rp}} \cr
 The \code{rp} argument is used to replace the values at the specified indices
 with the values specified in \code{rp}.
 Using the \code{rp} argument in the modification methods,
@@ -74,6 +77,7 @@ x[...] <- rp
 
 }\if{html}{\out{</div>}}
 
+\bold{Argument \code{tf}} \cr
 The \code{tf} argument is used to transform the values at the specified indices
 through transformation function \code{tf}.
 Using the \code{tf} argument
@@ -89,7 +93,7 @@ where \code{tf} is a function that \bold{returns} an object of appropriate type 
 \cr
 }
 
-\section{Replacement and Transformation in Lists}{
+\section{Arguments \code{rp} and \code{tf} for Recursive Objects}{
 
 The \code{rp} and \code{tf} arguments work mostly in the same way for recursive objects. \cr
 But there are some slight differences. \cr
@@ -113,16 +117,20 @@ x[...] <- lapply(x[...], tf)
 }\if{html}{\out{</div>}}
 }
 
-\section{Replacement and Transformation in data.frame-like Objects}{
+\section{Arguments \code{rp} and \code{tf} for data.frame-like Objects}{
 
 Replacement and transformations
 in data.frame-like objects are a bit more flexible than in Lists. \cr
 \cr
+\bold{Argument \code{rp}} \cr
 \code{rp} is not always demanded to be a list for data.frame-like objects,
 only when appropriate
 (for example, when replacing multiple columns, or when the column itself is a list.) \cr
-Bear in mind that every column in a data.frame is like an element in a list; \cr
-so \code{.lapply} is used for transformations across multiple columns. \cr
+\cr
+\bold{Argument \code{tf}} \cr
+Every column in a data.frame is like an element in a list. \cr
+Therefore, when transforming parts of a data.frame with the \code{tf} argument,
+lapply` is used for transformations across multiple columns. \cr
 \cr
 \cr
 }

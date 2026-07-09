@@ -6,7 +6,7 @@
 #' see the `_icom` methods. \cr \cr
 #'
 #' @param x see \link{squarebrackets_supported_structures}.
-#' @param i,use,s,row,col See \link{squarebrackets_indx_args}. \cr
+#' @param i,use,s,row,col See \link{squarebrackets_index_args}. \cr
 #' An empty index selection returns the original object unchanged. \cr
 #' @param ... see \link{squarebrackets_ellipsis}.
 #' @param rp,tf see \link{squarebrackets_modify}.

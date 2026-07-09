@@ -38,7 +38,7 @@ ci_ss(
 \arguments{
 \item{x}{the object for which the indices are meant.}
 
-\item{i, s, use, slice, margin}{See \link{squarebrackets_indx_args}. \cr}
+\item{i, s, use, slice, margin}{See \link{squarebrackets_index_args}. \cr}
 
 \item{chkdup}{see \link{squarebrackets_options}. \cr
 \ifelse{html}{\figure{for_performance-set_to_FALSE-red.svg}{options: alt='[for performance: set to FALSE]'}}{\link[=squarebrackets_help]{for performance: set to FALSE}} \cr}

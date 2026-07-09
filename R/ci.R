@@ -9,7 +9,7 @@
 #'
 #'
 #' @param x the object for which the indices are meant.
-#' @param i,s,use,slice,margin See \link{squarebrackets_indx_args}. \cr
+#' @param i,s,use,slice,margin See \link{squarebrackets_index_args}. \cr
 #' @param chkdup see \link{squarebrackets_options}. \cr
 #' `r .mybadge_performance_set2("FALSE")` \cr
 #' @param uniquely_named Boolean,

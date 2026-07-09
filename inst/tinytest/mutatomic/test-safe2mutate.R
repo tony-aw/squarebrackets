@@ -44,5 +44,15 @@ expect_error(
 
 rm(list = "x")
 
+
+testfun <- function(x) {
+  .internal_set_ma(x)
+}
+letters <- base::letters
+expect_error(
+  testfun(letters)
+)
+
+
 enumerate <- 3L
 

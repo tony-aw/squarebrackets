@@ -22,7 +22,7 @@
 #' 
 #' 
 #' @param x vector, matrix, array, or data.frame; both atomic and recursive objects are supported.
-#' @param i,s,slice,use See \link{squarebrackets_indx_args}. \cr
+#' @param i,s,slice,use See \link{squarebrackets_index_args}. \cr
 #' Duplicates are not allowed.
 #' @param chkdup see \link{squarebrackets_options}. \cr
 #' `r .mybadge_performance_set2("FALSE")` \cr

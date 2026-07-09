@@ -86,7 +86,7 @@ long_x(x, ~ 2:9:1:1)
 # reverse:
 long_x(x, ~ 9:2:1:1)
 
-# remove ll elements except the last 10:
+# remove all elements except the last 10:
 long_x(x, ~ 1:(.N - 10):1:-1)
 
 # replace every other element:

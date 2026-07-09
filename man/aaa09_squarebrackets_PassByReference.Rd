@@ -95,49 +95,6 @@ A \code{data.tables} will coerce the column to a materialized column when it is 
 \cr
 }
 
-\section{Mutability Rules With Respect To Recursive Objects}{
-
-Lists are difficult objects in that they do not contain elements,
-they simply point to  other objects,
-that one can access via a list. \cr
-When a recursive object is of a mutable class,
-all its subsets are treated as mutable,
-as long as they are part of the object. \cr
-On the other hand,
-When a recursive object is of an immutable class,
-its recursive subsets retain their original mutability. \cr
-\cr
-\bold{Example 1: Mutable data.tables} \cr
-A \code{data.table} is a mutable class. \cr
-So all columns of the \code{data.table} are treated as mutable; \cr
-There is no requirement to, for instance,
-first change all columns into the class of \link{mutatomic}
-to modify these columns by reference. \cr
-\cr
-\bold{Example 2: Immutable lists} \cr
-A regular \code{list} is an immutable class. \cr
-So the list itself is immutable,
-but the recursive subsets of the list retain their mutability. \cr
-If you have a list of \code{mutatomic} objects, for example,
-the mutatomic objects themselves remain mutable. \cr
-Therefore, the following pass-by-reference modification will work without issue: \cr
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{
-x <- list(
- a = mutatomic(letters[1:10]),
- b = mutatomic(letters[11:20])
-)
-myref <- x$a
-ii_set(myref, 1, rp = "xxx")
-
-}\if{html}{\out{</div>}}
-
-Notice in the above code that \code{myref} has the same address as \code{x$a},
-and is therefore not a copy of \code{x$a}. \cr
-Thus changing \code{myref} also changes \code{x$a}. \cr
-In other words: \code{myref} is what could be called a "\bold{View}" of \code{x$a}. \cr \cr
-}
-
 \section{Input Variable}{
 
 Methods/functions that perform in-place modification by reference

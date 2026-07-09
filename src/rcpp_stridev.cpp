@@ -148,7 +148,7 @@ using namespace Rcpp;
 //' @keywords internal
  //' @noRd
  // [[Rcpp::export(.rcpp_stridev_pool)]]
- List rcpp_pool(
+ List rcpp_stridev_pool(
      SEXP y, SEXP v, List preplist, NumericVector prepvector, bool condition, LogicalVector na
  ) {
    

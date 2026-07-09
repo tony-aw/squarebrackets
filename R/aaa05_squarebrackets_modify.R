@@ -11,7 +11,7 @@
 #' The benefits of the indexing arguments from 'squarebrackets'
 #' can be combined the `[<-` operator,
 #' through the `_icom` methods. \cr
-#' The result of the `idcom` methods
+#' The result of the `_icom` methods
 #' can be used inside the regular square-brackets operators. \cr
 #' For example like so:
 #' 
@@ -33,17 +33,19 @@
 #' \cr
 #' @section Explicit Copy:
 #' 'squarebrackets' provides
-#' the `_mod` method
-#' to modify through a (shallow) copy. \cr
+#' the `_mod` methods
+#' to return a modified copy. \cr
+#' For atomic objects, the copy is a deep copy (the entire object is copied). \cr
 #' This method returns the modified object. \cr
-#' For recursive objects, \link{ii_mod}/\link{ss_mod} returns the original object,
+#' For recursive objects, the copy is a shallow copy: \cr
+#' the `_mod` methods returns the original object,
 #' where only the modified subsets are copied,
 #' thus preventing unnecessary usage of memory. \cr
 #' \cr
 #' \cr
 #' @section Pass-by-Reference:
 #' 'squarebrackets' provides
-#' the `*_set` methods
+#' the `_set` methods
 #' to modify by reference,
 #' meaning no copy is made at all. \cr
 #' Pass-by-Reference is fastest and the most memory efficient. \cr
@@ -53,7 +55,8 @@
 #' \cr
 #' \cr
 #' 
-#' @section Replacement and Transformation in Atomic Objects:
+#' @section Arguments `rp` and `tf` for Atomic Objects:
+#' \bold{Argument `rp`} \cr
 #' The `rp` argument is used to replace the values at the specified indices
 #' with the values specified in `rp`.
 #' Using the `rp` argument in the modification methods,
@@ -65,6 +68,7 @@
 #' 
 #' ```
 #' 
+#' \bold{Argument `tf`} \cr
 #' The `tf` argument is used to transform the values at the specified indices
 #' through transformation function `tf`.
 #' Using the `tf` argument
@@ -80,7 +84,7 @@
 #' \cr
 #' 
 #' 
-#' @section Replacement and Transformation in Lists:
+#' @section Arguments `rp` and `tf` for Recursive Objects:
 #' The `rp` and `tf` arguments work mostly in the same way for recursive objects. \cr
 #' But there are some slight differences. \cr
 #' \cr
@@ -104,15 +108,19 @@
 #' ```
 #' 
 #' 
-#' @section Replacement and Transformation in data.frame-like Objects:
+#' @section Arguments `rp` and `tf` for data.frame-like Objects:
 #' Replacement and transformations
 #' in data.frame-like objects are a bit more flexible than in Lists. \cr
 #' \cr
+#' \bold{Argument `rp`} \cr
 #' `rp` is not always demanded to be a list for data.frame-like objects,
 #' only when appropriate
 #' (for example, when replacing multiple columns, or when the column itself is a list.) \cr
-#' Bear in mind that every column in a data.frame is like an element in a list; \cr
-#' so `.lapply` is used for transformations across multiple columns. \cr
+#' \cr
+#' \bold{Argument `tf`} \cr
+#' Every column in a data.frame is like an element in a list. \cr
+#' Therefore, when transforming parts of a data.frame with the `tf` argument,
+#' lapply` is used for transformations across multiple columns. \cr
 #' \cr
 #' \cr
 #' 

@@ -9,7 +9,7 @@
 #' 
 #' the `idx_by()` function takes `indices` \bold{per group} `grp`. \cr
 #' The result of `idx_by()` can be supplied to the indexing arguments
-#' (see \link{squarebrackets_indx_args})
+#' (see \link{squarebrackets_index_args})
 #' to perform \bold{grouped} subset operations. \cr
 #' \cr
 #' 

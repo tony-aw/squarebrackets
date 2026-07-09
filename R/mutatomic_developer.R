@@ -35,6 +35,9 @@ stopifnot_ma_safe2mutate <- function(sym, envir, .abortcall) {
     txt <- paste0("'", sym, "' is not a 'mutatomic' object")
     stop(simpleError(txt, call = .abortcall))
   }
+  if(.rcpp_address(x) %in% .pkgenv_mutatomic[["protected"]]) {
+    stop("address is protected")
+  }
   
 }
 
@@ -54,7 +57,9 @@ address <- function(x) {
   if(!couldb.mutatomic(x)) {
     stop("not atomic or not convertible")
   }
-  
+  if(.rcpp_address(x) %in% .pkgenv_mutatomic[["protected"]]) {
+    stop("address is protected")
+  }
   
   if(!inherits(x, "mutatomic")) {
     newclass <- c("mutatomic", oldClass(x))

@@ -230,14 +230,14 @@ factors.</p>
 <span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">bm.long_x</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 6</span></span></span>
-<span><span class="co">#&gt;   expression                  min   median `itr/sec` mem_alloc `gc/sec`</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:byt&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> pv in squarebrackets     4.11ms   5.76ms     162.   779.39KB     1.64</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> pv in base R             7.06ms  14.56ms      70.2   16.78MB    23.4 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> seq in squarebrackets   918.9µs   1.56ms     592.     3.82MB    28.7 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> seq in base R           10.82ms  17.38ms      57.2    26.7MB    35.0 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> ptrn in squarebrackets   1.06ms   1.99ms     514.     3.82MB    21.1 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> ptrn in base R           5.06ms   8.63ms     123.    11.44MB    23.4</span></span></code></pre>
+<span><span class="co">#&gt;   expression                   min   median `itr/sec` mem_alloc `gc/sec`</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:byt&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> value in squarebrackets   6.58ms    7.2ms     137.        1MB     4.24</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> value in base R           6.59ms   7.36ms     135.    16.79MB    89.8 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> seq in squarebrackets    870.6µs  967.4µs     967.      3.9MB    74.6 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> seq in base R             9.99ms  11.13ms      90.4    26.7MB   108.  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> ptrn in squarebrackets   995.3µs   1.11ms     860.     3.92MB    61.5 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> ptrn in base R            4.56ms   4.88ms     203.    11.44MB    50.8</span></span></code></pre>
 <p>Notice that the <code>long_x</code> method from ‘squarebrackets’ uses
 approximately 4 to 20 times (!) less memory than the equivalent base ‘R’
 approaches, and is also 2 to 4 times faster.</p>

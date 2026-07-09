@@ -349,9 +349,9 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// rcpp_pool
-List rcpp_pool(SEXP y, SEXP v, List preplist, NumericVector prepvector, bool condition, LogicalVector na);
-RcppExport SEXP _squarebrackets_rcpp_pool(SEXP ySEXP, SEXP vSEXP, SEXP preplistSEXP, SEXP prepvectorSEXP, SEXP conditionSEXP, SEXP naSEXP) {
+// rcpp_stridev_pool
+List rcpp_stridev_pool(SEXP y, SEXP v, List preplist, NumericVector prepvector, bool condition, LogicalVector na);
+RcppExport SEXP _squarebrackets_rcpp_stridev_pool(SEXP ySEXP, SEXP vSEXP, SEXP preplistSEXP, SEXP prepvectorSEXP, SEXP conditionSEXP, SEXP naSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -361,7 +361,7 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< NumericVector >::type prepvector(prepvectorSEXP);
     Rcpp::traits::input_parameter< bool >::type condition(conditionSEXP);
     Rcpp::traits::input_parameter< LogicalVector >::type na(naSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_pool(y, v, preplist, prepvector, condition, na));
+    rcpp_result_gen = Rcpp::wrap(rcpp_stridev_pool(y, v, preplist, prepvector, condition, na));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -513,7 +513,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_squarebrackets_rcpp_stridev_prepvector", (DL_FUNC) &_squarebrackets_rcpp_stridev_prepvector, 2},
     {"_squarebrackets_rcpp_stridev_transfer_bits", (DL_FUNC) &_squarebrackets_rcpp_stridev_transfer_bits, 4},
     {"_squarebrackets_rcpp_stridev_write_bits", (DL_FUNC) &_squarebrackets_rcpp_stridev_write_bits, 6},
-    {"_squarebrackets_rcpp_pool", (DL_FUNC) &_squarebrackets_rcpp_pool, 6},
+    {"_squarebrackets_rcpp_stridev_pool", (DL_FUNC) &_squarebrackets_rcpp_stridev_pool, 6},
     {"_squarebrackets_rcpp_sub2coord", (DL_FUNC) &_squarebrackets_rcpp_sub2coord, 6},
     {"_squarebrackets_rcpp_sub2ind_d_32", (DL_FUNC) &_squarebrackets_rcpp_sub2ind_d_32, 2},
     {"_squarebrackets_rcpp_sub2ind_d_64", (DL_FUNC) &_squarebrackets_rcpp_sub2ind_d_64, 2},

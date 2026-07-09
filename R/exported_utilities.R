@@ -5,7 +5,7 @@
 #' Usually the user won't need these functions. \cr \cr
 #'
 #' @param x a vector, vector-like object, factor, data.frame, data.frame-like object, or a list.
-#' @param i See \link{squarebrackets_indx_args}.
+#' @param i See \link{squarebrackets_index_args}.
 #' @param xnames names or dimension names
 #' @param xsize length or dimension size
 #'

@@ -36,7 +36,7 @@ Given:
 
 the \code{idx_by()} function takes \code{indices} \bold{per group} \code{grp}. \cr
 The result of \code{idx_by()} can be supplied to the indexing arguments
-(see \link{squarebrackets_indx_args})
+(see \link{squarebrackets_index_args})
 to perform \bold{grouped} subset operations. \cr
 \cr
 }

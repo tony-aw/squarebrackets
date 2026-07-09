@@ -16,11 +16,11 @@ The main methods of 'squarebrackets' use the naming convention \verb{<indexform>
 For the \verb{<indexform>} part, the following is available:
 \itemize{
 \item \code{ii_}: operates on subsets of atomic/recursive vectors/arrays
-by \link[=squarebrackets_indx_fundamentals]{interior indices}.
+by \link[=squarebrackets_index_fundamentals]{interior indices}.
 \item \code{ss_}: operates on subsets of atomic/recursive arrays of any dimensionality
-by \link[=squarebrackets_indx_fundamentals]{subscripts}.
+by \link[=squarebrackets_index_fundamentals]{subscripts}.
 \item \code{tt_}: operates on subsets of data.frames and atomic/recursive matrices
-by \link[=squarebrackets_indx_fundamentals]{tabular indices} (also known as tabulat tiles).
+by \link[=squarebrackets_index_fundamentals]{tabular indices} (also known as tabulat tiles).
 }
 
 For the \verb{<operation>} part, the following is available:

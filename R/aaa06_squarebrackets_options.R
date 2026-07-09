@@ -9,7 +9,7 @@
 #' @section Check Duplicates:
 #' `r .mybadge_option("argument", "chkdup")` \cr
 #' `r .mybadge_option("option", "chkdup")` \cr
-#' The \eqn{\ast}`_x` methods are the only methods
+#' The `_x` methods are the only methods
 #' where providing duplicate indices actually make sense. \cr
 #' For the other methods, it doesn't make sense. \cr
 #' Giving duplicate indices usually won't break anything;
@@ -37,12 +37,10 @@
 #' The \link{long_x} methods
 #' can already handle names
 #' (through the `use.names` argument),
-#' attributes specific to the \link{mutatomic} class,
-#' and attributes specific to the \link{factor} class. \cr
+#' as well as attributes specific to the \link{mutatomic} class. \cr
 #' \cr
 #' Attributes which are not names,
-#' and not specific to \link{mutatomic} class,
-#' and not specific to the \link{factor} class - 
+#' and not specific to \link{mutatomic} class - 
 #' henceforth referred to as "other attributes" -
 #' are treated differently. \cr
 #' How the \link{long_x} methods
@@ -62,7 +60,7 @@
 #' and no separate methods have to written for
 #' the \link{long_x} methods. \cr
 #' Attributes specific to classes like
-#' `difftime`, `Date`, `POSIXct`, `roman`, `hexmode`, `octmode`,
+#' `difftime`, `broadcaster`,
 #' and more,
 #' use static attributes. \cr
 #' \cr

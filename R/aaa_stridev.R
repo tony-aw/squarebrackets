@@ -213,6 +213,34 @@
 #' ```
 #' 
 #' 
+#' @section Technical Details: 
+#' On a technical level, the `stride_v()` method does the following:
+#' 
+#'  1) Determine if we go through vector `y` in one go, or in chunks. \cr
+#'  If `lenght(y) >= 2^16`,
+#'  vector `y` will be dealt with in
+#'  `ceiling(length(x)^0.1)` equal-sized (so far as possible) chunks. \cr
+#'  Otherwise, treat `y` in one go; i.e. in one chunk.
+#'  2) Make a list equal to number of chunks from step one.
+#'  3) For each chunk, count the number of condition matches (`count`),
+#'  the location of the first ( `first`) match,
+#'  and location of last (`last`) match.
+#'  4) For each chunk, do the following. \cr
+#'  If `count` is equal to `last - first + 1`, fill in list element for this chunk with `NULL`. \cr
+#'  If `count <= 2`, fill in list element for this chunk with `NULL`. \cr
+#'  Otherwise, fill list with `last - first + 1` bits (not bytes), specifying bit `1` if there's a match and bit `0` if no match. \cr
+#'  The bits will be stored in 32 bit integers. Thus each integer holds 32 elements worth of bits. \cr \cr
+#'  
+#' In 'R', an expression like `x[y == v]` is internally translated to `x[which(y == v)]`. \cr
+#' This means, 'R' will store 32 bits per element for the logical vector `y == v`,
+#' and 64 bits per element for the numeric vector from `which(y == v)`. \cr
+#' `stride_v()` stores information about the matches as 1 bit per condition (instead of 32 bits per condition),
+#' and only for the regions (chunks) where there's a need to store such data. \cr
+#' And `long_x()`/ `long_set()` will never call `which()`. \cr
+#' As such, `stride_v()` will \bold{guarantee} to be \bold{at least} 32 times more memory efficient than the base 'R' approach. \cr
+#' And the whole `long_x(x, stride_v(...))` / `long_set(x, stride_v(...))` operation
+#' will in most practical cases use \bold{hundreds of times} less memory than the base 'R' approach! \cr
+#' 
 #' @example inst/examples/stride_v.R
 
 #' @name stride_v

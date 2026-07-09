@@ -52,7 +52,7 @@ Examples:
 }}
 
 \item{use}{1 or -1, indicating how to use the indices. \cr
-See \link{squarebrackets_indx_args}.}
+See \link{squarebrackets_index_args}.}
 
 \item{chkdup}{see \link{squarebrackets_options}. \cr
 \ifelse{html}{\figure{for_performance-set_to_FALSE-red.svg}{options: alt='[for performance: set to FALSE]'}}{\link[=squarebrackets_help]{for performance: set to FALSE}} \cr}

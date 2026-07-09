@@ -4,7 +4,7 @@
 \alias{aaa11_squarebrackets_keywords}
 \alias{squarebrackets_keywords}
 \alias{keywords}
-\title{Formula with Keywords}
+\title{Advanced Index Specification with Keywords}
 \description{
 Instead of the usual indexing types,
 formulas can be used to specify indices in vectors, arrays, or data.frames that can evaluate keywords. \cr

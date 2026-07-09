@@ -13,7 +13,7 @@ indx_wo(i, x, xnames, xsize)
 .is.0(x)
 }
 \arguments{
-\item{i}{See \link{squarebrackets_indx_args}.}
+\item{i}{See \link{squarebrackets_index_args}.}
 
 \item{x}{a vector, vector-like object, factor, data.frame, data.frame-like object, or a list.}
 

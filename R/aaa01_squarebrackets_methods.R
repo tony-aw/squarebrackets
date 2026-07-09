@@ -11,11 +11,11 @@
 #' For the `<indexform>` part, the following is available:
 #' 
 #'  - `ii_`: operates on subsets of atomic/recursive vectors/arrays
-#'  by \link[=squarebrackets_indx_fundamentals]{interior indices}.
+#'  by \link[=squarebrackets_index_fundamentals]{interior indices}.
 #'  - `ss_`: operates on subsets of atomic/recursive arrays of any dimensionality
-#'  by \link[=squarebrackets_indx_fundamentals]{subscripts}.
+#'  by \link[=squarebrackets_index_fundamentals]{subscripts}.
 #'  - `tt_`: operates on subsets of data.frames and atomic/recursive matrices
-#'  by \link[=squarebrackets_indx_fundamentals]{tabular indices} (also known as tabulat tiles).
+#'  by \link[=squarebrackets_index_fundamentals]{tabular indices} (also known as tabulat tiles).
 #' 
 #' For the `<operation>` part, the following is available:
 #' 

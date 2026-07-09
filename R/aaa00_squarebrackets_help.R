@@ -47,8 +47,10 @@
 #'  - \link{squarebrackets_methods}: \cr
 #'  Lists the main methods provided by 'squarebrackets'. \cr
 #'  Also explains the method dispatch system in 'squarebrackets'.
-#'  - \link{squarebrackets_indx_fundamentals}: \cr
-#'  Explains the essential fundamentals of the indexing forms in 'squarebrackets'. \cr \cr
+#'  - \link{squarebrackets_index_fundamentals}: \cr
+#'  Explains the essential fundamentals of the indexing forms in 'squarebrackets'.
+#'  - \link{squarebrackets_keywords}: \cr
+#'  Explains the usage of keywords in the main methods of 'squarebrackets'. \cr \cr
 #' 
 #' 
 #' \bold{Arguments} \cr
@@ -58,7 +60,7 @@
 #'  - \link{squarebrackets_supported_structures}: \cr
 #'  Lists the structures that are supported by 'squarebrackets',
 #'  and explains some related terminology.
-#'  - \link{squarebrackets_indx_args}: \cr
+#'  - \link{squarebrackets_index_args}: \cr
 #'  Explains the common indexing arguments used in the main S3 methods.
 #'  - \link{squarebrackets_modify}: \cr
 #'  Explains the modification-related arguments,

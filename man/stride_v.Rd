@@ -223,6 +223,37 @@ ind <- which(ifelse(is.na(y), na, y \%in\% v)) * sign(use)
 }\if{html}{\out{</div>}}
 }
 
+\section{Technical Details}{
+
+On a technical level, the \code{stride_v()} method does the following:
+\enumerate{
+\item Determine if we go through vector \code{y} in one go, or in chunks. \cr
+If \code{lenght(y) >= 2^16},
+vector \code{y} will be dealt with in
+\code{ceiling(length(x)^0.1)} equal-sized (so far as possible) chunks. \cr
+Otherwise, treat \code{y} in one go; i.e. in one chunk.
+\item Make a list equal to number of chunks from step one.
+\item For each chunk, count the number of condition matches (\code{count}),
+the location of the first ( \code{first}) match,
+and location of last (\code{last}) match.
+\item For each chunk, do the following. \cr
+If \code{count} is equal to \code{last - first + 1}, fill in list element for this chunk with \code{NULL}. \cr
+If \code{count <= 2}, fill in list element for this chunk with \code{NULL}. \cr
+Otherwise, fill list with \code{last - first + 1} bits (not bytes), specifying bit \code{1} if there's a match and bit \code{0} if no match. \cr
+The bits will be stored in 32 bit integers. Thus each integer holds 32 elements worth of bits. \cr \cr
+}
+
+In 'R', an expression like \code{x[y == v]} is internally translated to \code{x[which(y == v)]}. \cr
+This means, 'R' will store 32 bits per element for the logical vector \code{y == v},
+and 64 bits per element for the numeric vector from \code{which(y == v)}. \cr
+\code{stride_v()} stores information about the matches as 1 bit per condition (instead of 32 bits per condition),
+and only for the regions (chunks) where there's a need to store such data. \cr
+And \code{long_x()}/ \code{long_set()} will never call \code{which()}. \cr
+As such, \code{stride_v()} will \bold{guarantee} to be \bold{at least} 32 times more memory efficient than the base 'R' approach. \cr
+And the whole \code{long_x(x, stride_v(...))} / \code{long_set(x, stride_v(...))} operation
+will in most practical cases use \bold{hundreds of times} less memory than the base 'R' approach! \cr
+}
+
 \examples{
 
 # basic idea ====

@@ -89,7 +89,7 @@ For <code>long_set()</code> it must be a <a href="mutatomic_class.html">mutatomi
 <dt id="arg-use-names">use.names<a class="anchor" aria-label="anchor" href="#arg-use-names"></a></dt>
 <dd><p>Boolean, indicating if flat names should be preserved. <br>
 Note that, since the <code>long_</code> methods operates on
-<b>virtual</b> <a href="aaa02_squarebrackets_indx_fundamentals.html">interior indices</a>
+<b>virtual</b> <a href="aaa02_squarebrackets_index_fundamentals.html">interior indices</a>
 of an array/vector only,
 dimensions and <code>dimnames</code> are always dropped. <br><img src="figures/for_performance-set_to_FALSE-red.svg" alt="[for performance: set to FALSE]"></p></dd>
 
@@ -104,7 +104,8 @@ dimensions and <code>dimnames</code> are always dropped. <br><img src="figures/f
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>Similar to the <code>ii_</code> methods.</p>
+    <p>For <code>long_x()</code>: returns the sub-setted object. <br>
+Fr <code>long_set()</code>: returns nothing, but modifies the object by reference. <br></p>
     </div>
 
     <div class="section level2">
@@ -152,7 +153,7 @@ dimensions and <code>dimnames</code> are always dropped. <br><img src="figures/f
 <span class="r-out co"><span class="r-pr">#&gt;</span> mutatomic </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> typeof:  integer </span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># remove ll elements except the last 10:</span></span></span>
+<span class="r-in"><span><span class="co"># remove all elements except the last 10:</span></span></span>
 <span class="r-in"><span><span class="fu">long_x</span><span class="op">(</span><span class="va">x</span>, <span class="op">~</span> <span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="va">.N</span> <span class="op">-</span> <span class="fl">10</span><span class="op">)</span><span class="op">:</span><span class="fl">1</span><span class="op">:</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  9999991  9999992  9999993  9999994  9999995  9999996  9999997  9999998</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [9]  9999999 10000000</span>

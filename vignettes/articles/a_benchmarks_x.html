@@ -487,14 +487,14 @@ factors.</p>
 <span id="cb11-13"><a href="#cb11-13" tabindex="-1"></a>)</span>
 <span id="cb11-14"><a href="#cb11-14" tabindex="-1"></a><span class="fu">summary</span>(bm.long_x)</span></code></pre></div>
 <pre><code>#&gt; # A tibble: 6 × 6
-#&gt;   expression                  min   median `itr/sec` mem_alloc `gc/sec`
-#&gt;   &lt;bch:expr&gt;             &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;
-#&gt; 1 pv in squarebrackets     4.11ms   5.76ms     162.   779.39KB     1.64
-#&gt; 2 pv in base R             7.06ms  14.56ms      70.2   16.78MB    23.4 
-#&gt; 3 seq in squarebrackets   918.9µs   1.56ms     592.     3.82MB    28.7 
-#&gt; 4 seq in base R           10.82ms  17.38ms      57.2    26.7MB    35.0 
-#&gt; 5 ptrn in squarebrackets   1.06ms   1.99ms     514.     3.82MB    21.1 
-#&gt; 6 ptrn in base R           5.06ms   8.63ms     123.    11.44MB    23.4</code></pre>
+#&gt;   expression                   min   median `itr/sec` mem_alloc `gc/sec`
+#&gt;   &lt;bch:expr&gt;              &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;
+#&gt; 1 value in squarebrackets   6.58ms    7.2ms     137.        1MB     4.24
+#&gt; 2 value in base R           6.59ms   7.36ms     135.    16.79MB    89.8 
+#&gt; 3 seq in squarebrackets    870.6µs  967.4µs     967.      3.9MB    74.6 
+#&gt; 4 seq in base R             9.99ms  11.13ms      90.4    26.7MB   108.  
+#&gt; 5 ptrn in squarebrackets   995.3µs   1.11ms     860.     3.92MB    61.5 
+#&gt; 6 ptrn in base R            4.56ms   4.88ms     203.    11.44MB    50.8</code></pre>
 <p>Notice that the <code>long_x</code> method from ‘squarebrackets’ uses
 approximately 4 to 20 times (!) less memory than the equivalent base ‘R’
 approaches, and is also 2 to 4 times faster.</p>

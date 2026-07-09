@@ -173,7 +173,7 @@ NULL
 }
 
 .rcpp_stridev_pool <- function(y, v, preplist, prepvector, condition, na) {
-    .Call(`_squarebrackets_rcpp_pool`, y, v, preplist, prepvector, condition, na)
+    .Call(`_squarebrackets_rcpp_stridev_pool`, y, v, preplist, prepvector, condition, na)
 }
 
 #' @keywords internal

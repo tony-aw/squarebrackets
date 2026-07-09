@@ -20,7 +20,7 @@ expect_error(
   fixed = TRUE
 )
 expect_error(
-  long_set(x, stride_v(1, 10, rp = -1)),
+  long_set(x, stride_v(x, v = 10), rp = -1),
   pattern = pattern,
   fixed = TRUE
 )
@@ -58,7 +58,7 @@ expect_error(
   pattern = "only objects that exist as variables can be modified by reference"
 )
 expect_error(
-  long_set(as.mutatomic(1:10), ~1:10:1, rp = -1),
+  long_set(as.mutatomic(1:10), ~1:10:1:1, rp = -1),
   pattern = "only objects that exist as variables can be modified by reference"
 )
 expect_error(
@@ -106,6 +106,7 @@ expect_error(
 )
 rm(list = "x")
 enumerate <- enumerate + 6L
+
 
 
 # set ====

@@ -266,6 +266,33 @@ with the following code:</p>
 <span></span></code></pre><p></p></div>
     </div>
     <div class="section level2">
+    <h2 id="technical-details">Technical Details<a class="anchor" aria-label="anchor" href="#technical-details"></a></h2>
+
+
+<p>On a technical level, the <code>stride_v()</code> method does the following:</p><ol><li><p>Determine if we go through vector <code>y</code> in one go, or in chunks. <br>
+If <code>lenght(y) &gt;= 2^16</code>,
+vector <code>y</code> will be dealt with in
+<code>ceiling(length(x)^0.1)</code> equal-sized (so far as possible) chunks. <br>
+Otherwise, treat <code>y</code> in one go; i.e. in one chunk.</p></li>
+<li><p>Make a list equal to number of chunks from step one.</p></li>
+<li><p>For each chunk, count the number of condition matches (<code>count</code>),
+the location of the first ( <code>first</code>) match,
+and location of last (<code>last</code>) match.</p></li>
+<li><p>For each chunk, do the following. <br>
+If <code>count</code> is equal to <code>last - first + 1</code>, fill in list element for this chunk with <code>NULL</code>. <br>
+If <code>count &lt;= 2</code>, fill in list element for this chunk with <code>NULL</code>. <br>
+Otherwise, fill list with <code>last - first + 1</code> bits (not bytes), specifying bit <code>1</code> if there's a match and bit <code>0</code> if no match. <br>
+The bits will be stored in 32 bit integers. Thus each integer holds 32 elements worth of bits. <br><br></p></li>
+</ol><p>In 'R', an expression like <code>x[y == v]</code> is internally translated to <code>x[which(y == v)]</code>. <br>
+This means, 'R' will store 32 bits per element for the logical vector <code>y == v</code>,
+and 64 bits per element for the numeric vector from <code>which(y == v)</code>. <br><code>stride_v()</code> stores information about the matches as 1 bit per condition (instead of 32 bits per condition),
+and only for the regions (chunks) where there's a need to store such data. <br>
+And <code><a href="long.html">long_x()</a></code>/ <code><a href="long.html">long_set()</a></code> will never call <code><a href="https://rdrr.io/r/base/which.html" class="external-link">which()</a></code>. <br>
+As such, <code>stride_v()</code> will <b>guarantee</b> to be <b>at least</b> 32 times more memory efficient than the base 'R' approach. <br>
+And the whole <code>long_x(x, stride_v(...))</code> / <code>long_set(x, stride_v(...))</code> operation
+will in most practical cases use <b>hundreds of times</b> less memory than the base 'R' approach! <br></p>
+    </div>
+    <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><a href="aaa08_squarebrackets_stride.html">squarebrackets_stride</a> <br></p></div>
     </div>

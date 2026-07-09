@@ -4,7 +4,7 @@
 .mybadge_class <- function(x) {
   txt <- paste0("class: ", x)
   file <- paste0("class-", gsub(" ", "_", x), "-blue.svg")
-  text <- sprintf("\\link[=squarebrackets_indx_args]{%s}", txt)
+  text <- sprintf("\\link[=squarebrackets_index_args]{%s}", txt)
   html <- sprintf(
     "\\figure{%s}{options: alt='[%s]'}",
     file, txt)
@@ -16,7 +16,7 @@
 .mybadge_all_classes <- function() {
   txt <- "all classes"
   file <- "all_classes-blue.svg"
-  text <- sprintf("\\link[=squarebrackets_indx_args]{%s}", txt)
+  text <- sprintf("\\link[=squarebrackets_index_args]{%s}", txt)
   html <- sprintf(
     "\\figure{%s}{options: alt='[%s]'}",
     file, txt)

@@ -27,7 +27,7 @@ tt_x(x, row = NULL, col = NULL, use = 1:2, ...)
 \arguments{
 \item{x}{see \link{squarebrackets_supported_structures}.}
 
-\item{i, use, s, row, col}{See \link{squarebrackets_indx_args}. \cr
+\item{i, use, s, row, col}{See \link{squarebrackets_index_args}. \cr
 Duplicates are allowed, resulting in duplicated indices. \cr
 An empty index selection results in an empty object of length 0. \cr}
 

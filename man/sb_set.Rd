@@ -62,7 +62,7 @@ tt_set(x, row = NULL, col = NULL, use = 1:2, ..., rp, tf)
 \item{x}{a \bold{variable} belonging to one of the
 \link[=squarebrackets_supported_structures]{supported mutable classes}. \cr}
 
-\item{i, use, s, row, col}{See \link{squarebrackets_indx_args}. \cr
+\item{i, use, s, row, col}{See \link{squarebrackets_index_args}. \cr
 An empty index selection leaves the original object unchanged. \cr}
 
 \item{...}{see \link{squarebrackets_ellipsis}.}

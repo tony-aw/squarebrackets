@@ -61,7 +61,7 @@ tt_mod(x, row = NULL, col = NULL, use = 1:2, ..., rp, tf)
 \arguments{
 \item{x}{see \link{squarebrackets_supported_structures}.}
 
-\item{i, use, s, row, col}{See \link{squarebrackets_indx_args}. \cr
+\item{i, use, s, row, col}{See \link{squarebrackets_index_args}. \cr
 An empty index selection returns the original object unchanged. \cr}
 
 \item{...}{see \link{squarebrackets_ellipsis}.}
