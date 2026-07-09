@@ -18,14 +18,16 @@ The result of the \verb{_icom} methods
 can be used inside the regular square-brackets operators. \cr
 For example like so:
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{x <- array(...)
-my_indices <- ss_icom(x, s, d)
-x[my_indices] <- value
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{
+x <- array(...)
+myss <- ss_icom(x, s, use)
+arepl(x, myss, value)
 
 y <- data.frame(...)
-rows <- tt_icom(y, 1:10, 1, inv = TRUE)
-cols <- tt_icom(y, c("a", "b"), 2)
+rows <- tt_icom(y, 1:10, 1, -1L)
+cols <- tt_icom(y, c("a", "b"), 2L)
 y[rows, cols] <- value
+
 }\if{html}{\out{</div>}}
 
 thus allowing the user to benefit from the convenient index translations from 'squarebrackets',

@@ -32,7 +32,7 @@ since recursive indexing can only select a single element. \cr
 \item{rp}{optional, and allows for multiple functionalities:
 \itemize{
 \item In the simplest case, performs \code{x[[rec]] <- rp},
-using R's default semantics. \cr
+using R's native semantics. \cr
 Since this is a replacement of a recursive subset,
 \code{rp} does not necessarily have to be a list itself; \cr
 \code{rp} can be any type of object.
@@ -46,7 +46,7 @@ Any empty positions in between will be filled with \code{NA}.
 }}
 
 \item{tf}{an optional function. If specified, performs \code{x[[rec]] <- tf(x[[rec]])},
-using R's default Copy-On-Modify semantics. \cr
+using R's native semantics. \cr
 Does not support extending a list like argument \code{rp}.}
 }
 \value{
@@ -54,14 +54,14 @@ For \code{lst_rec()}: \cr
 Returns the recursive subset. \cr
 \cr
 For \code{lst_recin(..., rp = rp)}: \cr
-Returns VOID,
+Returns nothing,
 but replaces, adds, or deletes the specified recursive subset,
-using R's default Copy-On-Modify semantics. \cr
+using R's native semantics. \cr
 \cr
 For \code{lst_recin(..., tf = tf)}: \cr
-Returns VOID,
+Returns nothin,
 but transforms the specified recursive subset,
-using R's default Copy-On-Modify semantics. \cr \cr
+using R's native semantics. \cr \cr
 }
 \description{
 The \code{lst_rec()} and \code{lst_recin()} methods
@@ -73,13 +73,13 @@ respectively. \cr
 \code{lst_recin()} can do the following things: \cr
 \itemize{
 \item replace or transform recursive subsets of a list,
-using R's default Copy-On-Modify semantics,
+using R's native semantics,
 by specifying the \code{rp} or \code{tf} argument, respectively.
 \item delete a recursive subset of a list,
-using R's default Copy-On-Modify semantics,
+using R's native semantics,
 by specifying argument \code{rp = NULL}.
 \item extending a list with additional recursive elements,
-using R's default Copy-On-Modify semantics. \cr
+using R's native semantics. \cr
 This is done by specifying an out-of-bounds index in argument \code{rec},
 and entering the new values in argument \code{rp}. \cr
 Note that adding surface level elements of a dimensional list

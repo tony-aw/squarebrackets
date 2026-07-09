@@ -32,7 +32,7 @@ for(iSample in 1:10) {
       s <- lapply(x.dim, \(x) sample(1:x, max(c(1, x)), FALSE))
       d <- 1:length(x.dim)
       
-      ind <- ss_icom(x, s = s, d = d)
+      ind <- ss2ii(ss_icom(x, s = s, d = d), dim(x))
       
       expected[[i]] <- temp.fun(x, s) |> as.vector()
       out[[i]] <- x[ind]
@@ -58,7 +58,7 @@ for(i in 1:10) {
   s <- list(ind1)
   
   expected[[i]] <- as.vector(x[ind1])
-  out[[i]] <- as.vector(x[ss_icom(x, s)])
+  out[[i]] <- as.vector(x[ss_icom(x, s)[[1L]]])
 }
 expect_equal(expected, out)
 enumerate <- enumerate + 10L

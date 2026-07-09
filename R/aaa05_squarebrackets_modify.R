@@ -16,14 +16,16 @@
 #' For example like so:
 #' 
 #' ```{r eval = FALSE, echo = TRUE}
+#' 
 #' x <- array(...)
-#' my_indices <- ss_icom(x, s, d)
-#' x[my_indices] <- value
+#' myss <- ss_icom(x, s, use)
+#' arepl(x, myss, value)
 #' 
 #' y <- data.frame(...)
-#' rows <- tt_icom(y, 1:10, 1, inv = TRUE)
-#' cols <- tt_icom(y, c("a", "b"), 2)
+#' rows <- tt_icom(y, 1:10, 1, -1L)
+#' cols <- tt_icom(y, c("a", "b"), 2L)
 #' y[rows, cols] <- value
+#' 
 #' ```
 #' 
 #' thus allowing the user to benefit from the convenient index translations from 'squarebrackets',

@@ -24,19 +24,6 @@ using namespace Rcpp;
 } while(0)
 
 
-inline int rcpp_count_stringmatches(SEXP y, SEXP v) {
-  int n = Rf_length(v);
-  const SEXP *pv = STRING_PTR_RO(v);
-  int count = 0;
-  for(int i = 0; i < n; ++i) {
-    if((int)R_compute_identical(y, pv[i], 0)) {
-      count++;
-    }
-  }
-  return count;
-}
-
-
 
 
 "

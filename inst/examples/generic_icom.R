@@ -2,11 +2,16 @@
 # atomic ====
 
 x <- 1:10
-x[ii_icom(x, \(x)x>5)] <- -5
+x[ii_icom(x, \(x)x > 5L)] <- -5L
 print(x)
 
 x <- array(1:27, dim = c(3,3,3))
-x[ss_icom(x, n(1:2, 1:2), c(1,3))] <- -10
+sub <- ss_icom(x, n(1:2, 1:2), c(1,3))
+arepl(x, sub, -10L)
+print(x)
+
+ii <- ss_icom(x, 2:3) |> ss2ii(dim(x))
+x[ii] <- -1000L
 print(x)
 
 
@@ -20,7 +25,8 @@ x[ii_icom(x, \(x)x>5)] <- -5
 print(x)
 
 x <- array(as.list(1:27), dim = c(3,3,3))
-x[ss_icom(x, n(1:2, 1:2), c(1,3))] <- -10
+sub <- ss_icom(x, n(1:2, 1:2), c(1,3))
+arepl(x, sub, list(-10L))
 print(x)
 
 

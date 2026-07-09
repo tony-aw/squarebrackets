@@ -1,6 +1,7 @@
 
 
 # squarebrackets 0.0.0.9009
+* Added `arepl()`.
 * Replaced the use of `do.call(...)` in the `ss_` methods with `eval(quote(...))`.
 * Replaced the `strid_pv()` stride function with the more generic `stride_v()` S3 method;
 Users can now create custom methods for it.

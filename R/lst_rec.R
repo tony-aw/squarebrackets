@@ -10,13 +10,13 @@
 #' `lst_recin()` can do the following things: \cr
 #' 
 #'  - replace or transform recursive subsets of a list,
-#'  using R's default Copy-On-Modify semantics,
+#'  using R's native semantics,
 #'  by specifying the `rp` or `tf` argument, respectively.
 #'  - delete a recursive subset of a list,
-#'  using R's default Copy-On-Modify semantics,
+#'  using R's native semantics,
 #'  by specifying argument `rp = NULL`.
 #'  - extending a list with additional recursive elements,
-#'  using R's default Copy-On-Modify semantics. \cr
+#'  using R's native semantics. \cr
 #'  This is done by specifying an out-of-bounds index in argument `rec`,
 #'  and entering the new values in argument `rp`. \cr
 #'  Note that adding surface level elements of a dimensional list
@@ -36,7 +36,7 @@
 #' @param ... see \link{squarebrackets_ellipsis}.
 #' @param rp optional, and allows for multiple functionalities:
 #'  - In the simplest case, performs `x[[rec]] <- rp`,
-#' using R's default semantics. \cr
+#' using R's native semantics. \cr
 #' Since this is a replacement of a recursive subset,
 #' `rp` does not necessarily have to be a list itself; \cr
 #' `rp` can be any type of object.
@@ -48,7 +48,7 @@
 #' - When `rec` is character, and specifies a non-existing name,
 #' `lst_recin()` will add value `rp` to the list as a new element at the end.
 #' @param tf an optional function. If specified, performs `x[[rec]] <- tf(x[[rec]])`,
-#' using R's default Copy-On-Modify semantics. \cr
+#' using R's native semantics. \cr
 #' Does not support extending a list like argument `rp`.
 #' 
 #' 
@@ -75,14 +75,14 @@
 #' Returns the recursive subset. \cr
 #' \cr
 #' For `lst_recin(..., rp = rp)`: \cr
-#' Returns VOID,
+#' Returns nothing,
 #' but replaces, adds, or deletes the specified recursive subset,
-#' using R's default Copy-On-Modify semantics. \cr
+#' using R's native semantics. \cr
 #' \cr
 #' For `lst_recin(..., tf = tf)`: \cr
-#' Returns VOID,
+#' Returns nothin,
 #' but transforms the specified recursive subset,
-#' using R's default Copy-On-Modify semantics. \cr \cr
+#' using R's native semantics. \cr \cr
 #' 
 #' 
 #'

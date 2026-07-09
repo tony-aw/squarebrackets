@@ -7,13 +7,13 @@ lst_rec() will access recursive subsets of lists.
 
 lst_recin() can do the following things:
 replace or transform recursive subsets of a list,
-using R's default Copy-On-Modify semantics,
+using R's native semantics,
 by specifying the rp or tf argument, respectively.
 delete a recursive subset of a list,
-using R's default Copy-On-Modify semantics,
+using R's native semantics,
 by specifying argument rp = NULL.
 extending a list with additional recursive elements,
-using R's default Copy-On-Modify semantics.
+using R's native semantics.
 This is done by specifying an out-of-bounds index in argument rec,
 and entering the new values in argument rp.
 Note that adding surface level elements of a dimensional list
@@ -27,13 +27,13 @@ lst_rec() will access recursive subsets of lists.
 
 lst_recin() can do the following things:
 replace or transform recursive subsets of a list,
-using R's default Copy-On-Modify semantics,
+using R's native semantics,
 by specifying the rp or tf argument, respectively.
 delete a recursive subset of a list,
-using R's default Copy-On-Modify semantics,
+using R's native semantics,
 by specifying argument rp = NULL.
 extending a list with additional recursive elements,
-using R's default Copy-On-Modify semantics.
+using R's native semantics.
 This is done by specifying an out-of-bounds index in argument rec,
 and entering the new values in argument rp.
 Note that adding surface level elements of a dimensional list
@@ -83,13 +83,13 @@ will delete the dimension attributes of that list.
     <p>The <code>lst_rec()</code> and <code>lst_recin()</code> methods
 are essentially convenient wrappers around <code>[[</code> and <code>[[&lt;-</code>,
 respectively. <br><br><code>lst_rec()</code> will access recursive subsets of lists. <br><br><code>lst_recin()</code> can do the following things: <br></p><ul><li><p>replace or transform recursive subsets of a list,
-using R's default Copy-On-Modify semantics,
+using R's native semantics,
 by specifying the <code>rp</code> or <code>tf</code> argument, respectively.</p></li>
 <li><p>delete a recursive subset of a list,
-using R's default Copy-On-Modify semantics,
+using R's native semantics,
 by specifying argument <code>rp = NULL</code>.</p></li>
 <li><p>extending a list with additional recursive elements,
-using R's default Copy-On-Modify semantics. <br>
+using R's native semantics. <br>
 This is done by specifying an out-of-bounds index in argument <code>rec</code>,
 and entering the new values in argument <code>rp</code>. <br>
 Note that adding surface level elements of a dimensional list
@@ -133,7 +133,7 @@ since recursive indexing can only select a single element. <br><code>NA, NaN, In
 
 <dt id="arg-rp">rp<a class="anchor" aria-label="anchor" href="#arg-rp"></a></dt>
 <dd><p>optional, and allows for multiple functionalities:</p><ul><li><p>In the simplest case, performs <code>x[[rec]] &lt;- rp</code>,
-using R's default semantics. <br>
+using R's native semantics. <br>
 Since this is a replacement of a recursive subset,
 <code>rp</code> does not necessarily have to be a list itself; <br><code>rp</code> can be any type of object.</p></li>
 <li><p>Specifying <code>rp = NULL</code> will <b>delete</b> (recursive) subset <code>lst_rec(x, rec)</code>. <br>
@@ -148,7 +148,7 @@ Any empty positions in between will be filled with <code>NA</code>.</p></li>
 
 <dt id="arg-tf">tf<a class="anchor" aria-label="anchor" href="#arg-tf"></a></dt>
 <dd><p>an optional function. If specified, performs <code>x[[rec]] &lt;- tf(x[[rec]])</code>,
-using R's default Copy-On-Modify semantics. <br>
+using R's native semantics. <br>
 Does not support extending a list like argument <code>rp</code>.</p></dd>
 
 </dl></div>
@@ -157,13 +157,13 @@ Does not support extending a list like argument <code>rp</code>.</p></dd>
     <p>For <code>lst_rec()</code>: <br>
 Returns the recursive subset. <br><br>
 For <code>lst_recin(..., rp = rp)</code>: <br>
-Returns VOID,
+Returns nothing,
 but replaces, adds, or deletes the specified recursive subset,
-using R's default Copy-On-Modify semantics. <br><br>
+using R's native semantics. <br><br>
 For <code>lst_recin(..., tf = tf)</code>: <br>
-Returns VOID,
+Returns nothin,
 but transforms the specified recursive subset,
-using R's default Copy-On-Modify semantics. <br><br></p>
+using R's native semantics. <br><br></p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
