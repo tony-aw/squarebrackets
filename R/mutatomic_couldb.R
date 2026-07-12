@@ -1,7 +1,6 @@
 
 
 
-
 #' @rdname mutatomic_class
 #' @export
 couldb.mutatomic <- function(x) {
@@ -31,11 +30,11 @@ couldb.mutatomic <- function(x) {
 }
 
 
+
 #' @keywords internal
 #' @noRd
 .is.array_like <- function(x) {
   if(is.factor(x) || .is.datetime(x) || .is.onlyvector(x)) return(FALSE)
-  if(is.array(x)) return(TRUE)
   return(TRUE)
 }
 
@@ -72,7 +71,4 @@ couldb.mutatomic <- function(x) {
   return(is.na(myNA))
   
 }
-
-#' @importFrom methods setOldClass
-setOldClass("mutatomic")
 

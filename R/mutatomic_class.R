@@ -52,20 +52,6 @@ as.mutatomic <- function(x, ...) {
 }
 
 
-#' @keywords internal
-#' @noRd
-.ma_materialize <- function(x) {
-  
-  y <- vector(typeof(x), length(x))
-  .rcpp_set_all_atomic(y, rp = x)
-  mostattributes(y) <- attributes(x)
-  
-  .internal_set_ma(y)
-
-  return(y)
-}
-
-
 
 #' @rdname mutatomic_class
 #' @export
@@ -84,4 +70,18 @@ is.mutatomic <- function(x) {
   
 }
 
+
+
+#' @keywords internal
+#' @noRd
+.ma_materialize <- function(x) {
+  
+  y <- vector(typeof(x), length(x))
+  .rcpp_set_all_atomic(y, rp = x)
+  mostattributes(y) <- attributes(x)
+  
+  .internal_set_ma(y)
+  
+  return(y)
+}
 

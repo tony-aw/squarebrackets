@@ -46,6 +46,8 @@
 <li>Moved the <code>use</code> argument from the <code>long_</code> methods into the <code>stride_</code> functions/methods.</li>
 <li>Streamlined the internal code here and there.</li>
 <li>Fixed some documentation errors.</li>
+<li>
+<strong>Bug Fix</strong>: data.table gave an error when sub-setting it if one of its columns was a mutatomic object. This is because data.table does not directly call <code>[.mutatomic</code>. This issue is now fixed, by re-defining the mutatomic internal attributes. The mutatomic class is now compatible with data.table and other functions that internally do not call <code>[</code> directly.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.0.9008" id="squarebrackets-0009008">squarebrackets 0.0.0.9008<a class="anchor" aria-label="anchor" href="#squarebrackets-0009008"></a></h2>

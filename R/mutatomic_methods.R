@@ -83,7 +83,7 @@ c.mutatomic <- function(..., use.names = TRUE) {
   }
   y <- NextMethod("[")
   class(y) <- oldClass(x)
-  attr(y, "serial") <- .C_serial(y)
+  attr(y, "serial") <- attr(x, "serial")
   y
 }
 
@@ -96,7 +96,7 @@ c.mutatomic <- function(..., use.names = TRUE) {
   }
   y <- NextMethod("[[")
   class(y) <- oldClass(x)
-  attr(y, "serial") <- .C_serial(y)
+  attr(y, "serial") <- attr(x, "serial")
   y
 }
 
@@ -111,6 +111,7 @@ c.mutatomic <- function(..., use.names = TRUE) {
   oldtype <- typeof(x)
   
   oc <- oldClass(x)
+  os <- attr(x, "serial")
   class(x) <- NULL
   x[...] <- value
   class(x) <- oc
@@ -120,7 +121,7 @@ c.mutatomic <- function(..., use.names = TRUE) {
     message(sprintf("coercing type from `%s` to `%s`", oldtype, newtype))
   }
   
-  attr(x, "serial") <- .C_serial(x)
+  attr(x, "serial") <- os
   x
 }
 
@@ -135,6 +136,7 @@ c.mutatomic <- function(..., use.names = TRUE) {
   oldtype <- typeof(x)
   
   oc <- oldClass(x)
+  os <- attr(x, "serial")
   class(x) <- NULL
   x[[...]] <- value
   class(x) <- oc
@@ -144,7 +146,7 @@ c.mutatomic <- function(..., use.names = TRUE) {
     message(sprintf("coercing type from `%s` to `%s`", oldtype, newtype))
   }
   
-  attr(x, "serial") <- .C_serial(x)
+  attr(x, "serial") <- os
   x
 }
 
@@ -157,10 +159,11 @@ c.mutatomic <- function(..., use.names = TRUE) {
   }
   
   oc <- oldClass(x)
+  os <- attr(x, "serial")
   class(x) <- NULL
   length(x) <- value
   class(x) <- oc
-  attr(x, "serial") <- .C_serial(x)
+  attr(x, "serial") <- os
   x
 }
 

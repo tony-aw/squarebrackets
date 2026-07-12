@@ -57,15 +57,15 @@
 #' 
 #' ```{r eval = FALSE, echo = TRUE}
 #'  ii_x(x, i = i) # ==> x[i]   # if `x` is atomic
-#'  ii_x(x, i = i) # ==> x[i]  # if `x` is recursive
+#'  ii_x(x, i = i) # ==> x[i]   # if `x` is recursive
 #'  
 #' ```
 #' 
 #' If `i` is a function, it corresponds to the following:
 #' 
 #' ```{r eval = FALSE, echo = TRUE}
-#'  ii_x(x, i = i) # ==> x[i(x)] # if `x` is atomic
-#'  ii_x(x, i = i) # ==> x[lapply(x, i)] # if `x` is recursive
+#'  ii_x(x, i = i) # ==> x[i(x)]          # if `x` is atomic
+#'  ii_x(x, i = i) # ==> x[lapply(x, i)]  # if `x` is recursive
 #'  
 #' ```
 #' 
@@ -96,7 +96,9 @@
 #' nor is it allowed to include zero (`0`)`.` \cr
 #' The default value for `use` is \bold{lazy evaluated} \code{1:}\link{ndim}\code{(x)}. \cr
 #' 
-#' `s` must be an atomic vector, a list of length 1, or a list of the same length as `use`. \cr
+#' `s` must be a list of the same length as `use`,
+#' a list of length 1,
+#' or an atomic vector. \cr
 #' If `s` is a list of length 1,
 #' it is internally recycled to become the same length as `use`. \cr
 #' If `s` is an atomic vector,
@@ -117,14 +119,13 @@
 #'  If a dimension has multiple indices with the given name,
 #'  ALL the corresponding indices will be selected for the operation.
 #'  * a formula; see \link{keywords}. \cr \cr
-#'  
-#'  
-#' To keep the syntax short,
-#' the user can use the \link{n} function instead of `list()` to specify `s`. \cr
-#' \cr
+#' 
+#' 
 #' \bold{EXAMPLES} \cr
 #' Here are some examples for clarity,
-#' using an atomic array `x` of 3 dimensions:
+#' using an atomic array `x` of 3 dimensions. \cr
+#' \cr
+#' Examples with `s` as atomic vector:
 #' 
 #' ```{r eval = FALSE, echo = TRUE}
 #' 
@@ -137,20 +138,26 @@
 #' # remove first 10 indices of every dimension:
 #' ss_x(x, 1:10, -Inf)              # ==> x[-1:-10, -1:-10, -1:-10, drop = FALSE]
 #' 
+#' extract the first 10 rows, all columns, and the first 10 layers
+#' ss_x(x, 1:10, c(1, 3))           # ==> x[1:10, , 1:10, drop = FALSE]
+#' 
+#' ```
+#' 
+#' To keep the syntax short,
+#' the user can use the \link{n} function instead of `list()` to specify `s`. \cr
+#' Here are examples where `s` is used as a list:
+#' 
+#' ```{r eval = FALSE, echo = TRUE}
+#' 
 #' # extract first 10 rows, all columns, and first 5 layers:
 #' ss_x(x, n(1:10, 0L, 1:5))        # ==> x[1:10, , 1:5, drop = FALSE]
-#' 
-#' extract the first 10 rows, all columns, and the first 5 layers
-#' ss_x(x, 1:10, c(1, 3))           # ==> x[1:10, , 1:10, drop = FALSE]
 #' 
 #' # extract first 10 rows, extract all columns, and **remove** first 5 layers:
 #' ss_x(x, n(1:10, 1:5), c(1, -3))  # ==> x[1:10, , -1:-5, drop = FALSE]
 #' 
 #' 
-#' 
-#' 
-#' 
 #' ```
+#' 
 #' 
 #' For a brief explanation on the relationship between flat indices (`i`)
 #' and subscripts (`s`, `use`) in arrays,
@@ -194,9 +201,9 @@
 #' 
 #' ```{r eval = FALSE, echo = TRUE}
 #'  
-#'  # Extracting rows or columns:
-#'  tt_x(x, col = c) # ==> x[, c]
-#'  tt_x(x, row = r) # ==> x[r, ]
+#'  # Extracting only rows or columns:
+#'  tt_x(x, 0, c)           # ==> x[, c]
+#'  tt_x(x, r, 0)           # ==> x[r, ]
 #'  
 #'  # Extracting both:
 #'  tt_x(x, r, c)           # ==> x[r, c]

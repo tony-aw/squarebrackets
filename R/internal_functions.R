@@ -108,7 +108,11 @@
   vars <- all.vars(form)
   env <- environment(form)
   search_names <- c(names(data), names(env))
-  if(any(!vars %in% search_names)) stop("unknown variable(s) given")
+  missing.vars <- vars[!vars %in% search_names]
+  if(any(!vars %in% search_names)) {
+    txt <- paste0("unknown variable(s) given: \n", missing.vars)
+    stop(simpleError("unknown variable(s) given", call = abortcall))
+  }
   txt <- as.character(form)[2L]
   out <- eval(parse(text = txt), data, enclos = env)
   environment(form) <- NULL

@@ -60,14 +60,14 @@ For recursive objects, \code{i} is interpreted as \code{lapply(x, i)}.
 Using the \code{i} arguments corresponds to doing something like the following:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{ ii_x(x, i = i) # ==> x[i]   # if `x` is atomic
- ii_x(x, i = i) # ==> x[i]  # if `x` is recursive
+ ii_x(x, i = i) # ==> x[i]   # if `x` is recursive
  
 }\if{html}{\out{</div>}}
 
 If \code{i} is a function, it corresponds to the following:
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{ ii_x(x, i = i) # ==> x[i(x)] # if `x` is atomic
- ii_x(x, i = i) # ==> x[lapply(x, i)] # if `x` is recursive
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{ ii_x(x, i = i) # ==> x[i(x)]          # if `x` is atomic
+ ii_x(x, i = i) # ==> x[lapply(x, i)]  # if `x` is recursive
  
 }\if{html}{\out{</div>}}
 }
@@ -100,7 +100,9 @@ Specifically, the \code{use} argument can be any of the following:
 nor is it allowed to include zero (\code{0})\code{.} \cr
 The default value for \code{use} is \bold{lazy evaluated} \code{1:}\link{ndim}\code{(x)}. \cr
 
-\code{s} must be an atomic vector, a list of length 1, or a list of the same length as \code{use}. \cr
+\code{s} must be a list of the same length as \code{use},
+a list of length 1,
+or an atomic vector. \cr
 If \code{s} is a list of length 1,
 it is internally recycled to become the same length as \code{use}. \cr
 If \code{s} is an atomic vector,
@@ -123,12 +125,11 @@ ALL the corresponding indices will be selected for the operation.
 \item a formula; see \link{keywords}. \cr \cr
 }
 
-To keep the syntax short,
-the user can use the \link{n} function instead of \code{list()} to specify \code{s}. \cr
-\cr
 \bold{EXAMPLES} \cr
 Here are some examples for clarity,
-using an atomic array \code{x} of 3 dimensions:
+using an atomic array \code{x} of 3 dimensions. \cr
+\cr
+Examples with \code{s} as atomic vector:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{
 # extract the first 10 columns:
@@ -140,11 +141,18 @@ ss_x(x, 1:10)                    # ==> x[1:10, 1:10, 1:10, drop = FALSE]
 # remove first 10 indices of every dimension:
 ss_x(x, 1:10, -Inf)              # ==> x[-1:-10, -1:-10, -1:-10, drop = FALSE]
 
+extract the first 10 rows, all columns, and the first 10 layers
+ss_x(x, 1:10, c(1, 3))           # ==> x[1:10, , 1:10, drop = FALSE]
+
+}\if{html}{\out{</div>}}
+
+To keep the syntax short,
+the user can use the \link{n} function instead of \code{list()} to specify \code{s}. \cr
+Here are examples where \code{s} is used as a list:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{
 # extract first 10 rows, all columns, and first 5 layers:
 ss_x(x, n(1:10, 0L, 1:5))        # ==> x[1:10, , 1:5, drop = FALSE]
-
-extract the first 10 rows, all columns, and the first 5 layers
-ss_x(x, 1:10, c(1, 3))           # ==> x[1:10, , 1:10, drop = FALSE]
 
 # extract first 10 rows, extract all columns, and **remove** first 5 layers:
 ss_x(x, n(1:10, 1:5), c(1, -3))  # ==> x[1:10, , -1:-5, drop = FALSE]
@@ -194,9 +202,9 @@ The order of \code{use} is \bold{irrelevant}: \cr
 Examples:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{ 
- # Extracting rows or columns:
- tt_x(x, col = c) # ==> x[, c]
- tt_x(x, row = r) # ==> x[r, ]
+ # Extracting only rows or columns:
+ tt_x(x, 0, c)           # ==> x[, c]
+ tt_x(x, r, 0)           # ==> x[r, ]
  
  # Extracting both:
  tt_x(x, r, c)           # ==> x[r, c]

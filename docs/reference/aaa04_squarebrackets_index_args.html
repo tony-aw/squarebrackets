@@ -112,11 +112,11 @@ For recursive objects, <code>i</code> is interpreted as <code>lapply(x, i)</code
 <li><p>a formula; see <a href="aaa11_squarebrackets_keywords.html">keywords</a>. <br><br></p></li>
 </ul><p>Using the <code>i</code> arguments corresponds to doing something like the following:</p>
 <p></p><div class="sourceCode r"><pre><code><span> <span class="fu"><a href="../reference/sb_x.html">ii_x</a></span><span class="op">(</span><span class="va">x</span>, i <span class="op">=</span> <span class="va">i</span><span class="op">)</span> <span class="co"># ==&gt; x[i]   # if `x` is atomic</span></span>
-<span> <span class="fu"><a href="../reference/sb_x.html">ii_x</a></span><span class="op">(</span><span class="va">x</span>, i <span class="op">=</span> <span class="va">i</span><span class="op">)</span> <span class="co"># ==&gt; x[i]  # if `x` is recursive</span></span>
+<span> <span class="fu"><a href="../reference/sb_x.html">ii_x</a></span><span class="op">(</span><span class="va">x</span>, i <span class="op">=</span> <span class="va">i</span><span class="op">)</span> <span class="co"># ==&gt; x[i]   # if `x` is recursive</span></span>
 <span></span></code></pre><p></p></div>
 <p>If <code>i</code> is a function, it corresponds to the following:</p>
-<p></p><div class="sourceCode r"><pre><code><span> <span class="fu"><a href="../reference/sb_x.html">ii_x</a></span><span class="op">(</span><span class="va">x</span>, i <span class="op">=</span> <span class="va">i</span><span class="op">)</span> <span class="co"># ==&gt; x[i(x)] # if `x` is atomic</span></span>
-<span> <span class="fu"><a href="../reference/sb_x.html">ii_x</a></span><span class="op">(</span><span class="va">x</span>, i <span class="op">=</span> <span class="va">i</span><span class="op">)</span> <span class="co"># ==&gt; x[lapply(x, i)] # if `x` is recursive</span></span>
+<p></p><div class="sourceCode r"><pre><code><span> <span class="fu"><a href="../reference/sb_x.html">ii_x</a></span><span class="op">(</span><span class="va">x</span>, i <span class="op">=</span> <span class="va">i</span><span class="op">)</span> <span class="co"># ==&gt; x[i(x)]          # if `x` is atomic</span></span>
+<span> <span class="fu"><a href="../reference/sb_x.html">ii_x</a></span><span class="op">(</span><span class="va">x</span>, i <span class="op">=</span> <span class="va">i</span><span class="op">)</span> <span class="co"># ==&gt; x[lapply(x, i)]  # if `x` is recursive</span></span>
 <span></span></code></pre><p></p></div>
     </div>
     <div class="section level2">
@@ -141,7 +141,9 @@ Specifically, the <code>use</code> argument can be any of the following:</p><ul>
 </ul><p><code>use</code> is not allowed to have any duplicate values,
 nor is it allowed to include zero (<code>0</code>)<code>.</code> <br>
 The default value for <code>use</code> is <b>lazy evaluated</b> <code>1:</code><a href="size.html">ndim</a><code>(x)</code>. <br></p>
-<p><code>s</code> must be an atomic vector, a list of length 1, or a list of the same length as <code>use</code>. <br>
+<p><code>s</code> must be a list of the same length as <code>use</code>,
+a list of length 1,
+or an atomic vector. <br>
 If <code>s</code> is a list of length 1,
 it is internally recycled to become the same length as <code>use</code>. <br>
 If <code>s</code> is an atomic vector,
@@ -159,10 +161,10 @@ giving the indices of the specified dimension to select for the operation.</p></
 If a dimension has multiple indices with the given name,
 ALL the corresponding indices will be selected for the operation.</p></li>
 <li><p>a formula; see <a href="aaa11_squarebrackets_keywords.html">keywords</a>. <br><br></p></li>
-</ul><p>To keep the syntax short,
-the user can use the <a href="nest.html">n</a> function instead of <code><a href="https://rdrr.io/r/base/list.html" class="external-link">list()</a></code> to specify <code>s</code>. <br><br><b>EXAMPLES</b> <br>
+</ul><p><b>EXAMPLES</b> <br>
 Here are some examples for clarity,
-using an atomic array <code>x</code> of 3 dimensions:</p>
+using an atomic array <code>x</code> of 3 dimensions. <br><br>
+Examples with <code>s</code> as atomic vector:</p>
 <p></p><div class="sourceCode r"><pre><code>
 # extract the first 10 columns:
 ss_x(x, 1:10, 2)                 # ==&gt; x[ , 1:10, , drop = FALSE]
@@ -173,16 +175,20 @@ ss_x(x, 1:10)                    # ==&gt; x[1:10, 1:10, 1:10, drop = FALSE]
 # remove first 10 indices of every dimension:
 ss_x(x, 1:10, -Inf)              # ==&gt; x[-1:-10, -1:-10, -1:-10, drop = FALSE]
 
-# extract first 10 rows, all columns, and first 5 layers:
-ss_x(x, n(1:10, 0L, 1:5))        # ==&gt; x[1:10, , 1:5, drop = FALSE]
-
-extract the first 10 rows, all columns, and the first 5 layers
+extract the first 10 rows, all columns, and the first 10 layers
 ss_x(x, 1:10, c(1, 3))           # ==&gt; x[1:10, , 1:10, drop = FALSE]
 
-# extract first 10 rows, extract all columns, and **remove** first 5 layers:
-ss_x(x, n(1:10, 1:5), c(1, -3))  # ==&gt; x[1:10, , -1:-5, drop = FALSE]
-
 </code></pre><p></p></div>
+<p>To keep the syntax short,
+the user can use the <a href="nest.html">n</a> function instead of <code><a href="https://rdrr.io/r/base/list.html" class="external-link">list()</a></code> to specify <code>s</code>. <br>
+Here are examples where <code>s</code> is used as a list:</p>
+<p></p><div class="sourceCode r"><pre><code><span></span>
+<span><span class="co"># extract first 10 rows, all columns, and first 5 layers:</span></span>
+<span><span class="fu"><a href="../reference/sb_x.html">ss_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="../reference/nest.html">n</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">0L</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span>        <span class="co"># ==&gt; x[1:10, , 1:5, drop = FALSE]</span></span>
+<span></span>
+<span><span class="co"># extract first 10 rows, extract all columns, and **remove** first 5 layers:</span></span>
+<span><span class="fu"><a href="../reference/sb_x.html">ss_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="../reference/nest.html">n</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span>  <span class="co"># ==&gt; x[1:10, , -1:-5, drop = FALSE]</span></span>
+<span></span></code></pre><p></p></div>
 <p>For a brief explanation on the relationship between flat indices (<code>i</code>)
 and subscripts (<code>s</code>, <code>use</code>) in arrays,
 see <a href="ss2ii.html">ss2ii</a>. <br><br></p>
@@ -213,9 +219,9 @@ If <code>use</code> is <code>-1:-2</code>, both the row- and column- indices wil
 The order of <code>use</code> is <b>irrelevant</b>: <br><code>c(-1, 2)</code> is the same as <code>c(2, -1)</code>, and will not change the evaluation of the <code>row</code> and <code>col</code> arguments. <br><br></p>
 <p>Examples:</p>
 <p></p><div class="sourceCode r"><pre><code><span></span>
-<span> <span class="co"># Extracting rows or columns:</span></span>
-<span> <span class="fu"><a href="../reference/sb_x.html">tt_x</a></span><span class="op">(</span><span class="va">x</span>, col <span class="op">=</span> <span class="va">c</span><span class="op">)</span> <span class="co"># ==&gt; x[, c]</span></span>
-<span> <span class="fu"><a href="../reference/sb_x.html">tt_x</a></span><span class="op">(</span><span class="va">x</span>, row <span class="op">=</span> <span class="va">r</span><span class="op">)</span> <span class="co"># ==&gt; x[r, ]</span></span>
+<span> <span class="co"># Extracting only rows or columns:</span></span>
+<span> <span class="fu"><a href="../reference/sb_x.html">tt_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">0</span>, <span class="va">c</span><span class="op">)</span>           <span class="co"># ==&gt; x[, c]</span></span>
+<span> <span class="fu"><a href="../reference/sb_x.html">tt_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">r</span>, <span class="fl">0</span><span class="op">)</span>           <span class="co"># ==&gt; x[r, ]</span></span>
 <span></span>
 <span> <span class="co"># Extracting both:</span></span>
 <span> <span class="fu"><a href="../reference/sb_x.html">tt_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">r</span>, <span class="va">c</span><span class="op">)</span>           <span class="co"># ==&gt; x[r, c]</span></span>

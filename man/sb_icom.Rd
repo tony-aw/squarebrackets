@@ -73,7 +73,7 @@ A strictly positivie numeric vector of either row or column indices. \cr
 To be used in the first (for rows) or second (for columns) slot of the tabular form of the \verb{[<-} operator. \cr
 \cr
 For \code{ss_icom()}: \cr
-A list of strictlt positive integer vectors, containing array subscripts. \cr
+A list of strictly positive integer vectors, containing array subscripts. \cr
 To be used in the \code{arepl()} function. \cr
 Can also be combined with \link{ss2ii} to use in the flat form of the \verb{[<-} operator. \cr
 \cr

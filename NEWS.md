@@ -8,6 +8,11 @@ Users can now create custom methods for it.
 * Moved the `use` argument from the `long_` methods into the `stride_` functions/methods.
 * Streamlined the internal code here and there.
 * Fixed some documentation errors.
+* **Bug Fix**: data.table gave an error when sub-setting it if one of its columns was a mutatomic object.
+This is because data.table does not directly call `[.mutatomic`.
+This issue is now fixed, by re-defining the mutatomic internal attributes.
+The mutatomic class is now compatible with data.table and other functions that internally do not call `[` directly.
+
 
 
 # squarebrackets 0.0.0.9008
