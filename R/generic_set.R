@@ -38,8 +38,8 @@
 #' @export
 ii_set <- function(x, i = NULL, use = 1, ..., rp, tf) {
   
-  .methodcheck.ii(x, i, use, sys.call())
-  .internal_check_rptf(rp, tf, sys.call())
+  .methodcheck.ii(x, sys.call())
+  .argscheck_rptf(rp, tf, sys.call())
   
   UseMethod("ii_set", x)
 }
@@ -49,8 +49,8 @@ ii_set <- function(x, i = NULL, use = 1, ..., rp, tf) {
 #' @export
 ss_set <- function(x, s = NULL, use = rdim(x), ..., rp, tf) {
   
-  .methodcheck.ss(x, s, use, sys.call())
-  .internal_check_rptf(rp, tf, sys.call())
+  .methodcheck.ss(x, sys.call())
+  .argscheck_rptf(rp, tf, sys.call())
   
   UseMethod("ss_set", x)
 }
@@ -60,8 +60,8 @@ ss_set <- function(x, s = NULL, use = rdim(x), ..., rp, tf) {
 #' @export
 tt_set <- function(x, row = NULL, col = NULL, use = 1:2, ..., rp, tf) {
   
-  .methodcheck.sbt(x, row, col, use, sys.call())
-  .internal_check_rptf(rp, tf, sys.call())
+  .methodcheck.tt(x, sys.call())
+  .argscheck_rptf(rp, tf, sys.call())
   
   UseMethod("tt_set", x)
 }
@@ -78,7 +78,7 @@ ii_set.default <- function(
   # error checks:
   stopifnot_ma_safe2mutate(substitute(x), parent.frame(n = 1), sys.call())
   .internal_check_dots(list(...), sys.call())
-  .internal_check_rptf(rp, tf, sys.call())
+  .argscheck_rptf(rp, tf, sys.call())
   
   if(length(x) == 0L) {
     return(invisible(NULL))
@@ -138,7 +138,6 @@ tt_set.data.table <- function(
   if(!data.table::is.data.table(x)) {
     stop("`x` is not a (supported) mutable object")
   }
-  .internal_check_rptf(rp, tf, sys.call())
   .check_bindingIsLocked(substitute(x), parent.frame(n = 1), abortcall = sys.call())
   
   if(length(x) == 0L) {
@@ -146,22 +145,9 @@ tt_set.data.table <- function(
   }
   
   # make arguments:
-  use <- .internal_make_use_tabular(use, sys.call())
-  if(!.C_is_missing_idx(row)) {
-    row <- ci_margin(
-      x, row, 1L, use[1], chkdup = FALSE, uniquely_named = TRUE, sys.call()
-    )
-  }
-  if(is.function(col)) {
-    col <- collapse::get_vars(x, col, return = "logical")
-    if(use[2] > 0) col <- which(col)
-    if(use[2] < 0) col <- collapse::whichv(col, FALSE)
-  }
-  else if(!.C_is_missing_idx(col)) {
-    col <- ci_margin(
-      x, col, 2L, use[2], chkdup = FALSE, uniquely_named =  TRUE, sys.call()
-    )
-  }
+  rowcol <- ci_df(x, row, col, use, chkdup, sys.call())
+  row <- rowcol[[1L]]
+  col <- rowcol[[2L]]
   # don't use if(is.null(row or col)) row or col <- 1:... -> will mess up the rest of this function
   
   
@@ -205,7 +191,7 @@ tt_set.data.table <- function(
 #' @keywords internal
 #' @noRd
 .sb_set_array <- function(x, s, use, chkdup, rp, tf, abortcall) {
-  .internal_check_rptf(rp, tf, sys.call())
+  .argscheck_rptf(rp, tf, sys.call())
   .check_args_array(x, s, use, sys.call())
   
   if(is.list(x) && !missing(tf)) {

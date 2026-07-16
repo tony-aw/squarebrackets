@@ -85,7 +85,7 @@ indx_named <- function(x, dim.i) {
 # uniquely named matrix ====
 x <- matrix(as.double(-sample.int(20)), 5, 4)
 rownames(x) <- letters[1:5]
-colnames(x) <- LETTERS[1:4]
+colnames(x) <- letters[1:4]
 row <- indx_named(x, 1)
 col <- indx_named(x, 2)
 temp.fun.2d(x, row, col, f_expect.2d, f_out.2d)
@@ -101,7 +101,7 @@ temp.fun.2d(x, row, col, f_expect.2d, f_out.2d)
 # non-uniquely named matrix ====
 x <- matrix(as.double(-sample.int(20)), c(5, 4))
 rownames(x) <- c("a", letters[1:2], "", NA)
-colnames(x) <- LETTERS[1:4]
+colnames(x) <- letters[1:4]
 row <- indx_named(x, 1)
 col <- indx_named(x, 2)
 temp.fun.2d(x, row, col, f_expect.2d, f_out.2d)

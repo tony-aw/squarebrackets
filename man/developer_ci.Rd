@@ -5,6 +5,7 @@
 \alias{ci_ii}
 \alias{ci_margin}
 \alias{ci_ss}
+\alias{ci_df}
 \title{Construct Indices}
 \usage{
 ci_ii(
@@ -34,11 +35,13 @@ ci_ss(
   uniquely_named = FALSE,
   .abortcall = sys.call()
 )
+
+ci_df(x, row, col, use = 1:2, chkdup = FALSE, .abortcall)
 }
 \arguments{
 \item{x}{the object for which the indices are meant.}
 
-\item{i, s, use, slice, margin}{See \link{squarebrackets_index_args}. \cr}
+\item{i, s, row, col, slice, margin, use}{See \link{squarebrackets_index_args}. \cr}
 
 \item{chkdup}{see \link{squarebrackets_options}. \cr
 \ifelse{html}{\figure{for_performance-set_to_FALSE-red.svg}{options: alt='[for performance: set to FALSE]'}}{\link[=squarebrackets_help]{for performance: set to FALSE}} \cr}
@@ -59,6 +62,7 @@ These functions construct indices. \cr
 \item \code{ci_ii()} constructs an integer vector flat/interior indices.
 \item \code{ci_margin()} constructs an integer vector of indices for one particular dimension margin.
 \item \code{ci_ss()} constructs a list of integer subscripts.
+\item \code{ci_df()} constructs a list of row- and column indices for data.frames specifically.
 }
 }
 \examples{

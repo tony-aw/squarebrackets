@@ -63,6 +63,16 @@ for(i in 1:length(xlist)) {
   enumerate <- enumerate + 1
 }
 
+for(i in 1:length(xlist)) {
+  expect_error(
+    sb_test(setNames(xlist[[i]], letters[seq_along(xlist[[i]])]), i = c("a", "xxx")),
+    pattern = "unknown names given",
+    fixed = TRUE
+  )|> errorfun()
+  enumerate <- enumerate + 1
+}
+
+
 
 if(!test_PassByReference){
   xlist <- list(

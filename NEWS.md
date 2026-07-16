@@ -1,4 +1,10 @@
 
+# squarebrackets 0.0.0.9010
+* Giving non-existing names as indices now gives a proper error.
+* Added the `dt_` functions.
+* Added the `ci_df()` function.
+* Using `use = -2:-1` or `use = 2:1` in the `tt_` will now result in an error, to ensure consistent syntax.
+
 
 # squarebrackets 0.0.0.9009
 * Added `arepl()`.

@@ -28,7 +28,7 @@ For the \verb{<operation>} part, the following is available:
 \item \verb{_x}: extract, exchange, exclude, or duplicate (if applicable) subsets.
 \item \verb{_mod}: modify subsets and return copy.
 \item \verb{_set}: modify subsets using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
-\item \code{icom}: create indices to be used in \verb{[<-} to modify objects using the default Copy-On-Modify semantics. \cr \cr
+\item \verb{_icom}: create indices to be used in \verb{[<-} to modify objects using the R's default semantics. \cr \cr
 }
 
 To illustrate, let's take the methods used for extracting subsets
@@ -51,10 +51,12 @@ The main methods of 'squarebrackets' are applicable for all supported types and 
 \itemize{
 \item the \link[=lst_rec]{lst_} set of methods,
 which deal with sub-set operations that are only relevant for (nested) lists,
-but not for the other types of supported objects. \cr
+but not for the other types of supported objects.
 \item the \link[=long]{long_} set of methods,
 which deal with index-less sub-set operations,
-that are only relevant for long atomic vectors. \cr \cr
+that are only relevant for long atomic vectors.
+\item the \link[=dt]{dt_} set of methods,
+which deal with sub-set operations that are only relevant for data.tables. \cr \cr
 }
 }
 

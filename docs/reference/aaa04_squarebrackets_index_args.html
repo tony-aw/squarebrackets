@@ -39,7 +39,7 @@ In this help page x refers to the object on which subset operations are performe
 
     <a class="navbar-brand me-2" href="../index.html">squarebrackets</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9009</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9010</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -216,7 +216,10 @@ If <code>use</code> is <code>c(-1, 2)</code> or <code>-1</code>, the row indices
 If <code>use</code> is <code>c(1, -2)</code> or <code>-2</code>, the column indices will be inverted
 (i.e. select all columns <strong>except</strong> those specified in <code>col</code>). <br>
 If <code>use</code> is <code>-1:-2</code>, both the row- and column- indices will be inverted. <br>
-The order of <code>use</code> is <b>irrelevant</b>: <br><code>c(-1, 2)</code> is the same as <code>c(2, -1)</code>, and will not change the evaluation of the <code>row</code> and <code>col</code> arguments. <br><br></p>
+Specifying <code>use = 2:1</code> or <code>use = -2:-1</code> will result in an error. <br>
+Moreover, a <code>use</code> of length other than 1 or 2,
+or a <code>use</code> containing a <code>0</code> (zero),
+will also lead to an error. <br><br></p>
 <p>Examples:</p>
 <p></p><div class="sourceCode r"><pre><code><span></span>
 <span> <span class="co"># Extracting only rows or columns:</span></span>
@@ -225,21 +228,17 @@ The order of <code>use</code> is <b>irrelevant</b>: <br><code>c(-1, 2)</code> is
 <span></span>
 <span> <span class="co"># Extracting both:</span></span>
 <span> <span class="fu"><a href="../reference/sb_x.html">tt_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">r</span>, <span class="va">c</span><span class="op">)</span>           <span class="co"># ==&gt; x[r, c]</span></span>
-<span> <span class="fu"><a href="../reference/sb_x.html">tt_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">r</span>, <span class="va">c</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">1</span><span class="op">)</span>      <span class="co"># ==&gt; x[r, c] (same as previous)</span></span>
 <span></span>
 <span> <span class="co"># Excluding rows:</span></span>
 <span> <span class="fu"><a href="../reference/sb_x.html">tt_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">r</span>, <span class="va">c</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span> <span class="co"># ==&gt; x[-r, c]</span></span>
-<span> <span class="fu"><a href="../reference/sb_x.html">tt_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">r</span>, <span class="va">c</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="co"># ==&gt; x[-r, c] (same as previous)</span></span>
 <span> <span class="fu"><a href="../reference/sb_x.html">tt_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">r</span>, <span class="va">c</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span>       <span class="co"># ==&gt; x[-r, c] (same as previous)</span></span>
 <span></span>
 <span> <span class="co"># Excluding columns:</span></span>
 <span> <span class="fu"><a href="../reference/sb_x.html">tt_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">r</span>, <span class="va">c</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span> <span class="co"># ==&gt; x[r, -c]</span></span>
-<span> <span class="fu"><a href="../reference/sb_x.html">tt_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">r</span>, <span class="va">c</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="co"># ==&gt; x[r, -c] (same as previous)</span></span>
 <span> <span class="fu"><a href="../reference/sb_x.html">tt_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">r</span>, <span class="va">c</span>, <span class="op">-</span><span class="fl">2</span><span class="op">)</span>       <span class="co"># ==&gt; x[r, -c] (same as previous)</span></span>
 <span></span>
 <span> <span class="co"># Excluding both:</span></span>
 <span> <span class="fu"><a href="../reference/sb_x.html">tt_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">r</span>, <span class="va">c</span>, <span class="op">-</span><span class="fl">1</span><span class="op">:</span><span class="op">-</span><span class="fl">2</span><span class="op">)</span>    <span class="co"># ==&gt; x[-r, -c]</span></span>
-<span> <span class="fu"><a href="../reference/sb_x.html">tt_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">r</span>, <span class="va">c</span>, <span class="op">-</span><span class="fl">2</span><span class="op">:</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span>    <span class="co"># ==&gt; x[-r, -c] (same as previous)</span></span>
 <span></span></code></pre><p></p></div>
     </div>
     <div class="section level2">

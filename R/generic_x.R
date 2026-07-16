@@ -24,7 +24,7 @@
 #' @export
 ii_x <- function(x, i = NULL, use = 1, ...) {
   
-  .methodcheck.ii(x, i, use, sys.call())
+  .methodcheck.ii(x, sys.call())
   
   UseMethod("ii_x", x)
 }
@@ -34,7 +34,7 @@ ii_x <- function(x, i = NULL, use = 1, ...) {
 #' @export
 ss_x <- function(x, s = NULL, use = 1:ndim(x), ...) {
   
-  .methodcheck.ss(x, s, use, sys.call())
+  .methodcheck.ss(x, sys.call())
   UseMethod("ss_x", x)
 }
 
@@ -42,7 +42,7 @@ ss_x <- function(x, s = NULL, use = 1:ndim(x), ...) {
 #' @rdname sb_x
 #' @export
 tt_x <- function(x, row = NULL, col = NULL, use = 1:2, ...) {
-  .methodcheck.sbt(x, row, col, use, sys.call())
+  .methodcheck.tt(x, sys.call())
   UseMethod("tt_x", x)
 }
 
@@ -136,26 +136,14 @@ tt_x.data.frame <- function(x, row = NULL, col = NULL, use = 1:2, ...) {
   }
   
   # make arguments:
-  if(!.C_is_missing_idx(row)) {
-    row <- ci_margin(
-      x, row, 1L, use[1], chkdup = FALSE, uniquely_named = TRUE, sys.call()
-    )
-  }
-  if(is.function(col)) {
-    col <- collapse::get_vars(x, col, return = "logical")
-    if(use[2] > 0) col <- which(col)
-    if(use[2] < 0) col <- collapse::whichv(col, FALSE)
-  }
-  else if(!.C_is_missing_idx(col)) {
-    col <- ci_margin(
-      x, col, 2L, use[2], chkdup = FALSE, uniquely_named =  TRUE, sys.call()
-    )
-  }
+  rowcol <- ci_df(x, row, col, use, FALSE, sys.call())
+  row <- rowcol[[1L]]
+  col <- rowcol[[2L]]
   if(.C_is_missing_idx(row)) row <- base::quote(expr = )
   if(.C_is_missing_idx(col)) col <- base::quote(expr = )
   
   x <- collapse::ss(x, row, col, check = FALSE)
   
-  names(x) <- make.names(names(x), unique = TRUE)
+  names(x) <- make.unique(names(x))
   return(x)
 }

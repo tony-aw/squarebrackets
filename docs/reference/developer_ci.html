@@ -3,11 +3,13 @@
 ci_ii() constructs an integer vector flat/interior indices.
 ci_margin() constructs an integer vector of indices for one particular dimension margin.
 ci_ss() constructs a list of integer subscripts.
+ci_df() constructs a list of row- and column indices for data.frames specifically.
 
 "><meta property="og:description" content="These functions construct indices.
 ci_ii() constructs an integer vector flat/interior indices.
 ci_margin() constructs an integer vector of indices for one particular dimension margin.
 ci_ss() constructs a list of integer subscripts.
+ci_df() constructs a list of row- and column indices for data.frames specifically.
 
 "></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -17,7 +19,7 @@ ci_ss() constructs a list of integer subscripts.
 
     <a class="navbar-brand me-2" href="../index.html">squarebrackets</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9009</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9010</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,6 +55,7 @@ ci_ss() constructs a list of integer subscripts.
     <p>These functions construct indices. <br></p><ul><li><p><code>ci_ii()</code> constructs an integer vector flat/interior indices.</p></li>
 <li><p><code>ci_margin()</code> constructs an integer vector of indices for one particular dimension margin.</p></li>
 <li><p><code>ci_ss()</code> constructs a list of integer subscripts.</p></li>
+<li><p><code>ci_df()</code> constructs a list of row- and column indices for data.frames specifically.</p></li>
 </ul></div>
 
     <div class="section level2">
@@ -83,7 +86,9 @@ ci_ss() constructs a list of integer subscripts.
 <span>  chkdup <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  uniquely_named <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  .abortcall <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sys.parent.html" class="external-link">sys.call</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">ci_df</span><span class="op">(</span><span class="va">x</span>, <span class="va">row</span>, <span class="va">col</span>, use <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, chkdup <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">.abortcall</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -94,7 +99,7 @@ ci_ss() constructs a list of integer subscripts.
 <dd><p>the object for which the indices are meant.</p></dd>
 
 
-<dt id="arg-i-s-use-slice-margin">i, s, use, slice, margin<a class="anchor" aria-label="anchor" href="#arg-i-s-use-slice-margin"></a></dt>
+<dt id="arg-i-s-row-col-slice-margin-use">i, s, row, col, slice, margin, use<a class="anchor" aria-label="anchor" href="#arg-i-s-row-col-slice-margin-use"></a></dt>
 <dd><p>See <a href="aaa04_squarebrackets_index_args.html">squarebrackets_index_args</a>. <br></p></dd>
 
 

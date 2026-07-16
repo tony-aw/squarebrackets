@@ -193,8 +193,10 @@
 #' If `use` is `c(1, -2)` or `-2`, the column indices will be inverted
 #' (i.e. select all columns **except** those specified in `col`). \cr
 #' If `use` is `-1:-2`, both the row- and column- indices will be inverted. \cr
-#' The order of `use` is \bold{irrelevant}: \cr
-#' `c(-1, 2)` is the same as `c(2, -1)`, and will not change the evaluation of the `row` and `col` arguments. \cr
+#' Specifying `use = 2:1` or `use = -2:-1` will result in an error. \cr
+#' Moreover, a `use` of length other than 1 or 2,
+#' or a `use` containing a `0` (zero),
+#' will also lead to an error. \cr
 #' \cr
 #' 
 #' Examples:
@@ -207,21 +209,17 @@
 #'  
 #'  # Extracting both:
 #'  tt_x(x, r, c)           # ==> x[r, c]
-#'  tt_x(x, r, c, 2:1)      # ==> x[r, c] (same as previous)
 #'  
 #'  # Excluding rows:
 #'  tt_x(x, r, c, c(-1, 2)) # ==> x[-r, c]
-#'  tt_x(x, r, c, c(2, -1)) # ==> x[-r, c] (same as previous)
 #'  tt_x(x, r, c, -1)       # ==> x[-r, c] (same as previous)
 #'  
 #'  # Excluding columns:
 #'  tt_x(x, r, c, c(1, -2)) # ==> x[r, -c]
-#'  tt_x(x, r, c, c(-2, 1)) # ==> x[r, -c] (same as previous)
 #'  tt_x(x, r, c, -2)       # ==> x[r, -c] (same as previous)
 #'  
 #'  # Excluding both:
 #'  tt_x(x, r, c, -1:-2)    # ==> x[-r, -c]
-#'  tt_x(x, r, c, -2:-1)    # ==> x[-r, -c] (same as previous)
 #'  
 #' ```
 #' 

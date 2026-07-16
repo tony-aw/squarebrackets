@@ -11,6 +11,10 @@
 #'  - `.N`: the size of a given dimension (if `.M` is not `0`) or else the length of `x`.
 #'  - `.I`: equal to `seq_len(.N)`.
 #'  - `.bi(...)`: a \bold{function} to specify bilateral indices. See the `Details` section below.
+#'  - `.ptrn(ptrn, start, end)`: a \bold{function} specifying a pattern of indices. \cr
+#'  It is defined as `(start:end)[ptrn]`,
+#'  where `start` and `end` are numeric scalars and `ptrn` is a logical vector. \cr
+#'  By default, `start = 1L` and `end = .N`.
 #'  - `.x`: the input variable `x` itself.
 #'  
 #' 
@@ -35,6 +39,10 @@
 #' 
 #' # reverse order of all dimensions:
 #' ss_x(x, ~ .bi(-.I))
+#' 
+#' 
+#' # select every other element for each dimension:
+#' ss_x(x, ~ .ptrn(c(TRUE, FALSE)))
 #' 
 #' ```
 #' 

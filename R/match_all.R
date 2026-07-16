@@ -47,6 +47,10 @@
 #' @export
 match_all <- function(needles, haystack, unlist = TRUE) {
   
+  if(!isTRUE(unlist) && !isFALSE(unlist)) {
+    stop("`unlist` must be `TRUE` or `FALSE`")
+  }
+  
   if(length(needles) == 0L || length(haystack) == 0L) {
     if(unlist) return(integer(0L))
     return(list())
@@ -98,3 +102,35 @@ match_all <- function(needles, haystack, unlist = TRUE) {
 }
 
 
+#' @keywords Internal
+#' @noRd
+.match_names <- function(needles, haystack, abortcall) {
+  if(length(needles) == 0L || length(haystack) == 0L) {
+    return(integer(0L))
+  }
+  if(collapse::allNA(haystack)) {
+    return(integer(0L))
+  }
+  
+  v <- collapse::funique(needles)
+  if(anyNA(v)) {
+    stop(simpleError("`NA` names not allowed", call = abortcall))
+  }
+  
+  m <- collapse::fmatch(haystack, v)
+  attr(m, "N.groups") <- length(v)
+  oldClass(m) <- "qG"
+  out <- collapse::gsplit(g = m)
+  if(.C_any_zerolen(out)) {
+    stop(simpleError("unknown names given", call = abortcall))
+  }
+  names(out) <- as.character(v)
+  out[collapse::whichNA(names(out))] <- NULL
+  
+  
+  if(length(needles) == length(v)) {
+    return(unlist(out, use.names = FALSE, recursive = FALSE))
+  }
+  
+  return(unlist(out[needles], use.names = FALSE, recursive = FALSE))
+}

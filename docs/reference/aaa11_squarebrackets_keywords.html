@@ -8,6 +8,10 @@ The following keywords are available:
 .N: the size of a given dimension (if .M is not 0) or else the length of x.
 .I: equal to seq_len(.N).
 .bi(...): a function to specify bilateral indices. See the Details section below.
+.ptrn(ptrn, start, end): a function specifying a pattern of indices.
+It is defined as (start:end)[ptrn],
+where start and end are numeric scalars and ptrn is a logical vector.
+By default, start = 1L and end = .N.
 .x: the input variable x itself.
 
 
@@ -47,6 +51,14 @@ ss_x(x, ~ .bi(-.I))
 #&amp;gt; Mar  18  13   8   3
 #&amp;gt; Feb  17  12   7   2
 #&amp;gt; Jan  16  11   6   1
+
+
+# select every other element for each dimension:
+ss_x(x, ~ .ptrn(c(TRUE, FALSE)))
+#&amp;gt;     Jan Mar
+#&amp;gt; Jan   1  11
+#&amp;gt; Mar   3  13
+#&amp;gt; May   5  15
 '><meta property="og:description" content='Instead of the usual indexing types,
 formulas can be used to specify indices in vectors, arrays, or data.frames that can evaluate keywords.
 
@@ -56,6 +68,10 @@ The following keywords are available:
 .N: the size of a given dimension (if .M is not 0) or else the length of x.
 .I: equal to seq_len(.N).
 .bi(...): a function to specify bilateral indices. See the Details section below.
+.ptrn(ptrn, start, end): a function specifying a pattern of indices.
+It is defined as (start:end)[ptrn],
+where start and end are numeric scalars and ptrn is a logical vector.
+By default, start = 1L and end = .N.
 .x: the input variable x itself.
 
 
@@ -95,6 +111,14 @@ ss_x(x, ~ .bi(-.I))
 #&amp;gt; Mar  18  13   8   3
 #&amp;gt; Feb  17  12   7   2
 #&amp;gt; Jan  16  11   6   1
+
+
+# select every other element for each dimension:
+ss_x(x, ~ .ptrn(c(TRUE, FALSE)))
+#&amp;gt;     Jan Mar
+#&amp;gt; Jan   1  11
+#&amp;gt; Mar   3  13
+#&amp;gt; May   5  15
 '></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
@@ -103,7 +127,7 @@ ss_x(x, ~ .bi(-.I))
 
     <a class="navbar-brand me-2" href="../index.html">squarebrackets</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9009</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9010</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -143,6 +167,10 @@ The following keywords are available:</p><ul><li><p><code>.M</code>: the given m
 <li><p><code>.N</code>: the size of a given dimension (if <code>.M</code> is not <code>0</code>) or else the length of <code>x</code>.</p></li>
 <li><p><code>.I</code>: equal to <code>seq_len(.N)</code>.</p></li>
 <li><p><code>.bi(...)</code>: a <b>function</b> to specify bilateral indices. See the <code>Details</code> section below.</p></li>
+<li><p><code>.ptrn(ptrn, start, end)</code>: a <b>function</b> specifying a pattern of indices. <br>
+It is defined as <code>(start:end)[ptrn]</code>,
+where <code>start</code> and <code>end</code> are numeric scalars and <code>ptrn</code> is a logical vector. <br>
+By default, <code>start = 1L</code> and <code>end = .N</code>.</p></li>
 <li><p><code>.x</code>: the input variable <code>x</code> itself.</p></li>
 </ul><p>These keywords can be used inside formulas to specify more advanced indices. <br></p>
 <p>Here are a few examples of advanced indexing in arrays:</p>
@@ -179,7 +207,15 @@ The following keywords are available:</p><ul><li><p><code>.M</code>: the given m
 <span><span class="co">#&gt; Apr  19  14   9   4</span></span>
 <span><span class="co">#&gt; Mar  18  13   8   3</span></span>
 <span><span class="co">#&gt; Feb  17  12   7   2</span></span>
-<span><span class="co">#&gt; Jan  16  11   6   1</span></span></code></pre><p></p></div>
+<span><span class="co">#&gt; Jan  16  11   6   1</span></span>
+<span></span>
+<span></span>
+<span><span class="co"># select every other element for each dimension:</span></span>
+<span><span class="fu"><a href="../reference/sb_x.html">ss_x</a></span><span class="op">(</span><span class="va">x</span>, <span class="op">~</span> <span class="fu">.ptrn</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt;     Jan Mar</span></span>
+<span><span class="co">#&gt; Jan   1  11</span></span>
+<span><span class="co">#&gt; Mar   3  13</span></span>
+<span><span class="co">#&gt; May   5  15</span></span></code></pre><p></p></div>
     </div>
 
 

@@ -80,14 +80,14 @@ arepl <- function(x, sub, value) {
 #' @rdname sb_icom
 #' @export
 ii_icom <- function(x, i = NULL, use = 1, ...) {
-  .methodcheck.ii(x, i, use, sys.call())
+  .methodcheck.ii(x, sys.call())
   UseMethod("ii_icom", x)
 }
 
 #' @rdname sb_icom
 #' @export
 ss_icom <- function(x, s = NULL, use = 1:ndim(x), ...) {
-  .methodcheck.ss(x, s, use, sys.call())
+  .methodcheck.ss(x, sys.call())
   UseMethod("ss_icom", x)
 }
 

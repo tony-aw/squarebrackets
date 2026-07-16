@@ -1,7 +1,7 @@
 
 
 # dimensions ==== 
-x <- as.mutatomic(array(1:27, c(3,3,3)))
+x <- as.mutatomic(array(1:27, c(3,3,3), list(letters[1:3], letters[4:6], letters[7:9])))
 expect_error(
   sb_test(x, s = list(1:10, 2:5), use =c(1:3)),
   pattern = "`length(s)` must be 1 or equal to `length(use)`",
@@ -56,7 +56,14 @@ enumerate <- enumerate + 1
 
 
 expect_error(
-  sb_test(x, list("a"), use =1),
+  sb_test(x, list(c("xxx", "a")), use =1),
+  pattern = "unknown names given",
+  fixed = TRUE
+)|> errorfun()
+enumerate <- enumerate + 1
+
+expect_error(
+  sb_test(unname(x), list("a"), use =1),
   pattern = "no names present",
   fixed = TRUE
 )|> errorfun()

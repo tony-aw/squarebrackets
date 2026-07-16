@@ -33,7 +33,7 @@ couldb.mutatomic(): checks if an object could become mutatomic.
 
     <a class="navbar-brand me-2" href="../index.html">squarebrackets</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9009</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9010</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -143,6 +143,7 @@ without breaking its functionality. <br>
 Thus a factor
 (which already represents a dummy matrix),
 most data-time objects (which generally do not support dimensions),
+'dist' objects (which are 1d arrays pretending to be lower-triangle matrices),
 and special printed vectors (hexmode, octmode, romans),
 cannot be <code>mutatomic</code>.</p></li>
 <li><p><b>missing values consistent with base 'R'</b>: <br>
@@ -150,8 +151,7 @@ The meaning of <code>NA</code> in the vector is consistent with that of base 'R'
 This is the case for the vast majority of objects. <br>
 But some classes, like <code>integer64</code> has a different definition of <code>NA</code> than base 'R',
 which is not supported by the <code>mutatomic</code> class.</p></li>
-<li><p><b>not an S4 class</b>: <br>
-The object is not an S4 class. <br><br></p></li>
+<li><p><b>not a table-like</b>: <br><code>table</code> and <code>ftable</code> objects cannot be mutatomic. <br><br></p></li>
 </ul></div>
     <div class="section level2">
     <h2 id="footnotes">Footnotes<a class="anchor" aria-label="anchor" href="#footnotes"></a></h2>

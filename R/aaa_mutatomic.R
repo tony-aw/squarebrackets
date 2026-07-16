@@ -51,6 +51,7 @@
 #'  Thus a factor
 #'  (which already represents a dummy matrix),
 #'  most data-time objects (which generally do not support dimensions),
+#'  'dist' objects (which are 1d arrays pretending to be lower-triangle matrices),
 #'  and special printed vectors (hexmode, octmode, romans),
 #'  cannot be `mutatomic`.
 #'  
@@ -60,8 +61,8 @@
 #'  But some classes, like `integer64` has a different definition of `NA` than base 'R',
 #'  which is not supported by the `mutatomic` class.
 #'  
-#'  - \bold{not an S4 class}: \cr
-#'  The object is not an S4 class. \cr \cr
+#'  - \bold{not a table-like}: \cr
+#'  `table` and `ftable` objects cannot be mutatomic. \cr \cr
 #' 
 #' 
 #' @section Footnotes: 

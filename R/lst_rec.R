@@ -144,7 +144,7 @@ lst_recin.default <- function(x, rec, ..., rp, tf) {
   if(!is.numeric(rec) && !is.character(rec)) {
     stop("`rec` must be an integer vector or a character vector")
   }
-  .internal_check_rptf(rp, tf, sys.call())
+  .argscheck_rptf(rp, tf, sys.call())
   
   # function:
   if(!missing(rp)) {

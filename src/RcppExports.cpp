@@ -475,6 +475,7 @@ RcppExport SEXP C_any_badmargin(SEXP, SEXP);
 RcppExport SEXP C_any_baduse(SEXP, SEXP);
 RcppExport SEXP C_any_neg(SEXP);
 RcppExport SEXP C_any_nonpos(SEXP);
+RcppExport SEXP C_any_zerolen(SEXP);
 RcppExport SEXP C_convert_bi_32(SEXP, SEXP);
 RcppExport SEXP C_convert_bi_64(SEXP, SEXP);
 RcppExport SEXP C_copy(SEXP);
@@ -528,6 +529,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"C_any_baduse",     (DL_FUNC) &C_any_baduse,     2},
     {"C_any_neg",        (DL_FUNC) &C_any_neg,        1},
     {"C_any_nonpos",     (DL_FUNC) &C_any_nonpos,     1},
+    {"C_any_zerolen",    (DL_FUNC) &C_any_zerolen,    1},
     {"C_convert_bi_32",  (DL_FUNC) &C_convert_bi_32,  2},
     {"C_convert_bi_64",  (DL_FUNC) &C_convert_bi_64,  2},
     {"C_copy",           (DL_FUNC) &C_copy,           1},

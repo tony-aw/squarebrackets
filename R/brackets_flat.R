@@ -34,7 +34,7 @@
 #' @noRd
 .flat_set_atomic <- function(x, elements, use, rp, tf, chkdup, abortcall) {
   
-  .internal_check_rptf(rp, tf, abortcall)
+  .argscheck_rptf(rp, tf, abortcall)
   
   n.i <- length(elements)
   

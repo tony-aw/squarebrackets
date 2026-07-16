@@ -82,6 +82,18 @@ ii_x(x, c("a", "a", "b"))
 
 Not only is the syntax shorter, the computation is also **faster**, as 'squarebrackets' does not rely on `lapply()` (or friends) to find all matching names, but uses compiled 'C' code (partly from the 'collapse' package).
 
+Moreover, 'squarebrackets' is safe in that attempting to select an non-existing name gives an explicit error:
+
+```{r echo=TRUE, eval=FALSE}
+
+ii_x(x, c("xxx", "a"))
+Error in ii_x.default(x, c("xxx", "a")) : unknown names given
+
+x[c("xxx", "a")] # no error, but a silent NA added magically:
+<NA>    a 
+  NA    1 
+```
+
 
 &nbsp;
 
@@ -214,8 +226,8 @@ y <- tibble::tibble(a = month.abb, b = 1:12)
 z <- data.table::data.table(a = month.abb, b = 1:12)
 
 tt_mod(x, with(x, b > 10), "a", rp = "XXX")
-tt_mod(y, with(x, b > 10), "a", rp = "XXX")
-tt_mod(z, with(x, b > 10), "a", rp = "XXX")
+tt_mod(y, with(y, b > 10), "a", rp = "XXX")
+tt_mod(z, with(z, b > 10), "a", rp = "XXX")
 
 
 ```
@@ -235,6 +247,59 @@ print(z)
 ```
 
 This is all powered by the class-agnostic 'C' code from the fantastic 'collapse' and 'data.table' packages.
+
+&nbsp;
+
+# Programmatically aggregate data.table
+
+
+'squarebrackets' provides functions like `dt_aggr()` to aggregate a `data.table` programmatically:
+
+```{r}
+d <- data.table::as.data.table(iris)
+
+fun <- rep(list(mean = mean, var = var), 2L)
+col <- rep(c("Sepal.Length", "Sepal.Width"), each = 2L)
+
+# explictly naming every argument for the reader's convenience:
+dt_aggr(d, row = 1:5, col = col, use = c(-1, 2), fun = fun, by = "Species")
+
+# realistically shorter call:
+dt_aggr(d, 1:5, col, c(-1, 2), fun, "Species")
+
+```
+
+
+The above is the same as the following pure data.table operation:
+
+```{r}
+d[-1:-5,
+  .(`mean(Sepal.Length)` = mean(Sepal.Length),
+    `var(Sepal.Length)` = var(Sepal.Length),
+    `mean(Sepal.Width)` = mean(Sepal.Width),
+    `var(Sepal.Width)` = var(Sepal.Width)
+  ),
+  by = c("Species"), keyby = FALSE]
+```
+
+though `dt_aggr()` is much more programmatically friendly, and is actually short to write.
+
+Here's an example using an `sf-data.table`, computing the union of all geometries, per region:
+
+```{r}
+
+x <- sf::st_read(system.file("shape/nc.shp", package = "sf"))
+x <- data.table::as.data.table(x)
+
+x$region <- ifelse(x$CNTY_ID <= 2000, 'high', 'low')
+d.aggr <- dt_aggr(
+  x, 0L, "geometry", fun = list(union = sf::st_union), by = "region"
+)
+
+head(d.aggr)
+
+```
+
 
 &nbsp;
 
@@ -279,6 +344,7 @@ ss_x(x, ~ .bi(-2:-1))
  - `.N`: the size of a given dimension (if `.M` is not 0) or else the length of `x`.
  - `.I`: equal to `1:.N`.
  - `.bi(...)`: a function to specify bilateral indices.
+ - `.ptrn()`: a function to specify a recurring pattern.
  - `.x`: the input variable `x` itself.
 
 &nbsp;

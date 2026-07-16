@@ -48,6 +48,7 @@ reference:
   - '`stride_seq`'
   - '`stride_ptrn`'
   - '`lst_rec`'
+  - '`dt`'
 - title: Other Methods
   contents:
   - '`sb_setRename`'

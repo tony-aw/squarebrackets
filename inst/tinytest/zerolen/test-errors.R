@@ -127,7 +127,7 @@ for(f in funlist) {
 
 
 
-# sbt, matrix ====
+# tt, matrix ====
 
 x <- as.mutatomic(matrix(integer(0L),0,0))
 expect_equal(
@@ -166,7 +166,7 @@ for(f in funlist) {
 }
 
 
-# sbt, data.frame ====
+# tt, data.frame ====
 
 
 x <- data.table::data.table(NULL)

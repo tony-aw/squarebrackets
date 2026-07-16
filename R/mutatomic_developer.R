@@ -21,6 +21,9 @@
 #' 
 #' 
 
+#' @name mutatomic_developer
+NULL
+
 #' @rdname mutatomic_developer
 #' @export
 stopifnot_ma_safe2mutate <- function(sym, envir, .abortcall) {

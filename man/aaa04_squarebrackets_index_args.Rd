@@ -195,8 +195,10 @@ If \code{use} is \code{c(-1, 2)} or \code{-1}, the row indices will be inverted
 If \code{use} is \code{c(1, -2)} or \code{-2}, the column indices will be inverted
 (i.e. select all columns \strong{except} those specified in \code{col}). \cr
 If \code{use} is \code{-1:-2}, both the row- and column- indices will be inverted. \cr
-The order of \code{use} is \bold{irrelevant}: \cr
-\code{c(-1, 2)} is the same as \code{c(2, -1)}, and will not change the evaluation of the \code{row} and \code{col} arguments. \cr
+Specifying \code{use = 2:1} or \code{use = -2:-1} will result in an error. \cr
+Moreover, a \code{use} of length other than 1 or 2,
+or a \code{use} containing a \code{0} (zero),
+will also lead to an error. \cr
 \cr
 
 Examples:
@@ -208,21 +210,17 @@ Examples:
  
  # Extracting both:
  tt_x(x, r, c)           # ==> x[r, c]
- tt_x(x, r, c, 2:1)      # ==> x[r, c] (same as previous)
  
  # Excluding rows:
  tt_x(x, r, c, c(-1, 2)) # ==> x[-r, c]
- tt_x(x, r, c, c(2, -1)) # ==> x[-r, c] (same as previous)
  tt_x(x, r, c, -1)       # ==> x[-r, c] (same as previous)
  
  # Excluding columns:
  tt_x(x, r, c, c(1, -2)) # ==> x[r, -c]
- tt_x(x, r, c, c(-2, 1)) # ==> x[r, -c] (same as previous)
  tt_x(x, r, c, -2)       # ==> x[r, -c] (same as previous)
  
  # Excluding both:
  tt_x(x, r, c, -1:-2)    # ==> x[-r, -c]
- tt_x(x, r, c, -2:-1)    # ==> x[-r, -c] (same as previous)
  
 }\if{html}{\out{</div>}}
 }

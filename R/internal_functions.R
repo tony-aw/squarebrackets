@@ -73,22 +73,6 @@
 
 #' @keywords internal
 #' @noRd
-.internal_check_rptf <- function(rp, tf, abortcall) {
-  if(!missing(rp) && !missing(tf)) {
-    stop(simpleError("cannot specify both `rp` and `tf`", call = abortcall))
-  }
-  if(missing(rp) && missing(tf)) {
-    stop(simpleError("must specify either `rp` or `tf`", call = abortcall))
-  }
-  if(!missing(tf)) {
-    if(!is.function(tf)) {
-      stop("`tf` must be a function")
-    }
-  }
-}
-
-#' @keywords internal
-#' @noRd
 .check_rp <- function(x, rp, sslength, abortcall) {
   n.rp <- length(rp)
   if(is.atomic(rp) != is.atomic(x) || is.list(rp) != is.list(x)) {
@@ -177,44 +161,11 @@
   
 }
 
-#' @keywords internal
-#' @noRd
-.internal_bi <- function(ellipsis, size) {
-  
-  # concatenate:
-  if(length(ellipsis) == 1L) {
-    out <- ellipsis[[1L]]
-  }
-  else {
-    out <- do.call(c, ellipsis)
-  }
-  
-  # check type:
-  if(!is.numeric(out)) {
-    stop("only numeric indices can be bilateral")
-  }
-  
-  # conversion:
-  if(.C_is_altrep(out) && length(out) > 2L) {
-    out <- .C_convert_bi(out[1], size):.C_convert_bi(out[length(out)], size)
-  }
-  else {
-    out <- .C_convert_bi(out, size)
-  }
-  
-  return(out)
-}
 
 #' @keywords internal
 #' @noRd
 .internal_make_use_tabular <- function(use, abortcall) {
   
-  if(.C_any_baduse(use, 2L)) {
-    stop(simpleError("improper `use` specified", call = abortcall))
-  }
-  if(anyDuplicated(use)) {
-    stop(simpleError("`use` cannot have duplicate values", call = abortcall))
-  }
   if(length(use) == 1L) {
     if(abs(use) == 1L) {
       return(c(use, 2L))
@@ -222,11 +173,26 @@
     else if(abs(use) == 2L) {
       return(c(1L, use))
     }
+    else {
+      stop(simpleError("improper `use` specified", call = abortcall))
+    }
+  }
+  else if(length(use) == 2L) {
+    if(.C_any_baduse(use, 2L) || is.unsorted(abs(use))) {
+      stop(simpleError("improper `use` specified", call = abortcall))
+    }
+    if(anyDuplicated(use)) {
+      stop(simpleError("`use` cannot have duplicate values", call = abortcall))
+    }
+    return(use)
   }
   else {
-    return(use[order(abs(use))])
+    stop(simpleError("`use` must be of length 1 or 2", call = abortcall))
   }
   
 }
 
 
+.is.multiple <- function(len1, len2) {
+  (max(len1, len2) %% min(len1, len2)) == 0
+}

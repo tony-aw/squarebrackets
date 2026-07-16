@@ -340,13 +340,48 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <h1 class="title toc-ignore">Introduction to squarebrackets</h1>
 
 
+<div id="TOC">
+<ul>
+<li><a href="#introduction" id="toc-introduction"><span class="toc-section-number">1</span> Introduction</a></li>
+<li><a href="#vectors-improved-index-specification" id="toc-vectors-improved-index-specification"><span class="toc-section-number">2</span> Vectors: Improved Index
+Specification</a>
+<ul>
+<li><a href="#specify-indices-by-names" id="toc-specify-indices-by-names"><span class="toc-section-number">2.1</span> Specify Indices by Names</a></li>
+<li><a href="#inverting-index-specification" id="toc-inverting-index-specification"><span class="toc-section-number">2.2</span> Inverting Index
+Specification</a></li>
+<li><a href="#not-just-vectors" id="toc-not-just-vectors"><span class="toc-section-number">2.3</span> Not Just Vectors</a></li>
+</ul></li>
+<li><a href="#arrays-sub-setting-unknown-number-of-dimensions" id="toc-arrays-sub-setting-unknown-number-of-dimensions"><span class="toc-section-number">3</span> Arrays: sub-setting unknown number
+of dimensions</a>
+<ul>
+<li><a href="#introduction-1" id="toc-introduction-1"><span class="toc-section-number">3.1</span> Introduction</a></li>
+</ul></li>
+<li><a href="#data.frame-different-types-different-rules" id="toc-data.frame-different-types-different-rules"><span class="toc-section-number">4</span> Data.frame: different types,
+different rules</a></li>
+<li><a href="#programmatically-aggregate-data.table" id="toc-programmatically-aggregate-data.table"><span class="toc-section-number">5</span> Programmatically aggregate
+data.table</a></li>
+<li><a href="#complex-indexing-with-keywords" id="toc-complex-indexing-with-keywords"><span class="toc-section-number">6</span> Complex Indexing with
+Keywords</a></li>
+<li><a href="#pass-by-reference-or-pass-by-value" id="toc-pass-by-reference-or-pass-by-value"><span class="toc-section-number">7</span> Pass by Reference or Pass By
+Value?</a></li>
+<li><a href="#long-vectors-so-much-memory-usage" id="toc-long-vectors-so-much-memory-usage"><span class="toc-section-number">8</span> Long Vectors: So much memory
+usage</a>
+<ul>
+<li><a href="#sub-set-operations-without-indices" id="toc-sub-set-operations-without-indices"><span class="toc-section-number">8.1</span> Sub-set operations without
+indices</a></li>
+<li><a href="#sub-set-modifications-without-copies" id="toc-sub-set-modifications-without-copies"><span class="toc-section-number">8.2</span> Sub-set Modifications without
+Copies</a></li>
+</ul></li>
+<li><a href="#closing-remarks" id="toc-closing-remarks"><span class="toc-section-number">9</span> Closing Remarks</a></li>
+</ul>
+</div>
 
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(squarebrackets)</span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="co">#&gt; Run `?squarebrackets::squarebrackets_help` to open the introduction help page of &#39;squarebrackets&#39;.</span></span>
 <span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span><span class="dt">L</span>)</span></code></pre></div>
 <p> </p>
-<div id="introduction" class="section level1">
-<h1>Introduction</h1>
+<div id="introduction" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Introduction</h1>
 <p>‘squarebrackets’ provides subset methods that may be more convenient
 alternatives to the <code>[</code> and <code>[&lt;-</code> operators,
 whilst maintaining similar performance.</p>
@@ -355,8 +390,9 @@ objects programmatically in ‘R’, and how the ‘squarebrackets’ package
 solves these problems.</p>
 <p> </p>
 </div>
-<div id="vectors-improved-index-specification" class="section level1">
-<h1>Vectors: Improved Index Specification</h1>
+<div id="vectors-improved-index-specification" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Vectors: Improved Index
+Specification</h1>
 <p>‘squarebrackets’ provides a set of methods that work on both atomic
 and recursive vectors:</p>
 <ul>
@@ -372,8 +408,9 @@ The following sub-sections show <em>some</em> of these capabilities; a
 more exhaustive list of the possibilities can be found in the package
 documentation.</p>
 <p> </p>
-<div id="specify-indices-by-names" class="section level2">
-<h2>Specify Indices by Names</h2>
+<div id="specify-indices-by-names" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Specify Indices by
+Names</h2>
 <p>Base ‘R’ only selects the first matching names when selecting indices
 through a character vector. ‘squarebrackets’ selects all matching
 names.</p>
@@ -412,10 +449,20 @@ do the following in base ‘R’:</p>
 <strong>faster</strong>, as ‘squarebrackets’ does not rely on
 <code>lapply()</code> (or friends) to find all matching names, but uses
 compiled ‘C’ code (partly from the ‘collapse’ package).</p>
+<p>Moreover, ‘squarebrackets’ is safe in that attempting to select an
+non-existing name gives an explicit error:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="fu">ii_x</span>(x, <span class="fu">c</span>(<span class="st">&quot;xxx&quot;</span>, <span class="st">&quot;a&quot;</span>))</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>Error <span class="cf">in</span> <span class="fu">ii_x.default</span>(x, <span class="fu">c</span>(<span class="st">&quot;xxx&quot;</span>, <span class="st">&quot;a&quot;</span>)) <span class="sc">:</span> unknown names given</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>x[<span class="fu">c</span>(<span class="st">&quot;xxx&quot;</span>, <span class="st">&quot;a&quot;</span>)] <span class="co"># no error, but a silent NA added magically:</span></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="sc">&lt;</span><span class="cn">NA</span><span class="sc">&gt;</span>    a </span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>  <span class="cn">NA</span>    <span class="dv">1</span> </span></code></pre></div>
 <p> </p>
 </div>
-<div id="inverting-index-specification" class="section level2">
-<h2>Inverting Index Specification</h2>
+<div id="inverting-index-specification" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Inverting Index
+Specification</h2>
 <p>Inverting indices in base ‘R’ is done in different ways. (negative
 numbers for numeric indexing, negation for logical indexing, manually
 un-matching for character vectors).</p>
@@ -425,35 +472,36 @@ indices, namely through the <code>use</code> argument. Setting
 <p>As a consequence, removing sub-sets has the same syntax as extracting
 indices.</p>
 <p>For example:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="fu">names</span>(x) <span class="ot">&lt;-</span> letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>x[<span class="st">&quot;a&quot;</span>] <span class="co"># extract element &quot;a&quot; in base R</span></span>
-<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="co">#&gt; a </span></span>
-<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="co">#&gt; 9</span></span>
-<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>x[<span class="sc">!</span><span class="fu">names</span>(x) <span class="sc">%in%</span> <span class="st">&quot;a&quot;</span>] <span class="co"># but removing has different syntax</span></span>
-<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a><span class="co">#&gt;  b  c  d  e  f  g  h  i  j </span></span>
-<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a><span class="co">#&gt;  5 10  1  7  8  6  2  3  4</span></span>
-<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a></span>
-<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="fu">ii_x</span>(x, <span class="st">&quot;a&quot;</span>) <span class="co"># extract element &quot;a&quot; with &#39;squarebrackets&#39;</span></span>
-<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a><span class="co">#&gt; a </span></span>
-<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a><span class="co">#&gt; 9</span></span>
-<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a><span class="fu">ii_x</span>(x, <span class="st">&quot;a&quot;</span>, <span class="sc">-</span><span class="dv">1</span>) <span class="co"># extract all elements except &quot;a&quot;, with &#39;squarebrackets&#39;</span></span>
-<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a><span class="co">#&gt;  b  c  d  e  f  g  h  i  j </span></span>
-<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a><span class="co">#&gt;  5 10  1  7  8  6  2  3  4</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="fu">names</span>(x) <span class="ot">&lt;-</span> letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>x[<span class="st">&quot;a&quot;</span>] <span class="co"># extract element &quot;a&quot; in base R</span></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="co">#&gt; a </span></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="co">#&gt; 9</span></span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a>x[<span class="sc">!</span><span class="fu">names</span>(x) <span class="sc">%in%</span> <span class="st">&quot;a&quot;</span>] <span class="co"># but removing has different syntax</span></span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="co">#&gt;  b  c  d  e  f  g  h  i  j </span></span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="co">#&gt;  5 10  1  7  8  6  2  3  4</span></span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a><span class="fu">ii_x</span>(x, <span class="st">&quot;a&quot;</span>) <span class="co"># extract element &quot;a&quot; with &#39;squarebrackets&#39;</span></span>
+<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a><span class="co">#&gt; a </span></span>
+<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a><span class="co">#&gt; 9</span></span>
+<span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a><span class="fu">ii_x</span>(x, <span class="st">&quot;a&quot;</span>, <span class="sc">-</span><span class="dv">1</span>) <span class="co"># extract all elements except &quot;a&quot;, with &#39;squarebrackets&#39;</span></span>
+<span id="cb6-15"><a href="#cb6-15" tabindex="-1"></a><span class="co">#&gt;  b  c  d  e  f  g  h  i  j </span></span>
+<span id="cb6-16"><a href="#cb6-16" tabindex="-1"></a><span class="co">#&gt;  5 10  1  7  8  6  2  3  4</span></span></code></pre></div>
 <p> </p>
 </div>
-<div id="not-just-vectors" class="section level2">
-<h2>Not Just Vectors</h2>
+<div id="not-just-vectors" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> Not Just Vectors</h2>
 <p>The given enhanced indexing is not just available for regular
 vectors, but for all types supported by ‘squarebrackets’.</p>
 <p> </p>
 </div>
 </div>
-<div id="arrays-sub-setting-unknown-number-of-dimensions" class="section level1">
-<h1>Arrays: sub-setting unknown number of dimensions</h1>
-<div id="introduction-1" class="section level2">
-<h2>Introduction</h2>
+<div id="arrays-sub-setting-unknown-number-of-dimensions" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Arrays: sub-setting
+unknown number of dimensions</h1>
+<div id="introduction-1" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Introduction</h2>
 <p>In order to perform subset operations on some array <code>x</code>
 with the square brackets operator (<code>[</code>, <code>[&lt;-</code>),
 one needs to know how many dimensions it has. I.e.
@@ -490,48 +538,49 @@ or as a list of length 1.</li>
 </ul>
 <p>Examples where <code>s</code> can be given as a simple atomic
 vector:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">array</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">27</span>, <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">4</span>,<span class="dv">3</span>), <span class="at">dimnames =</span> <span class="fu">list</span>(<span class="cn">NULL</span>, letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], <span class="cn">NULL</span>)</span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="co"># specify rows 1:3:</span></span>
-<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="fu">ss_x</span>(x, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="dv">1</span><span class="dt">L</span>) <span class="co"># s = 1:3, use = 1L</span></span>
-<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a></span>
-<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="co"># specify columns &quot;a&quot; and &quot;b&quot;:</span></span>
-<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="fu">ss_x</span>(x, <span class="fu">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>), <span class="dv">2</span><span class="dt">L</span>) <span class="co"># s = c(&quot;a&quot;, &quot;b&quot;), use = 2L</span></span>
-<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a></span>
-<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="co"># specify subscripts 1:2 of all dimensions:</span></span>
-<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a><span class="fu">ss_x</span>(x, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>) <span class="co"># s = 1:2, use = 1:ndim(x)</span></span>
-<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a></span>
-<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a><span class="co"># remove columns 1:2:</span></span>
-<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a><span class="fu">ss_x</span>(x, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="sc">-</span><span class="dv">2</span><span class="dt">L</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">array</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">27</span>, <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">4</span>,<span class="dv">3</span>), <span class="at">dimnames =</span> <span class="fu">list</span>(<span class="cn">NULL</span>, letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], <span class="cn">NULL</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="co"># specify rows 1:3:</span></span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="fu">ss_x</span>(x, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="dv">1</span><span class="dt">L</span>) <span class="co"># s = 1:3, use = 1L</span></span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a><span class="co"># specify columns &quot;a&quot; and &quot;b&quot;:</span></span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a><span class="fu">ss_x</span>(x, <span class="fu">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>), <span class="dv">2</span><span class="dt">L</span>) <span class="co"># s = c(&quot;a&quot;, &quot;b&quot;), use = 2L</span></span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a><span class="co"># specify subscripts 1:2 of all dimensions:</span></span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a><span class="fu">ss_x</span>(x, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>) <span class="co"># s = 1:2, use = 1:ndim(x)</span></span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a></span>
+<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a><span class="co"># remove columns 1:2:</span></span>
+<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a><span class="fu">ss_x</span>(x, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="sc">-</span><span class="dv">2</span><span class="dt">L</span>)</span></code></pre></div>
 <p>To minimize keystrokes, ‘squarebrackets’ provides the
 <code>n()</code> function, which is short-hand for <code>list()</code>;
 <code>n()</code> <strong>nests</strong> multiple objects together, just
 like <code>c()</code> concatenates multiple objects together. Examples
 where <code>s</code> is given as a list (using <code>n()</code>):</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">array</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">27</span>, <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">4</span>,<span class="dv">3</span>), <span class="at">dimnames =</span> <span class="fu">list</span>(<span class="cn">NULL</span>, letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], <span class="cn">NULL</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="co"># select rows 1:3 and *remove* columns c(&quot;a&quot;, &quot;b&quot;):</span></span>
-<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="fu">ss_x</span>(x, <span class="fu">n</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="fu">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>)), <span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">2</span>)) <span class="co"># s = n(1:3, c(&quot;a&quot;, &quot;b&quot;)), use = c(1, -2)</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">array</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">27</span>, <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">4</span>,<span class="dv">3</span>), <span class="at">dimnames =</span> <span class="fu">list</span>(<span class="cn">NULL</span>, letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], <span class="cn">NULL</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="co"># select rows 1:3 and *remove* columns c(&quot;a&quot;, &quot;b&quot;):</span></span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="fu">ss_x</span>(x, <span class="fu">n</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="fu">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>)), <span class="fu">c</span>(<span class="dv">1</span>, <span class="sc">-</span><span class="dv">2</span>)) <span class="co"># s = n(1:3, c(&quot;a&quot;, &quot;b&quot;)), use = c(1, -2)</span></span></code></pre></div>
 <p> </p>
 </div>
 </div>
-<div id="data.frame-different-types-different-rules" class="section level1">
-<h1>Data.frame: different types, different rules</h1>
+<div id="data.frame-different-types-different-rules" class="section level1" number="4">
+<h1><span class="header-section-number">4</span> Data.frame: different
+types, different rules</h1>
 <p>There are several types of data.frame-like objects available in ‘R’:
 data.frames, data.tables, tibbles, tidytables; and they all have their
 own rules regarding sub-set operations.</p>
 <p>Consider the following example, where values of the column “a” are
 being replaced with “XXX”, but only in the rows for which holds that
 column “b” is larger than 10:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>tinycodet<span class="sc">::</span><span class="fu">import_as</span>(<span class="sc">~</span> dpr., <span class="st">&quot;dplyr&quot;</span>, <span class="at">dependencies =</span> <span class="st">&quot;tibble&quot;</span>)</span>
-<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">a =</span> month.abb, <span class="at">b =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>)</span>
-<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>y <span class="ot">&lt;-</span> dpr.<span class="sc">$</span><span class="fu">tibble</span>(<span class="at">a =</span> month.abb, <span class="at">b =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>)</span>
-<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>z <span class="ot">&lt;-</span> data.table<span class="sc">::</span><span class="fu">data.table</span>(<span class="at">a =</span> month.abb, <span class="at">b =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>)</span>
-<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a></span>
-<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a>x[<span class="fu">with</span>(x, b <span class="sc">&gt;</span> <span class="dv">10</span>), <span class="st">&quot;a&quot;</span>] <span class="ot">&lt;-</span> <span class="st">&quot;XXX&quot;</span> <span class="co"># data.frame with base</span></span>
-<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a>y <span class="ot">&lt;-</span> dpr.<span class="sc">$</span><span class="fu">mutate</span>(y, <span class="at">a =</span> <span class="fu">ifelse</span>(b <span class="sc">&gt;</span> <span class="dv">10</span>, <span class="st">&quot;XXX&quot;</span>, b)) <span class="co"># tibble with tidyverse</span></span>
-<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a>z[b <span class="sc">&gt;</span> <span class="dv">10</span>, a<span class="sc">:=</span> <span class="st">&quot;XXX&quot;</span>] <span class="co"># data.table with fastverse/tinyverse</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>tinycodet<span class="sc">::</span><span class="fu">import_as</span>(<span class="sc">~</span> dpr., <span class="st">&quot;dplyr&quot;</span>, <span class="at">dependencies =</span> <span class="st">&quot;tibble&quot;</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">a =</span> month.abb, <span class="at">b =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>y <span class="ot">&lt;-</span> dpr.<span class="sc">$</span><span class="fu">tibble</span>(<span class="at">a =</span> month.abb, <span class="at">b =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>)</span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>z <span class="ot">&lt;-</span> data.table<span class="sc">::</span><span class="fu">data.table</span>(<span class="at">a =</span> month.abb, <span class="at">b =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a>x[<span class="fu">with</span>(x, b <span class="sc">&gt;</span> <span class="dv">10</span>), <span class="st">&quot;a&quot;</span>] <span class="ot">&lt;-</span> <span class="st">&quot;XXX&quot;</span> <span class="co"># data.frame with base</span></span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a>dpr.<span class="sc">$</span><span class="fu">mutate</span>(y, <span class="at">a =</span> <span class="fu">ifelse</span>(b <span class="sc">&gt;</span> <span class="dv">10</span>, <span class="st">&quot;XXX&quot;</span>, b)) <span class="co"># tibble with tidyverse</span></span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a>z[b <span class="sc">&gt;</span> <span class="dv">10</span>, a<span class="sc">:=</span> <span class="st">&quot;XXX&quot;</span>] <span class="co"># data.table with fastverse/tinyverse</span></span></code></pre></div>
 <p>Note that the syntax is different for each type of data.frame.<br />
 ‘squarebrackets’ provides a set of methods that work consistently on all
 manner of tabular (data.frames and matrix) types, with the exact same
@@ -543,14 +592,14 @@ syntax:</p>
 </ul>
 <p>So let’s do the same operation as above, but now using
 ‘squarebrackets’:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a></span>
-<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">a =</span> month.abb, <span class="at">b =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>)</span>
-<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>y <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tibble</span>(<span class="at">a =</span> month.abb, <span class="at">b =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>)</span>
-<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>z <span class="ot">&lt;-</span> data.table<span class="sc">::</span><span class="fu">data.table</span>(<span class="at">a =</span> month.abb, <span class="at">b =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>)</span>
-<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a></span>
-<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a><span class="fu">tt_mod</span>(x, <span class="fu">with</span>(x, b <span class="sc">&gt;</span> <span class="dv">10</span>), <span class="st">&quot;a&quot;</span>, <span class="at">rp =</span> <span class="st">&quot;XXX&quot;</span>)</span>
-<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a><span class="fu">tt_mod</span>(y, <span class="fu">with</span>(x, b <span class="sc">&gt;</span> <span class="dv">10</span>), <span class="st">&quot;a&quot;</span>, <span class="at">rp =</span> <span class="st">&quot;XXX&quot;</span>)</span>
-<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a><span class="fu">tt_mod</span>(z, <span class="fu">with</span>(x, b <span class="sc">&gt;</span> <span class="dv">10</span>), <span class="st">&quot;a&quot;</span>, <span class="at">rp =</span> <span class="st">&quot;XXX&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a></span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">a =</span> month.abb, <span class="at">b =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>y <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tibble</span>(<span class="at">a =</span> month.abb, <span class="at">b =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a>z <span class="ot">&lt;-</span> data.table<span class="sc">::</span><span class="fu">data.table</span>(<span class="at">a =</span> month.abb, <span class="at">b =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a><span class="fu">tt_mod</span>(x, <span class="fu">with</span>(x, b <span class="sc">&gt;</span> <span class="dv">10</span>), <span class="st">&quot;a&quot;</span>, <span class="at">rp =</span> <span class="st">&quot;XXX&quot;</span>)</span>
+<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a><span class="fu">tt_mod</span>(y, <span class="fu">with</span>(y, b <span class="sc">&gt;</span> <span class="dv">10</span>), <span class="st">&quot;a&quot;</span>, <span class="at">rp =</span> <span class="st">&quot;XXX&quot;</span>)</span>
+<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a><span class="fu">tt_mod</span>(z, <span class="fu">with</span>(z, b <span class="sc">&gt;</span> <span class="dv">10</span>), <span class="st">&quot;a&quot;</span>, <span class="at">rp =</span> <span class="st">&quot;XXX&quot;</span>)</span></code></pre></div>
 <p>Notice that the syntax is exactly the same for all classes.</p>
 <p>The original attributes are also preserved when using
 <code>tt_mod()</code>; i.e. nothing is forced to become a tibble,
@@ -558,116 +607,197 @@ data.table, or something else. Input class = output class.</p>
 <p>For data.tables specifically, the user can also use
 <code>tt_set()</code>, to perform pass-by-reference semantics, which is
 considerably faster and more memory efficient:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a></span>
-<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>z <span class="ot">&lt;-</span> data.table<span class="sc">::</span><span class="fu">data.table</span>(<span class="at">a =</span> month.abb, <span class="at">b =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>)</span>
-<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a><span class="fu">tt_set</span>(z, <span class="fu">with</span>(z, b <span class="sc">&gt;</span> <span class="dv">10</span>), <span class="st">&quot;a&quot;</span>, <span class="at">rp =</span> <span class="st">&quot;XXX&quot;</span>)</span>
-<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a><span class="fu">print</span>(z)</span>
-<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a><span class="co">#&gt;          a     b</span></span>
-<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a><span class="co">#&gt;     &lt;char&gt; &lt;int&gt;</span></span>
-<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a><span class="co">#&gt;  1:    Jan     1</span></span>
-<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a><span class="co">#&gt;  2:    Feb     2</span></span>
-<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a><span class="co">#&gt;  3:    Mar     3</span></span>
-<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a><span class="co">#&gt;  4:    Apr     4</span></span>
-<span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a><span class="co">#&gt;  5:    May     5</span></span>
-<span id="cb10-12"><a href="#cb10-12" tabindex="-1"></a><span class="co">#&gt;  6:    Jun     6</span></span>
-<span id="cb10-13"><a href="#cb10-13" tabindex="-1"></a><span class="co">#&gt;  7:    Jul     7</span></span>
-<span id="cb10-14"><a href="#cb10-14" tabindex="-1"></a><span class="co">#&gt;  8:    Aug     8</span></span>
-<span id="cb10-15"><a href="#cb10-15" tabindex="-1"></a><span class="co">#&gt;  9:    Sep     9</span></span>
-<span id="cb10-16"><a href="#cb10-16" tabindex="-1"></a><span class="co">#&gt; 10:    Oct    10</span></span>
-<span id="cb10-17"><a href="#cb10-17" tabindex="-1"></a><span class="co">#&gt; 11:    XXX    11</span></span>
-<span id="cb10-18"><a href="#cb10-18" tabindex="-1"></a><span class="co">#&gt; 12:    XXX    12</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a></span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>z <span class="ot">&lt;-</span> data.table<span class="sc">::</span><span class="fu">data.table</span>(<span class="at">a =</span> month.abb, <span class="at">b =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a><span class="fu">tt_set</span>(z, <span class="fu">with</span>(z, b <span class="sc">&gt;</span> <span class="dv">10</span>), <span class="st">&quot;a&quot;</span>, <span class="at">rp =</span> <span class="st">&quot;XXX&quot;</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="fu">print</span>(z)</span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a><span class="co">#&gt;          a     b</span></span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a><span class="co">#&gt;     &lt;char&gt; &lt;int&gt;</span></span>
+<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a><span class="co">#&gt;  1:    Jan     1</span></span>
+<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a><span class="co">#&gt;  2:    Feb     2</span></span>
+<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a><span class="co">#&gt;  3:    Mar     3</span></span>
+<span id="cb11-10"><a href="#cb11-10" tabindex="-1"></a><span class="co">#&gt;  4:    Apr     4</span></span>
+<span id="cb11-11"><a href="#cb11-11" tabindex="-1"></a><span class="co">#&gt;  5:    May     5</span></span>
+<span id="cb11-12"><a href="#cb11-12" tabindex="-1"></a><span class="co">#&gt;  6:    Jun     6</span></span>
+<span id="cb11-13"><a href="#cb11-13" tabindex="-1"></a><span class="co">#&gt;  7:    Jul     7</span></span>
+<span id="cb11-14"><a href="#cb11-14" tabindex="-1"></a><span class="co">#&gt;  8:    Aug     8</span></span>
+<span id="cb11-15"><a href="#cb11-15" tabindex="-1"></a><span class="co">#&gt;  9:    Sep     9</span></span>
+<span id="cb11-16"><a href="#cb11-16" tabindex="-1"></a><span class="co">#&gt; 10:    Oct    10</span></span>
+<span id="cb11-17"><a href="#cb11-17" tabindex="-1"></a><span class="co">#&gt; 11:    XXX    11</span></span>
+<span id="cb11-18"><a href="#cb11-18" tabindex="-1"></a><span class="co">#&gt; 12:    XXX    12</span></span></code></pre></div>
 <p>This is all powered by the class-agnostic ‘C’ code from the fantastic
 ‘collapse’ and ‘data.table’ packages.</p>
 <p> </p>
 </div>
-<div id="complex-indexing-with-keywords" class="section level1">
-<h1>Complex Indexing with Keywords</h1>
+<div id="programmatically-aggregate-data.table" class="section level1" number="5">
+<h1><span class="header-section-number">5</span> Programmatically
+aggregate data.table</h1>
+<p>‘squarebrackets’ provides functions like <code>dt_aggr()</code> to
+aggregate a <code>data.table</code> programmatically:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>d <span class="ot">&lt;-</span> data.table<span class="sc">::</span><span class="fu">as.data.table</span>(iris)</span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>fun <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">list</span>(<span class="at">mean =</span> mean, <span class="at">var =</span> var), <span class="dv">2</span><span class="dt">L</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a>col <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;Sepal.Length&quot;</span>, <span class="st">&quot;Sepal.Width&quot;</span>), <span class="at">each =</span> <span class="dv">2</span><span class="dt">L</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a><span class="co"># explictly naming every argument for the reader&#39;s convenience:</span></span>
+<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a><span class="fu">dt_aggr</span>(d, <span class="at">row =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">col =</span> col, <span class="at">use =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">2</span>), <span class="at">fun =</span> fun, <span class="at">by =</span> <span class="st">&quot;Species&quot;</span>)</span>
+<span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a><span class="co">#&gt;       Species mean(Sepal.Length) var(Sepal.Length) mean(Sepal.Width)</span></span>
+<span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a><span class="co">#&gt;        &lt;fctr&gt;              &lt;num&gt;             &lt;num&gt;             &lt;num&gt;</span></span>
+<span id="cb12-10"><a href="#cb12-10" tabindex="-1"></a><span class="co">#&gt; 1:     setosa           5.022222         0.1317677          3.444444</span></span>
+<span id="cb12-11"><a href="#cb12-11" tabindex="-1"></a><span class="co">#&gt; 2: versicolor           5.936000         0.2664327          2.770000</span></span>
+<span id="cb12-12"><a href="#cb12-12" tabindex="-1"></a><span class="co">#&gt; 3:  virginica           6.588000         0.4043429          2.974000</span></span>
+<span id="cb12-13"><a href="#cb12-13" tabindex="-1"></a><span class="co">#&gt;    var(Sepal.Width)</span></span>
+<span id="cb12-14"><a href="#cb12-14" tabindex="-1"></a><span class="co">#&gt;               &lt;num&gt;</span></span>
+<span id="cb12-15"><a href="#cb12-15" tabindex="-1"></a><span class="co">#&gt; 1:       0.15116162</span></span>
+<span id="cb12-16"><a href="#cb12-16" tabindex="-1"></a><span class="co">#&gt; 2:       0.09846939</span></span>
+<span id="cb12-17"><a href="#cb12-17" tabindex="-1"></a><span class="co">#&gt; 3:       0.10400408</span></span>
+<span id="cb12-18"><a href="#cb12-18" tabindex="-1"></a></span>
+<span id="cb12-19"><a href="#cb12-19" tabindex="-1"></a><span class="co"># realistically shorter call:</span></span>
+<span id="cb12-20"><a href="#cb12-20" tabindex="-1"></a><span class="fu">dt_aggr</span>(d, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, col, <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">2</span>), fun, <span class="st">&quot;Species&quot;</span>)</span>
+<span id="cb12-21"><a href="#cb12-21" tabindex="-1"></a><span class="co">#&gt;       Species mean(Sepal.Length) var(Sepal.Length) mean(Sepal.Width)</span></span>
+<span id="cb12-22"><a href="#cb12-22" tabindex="-1"></a><span class="co">#&gt;        &lt;fctr&gt;              &lt;num&gt;             &lt;num&gt;             &lt;num&gt;</span></span>
+<span id="cb12-23"><a href="#cb12-23" tabindex="-1"></a><span class="co">#&gt; 1:     setosa           5.022222         0.1317677          3.444444</span></span>
+<span id="cb12-24"><a href="#cb12-24" tabindex="-1"></a><span class="co">#&gt; 2: versicolor           5.936000         0.2664327          2.770000</span></span>
+<span id="cb12-25"><a href="#cb12-25" tabindex="-1"></a><span class="co">#&gt; 3:  virginica           6.588000         0.4043429          2.974000</span></span>
+<span id="cb12-26"><a href="#cb12-26" tabindex="-1"></a><span class="co">#&gt;    var(Sepal.Width)</span></span>
+<span id="cb12-27"><a href="#cb12-27" tabindex="-1"></a><span class="co">#&gt;               &lt;num&gt;</span></span>
+<span id="cb12-28"><a href="#cb12-28" tabindex="-1"></a><span class="co">#&gt; 1:       0.15116162</span></span>
+<span id="cb12-29"><a href="#cb12-29" tabindex="-1"></a><span class="co">#&gt; 2:       0.09846939</span></span>
+<span id="cb12-30"><a href="#cb12-30" tabindex="-1"></a><span class="co">#&gt; 3:       0.10400408</span></span></code></pre></div>
+<p>The above is the same as the following pure data.table operation:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>d[<span class="sc">-</span><span class="dv">1</span><span class="sc">:-</span><span class="dv">5</span>,</span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>  .(<span class="st">`</span><span class="at">mean(Sepal.Length)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">mean</span>(Sepal.Length),</span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>    <span class="st">`</span><span class="at">var(Sepal.Length)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">var</span>(Sepal.Length),</span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a>    <span class="st">`</span><span class="at">mean(Sepal.Width)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">mean</span>(Sepal.Width),</span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a>    <span class="st">`</span><span class="at">var(Sepal.Width)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">var</span>(Sepal.Width)</span>
+<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a>  ),</span>
+<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a>  by <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;Species&quot;</span>), keyby <span class="ot">=</span> <span class="cn">FALSE</span>]</span>
+<span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a><span class="co">#&gt;       Species mean(Sepal.Length) var(Sepal.Length) mean(Sepal.Width)</span></span>
+<span id="cb13-9"><a href="#cb13-9" tabindex="-1"></a><span class="co">#&gt;        &lt;fctr&gt;              &lt;num&gt;             &lt;num&gt;             &lt;num&gt;</span></span>
+<span id="cb13-10"><a href="#cb13-10" tabindex="-1"></a><span class="co">#&gt; 1:     setosa           5.022222         0.1317677          3.444444</span></span>
+<span id="cb13-11"><a href="#cb13-11" tabindex="-1"></a><span class="co">#&gt; 2: versicolor           5.936000         0.2664327          2.770000</span></span>
+<span id="cb13-12"><a href="#cb13-12" tabindex="-1"></a><span class="co">#&gt; 3:  virginica           6.588000         0.4043429          2.974000</span></span>
+<span id="cb13-13"><a href="#cb13-13" tabindex="-1"></a><span class="co">#&gt;    var(Sepal.Width)</span></span>
+<span id="cb13-14"><a href="#cb13-14" tabindex="-1"></a><span class="co">#&gt;               &lt;num&gt;</span></span>
+<span id="cb13-15"><a href="#cb13-15" tabindex="-1"></a><span class="co">#&gt; 1:       0.15116162</span></span>
+<span id="cb13-16"><a href="#cb13-16" tabindex="-1"></a><span class="co">#&gt; 2:       0.09846939</span></span>
+<span id="cb13-17"><a href="#cb13-17" tabindex="-1"></a><span class="co">#&gt; 3:       0.10400408</span></span></code></pre></div>
+<p>though <code>dt_aggr()</code> is much more programmatically friendly,
+and is actually short to write.</p>
+<p>Here’s an example using an <code>sf-data.table</code>, computing the
+union of all geometries, per region:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a></span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> sf<span class="sc">::</span><span class="fu">st_read</span>(<span class="fu">system.file</span>(<span class="st">&quot;shape/nc.shp&quot;</span>, <span class="at">package =</span> <span class="st">&quot;sf&quot;</span>))</span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a><span class="co">#&gt; Reading layer `nc&#39; from data source </span></span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a><span class="co">#&gt;   `D:\Programs\R\R-4.5.2\library\sf\shape\nc.shp&#39; using driver `ESRI Shapefile&#39;</span></span>
+<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a><span class="co">#&gt; Simple feature collection with 100 features and 14 fields</span></span>
+<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a><span class="co">#&gt; Geometry type: MULTIPOLYGON</span></span>
+<span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a><span class="co">#&gt; Dimension:     XY</span></span>
+<span id="cb14-8"><a href="#cb14-8" tabindex="-1"></a><span class="co">#&gt; Bounding box:  xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965</span></span>
+<span id="cb14-9"><a href="#cb14-9" tabindex="-1"></a><span class="co">#&gt; Geodetic CRS:  NAD27</span></span>
+<span id="cb14-10"><a href="#cb14-10" tabindex="-1"></a>x <span class="ot">&lt;-</span> data.table<span class="sc">::</span><span class="fu">as.data.table</span>(x)</span>
+<span id="cb14-11"><a href="#cb14-11" tabindex="-1"></a></span>
+<span id="cb14-12"><a href="#cb14-12" tabindex="-1"></a>x<span class="sc">$</span>region <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(x<span class="sc">$</span>CNTY_ID <span class="sc">&lt;=</span> <span class="dv">2000</span>, <span class="st">&#39;high&#39;</span>, <span class="st">&#39;low&#39;</span>)</span>
+<span id="cb14-13"><a href="#cb14-13" tabindex="-1"></a>d.aggr <span class="ot">&lt;-</span> <span class="fu">dt_aggr</span>(</span>
+<span id="cb14-14"><a href="#cb14-14" tabindex="-1"></a>  x, <span class="dv">0</span><span class="dt">L</span>, <span class="st">&quot;geometry&quot;</span>, <span class="at">fun =</span> <span class="fu">list</span>(<span class="at">union =</span> sf<span class="sc">::</span>st_union), <span class="at">by =</span> <span class="st">&quot;region&quot;</span></span>
+<span id="cb14-15"><a href="#cb14-15" tabindex="-1"></a>)</span>
+<span id="cb14-16"><a href="#cb14-16" tabindex="-1"></a></span>
+<span id="cb14-17"><a href="#cb14-17" tabindex="-1"></a><span class="fu">head</span>(d.aggr)</span>
+<span id="cb14-18"><a href="#cb14-18" tabindex="-1"></a><span class="co">#&gt;    region                union(geometry)</span></span>
+<span id="cb14-19"><a href="#cb14-19" tabindex="-1"></a><span class="co">#&gt;    &lt;char&gt;             &lt;sfc_MULTIPOLYGON&gt;</span></span>
+<span id="cb14-20"><a href="#cb14-20" tabindex="-1"></a><span class="co">#&gt; 1:   high MULTIPOLYGON (((-75.78317 3...</span></span>
+<span id="cb14-21"><a href="#cb14-21" tabindex="-1"></a><span class="co">#&gt; 2:    low MULTIPOLYGON (((-76.46926 3...</span></span></code></pre></div>
+<p> </p>
+</div>
+<div id="complex-indexing-with-keywords" class="section level1" number="6">
+<h1><span class="header-section-number">6</span> Complex Indexing with
+Keywords</h1>
 <p>Consider the following array:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">array</span>(<span class="dv">1</span><span class="sc">:</span>(<span class="fu">prod</span>(<span class="dv">5</span><span class="sc">:</span><span class="dv">3</span>)), <span class="dv">5</span><span class="sc">:</span><span class="dv">3</span>, <span class="fu">list</span>(letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>], LETTERS[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], month.abb[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]))</span>
-<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="fu">print</span>(x)</span>
-<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a><span class="co">#&gt; , , Jan</span></span>
-<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a><span class="co">#&gt;   A  B  C  D</span></span>
-<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a><span class="co">#&gt; a 1  6 11 16</span></span>
-<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a><span class="co">#&gt; b 2  7 12 17</span></span>
-<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a><span class="co">#&gt; c 3  8 13 18</span></span>
-<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a><span class="co">#&gt; d 4  9 14 19</span></span>
-<span id="cb11-10"><a href="#cb11-10" tabindex="-1"></a><span class="co">#&gt; e 5 10 15 20</span></span>
-<span id="cb11-11"><a href="#cb11-11" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb11-12"><a href="#cb11-12" tabindex="-1"></a><span class="co">#&gt; , , Feb</span></span>
-<span id="cb11-13"><a href="#cb11-13" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb11-14"><a href="#cb11-14" tabindex="-1"></a><span class="co">#&gt;    A  B  C  D</span></span>
-<span id="cb11-15"><a href="#cb11-15" tabindex="-1"></a><span class="co">#&gt; a 21 26 31 36</span></span>
-<span id="cb11-16"><a href="#cb11-16" tabindex="-1"></a><span class="co">#&gt; b 22 27 32 37</span></span>
-<span id="cb11-17"><a href="#cb11-17" tabindex="-1"></a><span class="co">#&gt; c 23 28 33 38</span></span>
-<span id="cb11-18"><a href="#cb11-18" tabindex="-1"></a><span class="co">#&gt; d 24 29 34 39</span></span>
-<span id="cb11-19"><a href="#cb11-19" tabindex="-1"></a><span class="co">#&gt; e 25 30 35 40</span></span>
-<span id="cb11-20"><a href="#cb11-20" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb11-21"><a href="#cb11-21" tabindex="-1"></a><span class="co">#&gt; , , Mar</span></span>
-<span id="cb11-22"><a href="#cb11-22" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb11-23"><a href="#cb11-23" tabindex="-1"></a><span class="co">#&gt;    A  B  C  D</span></span>
-<span id="cb11-24"><a href="#cb11-24" tabindex="-1"></a><span class="co">#&gt; a 41 46 51 56</span></span>
-<span id="cb11-25"><a href="#cb11-25" tabindex="-1"></a><span class="co">#&gt; b 42 47 52 57</span></span>
-<span id="cb11-26"><a href="#cb11-26" tabindex="-1"></a><span class="co">#&gt; c 43 48 53 58</span></span>
-<span id="cb11-27"><a href="#cb11-27" tabindex="-1"></a><span class="co">#&gt; d 44 49 54 59</span></span>
-<span id="cb11-28"><a href="#cb11-28" tabindex="-1"></a><span class="co">#&gt; e 45 50 55 60</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">array</span>(<span class="dv">1</span><span class="sc">:</span>(<span class="fu">prod</span>(<span class="dv">5</span><span class="sc">:</span><span class="dv">3</span>)), <span class="dv">5</span><span class="sc">:</span><span class="dv">3</span>, <span class="fu">list</span>(letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>], LETTERS[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], month.abb[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]))</span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a><span class="fu">print</span>(x)</span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a><span class="co">#&gt; , , Jan</span></span>
+<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a><span class="co">#&gt;   A  B  C  D</span></span>
+<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a><span class="co">#&gt; a 1  6 11 16</span></span>
+<span id="cb15-7"><a href="#cb15-7" tabindex="-1"></a><span class="co">#&gt; b 2  7 12 17</span></span>
+<span id="cb15-8"><a href="#cb15-8" tabindex="-1"></a><span class="co">#&gt; c 3  8 13 18</span></span>
+<span id="cb15-9"><a href="#cb15-9" tabindex="-1"></a><span class="co">#&gt; d 4  9 14 19</span></span>
+<span id="cb15-10"><a href="#cb15-10" tabindex="-1"></a><span class="co">#&gt; e 5 10 15 20</span></span>
+<span id="cb15-11"><a href="#cb15-11" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb15-12"><a href="#cb15-12" tabindex="-1"></a><span class="co">#&gt; , , Feb</span></span>
+<span id="cb15-13"><a href="#cb15-13" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb15-14"><a href="#cb15-14" tabindex="-1"></a><span class="co">#&gt;    A  B  C  D</span></span>
+<span id="cb15-15"><a href="#cb15-15" tabindex="-1"></a><span class="co">#&gt; a 21 26 31 36</span></span>
+<span id="cb15-16"><a href="#cb15-16" tabindex="-1"></a><span class="co">#&gt; b 22 27 32 37</span></span>
+<span id="cb15-17"><a href="#cb15-17" tabindex="-1"></a><span class="co">#&gt; c 23 28 33 38</span></span>
+<span id="cb15-18"><a href="#cb15-18" tabindex="-1"></a><span class="co">#&gt; d 24 29 34 39</span></span>
+<span id="cb15-19"><a href="#cb15-19" tabindex="-1"></a><span class="co">#&gt; e 25 30 35 40</span></span>
+<span id="cb15-20"><a href="#cb15-20" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb15-21"><a href="#cb15-21" tabindex="-1"></a><span class="co">#&gt; , , Mar</span></span>
+<span id="cb15-22"><a href="#cb15-22" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb15-23"><a href="#cb15-23" tabindex="-1"></a><span class="co">#&gt;    A  B  C  D</span></span>
+<span id="cb15-24"><a href="#cb15-24" tabindex="-1"></a><span class="co">#&gt; a 41 46 51 56</span></span>
+<span id="cb15-25"><a href="#cb15-25" tabindex="-1"></a><span class="co">#&gt; b 42 47 52 57</span></span>
+<span id="cb15-26"><a href="#cb15-26" tabindex="-1"></a><span class="co">#&gt; c 43 48 53 58</span></span>
+<span id="cb15-27"><a href="#cb15-27" tabindex="-1"></a><span class="co">#&gt; d 44 49 54 59</span></span>
+<span id="cb15-28"><a href="#cb15-28" tabindex="-1"></a><span class="co">#&gt; e 45 50 55 60</span></span></code></pre></div>
 <p>Extracting the first 2 elements of each dimension of this array is
 relatively easy in base ‘R’:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>x[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]</span>
-<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a><span class="co">#&gt; , , Jan</span></span>
-<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a><span class="co">#&gt;   A B</span></span>
-<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a><span class="co">#&gt; a 1 6</span></span>
-<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a><span class="co">#&gt; b 2 7</span></span>
-<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a><span class="co">#&gt; , , Feb</span></span>
-<span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb12-10"><a href="#cb12-10" tabindex="-1"></a><span class="co">#&gt;    A  B</span></span>
-<span id="cb12-11"><a href="#cb12-11" tabindex="-1"></a><span class="co">#&gt; a 21 26</span></span>
-<span id="cb12-12"><a href="#cb12-12" tabindex="-1"></a><span class="co">#&gt; b 22 27</span></span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>x[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]</span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a><span class="co">#&gt; , , Jan</span></span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a><span class="co">#&gt;   A B</span></span>
+<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a><span class="co">#&gt; a 1 6</span></span>
+<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a><span class="co">#&gt; b 2 7</span></span>
+<span id="cb16-7"><a href="#cb16-7" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb16-8"><a href="#cb16-8" tabindex="-1"></a><span class="co">#&gt; , , Feb</span></span>
+<span id="cb16-9"><a href="#cb16-9" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb16-10"><a href="#cb16-10" tabindex="-1"></a><span class="co">#&gt;    A  B</span></span>
+<span id="cb16-11"><a href="#cb16-11" tabindex="-1"></a><span class="co">#&gt; a 21 26</span></span>
+<span id="cb16-12"><a href="#cb16-12" tabindex="-1"></a><span class="co">#&gt; b 22 27</span></span></code></pre></div>
 <p>But suppose you wish to extract the <strong>last</strong> 2 elements
 of each dimension. In base ‘R’, you would have to do something like
 this:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>x[<span class="fu">c</span>(<span class="fu">dim</span>(x)[<span class="dv">1</span>] <span class="sc">-</span> <span class="dv">1</span>, <span class="fu">dim</span>(x)[<span class="dv">1</span>]), <span class="fu">c</span>(<span class="fu">dim</span>(x)[<span class="dv">2</span>] <span class="sc">-</span> <span class="dv">1</span>, <span class="fu">dim</span>(x)[<span class="dv">2</span>]), <span class="fu">c</span>(<span class="fu">dim</span>(x)[<span class="dv">3</span>] <span class="sc">-</span> <span class="dv">1</span>, <span class="fu">dim</span>(x)[<span class="dv">3</span>])]</span>
-<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a><span class="co">#&gt; , , Feb</span></span>
-<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a><span class="co">#&gt;    C  D</span></span>
-<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a><span class="co">#&gt; d 34 39</span></span>
-<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a><span class="co">#&gt; e 35 40</span></span>
-<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a><span class="co">#&gt; , , Mar</span></span>
-<span id="cb13-9"><a href="#cb13-9" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb13-10"><a href="#cb13-10" tabindex="-1"></a><span class="co">#&gt;    C  D</span></span>
-<span id="cb13-11"><a href="#cb13-11" tabindex="-1"></a><span class="co">#&gt; d 54 59</span></span>
-<span id="cb13-12"><a href="#cb13-12" tabindex="-1"></a><span class="co">#&gt; e 55 60</span></span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a>x[<span class="fu">c</span>(<span class="fu">dim</span>(x)[<span class="dv">1</span>] <span class="sc">-</span> <span class="dv">1</span>, <span class="fu">dim</span>(x)[<span class="dv">1</span>]), <span class="fu">c</span>(<span class="fu">dim</span>(x)[<span class="dv">2</span>] <span class="sc">-</span> <span class="dv">1</span>, <span class="fu">dim</span>(x)[<span class="dv">2</span>]), <span class="fu">c</span>(<span class="fu">dim</span>(x)[<span class="dv">3</span>] <span class="sc">-</span> <span class="dv">1</span>, <span class="fu">dim</span>(x)[<span class="dv">3</span>])]</span>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a><span class="co">#&gt; , , Feb</span></span>
+<span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb17-4"><a href="#cb17-4" tabindex="-1"></a><span class="co">#&gt;    C  D</span></span>
+<span id="cb17-5"><a href="#cb17-5" tabindex="-1"></a><span class="co">#&gt; d 34 39</span></span>
+<span id="cb17-6"><a href="#cb17-6" tabindex="-1"></a><span class="co">#&gt; e 35 40</span></span>
+<span id="cb17-7"><a href="#cb17-7" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb17-8"><a href="#cb17-8" tabindex="-1"></a><span class="co">#&gt; , , Mar</span></span>
+<span id="cb17-9"><a href="#cb17-9" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb17-10"><a href="#cb17-10" tabindex="-1"></a><span class="co">#&gt;    C  D</span></span>
+<span id="cb17-11"><a href="#cb17-11" tabindex="-1"></a><span class="co">#&gt; d 54 59</span></span>
+<span id="cb17-12"><a href="#cb17-12" tabindex="-1"></a><span class="co">#&gt; e 55 60</span></span></code></pre></div>
 <p>‘squarebrackets’ allows indexing by <strong>keywords</strong> via a
 formula, which allows one to do more advanced sub-setting operations. We
 can do the above operations using keywords in a few ways:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="fu">ss_x</span>(x, <span class="sc">~</span> (.N<span class="dv">-1</span>)<span class="sc">:</span>.N)</span>
-<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a><span class="co">#&gt; , , Feb</span></span>
-<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a><span class="co">#&gt;    C  D</span></span>
-<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a><span class="co">#&gt; d 34 39</span></span>
-<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a><span class="co">#&gt; e 35 40</span></span>
-<span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb14-8"><a href="#cb14-8" tabindex="-1"></a><span class="co">#&gt; , , Mar</span></span>
-<span id="cb14-9"><a href="#cb14-9" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb14-10"><a href="#cb14-10" tabindex="-1"></a><span class="co">#&gt;    C  D</span></span>
-<span id="cb14-11"><a href="#cb14-11" tabindex="-1"></a><span class="co">#&gt; d 54 59</span></span>
-<span id="cb14-12"><a href="#cb14-12" tabindex="-1"></a><span class="co">#&gt; e 55 60</span></span>
-<span id="cb14-13"><a href="#cb14-13" tabindex="-1"></a></span>
-<span id="cb14-14"><a href="#cb14-14" tabindex="-1"></a><span class="fu">ss_x</span>(x, <span class="sc">~</span> <span class="fu">.bi</span>(<span class="sc">-</span><span class="dv">2</span><span class="sc">:-</span><span class="dv">1</span>))</span>
-<span id="cb14-15"><a href="#cb14-15" tabindex="-1"></a><span class="co">#&gt; , , Feb</span></span>
-<span id="cb14-16"><a href="#cb14-16" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb14-17"><a href="#cb14-17" tabindex="-1"></a><span class="co">#&gt;    C  D</span></span>
-<span id="cb14-18"><a href="#cb14-18" tabindex="-1"></a><span class="co">#&gt; d 34 39</span></span>
-<span id="cb14-19"><a href="#cb14-19" tabindex="-1"></a><span class="co">#&gt; e 35 40</span></span>
-<span id="cb14-20"><a href="#cb14-20" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb14-21"><a href="#cb14-21" tabindex="-1"></a><span class="co">#&gt; , , Mar</span></span>
-<span id="cb14-22"><a href="#cb14-22" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb14-23"><a href="#cb14-23" tabindex="-1"></a><span class="co">#&gt;    C  D</span></span>
-<span id="cb14-24"><a href="#cb14-24" tabindex="-1"></a><span class="co">#&gt; d 54 59</span></span>
-<span id="cb14-25"><a href="#cb14-25" tabindex="-1"></a><span class="co">#&gt; e 55 60</span></span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="fu">ss_x</span>(x, <span class="sc">~</span> (.N<span class="dv">-1</span>)<span class="sc">:</span>.N)</span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a><span class="co">#&gt; , , Feb</span></span>
+<span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb18-4"><a href="#cb18-4" tabindex="-1"></a><span class="co">#&gt;    C  D</span></span>
+<span id="cb18-5"><a href="#cb18-5" tabindex="-1"></a><span class="co">#&gt; d 34 39</span></span>
+<span id="cb18-6"><a href="#cb18-6" tabindex="-1"></a><span class="co">#&gt; e 35 40</span></span>
+<span id="cb18-7"><a href="#cb18-7" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb18-8"><a href="#cb18-8" tabindex="-1"></a><span class="co">#&gt; , , Mar</span></span>
+<span id="cb18-9"><a href="#cb18-9" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb18-10"><a href="#cb18-10" tabindex="-1"></a><span class="co">#&gt;    C  D</span></span>
+<span id="cb18-11"><a href="#cb18-11" tabindex="-1"></a><span class="co">#&gt; d 54 59</span></span>
+<span id="cb18-12"><a href="#cb18-12" tabindex="-1"></a><span class="co">#&gt; e 55 60</span></span>
+<span id="cb18-13"><a href="#cb18-13" tabindex="-1"></a></span>
+<span id="cb18-14"><a href="#cb18-14" tabindex="-1"></a><span class="fu">ss_x</span>(x, <span class="sc">~</span> <span class="fu">.bi</span>(<span class="sc">-</span><span class="dv">2</span><span class="sc">:-</span><span class="dv">1</span>))</span>
+<span id="cb18-15"><a href="#cb18-15" tabindex="-1"></a><span class="co">#&gt; , , Feb</span></span>
+<span id="cb18-16"><a href="#cb18-16" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb18-17"><a href="#cb18-17" tabindex="-1"></a><span class="co">#&gt;    C  D</span></span>
+<span id="cb18-18"><a href="#cb18-18" tabindex="-1"></a><span class="co">#&gt; d 34 39</span></span>
+<span id="cb18-19"><a href="#cb18-19" tabindex="-1"></a><span class="co">#&gt; e 35 40</span></span>
+<span id="cb18-20"><a href="#cb18-20" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb18-21"><a href="#cb18-21" tabindex="-1"></a><span class="co">#&gt; , , Mar</span></span>
+<span id="cb18-22"><a href="#cb18-22" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb18-23"><a href="#cb18-23" tabindex="-1"></a><span class="co">#&gt;    C  D</span></span>
+<span id="cb18-24"><a href="#cb18-24" tabindex="-1"></a><span class="co">#&gt; d 54 59</span></span>
+<span id="cb18-25"><a href="#cb18-25" tabindex="-1"></a><span class="co">#&gt; e 55 60</span></span></code></pre></div>
 <p>‘squarebrackets’ allows users to specify indices by using keywords in
 a formula, like just shown; the following keywords are available:</p>
 <ul>
@@ -677,64 +807,67 @@ a formula, like just shown; the following keywords are available:</p>
 is not 0) or else the length of <code>x</code>.</li>
 <li><code>.I</code>: equal to <code>1:.N</code>.</li>
 <li><code>.bi(...)</code>: a function to specify bilateral indices.</li>
+<li><code>.ptrn()</code>: a function to specify a recurring
+pattern.</li>
 <li><code>.x</code>: the input variable <code>x</code> itself.</li>
 </ul>
 <p> </p>
 <p>Let’s use keywords to select all sub-sets whose dimnames contains a
 “a”, “A”, “e” or “E”, and compare it to how to do it in base ‘R’:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="fu">library</span>(stringi)</span>
-<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a></span>
-<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="st">&quot;a|A|e|E&quot;</span></span>
-<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a><span class="co"># in base R:</span></span>
-<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a>x[</span>
-<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a>  <span class="fu">stri_detect</span>(<span class="fu">dimnames</span>(x)[[<span class="dv">1</span>]], <span class="at">regex =</span> p),</span>
-<span id="cb15-7"><a href="#cb15-7" tabindex="-1"></a>  <span class="fu">stri_detect</span>(<span class="fu">dimnames</span>(x)[[<span class="dv">2</span>]], <span class="at">regex =</span> p),</span>
-<span id="cb15-8"><a href="#cb15-8" tabindex="-1"></a>  <span class="fu">stri_detect</span>(<span class="fu">dimnames</span>(x)[[<span class="dv">3</span>]], <span class="at">regex =</span> p),</span>
-<span id="cb15-9"><a href="#cb15-9" tabindex="-1"></a>  drop <span class="ot">=</span> <span class="cn">FALSE</span></span>
-<span id="cb15-10"><a href="#cb15-10" tabindex="-1"></a>]</span>
-<span id="cb15-11"><a href="#cb15-11" tabindex="-1"></a><span class="co">#&gt; , , Jan</span></span>
-<span id="cb15-12"><a href="#cb15-12" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb15-13"><a href="#cb15-13" tabindex="-1"></a><span class="co">#&gt;   A</span></span>
-<span id="cb15-14"><a href="#cb15-14" tabindex="-1"></a><span class="co">#&gt; a 1</span></span>
-<span id="cb15-15"><a href="#cb15-15" tabindex="-1"></a><span class="co">#&gt; e 5</span></span>
-<span id="cb15-16"><a href="#cb15-16" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb15-17"><a href="#cb15-17" tabindex="-1"></a><span class="co">#&gt; , , Feb</span></span>
-<span id="cb15-18"><a href="#cb15-18" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb15-19"><a href="#cb15-19" tabindex="-1"></a><span class="co">#&gt;    A</span></span>
-<span id="cb15-20"><a href="#cb15-20" tabindex="-1"></a><span class="co">#&gt; a 21</span></span>
-<span id="cb15-21"><a href="#cb15-21" tabindex="-1"></a><span class="co">#&gt; e 25</span></span>
-<span id="cb15-22"><a href="#cb15-22" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb15-23"><a href="#cb15-23" tabindex="-1"></a><span class="co">#&gt; , , Mar</span></span>
-<span id="cb15-24"><a href="#cb15-24" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb15-25"><a href="#cb15-25" tabindex="-1"></a><span class="co">#&gt;    A</span></span>
-<span id="cb15-26"><a href="#cb15-26" tabindex="-1"></a><span class="co">#&gt; a 41</span></span>
-<span id="cb15-27"><a href="#cb15-27" tabindex="-1"></a><span class="co">#&gt; e 45</span></span>
-<span id="cb15-28"><a href="#cb15-28" tabindex="-1"></a></span>
-<span id="cb15-29"><a href="#cb15-29" tabindex="-1"></a><span class="co"># using &#39;squarebrackets&#39;:</span></span>
-<span id="cb15-30"><a href="#cb15-30" tabindex="-1"></a><span class="fu">ss_x</span>(x, <span class="sc">~</span> <span class="fu">stri_detect</span>(.Nms, <span class="at">regex =</span> p))</span>
-<span id="cb15-31"><a href="#cb15-31" tabindex="-1"></a><span class="co">#&gt; , , Jan</span></span>
-<span id="cb15-32"><a href="#cb15-32" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb15-33"><a href="#cb15-33" tabindex="-1"></a><span class="co">#&gt;   A</span></span>
-<span id="cb15-34"><a href="#cb15-34" tabindex="-1"></a><span class="co">#&gt; a 1</span></span>
-<span id="cb15-35"><a href="#cb15-35" tabindex="-1"></a><span class="co">#&gt; e 5</span></span>
-<span id="cb15-36"><a href="#cb15-36" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb15-37"><a href="#cb15-37" tabindex="-1"></a><span class="co">#&gt; , , Feb</span></span>
-<span id="cb15-38"><a href="#cb15-38" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb15-39"><a href="#cb15-39" tabindex="-1"></a><span class="co">#&gt;    A</span></span>
-<span id="cb15-40"><a href="#cb15-40" tabindex="-1"></a><span class="co">#&gt; a 21</span></span>
-<span id="cb15-41"><a href="#cb15-41" tabindex="-1"></a><span class="co">#&gt; e 25</span></span>
-<span id="cb15-42"><a href="#cb15-42" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb15-43"><a href="#cb15-43" tabindex="-1"></a><span class="co">#&gt; , , Mar</span></span>
-<span id="cb15-44"><a href="#cb15-44" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb15-45"><a href="#cb15-45" tabindex="-1"></a><span class="co">#&gt;    A</span></span>
-<span id="cb15-46"><a href="#cb15-46" tabindex="-1"></a><span class="co">#&gt; a 41</span></span>
-<span id="cb15-47"><a href="#cb15-47" tabindex="-1"></a><span class="co">#&gt; e 45</span></span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="fu">library</span>(stringi)</span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="st">&quot;a|A|e|E&quot;</span></span>
+<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a><span class="co"># in base R:</span></span>
+<span id="cb19-5"><a href="#cb19-5" tabindex="-1"></a>x[</span>
+<span id="cb19-6"><a href="#cb19-6" tabindex="-1"></a>  <span class="fu">stri_detect</span>(<span class="fu">dimnames</span>(x)[[<span class="dv">1</span>]], <span class="at">regex =</span> p),</span>
+<span id="cb19-7"><a href="#cb19-7" tabindex="-1"></a>  <span class="fu">stri_detect</span>(<span class="fu">dimnames</span>(x)[[<span class="dv">2</span>]], <span class="at">regex =</span> p),</span>
+<span id="cb19-8"><a href="#cb19-8" tabindex="-1"></a>  <span class="fu">stri_detect</span>(<span class="fu">dimnames</span>(x)[[<span class="dv">3</span>]], <span class="at">regex =</span> p),</span>
+<span id="cb19-9"><a href="#cb19-9" tabindex="-1"></a>  drop <span class="ot">=</span> <span class="cn">FALSE</span></span>
+<span id="cb19-10"><a href="#cb19-10" tabindex="-1"></a>]</span>
+<span id="cb19-11"><a href="#cb19-11" tabindex="-1"></a><span class="co">#&gt; , , Jan</span></span>
+<span id="cb19-12"><a href="#cb19-12" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb19-13"><a href="#cb19-13" tabindex="-1"></a><span class="co">#&gt;   A</span></span>
+<span id="cb19-14"><a href="#cb19-14" tabindex="-1"></a><span class="co">#&gt; a 1</span></span>
+<span id="cb19-15"><a href="#cb19-15" tabindex="-1"></a><span class="co">#&gt; e 5</span></span>
+<span id="cb19-16"><a href="#cb19-16" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb19-17"><a href="#cb19-17" tabindex="-1"></a><span class="co">#&gt; , , Feb</span></span>
+<span id="cb19-18"><a href="#cb19-18" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb19-19"><a href="#cb19-19" tabindex="-1"></a><span class="co">#&gt;    A</span></span>
+<span id="cb19-20"><a href="#cb19-20" tabindex="-1"></a><span class="co">#&gt; a 21</span></span>
+<span id="cb19-21"><a href="#cb19-21" tabindex="-1"></a><span class="co">#&gt; e 25</span></span>
+<span id="cb19-22"><a href="#cb19-22" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb19-23"><a href="#cb19-23" tabindex="-1"></a><span class="co">#&gt; , , Mar</span></span>
+<span id="cb19-24"><a href="#cb19-24" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb19-25"><a href="#cb19-25" tabindex="-1"></a><span class="co">#&gt;    A</span></span>
+<span id="cb19-26"><a href="#cb19-26" tabindex="-1"></a><span class="co">#&gt; a 41</span></span>
+<span id="cb19-27"><a href="#cb19-27" tabindex="-1"></a><span class="co">#&gt; e 45</span></span>
+<span id="cb19-28"><a href="#cb19-28" tabindex="-1"></a></span>
+<span id="cb19-29"><a href="#cb19-29" tabindex="-1"></a><span class="co"># using &#39;squarebrackets&#39;:</span></span>
+<span id="cb19-30"><a href="#cb19-30" tabindex="-1"></a><span class="fu">ss_x</span>(x, <span class="sc">~</span> <span class="fu">stri_detect</span>(.Nms, <span class="at">regex =</span> p))</span>
+<span id="cb19-31"><a href="#cb19-31" tabindex="-1"></a><span class="co">#&gt; , , Jan</span></span>
+<span id="cb19-32"><a href="#cb19-32" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb19-33"><a href="#cb19-33" tabindex="-1"></a><span class="co">#&gt;   A</span></span>
+<span id="cb19-34"><a href="#cb19-34" tabindex="-1"></a><span class="co">#&gt; a 1</span></span>
+<span id="cb19-35"><a href="#cb19-35" tabindex="-1"></a><span class="co">#&gt; e 5</span></span>
+<span id="cb19-36"><a href="#cb19-36" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb19-37"><a href="#cb19-37" tabindex="-1"></a><span class="co">#&gt; , , Feb</span></span>
+<span id="cb19-38"><a href="#cb19-38" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb19-39"><a href="#cb19-39" tabindex="-1"></a><span class="co">#&gt;    A</span></span>
+<span id="cb19-40"><a href="#cb19-40" tabindex="-1"></a><span class="co">#&gt; a 21</span></span>
+<span id="cb19-41"><a href="#cb19-41" tabindex="-1"></a><span class="co">#&gt; e 25</span></span>
+<span id="cb19-42"><a href="#cb19-42" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb19-43"><a href="#cb19-43" tabindex="-1"></a><span class="co">#&gt; , , Mar</span></span>
+<span id="cb19-44"><a href="#cb19-44" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb19-45"><a href="#cb19-45" tabindex="-1"></a><span class="co">#&gt;    A</span></span>
+<span id="cb19-46"><a href="#cb19-46" tabindex="-1"></a><span class="co">#&gt; a 41</span></span>
+<span id="cb19-47"><a href="#cb19-47" tabindex="-1"></a><span class="co">#&gt; e 45</span></span></code></pre></div>
 <p>Keywords are available for vectors, arrays, and also data.frame-like
 objects.</p>
 <p> </p>
 </div>
-<div id="pass-by-reference-or-pass-by-value" class="section level1">
-<h1>Pass by Reference or Pass By Value?</h1>
+<div id="pass-by-reference-or-pass-by-value" class="section level1" number="7">
+<h1><span class="header-section-number">7</span> Pass by Reference or
+Pass By Value?</h1>
 <p>R’s <code>[&lt;-</code> and <code>[[&lt;-</code> sometimes make a
 copy of an object, and sometimes they perhaps don’t. This brings 2
 issues:</p>
@@ -758,10 +891,12 @@ data.table), or to return an explicit <strong>copy</strong>. The
 objects by reference, and doing so <strong>safely</strong>.</p>
 <p> </p>
 </div>
-<div id="long-vectors-so-much-memory-usage" class="section level1">
-<h1>Long Vectors: So much memory usage</h1>
-<div id="sub-set-operations-without-indices" class="section level2">
-<h2>Sub-set operations without indices</h2>
+<div id="long-vectors-so-much-memory-usage" class="section level1" number="8">
+<h1><span class="header-section-number">8</span> Long Vectors: So much
+memory usage</h1>
+<div id="sub-set-operations-without-indices" class="section level2" number="8.1">
+<h2><span class="header-section-number">8.1</span> Sub-set operations
+without indices</h2>
 <p>Long Vectors take in quite a bit of memory. Performing a sub-set
 operation in base ‘R’ on a vector requires an indexing vector, which -
 for a long vector - may itself also be a long vector. This is a lot of
@@ -788,45 +923,46 @@ logical vector. <code>stride_ptrn()</code> specifies this sequence
 without actually allocating an indexing vector.</li>
 </ul>
 <p>An example using <code>stride_v()</code>:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a></span>
-<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>nms <span class="ot">&lt;-</span> <span class="fu">c</span>(letters, LETTERS, month.abb, month.name) <span class="sc">|&gt;</span> <span class="fu">rep_len</span>(<span class="fl">1e6</span>)</span>
-<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">mutatomic</span>(<span class="dv">1</span><span class="sc">:</span><span class="fl">1e6</span>, <span class="at">names =</span> nms)</span>
-<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a><span class="fu">head</span>(x)</span>
-<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a><span class="co">#&gt; a b c d e f </span></span>
-<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a><span class="co">#&gt; 1 2 3 4 5 6 </span></span>
-<span id="cb16-7"><a href="#cb16-7" tabindex="-1"></a><span class="co">#&gt; mutatomic </span></span>
-<span id="cb16-8"><a href="#cb16-8" tabindex="-1"></a><span class="co">#&gt; typeof:  integer</span></span>
-<span id="cb16-9"><a href="#cb16-9" tabindex="-1"></a></span>
-<span id="cb16-10"><a href="#cb16-10" tabindex="-1"></a><span class="co"># extract all elements of x with the name &quot;a&quot;:</span></span>
-<span id="cb16-11"><a href="#cb16-11" tabindex="-1"></a>stride <span class="ot">&lt;-</span>  <span class="fu">stride_v</span>(<span class="fu">names</span>(x), <span class="at">v =</span> <span class="st">&quot;a&quot;</span>)</span>
-<span id="cb16-12"><a href="#cb16-12" tabindex="-1"></a><span class="fu">long_x</span>(x, stride) <span class="sc">|&gt;</span> <span class="fu">head</span>()</span>
-<span id="cb16-13"><a href="#cb16-13" tabindex="-1"></a><span class="co">#&gt;   a   a   a   a   a   a </span></span>
-<span id="cb16-14"><a href="#cb16-14" tabindex="-1"></a><span class="co">#&gt;   1  77 153 229 305 381 </span></span>
-<span id="cb16-15"><a href="#cb16-15" tabindex="-1"></a><span class="co">#&gt; mutatomic </span></span>
-<span id="cb16-16"><a href="#cb16-16" tabindex="-1"></a><span class="co">#&gt; typeof:  integer</span></span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a></span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a>nms <span class="ot">&lt;-</span> <span class="fu">c</span>(letters, LETTERS, month.abb, month.name) <span class="sc">|&gt;</span> <span class="fu">rep_len</span>(<span class="fl">1e6</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">mutatomic</span>(<span class="dv">1</span><span class="sc">:</span><span class="fl">1e6</span>, <span class="at">names =</span> nms)</span>
+<span id="cb20-4"><a href="#cb20-4" tabindex="-1"></a><span class="fu">head</span>(x)</span>
+<span id="cb20-5"><a href="#cb20-5" tabindex="-1"></a><span class="co">#&gt; a b c d e f </span></span>
+<span id="cb20-6"><a href="#cb20-6" tabindex="-1"></a><span class="co">#&gt; 1 2 3 4 5 6 </span></span>
+<span id="cb20-7"><a href="#cb20-7" tabindex="-1"></a><span class="co">#&gt; mutatomic </span></span>
+<span id="cb20-8"><a href="#cb20-8" tabindex="-1"></a><span class="co">#&gt; typeof:  integer</span></span>
+<span id="cb20-9"><a href="#cb20-9" tabindex="-1"></a></span>
+<span id="cb20-10"><a href="#cb20-10" tabindex="-1"></a><span class="co"># extract all elements of x with the name &quot;a&quot;:</span></span>
+<span id="cb20-11"><a href="#cb20-11" tabindex="-1"></a>stride <span class="ot">&lt;-</span>  <span class="fu">stride_v</span>(<span class="fu">names</span>(x), <span class="at">v =</span> <span class="st">&quot;a&quot;</span>)</span>
+<span id="cb20-12"><a href="#cb20-12" tabindex="-1"></a><span class="fu">long_x</span>(x, stride) <span class="sc">|&gt;</span> <span class="fu">head</span>()</span>
+<span id="cb20-13"><a href="#cb20-13" tabindex="-1"></a><span class="co">#&gt;   a   a   a   a   a   a </span></span>
+<span id="cb20-14"><a href="#cb20-14" tabindex="-1"></a><span class="co">#&gt;   1  77 153 229 305 381 </span></span>
+<span id="cb20-15"><a href="#cb20-15" tabindex="-1"></a><span class="co">#&gt; mutatomic </span></span>
+<span id="cb20-16"><a href="#cb20-16" tabindex="-1"></a><span class="co">#&gt; typeof:  integer</span></span></code></pre></div>
 <p>An example using <code>stride_seq()</code>:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">50</span></span>
-<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a><span class="fu">long_x</span>(x, <span class="fu">stride_seq</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">2</span>)) <span class="co"># equivalent to x[seq(1, 10, 2)]</span></span>
-<span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a><span class="co">#&gt; [1] 1 3 5 7 9</span></span>
-<span id="cb17-4"><a href="#cb17-4" tabindex="-1"></a></span>
-<span id="cb17-5"><a href="#cb17-5" tabindex="-1"></a><span class="co"># the above can also be specified as a formula:</span></span>
-<span id="cb17-6"><a href="#cb17-6" tabindex="-1"></a><span class="fu">long_x</span>(x, <span class="sc">~</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span><span class="sc">:</span><span class="dv">2</span><span class="sc">:</span><span class="dv">1</span>)</span>
-<span id="cb17-7"><a href="#cb17-7" tabindex="-1"></a><span class="co">#&gt; [1] 1 3 5 7 9</span></span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">50</span></span>
+<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a><span class="fu">long_x</span>(x, <span class="fu">stride_seq</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">2</span>)) <span class="co"># equivalent to x[seq(1, 10, 2)]</span></span>
+<span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a><span class="co">#&gt; [1] 1 3 5 7 9</span></span>
+<span id="cb21-4"><a href="#cb21-4" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" tabindex="-1"></a><span class="co"># the above can also be specified as a formula:</span></span>
+<span id="cb21-6"><a href="#cb21-6" tabindex="-1"></a><span class="fu">long_x</span>(x, <span class="sc">~</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span><span class="sc">:</span><span class="dv">2</span><span class="sc">:</span><span class="dv">1</span>)</span>
+<span id="cb21-7"><a href="#cb21-7" tabindex="-1"></a><span class="co">#&gt; [1] 1 3 5 7 9</span></span></code></pre></div>
 <p>An example using <code>stride_ptrn()</code>:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">50</span></span>
-<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a>ptrn <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>)</span>
-<span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a><span class="fu">long_x</span>(x, <span class="fu">stride_ptrn</span>(<span class="dv">1</span>, <span class="dv">20</span>, ptrn)) <span class="co"># equivalent to x[(1:20)[ptrn]]</span></span>
-<span id="cb18-4"><a href="#cb18-4" tabindex="-1"></a><span class="co">#&gt;  [1]  1  4  5  8  9 12 13 16 17 20</span></span>
-<span id="cb18-5"><a href="#cb18-5" tabindex="-1"></a></span>
-<span id="cb18-6"><a href="#cb18-6" tabindex="-1"></a><span class="co"># the above can also be specified as a formula:</span></span>
-<span id="cb18-7"><a href="#cb18-7" tabindex="-1"></a><span class="fu">long_x</span>(x, <span class="sc">~</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span><span class="sc">:</span>ptrn<span class="sc">:</span><span class="dv">1</span>)</span>
-<span id="cb18-8"><a href="#cb18-8" tabindex="-1"></a><span class="co">#&gt;  [1]  1  4  5  8  9 12 13 16 17 20</span></span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">50</span></span>
+<span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a>ptrn <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" tabindex="-1"></a><span class="fu">long_x</span>(x, <span class="fu">stride_ptrn</span>(<span class="dv">1</span>, <span class="dv">20</span>, ptrn)) <span class="co"># equivalent to x[(1:20)[ptrn]]</span></span>
+<span id="cb22-4"><a href="#cb22-4" tabindex="-1"></a><span class="co">#&gt;  [1]  1  4  5  8  9 12 13 16 17 20</span></span>
+<span id="cb22-5"><a href="#cb22-5" tabindex="-1"></a></span>
+<span id="cb22-6"><a href="#cb22-6" tabindex="-1"></a><span class="co"># the above can also be specified as a formula:</span></span>
+<span id="cb22-7"><a href="#cb22-7" tabindex="-1"></a><span class="fu">long_x</span>(x, <span class="sc">~</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span><span class="sc">:</span>ptrn<span class="sc">:</span><span class="dv">1</span>)</span>
+<span id="cb22-8"><a href="#cb22-8" tabindex="-1"></a><span class="co">#&gt;  [1]  1  4  5  8  9 12 13 16 17 20</span></span></code></pre></div>
 <p>Both extracting sub-sets and pass-by-reference modification of
 sub-sets, is available for both methods.</p>
 <p> </p>
 </div>
-<div id="sub-set-modifications-without-copies" class="section level2">
-<h2>Sub-set Modifications without Copies</h2>
+<div id="sub-set-modifications-without-copies" class="section level2" number="8.2">
+<h2><span class="header-section-number">8.2</span> Sub-set Modifications
+without Copies</h2>
 <p>R’s <code>[&lt;-</code> operator (sometimes) makes copies of objects;
 making copies of long vectors, however, is an enormous waste of
 memory.</p>
@@ -835,31 +971,31 @@ atomic objects that can be modified <strong>without</strong> making
 copies, similar to how the ‘data.table’ package works. This new class of
 mutable atomic objects is called <code>mutatomic</code>, and can be
 created with ease:</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">mutatomic</span>(<span class="fu">seq</span>(<span class="dv">1</span><span class="dt">L</span>, <span class="fl">1e6</span>L, <span class="dv">2</span><span class="dt">L</span>))</span>
-<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a><span class="fu">head</span>(x)</span>
-<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a><span class="co">#&gt; [1]  1  3  5  7  9 11</span></span>
-<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a><span class="co">#&gt; mutatomic </span></span>
-<span id="cb19-5"><a href="#cb19-5" tabindex="-1"></a><span class="co">#&gt; typeof:  integer</span></span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">mutatomic</span>(<span class="fu">seq</span>(<span class="dv">1</span><span class="dt">L</span>, <span class="fl">1e6</span>L, <span class="dv">2</span><span class="dt">L</span>))</span>
+<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a><span class="fu">head</span>(x)</span>
+<span id="cb23-3"><a href="#cb23-3" tabindex="-1"></a><span class="co">#&gt; [1]  1  3  5  7  9 11</span></span>
+<span id="cb23-4"><a href="#cb23-4" tabindex="-1"></a><span class="co">#&gt; mutatomic </span></span>
+<span id="cb23-5"><a href="#cb23-5" tabindex="-1"></a><span class="co">#&gt; typeof:  integer</span></span></code></pre></div>
 <p>We can modify this vector by reference using the various methods that
 end with <code>_set</code>.</p>
 <p>For example like so:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="fu">long_set</span>(x, <span class="sc">~</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">4</span><span class="sc">:</span><span class="dv">1</span><span class="sc">:</span><span class="dv">1</span>, <span class="at">rp =</span> <span class="sc">-</span><span class="dv">1</span><span class="dt">L</span>)</span>
-<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a><span class="fu">head</span>(x)</span>
-<span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a><span class="co">#&gt; [1]  1 -1 -1 -1  9 11</span></span>
-<span id="cb20-4"><a href="#cb20-4" tabindex="-1"></a><span class="co">#&gt; mutatomic </span></span>
-<span id="cb20-5"><a href="#cb20-5" tabindex="-1"></a><span class="co">#&gt; typeof:  integer</span></span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a><span class="fu">long_set</span>(x, <span class="sc">~</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">4</span><span class="sc">:</span><span class="dv">1</span><span class="sc">:</span><span class="dv">1</span>, <span class="at">rp =</span> <span class="sc">-</span><span class="dv">1</span><span class="dt">L</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a><span class="fu">head</span>(x)</span>
+<span id="cb24-3"><a href="#cb24-3" tabindex="-1"></a><span class="co">#&gt; [1]  1 -1 -1 -1  9 11</span></span>
+<span id="cb24-4"><a href="#cb24-4" tabindex="-1"></a><span class="co">#&gt; mutatomic </span></span>
+<span id="cb24-5"><a href="#cb24-5" tabindex="-1"></a><span class="co">#&gt; typeof:  integer</span></span></code></pre></div>
 <p>You can still use regular indices, for example using
 <code>ii_set()</code>:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="fu">ii_set</span>(x, <span class="dv">1</span>, <span class="at">rp =</span> <span class="sc">-</span><span class="dv">1000</span><span class="dt">L</span>)</span>
-<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a><span class="fu">head</span>(x)</span>
-<span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a><span class="co">#&gt; [1] -1000    -1    -1    -1     9    11</span></span>
-<span id="cb21-4"><a href="#cb21-4" tabindex="-1"></a><span class="co">#&gt; mutatomic </span></span>
-<span id="cb21-5"><a href="#cb21-5" tabindex="-1"></a><span class="co">#&gt; typeof:  integer</span></span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a><span class="fu">ii_set</span>(x, <span class="dv">1</span>, <span class="at">rp =</span> <span class="sc">-</span><span class="dv">1000</span><span class="dt">L</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a><span class="fu">head</span>(x)</span>
+<span id="cb25-3"><a href="#cb25-3" tabindex="-1"></a><span class="co">#&gt; [1] -1000    -1    -1    -1     9    11</span></span>
+<span id="cb25-4"><a href="#cb25-4" tabindex="-1"></a><span class="co">#&gt; mutatomic </span></span>
+<span id="cb25-5"><a href="#cb25-5" tabindex="-1"></a><span class="co">#&gt; typeof:  integer</span></span></code></pre></div>
 <p> </p>
 </div>
 </div>
-<div id="closing-remarks" class="section level1">
-<h1>Closing Remarks</h1>
+<div id="closing-remarks" class="section level1" number="9">
+<h1><span class="header-section-number">9</span> Closing Remarks</h1>
 <p>If this introductory article has piqued your interest, I kindly
 invite you to read the rest of the (admittedly rather extensive)
 documentation, and perhaps try out the package for yourself.</p>

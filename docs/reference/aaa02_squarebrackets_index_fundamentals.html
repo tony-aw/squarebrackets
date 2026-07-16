@@ -11,7 +11,7 @@ Some familiarity with base R's [ and [&amp;lt;- operators is required to follow 
 
     <a class="navbar-brand me-2" href="../index.html">squarebrackets</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9009</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9010</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -175,9 +175,7 @@ just like in base 'R'. <br><br><br></p>
 
 
 <ul><li><p>Integer indices that are out of bounds (including <code>NaN</code> and <code>NA_integer_</code>) always give an error.</p></li>
-<li><p>Character indices that specify non-existing names
-is considered a form of zero-length indexing. <br>
-Specifying <code>NA</code> names returns an error. <br></p></li>
+<li><p>Character indices that specify non-existing names or <code>NA</code> returns an error. <br></p></li>
 <li><p>Logical indices are translated internally to integers using <a href="https://rdrr.io/r/base/which.html" class="external-link">which</a>,
 and so <code>NA</code>s are ignored. <br><br></p></li>
 </ul></div>

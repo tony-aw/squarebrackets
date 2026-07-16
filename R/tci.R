@@ -116,14 +116,7 @@ tci_chr <- function(
     }
   }
   
-  if(use > 0L) { 
-    if(uniquely_named) {
-      return(collapse::fmatch(collapse::na_omit(indx), nms))
-    }
-    else {
-      return(match_all(indx, nms))
-    }
-  }
+  if(use > 0L) { return(.match_names(indx, nms, .abortcall)) }
   if(use < 0L){ return(collapse::`%!iin%`(nms, indx)) }
   
 }
@@ -140,7 +133,8 @@ tci_formula <- function(x, m, form, .abortcall) {
     .Nms = if(m == 0L) names(x) else dimnames(x)[[m]],
     .N = s(x, m),
     .I = seq_len(s(x, m)),
-    .bi = \(...) .internal_bi(list(...),  s(x, m)),
+    .bi = \(...) .keyword_bi(list(...),  s(x, m)),
+    .ptrn = \(ptrn, start = 1L, end = s(x, m)) .keyword_ptrn(ptrn, start, end, s(x, m)),
     .x = x
   )
  

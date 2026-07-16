@@ -22,7 +22,7 @@
 #'  - `_x`: extract, exchange, exclude, or duplicate (if applicable) subsets.
 #'  - `_mod`: modify subsets and return copy.
 #'  - `_set`: modify subsets using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
-#'  - `icom`: create indices to be used in `[<-` to modify objects using the default Copy-On-Modify semantics. \cr \cr
+#'  - `_icom`: create indices to be used in `[<-` to modify objects using the R's default semantics. \cr \cr
 #' 
 #' To illustrate, let's take the methods used for extracting subsets
 #' (`_x`): 
@@ -42,10 +42,12 @@
 #' 
 #'  - the \link[=lst_rec]{lst_} set of methods,
 #' which deal with sub-set operations that are only relevant for (nested) lists,
-#' but not for the other types of supported objects. \cr
+#' but not for the other types of supported objects.
 #' - the \link[=long]{long_} set of methods,
 #' which deal with index-less sub-set operations,
-#' that are only relevant for long atomic vectors. \cr \cr
+#' that are only relevant for long atomic vectors.
+#' - the \link[=dt]{dt_} set of methods,
+#' which deal with sub-set operations that are only relevant for data.tables. \cr \cr
 #' 
 #' @section Other Methods:
 #' Besides the previously mentioned methods,

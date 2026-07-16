@@ -11,6 +11,10 @@ couldb.mutatomic <- function(x) {
   check <- .C_n_elements(x) == length(x)
   if(!check) return(FALSE)
   
+  if(any(dim(x) != attr(x, "dim"))) {
+    return(FALSE)
+  }
+  
   check <- TRUE
   if(!is.null(dim(x))) {
     check <- prod(dim(x)) == .C_n_elements(x)
@@ -19,6 +23,8 @@ couldb.mutatomic <- function(x) {
   
   check <- .is.array_like(x)
   if(!check) return(FALSE)
+  
+  if(.is.table(x)) return(FALSE)
   
   check <- .is.baseconsistent(x)
   if(!check) return(FALSE)
@@ -30,11 +36,20 @@ couldb.mutatomic <- function(x) {
 }
 
 
-
 #' @keywords internal
 #' @noRd
 .is.array_like <- function(x) {
-  if(is.factor(x) || .is.datetime(x) || .is.onlyvector(x)) return(FALSE)
+  if(is.factor(x) || .is.datetime(x) || .is.onlyvector(x)) {
+    return(FALSE)
+  }
+  if(!is.null(dim(x)) && !is.array(x)) {
+    # it's dimensions are not NULL, yet it's not an array
+    return(FALSE)
+  }
+  if(!is.null(attr(x, "dim")) && !is.array(x)) {
+    # it's dim attribute is not NULL, yet it's not an array
+    return(FALSE)
+  }
   return(TRUE)
 }
 
@@ -51,12 +66,20 @@ couldb.mutatomic <- function(x) {
 
 #' @keywords internal
 #' @noRd
+.is.table <- function(x) {
+  return(is.table(x) || inherits(x, "ftable"))
+}
+
+
+#' @keywords internal
+#' @noRd
 .is.onlyvector <- function(x) {
   x.classes <- class(x)
   onlyvector.classes <- c("roman", "octmode", "hexmode")
   out <- any(x.classes %in% onlyvector.classes)
   return(out)
 }
+
 
 #' @keywords internal
 #' @noRd

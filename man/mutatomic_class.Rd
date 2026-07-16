@@ -79,6 +79,7 @@ without breaking its functionality. \cr
 Thus a factor
 (which already represents a dummy matrix),
 most data-time objects (which generally do not support dimensions),
+'dist' objects (which are 1d arrays pretending to be lower-triangle matrices),
 and special printed vectors (hexmode, octmode, romans),
 cannot be \code{mutatomic}.
 \item \bold{missing values consistent with base 'R'}: \cr
@@ -86,8 +87,8 @@ The meaning of \code{NA} in the vector is consistent with that of base 'R'. \cr
 This is the case for the vast majority of objects. \cr
 But some classes, like \code{integer64} has a different definition of \code{NA} than base 'R',
 which is not supported by the \code{mutatomic} class.
-\item \bold{not an S4 class}: \cr
-The object is not an S4 class. \cr \cr
+\item \bold{not a table-like}: \cr
+\code{table} and \code{ftable} objects cannot be mutatomic. \cr \cr
 }
 }
 \section{Footnotes}{

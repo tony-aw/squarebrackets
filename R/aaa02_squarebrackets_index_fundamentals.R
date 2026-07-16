@@ -154,9 +154,7 @@
 #' @section Out-of-Bounds Integers, Non-Existing Names, and NAs:
 #' 
 #'  - Integer indices that are out of bounds (including `NaN` and `NA_integer_`) always give an error.
-#'  - Character indices that specify non-existing names
-#'  is considered a form of zero-length indexing. \cr
-#'  Specifying `NA` names returns an error. \cr
+#'  - Character indices that specify non-existing names or `NA` returns an error. \cr
 #'  - Logical indices are translated internally to integers using \link[base]{which},
 #'  and so `NA`s are ignored. \cr \cr
 #'  

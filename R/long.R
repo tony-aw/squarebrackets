@@ -86,7 +86,7 @@ long_set.default <- function(
 ) {
   
   stopifnot_ma_safe2mutate(substitute(x), parent.frame(n = 1), sys.call())
-  .internal_check_rptf(rp, tf, sys.call())
+  .argscheck_rptf(rp, tf, sys.call())
   .internal_check_dots(list(...), sys.call())
   
   if(is.formula(stride)) {

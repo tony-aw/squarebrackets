@@ -168,9 +168,7 @@ just like in base 'R'. \cr
 
 \itemize{
 \item Integer indices that are out of bounds (including \code{NaN} and \code{NA_integer_}) always give an error.
-\item Character indices that specify non-existing names
-is considered a form of zero-length indexing. \cr
-Specifying \code{NA} names returns an error. \cr
+\item Character indices that specify non-existing names or \code{NA} returns an error. \cr
 \item Logical indices are translated internally to integers using \link[base]{which},
 and so \code{NA}s are ignored. \cr \cr
 }

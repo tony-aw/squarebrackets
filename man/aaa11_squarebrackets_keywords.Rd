@@ -16,6 +16,10 @@ The following keywords are available:
 \item \code{.N}: the size of a given dimension (if \code{.M} is not \code{0}) or else the length of \code{x}.
 \item \code{.I}: equal to \code{seq_len(.N)}.
 \item \code{.bi(...)}: a \bold{function} to specify bilateral indices. See the \code{Details} section below.
+\item \code{.ptrn(ptrn, start, end)}: a \bold{function} specifying a pattern of indices. \cr
+It is defined as \code{(start:end)[ptrn]},
+where \code{start} and \code{end} are numeric scalars and \code{ptrn} is a logical vector. \cr
+By default, \code{start = 1L} and \code{end = .N}.
 \item \code{.x}: the input variable \code{x} itself.
 }
 
@@ -57,6 +61,14 @@ ss_x(x, ~ .bi(-.I))
 #> Mar  18  13   8   3
 #> Feb  17  12   7   2
 #> Jan  16  11   6   1
+
+
+# select every other element for each dimension:
+ss_x(x, ~ .ptrn(c(TRUE, FALSE)))
+#>     Jan Mar
+#> Jan   1  11
+#> Mar   3  13
+#> May   5  15
 }\if{html}{\out{</div>}}
 }
 \details{

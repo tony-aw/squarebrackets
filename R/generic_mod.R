@@ -33,8 +33,8 @@
 #' @export
 ii_mod <- function(x, i = NULL, use = 1, ..., rp, tf) {
   
-  .methodcheck.ii(x, i, use, sys.call())
-  .internal_check_rptf(rp, tf, sys.call())
+  .methodcheck.ii(x, sys.call())
+  .argscheck_rptf(rp, tf, sys.call())
   
   UseMethod("ii_mod", x)
 }
@@ -44,8 +44,8 @@ ii_mod <- function(x, i = NULL, use = 1, ..., rp, tf) {
 #' @export
 ss_mod <- function(x, s = NULL, use = rdim(x), ..., rp, tf) {
   
-  .methodcheck.ss(x, s, use, sys.call())
-  .internal_check_rptf(rp, tf, sys.call())
+  .methodcheck.ss(x, sys.call())
+  .argscheck_rptf(rp, tf, sys.call())
   
   UseMethod("ss_mod", x)
 }
@@ -55,8 +55,8 @@ ss_mod <- function(x, s = NULL, use = rdim(x), ..., rp, tf) {
 #' @export
 tt_mod <- function(x, row = NULL, col = NULL, use = 1:2, ..., rp, tf) {
   
-  .methodcheck.sbt(x, row, col, use, sys.call())
-  .internal_check_rptf(rp, tf, sys.call())
+  .methodcheck.tt(x, sys.call())
+  .argscheck_rptf(rp, tf, sys.call())
   
   UseMethod("tt_mod", x)
 }
@@ -128,22 +128,9 @@ tt_mod.data.frame <- function(
   }
   
   # make arguments:
-  use <- .internal_make_use_tabular(use, sys.call())
-  if(!.C_is_missing_idx(row)) {
-    row <- ci_margin(
-      x, row, 1L, use[1], chkdup = FALSE, uniquely_named = TRUE, sys.call()
-    )
-  }
-  if(is.function(col)) {
-    col <- collapse::get_vars(x, col, return = "logical")
-    if(use[2] > 0) col <- which(col)
-    if(use[2] < 0) col <- collapse::whichv(col, FALSE)
-  }
-  else if(!.C_is_missing_idx(col)) {
-    col <- ci_margin(
-      x, col, 2L, use[2], chkdup = FALSE, uniquely_named =  TRUE, sys.call()
-    )
-  }
+  rowcol <- ci_df(x, row, col, use, chkdup, sys.call())
+  row <- rowcol[[1L]]
+  col <- rowcol[[2L]]
   
   # empty indices:
   if(.any_empty_indices(n(row, col))) {

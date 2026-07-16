@@ -4,20 +4,13 @@ These functions do not use Non-Standard Evaluation.
 These functions also benefit from the security measures that
 'squarebrackets' implements for
 the pass-by-reference semantics.
-dt_aggregate()
-aggregates a data.table or tidytable, and returns the aggregated copy.
+dt_aggr()
+aggregates a data.table or tidytable, applyfing functions over columns specified in col.
 dt_setcoe()
-coercively transforms columns of a data.table or tidytable
+coercively transforms whole columns of a data.table,
 using pass-by-reference semantics.
-dt_setrm()
-removes columns of a data.table or tidytable
-using pass-by-reference semantics.
-dt_setadd(x, new)
-adds the columns from data.table/tidytable new to data.table/tidytable x,
-thereby modifying x
-using pass-by-reference semantics.
-dt_setreorder()
-reorders the rows and/or variables of a data.table
+dt_setmutate() modifies, adds, or removes columns,
+possibly based on other existing columns,
 using pass-by-reference semantics.
 
 "><meta property="og:description" content="Functional forms of special data.table operations.
@@ -25,20 +18,13 @@ These functions do not use Non-Standard Evaluation.
 These functions also benefit from the security measures that
 'squarebrackets' implements for
 the pass-by-reference semantics.
-dt_aggregate()
-aggregates a data.table or tidytable, and returns the aggregated copy.
+dt_aggr()
+aggregates a data.table or tidytable, applyfing functions over columns specified in col.
 dt_setcoe()
-coercively transforms columns of a data.table or tidytable
+coercively transforms whole columns of a data.table,
 using pass-by-reference semantics.
-dt_setrm()
-removes columns of a data.table or tidytable
-using pass-by-reference semantics.
-dt_setadd(x, new)
-adds the columns from data.table/tidytable new to data.table/tidytable x,
-thereby modifying x
-using pass-by-reference semantics.
-dt_setreorder()
-reorders the rows and/or variables of a data.table
+dt_setmutate() modifies, adds, or removes columns,
+possibly based on other existing columns,
 using pass-by-reference semantics.
 
 "></head><body>
@@ -49,7 +35,7 @@ using pass-by-reference semantics.
 
     <a class="navbar-brand me-2" href="../index.html">squarebrackets</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9005</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9010</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -86,45 +72,38 @@ using pass-by-reference semantics.
 These functions do not use Non-Standard Evaluation. <br>
 These functions also benefit from the security measures that
 'squarebrackets' implements for
-the <a href="aaa09_squarebrackets_PassByReference.html">pass-by-reference semantics</a>. <br></p><ul><li><p><code>dt_aggregate()</code>
-aggregates a data.table or tidytable, and returns the aggregated copy.</p></li>
+the <a href="aaa09_squarebrackets_PassByReference.html">pass-by-reference semantics</a>. <br></p><ul><li><p><code>dt_aggr()</code>
+aggregates a data.table or tidytable, applyfing functions over columns specified in <code>col</code>.</p></li>
 <li><p><code>dt_setcoe()</code>
-coercively transforms columns of a data.table or tidytable
+coercively transforms whole columns of a data.table,
 using <a href="aaa09_squarebrackets_PassByReference.html">pass-by-reference semantics</a>.</p></li>
-<li><p><code>dt_setrm()</code>
-removes columns of a data.table or tidytable
-using <a href="aaa09_squarebrackets_PassByReference.html">pass-by-reference semantics</a>.</p></li>
-<li><p><code>dt_setadd(x, new)</code>
-adds the columns from data.table/tidytable <code>new</code> to data.table/tidytable <code>x</code>,
-thereby modifying <code>x</code>
-using <a href="aaa09_squarebrackets_PassByReference.html">pass-by-reference semantics</a>.</p></li>
-<li><p><code>dt_setreorder()</code>
-reorders the rows and/or variables of a <code>data.table</code>
+<li><p><code>dt_setmutate()</code> modifies, adds, or removes columns,
+possibly based on other existing columns,
 using <a href="aaa09_squarebrackets_PassByReference.html">pass-by-reference semantics</a>. <br><br></p></li>
 </ul></div>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">dt_aggregate</span><span class="op">(</span><span class="va">x</span>, SDcols <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">f</span>, <span class="va">by</span>, order_by <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">dt_aggr</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  row <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  col <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  use <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span>
+<span>  <span class="va">fun</span>,</span>
+<span>  <span class="va">by</span>,</span>
+<span>  newnames <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  keyby <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">dt_setcoe</span><span class="op">(</span></span>
 <span>  <span class="va">x</span>,</span>
-<span>  vars <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  inv <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  col <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  use <span class="op">=</span> <span class="fl">2L</span>,</span>
 <span>  <span class="va">v</span>,</span>
 <span>  chkdup <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"squarebrackets.chkdup"</span>, <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">dt_setrm</span><span class="op">(</span></span>
-<span>  <span class="va">x</span>,</span>
-<span>  vars <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  inv <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  chkdup <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"squarebrackets.chkdup"</span>, <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">dt_setadd</span><span class="op">(</span><span class="va">x</span>, <span class="va">new</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">dt_setreorder</span><span class="op">(</span><span class="va">x</span>, roworder <span class="op">=</span> <span class="cn">NULL</span>, varorder <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">dt_setmutate</span><span class="op">(</span><span class="va">x</span>, <span class="va">mutations</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -135,28 +114,30 @@ using <a href="aaa09_squarebrackets_PassByReference.html">pass-by-reference sema
 <dd><p>a <code>data.table</code> or <code>tidytable</code>.</p></dd>
 
 
-<dt id="arg-sdcols">SDcols<a class="anchor" aria-label="anchor" href="#arg-sdcols"></a></dt>
-<dd><p>atomic vector,
-giving the columns to which the aggregation function <code>f()</code> is to be applied on.</p></dd>
+<dt id="arg-row-col-use">row, col, use<a class="anchor" aria-label="anchor" href="#arg-row-col-use"></a></dt>
+<dd><p>see <a href="aaa04_squarebrackets_index_args.html">squarebrackets_index_args</a>. <br>
+For <code>dt_setcoe()</code>, <code>use</code> must be either a scalar positive number to select columns,
+or a scalar negative number to exclude columns.</p></dd>
 
 
-<dt id="arg-f">f<a class="anchor" aria-label="anchor" href="#arg-f"></a></dt>
-<dd><p>the aggregation function</p></dd>
+<dt id="arg-fun">fun<a class="anchor" aria-label="anchor" href="#arg-fun"></a></dt>
+<dd><p>an aggregation function, or a list of aggregation functions. <br>
+A named list is the preferred form.</p></dd>
 
 
 <dt id="arg-by">by<a class="anchor" aria-label="anchor" href="#arg-by"></a></dt>
-<dd><p>atomic vector,
-giving the grouping columns.</p></dd>
+<dd><p>a character vector, giving the names of the grouping column(s).</p></dd>
 
 
-<dt id="arg-order-by">order_by<a class="anchor" aria-label="anchor" href="#arg-order-by"></a></dt>
+<dt id="arg-newnames">newnames<a class="anchor" aria-label="anchor" href="#arg-newnames"></a></dt>
+<dd><p>a vector of names for the aggregated columns. <br>
+If <code>NULL</code> (default),
+<code>newnames</code> will be constructed as: <br><code>paste0(names(fun), "(", names(tt_x(x, 0L, col)), ")")</code>.</p></dd>
+
+
+<dt id="arg-keyby">keyby<a class="anchor" aria-label="anchor" href="#arg-keyby"></a></dt>
 <dd><p>Boolean,
 indicating if the aggregated result should be ordered by the columns specified in <code>by</code>.</p></dd>
-
-
-<dt id="arg-vars-inv">vars, inv<a class="anchor" aria-label="anchor" href="#arg-vars-inv"></a></dt>
-<dd><p>see <a href="aaa04_squarebrackets_indx_args.html">squarebrackets_indx_args</a>. <br>
-Duplicates are not allowed.</p></dd>
 
 
 <dt id="arg-v">v<a class="anchor" aria-label="anchor" href="#arg-v"></a></dt>
@@ -167,61 +148,78 @@ Duplicates are not allowed.</p></dd>
 <dd><p>see <a href="aaa06_squarebrackets_options.html">squarebrackets_options</a>. <br><img src="figures/for_performance-set_to_FALSE-red.svg" alt="[for performance: set to FALSE]"><br></p></dd>
 
 
-<dt id="arg-new">new<a class="anchor" aria-label="anchor" href="#arg-new"></a></dt>
-<dd><p>a data.frame-like object. <br>
-It must have column names that do not already exist in <code>x</code>.</p></dd>
-
-
-<dt id="arg-roworder">roworder<a class="anchor" aria-label="anchor" href="#arg-roworder"></a></dt>
-<dd><p>a integer vector of the same length as <code>nrow(x)</code>,
-giving the order in which the rows are to be re-order.
-Internally,
-this numeric vector will be turned into an order using <a href="https://rdrr.io/r/base/order.html" class="external-link">order</a>,
-thus ensuring it is a strict permutation of <code>1:nrow(x)</code>.</p></dd>
-
-
-<dt id="arg-varorder">varorder<a class="anchor" aria-label="anchor" href="#arg-varorder"></a></dt>
-<dd><p>integer or character vector of the same length as <code>ncol(x)</code>,
-giving the new column order. <br>
-See <code>data.table::</code><a href="https://rdatatable.gitlab.io/data.table/reference/setcolorder.html" class="external-link">setcolorder</a>.</p></dd>
+<dt id="arg-mutations">mutations<a class="anchor" aria-label="anchor" href="#arg-mutations"></a></dt>
+<dd><p>a named list, or a formula that evaluates to a named list. <br>
+List names that correspond to existing columns, will modify those columns. <br>
+List names that don't will new create columns with those names. <br>
+List contents can be <code>NULL</code> to remove a column, or a vector to replace the column. <br>
+In formula form, columns from  <code>x</code> as can be used as variables. <br>
+For example,
+the following formula will transform the existing column named "column3" using other existing columns,
+and it will create a new column called "newcolumn" as functions from existing columns: <br><code>~ list(column3 = column1 / column2, newcolumn = column1 + column2)</code> <br></p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>For <code>dt_aggregate()</code>: <br>
+    <p>For <code>dt_aggr()</code>: <br>
 The aggregated <code>data.table</code> object. <br><br>
 For the rest of the functions: <br>
 Returns: VOID. These functions modify the object by reference. <br>
 Do not use assignments like <code>x &lt;- dt_setcoe(x, ...)</code>. <br>
 Since these functions return void, you'll just get <code>NULL</code>. <br><br></p>
     </div>
-    <div class="section level2">
-    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p><code>dt_setreorder(x, roworder = roworder)</code>
-internally creates a new column to reorder the data.table by,
-and then removes the new column. <br>
-The column name is randomized,
-and extra care is given to ensure it does not overwrite any existing columns. <br><br></p>
-    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># dt_aggregate on sf-data.table ====</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Aggregate data.table ====</span></span></span>
+<span class="r-in"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/data.table/man/as.data.table.html" class="external-link">as.data.table</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">dt_setcoe</span><span class="op">(</span><span class="va">d</span>, <span class="st">"Sepal.Length"</span>, <span class="fl">2L</span>, v <span class="op">=</span> <span class="va">as.integer</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      Sepal.Length Sepal.Width Petal.Length Petal.Width   Species</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             &lt;int&gt;       &lt;num&gt;        &lt;num&gt;       &lt;num&gt;    &lt;fctr&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1:            5         3.5          1.4         0.2    setosa</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2:            4         3.0          1.4         0.2    setosa</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   3:            4         3.2          1.3         0.2    setosa</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   4:            4         3.1          1.5         0.2    setosa</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   5:            5         3.6          1.4         0.2    setosa</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  ---                                                            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 146:            6         3.0          5.2         2.3 virginica</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 147:            6         2.5          5.0         1.9 virginica</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 148:            6         3.0          5.2         2.0 virginica</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 149:            6         3.4          5.4         2.3 virginica</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 150:            5         3.0          5.1         1.8 virginica</span>
+<span class="r-in"><span><span class="va">fun</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="va">mean</span>, var <span class="op">=</span> <span class="va">var</span><span class="op">)</span>, <span class="fl">2L</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Sepal.Length"</span>, <span class="st">"Sepal.Width"</span><span class="op">)</span>, each <span class="op">=</span> <span class="fl">2L</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">dt_aggr</span><span class="op">(</span><span class="va">d</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="va">cols</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, fun <span class="op">=</span> <span class="va">fun</span>, by <span class="op">=</span> <span class="st">"Species"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       Species mean(Sepal.Length) var(Sepal.Length) mean(Sepal.Width)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        &lt;fctr&gt;              &lt;num&gt;             &lt;num&gt;             &lt;num&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:     setosa           4.622222         0.2404040          3.444444</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2: versicolor           5.480000         0.3363265          2.770000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3:  virginica           6.080000         0.4424490          2.974000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    var(Sepal.Width)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               &lt;num&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:       0.15116162</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2:       0.09846939</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3:       0.10400408</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Aggregate sf-data.table ====</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"sf"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html" class="external-link">st_read</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"shape/nc.shp"</span>, package <span class="op">=</span> <span class="st">"sf"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://rdatatable.gitlab.io/data.table/reference/as.data.table.html" class="external-link">as.data.table</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/data.table/man/as.data.table.html" class="external-link">as.data.table</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  </span></span>
 <span class="r-in"><span>  <span class="va">x</span><span class="op">$</span><span class="va">region</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">x</span><span class="op">$</span><span class="va">CNTY_ID</span> <span class="op">&lt;=</span> <span class="fl">2000</span>, <span class="st">'high'</span>, <span class="st">'low'</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="va">d.aggr</span> <span class="op">&lt;-</span> <span class="fu">dt_aggregate</span><span class="op">(</span></span></span>
-<span class="r-in"><span>    <span class="va">x</span>, SDcols <span class="op">=</span> <span class="st">"geometry"</span>, f<span class="op">=</span> <span class="fu">sf</span><span class="fu">::</span><span class="va"><a href="https://r-spatial.github.io/sf/reference/geos_combine.html" class="external-link">st_union</a></span>, by <span class="op">=</span> <span class="st">"region"</span></span></span>
+<span class="r-in"><span>  <span class="va">d.aggr</span> <span class="op">&lt;-</span> <span class="fu">dt_aggr</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="va">x</span>, <span class="fl">0L</span>, <span class="st">"geometry"</span>, fun <span class="op">=</span> <span class="fu">sf</span><span class="fu">::</span><span class="va"><a href="https://r-spatial.github.io/sf/reference/geos_combine.html" class="external-link">st_union</a></span>, by <span class="op">=</span> <span class="st">"region"</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span>  </span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">d.aggr</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required namespace: sf</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Reading layer `nc' from data source </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   `D:\Programs\R\R-4.5.1\library\sf\shape\nc.shp' using driver `ESRI Shapefile'</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   `D:\Programs\R\R-4.5.2\library\sf\shape\nc.shp' using driver `ESRI Shapefile'</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Simple feature collection with 100 features and 14 fields</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Geometry type: MULTIPOLYGON</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Dimension:     XY</span>
@@ -236,10 +234,9 @@ and extra care is given to ensure it does not overwrite any existing columns. <b
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#############################################################################</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># dt_setcoe ====</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">obj</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://rdatatable.gitlab.io/data.table/reference/data.table.html" class="external-link">data.table</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, b <span class="op">=</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>, c <span class="op">=</span> <span class="fl">11</span><span class="op">:</span><span class="fl">20</span>, d <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">obj</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/data.table/man/data.table.html" class="external-link">data.table</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, b <span class="op">=</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>, c <span class="op">=</span> <span class="fl">11</span><span class="op">:</span><span class="fl">20</span>, d <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span> <span class="co"># notice that columns "a" and "c" are INTEGER (`int`)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Classes 'data.table' and 'data.frame':	10 obs. of  4 variables:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ a: int  1 2 3 4 5 6 7 8 9 10</span>
@@ -247,141 +244,88 @@ and extra care is given to ensure it does not overwrite any existing columns. <b
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ c: int  11 12 13 14 15 16 17 18 19 20</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ d: Factor w/ 10 levels "a","b","c","d",..: 1 2 3 4 5 6 7 8 9 10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, ".internal.selfref")=&lt;externalptr&gt; </span>
-<span class="r-in"><span><span class="fu"><a href="sb_set.html">ss2_set</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="va">obj</span>, obs <span class="op">=</span> <span class="op">~</span> <span class="op">(</span><span class="va">a</span> <span class="op">&gt;=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">(</span><span class="va">c</span> <span class="op">&lt;=</span> <span class="fl">17</span><span class="op">)</span>, vars <span class="op">=</span> <span class="va">is.numeric</span>,</span></span>
-<span class="r-in"><span>  tf <span class="op">=</span> <span class="va">sqrt</span> <span class="co"># WARNING: sqrt() results in `dbl`, but columns are `int`, so decimals lost</span></span></span>
-<span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>1.414214 (type 'double') at RHS position 1 out-of-range(NA) or truncated (precision lost) when assigning to type 'integer' (column 1 named 'a')</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>3.464102 (type 'double') at RHS position 1 out-of-range(NA) or truncated (precision lost) when assigning to type 'integer' (column 3 named 'c')</span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Classes 'data.table' and 'data.frame':	10 obs. of  4 variables:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ a: int  1 1 1 2 2 2 2 8 9 10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ b: chr  "a" "b" "c" "d" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ c: int  11 3 3 3 3 4 4 18 19 20</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ d: Factor w/ 10 levels "a","b","c","d",..: 1 2 3 4 5 6 7 8 9 10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, ".internal.selfref")=&lt;externalptr&gt; </span>
-<span class="r-in"><span><span class="va">obj</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://rdatatable.gitlab.io/data.table/reference/data.table.html" class="external-link">data.table</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, b <span class="op">=</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>, c <span class="op">=</span> <span class="fl">11</span><span class="op">:</span><span class="fl">20</span>, d <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">dt_setcoe</span><span class="op">(</span><span class="va">obj</span>, vars <span class="op">=</span> <span class="va">is.numeric</span>, v <span class="op">=</span> <span class="va">as.numeric</span><span class="op">)</span> <span class="co"># integers are now numeric</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">dt_setcoe</span><span class="op">(</span><span class="va">obj</span>, <span class="va">is.numeric</span>, v <span class="op">=</span> <span class="va">as.numeric</span><span class="op">)</span> <span class="co"># integers are now numeric</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span> <span class="co"># now those columns are double/numeric</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Classes 'data.table' and 'data.frame':	10 obs. of  4 variables:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ a: num  1 2 3 4 5 6 7 8 9 10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ b: chr  "a" "b" "c" "d" ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ c: num  11 12 13 14 15 16 17 18 19 20</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ d: Factor w/ 10 levels "a","b","c","d",..: 1 2 3 4 5 6 7 8 9 10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, ".internal.selfref")=&lt;externalptr&gt; </span>
-<span class="r-in"><span><span class="fu"><a href="sb_set.html">ss2_set</a></span><span class="op">(</span><span class="va">obj</span>,</span></span>
-<span class="r-in"><span>  obs <span class="op">=</span> <span class="op">~</span> <span class="op">(</span><span class="va">a</span> <span class="op">&gt;=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">(</span><span class="va">c</span> <span class="op">&lt;=</span> <span class="fl">17</span><span class="op">)</span>, vars <span class="op">=</span> <span class="va">is.numeric</span>,</span></span>
-<span class="r-in"><span>  tf <span class="op">=</span> <span class="va">sqrt</span> <span class="co"># SAFE: coercion performed; so no warnings</span></span></span>
-<span class="r-in"><span><span class="op">)</span> </span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Classes 'data.table' and 'data.frame':	10 obs. of  4 variables:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ a: num  1 1.41 1.73 2 2.24 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ b: chr  "a" "b" "c" "d" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ c: num  11 3.46 3.61 3.74 3.87 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ d: Factor w/ 10 levels "a","b","c","d",..: 1 2 3 4 5 6 7 8 9 10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, ".internal.selfref")=&lt;externalptr&gt; </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#############################################################################</span></span></span>
+<span class="r-in"><span><span class="co"># dt_setmutate ====</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># dt_setrm ====</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">obj</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://rdatatable.gitlab.io/data.table/reference/data.table.html" class="external-link">data.table</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>  a <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, b <span class="op">=</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>, c <span class="op">=</span> <span class="fl">11</span><span class="op">:</span><span class="fl">20</span>, d <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># add new columns based on other columns:</span></span></span>
+<span class="r-in"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/data.table/man/as.data.table.html" class="external-link">as.data.table</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mutations</span> <span class="op">&lt;-</span> <span class="op">~</span> <span class="fu"><a href="nest.html">n</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  Ratio.Length <span class="op">=</span> <span class="va">Sepal.Length</span> <span class="op">/</span> <span class="va">Petal.Length</span>,</span></span>
+<span class="r-in"><span>  Ratio.Width <span class="op">=</span> <span class="va">Sepal.Width</span> <span class="op">/</span> <span class="va">Petal.Width</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Classes 'data.table' and 'data.frame':	10 obs. of  4 variables:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ a: int  1 2 3 4 5 6 7 8 9 10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ b: chr  "a" "b" "c" "d" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ c: int  11 12 13 14 15 16 17 18 19 20</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ d: Factor w/ 10 levels "a","b","c","d",..: 1 2 3 4 5 6 7 8 9 10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, ".internal.selfref")=&lt;externalptr&gt; </span>
-<span class="r-in"><span><span class="fu">dt_setrm</span><span class="op">(</span><span class="va">obj</span>, vars <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Classes 'data.table' and 'data.frame':	10 obs. of  3 variables:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ b: chr  "a" "b" "c" "d" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ c: int  11 12 13 14 15 16 17 18 19 20</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ d: Factor w/ 10 levels "a","b","c","d",..: 1 2 3 4 5 6 7 8 9 10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, ".internal.selfref")=&lt;externalptr&gt; </span>
+<span class="r-in"><span><span class="fu">dt_setmutate</span><span class="op">(</span><span class="va">d</span>, <span class="va">mutations</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">d</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      Sepal.Length Sepal.Width Petal.Length Petal.Width   Species Ratio.Length</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             &lt;num&gt;       &lt;num&gt;        &lt;num&gt;       &lt;num&gt;    &lt;fctr&gt;        &lt;num&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1:          5.1         3.5          1.4         0.2    setosa     3.642857</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2:          4.9         3.0          1.4         0.2    setosa     3.500000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   3:          4.7         3.2          1.3         0.2    setosa     3.615385</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   4:          4.6         3.1          1.5         0.2    setosa     3.066667</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   5:          5.0         3.6          1.4         0.2    setosa     3.571429</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  ---                                                                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 146:          6.7         3.0          5.2         2.3 virginica     1.288462</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 147:          6.3         2.5          5.0         1.9 virginica     1.260000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 148:          6.5         3.0          5.2         2.0 virginica     1.250000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 149:          6.2         3.4          5.4         2.3 virginica     1.148148</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 150:          5.9         3.0          5.1         1.8 virginica     1.156863</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      Ratio.Width</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            &lt;num&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1:   17.500000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2:   15.000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   3:   16.000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   4:   15.500000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   5:   18.000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  ---            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 146:    1.304348</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 147:    1.315789</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 148:    1.500000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 149:    1.478261</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 150:    1.666667</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">obj</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://rdatatable.gitlab.io/data.table/reference/data.table.html" class="external-link">data.table</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>  a <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, b <span class="op">=</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>, c <span class="op">=</span> <span class="fl">11</span><span class="op">:</span><span class="fl">20</span>, d <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Classes 'data.table' and 'data.frame':	10 obs. of  4 variables:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ a: int  1 2 3 4 5 6 7 8 9 10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ b: chr  "a" "b" "c" "d" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ c: int  11 12 13 14 15 16 17 18 19 20</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ d: Factor w/ 10 levels "a","b","c","d",..: 1 2 3 4 5 6 7 8 9 10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, ".internal.selfref")=&lt;externalptr&gt; </span>
-<span class="r-in"><span><span class="fu">dt_setrm</span><span class="op">(</span><span class="va">obj</span>, vars <span class="op">=</span> <span class="va">is.numeric</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Classes 'data.table' and 'data.frame':	10 obs. of  2 variables:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ b: chr  "a" "b" "c" "d" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ d: Factor w/ 10 levels "a","b","c","d",..: 1 2 3 4 5 6 7 8 9 10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, ".internal.selfref")=&lt;externalptr&gt; </span>
+<span class="r-in"><span><span class="co"># remove columns:</span></span></span>
+<span class="r-in"><span><span class="fu">dt_setmutate</span><span class="op">(</span><span class="va">d</span>, <span class="fu"><a href="nest.html">n</a></span><span class="op">(</span>Ratio.Width <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span><span class="op">)</span> <span class="co"># remove Ratio.Width</span></span></span>
+<span class="r-in"><span><span class="va">d</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      Sepal.Length Sepal.Width Petal.Length Petal.Width   Species Ratio.Length</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             &lt;num&gt;       &lt;num&gt;        &lt;num&gt;       &lt;num&gt;    &lt;fctr&gt;        &lt;num&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1:          5.1         3.5          1.4         0.2    setosa     3.642857</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2:          4.9         3.0          1.4         0.2    setosa     3.500000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   3:          4.7         3.2          1.3         0.2    setosa     3.615385</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   4:          4.6         3.1          1.5         0.2    setosa     3.066667</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   5:          5.0         3.6          1.4         0.2    setosa     3.571429</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  ---                                                                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 146:          6.7         3.0          5.2         2.3 virginica     1.288462</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 147:          6.3         2.5          5.0         1.9 virginica     1.260000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 148:          6.5         3.0          5.2         2.0 virginica     1.250000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 149:          6.2         3.4          5.4         2.3 virginica     1.148148</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 150:          5.9         3.0          5.1         1.8 virginica     1.156863</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co">#############################################################################</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># dt_setadd ====</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">obj</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://rdatatable.gitlab.io/data.table/reference/data.table.html" class="external-link">data.table</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>  a <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, b <span class="op">=</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>, c <span class="op">=</span> <span class="fl">11</span><span class="op">:</span><span class="fl">20</span>, d <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">new</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://rdatatable.gitlab.io/data.table/reference/data.table.html" class="external-link">data.table</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>  e <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">FALSE</span><span class="op">)</span>, <span class="fl">10</span>, <span class="cn">TRUE</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  f <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">FALSE</span><span class="op">)</span>, <span class="fl">10</span>, <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">dt_setadd</span><span class="op">(</span><span class="va">obj</span>, <span class="va">new</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         a      b     c      d      e      f</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;int&gt; &lt;char&gt; &lt;int&gt; &lt;fctr&gt; &lt;lgcl&gt; &lt;lgcl&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1:     1      a    11      a   TRUE   TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2:     2      b    12      b  FALSE   TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3:     3      c    13      c   TRUE   TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  4:     4      d    14      d  FALSE  FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  5:     5      e    15      e   TRUE  FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  6:     6      f    16      f   TRUE  FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  7:     7      g    17      g  FALSE  FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  8:     8      h    18      h   TRUE  FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  9:     9      i    19      i  FALSE  FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10:    10      j    20      j  FALSE  FALSE</span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co">#############################################################################</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># dt_setreorder====</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">1e4</span></span></span>
-<span class="r-in"><span><span class="va">obj</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://rdatatable.gitlab.io/data.table/reference/data.table.html" class="external-link">data.table</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>  a <span class="op">=</span> <span class="fl">1L</span><span class="op">:</span><span class="va">n</span>, b <span class="op">=</span> <span class="va">n</span><span class="op">:</span><span class="fl">1L</span>, c <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/double.html" class="external-link">as.double</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="va">n</span><span class="op">)</span>, d <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/double.html" class="external-link">as.double</a></span><span class="op">(</span><span class="va">n</span><span class="op">:</span><span class="fl">1</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">dt_setreorder</span><span class="op">(</span><span class="va">obj</span>, roworder <span class="op">=</span> <span class="va">n</span><span class="op">:</span><span class="fl">1</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        a     b     c     d</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    &lt;int&gt; &lt;int&gt; &lt;num&gt; &lt;num&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1: 10000     1 10000     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2:  9999     2  9999     2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3:  9998     3  9998     3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4:  9997     4  9997     4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5:  9996     5  9996     5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6:  9995     6  9995     6</span>
-<span class="r-in"><span><span class="fu">dt_setreorder</span><span class="op">(</span><span class="va">obj</span>, varorder <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span><span class="op">:</span><span class="fl">1</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        d     c     b     a</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    &lt;num&gt; &lt;num&gt; &lt;int&gt; &lt;int&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:     1 10000     1 10000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2:     2  9999     2  9999</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3:     3  9998     3  9998</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4:     4  9997     4  9997</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5:     5  9996     5  9996</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6:     6  9995     6  9995</span>
-<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># transform existing columns:</span></span></span>
+<span class="r-in"><span><span class="va">mutations</span> <span class="op">&lt;-</span> <span class="op">~</span> <span class="fu"><a href="nest.html">n</a></span><span class="op">(</span>Sepal.Length <span class="op">=</span> <span class="va">Sepal.Length</span> <span class="op">/</span><span class="fl">100</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">dt_setmutate</span><span class="op">(</span><span class="va">d</span>, <span class="va">mutations</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">d</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      Sepal.Length Sepal.Width Petal.Length Petal.Width   Species Ratio.Length</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             &lt;num&gt;       &lt;num&gt;        &lt;num&gt;       &lt;num&gt;    &lt;fctr&gt;        &lt;num&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1:        0.051         3.5          1.4         0.2    setosa     3.642857</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2:        0.049         3.0          1.4         0.2    setosa     3.500000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   3:        0.047         3.2          1.3         0.2    setosa     3.615385</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   4:        0.046         3.1          1.5         0.2    setosa     3.066667</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   5:        0.050         3.6          1.4         0.2    setosa     3.571429</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  ---                                                                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 146:        0.067         3.0          5.2         2.3 virginica     1.288462</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 147:        0.063         2.5          5.0         1.9 virginica     1.260000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 148:        0.065         3.0          5.2         2.0 virginica     1.250000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 149:        0.062         3.4          5.4         2.3 virginica     1.148148</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 150:        0.059         3.0          5.1         1.8 virginica     1.156863</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

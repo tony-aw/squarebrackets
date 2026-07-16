@@ -2,7 +2,7 @@
 
 # dimensions ==== 
 if(!test_PassByReference) {
-  x <- array(as.list(1:27), c(3,3,3))
+  x <- array(as.list(1:27), c(3,3,3), list(letters[1:3], letters[4:6], letters[7:9]))
   expect_error(
     sb_test(x, s = list(1:10, 2:5), use = c(1:3)),
     pattern = "`length(s)` must be 1 or equal to `length(use)`",
@@ -18,7 +18,13 @@ if(!test_PassByReference) {
     pattern = "integers must be >= 1 and <= bounds",
     fixed = TRUE
   ) |> errorfun()
-  enumerate <- enumerate + 1
+  expect_error(
+    sb_test(x, s = list(c("a", "xxx")), use = 1),
+    pattern = "unknown names given",
+    fixed = TRUE
+  ) |> errorfun()
+  
+  enumerate <- enumerate + 4L
   
   
   
@@ -57,7 +63,7 @@ if(!test_PassByReference) {
   
   
   expect_error(
-    sb_test(x, list("a"), use = 1),
+    sb_test(unname(x), list("a"), use = 1),
     pattern = "no names present",
     fixed = TRUE
   ) |> errorfun()

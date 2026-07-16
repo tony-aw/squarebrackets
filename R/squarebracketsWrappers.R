@@ -27,6 +27,12 @@
 }
 
 
+#' @keywords Internal
+#' @noRd
+.C_any_zerolen <- function(x) {
+  .Call("C_any_zerolen", x)
+}
+
 
 #' @keywords Internal
 #' @noRd
