@@ -137,18 +137,29 @@
 #' ii_x(x, 1:5, -1) # return WITHOUT first 5 elements
 #' 
 #' 
-#' ii_mod(x, 1:5, rp = "XXX") # copy, replace first 5 elements, return result
+#' ii_mod(x, 1:5, rp = "XXX") # replace first 5 elements
+#' print(x)
 #' 
+#' x <- month.abb
 #' ii_mod(x, 1:5, -1, rp = "XXX") # same, but for all except first 5 elements
+#' print(x)
 #' 
 #' ```
 #' 
-#' \bold{ABOUT ORDERING} \cr
-#' The order in which the user gives indices when inverting indices generally does not matter. \cr
-#' The order of the indices as they appear in the original object `x` is maintained,
-#' just like in base 'R'. \cr
-#' \cr
-#' \cr
+#' When inverting indices,
+#' the order of the indices and the presence of duplicates is irrelevant; \cr
+#' They will lead to the same result. \cr
+#' I.e., these are all equivalent:
+#' 
+#' ```{r eval = TRUE, echo = TRUE}
+#' 
+#' ii_x(x, 1:10, -1)
+#' ii_x(x, 10:1, -1)
+#' ii_x(x, rep(1:10, 5), -1)
+#' ii_x(x, rep(10:1, 5), -1)
+#' 
+#' ```
+#' 
 #' 
 #' 
 #' @section Out-of-Bounds Integers, Non-Existing Names, and NAs:
@@ -236,7 +247,7 @@
 #' So, for example,
 #' to extract the character vector `month.abb` from the aforementioned list `x`,
 #' one would need to do: \cr
-#' \link{lst_rec}`(x, c("C","B"))`, (in base R: `x$C$B`):
+#' \link{lst_rec}`(x, c("C","B"))`, (in base R: `x[["C"]][["B"]]`):
 #' 
 #' ```{r}
 #' 
@@ -278,6 +289,7 @@
 #' 
 #' @rdname aaa02_squarebrackets_index_fundamentals
 #' @name aaa02_squarebrackets_index_fundamentals
+#' @concept index_fundamentals
 #' @aliases squarebrackets_index_fundamentals
 NULL
 

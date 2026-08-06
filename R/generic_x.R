@@ -16,11 +16,13 @@
 #' Returns a copy of the sub-setted object.
 #'
 #'
-#'
+#' @concept _x
 #' @example inst/examples/generic_x.R
-#' 
 
-#' @rdname sb_x
+#' @name generic_x
+NULL
+
+#' @rdname generic_x
 #' @export
 ii_x <- function(x, i = NULL, use = 1, ...) {
   
@@ -30,16 +32,16 @@ ii_x <- function(x, i = NULL, use = 1, ...) {
 }
 
 
-#' @rdname sb_x
+#' @rdname generic_x
 #' @export
-ss_x <- function(x, s = NULL, use = 1:ndim(x), ...) {
+ss_x <- function(x, s = NULL, use = Inf, ...) {
   
   .methodcheck.ss(x, sys.call())
   UseMethod("ss_x", x)
 }
 
 
-#' @rdname sb_x
+#' @rdname generic_x
 #' @export
 tt_x <- function(x, row = NULL, col = NULL, use = 1:2, ...) {
   .methodcheck.tt(x, sys.call())
@@ -48,7 +50,7 @@ tt_x <- function(x, row = NULL, col = NULL, use = 1:2, ...) {
 
 
 
-#' @rdname sb_x
+#' @rdname generic_x
 #' @export
 ii_x.default <- function(
     x, i = NULL, use = 1, ...
@@ -65,32 +67,32 @@ ii_x.default <- function(
 }
 
 
-#' @rdname sb_x
+#' @rdname generic_x
 #' @export
 ss_x.default <- function(
-    x, s = NULL, use = 1:ndim(x), ...
+    x, s = NULL, use = Inf, ...
 ) {
   
   .internal_check_dots(list(...), sys.call())
-  return(.sb_x_array(x, s, use, sys.call()))
+  return(.generic_x_array(x, s, use, sys.call()))
 }
 
 
-#' @rdname sb_x
+#' @rdname generic_x
 #' @export
 tt_x.default <- function(x, row = NULL, col = NULL, use = 1:2, ...) {
   .internal_check_dots(list(...), sys.call())
   use <- .internal_make_use_tabular(use, sys.call())
-  return(.sb_x_array(x, n(row, col), use, sys.call()))
+  return(.generic_x_array(x, n(row, col), use, sys.call()))
 }
 
 
-#' @rdname sb_x
+#' @rdname generic_x
 #' @export
 tt_x.data.frame <- function(x, row = NULL, col = NULL, use = 1:2, ...) {
   .internal_check_dots(list(...), sys.call())
   use <- .internal_make_use_tabular(use, sys.call())
-  return(.sb_x_data.frame(x, row, col, use, sys.call()))
+  return(.generic_x_data.frame(x, row, col, use, sys.call()))
 }
 
 
@@ -99,8 +101,8 @@ tt_x.data.frame <- function(x, row = NULL, col = NULL, use = 1:2, ...) {
 
 #' @keywords internal
 #' @noRd
-.sb_x_array <- function(
-    x, s = NULL, use = 1:ndim(x), abortcall
+.generic_x_array <- function(
+    x, s = NULL, use = Inf, abortcall
 ) {
   
   # check arguments:
@@ -124,7 +126,7 @@ tt_x.data.frame <- function(x, row = NULL, col = NULL, use = 1:2, ...) {
 
 #' @keywords internal
 #' @noRd
-.sb_x_data.frame <- function(x, row, col, use, abortcall) {
+.generic_x_data.frame <- function(x, row, col, use, abortcall) {
  
   if(length(x) == 0L) {
     return(x)

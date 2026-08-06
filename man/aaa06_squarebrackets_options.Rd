@@ -15,8 +15,8 @@ and how it affects the functionality. \cr \cr
 The \verb{_x} methods are the only methods
 where providing duplicate indices actually make sense. \cr
 For the other methods, it doesn't make sense. \cr
-Giving duplicate indices usually won't break anything;
-however, when replacing/transforming or removing subsets,
+Giving duplicate indices usually won't break anything. \cr
+However, when replacing/transforming subsets,
 it is almost certainly not the intention to provide duplicate indices. \cr
 Providing duplicate indices anyway might lead to unexpected results. \cr
 Therefore, for the methods where giving duplicate indices does not make sense,
@@ -25,6 +25,7 @@ This argument controls whether the method in question checks for duplicates (\co
 \cr
 Setting \code{chkdup = TRUE} means the method in question will check for duplicate indices,
 and give an error when it finds them. \cr
+Inverted indices will not be checked, as inverting indices is not sensitive to duplicates. \cr
 \cr
 Setting \code{chkdup = FALSE} will disable these checks,
 which saves time and computation power, and is thus more efficient. \cr
@@ -111,3 +112,4 @@ Package authors are welcome to create method dispatches for their own classes fo
 \cr
 }
 
+\concept{options}

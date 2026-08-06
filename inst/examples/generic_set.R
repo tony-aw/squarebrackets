@@ -18,13 +18,6 @@ print(obj2)
 obj <- obj2 <- gen_mat()
 obj
 
-ii_set(obj, i = \(x) x <= 5, rp = -1:-5)
-print(obj2)
-# above is like x[x <= 5] <- -1:-5, but using pass-by-reference
-
-obj <- obj2 <- gen_mat()
-obj
-
 ss_set(obj, n("a"), 2L, rp = cbind(-1:-4, -5:-8))
 print(obj2)
 # above is like x[, "a"] <- cbind(-1:-4, -5:-8), but using pass-by-reference
@@ -36,20 +29,6 @@ ss_set(obj, n(1:3), 1:ndim(obj), tf = \(x) -x)
 print(obj2)
 # above is like x[1:3, 1:3] <- -1 * x[1:3, 1:3], but using pass-by-reference
 
-obj <- obj2 <- gen_mat()
-obj
-
-ii_set(obj, i = \(x) x <= 5, tf = \(x) -x)
-print(obj2)
-# above is like x[x <= 5] <- -1 * x[x <= 5], but using pass-by-reference
-
-obj <- obj2 <- gen_mat()
-obj
-
-ss_set(obj, n("a"), 2L, tf = \(x) -x)
-obj2
-# above is like x[, "a"] <- -1 * x[, "a"], but using pass-by-reference
-
 
 gen_array <- function() {
   as.mutatomic(array(1:64, c(4,4,3)))
@@ -60,13 +39,6 @@ obj
 ss_set(obj, n(1:3, 1:2, c(1, 3)), 1:3, rp = -1:-12)
 print(obj2)
 # above is like x[1:3, , 1:2] <- -1:-12, but using pass-by-reference
-
-
-obj <- obj2 <- gen_array()
-obj
-ii_set(obj, i = \(x)x <= 5, rp = -1:-5)
-print(obj2)
-# above is like x[x <= 5] <- -1:-5, but using pass-by-reference
 
 
 

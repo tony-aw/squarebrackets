@@ -10,17 +10,17 @@
   }
   
   if(ndim(x) == 1L) {
-    lst <- list(as.integer(ci_margin(
+    lst <- list(ci_margin(
       x, s, 1L, use, chkdup, uniquely_named = FALSE, .abortcall
-    )))
+    ))
   }
   else {
     lst <- lapply(dim(x), \(y) seq_len(y) ) # create list of ALTREP compact integers
     for(i in seq_along(d)) {
       iD <- d[i]
-      lst[[iD]] <- as.integer(ci_margin(
+      lst[[iD]] <- ci_margin(
         x, s, iD, use[i], chkdup, uniquely_named = FALSE, .abortcall
-      ))
+      )
     }
     
   }
@@ -28,32 +28,6 @@
   return(lst)
 }
 
-
-#' @keywords internal
-#' @noRd
-.ci_ss1 <- function(
-    x, s, d, use, chkdup, uniquely_named, .abortcall
-) {
-  
-  s <- s[[1]]
-  
-  if(ndim(x) == 1L) {
-    lst <- list(
-      ci_margin(x, s, 1L, use, chkdup, uniquely_named = FALSE, .abortcall)
-    )
-  }
-  else {
-    lst <- lapply(dim(x), \(y) seq_len(y) ) # create list of ALTREP compact integers
-    for(i in seq_along(d)) {
-      iD <- d[i]
-      lst[[iD]] <- as.integer(ci_margin(
-        x, s, iD, use[i], chkdup, uniquely_named = FALSE, .abortcall
-      ))
-    }
-  }
-  
-  return(lst)
-}
 
 
 #' @keywords internal

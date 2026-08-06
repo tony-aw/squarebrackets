@@ -85,7 +85,7 @@
 #' using R's native semantics. \cr \cr
 #' 
 #' 
-#'
+#' @concept lst_
 #' @example inst/examples/lst_rec.R
 #'
 

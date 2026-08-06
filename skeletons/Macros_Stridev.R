@@ -252,48 +252,6 @@ macro_stridev_prep <- "
 macro_stridev_prep <- convert_macro(macro_stridev_prep)
 
 
-# pool ====
-
-macro_stridev_pool <- "
-#define MACRO_STRIDEV_POOL(CONDITIONCODE) do {
-  
-  const R_xlen_t first_total = prepvector[0];
-  const R_xlen_t last_total = prepvector[1];
-  const R_xlen_t count_total = prepvector[2];
-  const R_xlen_t rnglen_total = prepvector[3];
-  const int indexform = prepvector[4];
-  
-  const R_xlen_t n = Rf_xlength(y);
-
-  NumericVector first = preplist[0];
-  NumericVector last = preplist[1];
-  NumericVector count = preplist[2];
-  NumericVector rnglen = preplist[3];
-  const int n_chunks = Rf_length(first);
-  List out(n_chunks);
-  
-  for(int j = 0; j < n_chunks; ++j) {
-    const R_xlen_t current_count = count[j];
-    const R_xlen_t current_rnglen = rnglen[j];
-    
-    if(current_count == current_rnglen) {
-      out[j] = R_NilValue;
-    }
-    else if(current_count <= 2) {
-      out[j] = R_NilValue;
-    }
-    else {
-      out[j] = rcpp_stridev_bits_write(y, v, condition, na, startpos, endpos);
-    }
-  }
-  
-} while(0)
-"
-
-macro_stridev_pool <- convert_macro(macro_stridev_pool)
-
-
-
 
 # atomic types ====
 
@@ -538,7 +496,6 @@ macros <- stringi::stri_c(
   macro_write_bits,
   macro_read_bits,
   macro_stridev_prep,
-  macro_stridev_pool,
   macro_stridev_raw,
   macro_stridev_logical,
   macro_stridev_integer,

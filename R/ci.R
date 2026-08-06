@@ -24,7 +24,7 @@
 #' @returns
 #' An integer vector of constructed indices.
 #' 
-#' 
+#' @concept ci
 #' @example inst/examples/tci.R
 #' 
 
@@ -47,21 +47,8 @@ ci_ii <- function(
   if(abs(use) > 1) {
     message(simpleMessage("only the sign of `use` will be used", call = .abortcall))
   }
-  
-  if(!is.vector(i) && !is.mutatomic(i) && !is.function(i) && !is.formula(i)) {
-    stop(simpleError("`i` must be a simple vector, a function, or a formula", call = .abortcall))
-  }
-  
-  if(is.function(i)) {
-    if(is_list){
-      i <- vapply(x, i, FUN.VALUE = logical(1L), USE.NAMES = FALSE) |> unlist()
-    } else {i <- i(x)}
-    
-    if(!is.logical(i) || length(i) != length(x)) {
-      stop(simpleError("if elements are given through a function, the function must return a logical vector", call = .abortcall))
-    }
-    if(use > 0L) return(which(i))
-    if(use < 0L) return(collapse::whichv(i, FALSE))
+  if(!is.null(dim(i))) {
+    stop(simpleError("`i` must be a simple vector", call = .abortcall))
   }
   
   n.i <- length(i)
@@ -70,8 +57,18 @@ ci_ii <- function(
     return(tci_zerolen(length(x), use))
   }
   
+  if(is.function(i) && is_list) {
+    i <- vapply(x, i, FUN.VALUE = logical(1L), USE.NAMES = FALSE) |> unlist()
+    
+    if(!is.logical(i) || length(i) != length(x)) {
+      stop(simpleError("if elements are given through a function, the function must return a logical vector", call = .abortcall))
+    }
+    if(use > 0L) return(which(i))
+    if(use < 0L) return(collapse::whichv(i, FALSE))
+  }
+  
   if(is.formula(i)) {
-    return(tci_formula(i, 0L, sys.call()))
+    i <- tci_formula(i, 0L, length(x), names(x), .abortcall)
   }
   
   if(is.atomic(i)) {
@@ -101,7 +98,7 @@ ci_margin <- function(
   }
   
   if(is.formula(slice)) {
-    slice <- tci_formula(x, margin, slice, .abortcall)
+    slice <- tci_formula(slice, margin, dim(x)[margin], dimnames(x)[[margin]], .abortcall)
   }
   
   if(is.atomic(slice)) {
@@ -118,7 +115,7 @@ ci_margin <- function(
 #' @rdname developer_ci
 #' @export
 ci_ss <- function(
-    x, s = NULL, use = 1:ndim(x), chkdup = FALSE, uniquely_named = FALSE, .abortcall = sys.call()
+    x, s = NULL, use = Inf, chkdup = FALSE, uniquely_named = FALSE, .abortcall = sys.call()
 ) {
   
   # translate `use` from special cases:
@@ -163,15 +160,30 @@ ci_ss <- function(
 
 #' @rdname developer_ci
 #' @export
+#' @importFrom stats as.formula
 ci_df <- function(x, row, col, use = 1:2, chkdup = FALSE, .abortcall) {
   
   use <- .internal_make_use_tabular(use, sys.call())
   
-  if(!.C_is_missing_idx(row)) {
+  
+  # rows:
+  if(is.formula(row) && startsWith(format(row), "~~")) {
+    row <- as.formula(row[[2L]])
+    row <- .with_internal(x, row, .abortcall)
+    if(!is.logical(row)) {
+      stop(simpleError("improper formula given for `row`", call = .abortcall))
+    }
+    if(use[1] > 0) row <- which(row)
+    if(use[1] < 0) row <- collapse::whichv(row, FALSE)
+  }
+  else if(!.C_is_missing_idx(row)) {
     row <- ci_margin(
       x, row, 1L, use[1], chkdup = FALSE, uniquely_named = TRUE, sys.call()
     )
   }
+  
+  
+  # columns:
   if(is.function(col)) {
     col <- collapse::get_vars(x, col, return = "logical")
     if(use[2] > 0) col <- which(col)
@@ -183,6 +195,8 @@ ci_df <- function(x, row, col, use = 1:2, chkdup = FALSE, .abortcall) {
     )
   }
   
+  
+  # out:
   out <- list(row, col)
   return(out)
 }

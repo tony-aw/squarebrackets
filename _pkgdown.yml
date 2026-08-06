@@ -2,7 +2,7 @@ template:
   bootstrap: 5
   bslib:
     base_font: {google: "Roboto Serif"}
-    bg: "#FFFAFA"
+    bg: "#F5F5F5"
     fg: "black"
     font_scale: 1.25
 navbar:
@@ -39,7 +39,6 @@ reference:
   - '`ii_x`'
   - '`ii_mod`'
   - '`ii_set`'
-  - '`ii_icom`'
 - title: Specialized Methods
   contents:
   - '`long`'
@@ -71,4 +70,5 @@ reference:
   - '`tci_chr`'
   - '`ci_ii`'
   - '`indx_x`'
+  - '`ArrayShadow`'
   

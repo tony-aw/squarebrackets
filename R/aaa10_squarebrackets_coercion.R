@@ -111,5 +111,6 @@
 #' 
 #' @rdname aaa10_squarebrackets_coercion
 #' @name aaa10_squarebrackets_coercion
+#' @concept coercion
 #' @aliases squarebrackets_coercion
 NULL

@@ -25,7 +25,7 @@
 
 #' @keywords internal
 #' @noRd
-.all_mod <- function(x, rp, tf, abortcall) {
+.all_mod_list <- function(x, rp, tf, abortcall) {
   if(!missing(tf) && !is.null(tf)) {
     rp <- tf(x)
   }
@@ -34,6 +34,33 @@
   return(x)
 }
 
+
+.all_mod <- function(x_expr, x_shadow, env, rp, tf) {
+  
+  if(length(x_shadow) == 0L) {
+    return(invisible(NULL))
+  }
+  
+  if(!missing(rp)) {
+    value <- rp
+  }
+  else {
+    tf_expr <- substitute(
+      tf(X[]),
+      list(tf = tf, X = x_expr)
+    )
+    value <- eval(tf_expr, env)
+  }
+  
+  expr <- substitute(
+    X[] <- value,
+    list(X = x_expr, value = value)
+  )
+  eval(expr, envir = env)
+  
+  return(invisible(NULL))
+  
+}
 
 
 #' @keywords internal

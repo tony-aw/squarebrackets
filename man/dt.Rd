@@ -57,7 +57,7 @@ indicating if the aggregated result should be ordered by the columns specified i
 List names that correspond to existing columns, will modify those columns. \cr
 List names that don't will new create columns with those names. \cr
 List contents can be \code{NULL} to remove a column, or a vector to replace the column. \cr
-In formula form, columns from  \code{x} as can be used as variables. \cr
+In formula form, columns from  \code{x} can be used as variables. \cr
 For example,
 the following formula will transform the existing column named "column3" using other existing columns,
 and it will create a new column called "newcolumn" as functions from existing columns: \cr
@@ -80,7 +80,7 @@ These functions also benefit from the security measures that
 the \link[=squarebrackets_PassByReference]{pass-by-reference semantics}. \cr
 \itemize{
 \item \code{dt_aggr()}
-aggregates a data.table or tidytable, applyfing functions over columns specified in \code{col}.
+aggregates a data.table or tidytable, applying functions over columns specified in \code{col}.
 \item \code{dt_setcoe()}
 coercively transforms whole columns of a data.table,
 using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.

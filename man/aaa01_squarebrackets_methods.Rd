@@ -26,9 +26,8 @@ by \link[=squarebrackets_index_fundamentals]{tabular indices} (also known as tab
 For the \verb{<operation>} part, the following is available:
 \itemize{
 \item \verb{_x}: extract, exchange, exclude, or duplicate (if applicable) subsets.
-\item \verb{_mod}: modify subsets and return copy.
+\item \verb{_mod}: modify subsets using R's native modification semantics.
 \item \verb{_set}: modify subsets using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
-\item \verb{_icom}: create indices to be used in \verb{[<-} to modify objects using the R's default semantics. \cr \cr
 }
 
 To illustrate, let's take the methods used for extracting subsets
@@ -81,11 +80,11 @@ type in: \cr
 
 \section{'squarebrackets' Methods that do not require explicit Dispatches}{
 
-The \code{ii_}/\code{ss_}/\code{tt_} - \verb{_x} methods
+The \verb{ii_ / ss_ / tt_ - _x} methods
 are essentially wrappers around
 the \code{[} operator. \cr
 Similarly,
-the \code{ii_}/\code{ss_}/\code{tt_} - \verb{_mod} methods
+the \verb{ii_ / ss_ / tt_ - _mod} methods
 are essentially wrappers around
 the \verb{[<-} operator. \cr
 And the \link{lst_rec} and \link{lst_recin} methods
@@ -99,7 +98,7 @@ have their dispatches automatically handled by the above named methods. \cr
 
 \section{'squarebrackets' Methods that DO require explicit Dispatches}{
 
-Unlike the \code{ii_}/\code{ss_}/\code{tt_} - \verb{_x} methods,
+Unlike the \verb{ii_ / ss_ / tt_ - _x} methods,
 the \link{long_x} method is \bold{not} a wrapper around the \code{[} operator,
 and thus does not detect custom method dispatches defined for \code{[}. \cr
 \link{long_x} can support classes that have static attributes
@@ -120,3 +119,4 @@ for the \verb{_set} methods. \cr
 \cr
 }
 
+\concept{methods}

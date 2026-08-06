@@ -20,7 +20,6 @@ The following keywords are available:
 It is defined as \code{(start:end)[ptrn]},
 where \code{start} and \code{end} are numeric scalars and \code{ptrn} is a logical vector. \cr
 By default, \code{start = 1L} and \code{end = .N}.
-\item \code{.x}: the input variable \code{x} itself.
 }
 
 These keywords can be used inside formulas to specify more advanced indices. \cr
@@ -40,7 +39,7 @@ print(x)
 
 
 # select first half of rows, select first & last column:
-ss_x(x, n(~ 1:round(.N/2), ~ .bi(1, -1)))
+tt_x(x, ~ 1:round(.N/2), ~ .bi(1, -1))
 #>     Jan Apr
 #> Jan   1  16
 #> Feb   2  17
@@ -69,6 +68,25 @@ ss_x(x, ~ .ptrn(c(TRUE, FALSE)))
 #> Jan   1  11
 #> Mar   3  13
 #> May   5  15
+
+
+# select different range from each dimension:
+x <- array(1:1000, 5:3)
+start <- c(3, 1, 2)
+ss_x(x, ~ (start[.M]):.N)
+#> , , 1
+#> 
+#>      [,1] [,2] [,3] [,4]
+#> [1,]   23   28   33   38
+#> [2,]   24   29   34   39
+#> [3,]   25   30   35   40
+#> 
+#> , , 2
+#> 
+#>      [,1] [,2] [,3] [,4]
+#> [1,]   43   48   53   58
+#> [2,]   44   49   54   59
+#> [3,]   45   50   55   60
 }\if{html}{\out{</div>}}
 }
 \details{
@@ -90,3 +108,4 @@ For example, \code{~ .bi(-.I)} can be used to reverse a vector,
 or reverse a dimension of an array or data.frame. \cr
 \cr
 }
+\concept{keywords}

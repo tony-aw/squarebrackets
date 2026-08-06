@@ -147,5 +147,6 @@
 
 #' @rdname aaa03_squarebrackets_supported_structures
 #' @name aaa03_squarebrackets_supported_structures
+#' @concept supported_structures
 #' @aliases squarebrackets_supported_structures
 NULL

@@ -4,6 +4,7 @@
 ^vignettes
 ^docs
 ^_pkgdown
+^preprocess
 ^backups
 ^linguist
 ^Readme
@@ -24,4 +25,10 @@ usethis
 ^_quarto$
 ^skeletons
 ^develop
+^pkgdown
+^render
+^website
 ^special_tests
+^make_qmd
+siteutils.R
+intro_template.qmd

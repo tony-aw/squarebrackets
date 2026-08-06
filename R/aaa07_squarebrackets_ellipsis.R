@@ -16,5 +16,6 @@
 
 #' @rdname aaa07_squarebrackets_ellipsis
 #' @name aaa07_squarebrackets_ellipsis
+#' @concept ellipsis
 #' @aliases squarebrackets_ellipsis
 NULL

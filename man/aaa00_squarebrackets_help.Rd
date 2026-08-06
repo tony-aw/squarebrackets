@@ -10,16 +10,21 @@
 squarebrackets: \cr
 Subset Methods as Alternatives to the Square Brackets Operators for Programming. \cr
 \cr
-Provides subset methods (supporting both atomic and recursive S3 classes)
-that may be more convenient alternatives to the \code{[} and \verb{[<-} operators, whilst maintaining similar performance.
+Provides subset methods
+(supporting both atomic and recursive S3 classes)
+that may be more convenient alternatives to the \code{[} and \verb{[<-} operators,  whilst maintaining similar performance.
 
 Some nice properties of these methods include, but are not limited to, the following:
 \enumerate{
-\item The \code{[} and \verb{[<-} operators use different rule-sets for different data.frame-like types (data.frames, data.tables, tibbles, tidytables, etc.); \cr The 'squarebrackets' methods use the same rule-sets for the different data.frame-like types.
-\item Performing dimensional subset operations on an array using \code{[} and \verb{[<-}, requires a-priori knowledge on the number of dimensions the array has; \cr The 'squarebrackets' methods work on any arbitrary dimensions without requiring such prior knowledge.
-\item Unlike the \code{[} and \verb{[<-} operators, the 'squarebrackets' methods will operate on duplicate names (not just the first match), use consistent syntax for inverting indices, and support the use of keywords through formulas.
-\item The \verb{[<-} operator only supports copy-on-modify semantics for most classes; \cr The 'squarebrackets' methods provide explicit pass-by-reference and pass-by-value semantics, and do so safely.
-\item 'squarebrackets' supports index-less sub-set operations for \verb{long vectors}, which is more memory efficient than sub-set operations using the \code{[} and \verb{[<-} operators.\cr \cr
+\item The \code{[} and \verb{[<-} operators use different rule-sets for different data.frame-like types
+(data.frames, data.tables, tibbles, tidytables, etc.); \cr    The 'squarebrackets' methods use the same rule-sets for the different data.frame-like types.
+\item Performing dimensional subset operations on an array using \code{[} and \verb{[<-},    requires a-priori knowledge on the number of dimensions the array has; \cr    The 'squarebrackets' methods work on any arbitrary dimensions without requiring such prior knowledge.
+\item Unlike the \code{[} and \verb{[<-} operators,    the 'squarebrackets' methods will operate on duplicate names
+(not just the first match),    use consistent syntax for inverting indices,    give an error for out-of-bounds indices,    and support the use of advanced indices through formulas.
+\item The \verb{[<-} operator only supports copy-on-modify semantics for most classes; \cr    The 'squarebrackets' methods provide explicit pass-by-reference and pass-by-value semantics,    and do so safely.
+\item 'squarebrackets' supports index-less sub-set operations for \verb{long vectors},    which is more memory efficient than sub-set operations using the \code{[} and \verb{[<-} operators.
+\item All of the methods provided by 'squarbrackets' are programmatically friendly
+(no Non-Standard Evaluation).\cr \cr
 }
 }
 \section{Goal}{
@@ -173,3 +178,4 @@ The badges shown in the documentation of this R-package were made using the serv
 \author{
 \strong{Author, Maintainer}: Tony Wilkes \email{tony_a_wilkes@outlook.com} (\href{https://orcid.org/0000-0001-9498-8379}{ORCID})
 }
+\concept{intro}

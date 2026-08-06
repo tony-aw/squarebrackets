@@ -45,5 +45,6 @@
 
 #' @rdname aaa08_squarebrackets_stride
 #' @name aaa08_squarebrackets_stride
+#' @concept stride
 #' @aliases squarebrackets_stride
 NULL

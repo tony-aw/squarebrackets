@@ -17,7 +17,10 @@
 #'
 #'
 
-#' @rdname exported_uilities
+#' @name exported_utilities
+NULL
+
+#' @rdname exported_utilities
 #' @export
 indx_x <- function(i, x, xnames, xsize) {
   if(is.null(i) || .is.0(i)) return(base::quote(expr = ))
@@ -41,7 +44,7 @@ indx_x <- function(i, x, xnames, xsize) {
 }
 
 
-#' @rdname exported_uilities
+#' @rdname exported_utilities
 #' @export
 indx_wo <- function(i, x, xnames, xsize) {
   if(is.null(i) || .is.0(i)) return(base::quote(expr = ))
@@ -63,7 +66,7 @@ indx_wo <- function(i, x, xnames, xsize) {
 }
 
 
-#' @rdname exported_uilities
+#' @rdname exported_utilities
 #' @export
 .is.0 <- function(x) {
   length(x) == 1L && is.numeric(x) && x == 0L

@@ -15,8 +15,10 @@ temp.fun <- function(x) {
     x[] <- -1
     return(x)
   }
+  out <- x
+  ii_mod(out, tf = \(x) return(-1))
   expect_equal(
-    ii_mod(x, tf = \(x) return(-1)),
+    out,
     tempfun(x)
   ) |> errorfun()
 }
@@ -30,8 +32,10 @@ temp.fun <- function(x) {
     x[] <- -1
     return(x)
   }
+  out <- x
+  ss_mod(out, tf = \(x) return(-1))
   expect_equal(
-    ss_mod(x, tf = \(x) return(-1)),
+    out,
     tempfun(x)
   ) |> errorfun()
 }
@@ -52,8 +56,10 @@ test_sb <- function(x, i) {
 
 temp.fun <- function(x, elements) {
   for (i in 1:length(elements)) {
+    out <- x
+    ii_mod(out, i = elements[[i]], tf = min)
     expect_equal(
-      ii_mod(x, i = elements[[i]], tf = min),
+      out,
       test_sb(x, i = elements[[i]])
     ) |> errorfun()
     assign("enumerate", enumerate + 1, envir = parent.frame(n = 1))
@@ -74,8 +80,10 @@ test_sb <- function(x, i) {
 
 temp.fun <- function(x, elements) {
   for (i in 1:length(elements)) {
+    out <- x
+    ii_mod(out, elements[[i]], -1, tf = min)
     expect_equal(
-      ii_mod(x, elements[[i]], -1, tf = min),
+      out,
       test_sb(x, i = elements[[i]])
     ) |> errorfun()
     assign("enumerate", enumerate + 1, envir = parent.frame(n = 1))
@@ -130,8 +138,9 @@ f_expect.matrix <- f_expect.2d <- function(x, row = NULL, col = NULL) {
 
 
 f_out.2d <- function(x, s, d) {
-  
-  return(ss_mod(x, s, d, tf = mean))
+  out <- x
+  ss_mod(out, s, d, tf = mean)
+  return(out)
 }
 
 
@@ -153,12 +162,17 @@ f_expect.1d <- function(x, i) {
 
 f_out.1d <- function(x, s, d) {
   
-  return(ss_mod(x, s, d, tf = mean))
+  out <- x
+  ss_mod(out, s, d, tf = mean)
+  return(out)
 }
 
 
 sb_test <- function(x, ...) {
-  return(ss_mod(x, ..., tf = mean))
+  
+  out <- x
+  ss_mod(out, ..., tf = mean)
+  return(out)
 }
 
 f_expect.arbitrary <- function(x, i, j, l) {
@@ -208,12 +222,13 @@ f_expect.data.frame <- function(x, row = NULL, col = NULL) {
 
 f_out.data.frame <- function(x, row = NULL, col = NULL) {
   
-  return(tt_mod(x, row, col, tf = \(x)x[1]))
+  out <- x
+  tt_mod(out, row, col, tf = \(x)x[1])
+  return(out)
   
 }
 
 
-# rl. <- loadNamespace("rlang")
 dt. <- loadNamespace("data.table")
 sys.source(file.path(getwd(), "source", "sourcetest-obsvars.R"), envir = environment())
 

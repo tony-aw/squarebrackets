@@ -25,8 +25,9 @@
 #' Fr `long_set()`: returns nothing, but modifies the object by reference. \cr
 #' 
 #' @example inst/examples/long.R
-#
-
+#'
+#' @concept long_
+#' 
 #' @name long
 NULL
 

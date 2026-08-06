@@ -16,8 +16,10 @@ temp.fun <- function(x) {
     x[] <- x[1]
     return(x)
   }
+  out <- x
+  ii_mod(out, rp = x[1])
   expect_equal(
-    ii_mod(x, rp = x[1]),
+    out,
     tempfun(x)
   ) |> errorfun()
 }
@@ -30,8 +32,10 @@ temp.fun <- function(x) {
     x[] <- x[1]
     return(x)
   }
+  out <- x
+  ss_mod(out, rp = x[1])
   expect_equal(
-    ss_mod(x, rp = x[1]),
+    out,
     tempfun(x)
   ) |> errorfun()
 }
@@ -51,8 +55,10 @@ test_sb <- function(x, i, rp) {
 temp.fun <- function(x, elements) {
   for (i in 1:length(elements)) {
     rp1 <- rp2 <- rep(1, length(indx_x(elements[[i]], x, names(x), length(x))))
+    out <- x
+    ii_mod(out, i = elements[[i]], rp = rp1)
     expect_equal(
-      ii_mod(x, i = elements[[i]], rp = rp1),
+      out,
       test_sb(x, i = elements[[i]], rp = rp2)
     ) |> errorfun()
     assign("enumerate", enumerate + 1, envir = parent.frame(n = 1))
@@ -72,8 +78,10 @@ test_sb <- function(x, i, rp) {
 temp.fun <- function(x, elements) {
   for (i in 1:length(elements)) {
     rp1 <- rp2 <- rep(1, length(indx_wo(elements[[i]], x, names(x), length(x))))
+    out <- x
+    ii_mod(out, elements[[i]], -1, rp = rp1)
     expect_equal(
-      ii_mod(x, elements[[i]], -1, rp = rp1),
+      out,
       test_sb(x, elements[[i]], rp = rp2)
     ) |> errorfun()
     assign("enumerate", enumerate + 1, envir = parent.frame(n = 1))
@@ -113,13 +121,17 @@ f_out.1d <- function(x, s, d) {
   
   rp <- parent.frame()$rp
   
-  return(ss_mod(x, s, d, rp = rp))
+  out <- x
+  ss_mod(out, s, d, rp = rp)
+  return(out)
 }
 
 
 sb_test <- function(x, ...) {
   rp <- ss_x.default(x, ...) * -1
-  return(ss_mod.default(x, ..., rp = rp))
+  out <- x
+  ss_mod(out, ..., rp = rp)
+  return(out)
 }
 
 f_expect.arbitrary <- function(x, i, j, l) {
@@ -163,8 +175,10 @@ pre_subset_mat <- function(x, row = NULL, col = NULL) {
 f_out.matrix <-  f_out.2d <- function(x, row, col) {
   
   rp <- parent.frame()$rp
+  out <- x
+  tt_mod(out, row, col, rp = rp)
   
-  return(tt_mod(x, row, col, rp = rp))
+  return(out)
 }
 
 

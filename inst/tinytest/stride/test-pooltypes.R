@@ -11,8 +11,9 @@ expect_equal(stride$pool, list(NULL))
 expect_equal(long_x(x, stride), x[x == v])
 x2 <- data.table::copy(x)
 long_set(x, stride, rp = -1L)
+ii_mod(x2, x2 == v, rp = -1L)
 expect_equal(
-  x, ii_mod(x2, x2 == v, rp = -1L)
+  x, x2
 )
 enumerate <- enumerate + 4L
 
@@ -24,8 +25,9 @@ expect_equal(stride$pool, list(NULL))
 expect_equal(long_x(x, stride), x[x == v])
 x2 <- data.table::copy(x)
 long_set(x, stride, rp = -1L)
+ii_mod(x2, x2 == v, rp = -1L)
 expect_equal(
-  x, ii_mod(x2, x2 == v, rp = -1L)
+  x, x2
 )
 enumerate <- enumerate + 4L
 
@@ -37,8 +39,9 @@ expect_equal(stride$pool, list(NULL))
 expect_equal(long_x(x, stride), x[x == v])
 x2 <- data.table::copy(x)
 long_set(x, stride, rp = -1L)
+ii_mod(x2, x2 == v, rp = -1L)
 expect_equal(
-  x, ii_mod(x2, x2 == v, rp = -1L)
+  x, x2
 )
 enumerate <- enumerate + 4L
 
@@ -50,8 +53,9 @@ expect_equal(stride$pool, list(NULL))
 expect_equal(long_x(x, stride), x[x == v])
 x2 <- data.table::copy(x)
 long_set(x, stride, rp = -1L)
+ii_mod(x2, x2 == v, rp = -1L)
 expect_equal(
-  x, ii_mod(x2, x2 == v, rp = -1L)
+  x, x2
 )
 enumerate <- enumerate + 4L
 
@@ -63,8 +67,9 @@ expect_equal(stride$pool, list(NULL))
 expect_equal(long_x(x, stride), x[x == v])
 x2 <- data.table::copy(x)
 long_set(x, stride, rp = -1L)
+ii_mod(x2, x2 == v, rp = -1L)
 expect_equal(
-  x, ii_mod(x2, x2 == v, rp = -1L)
+  x, x2
 )
 enumerate <- enumerate + 4L
 
@@ -85,8 +90,9 @@ expected <- x[first:last] <= 5
 expect_equal(long_x(x, stride), x[x <= 5L])
 x2 <- data.table::copy(x)
 long_set(x, stride, rp = -1L)
+ii_mod(x2, x2 <= 5L, rp = -1L)
 expect_equal(
-  x, ii_mod(x2, x2 <= 5L, rp = -1L)
+  x, x2
 )
 enumerate <- enumerate + 4L
 
@@ -102,8 +108,9 @@ stride <- stride_v(x, v = v)
 expect_equal(long_x(x, stride), x[x == v])
 x2 <- data.table::copy(x)
 long_set(x, stride, rp = -1L)
+ii_mod(x2, x2 == v, rp = -1L)
 expect_equal(
-  x, ii_mod(x2, x2 == v, rp = -1L)
+  x, x2
 )
 enumerate <- enumerate + 4L
 

@@ -30,11 +30,14 @@
 #' Do not use assignments like `x <- ii_set(x, ...)`. \cr
 #' Since this function returns void, you'll just get `NULL`. \cr \cr
 #'
-#'
+#' @concept _set
 #' @example inst/examples/generic_set.R
 #' 
 
-#' @rdname sb_set
+#' @name generic_set
+NULL
+
+#' @rdname generic_set
 #' @export
 ii_set <- function(x, i = NULL, use = 1, ..., rp, tf) {
   
@@ -45,7 +48,7 @@ ii_set <- function(x, i = NULL, use = 1, ..., rp, tf) {
 }
 
 
-#' @rdname sb_set
+#' @rdname generic_set
 #' @export
 ss_set <- function(x, s = NULL, use = rdim(x), ..., rp, tf) {
   
@@ -56,7 +59,7 @@ ss_set <- function(x, s = NULL, use = rdim(x), ..., rp, tf) {
 }
 
 
-#' @rdname sb_set
+#' @rdname generic_set
 #' @export
 tt_set <- function(x, row = NULL, col = NULL, use = 1:2, ..., rp, tf) {
   
@@ -69,7 +72,7 @@ tt_set <- function(x, row = NULL, col = NULL, use = 1:2, ..., rp, tf) {
 
 
 
-#' @rdname sb_set
+#' @rdname generic_set
 #' @export
 ii_set.default <- function(
     x, i = NULL, use = 1, ...,  rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
@@ -102,7 +105,7 @@ ii_set.default <- function(
 
 
 
-#' @rdname sb_set
+#' @rdname generic_set
 #' @export
 ss_set.default <- function(
     x, s = NULL, use = rdim(x), ...,  rp, tf, chkdup = getOption("squarebrackets.chkdup", FALSE)
@@ -110,10 +113,10 @@ ss_set.default <- function(
   
   stopifnot_ma_safe2mutate(substitute(x), parent.frame(n = 1), sys.call())
   .internal_check_dots(list(...), sys.call())
-  return(.sb_set_array(x, s, use, chkdup, rp, tf, sys.call()))
+  return(.generic_set_array(x, s, use, chkdup, rp, tf, sys.call()))
 }
 
-#' @rdname sb_set
+#' @rdname generic_set
 #' @export
 tt_set.default <- function(
     x, row = NULL, col = NULL, use = 1:2, ...,
@@ -122,11 +125,11 @@ tt_set.default <- function(
   stopifnot_ma_safe2mutate(substitute(x), parent.frame(n = 1), sys.call())
   .internal_check_dots(list(...), sys.call())
   use <- .internal_make_use_tabular(use, sys.call())
-  return(.sb_set_array(x, n(row, col), use, chkdup, rp, tf, sys.call()))
+  return(.generic_set_array(x, n(row, col), use, chkdup, rp, tf, sys.call()))
 }
 
 
-#' @rdname sb_set
+#' @rdname generic_set
 #' @export
 tt_set.data.table <- function(
     x, row = NULL, col = NULL, use = 1:2, ...,
@@ -190,7 +193,7 @@ tt_set.data.table <- function(
 
 #' @keywords internal
 #' @noRd
-.sb_set_array <- function(x, s, use, chkdup, rp, tf, abortcall) {
+.generic_set_array <- function(x, s, use, chkdup, rp, tf, abortcall) {
   .argscheck_rptf(rp, tf, sys.call())
   .check_args_array(x, s, use, sys.call())
   

@@ -31,11 +31,11 @@ The original stride object, but as a list. \cr
 \bold{Using \code{stride_seq()} or \code{stride_ptr()}} \cr
 A list with at least the following elements: \cr
 \cr
-\bold{\verb{$start}}: \cr
+\bold{\code{start}}: \cr
 The actual starting point of the sequence. \cr
 This is simply \code{from} translated to regular numeric. \cr
 \cr
-\bold{\verb{$end}}: \cr
+\bold{\code{end}}: \cr
 The \bold{actual} ending point of the sequence. \cr
 This is not the same as \code{to}. \cr
 For example, the following code:
@@ -50,7 +50,7 @@ Therefore, \code{stride_seq(x, 1, 10, 2) |> eval_stride()} will return \code{end
 This allows the user to easily predict where an sequence given in
 \link{stride_seq}/\link{stride_ptrn} will actually end. \cr
 \cr
-\bold{\verb{$len}}: \cr
+\bold{\code{len}}: \cr
 The actual vector length the sequence would be,
 given the translated parameters. \cr \cr
 }

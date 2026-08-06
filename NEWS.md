@@ -1,4 +1,12 @@
 
+# squarebrackets 0.0.0.9011
+* Overhauled the `_mod` methods:
+they now use R' native semantics for atomic objects, and shallow pass-by-value semantics for recursive objects.
+* Removed the `_icom` methods, as they're no longer necessary.
+* Added quick way to filter rows by condition in a data.frame using double-tilded formulas.
+* Added more tests.
+
+
 # squarebrackets 0.0.0.9010
 * Giving non-existing names as indices now gives a proper error.
 * Added the `dt_` functions.

@@ -151,7 +151,6 @@ f_expect.data.frame <- function(x, row = NULL, col = NULL) {
 f_out.data.frame <- tt_x
 
 
-# rl. <- loadNamespace("rlang")
 dt. <- loadNamespace("data.table")
 
 

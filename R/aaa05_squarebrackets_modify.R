@@ -6,45 +6,12 @@
 #' available in 'squarebrackets'. \cr \cr
 #' 
 #' 
-#' @section Base R's default modification: 
+#' @section Base R's Native Modification Semantics: 
 #' For most average users, R's default copy-on-modify semantics are fine. \cr
-#' The benefits of the indexing arguments from 'squarebrackets'
-#' can be combined the `[<-` operator,
-#' through the `_icom` methods. \cr
-#' The result of the `_icom` methods
-#' can be used inside the regular square-brackets operators. \cr
-#' For example like so:
-#' 
-#' ```{r eval = FALSE, echo = TRUE}
-#' 
-#' x <- array(...)
-#' myss <- ss_icom(x, s, use)
-#' arepl(x, myss, value)
-#' 
-#' y <- data.frame(...)
-#' rows <- tt_icom(y, 1:10, 1, -1L)
-#' cols <- tt_icom(y, c("a", "b"), 2L)
-#' y[rows, cols] <- value
-#' 
-#' ```
-#' 
-#' thus allowing the user to benefit from the convenient index translations from 'squarebrackets',
-#' whilst still using R's default copy-on-modification semantics
-#' (instead of the semantics provided by 'squarebrackets'). \cr
+#' The `_mod` methods use native semantics for atomic objects,
+#' and shallow copy semantics for recursive objects. \cr
 #' \cr
-#' \cr
-#' @section Explicit Copy:
-#' 'squarebrackets' provides
-#' the `_mod` methods
-#' to return a modified copy. \cr
-#' For atomic objects, the copy is a deep copy (the entire object is copied). \cr
-#' This method returns the modified object. \cr
-#' For recursive objects, the copy is a shallow copy: \cr
-#' the `_mod` methods returns the original object,
-#' where only the modified subsets are copied,
-#' thus preventing unnecessary usage of memory. \cr
-#' \cr
-#' \cr
+#' 
 #' @section Pass-by-Reference:
 #' 'squarebrackets' provides
 #' the `_set` methods
@@ -54,7 +21,6 @@
 #' But it is also more involved than the other modification forms,
 #' and requires more thought. \cr
 #' See \link{squarebrackets_PassByReference} for more information. \cr
-#' \cr
 #' \cr
 #' 
 #' @section Arguments `rp` and `tf` for Atomic Objects:
@@ -170,5 +136,6 @@
 #' 
 #' @rdname aaa05_squarebrackets_modify
 #' @name aaa05_squarebrackets_modify
+#' @concept modify
 #' @aliases squarebrackets_modify
 NULL

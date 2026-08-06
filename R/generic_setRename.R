@@ -43,7 +43,7 @@
 #' Do not use assignment like `names(x) <- sb_setRename(x, ...)`. \cr
 #' Since this function returns void, you'll just get `NULL`. \cr \cr
 #'
-#'
+#' @concept sb_
 #' @example inst/examples/generic_setRename.R
 #' 
 

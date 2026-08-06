@@ -7,8 +7,7 @@ indx_general <- list(
   1, 1:3, 3:1, c(2, 3, 1),
   c(rep(TRUE, 24), rep(FALSE, 24)),
   rep(TRUE, 48), rep(FALSE, 48),
-  c(TRUE, rep(FALSE, 47)), c(FALSE, rep(TRUE, 47)),
-  function(x) x>5
+  c(TRUE, rep(FALSE, 47)), c(FALSE, rep(TRUE, 47))
 )
 if(test_allow_duplicates) {
   indx_general <- c(indx_general, list(c(1, 1, 1)))

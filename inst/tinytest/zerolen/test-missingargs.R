@@ -14,9 +14,18 @@ names(x) <- sample(c(month.name, month.abb), 100, TRUE)
 
 funlist <- list(
   \(x, ii = NULL, use = 1) ii_x(x, ii, use),
-  \(x, ii = NULL, use = 1) ii_mod(x, ii, use, chkdup = FALSE, rp = -1),
-  \(x, ii = NULL, use = 1) ii_mod(x, ii, use, chkdup = FALSE, rp = -1:-100),
-  \(x, ii = NULL, use = 1) ii_mod(x, ii, use, chkdup = FALSE, tf = mean),
+  \(x, ii = NULL, use = 1) {
+    ii_mod(x, ii, use, chkdup = FALSE, rp = -1)
+    return(x)
+  },
+  \(x, ii = NULL, use = 1) {
+    ii_mod(x, ii, use, chkdup = FALSE, rp = -1:-100)
+    return(x)
+  },
+  \(x, ii = NULL, use = 1) {
+    ii_mod(x, ii, use, chkdup = FALSE, tf = mean)
+    return(x)
+  },
   \(x, ii = NULL, use = 1) {
     x <- data.table::copy(x)
     ii_set(x, ii, use, rp = -1)
@@ -53,14 +62,20 @@ dimnames(x) <- list(
 
 funlist <- list(
   ss_x,
-  \(x, ss = NULL, use = 1:ndim(x)) ss_mod(x, ss, use, chkdup = FALSE, rp = -1),
-  \(x, ss = NULL, use = 1:ndim(x)) ss_mod(x, ss, use, chkdup = FALSE, tf = mean),
-  \(x, ss = NULL, use = 1:ndim(x)) {
+  \(x, ss = NULL, use = Inf) {
+    ss_mod(x, ss, use, chkdup = FALSE, rp = -1)
+    return(x)
+  },
+  \(x, ss = NULL, use = Inf) {
+    ss_mod(x, ss, use, chkdup = FALSE, tf = mean)
+    return(x)
+  },
+  \(x, ss = NULL, use = Inf) {
     x <- data.table::copy(x)
     ss_set(x, ss, use, rp = -1)
     return(x)
   },
-  \(x, ss = NULL, use = 1:ndim(x)) {
+  \(x, ss = NULL, use = Inf) {
     x <- data.table::copy(x)
     ss_set(x, ss, use, tf = mean)
     return(x)
@@ -85,22 +100,6 @@ dimnames(x) <- list(
   letters[1:6],
   LETTERS[1:5],
   month.abb[1:4]
-)
-
-funlist <- list(
-  ss_x,
-  \(x, ss = NULL, use = 1:ndim(x)) ss_mod(x, ss, use, chkdup = FALSE, rp = -1),
-  \(x, ss = NULL, use = 1:ndim(x)) ss_mod(x, ss, use, chkdup = FALSE, tf = mean),
-  \(x, ss = NULL, use = 1:ndim(x)) {
-    x <- data.table::copy(x)
-    ss_set(x, ss, use, rp = -1)
-    return(x)
-  },
-  \(x, ss = NULL, use = 1:ndim(x)) {
-    x <- data.table::copy(x)
-    ss_set(x, ss, use, tf = mean)
-    return(x)
-  }
 )
 
 
@@ -140,8 +139,14 @@ expect_equal(
 
 funlist <- list(
   tt_x,
-  \(x, row = NULL, col = NULL, use = 1:2) tt_mod(x, row, col, use, chkdup = FALSE, rp = -1),
-  \(x, row = NULL, col = NULL, use = 1:2) tt_mod(x, row, col, use, chkdup = FALSE, tf = mean),
+  \(x, row = NULL, col = NULL, use = 1:2) {
+    tt_mod(x, row, col, use, chkdup = FALSE, rp = -1)
+    return(x)
+  },
+  \(x, row = NULL, col = NULL, use = 1:2) {
+    tt_mod(x, row, col, use, chkdup = FALSE, tf = mean)
+    return(x)
+  },
   \(x, row = NULL, col = NULL, use = 1:2) {
     x <- data.table::copy(x)
     tt_set(x, row, col, use, rp = -1)
@@ -202,9 +207,11 @@ funlist <- list(
   tt_x,
   \(x, row = NULL, col = NULL, use = 1:2) {
     tt_mod(x, row, col, use, chkdup = FALSE, rp = -1L)
+    return(x)
   },
   \(x, row = NULL, col = NULL, use = 1:2) {
     tt_mod(x, row, col, use, chkdup = FALSE, tf = mean)
+    return(x)
   },
   \(x, row = NULL, col = NULL, use = 1:2) {
     x <- data.table::copy(x)

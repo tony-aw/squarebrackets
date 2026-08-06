@@ -20,9 +20,8 @@
 #' For the `<operation>` part, the following is available:
 #' 
 #'  - `_x`: extract, exchange, exclude, or duplicate (if applicable) subsets.
-#'  - `_mod`: modify subsets and return copy.
+#'  - `_mod`: modify subsets using R's native modification semantics.
 #'  - `_set`: modify subsets using \link[=squarebrackets_PassByReference]{pass-by-reference semantics}.
-#'  - `_icom`: create indices to be used in `[<-` to modify objects using the R's default semantics. \cr \cr
 #' 
 #' To illustrate, let's take the methods used for extracting subsets
 #' (`_x`): 
@@ -67,11 +66,11 @@
 #'  
 #' 
 #' @section 'squarebrackets' Methods that do not require explicit Dispatches: 
-#' The `ii_`/`ss_`/`tt_` - `_x` methods
+#' The `ii_ / ss_ / tt_ - _x` methods
 #' are essentially wrappers around
 #' the `[` operator. \cr
 #' Similarly,
-#' the `ii_`/`ss_`/`tt_` - `_mod` methods
+#' the `ii_ / ss_ / tt_ - _mod` methods
 #' are essentially wrappers around
 #' the `[<-` operator. \cr
 #' And the \link{lst_rec} and \link{lst_recin} methods
@@ -83,7 +82,7 @@
 #' \cr
 #' 
 #' @section 'squarebrackets' Methods that DO require explicit Dispatches:
-#' Unlike the `ii_`/`ss_`/`tt_` - `_x` methods,
+#' Unlike the `ii_ / ss_ / tt_ - _x` methods,
 #' the \link{long_x} method is \bold{not} a wrapper around the `[` operator,
 #' and thus does not detect custom method dispatches defined for `[`. \cr
 #' \link{long_x} can support classes that have static attributes
@@ -108,5 +107,6 @@
 
 #' @rdname aaa01_squarebrackets_methods
 #' @name aaa01_squarebrackets_methods
+#' @concept methods
 #' @aliases squarebrackets_methods
 NULL

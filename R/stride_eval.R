@@ -19,11 +19,11 @@
 #' \bold{Using `stride_seq()` or `stride_ptr()`} \cr
 #' A list with at least the following elements: \cr
 #' \cr
-#' \bold{`$start`}: \cr
+#' \bold{`start`}: \cr
 #' The actual starting point of the sequence. \cr
 #' This is simply `from` translated to regular numeric. \cr
 #' \cr
-#' \bold{`$end`}: \cr
+#' \bold{`end`}: \cr
 #' The \bold{actual} ending point of the sequence. \cr
 #' This is not the same as `to`. \cr
 #' For example, the following code:
@@ -38,7 +38,7 @@
 #' This allows the user to easily predict where an sequence given in
 #' \link{stride_seq}/\link{stride_ptrn} will actually end. \cr
 #' \cr
-#' \bold{`$len`}: \cr
+#' \bold{`len`}: \cr
 #' The actual vector length the sequence would be,
 #' given the translated parameters. \cr \cr
 #' 

@@ -17,6 +17,14 @@ ii_set2 <- function(x, ...) {
   if(!identical(x, x2)) { stop("PassByReference fail")}
   return(x)
 }
+tt_set2 <- function(x, ...) {
+  x <- data.table::copy(x)
+  if(is.atomic(x)) x <- as.mutatomic(x)
+  x2 <- x
+  tt_set.default(x, ...)
+  if(!identical(x, x2)) { stop("PassByReference fail")}
+  return(x)
+}
 ss_set2 <- function(x, ...) {
   x <- data.table::copy(x)
   if(is.atomic(x)) x <- as.mutatomic(x)
@@ -170,7 +178,7 @@ pre_subset_mat <- function(x, row = NULL, col = NULL) {
 
 
 f_expect.matrix <- f_expect.2d <- function(x, row = NULL, col = NULL) {
-  
+  if(is.atomic(x)) x <- as.mutatomic(x)
   tf <- mean
   i <- indx_x(row, x, rownames(x), nrow(x))
   j <- indx_x(col, x, colnames(x), ncol(x))
@@ -180,7 +188,7 @@ f_expect.matrix <- f_expect.2d <- function(x, row = NULL, col = NULL) {
 
 f_out.2d <- f_out.matrix <- function(x, row, col) {
   
-  return(tt_mod(x, row = row, col = col, tf = mean))
+  return(tt_set2(x, row = row, col = col, tf = mean))
 }
 
 

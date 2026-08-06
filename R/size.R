@@ -31,6 +31,8 @@
 #' 
 #' 
 
+#' @name size
+NULL
 
 #' @rdname size
 #' @export

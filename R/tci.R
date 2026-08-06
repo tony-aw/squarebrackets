@@ -4,7 +4,6 @@
 #' These functions typecast indices to proper integer indices. \cr
 #'
 #'
-#' @param x the input variable
 #' @param indx the indices to typecast
 #' @param nms the relevant names, when typecasting character indices. \cr
 #' Examples:
@@ -30,7 +29,7 @@
 #' @returns
 #' An integer vector of type-cast indices.
 #'
-#'
+#' @concept tci
 #' @example inst/examples/tci.R
 #' 
 
@@ -74,13 +73,14 @@ tci_int <- function(indx, n, use = 1L, chkdup = FALSE, .abortcall = sys.call()) 
     stop(simpleError("integers must be >= 1 and <= bounds", call = .abortcall))
   }
   
-  if(chkdup) {
-    if(anyDuplicated(indx)) { # base::anyDuplicated faster for numeric
-      stop(simpleError("duplicate integers or names not allowed", call = .abortcall))
+  if(use > 0L) {
+    if(chkdup) {
+      if(anyDuplicated(indx)) { # base::anyDuplicated faster for numeric
+        stop(simpleError("duplicate integers or names not allowed", call = .abortcall))
+      }
     }
+    return(indx) 
   }
-  
-  if(use > 0L) { return(indx) }
   
   # the following is if use < 0L
   if(length(indx) == 1L && n >= 2L) {
@@ -88,6 +88,7 @@ tci_int <- function(indx, n, use = 1L, chkdup = FALSE, .abortcall = sys.call()) 
     else if(indx == n) { return(1:(n - 1L)) }
     else { return(seq_len(n)[-indx]) }
   }
+  
   if(length(indx) == 2L && n >= 3L) {
     if(all(sort(indx) == c(1L, n))) {
       return(2L:(n - 1L))
@@ -106,18 +107,18 @@ tci_chr <- function(
     indx, nms, use = 1L, chkdup = FALSE, uniquely_named = FALSE, .abortcall = sys.call()
 ) {
   
-  if(length(nms) == 0L) {
-    stop(simpleError("no names present", call = .abortcall))
+  if(use > 0L) {
+    return(.match_names(indx, nms, chkdup, .abortcall))
   }
   
-  if(chkdup) {
-    if(collapse::any_duplicated(indx)) {
-      stop(simpleError("duplicate integers or names not allowed", call = .abortcall))
+  if(use < 0L) {
+    
+    if(length(nms) == 0L) {
+      stop(simpleError("no names present", call = .abortcall))
     }
+    return(collapse::`%!iin%`(nms, indx))
   }
   
-  if(use > 0L) { return(.match_names(indx, nms, .abortcall)) }
-  if(use < 0L){ return(collapse::`%!iin%`(nms, indx)) }
   
 }
 
@@ -126,21 +127,32 @@ tci_chr <- function(
 
 #' @rdname developer_tci
 #' @export
-tci_formula <- function(x, m, form, .abortcall) {
+tci_formula <- function(form, m, n, nms, .abortcall) {
   
   keywords <- list(
     .M = m,
-    .Nms = if(m == 0L) names(x) else dimnames(x)[[m]],
-    .N = s(x, m),
-    .I = seq_len(s(x, m)),
-    .bi = \(...) .keyword_bi(list(...),  s(x, m)),
-    .ptrn = \(ptrn, start = 1L, end = s(x, m)) .keyword_ptrn(ptrn, start, end, s(x, m)),
-    .x = x
+    .Nms = nms,
+    .N = n,
+    .I = seq_len(n),
+    .bi = \(...) .keyword_bi(list(...),  n),
+    .ptrn = \(ptrn, start = 1L, end = n) .keyword_ptrn(ptrn, start, end, n)
   )
- 
-  return(.with_array(x, keywords, form, .abortcall))
+  
+  if(!is.formula(form)) {
+    stop(simpleError("invalid formula given", call = .abortcall))
+  }
+  if(length(form) != 2L) {
+    stop(simpleError("invalid formula given", call = .abortcall))
+  }
+  env <- environment(form)
+  txt <- as.character(form)[2L]
+  out <- eval(parse(text = txt), keywords, enclos = env)
+  environment(form) <- NULL
+  return(out)
 }
 
+#' @rdname developer_tci
+#' @export
 tci_zerolen <- function(n, use = 1L) {
   if(use > 0L) return(integer(0L))
   if(use < 0L) return(seq_len(n))

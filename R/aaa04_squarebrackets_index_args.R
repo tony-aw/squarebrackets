@@ -94,7 +94,7 @@
 #' 
 #' `use` is not allowed to have any duplicate values,
 #' nor is it allowed to include zero (`0`)`.` \cr
-#' The default value for `use` is \bold{lazy evaluated} \code{1:}\link{ndim}\code{(x)}. \cr
+#' The default value for `use` is `Inf`. \cr
 #' 
 #' `s` must be a list of the same length as `use`,
 #' a list of length 1,
@@ -185,8 +185,6 @@
 #'  ALL the corresponding indices will be selected for the operation.
 #'  * a formula; see \link{keywords}. \cr
 #'  
-#' For data.frames, `col` can also be a function. \cr
-#' \cr
 #' `use` is set to `1:2` by default. \cr
 #' If `use` is `c(-1, 2)` or `-1`, the row indices will be inverted
 #' (i.e. select all rows **except** those specified in `row`). \cr
@@ -222,6 +220,27 @@
 #'  tt_x(x, r, c, -1:-2)    # ==> x[-r, -c]
 #'  
 #' ```
+#' 
+#' 
+#' @section `row,col` for Data.frames:
+#' The `row,col` arguments, as explained in the previous section, works for both matrices and data.frames. \cr
+#' But data.frames have additional features for these arguments:
+#'  
+#'  - `row` can also be a \bold{double-tilded} formula, specifying column-based conditions to filter rows. \cr
+#'  I.e. `~~ column1 > 10`.
+#'  - `col` can also be a function, where the function returns `TRUE` or `FALSE`. \cr
+#' 
+#' For example:
+#' 
+#' ```{r eval = TRUE, echo = TRUE}
+#' 
+#' d <- data.frame(a = 1:10, b = letters[1:10], c = rnorm(10), d = month.abb[1:10])
+#' 
+#' # extract: rows for which `a > 5 & b != "j"` and columns which are NOT numeric
+#' tt_x(d, ~~ a > 5 & b != "j", is.numeric, -2L)
+#' 
+#' ```
+#' 
 #' 
 #' @section Argument Pair `slice, use`:
 #' `r .mybadge_class("atomic array")` \cr
@@ -302,6 +321,7 @@
 
 #' @rdname aaa04_squarebrackets_index_args
 #' @name aaa04_squarebrackets_index_args
+#' @concept index_args
 #' @aliases squarebrackets_index_args
 NULL
 

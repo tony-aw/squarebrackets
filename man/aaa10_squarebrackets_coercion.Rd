@@ -204,3 +204,4 @@ tt_set(myref, col = "cola", tf = \(x)x^2)
 print(x) # notice x has been changed
 
 }
+\concept{coercion}

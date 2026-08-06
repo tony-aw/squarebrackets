@@ -10,22 +10,42 @@
 
 #' @keywords internal
 #' @noRd
-.flat_mod <- function(x, i, use, rp, tf, chkdup, abortcall) {
-  elements <- ci_ii(
-    x, i, use, chkdup, .abortcall = abortcall
-  )
-  n.i <- length(elements)
-  if(n.i == 0) return(x)
+.flat_mod <- function(x_expr, x_shadow, env, i, use, chkdup, rp, tf, abortcall) {
   
   
+  if(.C_is_missing_idx(i)) {
+    .all_mod(x_expr, x_shadow, env, rp, tf)
+    return(invisible(NULL))
+  }
+  indices <- ci_ii(x_shadow, i, use, chkdup, FALSE, sys.call())
+  n.i <- length(indices)
   
-  if(!missing(tf)) {
-    rp <- tf(x[elements])
+  
+  if(length(x_shadow) == 0L || n.i == 0L) {
+    return(invisible(NULL))
   }
   
-  .check_rp(x, rp, n.i, abortcall = abortcall)
-  x[elements] <- rp
-  return(x)
+  if(!missing(rp)) {
+    value <- rp
+  }
+  else {
+    tf_expr <- substitute(
+      tf(X[indices]),
+      list(tf = tf, X = x_expr, indices = indices)
+    )
+    value <- eval(tf_expr, env)
+  }
+  
+  .check_rp(x_shadow, value, n.i, sys.call())
+  
+  expr <- substitute(
+    X[indices] <- value,
+    list(X = x_expr, indices = indices, value = value)
+  )
+  eval(expr, envir = env)
+  
+  return(invisible(NULL))
+  
 }
 
 

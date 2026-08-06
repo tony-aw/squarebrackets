@@ -145,3 +145,4 @@ such as environments,
 are not supported by 'squarebrackets'. \cr
 \cr
 }
+\concept{supported_structures}

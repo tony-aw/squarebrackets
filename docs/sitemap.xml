@@ -27,6 +27,7 @@
 <url><loc>https://tony-aw.github.io/squarebrackets/reference/aaa09_squarebrackets_PassByReference.html</loc></url>
 <url><loc>https://tony-aw.github.io/squarebrackets/reference/aaa10_squarebrackets_coercion.html</loc></url>
 <url><loc>https://tony-aw.github.io/squarebrackets/reference/aaa11_squarebrackets_keywords.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/reference/ArrayShadow.html</loc></url>
 <url><loc>https://tony-aw.github.io/squarebrackets/reference/ci_obs.html</loc></url>
 <url><loc>https://tony-aw.github.io/squarebrackets/reference/ci_vars.html</loc></url>
 <url><loc>https://tony-aw.github.io/squarebrackets/reference/coord2ind.html</loc></url>
@@ -35,12 +36,17 @@
 <url><loc>https://tony-aw.github.io/squarebrackets/reference/cp_seq.html</loc></url>
 <url><loc>https://tony-aw.github.io/squarebrackets/reference/developer_ci.html</loc></url>
 <url><loc>https://tony-aw.github.io/squarebrackets/reference/developer_tci.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/reference/dropl.html</loc></url>
 <url><loc>https://tony-aw.github.io/squarebrackets/reference/dt.html</loc></url>
 <url><loc>https://tony-aw.github.io/squarebrackets/reference/dt_aggregate.html</loc></url>
 <url><loc>https://tony-aw.github.io/squarebrackets/reference/dt_setadd.html</loc></url>
 <url><loc>https://tony-aw.github.io/squarebrackets/reference/dt_setreorder.html</loc></url>
 <url><loc>https://tony-aw.github.io/squarebrackets/reference/dt_setrm.html</loc></url>
 <url><loc>https://tony-aw.github.io/squarebrackets/reference/exported_uilities.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/reference/exported_utilities.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/reference/generic_mod.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/reference/generic_set.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/reference/generic_x.html</loc></url>
 <url><loc>https://tony-aw.github.io/squarebrackets/reference/helper_recursive.html</loc></url>
 <url><loc>https://tony-aw.github.io/squarebrackets/reference/idx.array.html</loc></url>
 <url><loc>https://tony-aw.github.io/squarebrackets/reference/idx.data.frame.html</loc></url>
@@ -59,6 +65,9 @@
 <url><loc>https://tony-aw.github.io/squarebrackets/reference/ii2_wo.html</loc></url>
 <url><loc>https://tony-aw.github.io/squarebrackets/reference/ii2_x.default.html</loc></url>
 <url><loc>https://tony-aw.github.io/squarebrackets/reference/ii2_x.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/reference/ii_icom.default.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/reference/ii_icom.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/reference/ii_mod.default.html</loc></url>
 <url><loc>https://tony-aw.github.io/squarebrackets/reference/ii_wo.default.html</loc></url>
 <url><loc>https://tony-aw.github.io/squarebrackets/reference/ind2coord.html</loc></url>
 <url><loc>https://tony-aw.github.io/squarebrackets/reference/index.html</loc></url>
@@ -68,7 +77,6 @@
 <url><loc>https://tony-aw.github.io/squarebrackets/reference/match_all.html</loc></url>
 <url><loc>https://tony-aw.github.io/squarebrackets/reference/mutatomic_class.html</loc></url>
 <url><loc>https://tony-aw.github.io/squarebrackets/reference/mutatomic_developer.html</loc></url>
-<url><loc>https://tony-aw.github.io/squarebrackets/reference/ndim.html</loc></url>
 <url><loc>https://tony-aw.github.io/squarebrackets/reference/nest.html</loc></url>
 <url><loc>https://tony-aw.github.io/squarebrackets/reference/reexports.html</loc></url>
 <url><loc>https://tony-aw.github.io/squarebrackets/reference/sb2_setVarnames.html</loc></url>
@@ -121,6 +129,9 @@
 <url><loc>https://tony-aw.github.io/squarebrackets/reference/ss2_x.data.frame.html</loc></url>
 <url><loc>https://tony-aw.github.io/squarebrackets/reference/ss2_x.default.html</loc></url>
 <url><loc>https://tony-aw.github.io/squarebrackets/reference/ss2_x.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/reference/ss_icom.default.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/reference/ss_icom.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/reference/ss_mod.default.html</loc></url>
 <url><loc>https://tony-aw.github.io/squarebrackets/reference/ss_wo.default.html</loc></url>
 <url><loc>https://tony-aw.github.io/squarebrackets/reference/ss_wo.html</loc></url>
 <url><loc>https://tony-aw.github.io/squarebrackets/reference/stride_eval.html</loc></url>
@@ -132,5 +143,9 @@
 <url><loc>https://tony-aw.github.io/squarebrackets/reference/sub2ind.html</loc></url>
 <url><loc>https://tony-aw.github.io/squarebrackets/reference/tci_cplx.html</loc></url>
 <url><loc>https://tony-aw.github.io/squarebrackets/reference/tci_im.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/reference/tt_icom.default.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/reference/tt_icom.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/reference/tt_mod.data.frame.html</loc></url>
+<url><loc>https://tony-aw.github.io/squarebrackets/reference/tt_mod.default.html</loc></url>
 </urlset>
 

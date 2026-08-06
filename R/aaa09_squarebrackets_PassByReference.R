@@ -142,5 +142,6 @@
 #' 
 #' @rdname aaa09_squarebrackets_PassByReference
 #' @name aaa09_squarebrackets_PassByReference
+#' @concept pass_by_reference
 #' @aliases squarebrackets_PassByReference
 NULL

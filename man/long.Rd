@@ -96,3 +96,4 @@ x <- mutatomic(1:1e7)
 long_x(x, ~ 1:20:c(TRUE, FALSE, FALSE, TRUE):1)
 
 }
+\concept{long_}

@@ -14,8 +14,9 @@ obj1 <- obj2 <- data.frame(
   d = sample(1.5:10.5) + sample(1.5:10.5)
 )
 obj2[1:5, "a"] <- 1:5
+tt_mod(obj1, 1:5, "a", rp = 1:5)
 expect_equal(
-  tt_mod(obj1, 1:5, "a", rp = 1:5),
+  obj1,
   obj2
 )
 
@@ -26,8 +27,10 @@ obj1 <- obj2 <- data.frame(
   d = sample(1.5:10.5) + sample(1.5:10.5)
 )
 obj2[1:5, "b"] <- sqrt(1:5)
+tt_mod(obj1, 1:5, "b", rp = sqrt(1:5))
+
 expect_equal(
-  tt_mod(obj1, 1:5, "b", rp = sqrt(1:5)),
+  obj1,
   obj2
 )
 
@@ -38,8 +41,9 @@ obj1 <- obj2 <- data.frame(
   d = sample(1.5:10.5) + sample(1.5:10.5)
 )
 obj2[1:5, "c"] <- obj2$d[5:1]
+tt_mod(obj1, 1:5, "c", rp = obj2$d[5:1])
 expect_equal(
-  tt_mod(obj1, 1:5, "c", rp = obj2$d[5:1]),
+  obj1,
   obj2
 )
 enumerate <- enumerate + 3L
@@ -52,8 +56,9 @@ obj1 <- obj2 <- data.frame(
   c = factor(letters[1:10])
 )
 obj2[1:5, "c"] <- 1:5
+tt_mod(obj1, 1:5, "c", rp = 1:5)
 expect_equal(
-  tt_mod(obj1, 1:5, "c", rp = 1:5),
+  obj1,
   obj2
 )
 

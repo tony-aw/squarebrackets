@@ -15,7 +15,6 @@
 #'  It is defined as `(start:end)[ptrn]`,
 #'  where `start` and `end` are numeric scalars and `ptrn` is a logical vector. \cr
 #'  By default, `start = 1L` and `end = .N`.
-#'  - `.x`: the input variable `x` itself.
 #'  
 #' 
 #' These keywords can be used inside formulas to specify more advanced indices. \cr
@@ -30,7 +29,7 @@
 #' 
 #' 
 #' # select first half of rows, select first & last column:
-#' ss_x(x, n(~ 1:round(.N/2), ~ .bi(1, -1)))
+#' tt_x(x, ~ 1:round(.N/2), ~ .bi(1, -1))
 #' 
 #' 
 #' # extract where rownames contain "r" & where colnames DO NOT contain "r":
@@ -43,6 +42,12 @@
 #' 
 #' # select every other element for each dimension:
 #' ss_x(x, ~ .ptrn(c(TRUE, FALSE)))
+#' 
+#' 
+#' # select different range from each dimension:
+#' x <- array(1:1000, 5:3)
+#' start <- c(3, 1, 2)
+#' ss_x(x, ~ (start[.M]):.N)
 #' 
 #' ```
 #' 
@@ -68,6 +73,7 @@
 #' 
 #' @rdname aaa11_squarebrackets_keywords
 #' @name aaa11_squarebrackets_keywords
+#' @concept keywords
 #' @aliases squarebrackets_keywords
 #' @aliases keywords
 NULL

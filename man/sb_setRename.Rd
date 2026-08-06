@@ -107,3 +107,4 @@ sb_setVarnames(x, old = names(x), new = rev(names(x)))
 print(x)
 
 }
+\concept{sb_}

@@ -89,16 +89,8 @@
 #' @keywords internal
 #' @noRd
 .with_internal <- function(data, form, abortcall) {
-  vars <- all.vars(form)
   env <- environment(form)
-  search_names <- c(names(data), names(env))
-  missing.vars <- vars[!vars %in% search_names]
-  if(any(!vars %in% search_names)) {
-    txt <- paste0("unknown variable(s) given: \n", missing.vars)
-    stop(simpleError("unknown variable(s) given", call = abortcall))
-  }
-  txt <- as.character(form)[2L]
-  out <- eval(parse(text = txt), data, enclos = env)
+  out <- eval(form[[2L]], data, enclos = env)
   environment(form) <- NULL
   return(out)
 }
@@ -113,8 +105,7 @@
     stop(simpleError("invalid formula given", call = abortcall))
   }
   env <- environment(form)
-  txt <- as.character(form)[2L]
-  out <- eval(parse(text = txt), keywords, enclos = env)
+  out <- eval(form[[2L]], keywords, enclos = env)
   environment(form) <- NULL
   return(out)
 }

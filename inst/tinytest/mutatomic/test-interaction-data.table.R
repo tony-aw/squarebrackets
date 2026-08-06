@@ -14,3 +14,5 @@ expect_true(is.mutatomic(d$x))
 expect_silent(d[1:5])
 d <- d[1:5]
 expect_true(is.mutatomic(d$x))
+
+enumerate <- enumerate + 3L

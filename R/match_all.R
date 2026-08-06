@@ -104,17 +104,24 @@ match_all <- function(needles, haystack, unlist = TRUE) {
 
 #' @keywords Internal
 #' @noRd
-.match_names <- function(needles, haystack, abortcall) {
-  if(length(needles) == 0L || length(haystack) == 0L) {
+.match_names <- function(needles, haystack, chkdup, abortcall) {
+  if(length(needles) == 0L) {
     return(integer(0L))
   }
+  if(length(haystack) == 0L) {
+    stop(simpleError("no names present", call = abortcall))
+  }
   if(collapse::allNA(haystack)) {
-    return(integer(0L))
+    stop(simpleError("unknown names given", call = abortcall))
   }
   
   v <- collapse::funique(needles)
   if(anyNA(v)) {
     stop(simpleError("`NA` names not allowed", call = abortcall))
+  }
+  duplicate_needles <- length(v) != length(needles)
+  if(chkdup && duplicate_needles) {
+    stop(simpleError("duplicate integers or names not allowed", call = abortcall))
   }
   
   m <- collapse::fmatch(haystack, v)
@@ -128,7 +135,7 @@ match_all <- function(needles, haystack, unlist = TRUE) {
   out[collapse::whichNA(names(out))] <- NULL
   
   
-  if(length(needles) == length(v)) {
+  if(!duplicate_needles) {
     return(unlist(out, use.names = FALSE, recursive = FALSE))
   }
   

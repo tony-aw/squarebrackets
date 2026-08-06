@@ -24,41 +24,57 @@
 }
 
 
+
 #' @keywords internal
 #' @noRd
-.arr_tf <- function(x, lst, tf, abortcall) {
+.arr_mod <- function(x_expr, x_shadow, env, s, use, chkdup, rp, tf, abortcall) {
   
-  temp.fun <- function(...) {
-    rp <- tf(x[..., drop = FALSE])
-    .check_rp(x, rp, prod(collapse::vlengths(lst)), abortcall)
-    x[...] <- rp
-    return(x)
+  
+  .check_args_array(x_shadow, s, use, sys.call())
+  
+  # missing indices:
+  if(.all_missing_indices(s)) {
+    .all_mod(x_expr, x_shadow, env, rp, tf)
+    return(invisible(NULL))
+  }
+  if(length(use) == 0L || .C_is_missing_idx(use)) {
+    .all_mod(x_expr, x_shadow, env, rp, tf)
+    return(invisible(NULL))
   }
   
-  mycall <- as.call(c(
-    list(quote(temp.fun)),
-    lst
-  ))
-  x <- eval(mycall)
-  return(x)
+  # zerolen:
+  if(length(x_shadow) == 0L) {
+    return(invisible(NULL))
+  }
+  
+  # main function:
+  sub_list <- ci_ss(x_shadow, s, use, chkdup, FALSE, abortcall)
+  
+  if(is.list(x_shadow) && !missing(tf)) {
+    tf <- .funply(tf)
+  }
+  
+  if(!missing(rp)) {
+    value <- rp
+  }
+  else {
+    tf_expr <- substitute(
+      tf(ss_x(X, s, use)),
+      list(tf = tf, ss_x = ss_x, X = x_expr, s = s, use = use)
+    )
+    value <- eval(tf_expr, env)
+  }
+  
+  .check_rp(x_shadow, value, prod(collapse::vlengths(sub_list)), abortcall)
+  
+  lhs <- as.call(c(list(quote(`[`)), x_expr, sub_list))
+  full_expr <- call("<-", lhs, value)
+  eval(full_expr, envir = env)
+  
+  return(invisible(NULL))
+  
 }
 
-
-#' @keywords internal
-#' @noRd
-.arr_repl <- function(x, lst, rp, abortcall) {
-  
-  .check_rp(x, rp, prod(collapse::vlengths(lst)), abortcall)
-  
-  mycall <- as.call(c(
-    list(quote(`[<-`)),
-    list(quote(x)),
-    lst,
-    value = list(rp)
-  ))
-  x <- eval(mycall)
-  return(x)
-}
 
 #' @keywords internal
 #' @noRd

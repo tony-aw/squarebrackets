@@ -34,9 +34,18 @@ enumerate <- enumerate + 2L
 
 
 funlist <- list(
-  \(x, ss, d = 1:ndim(x)) ss_mod(x, ss, d, chkdup = FALSE, rp = -1),
-  \(x, ss, d = 1:ndim(x)) ss_mod(x, ss, d, chkdup = FALSE, rp = integer(0L)),
-  \(x, ss, d = 1:ndim(x)) ss_mod(x, ss, d, chkdup = FALSE, tf = mean),
+  \(x, ss, d = 1:ndim(x)) {
+    ss_mod(x, ss, d, chkdup = FALSE, rp = -1)
+    return(x)
+  },
+  \(x, ss, d = 1:ndim(x)) {
+    ss_mod(x, ss, d, chkdup = FALSE, rp = integer(0L))
+    return(x)
+  },
+  \(x, ss, d = 1:ndim(x)) {
+    ss_mod(x, ss, d, chkdup = FALSE, tf = mean)
+    return(x)
+  },
   \(x, ss, d = 1:ndim(x)) {
     x <- data.table::copy(x)
     ss_set(x, ss, d, rp = -1)
@@ -69,7 +78,7 @@ for(f in funlist) {
 
 
 
-# sbt, matrix ====
+# tt, matrix ====
 
 x <- as.mutatomic(matrix(integer(0L),0,10))
 expect_equal(
@@ -87,9 +96,18 @@ expect_equal(
 
 
 funlist <- list(
-  \(x, row, col, d = 1:ndim(x)) tt_mod(x, row, col, d, chkdup = FALSE, rp = -1),
-  \(x, row, col, d = 1:ndim(x)) tt_mod(x, row, col, d, chkdup = FALSE, rp = integer(0L)),
-  \(x, row, col, d = 1:ndim(x)) tt_mod(x, row, col, d, chkdup = FALSE, tf = mean),
+  \(x, row, col, d = 1:ndim(x)) {
+    tt_mod(x, row, col, d, chkdup = FALSE, rp = -1)
+    return(x)
+  },
+  \(x, row, col, d = 1:ndim(x)) {
+    tt_mod(x, row, col, d, chkdup = FALSE, rp = integer(0L))
+    return(x)
+  },
+  \(x, row, col, d = 1:ndim(x)) {
+    tt_mod(x, row, col, d, chkdup = FALSE, tf = mean)
+    return(x)
+  },
   \(x, row, col, d = 1:ndim(x)) {
     x <- data.table::copy(x)
     tt_set(x, row, col, d, rp = -1)
@@ -121,7 +139,7 @@ for(f in funlist) {
 
 
 
-# sbt, data.frame ====
+# tt, data.frame ====
 
 
 x <- matrix(integer(0L),0,10) |> data.table::as.data.table()
@@ -140,9 +158,18 @@ expect_equal(
 
 
 funlist <- list(
-  \(x, row, col, d = 1:ndim(x)) tt_mod(x, row, col, d, chkdup = FALSE, rp = -1),
-  \(x, row, col, d = 1:ndim(x)) tt_mod(x, row, col, d, chkdup = FALSE, rp = integer(0L)),
-  \(x, row, col, d = 1:ndim(x)) tt_mod(x, row, col, d, chkdup = FALSE, tf = mean),
+  \(x, row, col, d = 1:ndim(x)) {
+    tt_mod(x, row, col, d, chkdup = FALSE, rp = -1)
+    return(x)
+  },
+  \(x, row, col, d = 1:ndim(x)) {
+    tt_mod(x, row, col, d, chkdup = FALSE, rp = integer(0L))
+    return(x)
+  },
+  \(x, row, col, d = 1:ndim(x)) {
+    tt_mod(x, row, col, d, chkdup = FALSE, tf = mean)
+    return(x)
+  },
   \(x, row, col, d = 1:ndim(x)) {
     x <- data.table::copy(x)
     tt_set(x, row, col, d, rp = -1)

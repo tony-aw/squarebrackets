@@ -149,19 +149,31 @@ ii_x(x, 1:5, -1) # return WITHOUT first 5 elements
 #> [1] "Jun" "Jul" "Aug" "Sep" "Oct" "Nov" "Dec"
 
 
-ii_mod(x, 1:5, rp = "XXX") # copy, replace first 5 elements, return result
+ii_mod(x, 1:5, rp = "XXX") # replace first 5 elements
+print(x)
 #>  [1] "XXX" "XXX" "XXX" "XXX" "XXX" "Jun" "Jul" "Aug" "Sep" "Oct" "Nov" "Dec"
 
+x <- month.abb
 ii_mod(x, 1:5, -1, rp = "XXX") # same, but for all except first 5 elements
+print(x)
 #>  [1] "Jan" "Feb" "Mar" "Apr" "May" "XXX" "XXX" "XXX" "XXX" "XXX" "XXX" "XXX"
 }\if{html}{\out{</div>}}
 
-\bold{ABOUT ORDERING} \cr
-The order in which the user gives indices when inverting indices generally does not matter. \cr
-The order of the indices as they appear in the original object \code{x} is maintained,
-just like in base 'R'. \cr
-\cr
-\cr
+When inverting indices,
+the order of the indices and the presence of duplicates is irrelevant; \cr
+They will lead to the same result. \cr
+I.e., these are all equivalent:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{
+ii_x(x, 1:10, -1)
+#> [1] "XXX" "XXX"
+ii_x(x, 10:1, -1)
+#> [1] "XXX" "XXX"
+ii_x(x, rep(1:10, 5), -1)
+#> [1] "XXX" "XXX"
+ii_x(x, rep(10:1, 5), -1)
+#> [1] "XXX" "XXX"
+}\if{html}{\out{</div>}}
 }
 
 \section{Out-of-Bounds Integers, Non-Existing Names, and NAs}{
@@ -250,7 +262,7 @@ Recursive subsets can go however deep you want. \cr
 So, for example,
 to extract the character vector \code{month.abb} from the aforementioned list \code{x},
 one would need to do: \cr
-\link{lst_rec}\verb{(x, c("C","B"))}, (in base R: \code{x$C$B}):
+\link{lst_rec}\verb{(x, c("C","B"))}, (in base R: \code{x[["C"]][["B"]]}):
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{
 lst_rec(x, c("C","B")) # equivalent to x$C$B
@@ -291,3 +303,4 @@ Like atomic vectors, lists, formulas, etc. \cr
 \cr
 }
 
+\concept{index_fundamentals}

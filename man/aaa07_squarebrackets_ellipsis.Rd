@@ -13,3 +13,4 @@ add arguments that make no sense for that method. \cr
 \cr
 \cr
 }
+\concept{ellipsis}

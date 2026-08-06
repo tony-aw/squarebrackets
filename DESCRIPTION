@@ -1,22 +1,22 @@
 Package: squarebrackets
 Type: Package
 Title: Subset Methods as Alternatives to the Square Brackets Operators for Programming
-Version: 0.0.0.9010
+Version: 0.0.0.9011
 Authors@R: c(
     person("Tony", "Wilkes",
            email = "tony_a_wilkes@outlook.com",
            role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0000-0001-9498-8379")),
+    person("Sebastian", "Krantz",
+           role = "ctb",
+           comment = "Contributed to the internal code of the 'match_all' function"),
     person("Tony", "Plate",
            email = "tplate@acm.org",
            role = "ctb",
            comment = "Author of included 'abind' fragments"),
     person("Richard", "Heiberger",
            role = "ctb",
-           comment = "Author of included 'abind' fragments"),
-    person("Sebastian", "Krantz",
-           role = "ctb",
-           comment = "Contributed to the internal code of the 'match_all' function")
+           comment = "Author of included 'abind' fragments")
   )
 Description: Provides subset methods
     (supporting both atomic and recursive S3 classes)
@@ -33,19 +33,20 @@ Description: Provides subset methods
       the 'squarebrackets' methods will operate on duplicate names
       (not just the first match),
       use consistent syntax for inverting indices,
-      and support the use of keywords through formulas.
+      give an error for out-of-bounds indices,
+      and support the use of advanced indices through formulas.
       4) The `[<-` operator only supports copy-on-modify semantics for most classes;
       The 'squarebrackets' methods provide explicit pass-by-reference and pass-by-value semantics,
       and do so safely.
       5) 'squarebrackets' supports index-less sub-set operations for `long vectors`,
       which is more memory efficient than sub-set operations using the `[` and `[<-` operators.
+      6) All of the methods provided by 'squarbrackets' are programmatically friendly
+      (no Non-Standard Evaluation).
 License: MPL-2.0 | file LICENSE
 Encoding: UTF-8
 LinkingTo: Rcpp
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2
 Suggests:
-    rlang,
     stringi,
     knitr,
     rmarkdown,
@@ -53,11 +54,7 @@ Suggests:
     tinycodet,
     tidytable,
     tibble,
-    ggplot2,
     sf,
-    future.apply,
-    collections,
-    rrapply,
     abind
 Depends: 
     R (>= 4.2.0)
@@ -69,3 +66,4 @@ Imports:
 URL: https://github.com/tony-aw/squarebrackets/, https://tony-aw.github.io/squarebrackets/
 BugReports: https://github.com/tony-aw/squarebrackets/issues/
 Language: en-gb
+Config/roxygen2/version: 8.0.0

@@ -13,7 +13,7 @@ meths <- list(
 )
 for(i in seq_along(meths)) {
   expect_error(
-    meths[[i]](x, i = 1),
+    meths[[i]](x),
     pattern = pattern,
     fixed = TRUE
   ) |> errorfun()
@@ -31,7 +31,7 @@ meths <- list(
 )
 for(i in seq_along(meths)) {
   expect_error(
-    meths[[i]](x, i = 1),
+    meths[[i]](x),
     pattern = pattern,
     fixed = TRUE
   ) |> errorfun()
@@ -49,7 +49,7 @@ meths <- list(
 )
 for(i in seq_along(meths)) {
   expect_error(
-    meths[[i]](x, i = 1),
+    meths[[i]](x),
     pattern = pattern,
     fixed = TRUE
   ) |> errorfun()

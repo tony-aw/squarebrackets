@@ -49,6 +49,10 @@ temp.fun.2d <- function(x, row, col, f_expect, f_out) {
       expected[[k]] <- f_expect(x, row[[i]], col[[j]])
       out[[k]] <- f_out(x, row[[i]], col[[j]])
       assign("enumerate", enumerate + 2, envir = parent.frame(n = 1))
+      
+      # expect_equal(expected[[k]], out[[k]]) |> errorfun()
+      # expect_true(is.array(out[[k]])) |> errorfun()
+      
       k <- k + 1
     }
   }

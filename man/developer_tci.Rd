@@ -7,6 +7,7 @@
 \alias{tci_int}
 \alias{tci_chr}
 \alias{tci_formula}
+\alias{tci_zerolen}
 \title{Type Cast Indices}
 \usage{
 tci_atomic(
@@ -32,7 +33,9 @@ tci_chr(
   .abortcall = sys.call()
 )
 
-tci_formula(x, m, form, .abortcall)
+tci_formula(form, m, n, nms, .abortcall)
+
+tci_zerolen(n, use = 1L)
 }
 \arguments{
 \item{indx}{the indices to typecast}
@@ -64,11 +67,9 @@ But specifying \code{TRUE} when the relevant names are not unique will result in
 
 \item{.abortcall}{environment where the error message is passed to.}
 
-\item{x}{the input variable}
+\item{form}{a formula; see \link{keywords}.}
 
 \item{m}{a number giving the margin; set to \code{0} for dimensionless vectors.}
-
-\item{form}{a formula; see \link{keywords}.}
 }
 \value{
 An integer vector of type-cast indices.
@@ -94,3 +95,4 @@ ci_margin(x, 1:4, 2)
 ci_ss(x, n(~ .bi(-1:-5), 1:4), 1:2)
 
 }
+\concept{tci}

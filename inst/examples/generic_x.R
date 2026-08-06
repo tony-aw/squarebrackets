@@ -7,8 +7,7 @@ colnames(obj) <- c("a", "b", "c", "a")
 print(obj)
 ss_x(obj, n(1:3), 1:ndim(obj))
 # above is equivalent to obj[1:3, 1:3, drop = FALSE]
-ii_x(obj, i = \(x) x > 5)
-# above is equivalent to obj[obj > 5]
+
 ss_x(obj, n(c("a", "a")), 2L)
 # above is equivalent to obj[, lapply(c("a", "a"), \(i) which(colnames(obj) == i)) |> unlist()]
 
@@ -16,8 +15,6 @@ obj <- array(1:64, c(4,4,3))
 print(obj)
 ss_x(obj, n(1:3, 1:2), c(1,3))
 # above is equivalent to obj[1:3, , 1:2, drop = FALSE]
-ii_x(obj, i = \(x)x > 5)
-# above is equivalent to obj[obj > 5]
 
 
 #############################################################################

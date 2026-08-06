@@ -98,7 +98,7 @@ Specifically, the \code{use} argument can be any of the following:
 
 \code{use} is not allowed to have any duplicate values,
 nor is it allowed to include zero (\code{0})\code{.} \cr
-The default value for \code{use} is \bold{lazy evaluated} \code{1:}\link{ndim}\code{(x)}. \cr
+The default value for \code{use} is \code{Inf}. \cr
 
 \code{s} must be a list of the same length as \code{use},
 a list of length 1,
@@ -187,8 +187,6 @@ ALL the corresponding indices will be selected for the operation.
 \item a formula; see \link{keywords}. \cr
 }
 
-For data.frames, \code{col} can also be a function. \cr
-\cr
 \code{use} is set to \code{1:2} by default. \cr
 If \code{use} is \code{c(-1, 2)} or \code{-1}, the row indices will be inverted
 (i.e. select all rows \strong{except} those specified in \code{row}). \cr
@@ -222,6 +220,31 @@ Examples:
  # Excluding both:
  tt_x(x, r, c, -1:-2)    # ==> x[-r, -c]
  
+}\if{html}{\out{</div>}}
+}
+
+\section{\verb{row,col} for Data.frames}{
+
+The \verb{row,col} arguments, as explained in the previous section, works for both matrices and data.frames. \cr
+But data.frames have additional features for these arguments:
+\itemize{
+\item \code{row} can also be a \bold{double-tilded} formula, specifying column-based conditions to filter rows. \cr
+I.e. \code{~~ column1 > 10}.
+\item \code{col} can also be a function, where the function returns \code{TRUE} or \code{FALSE}. \cr
+}
+
+For example:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{
+d <- data.frame(a = 1:10, b = letters[1:10], c = rnorm(10), d = month.abb[1:10])
+
+# extract: rows for which `a > 5 & b != "j"` and columns which are NOT numeric
+tt_x(d, ~~ a > 5 & b != "j", is.numeric, -2L)
+#>   b   d
+#> 1 f Jun
+#> 2 g Jul
+#> 3 h Aug
+#> 4 i Sep
 }\if{html}{\out{</div>}}
 }
 
@@ -299,3 +322,4 @@ use the \link[base]{drop} function, like so:
 Plate T, Heiberger R (2016). \emph{abind: Combine Multidimensional Arrays}.
 R package version 1.4-5, \url{https://CRAN.R-project.org/package=abind}.
 }
+\concept{index_args}

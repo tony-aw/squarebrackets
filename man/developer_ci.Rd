@@ -30,7 +30,7 @@ ci_margin(
 ci_ss(
   x,
   s = NULL,
-  use = 1:ndim(x),
+  use = Inf,
   chkdup = FALSE,
   uniquely_named = FALSE,
   .abortcall = sys.call()
@@ -83,3 +83,4 @@ ci_margin(x, 1:4, 2)
 ci_ss(x, n(~ .bi(-1:-5), 1:4), 1:2)
 
 }
+\concept{ci}

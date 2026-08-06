@@ -17,8 +17,10 @@ temp.fun <- function(x) {
     x[] <- x[1]
     return(x)
   }
+  out <- x
+  ii_mod(out, tf = \(x)x[1])
   expect_equal(
-    ii_mod(x, tf = \(x)x[1]),
+    out,
     tempfun(x)
   ) |> errorfun()
 }
@@ -32,8 +34,10 @@ temp.fun <- function(x) {
     x[] <- x[1]
     return(x)
   }
+  out <- x
+  ss_mod(out, tf = \(x)x[1])
   expect_equal(
-    ss_mod(x, tf = \(x)x[1]),
+    out,
     tempfun(x)
   ) |> errorfun()
 }
@@ -53,8 +57,10 @@ test_sb <- function(x, i) {
 
 temp.fun <- function(x, elements) {
   for (i in 1:length(elements)) {
+    out <- x
+    ii_mod(out, i = elements[[i]], tf = min)
     expect_equal(
-      ii_mod(x, i = elements[[i]], tf = min),
+      out,
       test_sb(x, i = elements[[i]])
     ) |> errorfun()
     assign("enumerate", enumerate + 1, envir = parent.frame(n = 1))
@@ -75,8 +81,10 @@ test_sb <- function(x, i) {
 
 temp.fun <- function(x, elements) {
   for (i in 1:length(elements)) {
+    out <- x
+    ii_mod(out, elements[[i]], -1, tf = min)    
     expect_equal(
-      ii_mod(x, elements[[i]], -1, tf = min),
+      out,
       test_sb(x, elements[[i]])
     ) |> errorfun()
     assign("enumerate", enumerate + 1, envir = parent.frame(n = 1))
@@ -113,13 +121,16 @@ f_expect.1d <- function(x, i) {
 }
 
 f_out.1d <- function(x, s, d) {
-  
-  return(ss_mod(x, s, d, tf = mean))
+  out <- x
+  ss_mod(out, s, d, tf = mean)
+  return(out)
 }
 
 
 sb_test <- function(x, ...) {
-  return(ss_mod.default(x, ..., tf = mean))
+  out <- x
+  ss_mod(out, ..., tf = mean)
+  return(out)
 }
 
 f_expect.arbitrary <- function(x, i, j, l) {
@@ -154,7 +165,9 @@ f_expect.matrix <- f_expect.2d <- function(x, row = NULL, col = NULL) {
 
 f_out.2d <- f_out.matrix <- function(x, row, col) {
   
-  return(tt_mod(x, row = row, col = col, tf = mean))
+  out <- x
+  tt_mod(out, row = row, col = col, tf = mean)
+  return(out)
 }
 
 

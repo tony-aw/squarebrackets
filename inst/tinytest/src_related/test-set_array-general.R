@@ -6,7 +6,7 @@ enumerate <- 0
 
 
 tempfun2 <- function(x, s, d, rp) {
-  ind <- ss2ii(ss_icom(x, s, d), dim(x))
+  ind <- ss2ii(ci_ss(x, s, d), dim(x))
   x[ind] <- rp
   return(x)
 }

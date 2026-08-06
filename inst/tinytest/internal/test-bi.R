@@ -16,6 +16,7 @@ expect_equal(
   .keyword_bi(-10, 10),
   1
 )
+enumerate <- enumerate + 2L
 
 
 # regular vector ====
@@ -25,6 +26,8 @@ expect_equal(
   .keyword_bi(list(ind), 10),
   expected
 )
+enumerate <- enumerate + 1L
+
 
 # ALTREP vector ====
 ind <- -10:-1
@@ -33,6 +36,7 @@ expect_equal(
   .keyword_bi(list(ind), 10),
   expected
 )
+enumerate <- enumerate + 1L
 
 
 # multiple vectors ====
@@ -43,6 +47,8 @@ expect_equal(
   .keyword_bi(list(ind1, ind2), 10),
   expected
 )
+enumerate <- enumerate + 1L
+
 
 # multiple ALTREP ====
 ind1 <- 10:1
@@ -52,4 +58,6 @@ expect_equal(
   .keyword_bi(list(ind1, ind2), 10),
   expected
 )
+enumerate <- enumerate + 1L
+
 

@@ -2,84 +2,72 @@
 output: github_document
 ---
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  fig.path = "man/figures/README-",
-  out.width = "100%"
-)
-library(badger)
-library(knitr)
-library(squarebrackets)
-set.seed(1)
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
 ```
 
 # squarebrackets
 
 <!-- badges: start -->
-`r badge_github_actions("tony-aw/squarebrackets")`
-`r badge_repostatus("WIP")`
-`r badge_custom("ORCID", "0000-0001-9498-8379", "green",   "https://orcid.org/0000-0001-9498-8379")`
+
+[![R-CMD-check-overkill](https://github.com/tony-aw/squarebrackets/actions/workflows/R-CMD-check-overkill.yaml/badge.svg)](https://github.com/tony-aw/squarebrackets/actions/workflows/R-CMD-check-overkill.yaml)
+[![Project Status: WIP - Initial development is in progress, but there
+has not yet been a stable, usable release suitable for the
+public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
+[![](https://img.shields.io/badge/ORCID-0000--0001--9498--8379-green.svg)](https://orcid.org/0000-0001-9498-8379)
 <!-- badges: end -->
 
+squarebrackets: Subset Methods as Alternatives to the Square Brackets
+Operators for Programming
 
+## What is the ‘squarebrackets’ R package?
 
-squarebrackets: Subset Methods as Alternatives to the Square Brackets Operators for Programming
-
-
-## What is the 'squarebrackets' R package?
-
-'squarebrackets' is a light-weight extension of the base 'R' `[`, `[<-`, `[[`, and `[[<-` operators.
+‘squarebrackets’ is a light-weight extension of the base ‘R’ `[`, `[<-`,
+`[[`, and `[[<-` operators.
 
 &nbsp;
 
-## Why use 'squarebrackets'?
 
 ```{r echo = FALSE, eval = TRUE, results = 'asis'}
-
+ 
 txt <- packageDescription("squarebrackets", fields = "Description")
 p <- c("\t", ",\n", ".\n", ";\n",  "\n(", "following.")
-rp <- c("", ", ", ".  \n\n", "; \n", " (", "following:")
+rp <- c("", ", ", ".<br><br>", "; <br> ", " (", "following:")
 for(i in 1:length(rp)) {
- txt <- gsub(p[i], rp[i], txt, fixed = TRUE)
+txt <- gsub(p[i], rp[i], txt, fixed = TRUE)
 }
 txt <- paste0(txt, "\n \n")
-txt <- gsub("(?m)^[ ]{4,}", "", txt, perl = TRUE)
-
-cat(txt)
+cat("<p style='white-space: pre-line;'>", txt, "</p>", sep = "")
 
 ```
 
 
 &nbsp;
-
 
 ## Get Started
 
-To get started see the [Get Started](https://tony-aw.github.io/squarebrackets/articles/squarebrackets.html) page.
-
+To get started see the [Get
+Started](https://tony-aw.github.io/squarebrackets/articles/squarebrackets.html)
+page.
 
 &nbsp;
 
-
 ## Installing & Loading
 
-One can install 'squarebrackets' from GitHub like so:
+One can install ‘squarebrackets’ from GitHub like so:
 
-```{r eval = FALSE, echo = TRUE}
+```{r, eval=FALSE}
 remotes::install_github("https://github.com/tony-aw/squarebrackets")
 ```
 
-Special care has been taken to make sure the function names are clear, and that the function names are unlikely to conflict with core R, the recommended R packages, the rstudioapi package, or major packages from the fastverse. So one can attach the package - thus exposing its functions to the namespace - using:
+Special care has been taken to make sure the function names are clear,
+and that the function names are unlikely to conflict with core R, the
+recommended R packages, the rstudioapi package, or major packages from
+the fastverse. So one can attach the package - thus exposing its
+functions to the namespace - using:
 
-```{r eval = FALSE, echo = TRUE}
+```{r, eval=FALSE}
 library(squarebrackets)
 ```
 
 
-&nbsp;
-
-&nbsp;

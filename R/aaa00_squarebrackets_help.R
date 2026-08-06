@@ -8,8 +8,8 @@
 #' ```{r echo = FALSE, eval = TRUE, results = 'asis'}
 #' 
 #' txt <- packageDescription("squarebrackets", fields = "Description")
-#' p <- c("\t", ",\n", ".\n", ";\n",  "\n(", "following.")
-#' rp <- c("", ", ", ".\n\n", "; \\cr ", " (", "following:")
+#' p <- c("\t", ",\n", ".\n", ";\n",  "\n(", "following.", "    ")
+#' rp <- c("", ", ", ".\n\n", "; \\cr ", " (", "following:", " ")
 #' for(i in 1:length(rp)) {
 #'  txt <- gsub(p[i], rp[i], txt, fixed = TRUE)
 #' }
@@ -150,7 +150,7 @@
 #' 
 #' @author \strong{Author, Maintainer}: Tony Wilkes \email{tony_a_wilkes@outlook.com} (\href{https://orcid.org/0000-0001-9498-8379}{ORCID})
 #' 
-#' 
+#' @concept intro
 #' @references The badges shown in the documentation of this R-package were made using the services of: \url{https://shields.io/}
 #' 
 #' @name aaa00_squarebrackets_help

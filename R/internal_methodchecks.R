@@ -35,9 +35,6 @@
       call = abortcall
     ))
   }
-  if(!.is.array_like(x)) {
-      stop(simpleError("Input is not a true array", call = abortcall))
-  }
   if(!is.atomic(x) && !is.list(x)) {
     stop(simpleError("unsupported object", call = abortcall))
   }

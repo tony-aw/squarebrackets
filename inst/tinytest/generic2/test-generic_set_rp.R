@@ -55,7 +55,6 @@ f_out.data.frame <- function(x, row = NULL, col = NULL) {
 }
 
 
-# rl. <- loadNamespace("rlang")
 dt. <- loadNamespace("data.table")
 
 sys.source(file.path(getwd(), "source", "sourcetest-obsvars.R"), envir = environment())

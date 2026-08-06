@@ -19,7 +19,8 @@
 #' @example inst/examples/nest.R
 #' 
 #' 
-
+#' @name nest
+NULL
 
 #' @rdname nest
 #' @export
