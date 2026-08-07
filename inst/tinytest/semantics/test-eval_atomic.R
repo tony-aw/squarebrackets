@@ -238,7 +238,7 @@ enumerate <- enumerate + 12L
 
 
 # check no unnecessary copies ====
-.rcpp_address <- broadcast:::.rcpp_address
+.rcpp_address <- squarebrackets:::.rcpp_address
 y <- matrix(rnorm(1e6), 1e4, 100)
 ii_mod(y, 1, rp = -1)
 address1 <- .rcpp_address(y) # get address after first change
