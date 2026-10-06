@@ -143,7 +143,7 @@ str(obj) # notice that columns "a" and "c" are INTEGER (`int`)
 #>  $ b: chr  "a" "b" "c" "d" ...
 #>  $ c: int  11 12 13 14 15 16 17 18 19 20
 #>  $ d: Factor w/ 10 levels "a","b","c","d",..: 1 2 3 4 5 6 7 8 9 10
-#>  - attr(*, ".internal.selfref")=<pointer: 0x000001c8d4855ef0> 
+#>  - attr(*, ".internal.selfref")=<pointer: 0x000001b702058d30> 
 tt_mod(
   obj, col = is.numeric,
   tf = sqrt # SAFE: obs = NULL, so coercion performed
@@ -160,7 +160,7 @@ str(obj)
 #>  $ b: chr  "a" "b" "c" "d" ...
 #>  $ c: num  1.82 1.86 1.9 1.93 1.97 ...
 #>  $ d: Factor w/ 10 levels "a","b","c","d",..: 1 2 3 4 5 6 7 8 9 10
-#>  - attr(*, ".internal.selfref")=<pointer: 0x000001c8d4855ef0> 
+#>  - attr(*, ".internal.selfref")=<pointer: 0x000001b702058d30> 
 
 #############################################################################
 
@@ -177,7 +177,7 @@ str(obj) # notice that columns "a" and "c" are INTEGER (`int`)
 #>  $ b: chr  "a" "b" "c" "d" ...
 #>  $ c: int  11 12 13 14 15 16 17 18 19 20
 #>  $ d: Factor w/ 10 levels "a","b","c","d",..: 1 2 3 4 5 6 7 8 9 10
-#>  - attr(*, ".internal.selfref")=<pointer: 0x000001c8d4855ef0> 
+#>  - attr(*, ".internal.selfref")=<pointer: 0x000001b702058d30> 
 
 tt_mod(
   obj, with(obj,  (a >= 2) & (c <= 17)), is.numeric,
@@ -194,7 +194,7 @@ str(obj) # notice that columns "a" and "c" are INTEGER (`int`)
 #>  $ b: chr  "a" "b" "c" "d" ...
 #>  $ c: int  11 12 13 14 15 16 17 18 19 20
 #>  $ d: Factor w/ 10 levels "a","b","c","d",..: 1 2 3 4 5 6 7 8 9 10
-#>  - attr(*, ".internal.selfref")=<pointer: 0x000001c8d4855ef0> 
+#>  - attr(*, ".internal.selfref")=<pointer: 0x000001b702058d30> 
 tt_set(
   obj, with(obj,  (a >= 2) & (c <= 17)), is.numeric,
   tf = sqrt
@@ -225,7 +225,7 @@ str(obj)
 #>  $ b: chr  "a" "b" "c" "d" ...
 #>  $ c: int  11 12 13 14 15 16 17 18 19 20
 #>  $ d: Factor w/ 10 levels "a","b","c","d",..: 1 2 3 4 5 6 7 8 9 10
-#>  - attr(*, ".internal.selfref")=<pointer: 0x000001c8d4855ef0> 
+#>  - attr(*, ".internal.selfref")=<pointer: 0x000001b702058d30> 
 tt_set(obj, col = is.numeric, tf = as.numeric) # first coerce type by whole columns
 str(obj)
 #> Classes 'data.table' and 'data.frame':   10 obs. of  4 variables:
@@ -233,7 +233,7 @@ str(obj)
 #>  $ b: chr  "a" "b" "c" "d" ...
 #>  $ c: num  11 12 13 14 15 16 17 18 19 20
 #>  $ d: Factor w/ 10 levels "a","b","c","d",..: 1 2 3 4 5 6 7 8 9 10
-#>  - attr(*, ".internal.selfref")=<pointer: 0x000001c8d4855ef0> 
+#>  - attr(*, ".internal.selfref")=<pointer: 0x000001b702058d30> 
 tt_set(
   obj,
   with(obj,  (a >= 2) & (c <= 17)), is.numeric,

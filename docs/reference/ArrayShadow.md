@@ -8,7 +8,7 @@ But it holds no actual data.
 ## Usage
 
 ``` r
-cast_ArrayShadow(type, length, dim, names, dimnames, oldClass)
+cast_ArrayShadow(type, length, dim, names, dimnames, comment, oldClass)
 
 cast_ArrayShadow2(x_expr, env)
 ```
@@ -36,6 +36,10 @@ cast_ArrayShadow2(x_expr, env)
 - dimnames:
 
   the `dimnames` of the vector/array.
+
+- comment:
+
+  the `comment` attribute of the vector/array.
 
 - oldClass:
 

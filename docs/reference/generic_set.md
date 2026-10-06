@@ -257,7 +257,7 @@ str(obj) # notice that columns "a" and "c" are INTEGER (`int`)
 #>  $ b: chr  "a" "b" "c" "d" ...
 #>  $ c: int  11 12 13 14 15 16 17 18 19 20
 #>  $ d: Factor w/ 10 levels "a","b","c","d",..: 1 2 3 4 5 6 7 8 9 10
-#>  - attr(*, ".internal.selfref")=<pointer: 0x000001c8d4855ef0> 
+#>  - attr(*, ".internal.selfref")=<pointer: 0x000001b702058d30> 
 tt_set(
   obj, with(obj,  (a >= 2) & (c <= 17)), is.numeric,
   tf = sqrt # WARNING: sqrt() results in `dbl`, but columns are `int`, so decimals lost
@@ -286,7 +286,7 @@ str(obj)
 #>  $ b: chr  "a" "b" "c" "d" ...
 #>  $ c: num  11 12 13 14 15 16 17 18 19 20
 #>  $ d: Factor w/ 10 levels "a","b","c","d",..: 1 2 3 4 5 6 7 8 9 10
-#>  - attr(*, ".internal.selfref")=<pointer: 0x000001c8d4855ef0> 
+#>  - attr(*, ".internal.selfref")=<pointer: 0x000001b702058d30> 
 tt_set(obj, with(obj,  (a >= 2) & (c <= 17)), is.numeric,
   tf = sqrt # SAFE: coercion performed by column first
 ) 
@@ -311,7 +311,7 @@ str(obj) # notice that columns "a" and "c" are INTEGER (`int`)
 #>  $ b: chr  "a" "b" "c" "d" ...
 #>  $ c: int  11 12 13 14 15 16 17 18 19 20
 #>  $ d: Factor w/ 10 levels "a","b","c","d",..: 1 2 3 4 5 6 7 8 9 10
-#>  - attr(*, ".internal.selfref")=<pointer: 0x000001c8d4855ef0> 
+#>  - attr(*, ".internal.selfref")=<pointer: 0x000001b702058d30> 
 tt_set(obj,
         col = is.numeric,
         tf = sqrt # SAFE: obs = NULL, so coercion performed
@@ -322,5 +322,5 @@ str(obj)
 #>  $ b: chr  "a" "b" "c" "d" ...
 #>  $ c: num  3.32 3.46 3.61 3.74 3.87 ...
 #>  $ d: Factor w/ 10 levels "a","b","c","d",..: 1 2 3 4 5 6 7 8 9 10
-#>  - attr(*, ".internal.selfref")=<pointer: 0x000001c8d4855ef0> 
+#>  - attr(*, ".internal.selfref")=<pointer: 0x000001b702058d30> 
 ```

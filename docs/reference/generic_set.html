@@ -298,7 +298,7 @@ One cannot specify both <code>tf</code> and <code>rp</code>. It's either one set
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ b: chr  "a" "b" "c" "d" ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ c: int  11 12 13 14 15 16 17 18 19 20</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ d: Factor w/ 10 levels "a","b","c","d",..: 1 2 3 4 5 6 7 8 9 10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, ".internal.selfref")=&lt;pointer: 0x000001c8d4855ef0&gt; </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, ".internal.selfref")=&lt;pointer: 0x000001b702058d30&gt; </span>
 <span class="r-in"><span><span class="fu">tt_set</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">obj</span>, <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">obj</span>,  <span class="op">(</span><span class="va">a</span> <span class="op">&gt;=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">(</span><span class="va">c</span> <span class="op">&lt;=</span> <span class="fl">17</span><span class="op">)</span><span class="op">)</span>, <span class="va">is.numeric</span>,</span></span>
 <span class="r-in"><span>  tf <span class="op">=</span> <span class="va">sqrt</span> <span class="co"># WARNING: sqrt() results in `dbl`, but columns are `int`, so decimals lost</span></span></span>
@@ -327,7 +327,7 @@ One cannot specify both <code>tf</code> and <code>rp</code>. It's either one set
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ b: chr  "a" "b" "c" "d" ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ c: num  11 12 13 14 15 16 17 18 19 20</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ d: Factor w/ 10 levels "a","b","c","d",..: 1 2 3 4 5 6 7 8 9 10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, ".internal.selfref")=&lt;pointer: 0x000001c8d4855ef0&gt; </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, ".internal.selfref")=&lt;pointer: 0x000001b702058d30&gt; </span>
 <span class="r-in"><span><span class="fu">tt_set</span><span class="op">(</span><span class="va">obj</span>, <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">obj</span>,  <span class="op">(</span><span class="va">a</span> <span class="op">&gt;=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">(</span><span class="va">c</span> <span class="op">&lt;=</span> <span class="fl">17</span><span class="op">)</span><span class="op">)</span>, <span class="va">is.numeric</span>,</span></span>
 <span class="r-in"><span>  tf <span class="op">=</span> <span class="va">sqrt</span> <span class="co"># SAFE: coercion performed by column first</span></span></span>
 <span class="r-in"><span><span class="op">)</span> </span></span>
@@ -352,7 +352,7 @@ One cannot specify both <code>tf</code> and <code>rp</code>. It's either one set
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ b: chr  "a" "b" "c" "d" ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ c: int  11 12 13 14 15 16 17 18 19 20</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ d: Factor w/ 10 levels "a","b","c","d",..: 1 2 3 4 5 6 7 8 9 10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, ".internal.selfref")=&lt;pointer: 0x000001c8d4855ef0&gt; </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, ".internal.selfref")=&lt;pointer: 0x000001b702058d30&gt; </span>
 <span class="r-in"><span><span class="fu">tt_set</span><span class="op">(</span><span class="va">obj</span>,</span></span>
 <span class="r-in"><span>        col <span class="op">=</span> <span class="va">is.numeric</span>,</span></span>
 <span class="r-in"><span>        tf <span class="op">=</span> <span class="va">sqrt</span> <span class="co"># SAFE: obs = NULL, so coercion performed</span></span></span>
@@ -363,7 +363,7 @@ One cannot specify both <code>tf</code> and <code>rp</code>. It's either one set
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ b: chr  "a" "b" "c" "d" ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ c: num  3.32 3.46 3.61 3.74 3.87 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ d: Factor w/ 10 levels "a","b","c","d",..: 1 2 3 4 5 6 7 8 9 10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, ".internal.selfref")=&lt;pointer: 0x000001c8d4855ef0&gt; </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, ".internal.selfref")=&lt;pointer: 0x000001b702058d30&gt; </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

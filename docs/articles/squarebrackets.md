@@ -152,19 +152,16 @@ but for all types supported by ‘squarebrackets’.
 
 ## Arrays: sub-setting unknown number of dimensions
 
-### Basics
+### Introduction
 
 In order to perform subset operations on some array `x` with the square
 brackets operator (`[`, `[<-`), one needs to know how many dimensions it
 has. I.e. `x[i, j, k]` for a 3D array and `x[i, j, k, l]` for a 4D
 array. Using `x[i, j, k]` on an array with 4 dimensions produces an
 error, since the number of indices or empty arguments does not conform
-to the number of dimensions.
-
-Suppose the number of dimensions of an array is not known a-priori (for
-example when looping through multiple arrays with different dimensions).
-How would one the use the `[` and `[<-` operators in such a situation?
-It’s not strictly impossible, but it is very convoluted.
+to the number of dimensions. Thus if the number of dimensions of an
+array is not known a-priori, using `[` and `[<-` becomes extremely
+convoluted.
 
 ‘squarebrackets’ provides a set of methods for atomic and recursive
 arrays, which require no prior knowledge on the number of dimensions:
@@ -176,6 +173,10 @@ arrays, which require no prior knowledge on the number of dimensions:
 These methods use the `s, use` argument pair to specify indices for
 subset operations.
 
+ 
+
+### General usage
+
 `s` and `use` must be specified as follows:
 
 - The `s` argument must be a list, specifying the subscripts
@@ -183,27 +184,7 @@ subset operations.
 - The `use` argument must be an integer vector, specifying the
   dimensions for which `s` holds. Negative integers will invert indices
   (i.e. select all indices for that dimension EXCEPT the specified
-  ones). By default, `use = 1:length(dim(x))`.
-- If the subscripts are the same for all dimensions specified in `use`,
-  `s` can also be given as an atomic vector, or as a list of length 1.
-
-Examples where `s` can be given as a simple atomic vector:
-
-``` r
-x <- array(1:27, c(5,4,3), dimnames = list(NULL, letters[1:4], NULL)
-
-# specify rows 1:3:
-ss_x(x, 1:3, 1L) # s = 1:3, use = 1L
-
-# specify columns "a" and "b":
-ss_x(x, c("a", "b"), 2L) # s = c("a", "b"), use = 2L
-
-# specify subscripts 1:2 of all dimensions:
-ss_x(x, 1:2) # s = 1:2, use = 1:ndim(x)
-
-# remove columns 1:2:
-ss_x(x, 1:2, -2L)
-```
+  ones).
 
 To minimize keystrokes, ‘squarebrackets’ provides the
 [`n()`](https://tony-aw.github.io/squarebrackets/reference/nest.md)
@@ -212,15 +193,72 @@ function, which is short-hand for
 [`n()`](https://tony-aw.github.io/squarebrackets/reference/nest.md)
 **nests** multiple objects together, just like
 [`c()`](https://rdrr.io/r/base/c.html) concatenates multiple objects
-together. Examples where `s` is given as a list (using
-[`n()`](https://tony-aw.github.io/squarebrackets/reference/nest.md)):
+together.
+
+Here’s an examples where `s` is given as a list (using
+[`n()`](https://tony-aw.github.io/squarebrackets/reference/nest.md)),
+where we select rows `1:3` and *remove* columns `c("a", "b")`:
 
 ``` r
-x <- array(1:27, c(5,4,3), dimnames = list(NULL, letters[1:4], NULL))
 
-# select rows 1:3 and *remove* columns c("a", "b"):
-ss_x(x, n(1:3, c("a", "b")), c(1, -2)) # s = n(1:3, c("a", "b")), use = c(1, -2)
+# create array:
+x <- array(
+  1:27, # data
+  dim = c(5,4,3),
+  dimnames = list(NULL, c("a", "b", "b"), NULL)
+)
+
+# subset with base 'R':
+x[1:3, setdiff(dimnames(x)[[2]], c("a", "b")), , drop = FALSE]
+
+# subset with 'squarebrakcets':
+# Note: s = n(1:3, c("a", "b")), use = c(1, -2)
+ss_x(x, n(1:3, c("a", "b")), c(1, -2))
 ```
+
+In all `ss_` methods, the input variable (in this case “x”) is the first
+argument, `s` is the second argument, and `use` is the third argument.
+
+ 
+
+### Simplified usage
+
+By default, `use = Inf`, which is equivalent to
+`use = 1:length(dim(x))`. Similarly, `use = -Inf` is equivalent to
+`use = -1:-length(dim(x))`, used for removing specified subscripts from
+all indices.
+
+If the subscripts are the same for all dimensions specified in `use`,
+`s` can also be given as an atomic vector.
+
+Examples where `s` can be given as a simple atomic vector, with the same
+array as before.
+
+``` r
+
+# specify rows 1:3:
+x[1:3, , , drop = FALSE] # base 'R'
+ss_x(x, 1:3, 1L) # squarebrackets
+
+# specify ALL columns "a" and "b":
+x[, lapply(c("a", "b"), \(i)which(dimnames(x)[[2L]] == i)) |> unlist(), , drop = FALSE] # base 'R'
+ss_x(x, c("a", "b"), 2L) # squarebrackets
+
+# specify subscripts 1:2 of all dimensions:
+x[1:2, 1:2, 1:2, drop = FALSE] # base 'R'
+ss_x(x, 1:2) # squarebrackets
+
+# remove columns 1:2:
+x[, -1:-2, , drop = FALSE] # base 'R'
+ss_x(x, 1:2, -2L) # squarebrackets
+
+# remove subscripts 1:2 of all dimensions:
+x[-1:-2, -1:-2, -1:-2, drop = FALSE] # base 'R'
+ss_x(x, 1:2, -Inf) # squarebrackets
+```
+
+Notice that the methods from ‘squarebrackets’ are actually *shorter* to
+type than their base ‘R’ equivalents.
 
  
 
@@ -230,33 +268,6 @@ Consider the following array:
 
 ``` r
 x <- array(1:(prod(5:3)), 5:3, list(letters[1:5], LETTERS[1:4], month.abb[1:3]))
-print(x)
-#> , , Jan
-#> 
-#>   A  B  C  D
-#> a 1  6 11 16
-#> b 2  7 12 17
-#> c 3  8 13 18
-#> d 4  9 14 19
-#> e 5 10 15 20
-#> 
-#> , , Feb
-#> 
-#>    A  B  C  D
-#> a 21 26 31 36
-#> b 22 27 32 37
-#> c 23 28 33 38
-#> d 24 29 34 39
-#> e 25 30 35 40
-#> 
-#> , , Mar
-#> 
-#>    A  B  C  D
-#> a 41 46 51 56
-#> b 42 47 52 57
-#> c 43 48 53 58
-#> d 44 49 54 59
-#> e 45 50 55 60
 ```
 
 Extracting the first 2 elements of each dimension of this array is
@@ -264,17 +275,6 @@ relatively easy in base ‘R’:
 
 ``` r
 x[1:2, 1:2, 1:2]
-#> , , Jan
-#> 
-#>   A B
-#> a 1 6
-#> b 2 7
-#> 
-#> , , Feb
-#> 
-#>    A  B
-#> a 21 26
-#> b 22 27
 ```
 
 But suppose you wish to extract the **last** 2 elements of each
@@ -282,17 +282,6 @@ dimension. In base ‘R’, you would have to do something like this:
 
 ``` r
 x[c(dim(x)[1] - 1, dim(x)[1]), c(dim(x)[2] - 1, dim(x)[2]), c(dim(x)[3] - 1, dim(x)[3])]
-#> , , Feb
-#> 
-#>    C  D
-#> d 34 39
-#> e 35 40
-#> 
-#> , , Mar
-#> 
-#>    C  D
-#> d 54 59
-#> e 55 60
 ```
 
 ‘squarebrackets’ allows indexing by **keywords** via a formula, which
@@ -301,30 +290,8 @@ above operations using keywords in a few ways:
 
 ``` r
 ss_x(x, ~ (.N-1):.N)
-#> , , Feb
-#> 
-#>    C  D
-#> d 34 39
-#> e 35 40
-#> 
-#> , , Mar
-#> 
-#>    C  D
-#> d 54 59
-#> e 55 60
 
 ss_x(x, ~ .bi(-2:-1))
-#> , , Feb
-#> 
-#>    C  D
-#> d 34 39
-#> e 35 40
-#> 
-#> , , Mar
-#> 
-#>    C  D
-#> d 54 59
-#> e 55 60
 ```
 
 ‘squarebrackets’ allows users to specify indices by using keywords in a
@@ -354,43 +321,9 @@ x[
   stri_detect(dimnames(x)[[3]], regex = p),
   drop = FALSE
 ]
-#> , , Jan
-#> 
-#>   A
-#> a 1
-#> e 5
-#> 
-#> , , Feb
-#> 
-#>    A
-#> a 21
-#> e 25
-#> 
-#> , , Mar
-#> 
-#>    A
-#> a 41
-#> e 45
 
 # using 'squarebrackets':
 ss_x(x, ~ stri_detect(.Nms, regex = p))
-#> , , Jan
-#> 
-#>   A
-#> a 1
-#> e 5
-#> 
-#> , , Feb
-#> 
-#>    A
-#> a 21
-#> e 25
-#> 
-#> , , Mar
-#> 
-#>    A
-#> a 41
-#> e 45
 ```
 
 Keywords are available for vectors, arrays, and also data.frame-like
@@ -567,8 +500,7 @@ geometries, per region:
 ``` r
 
 x <- sf::st_read(system.file("shape/nc.shp", package = "sf"))
-#> Reading layer `nc' from data source 
-#>   `D:\Programs\R\R-4.6.1\library\sf\shape\nc.shp' using driver `ESRI Shapefile'
+#> Reading layer `nc' from data source `D:\Libs\R-4.6.1\sf\shape\nc.shp' using driver `ESRI Shapefile'
 #> Simple feature collection with 100 features and 14 fields
 #> Geometry type: MULTIPOLYGON
 #> Dimension:     XY
